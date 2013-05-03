@@ -94,12 +94,8 @@ class DeadPool
      *
      * @throws \ElasticSearch\Common\Exceptions\InvalidArgumentException
      */
-    public function markDead($connection, $time=null)
+    public function markDead(ConnectionInterface $connection, $time=null)
     {
-        if (isset($connection) !== true || $connection instanceof ConnectionInterface !== true) {
-            throw new InvalidArgumentException('Connection param must be implement ConnectionInterface');
-        }
-
         if (isset($time) !== true) {
             $time = time();
         }

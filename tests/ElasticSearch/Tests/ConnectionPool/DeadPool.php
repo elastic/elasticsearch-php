@@ -19,24 +19,6 @@ class DeadPool extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Test invalid connection
-     *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Connection param must be implement ConnectionInterface
-     *
-     * @covers DeadPool::markDead
-     * @return void
-     */
-    public function testMarkDeadInvalidConnection()
-    {
-        $connection = 'arbitrary string';
-        $deadPool   = new ElasticSearch\ConnectionPool\DeadPool();
-        $deadPool->markDead($connection);
-
-    }//end testMarkDeadInvalidConnection()
-
-
-    /**
      * Make sure resurrect returns an empty array
      * when no connections exist
      *

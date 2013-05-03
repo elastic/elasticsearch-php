@@ -19,26 +19,6 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Test null constructors
-     *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage `hosts` parameter must be set
-     *
-     * @covers ConnectionPool::__construct
-     * @return void
-     */
-    public function testNullConstructor()
-    {
-        $connections    = null;
-        $deadTimeout    = null;
-        $selector       = null;
-        $randomizeHosts = null;
-        $connectionPool = new \ElasticSearch\ConnectionPool\ConnectionPool($connections, $deadTimeout, $selector, $randomizeHosts);
-
-    }//end testNullConstructor()
-
-
-    /**
      * Test adding one host and then requesting it
      *
      * @covers ConnectionPool::__construct

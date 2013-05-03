@@ -67,17 +67,13 @@ class ConnectionPool
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($connections, $selector, $deadPool, $randomizeHosts=true)
+    public function __construct($connections, SelectorInterface $selector, DeadPool $deadPool, $randomizeHosts=true)
     {
         $paramList = array('connections', 'deadPool', 'selector', 'randomizeHosts');
         foreach ($paramList as $param) {
             if (isset($$param) === false) {
                 throw new InvalidArgumentException('`'.$param.'` parameter must not be null');
             }
-        }
-
-        if ($selector instanceof SelectorInterface !== true) {
-            throw new InvalidArgumentException('Selector parameter must implement SelectorInterface');
         }
 
         if ($randomizeHosts === true) {

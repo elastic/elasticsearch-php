@@ -144,7 +144,7 @@ class Client
         // Share the ConnectionPool class as we only want one floating around.
         $this->params['connectionPool'] = $this->params->share(
             function ($dicParams) {
-                return function ($connections=null) use ($dicParams) {
+                return function ($connections) use ($dicParams) {
                     return new $dicParams['connectionPoolClass'](
                         $connections,
                         $dicParams['selector']($connections),

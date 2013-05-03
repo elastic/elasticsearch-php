@@ -45,6 +45,7 @@ class Client
                                 'connectionClass'       => '\ElasticSearch\Connections\Connection',
                                 'connectionPoolClass'   => '\ElasticSearch\ConnectionPool\ConnectionPool',
                                 'selectorClass'         => '\ElasticSearch\ConnectionPool\Selectors\RoundRobinSelector',
+                                'deadPoolClass'         => '\ElasticSearch\ConnectionPool\DeadPool',
                                 'nodesToHostCallback'   => 'constructHostList',
                                 'serializer'            => 'JSONSerializer',
                                 'sniffOnStart'          => false,
@@ -141,6 +142,10 @@ class Client
             };
         };
 
+        $this->params['deadPool'] = function ($dicParams) {
+            return new $dicParams['deadPoolClass']();
+        };
+
         // Share the ConnectionPool class as we only want one floating around.
         $this->params['connectionPool'] = $this->params->share(
             function ($dicParams) {
@@ -148,7 +153,7 @@ class Client
                     return new $dicParams['connectionPoolClass'](
                         $connections,
                         $dicParams['selector']($connections),
-                        $dicParams['deadTimeout'],
+                        $dicParams['deadPool'],
                         $dicParams['randomizeHosts']);
                 };
             }

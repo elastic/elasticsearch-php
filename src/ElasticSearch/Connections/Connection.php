@@ -8,9 +8,10 @@
 namespace ElasticSearch\Connections;
 
 
-class Connection {
-    public function __construct($params, $host, $port)
+class Connection
+{
+    public function __construct($host, $port)
     {
-        print_r(func_get_args());
+
     }
 }

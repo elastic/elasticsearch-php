@@ -9,5 +9,6 @@ namespace ElasticSearch\ConnectionPool\Selectors;
 
 interface SelectorInterface
 {
-    public function __construct($connections);
+    public function __construct();
+    public function select($connections);
 }

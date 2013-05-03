@@ -137,9 +137,7 @@ class Client
         };
 
         $this->params['selector'] = function ($dicParams) {
-            return function ($connections) use ($dicParams) {
-                return new $dicParams['selectorClass']($connections);
-            };
+            return new $dicParams['selectorClass']();
         };
 
         $this->params['deadPool'] = function ($dicParams) {

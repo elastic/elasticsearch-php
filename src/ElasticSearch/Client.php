@@ -143,7 +143,7 @@ class Client
         };
 
         $this->params['deadPool'] = function ($dicParams) {
-            return new $dicParams['deadPoolClass']();
+            return new $dicParams['deadPoolClass']($dicParams['deadTime']);
         };
 
         // Share the ConnectionPool class as we only want one floating around.

@@ -1,13 +1,13 @@
 <?php
 
-namespace ElasticSearch\Tests;
-use ElasticSearch;
+namespace Elasticsearch\Tests;
+use Elasticsearch;
 
 /**
  * Class Client
  *
  * @category   Tests
- * @package    ElasticSearch
+ * @package    Elasticsearch
  * @subpackage Tests
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -19,7 +19,7 @@ class Client extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Hosts parameter must be an array of strings
      *
      * @covers Client::__construct
@@ -29,14 +29,14 @@ class Client extends \PHPUnit_Framework_TestCase
     {
         // Hosts param must be an array.
         $hosts = 'localhost';
-        $client = new ElasticSearch\Client($hosts);
+        $client = new Elasticsearch\Client($hosts);
 
     }//end testConstructorStringHost()
 
 
     /**
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Port must be a valid integer
      *
      * @covers Client::__construct
@@ -46,14 +46,14 @@ class Client extends \PHPUnit_Framework_TestCase
     {
         // Hosts param with single entry + illegal port.
         $hosts = array('localhost:abc');
-        $client = new ElasticSearch\Client($hosts);
+        $client = new Elasticsearch\Client($hosts);
 
     }//end testConstructorIllegalPort()
 
 
     /**
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Port must be a valid integer
      *
      * @covers Client::__construct
@@ -63,14 +63,14 @@ class Client extends \PHPUnit_Framework_TestCase
     {
         // Hosts param with single entry + colon but no port.
         $hosts = array('localhost:');
-        $client = new ElasticSearch\Client($hosts);
+        $client = new Elasticsearch\Client($hosts);
 
     }//end testConstructorEmptyPort()
 
 
     /**
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Parameters must be an array
      *
      * @covers Client::__construct
@@ -80,14 +80,14 @@ class Client extends \PHPUnit_Framework_TestCase
     {
         // String parameter instead of an array.
         $params = 'some arbitrary string';
-        $client = new ElasticSearch\Client(null, $params);
+        $client = new Elasticsearch\Client(null, $params);
 
     }//end testConstructorStringParam()
 
 
     /**
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\UnexpectedValueException
+     * @expectedException \Elasticsearch\Common\Exceptions\UnexpectedValueException
      * @expectedExceptionMessage randomParam is not a recognized parameter
      *
      * @covers Client::__construct
@@ -97,6 +97,6 @@ class Client extends \PHPUnit_Framework_TestCase
     {
         // String parameter instead of an array.
         $params = array('randomParam' => 'some arbitrary string');
-        $client = new ElasticSearch\Client(null, $params);
+        $client = new Elasticsearch\Client(null, $params);
     }
 }

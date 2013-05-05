@@ -1,5 +1,5 @@
 {
-  "name": "ElasticSearch/ElasticSearch",
+  "name": "Elasticsearch/Elasticsearch",
   "description": "PHP Client for Elasticsearch",
   "keywords": ["search","client", "elasticsearch"],
   "type": "library",
@@ -21,8 +21,8 @@
   },
   "autoload": {
     "psr-0": {
-      "ElasticSearch": "src/",
-      "ElasticSearch\\Tests" : "tests/"
+      "Elasticsearch": "src/",
+      "Elasticsearch\\Tests" : "tests/"
     }
   }
 }

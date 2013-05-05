@@ -5,7 +5,7 @@
  * Time: 10:02 PM
  */
 
-namespace ElasticSearch\ConnectionPool\Selectors;
+namespace Elasticsearch\ConnectionPool\Selectors;
 
 
 class RoundRobinSelector implements SelectorInterface

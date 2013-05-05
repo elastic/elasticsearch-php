@@ -1,13 +1,13 @@
 <?php
 
-namespace ElasticSearch\Tests;
-use ElasticSearch;
+namespace Elasticsearch\Tests;
+use Elasticsearch;
 
 /**
  * Class Transport
  *
  * @category   Tests
- * @package    ElasticSearch
+ * @package    Elasticsearch
  * @subpackage Tests
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -38,7 +38,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     /**
      * Test null constructors
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\BadMethodCallException
+     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
      * @expectedExceptionMessage Hosts parameter must be set
      *
      * @covers Transport::__construct
@@ -49,7 +49,7 @@ class Transport extends \PHPUnit_Framework_TestCase
         $hosts = null;
         $params = null;
         // Empty constructor.
-        $transport = new ElasticSearch\Transport($hosts, $params);
+        $transport = new Elasticsearch\Transport($hosts, $params);
 
     }//end testNullConstructor()
 
@@ -57,7 +57,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     /**
      * Test string constructors
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Hosts parameter must be an array
      *
      * @covers Transport::__construct
@@ -67,7 +67,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     {
         $hosts     = 'arbitrary string';
         $params    = 'arbitrary string';
-        $transport = new ElasticSearch\Transport($hosts, $params);
+        $transport = new Elasticsearch\Transport($hosts, $params);
 
     }//end testStringConstructor()
 
@@ -75,7 +75,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     /**
      * Test invalid host array being passed
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Host parameter must be an array
      *
      * @covers Transport::addConnection
@@ -88,7 +88,7 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection']     = function () use ($that) { return $that->getMock('Connection'); };
 
-        $transport = new ElasticSearch\Transport($hosts, $dicParams);
+        $transport = new Elasticsearch\Transport($hosts, $dicParams);
         $transport->addConnection('arbitrary string');
 
     }//end testAddConnectionWithInvalidString()
@@ -97,7 +97,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     /**
      * Test invalid host array - no hostname
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Host must be provided in host parameter
      *
      * @covers Transport::addConnection
@@ -110,7 +110,7 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection']     = function () use ($that) { return $that->getMock('Connection'); };
 
-        $transport = new ElasticSearch\Transport($hosts, $dicParams);
+        $transport = new Elasticsearch\Transport($hosts, $dicParams);
 
         $host = array('port' => 9200);
         $transport->addConnection($host);
@@ -121,7 +121,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     /**
      * Test invalid host array - non-numeric port
      *
-     * @expectedException \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Port must be numeric
      *
      * @covers Transport::addConnection
@@ -134,7 +134,7 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection']     = function () use ($that) { return $that->getMock('Connection'); };
 
-        $transport = new ElasticSearch\Transport($hosts, $dicParams);
+        $transport = new Elasticsearch\Transport($hosts, $dicParams);
 
         $host = array(
                  'host' => 'localhost',

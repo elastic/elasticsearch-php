@@ -5,20 +5,20 @@
  * Time: 9:59 PM
  */
 
-namespace ElasticSearch\ConnectionPool;
+namespace Elasticsearch\ConnectionPool;
 
 
-use ElasticSearch\Common\Exceptions;
-use ElasticSearch\Common\Exceptions\InvalidArgumentException;
-use ElasticSearch\ConnectionPool\Selectors\SelectorInterface;
-use ElasticSearch\ConnectionPool\DeadPool;
-use ElasticSearch\Connections\ConnectionInterface;
+use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Elasticsearch\ConnectionPool\DeadPool;
+use Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class ConnectionPool
  *
- * @category ElasticSearch
- * @package  ElasticSearch\ConnectionPool\ConnectionPool
+ * @category Elasticsearch
+ * @package  Elasticsearch\ConnectionPool\ConnectionPool
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org

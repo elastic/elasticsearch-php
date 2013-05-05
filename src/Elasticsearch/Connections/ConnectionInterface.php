@@ -5,7 +5,7 @@
  * Time: 11:42 AM
  */
 
-namespace ElasticSearch\Connections;
+namespace Elasticsearch\Connections;
 
 interface ConnectionInterface
 {

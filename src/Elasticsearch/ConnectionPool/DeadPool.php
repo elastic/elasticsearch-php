@@ -5,16 +5,16 @@
  * Time: 11:38 PM
  */
 
-namespace ElasticSearch\ConnectionPool;
+namespace Elasticsearch\ConnectionPool;
 
-use ElasticSearch\Common\Exceptions\InvalidArgumentException;
-use ElasticSearch\Connections\ConnectionInterface;
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class DeadPool
  *
- * @category ElasticSearch
- * @package  ElasticSearch\ConnectionPool\DeadPool
+ * @category Elasticsearch
+ * @package  Elasticsearch\ConnectionPool\DeadPool
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
@@ -92,7 +92,7 @@ class DeadPool
      * @param ConnectionInterface $connection A connection to add to the deadpool
      * @param null|int            $time       Timestamp to begin the resurrection timer
      *
-     * @throws \ElasticSearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      */
     public function markDead(ConnectionInterface $connection, $time=null)
     {

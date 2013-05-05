@@ -5,7 +5,7 @@
  * Time: 8:30 PM
  */
 
-namespace ElasticSearch\ConnectionPool\Selectors;
+namespace Elasticsearch\ConnectionPool\Selectors;
 
 interface SelectorInterface
 {

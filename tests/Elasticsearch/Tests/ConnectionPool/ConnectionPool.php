@@ -1,14 +1,14 @@
 <?php
 
-namespace ElasticSearch\Tests\ConnectionPool;
-use ElasticSearch;
-use ElasticSearch\Connections\Connection;
+namespace Elasticsearch\Tests\ConnectionPool;
+use Elasticsearch;
+use Elasticsearch\Connections\Connection;
 
 /**
  * Class ConnectionPool
  *
  * @category   Tests
- * @package    ElasticSearch
+ * @package    Elasticsearch
  * @subpackage Tests/ConnectionPool
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -27,23 +27,23 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
     public function testAddOneHostThenGetConnection()
     {
         $connections = array('host' => 'localhost', 'port' => 9200);
-        $deadPool    = $this->getMock('\ElasticSearch\ConnectionPool\DeadPool', array('resurrect'));
+        $deadPool    = $this->getMock('\Elasticsearch\ConnectionPool\DeadPool', array('resurrect'));
         $deadPool->expects($this->once())
             ->method('resurrect')
             ->with($this->equalTo(false))
             ->will($this->returnValue(array()));
 
-        $mockConnection = $this->getMockBuilder('\ElasticSearch\Connections\Connection')
+        $mockConnection = $this->getMockBuilder('\Elasticsearch\Connections\Connection')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $selector = $this->getMock('\ElasticSearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
+        $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
         $selector->expects($this->once())
             ->method('select')
             ->will($this->returnValue($mockConnection));
 
         $randomizeHosts = true;
-        $connectionPool = new \ElasticSearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
+        $connectionPool = new \Elasticsearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
 
         $retConnection = $connectionPool->getConnection();
 
@@ -62,23 +62,23 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
     {
         $connections = array();
 
-        $mockConnection = $this->getMockBuilder('\ElasticSearch\Connections\Connection')
+        $mockConnection = $this->getMockBuilder('\Elasticsearch\Connections\Connection')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $deadPool = $this->getMock('\ElasticSearch\ConnectionPool\DeadPool', array('resurrect'));
+        $deadPool = $this->getMock('\Elasticsearch\ConnectionPool\DeadPool', array('resurrect'));
         $deadPool->expects($this->once())
             ->method('resurrect')
             ->with($this->equalTo(false))
             ->will($this->returnValue($mockConnection));
 
-        $selector = $this->getMock('\ElasticSearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
+        $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
         $selector->expects($this->once())
             ->method('select')
             ->will($this->returnValue($mockConnection));
 
         $randomizeHosts = true;
-        $connectionPool = new \ElasticSearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
+        $connectionPool = new \Elasticsearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
 
         $retConnection = $connectionPool->getConnection();
 

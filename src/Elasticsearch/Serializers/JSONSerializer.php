@@ -5,7 +5,7 @@
  * Time: 10:00 PM
  */
 
-namespace ElasticSearch\Serializers;
+namespace Elasticsearch\Serializers;
 
 
 class JSONSerializer {

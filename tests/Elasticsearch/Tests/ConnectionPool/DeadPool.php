@@ -1,14 +1,14 @@
 <?php
 
-namespace ElasticSearch\Tests\ConnectionPool;
-use ElasticSearch;
-use ElasticSearch\Connections\ConnectionInterface;
+namespace Elasticsearch\Tests\ConnectionPool;
+use Elasticsearch;
+use Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class DeadPool
  *
  * @category   Tests
- * @package    ElasticSearch
+ * @package    Elasticsearch
  * @subpackage Tests/DeadPool
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -27,7 +27,7 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadEmptyResurrection()
     {
-        $deadPool      = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
         $retConnection = $deadPool->resurrect();
         $this->assertEquals(array(), $retConnection);
 
@@ -43,7 +43,7 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadEmptyResurrectionWithForce()
     {
-        $deadPool      = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
         $retConnection = $deadPool->resurrect(true);
         $this->assertEquals(array(), $retConnection);
 
@@ -60,8 +60,8 @@ class DeadPool extends \PHPUnit_Framework_TestCase
     public function testMarkDeadSingleConnection()
     {
         /** @var ConnectionInterface $connection */
-        $connection = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
-        $deadPool   = new ElasticSearch\ConnectionPool\DeadPool();
+        $connection = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
+        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool();
         $deadPool->markDead($connection, (time() - 61));
 
         $retConnection = $deadPool->resurrect();
@@ -79,11 +79,11 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadMultipleConnections()
     {
-        $deadPool = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
-            $connections[$i] = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+            $connections[$i] = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
             $deadPool->markDead($connections[$i], (time() - 61));
         }
 
@@ -102,16 +102,16 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadMultipleConnectionsResurrectOne()
     {
-        $deadPool = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
-            $connections[$i] = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+            $connections[$i] = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
             $deadPool->markDead($connections[$i], (time() + 60));
         }
 
         /** @var ConnectionInterface $connection */
-        $toBeResurrected = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+        $toBeResurrected = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
         $deadPool->markDead($toBeResurrected, (time() - 61));
 
         $retConnection = $deadPool->resurrect();
@@ -129,11 +129,11 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadForceResurrection()
     {
-        $deadPool = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
-            $connections[$i] = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+            $connections[$i] = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
             $deadPool->markDead($connections[$i], (time() + 60));
         }
 
@@ -152,16 +152,16 @@ class DeadPool extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadIgnoreForceWhenEligibleConnectionsExist()
     {
-        $deadPool = new ElasticSearch\ConnectionPool\DeadPool();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
-            $connections[$i] = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+            $connections[$i] = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
             $deadPool->markDead($connections[$i], (time() + 60));
         }
 
         /** @var ConnectionInterface $connection */
-        $toBeResurrected = $this->getMock('\ElasticSearch\Connections\ConnectionInterface');
+        $toBeResurrected = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
         $deadPool->markDead($toBeResurrected, (time() - 61));
 
         $retConnection = $deadPool->resurrect(true);

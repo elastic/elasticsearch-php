@@ -5,7 +5,7 @@
  * Time: 9:59 PM
  */
 
-namespace ElasticSearch\Connections;
+namespace Elasticsearch\Connections;
 
 
 class Connection

@@ -5,16 +5,16 @@
  * Time: 9:51 PM
  */
 
-namespace ElasticSearch;
+namespace Elasticsearch;
 
-use ElasticSearch\ConnectionPool\ConnectionPool;
-use ElasticSearch\Common\Exceptions;
+use Elasticsearch\ConnectionPool\ConnectionPool;
+use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Transport
  *
- * @category ElasticSearch
- * @package  ElasticSearch
+ * @category Elasticsearch
+ * @package  Elasticsearch
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org

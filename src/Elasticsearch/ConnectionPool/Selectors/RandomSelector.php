@@ -5,15 +5,15 @@
  * Time: 10:02 PM
  */
 
-namespace ElasticSearch\ConnectionPool\Selectors;
+namespace Elasticsearch\ConnectionPool\Selectors;
 
-use ElasticSearch\Connections\ConnectionInterface;
+use Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class RandomSelector
  *
- * @category ElasticSearch
- * @package  ElasticSearch\Connections\ConnectionInterface
+ * @category Elasticsearch
+ * @package  Elasticsearch\Connections\ConnectionInterface
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org

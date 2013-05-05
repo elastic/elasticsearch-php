@@ -5,15 +5,15 @@
  * Time: 11:41 AM
  */
 
-namespace ElasticSearch;
+namespace Elasticsearch;
 
-use ElasticSearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Client
  *
- * @category ElasticSearch
- * @package  ElasticSearch
+ * @category Elasticsearch
+ * @package  Elasticsearch
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
@@ -42,10 +42,10 @@ class Client
      * @var array
      */
     protected $paramDefaults = array(
-                                'connectionClass'       => '\ElasticSearch\Connections\Connection',
-                                'connectionPoolClass'   => '\ElasticSearch\ConnectionPool\ConnectionPool',
-                                'selectorClass'         => '\ElasticSearch\ConnectionPool\Selectors\RoundRobinSelector',
-                                'deadPoolClass'         => '\ElasticSearch\ConnectionPool\DeadPool',
+                                'connectionClass'       => '\Elasticsearch\Connections\Connection',
+                                'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
+                                'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
+                                'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
                                 'nodesToHostCallback'   => 'constructHostList',
                                 'serializer'            => 'JSONSerializer',
                                 'sniffOnStart'          => false,

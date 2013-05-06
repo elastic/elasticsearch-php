@@ -39,6 +39,35 @@ class Sniffer extends \PHPUnit_Framework_TestCase
                     );
         $this->assertEquals($expected, $hosts);
 
-    }//end testParser()
+    }//end testParserOneHost()
+
+
+    /**
+     * Cluster state with multiple host
+     *
+     * @covers Sniffer::parseNodes
+     *
+     * @return void
+     */
+    public function testParserMultipleHost()
+    {
+        $hosts = array();
+        for ($i = 0; $i < 10; ++$i) {
+            $hosts['node_name_'.$i] = array ( 'name' => 'Magilla', 'transport_address' => 'inet[/192.168.1.119:9300]', 'hostname' => 'zach-ThinkPad-W530', 'version' => '0.20.5', 'http_address' => 'inet[/192.168.1.119:9200]', );
+
+            $expected[] = array(
+                           'host' => '192.168.1.119',
+                           'port' => 9200,
+                          );
+        }
+
+        $nodeInfo = array ( 'ok' => true, 'cluster_name' => 'elasticsearch_zach', 'nodes' => $hosts, );
+
+        $sniffer = new Elasticsearch\Sniffers\Sniffer();
+        $hosts   = $sniffer->parseNodes('http', $nodeInfo);
+
+        $this->assertEquals($expected, $hosts);
+
+    }//end testParserMultipleHost()
 
 }//end class

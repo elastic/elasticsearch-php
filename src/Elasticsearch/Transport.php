@@ -24,12 +24,22 @@ class Transport
     /**
      * @var \Pimple
      */
-    protected $params;
+    private $params;
 
     /**
      * @var ConnectionPool
      */
-    protected $connectionPool;
+    private $connectionPool;
+
+    private $requestCounter = 0;
+
+    private $sniffsDueToFailure = 0;
+
+    private $sniffAfterRequestsOriginal;
+
+    private $sniffAfterRequests;
+
+    private $sniffOnConnectionFail;
 
 
     /**
@@ -57,7 +67,15 @@ class Transport
         }
 
         $this->params = $params;
+
+        $this->sniffAfterRequests         = $params['sniffAfterRequests'];
+        $this->sniffAfterRequestsOriginal = $params['sniffAfterRequests'];
+        $this->sniffOnConnectionFail      = $params['sniffOnConnectionFail'];
         $this->setConnections($hosts);
+
+        if ($this->params['sniffOnStart'] === true) {
+            $this->sniffHosts();
+        }
 
     }//end __construct()
 
@@ -119,5 +137,10 @@ class Transport
 
     }//end getAllConnections()
 
+
+    public function sniffHosts()
+    {
+
+    }//end sniffHosts()
 
 }//end class

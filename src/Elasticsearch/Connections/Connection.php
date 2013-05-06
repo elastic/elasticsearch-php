@@ -22,4 +22,9 @@ class Connection implements ConnectionInterface
         return $this->transportSchema;
     }
 
+    public function performRequest($method, $uri, $params=null, $body=null)
+    {
+
+    }
+
 }

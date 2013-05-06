@@ -84,6 +84,6 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($mockConnection, $retConnection);
 
-    }//end testAddOneHostThenGetConnection()
+    }//end testResurrectFromDeadpool()
 
 }//end class

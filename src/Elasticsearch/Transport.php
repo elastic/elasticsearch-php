@@ -57,6 +57,20 @@ class Transport
         }
 
         $this->params = $params;
+        $this->setConnections($hosts);
+
+    }//end __construct()
+
+
+    /**
+     * Creates Connection objects and instantiates a ConnectionPool object
+     *
+     * @param array $hosts Assoc array of hosts to add to connection pool
+     *
+     * @return void
+     */
+    public function setConnections($hosts)
+    {
         $connections = array();
         foreach ($hosts as $host) {
             $connections[] = $this->params['connection']($host['host'], $host['port']);
@@ -64,7 +78,7 @@ class Transport
 
         $this->connectionPool = $this->params['connectionPool']($connections);
 
-    }//end __construct()
+    }//end setConnections()
 
 
     /**

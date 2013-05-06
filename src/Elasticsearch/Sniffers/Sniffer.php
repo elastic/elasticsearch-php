@@ -22,36 +22,25 @@ class Sniffer
 {
 
     /**
-     * @var Transport
-     */
-    private $transport;
-
-
-    /**
      * Constructor
-     *
-     * @param Transport $transport Transport class, so
-     *                             that the schema can be determined
      *
      * @return void
      */
-    public function __construct(Transport $transport)
+    public function __construct()
     {
-        $this->transport = $transport;
 
     }//end __construct()
 
 
     /**
-     * Returns an array of host:ports derived from sniffing the Cluster API
-     *
-     * @param array $nodeInfo Array of Node Info from the API
+     * Returns an array of host:ports derived from the provided NodeInfo
      *
      * @return array
      */
-    public function getHosts($nodeInfo)
+    public function parseNodes($transportSchema, $nodeInfo)
     {
 
-    }//end getHosts()
+
+    }//end parseNodes()
 
 }//end class

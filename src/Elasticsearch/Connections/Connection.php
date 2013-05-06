@@ -10,11 +10,16 @@ namespace Elasticsearch\Connections;
 
 class Connection implements ConnectionInterface
 {
-    const TRANSPORT_SCHEMA = 'http';
+    private $transportSchema = 'http';
 
     public function __construct($host, $port=9200)
     {
 
+    }
+
+    public function getTransportSchema()
+    {
+        return $this->transportSchema;
     }
 
 }

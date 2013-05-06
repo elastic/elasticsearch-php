@@ -109,13 +109,15 @@ class Transport
 
 
     /**
+     * Return an array of all connections in the ConnectionPool
+     *
      * @return array
      */
-    public function getConnections()
+    public function getAllConnections()
     {
         return $this->connectionPool->getConnections();
 
-    }//end getConnections()
+    }//end getAllConnections()
 
 
 }//end class

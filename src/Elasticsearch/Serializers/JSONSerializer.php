@@ -8,6 +8,20 @@
 namespace Elasticsearch\Serializers;
 
 
-class JSONSerializer {
+class JSONSerializer implements SerializerInterface
+{
+    public function __construct()
+    {
 
+    }
+
+    public function serialize($data)
+    {
+
+    }
+
+    public function deserialize($data)
+    {
+
+    }
 }

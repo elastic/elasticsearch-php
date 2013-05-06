@@ -42,18 +42,18 @@ class Client
      * @var array
      */
     protected $paramDefaults = array(
-                                'connectionClass'       => '\Elasticsearch\Connections\Connection',
-                                'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
-                                'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-                                'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
-                                'nodesToHostCallback'   => 'constructHostList',
-                                'serializer'            => 'JSONSerializer',
-                                'sniffOnStart'          => false,
-                                'sniffAfterRequests'    => false,
-                                'sniffOnConnectionFail' => false,
-                                'randomizeHosts'        => true,
-                                'maxRetries'            => 3,
-                                'deadTimeout'           => 60,
+                                'connectionClass'          => '\Elasticsearch\Connections\Connection',
+                                'connectionPoolClass'      => '\Elasticsearch\ConnectionPool\ConnectionPool',
+                                'selectorClass'            => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
+                                'deadPoolClass'            => '\Elasticsearch\ConnectionPool\DeadPool',
+                                'nodesToHostCallbackClass' => '\Elasticsearch\Sniffers\HostListConstructor',
+                                'serializer'               => 'JSONSerializer',
+                                'sniffOnStart'             => false,
+                                'sniffAfterRequests'       => false,
+                                'sniffOnConnectionFail'    => false,
+                                'randomizeHosts'           => true,
+                                'maxRetries'               => 3,
+                                'deadTimeout'              => 60,
                                );
 
     /**
@@ -163,6 +163,10 @@ class Client
                 return new Transport($hosts, $dicParams);
             }
         );
+
+        $this->params['nodesToHostCallback'] = function($dicParams) {
+            return new $dicParams['nodesToHostCallbackClass']($dicParams['transport']);
+        };
 
     }//end setParams()
 

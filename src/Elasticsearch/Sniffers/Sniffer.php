@@ -10,7 +10,7 @@ namespace Elasticsearch\Sniffers;
 use Elasticsearch\Transport;
 
 /**
- * Class HostListConstructor
+ * Class Sniffer
  *
  * @category Elasticsearch
  * @package  Elasticsearch
@@ -18,7 +18,7 @@ use Elasticsearch\Transport;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class HostListConstructor
+class Sniffer
 {
 
     /**
@@ -33,7 +33,7 @@ class HostListConstructor
      * @param Transport $transport Transport class, so
      *                             that the schema can be determined
      *
-     * @return \Elasticsearch\Sniffers\HostListConstructor
+     * @return void
      */
     public function __construct(Transport $transport)
     {

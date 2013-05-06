@@ -9,6 +9,7 @@ namespace Elasticsearch;
 
 use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Sniffers\HostListConstructor;
 
 /**
  * Class Transport
@@ -41,6 +42,11 @@ class Transport
 
     private $sniffOnConnectionFail;
 
+    /**
+     * @var Sniffer
+     */
+    private $sniffer;
+
 
     /**
      * Transport class is responsible for dispatching requests to the
@@ -71,6 +77,7 @@ class Transport
         $this->sniffAfterRequests         = $params['sniffAfterRequests'];
         $this->sniffAfterRequestsOriginal = $params['sniffAfterRequests'];
         $this->sniffOnConnectionFail      = $params['sniffOnConnectionFail'];
+        $this->sniffer                    = $params['sniffer'];
         $this->setConnections($hosts);
 
         if ($this->params['sniffOnStart'] === true) {
@@ -123,7 +130,7 @@ class Transport
 
         $connection = $this->params['connection']($host['host'], $host['port']);
         $this->connectionPool->addConnection($connection);
-    }
+    }//end addConnection()
 
 
     /**
@@ -140,7 +147,16 @@ class Transport
 
     public function sniffHosts()
     {
+        $this->requestCounter = 0;
+
+        $nodeInfo = $this->performRequest('GET', '/_cluster/nodes');
+        $hosts    = $this->sniffer->getHosts($nodeInfo);
 
     }//end sniffHosts()
+
+    public function performRequest($method, $uri, $params=null, $body=null)
+    {
+
+    }//end performRequest()
 
 }//end class

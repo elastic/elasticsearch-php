@@ -9,7 +9,8 @@ namespace Elasticsearch;
 
 use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Sniffers\HostListConstructor;
+use Elasticsearch\Connections\ConnectionInterface;
+use Elasticsearch\Sniffers\Sniffer;
 
 /**
  * Class Transport
@@ -46,6 +47,8 @@ class Transport
      * @var Sniffer
      */
     private $sniffer;
+
+    private $transportSchema;
 
 
     /**
@@ -98,9 +101,15 @@ class Transport
     {
         $connections = array();
         foreach ($hosts as $host) {
-            $connections[] = $this->params['connection']($host['host'], $host['port']);
+            if (isset($host['port']) === true) {
+                $connections[] = $this->params['connection']($host['host'], $host['port']);
+            } else {
+                $connections[] = $this->params['connection']($host['host']);
+            }
         }
 
+        $connectionClass = $this->params['connectionClass'];
+        $this->transportSchema = $connectionClass::TRANSPORT_SCHEMA;
         $this->connectionPool = $this->params['connectionPool']($connections);
 
     }//end setConnections()
@@ -130,6 +139,7 @@ class Transport
 
         $connection = $this->params['connection']($host['host'], $host['port']);
         $this->connectionPool->addConnection($connection);
+
     }//end addConnection()
 
 
@@ -145,14 +155,26 @@ class Transport
     }//end getAllConnections()
 
 
-    public function sniffHosts()
+    public function sniffHosts($failure=false)
     {
         $this->requestCounter = 0;
-
         $nodeInfo = $this->performRequest('GET', '/_cluster/nodes');
-        $hosts    = $this->sniffer->getHosts($nodeInfo);
+        $hosts = $this->sniffer->parseNodes($this->transportSchema, $nodeInfo);
+        $this->setConnections($hosts);
+
+        if ($failure === true) {
+            $this->sniffsDueToFailure += 1;
+            $this->sniffAfterRequests  = (1 + ($this->sniffAfterRequestsOriginal / pow(2,$this->sniffsDueToFailure)));
+
+        } else {
+            $this->sniffsDueToFailure = 0;
+            $this->sniffAfterRequests = $this->sniffAfterRequestsOriginal;
+        }
 
     }//end sniffHosts()
+
+
+
 
     public function performRequest($method, $uri, $params=null, $body=null)
     {

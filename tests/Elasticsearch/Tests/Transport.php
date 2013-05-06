@@ -85,7 +85,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     {
         $hosts = array(array('host' => 'localhost', 'port' => 9200));
         $that = $this;
-        $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
+        $dicParams['connectionPool'] = function ($connections) use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection'] = function ($host, $port) use ($that) {
             $mockConnection =  $that->getMock('Connection', array('getTransportSchema'));
 
@@ -99,7 +99,8 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['sniffOnStart'] = false;
         $dicParams['sniffAfterRequests'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
-
+        $dicParams['maxRetries'] = 3;
+        $dicParams['serializer'] = $this->getMock('Serializer');
 
         $transport = new Elasticsearch\Transport($hosts, $dicParams);
         $transport->addConnection('arbitrary string');
@@ -120,7 +121,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     {
         $hosts = array(array('host' => 'localhost', 'port' => 9200));
         $that = $this;
-        $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
+        $dicParams['connectionPool'] = function ($connections) use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection'] = function ($host, $port) use ($that) {
             $mockConnection =  $that->getMock('Connection', array('getTransportSchema'));
 
@@ -134,6 +135,8 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['sniffOnStart'] = false;
         $dicParams['sniffAfterRequests'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
+        $dicParams['maxRetries'] = 3;$dicParams['maxRetries'] = 3;
+        $dicParams['serializer'] = $this->getMock('Serializer');
 
         $transport = new Elasticsearch\Transport($hosts, $dicParams);
 
@@ -156,7 +159,7 @@ class Transport extends \PHPUnit_Framework_TestCase
     {
         $hosts = array(array('host' => 'localhost', 'port' => 9200));
         $that = $this;
-        $dicParams['connectionPool'] = function () use ($that) { return $that->getMock('ConnectionPool'); };
+        $dicParams['connectionPool'] = function ($connections) use ($that) { return $that->getMock('ConnectionPool'); };
         $dicParams['connection'] = function ($host, $port) use ($that) {
             $mockConnection =  $that->getMock('Connection', array('getTransportSchema'));
 
@@ -170,6 +173,8 @@ class Transport extends \PHPUnit_Framework_TestCase
         $dicParams['sniffOnStart'] = false;
         $dicParams['sniffAfterRequests'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
+        $dicParams['maxRetries'] = 3;
+        $dicParams['serializer'] = $this->getMock('Serializer');
 
         $transport = new Elasticsearch\Transport($hosts, $dicParams);
 

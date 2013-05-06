@@ -131,7 +131,7 @@ class Client
         }
 
         $this->params['connection'] = function ($dicParams) {
-            return function ($host, $port) use ($dicParams) {
+            return function ($host, $port=null) use ($dicParams) {
                 return new $dicParams['connectionClass']($host, $port);
             };
         };
@@ -141,7 +141,7 @@ class Client
         };
 
         $this->params['deadPool'] = function ($dicParams) {
-            return new $dicParams['deadPoolClass']($dicParams['deadTime']);
+            return new $dicParams['deadPoolClass']($dicParams['deadTimeout']);
         };
 
         // Share the ConnectionPool class as we only want one floating around.
@@ -150,7 +150,7 @@ class Client
                 return function ($connections) use ($dicParams) {
                     return new $dicParams['connectionPoolClass'](
                         $connections,
-                        $dicParams['selector']($connections),
+                        $dicParams['selector'],
                         $dicParams['deadPool'],
                         $dicParams['randomizeHosts']);
                 };
@@ -164,8 +164,8 @@ class Client
             }
         );
 
-        $this->params['sniffer'] = function($dicParams) {
-            return new $dicParams['snifferClass']($dicParams['transport']);
+        $this->params['sniffer'] = function ($dicParams) {
+            return new $dicParams['snifferClass']();
         };
 
     }//end setParams()

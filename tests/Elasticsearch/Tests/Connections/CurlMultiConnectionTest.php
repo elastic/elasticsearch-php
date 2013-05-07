@@ -21,6 +21,27 @@ use Elasticsearch;
 class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
 {
 
+
+    /**
+     * Test no multihandle
+     *
+     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage curlMultiHandle must be set in connectionParams
+     *
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
+     * @return void
+     */
+    public function testNoMultihandle()
+    {
+        $host = 'localhost';
+        $port = 9200;
+        $connectionParams = null;
+
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+
+    }//end testNoMultihandle()
+
+
     /**
      * Test bad host name
      *
@@ -82,6 +103,88 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(400, $ret['status']);
 
     }//end testNonexistantEndpoint()
+
+
+    /**
+     * Test query params
+     *
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
+     * @return void
+     */
+    public function testQueryParams()
+    {
+        $host = 'localhost';
+        $port = 9200;
+        $connectionParams['curlMultiHandle'] = curl_multi_init();
+
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $params['pretty'] = 'true';
+
+        $ret = $connection->performRequest('GET', '/', $params);
+
+        $this->assertEquals(200, $ret['status']);
+
+        $expectedURI = 'http://localhost:9200/?pretty=true';
+        $this->assertEquals($expectedURI, $ret['info']['url']);
+
+    }//end testQueryParams()
+
+
+    /**
+     * Test query URI
+     *
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
+     * @return void
+     */
+    public function testQueryURI()
+    {
+        $host = 'localhost';
+        $port = 9200;
+        $connectionParams['curlMultiHandle'] = curl_multi_init();
+
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+
+        $ret = $connection->performRequest('GET', '/_cluster/nodes/');
+
+        $expectedURI = 'http://localhost:9200/_cluster/nodes/';
+        $this->assertEquals($expectedURI, $ret['info']['url']);
+
+    }//end testQueryURI()
+
+
+    /**
+     * Test query body
+     *
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
+     * @return void
+     */
+    public function testQueryBody()
+    {
+        $host = 'localhost';
+        $port = 9200;
+        $connectionParams['curlMultiHandle'] = curl_multi_init();
+
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+
+        $body = '{"testsetting":"123"}';
+
+        /*
+            The index _doesnotexist is used with an underscore
+            because ES won't create it...invalid.
+        */
+
+        $ret = $connection->performRequest('POST', '/_doesnotexist', null, $body);
+
+        $this->assertEquals(400, $ret['status']);
+
+        $expectedURI = 'http://localhost:9200/_doesnotexist';
+        $this->assertEquals($expectedURI, $ret['info']['url']);
+
+        // Best we can do to make sure the post actually posted.
+        $this->assertEquals(strlen(($body)), $ret['info']['size_upload']);
+
+
+    }//end testQueryBody()
 
 
 }//end class

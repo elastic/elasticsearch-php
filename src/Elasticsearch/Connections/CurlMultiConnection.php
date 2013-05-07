@@ -198,6 +198,7 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
         return array(
                 'status' => $response['requestInfo']['http_code'],
                 'text'   => $response['responseText'],
+                'info'   => $response['requestInfo'],
                );
 
     }//end performRequest()

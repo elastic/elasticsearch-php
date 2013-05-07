@@ -26,18 +26,19 @@ abstract class BaseConnection
     /**
      * @var string
      */
-    private $host;
+    protected $host;
 
 
     /**
      * Constructor
      *
-     * @param string $host Host string
-     * @param string $port Host port
+     * @param string $host             Host string
+     * @param string $port             Host port
+     * @param array  $connectionParams Array of connection-specific parameters
      *
      * @return \Elasticsearch\Connections\BaseConnection
      */
-    public function __construct($host, $port)
+    public function __construct($host, $port, $connectionParams)
     {
         $this->host = $this->transportSchema.'://'.$host.':'.$port;
 
@@ -57,7 +58,7 @@ abstract class BaseConnection
      *
      * @return void
      */
-    public function logRequestSuccess($method, $fullURI, $path, $body, $statusCode, $response, $duration)
+    public function logRequestSuccess($method, $fullURI, $body, $statusCode, $response, $duration)
     {
 
     }//end logRequestSuccess()

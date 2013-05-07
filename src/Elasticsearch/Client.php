@@ -42,7 +42,7 @@ class Client
      * @var array
      */
     protected $paramDefaults = array(
-                                'connectionClass'       => '\Elasticsearch\Connections\Connection',
+                                'connectionClass'       => '\Elasticsearch\Connections\CurlMultiConnection',
                                 'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
                                 'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
                                 'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',

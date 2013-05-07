@@ -33,7 +33,7 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(false))
             ->will($this->returnValue(array()));
 
-        $mockConnection = $this->getMockBuilder('\Elasticsearch\Connections\Connection')
+        $mockConnection = $this->getMockBuilder('\Elasticsearch\Connections\CurlMultiConnection')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -104,7 +104,7 @@ class ConnectionPool extends \PHPUnit_Framework_TestCase
 
         $mockConnections = array();
         foreach (range(1,10) as $index) {
-            $mockConnections[$index] = $this->getMockBuilder('\Elasticsearch\Connections\Connection')
+            $mockConnections[$index] = $this->getMockBuilder('\Elasticsearch\Connections\CurlMultiConnection')
                 ->disableOriginalConstructor()
                 ->getMock();
 

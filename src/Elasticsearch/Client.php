@@ -130,9 +130,13 @@ class Client
             $this->params[$key] = $value;
         }
 
+        $this->params['connectionParams']['curlMultiHandle'] = $this->params->share(function() {
+            return curl_multi_init();
+        });
+
         $this->params['connection'] = function ($dicParams) {
             return function ($host, $port=null) use ($dicParams) {
-                return new $dicParams['connectionClass']($host, $port);
+                return new $dicParams['connectionClass']($host, $port, $dicParams['connectionParams']);
             };
         };
 

@@ -18,7 +18,7 @@ namespace Elasticsearch\Connections;
  */
 interface ConnectionInterface
 {
-    public function __construct($host, $port);
+    public function __construct($host, $port, $connectionParams);
     public function getTransportSchema();
     public function performRequest($method, $uri, $params=null, $body=null);
 }

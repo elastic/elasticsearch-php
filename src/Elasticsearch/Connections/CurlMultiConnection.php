@@ -161,8 +161,6 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
             }
         } while ($running === 1);
 
-        print_r($response);
-
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {

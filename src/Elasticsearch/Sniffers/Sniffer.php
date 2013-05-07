@@ -21,16 +21,6 @@ use Elasticsearch\Transport;
 class Sniffer
 {
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }//end __construct()
-
 
     /**
      * Returns an array of host:ports derived from the provided NodeInfo

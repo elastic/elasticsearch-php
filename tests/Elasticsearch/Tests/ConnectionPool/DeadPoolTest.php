@@ -71,6 +71,27 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Test marking a single connection as dead without using time param
+     * Uses a negative timeout to instantly invalidate all the times
+     *
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
+     * @return void
+     */
+    public function testMarkDeadSingleConnectionNoTimeParam()
+    {
+        /** @var ConnectionInterface $connection */
+        $connection = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
+        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool(-60);
+        $deadPool->markDead($connection);
+
+        $retConnection = $deadPool->resurrect();
+        $this->assertEquals(array($connection), $retConnection);
+
+    }//end testMarkDeadSingleConnectionNoTimeParam()
+
+
+    /**
      * Test marking multiple connections as dead
      *
      * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead

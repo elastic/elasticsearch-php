@@ -18,30 +18,12 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @param $exception
-     * @param $code
-     */
-    public function assertThrowsException($exception, $code)
-    {
-        $raisedException = null;
-        try {
-            $code();
-        } catch (\Exception $raisedException) {
-            // No more code, we only want to catch the exception in $e.
-        }
-
-        $this->assertInstanceOf($exception, $raisedException);
-
-    }//end assertThrowsException()
-
-
-    /**
      * Test null constructors
      *
      * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
      * @expectedExceptionMessage Hosts parameter must be set
      *
-     * @covers Transport::__construct
+     * @covers \Elasticsearch\Transport::__construct
      * @return void
      */
     public function testNullConstructor()
@@ -60,7 +42,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Hosts parameter must be an array
      *
-     * @covers Transport::__construct
+     * @covers \Elasticsearch\Transport::__construct
      * @return void
      */
     public function testStringConstructor()
@@ -78,7 +60,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Host parameter must be an array
      *
-     * @covers Transport::addConnection
+     * @covers \Elasticsearch\Transport::addConnection
      * @return void
      */
     public function testAddConnectionWithInvalidString()
@@ -114,7 +96,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Host must be provided in host parameter
      *
-     * @covers Transport::addConnection
+     * @covers \Elasticsearch\Transport::addConnection
      * @return void
      */
     public function testAddConnectionWithMissingHost()
@@ -152,7 +134,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Port must be numeric
      *
-     * @covers Transport::addConnection
+     * @covers \Elasticsearch\Transport::addConnection
      * @return void
      */
     public function testAddConnectionWithNonNumericPort()

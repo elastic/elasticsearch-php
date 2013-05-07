@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Tests\ConnectionPool;
 use Elasticsearch;
-use Elasticsearch\Connections\Connection;
 
 /**
  * Class ConnectionPoolTest
@@ -21,7 +20,7 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Test adding one host and then requesting it
      *
-     * @covers ConnectionPool::__construct
+     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
      * @return void
      */
     public function testAddOneHostThenGetConnection()
@@ -55,7 +54,7 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Get connection from deadpool by resurrection
      *
-     * @covers ConnectionPool::__construct
+     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
      * @return void
      */
     public function testResurrectFromDeadpool()
@@ -90,7 +89,7 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Test adding multiple hosts, mark dead and verify
      *
-     * @covers ConnectionPool::__construct
+     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
      * @return void
      */
     public function testAddHostsMarkDeadThenVerify()

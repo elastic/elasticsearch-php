@@ -27,7 +27,7 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\TransportException
      * @expectedExceptionMessage Curl error: Couldn't resolve host 'localhost5'
      *
-     * @covers CurlMultiConnection::performRequest
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
      * @return void
      */
     public function testBadHost()
@@ -48,7 +48,7 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Elasticsearch\Common\Exceptions\TransportException
      * @expectedExceptionMessage Curl error: couldn't connect to host
      *
-     * @covers CurlMultiConnection::performRequest
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
      * @return void
      */
     public function testBadPort()
@@ -67,7 +67,7 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      * Test nonexistant endpoint
      *
      *
-     * @covers CurlMultiConnection::performRequest
+     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
      * @return void
      */
     public function testNonexistantEndpoint()

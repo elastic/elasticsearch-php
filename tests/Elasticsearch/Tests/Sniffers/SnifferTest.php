@@ -20,7 +20,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     /**
      * Cluster state with one host
      *
-     * @covers Sniffer::parseNodes
+     * @covers \Elasticsearch\Sniffers\Sniffer::parseNodes
      *
      * @return void
      */
@@ -45,7 +45,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     /**
      * Cluster state with multiple host
      *
-     * @covers Sniffer::parseNodes
+     * @covers \Elasticsearch\Sniffers\Sniffer::parseNodes
      *
      * @return void
      */

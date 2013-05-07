@@ -22,39 +22,39 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      * Make sure resurrect returns an empty array
      * when no connections exist
      *
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
-    public function testMarkDeadEmptyResurrection()
+    public function testEmptyResurrection()
     {
         $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
         $retConnection = $deadPool->resurrect();
         $this->assertEquals(array(), $retConnection);
 
-    }//end testMarkDeadEmptyResurrection()
+    }//end testEmptyResurrection()
 
 
     /**
      * Make sure resurrect returns an empty array
      * when no connections exist (with Force)
      *
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
-    public function testMarkDeadEmptyResurrectionWithForce()
+    public function testEmptyResurrectionWithForce()
     {
         $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
         $retConnection = $deadPool->resurrect(true);
         $this->assertEquals(array(), $retConnection);
 
-    }//end testMarkDeadEmptyResurrectionWithForce()
+    }//end testEmptyResurrectionWithForce()
 
 
     /**
      * Test marking a single connection as dead
      *
-     * @covers DeadPool::markDead
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
     public function testMarkDeadSingleConnection()
@@ -73,8 +73,8 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Test marking multiple connections as dead
      *
-     * @covers DeadPool::markDead
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
     public function testMarkDeadMultipleConnections()
@@ -96,8 +96,8 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Test marking multiple connections as dead, resurrecting one
      *
-     * @covers DeadPool::markDead
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
     public function testMarkDeadMultipleConnectionsResurrectOne()
@@ -123,8 +123,8 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Force connections to be resurrected
      *
-     * @covers DeadPool::markDead
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
     public function testMarkDeadForceResurrection()
@@ -146,8 +146,8 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Ensure that eligible connections are prioritized even if force is specified
      *
-     * @covers DeadPool::markDead
-     * @covers DeadPool::resurrect
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\DeadPool::resurrect
      * @return void
      */
     public function testMarkDeadIgnoreForceWhenEligibleConnectionsExist()

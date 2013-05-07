@@ -8,6 +8,7 @@
 namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Connections\CurlMultiConnection;
 
 /**
  * Class Client
@@ -54,6 +55,7 @@ class Client
                                 'randomizeHosts'        => true,
                                 'maxRetries'            => 3,
                                 'deadTimeout'           => 60,
+                                'connectionParams'      => array(),
                                );
 
     /**
@@ -130,13 +132,40 @@ class Client
             $this->params[$key] = $value;
         }
 
-        $this->params['connectionParams']['curlMultiHandle'] = $this->params->share(function() {
-            return curl_multi_init();
-        });
+        // Only used by some connections - won't be instantiated until used.
+        $this->params['curlMultiHandle'] = $this->params->share(
+            function () {
+                return curl_multi_init();
+            }
+        );
+
+        // This will inject a shared object into all connections.
+        // Allows users to inject shared resources, similar to the multi-handle
+        // shared above (but in their own code).
+        $this->params['connectionParamsShared'] = $this->params->share(
+            function ($dicParams) {
+
+                $connectionParams = $dicParams['connectionParams'];
+
+                // Multihandle connections need a "static", shared curl multihandle.
+                if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
+                    $connectionParams = array_merge(
+                        $connectionParams,
+                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
+                    );
+                }
+
+                return $connectionParams;
+            }
+        );
 
         $this->params['connection'] = function ($dicParams) {
             return function ($host, $port=null) use ($dicParams) {
-                return new $dicParams['connectionClass']($host, $port, $dicParams['connectionParams']);
+                return new $dicParams['connectionClass'](
+                    $host,
+                    $port,
+                    $dicParams['connectionParamsShared']
+                );
             };
         };
 

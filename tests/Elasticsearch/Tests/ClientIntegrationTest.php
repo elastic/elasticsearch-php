@@ -4,7 +4,7 @@ namespace Elasticsearch\Tests;
 use Elasticsearch;
 
 /**
- * Class ClientIntegration
+ * Class ClientIntegrationTest
  *
  * @category   Tests
  * @package    Elasticsearch
@@ -13,7 +13,7 @@ use Elasticsearch;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class ClientIntegration extends \PHPUnit_Framework_TestCase
+class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
 {
 
 

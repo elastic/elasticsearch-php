@@ -5,7 +5,7 @@ use Elasticsearch;
 use Elasticsearch\Connections\Connection;
 
 /**
- * Class ConnectionPool
+ * Class ConnectionPoolTest
  *
  * @category   Tests
  * @package    Elasticsearch
@@ -14,7 +14,7 @@ use Elasticsearch\Connections\Connection;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class ConnectionPool extends \PHPUnit_Framework_TestCase
+class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
 {
 
 

@@ -4,7 +4,7 @@ namespace Elasticsearch\Tests\Sniffers;
 use Elasticsearch;
 
 /**
- * Class ConnectionPool
+ * Class SnifferTest
  *
  * @category   Tests
  * @package    Elasticsearch
@@ -13,7 +13,7 @@ use Elasticsearch;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class Sniffer extends \PHPUnit_Framework_TestCase
+class SnifferTest extends \PHPUnit_Framework_TestCase
 {
 
 

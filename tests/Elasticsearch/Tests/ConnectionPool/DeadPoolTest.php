@@ -5,7 +5,7 @@ use Elasticsearch;
 use Elasticsearch\Connections\ConnectionInterface;
 
 /**
- * Class DeadPool
+ * Class DeadPoolTest
  *
  * @category   Tests
  * @package    Elasticsearch
@@ -14,7 +14,7 @@ use Elasticsearch\Connections\ConnectionInterface;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class DeadPool extends \PHPUnit_Framework_TestCase
+class DeadPoolTest extends \PHPUnit_Framework_TestCase
 {
 
 

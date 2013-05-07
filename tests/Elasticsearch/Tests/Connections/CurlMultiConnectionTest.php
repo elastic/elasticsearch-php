@@ -9,7 +9,7 @@ namespace Elasticsearch\Tests\Connections;
 use Elasticsearch;
 
 /**
- * Class CurlMultiConnection
+ * Class CurlMultiConnectionTest
  *
  * @category   Tests
  * @package    Elasticsearch
@@ -18,7 +18,7 @@ use Elasticsearch;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class CurlMultiConnection extends \PHPUnit_Framework_TestCase
+class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

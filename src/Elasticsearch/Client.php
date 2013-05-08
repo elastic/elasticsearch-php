@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Connections\CurlMultiConnection;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Monolog\Processor\IntrospectionProcessor;
 
 /**
  * Class Client
@@ -219,8 +220,10 @@ class Client
                 $this->params['logPath'],
                 $this->params['logLevel']
             );
+            $processor = new IntrospectionProcessor();
 
             $log->pushHandler($handler);
+            $log->pushProcessor($processor);
 
             $this->params['logObject'] = $log;
         }

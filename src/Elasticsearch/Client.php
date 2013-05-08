@@ -9,6 +9,8 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Connections\CurlMultiConnection;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * Class Client
@@ -56,6 +58,9 @@ class Client
                                 'maxRetries'            => 3,
                                 'deadTimeout'           => 60,
                                 'connectionParams'      => array(),
+                                'logObject'             => null,
+                                'logPath'               => 'elasticsearch.log',
+                                'logLevel'              => Logger::WARNING,
                                );
 
     /**
@@ -93,6 +98,7 @@ class Client
         }//end if
 
         $this->setParams($this->hosts, $params);
+        $this->setLogging();
         $this->transport = $this->params['transport'];
 
     }//end __construct()
@@ -104,7 +110,7 @@ class Client
      * Merges user-specified parameters into the default list, then
      * builds a DIC to house all the information
      *
-     * @param       $hosts
+     * @param array $hosts  Array of hosts
      * @param array $params Array of user settings
      *
      * @throws Common\Exceptions\InvalidArgumentException
@@ -193,7 +199,7 @@ class Client
         // Share the Transport class as we only want one floating around.
         $this->params['transport'] = $this->params->share(
             function ($dicParams) use ($hosts) {
-                return new Transport($hosts, $dicParams);
+                return new Transport($hosts, $dicParams, $dicParams['logObject']);
             }
         );
 
@@ -202,6 +208,24 @@ class Client
         };
 
     }//end setParams()
+
+
+    private function setLogging()
+    {
+        // If no user-specified logger, provide a default file logger.
+        if ($this->params['logObject'] === null) {
+            $log     = new Logger('log');
+            $handler = new StreamHandler(
+                $this->params['logPath'],
+                $this->params['logLevel']
+            );
+
+            $log->pushHandler($handler);
+
+            $this->params['logObject'] = $log;
+        }
+
+    }//end setLogging()
 
 
 }//end class

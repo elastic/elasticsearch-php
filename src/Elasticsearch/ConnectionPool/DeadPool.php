@@ -9,6 +9,7 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Connections\ConnectionInterface;
+use Monolog\Logger;
 
 /**
  * Class DeadPool
@@ -35,15 +36,22 @@ class DeadPool
      */
     private $deadTime;
 
+    /**
+     * @var Logger
+     */
+    private $log;
+
 
     /**
      * Deadpool Constructor
      *
-     * @param int $deadTime Timeout value before a dead connection is retried
+     * @param int    $deadTime Timeout value before a dead connection is retried
+     * @param Logger $log      Monolog logger object
      */
-    public function __construct($deadTime=60)
+    public function __construct($deadTime=60, $log)
     {
         $this->deadTime = $deadTime;
+        $this->log = $log;
 
     }//end __construct()
 
@@ -58,6 +66,8 @@ class DeadPool
      */
     public function resurrect($force=false)
     {
+        $this->log->addInfo('Resurrecting (Force == '.print_r($force, true).')');
+
         $deadPool    = $this->deadPool;
         $resurrected = array();
 
@@ -77,6 +87,7 @@ class DeadPool
         // We are being forced to resurrect, but no dead nodes were found as
         // eligible.  Time to just force one.
         if ($force === true && $foundResurrected === false) {
+            $this->log->addWarning('Forcibly resurrecting a node that is not eligible.');
             $connection    = array_shift($deadPool);
             $resurrected[] = $connection['connection'];
         }
@@ -93,12 +104,18 @@ class DeadPool
      * @param null|int            $time       Timestamp to begin the resurrection timer
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
+     * @return void
      */
     public function markDead(ConnectionInterface $connection, $time=null)
     {
+        $this->log->addInfo('Marking connection as dead.');
+        $this->log->addDebug('Connection:', array(print_r($connection, true)));
+
         if (isset($time) !== true) {
             $time = time();
         }
+
         $this->deadPool[] = array(
                              'connection' => $connection,
                              'time'       => $time + $this->deadTime,

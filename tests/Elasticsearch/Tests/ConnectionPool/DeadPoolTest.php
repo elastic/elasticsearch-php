@@ -27,7 +27,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyResurrection()
     {
-        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
         $retConnection = $deadPool->resurrect();
         $this->assertEquals(array(), $retConnection);
 
@@ -43,7 +46,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyResurrectionWithForce()
     {
-        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool      = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
         $retConnection = $deadPool->resurrect(true);
         $this->assertEquals(array(), $retConnection);
 
@@ -61,7 +67,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     {
         /** @var ConnectionInterface $connection */
         $connection = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
-        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
         $deadPool->markDead($connection, (time() - 61));
 
         $retConnection = $deadPool->resurrect();
@@ -82,7 +91,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
     {
         /** @var ConnectionInterface $connection */
         $connection = $this->getMock('\Elasticsearch\Connections\ConnectionInterface');
-        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool(-60);
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool   = new Elasticsearch\ConnectionPool\DeadPool(-60, $log);
         $deadPool->markDead($connection);
 
         $retConnection = $deadPool->resurrect();
@@ -100,7 +112,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadMultipleConnections()
     {
-        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
@@ -123,7 +138,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadMultipleConnectionsResurrectOne()
     {
-        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
@@ -150,7 +168,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadForceResurrection()
     {
-        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */
@@ -173,7 +194,10 @@ class DeadPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testMarkDeadIgnoreForceWhenEligibleConnectionsExist()
     {
-        $deadPool = new Elasticsearch\ConnectionPool\DeadPool();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $deadPool = new Elasticsearch\ConnectionPool\DeadPool(null, $log);
 
         foreach (range(0, 100) as $i) {
             /** @var ConnectionInterface $connection */

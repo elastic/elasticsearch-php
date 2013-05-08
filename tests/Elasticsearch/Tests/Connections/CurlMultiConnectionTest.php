@@ -37,7 +37,10 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams = null;
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
 
     }//end testNoMultihandle()
 
@@ -57,7 +60,10 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }//end testBadHost()
@@ -77,8 +83,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9800;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }//end testBadPort()
@@ -96,8 +105,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9200;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
         $ret = $connection->performRequest('GET', '/abc');
 
         $this->assertEquals(400, $ret['status']);
@@ -116,8 +128,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9200;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
         $params['pretty'] = 'true';
 
         $ret = $connection->performRequest('GET', '/', $params);
@@ -141,8 +156,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9200;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
 
         $ret = $connection->performRequest('GET', '/_cluster/nodes/');
 
@@ -163,8 +181,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9200;
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log);
 
         $body = '{"testsetting":"123"}';
 

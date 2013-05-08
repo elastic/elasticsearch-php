@@ -29,36 +29,33 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
      */
     private $multiHandle;
 
-    /**
-     * @var array
-     */
-    private $connectionParams;
 
     /**
      * Constructor
      *
-     * @param string $host             Host string
-     * @param int    $port             Host port
-     * @param array  $connectionParams Array of connection parameters
+     * @param string          $host             Host string
+     * @param int             $port             Host port
+     * @param array           $connectionParams Array of connection parameters
+     * @param \Monolog\Logger $log              Monolog logger object
      *
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return CurlMultiConnection
      */
-    public function __construct($host, $port=9200, $connectionParams)
+    public function __construct($host, $port=9200, $connectionParams, $log)
     {
         if (function_exists('curl_version') !== true) {
+            $log->addCritical('Curl library/extension is required for CurlMultiConnection.');
             throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
         }
 
         if (isset($connectionParams['curlMultiHandle']) !== true) {
+            $log->addCritical('curlMultiHandle must be set in connectionParams');
             throw new InvalidArgumentException('curlMultiHandle must be set in connectionParams');
         }
 
         $this->multiHandle = $connectionParams['curlMultiHandle'];
-        $this->connectionParams = $connectionParams;
-        return parent::__construct($host, $port, $connectionParams);
+        return parent::__construct($host, $port, $connectionParams, $log);
 
     }//end __construct()
 
@@ -83,7 +80,8 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
      * @param null|string $params Optional URI parameters
      * @param null|string $body   Optional request body
      *
-     * @throws TransportException
+     * @throws \Elasticsearch\Common\Exceptions\TransportException
+     * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
      * @return array
      */
     public function performRequest($method, $uri, $params=null, $body=null)
@@ -114,6 +112,8 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
             $opts = array_merge($opts, $this->connectionParams['curlOpts']);
         }
 
+        $this->log->addDebug("Curl Options:", $opts);
+
         curl_setopt_array($curlHandle, $opts);
         curl_multi_add_handle($this->multiHandle, $curlHandle);
 
@@ -127,6 +127,7 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
             } while ($execrun == CURLM_CALL_MULTI_PERFORM && $running === true);
 
             if ($execrun !== CURLM_OK) {
+                $this->log->addCritical('Unexpected Curl error: '.$execrun);
                 throw new TransportException('Unexpected Curl error: '.$execrun);
             }
 
@@ -164,6 +165,7 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {
+            $this->log->addError('Curl error: '.$response['error']);
             throw new TransportException('Curl error: '.$response['error']);
         }
 
@@ -180,9 +182,9 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
 
             // Throw exceptions on 3xx (server) errors.
             if ($response['requestInfo']['http_code'] < 400) {
-                throw new ServerErrorResponseException(
-                    $response['requestInfo']['http_code'].' Server Exception: '.$response['responseText']
-                );
+                $exceptionText = $response['requestInfo']['http_code'].' Server Exception: '.$response['responseText'];
+                $this->log->addError($exceptionText);
+                throw new ServerErrorResponseException($exceptionText);
             }
         }
 

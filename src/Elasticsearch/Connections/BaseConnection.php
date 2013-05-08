@@ -7,6 +7,8 @@
 
 namespace Elasticsearch\Connections;
 
+use Monolog\Logger;
+
 /**
  * Abstrat Class BaseConnection
  *
@@ -28,6 +30,16 @@ abstract class BaseConnection
      */
     protected $host;
 
+    /**
+     * @var Logger
+     */
+    protected $log;
+
+    /**
+     * @var array
+     */
+    protected $connectionParams;
+
 
     /**
      * Constructor
@@ -35,12 +47,15 @@ abstract class BaseConnection
      * @param string $host             Host string
      * @param string $port             Host port
      * @param array  $connectionParams Array of connection-specific parameters
+     * @param Logger $log              Monolog Logger object
      *
      * @return \Elasticsearch\Connections\BaseConnection
      */
-    public function __construct($host, $port, $connectionParams)
+    public function __construct($host, $port, $connectionParams, $log)
     {
         $this->host = $this->transportSchema.'://'.$host.':'.$port;
+        $this->log = $log;
+        $this->connectionParams = $connectionParams;
 
     }//end __construct()
 
@@ -60,6 +75,17 @@ abstract class BaseConnection
      */
     public function logRequestSuccess($method, $fullURI, $body, $statusCode, $response, $duration)
     {
+        $this->log->addDebug('Request Body', array($body));
+        $this->log->addInfo(
+            'Request Success:',
+            array(
+                'method'    => $method,
+                'uri'       => $fullURI,
+                'HTTP code' => $statusCode,
+                'duration'  => $duration,
+            )
+        );
+        $this->log->addDebug('Response', array($response));
 
     }//end logRequestSuccess()
 
@@ -79,7 +105,19 @@ abstract class BaseConnection
      */
     public function logRequestFail($method, $fullURI, $body, $duration, $statusCode=null, $response=null, $exception=null)
     {
+        $this->log->addDebug('Request Body', array($body));
+        $this->log->addInfo(
+            'Request Success:',
+            array(
+             'method'    => $method,
+             'uri'       => $fullURI,
+             'HTTP code' => $statusCode,
+             'duration'  => $duration,
+             'error'     => $exception,
+            )
+        );
+        $this->log->addDebug('Response', array($response));
 
-    }//end logRequestFail
+    }//end logRequestFail()
 
-}
+}//end class

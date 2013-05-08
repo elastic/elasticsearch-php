@@ -171,7 +171,8 @@ class Client
                 return new $dicParams['connectionClass'](
                     $host,
                     $port,
-                    $dicParams['connectionParamsShared']
+                    $dicParams['connectionParamsShared'],
+                    $dicParams['logObject']
                 );
             };
         };
@@ -215,8 +216,8 @@ class Client
     {
         // If no user-specified logger, provide a default file logger.
         if ($this->params['logObject'] === null) {
-            $log     = new Logger('log');
-            $handler = new StreamHandler(
+            $log       = new Logger('log');
+            $handler   = new StreamHandler(
                 $this->params['logPath'],
                 $this->params['logLevel']
             );

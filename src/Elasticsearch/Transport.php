@@ -80,6 +80,7 @@ class Transport
      */
     public function __construct($hosts, $params, $log)
     {
+        $this->log = $log;
 
         if (isset($hosts) !== true) {
             $this->log->addCritical('Hosts parameter must be set');
@@ -104,7 +105,7 @@ class Transport
         $this->sniffer                    = $params['sniffer'];
         $this->maxRetries                 = $params['maxRetries'];
         $this->serializer                 = $params['serializer'];
-        $this->log                        = $log;
+
         $this->setConnections($hosts);
 
         if ($this->params['sniffOnStart'] === true) {

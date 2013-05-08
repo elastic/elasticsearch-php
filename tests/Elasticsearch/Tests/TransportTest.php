@@ -31,7 +31,10 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $hosts = null;
         $params = null;
         // Empty constructor.
-        $log = $this->getMock('Logger');
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $transport = new Elasticsearch\Transport($hosts, $params, $log);
 
     }//end testNullConstructor()
@@ -50,7 +53,9 @@ class TransportTest extends \PHPUnit_Framework_TestCase
     {
         $hosts     = 'arbitrary string';
         $params    = 'arbitrary string';
-        $log = $this->getMock('Logger');
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
         $transport = new Elasticsearch\Transport($hosts, $params, $log);
 
     }//end testStringConstructor()
@@ -86,7 +91,10 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $log = $this->getMock('Logger');
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
         $transport->addConnection('arbitrary string');
 
@@ -123,7 +131,10 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;$dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $log = $this->getMock('Logger');
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
 
         $host = array('port' => 9200);
@@ -162,7 +173,10 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $log = $this->getMock('Logger');
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
 
         $host = array(

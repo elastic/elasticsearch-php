@@ -31,7 +31,8 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $hosts = null;
         $params = null;
         // Empty constructor.
-        $transport = new Elasticsearch\Transport($hosts, $params);
+        $log = $this->getMock('Logger');
+        $transport = new Elasticsearch\Transport($hosts, $params, $log);
 
     }//end testNullConstructor()
 
@@ -49,7 +50,8 @@ class TransportTest extends \PHPUnit_Framework_TestCase
     {
         $hosts     = 'arbitrary string';
         $params    = 'arbitrary string';
-        $transport = new Elasticsearch\Transport($hosts, $params);
+        $log = $this->getMock('Logger');
+        $transport = new Elasticsearch\Transport($hosts, $params, $log);
 
     }//end testStringConstructor()
 
@@ -84,7 +86,8 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $transport = new Elasticsearch\Transport($hosts, $dicParams);
+        $log = $this->getMock('Logger');
+        $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
         $transport->addConnection('arbitrary string');
 
     }//end testAddConnectionWithInvalidString()
@@ -120,7 +123,8 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;$dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $transport = new Elasticsearch\Transport($hosts, $dicParams);
+        $log = $this->getMock('Logger');
+        $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
 
         $host = array('port' => 9200);
         $transport->addConnection($host);
@@ -158,7 +162,8 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
 
-        $transport = new Elasticsearch\Transport($hosts, $dicParams);
+        $log = $this->getMock('Logger');
+        $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
 
         $host = array(
                  'host' => 'localhost',

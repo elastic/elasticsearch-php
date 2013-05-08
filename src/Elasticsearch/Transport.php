@@ -14,6 +14,7 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Sniffers\Sniffer;
+use Monolog\Logger;
 
 /**
  * Class Transport
@@ -60,6 +61,11 @@ class Transport
      */
     private $serializer;
 
+    /**
+     * @var Logger
+     */
+    private $log;
+
 
     /**
      * Transport class is responsible for dispatching requests to the
@@ -67,21 +73,26 @@ class Transport
      *
      * @param array   $hosts  Array of hosts in cluster
      * @param \Pimple $params DIC containing dependencies
+     * @param Logger  $log    Monolog logger object
      *
-     * @throws Common\Exceptions\InvalidArgumentException
-     * @throws Common\Exceptions\BadMethodCallException
+     * @throws Exceptions\InvalidArgumentException
+     * @throws Exceptions\BadMethodCallException
      */
-    public function __construct($hosts, $params)
+    public function __construct($hosts, $params, $log)
     {
+
         if (isset($hosts) !== true) {
+            $this->log->addCritical('Hosts parameter must be set');
             throw new Exceptions\BadMethodCallException('Hosts parameter must be set');
         }
 
         if (isset($params) !== true) {
+            $this->log->addCritical('Params parameter must be set');
             throw new Exceptions\BadMethodCallException('Params parameter must be set');
         }
 
         if (is_array($hosts) !== true) {
+            $this->log->addCritical('Hosts parameter must be an array');
             throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array');
         }
 
@@ -93,9 +104,11 @@ class Transport
         $this->sniffer                    = $params['sniffer'];
         $this->maxRetries                 = $params['maxRetries'];
         $this->serializer                 = $params['serializer'];
+        $this->log                        = $log;
         $this->setConnections($hosts);
 
         if ($this->params['sniffOnStart'] === true) {
+            $this->log->addNotice('Sniff on Start.');
             $this->sniffHosts();
         }
 
@@ -137,14 +150,17 @@ class Transport
     public function addConnection($host)
     {
         if (is_array($host) !== true) {
+            $this->log->addCritical('Host parameter must be an array');
             throw new Exceptions\InvalidArgumentException('Host parameter must be an array');
         }
 
         if (isset($host['host']) !== true) {
+            $this->log->addCritical('Host must be provided in host parameter');
             throw new Exceptions\InvalidArgumentException('Host must be provided in host parameter');
         }
 
         if (isset($host['port']) === true && is_numeric($host['port']) === false) {
+            $this->log->addCritical('Port must be numeric');
             throw new Exceptions\InvalidArgumentException('Port must be numeric');
         }
 
@@ -203,10 +219,12 @@ class Transport
         $this->setConnections($hosts);
 
         if ($failure === true) {
+            $this->log->addNotice('Sniffing cluster state due to failure.');
             $this->sniffsDueToFailure += 1;
             $this->sniffAfterRequests  = (1 + ($this->sniffAfterRequestsOriginal / pow(2,$this->sniffsDueToFailure)));
 
         } else {
+            $this->log->addNotice('Sniffing cluster state.');
             $this->sniffsDueToFailure = 0;
             $this->sniffAfterRequests = $this->sniffAfterRequestsOriginal;
         }
@@ -246,27 +264,40 @@ class Transport
     {
         foreach (range(1, $this->maxRetries) as $attempt) {
             $connection = $this->getConnection();
-            $returnData = array();
 
             if (isset($body) === true) {
                 $body = $this->serializer->serialize($body);
             }
 
             try {
-                $returnData = $connection->performRequest($method, $uri, $params, $body);
+                $response = $connection->performRequest(
+                    $method,
+                    $uri,
+                    $params,
+                    $body
+                );
 
             } catch (TransportException $e) {
 
+                $this->log->addWarning('Transport exception, retrying.', array($e->getMessage()));
+
                 $this->markDead($connection);
                 if ($attempt === $this->maxRetries) {
+                    $this->log->addError('The maxinum number of request retries has been reached');
                     throw new MaxRetriesException('The maximum number of request retries has been reached.');
                 }
 
                 // Skip the return below and continue retrying.
                 continue;
-            }
+            }//end try
 
-            return $this->serializer->deserialize($returnData);
+            $data = $this->serializer->deserialize($response['text']);
+
+            return array(
+                    'status' => $response['status'],
+                    'data'   => $data,
+                    'info'   => $response['info'],
+                   );
 
         }//end foreach
 

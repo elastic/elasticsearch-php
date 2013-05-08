@@ -20,7 +20,8 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
     /**
      * Test adding one host and then requesting it
      *
-     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getConnection
      * @return void
      */
     public function testAddOneHostThenGetConnection()
@@ -55,6 +56,8 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
      * Get connection from deadpool by resurrection
      *
      * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getConnection
+     *
      * @return void
      */
     public function testResurrectFromDeadpool()
@@ -69,7 +72,7 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $deadPool->expects($this->once())
             ->method('resurrect')
             ->with($this->equalTo(false))
-            ->will($this->returnValue($mockConnection));
+            ->will($this->returnValue(array($mockConnection)));
 
         $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
         $selector->expects($this->once())
@@ -90,6 +93,9 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
      * Test adding multiple hosts, mark dead and verify
      *
      * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::addConnection
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getAllConnections
      * @return void
      */
     public function testAddHostsMarkDeadThenVerify()
@@ -122,7 +128,132 @@ class ConnectionPoolTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-
     }//end testAddHostsMarkDeadThenVerify()
+
+
+    /**
+     * Test adding multiple hosts, mark dead and verify
+     *
+     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::addConnection
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getAllConnections
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::resurrect
+     * @return void
+     */
+    public function testAddToConnectionPoolKillOneThenResurrect()
+    {
+        $connections = array();
+
+        // Create the mock connections
+        $mockConnections = array();
+        foreach (range(1,10) as $index) {
+            $mockConnections[$index] = $this->getMockBuilder('\Elasticsearch\Connections\CurlMultiConnection')
+                ->disableOriginalConstructor()
+                ->getMock();
+        }
+
+        // Create the deadpool, configure it to return a connection
+        // on resurrect() call
+        $deadPool = $this->getMock('\Elasticsearch\ConnectionPool\DeadPool', array('resurrect'));
+
+        $deadPool->expects($this->once())
+            ->method('resurrect')
+            ->with($this->equalTo(false))
+            ->will($this->returnValue(array($mockConnections[5])));
+
+        $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector');
+        $randomizeHosts = true;
+        $connectionPool = new \Elasticsearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
+
+        // Add the connections to the pool.
+        foreach (range(1,10) as $index) {
+            $connectionPool->addConnection($mockConnections[$index]);
+        }
+
+        // Kill a specific connection.
+        $connectionPool->markDead($mockConnections[5]);
+
+        // Resurrect it.
+        $connectionPool->resurrect();
+        $allConnections = $connectionPool->getAllConnections();
+
+        // All the mock connections should be in the returned array.
+        foreach (range(1,10) as $index) {
+            $this->assertContains($mockConnections[$index], $allConnections);
+        }
+
+    }//end testAddToConnectionPoolKillOneThenResurrect()
+
+
+    /**
+     * Test adding multiple hosts, mark dead and verify
+     *
+     * @covers \ElasticSearch\ConnectionPool\ConnectionPool::__construct
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::addConnection
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::markDead
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getAllConnections
+     * @covers \Elasticsearch\ConnectionPool\ConnectionPool::getConnection
+     * @return void
+     */
+    public function testAddToConnectionPoolKillAllForceResurrect()
+    {
+        $connections = array();
+
+        // Create the mock connections
+        $mockConnections = array();
+        foreach (range(0,10) as $index) {
+            $mockConnections[$index] = $this->getMockBuilder('\Elasticsearch\Connections\CurlMultiConnection')
+                ->disableOriginalConstructor()
+                ->getMock();
+        }
+
+        // Create the deadpool, configure it to return a connection
+        // on resurrect() call
+        $deadPool = $this->getMock('\Elasticsearch\ConnectionPool\DeadPool', array('resurrect'));
+
+        $mapValues = array(
+                      array(false, array()),
+                      array(true, $mockConnections),
+                     );
+
+        $deadPool->expects($this->at(0))
+            ->method('resurrect')
+            ->with(false)
+            ->will($this->returnValue(array()));
+
+        $deadPool->expects($this->at(1))
+            ->method('resurrect')
+            ->with(true)
+            ->will($this->returnValue($mockConnections));
+
+        $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector');
+        $randomizeHosts = true;
+        $connectionPool = new \Elasticsearch\ConnectionPool\ConnectionPool($connections, $selector, $deadPool, $randomizeHosts);
+
+        // Add the connections to the pool.
+        foreach (range(0,10) as $index) {
+            $connectionPool->addConnection($mockConnections[$index]);
+        }
+
+        // Kill all the connections.
+        foreach (range(0,10) as $index) {
+            $connectionPool->markDead($mockConnections[$index]);
+        }
+
+        // Assert that all the connections are dead.
+        $allConnections = $connectionPool->getAllConnections();
+        $this->assertEmpty($allConnections);
+
+        // Get a connection...will force a resurrection.
+        $connectionPool->getConnection();
+        $allConnections = $connectionPool->getAllConnections();
+
+        // All the mock connections should be in the returned array.
+        foreach (range(0,10) as $index) {
+            $this->assertContains($mockConnections[$index], $allConnections);
+        }
+
+    }//end testAddToConnectionPoolKillAllForceResurrect()
 
 }//end class

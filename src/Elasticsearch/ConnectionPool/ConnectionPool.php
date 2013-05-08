@@ -117,7 +117,11 @@ class ConnectionPool
      */
     public function resurrect($force=false)
     {
-        array_push($this->connections, $this->deadPool->resurrect($force));
+        $resurrected = $this->deadPool->resurrect($force);
+
+        if (count($resurrected) > 0) {
+            $this->connections = array_merge($this->connections, $resurrected);
+        }
 
     }//end resurrect()
 

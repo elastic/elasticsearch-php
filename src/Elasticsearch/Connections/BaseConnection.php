@@ -36,6 +36,11 @@ abstract class BaseConnection
     protected $log;
 
     /**
+     * @var Logger
+     */
+    protected $trace;
+
+    /**
      * @var array
      */
     protected $connectionParams;
@@ -51,10 +56,11 @@ abstract class BaseConnection
      *
      * @return \Elasticsearch\Connections\BaseConnection
      */
-    public function __construct($host, $port, $connectionParams, $log)
+    public function __construct($host, $port, $connectionParams, $log, $trace)
     {
         $this->host = $this->transportSchema.'://'.$host.':'.$port;
         $this->log = $log;
+        $this->trace = $trace;
         $this->connectionParams = $connectionParams;
 
     }//end __construct()

@@ -37,12 +37,13 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
      * @param int             $port             Host port
      * @param array           $connectionParams Array of connection parameters
      * @param \Monolog\Logger $log              Monolog logger object
+     * @param \Monolog\Logger $trace            Monolog logger object (for curl traces)
      *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return CurlMultiConnection
      */
-    public function __construct($host, $port=9200, $connectionParams, $log)
+    public function __construct($host, $port=9200, $connectionParams, $log, $trace)
     {
         if (function_exists('curl_version') !== true) {
             $log->addCritical('Curl library/extension is required for CurlMultiConnection.');
@@ -55,7 +56,7 @@ class CurlMultiConnection extends BaseConnection implements ConnectionInterface
         }
 
         $this->multiHandle = $connectionParams['curlMultiHandle'];
-        return parent::__construct($host, $port, $connectionParams, $log);
+        return parent::__construct($host, $port, $connectionParams, $log, $trace);
 
     }//end __construct()
 

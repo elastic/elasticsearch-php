@@ -62,6 +62,9 @@ class Client
                                 'logObject'             => null,
                                 'logPath'               => 'elasticsearch.log',
                                 'logLevel'              => Logger::WARNING,
+                                'traceObject'           => null,
+                                'tracePath'             => 'elasticsearch.log',
+                                'traceLevel'            => Logger::WARNING,
                                );
 
     /**
@@ -172,7 +175,8 @@ class Client
                     $host,
                     $port,
                     $dicParams['connectionParamsShared'],
-                    $dicParams['logObject']
+                    $dicParams['logObject'],
+                    $dicParams['traceObject']
                 );
             };
         };
@@ -215,6 +219,12 @@ class Client
     }//end setParams()
 
 
+    /**
+     * Sets up the logging object
+     * If a user-defined logger is not available, builds a default file logger
+     *
+     * @return void
+     */
     private function setLogging()
     {
         // If no user-specified logger, provide a default file logger.
@@ -230,6 +240,19 @@ class Client
             $log->pushProcessor($processor);
 
             $this->params['logObject'] = $log;
+        }
+
+        // Same thing, but for the Trace logger.
+        if ($this->params['traceObject'] === null) {
+            $trace        = new Logger('trace');
+            $traceHandler = new StreamHandler(
+                $this->params['tracePath'],
+                $this->params['traceLevel']
+            );
+
+            $trace->pushHandler($traceHandler);
+
+            $this->params['traceObject'] = $trace;
         }
 
     }//end setLogging()

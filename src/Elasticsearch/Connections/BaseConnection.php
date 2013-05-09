@@ -85,13 +85,27 @@ abstract class BaseConnection
         $this->log->addInfo(
             'Request Success:',
             array(
-                'method'    => $method,
-                'uri'       => $fullURI,
-                'HTTP code' => $statusCode,
-                'duration'  => $duration,
+             'method'    => $method,
+             'uri'       => $fullURI,
+             'HTTP code' => $statusCode,
+             'duration'  => $duration,
             )
         );
         $this->log->addDebug('Response', array($response));
+
+        // Build the curl command for Trace.
+        $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
+        $this->trace->addInfo($curlCommand);
+        $this->trace->addDebug(
+            'Response:',
+            array(
+             'response'  => $response,
+             'method'    => $method,
+             'uri'       => $fullURI,
+             'HTTP code' => $statusCode,
+             'duration'  => $duration,
+            )
+        );
 
     }//end logRequestSuccess()
 
@@ -124,6 +138,50 @@ abstract class BaseConnection
         );
         $this->log->addDebug('Response', array($response));
 
+        // Build the curl command for Trace.
+        $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
+        $this->trace->addInfo($curlCommand);
+        $this->trace->addDebug(
+            'Response:',
+            array(
+             'response'  => $response,
+             'method'    => $method,
+             'uri'       => $fullURI,
+             'HTTP code' => $statusCode,
+             'duration'  => $duration,
+            )
+        );
+
     }//end logRequestFail()
+
+
+    /**
+     * Construct a string cURL command
+     *
+     * @param string $method HTTP method
+     * @param string $uri    Full URI of request
+     * @param string $body   Request body
+     *
+     * @return string
+     */
+    private function buildCurlCommand($method, $uri, $body)
+    {
+        if (strpos($uri, '?') === false) {
+            $uri .= '?pretty=true';
+        } else {
+            str_replace('?', '?pretty=true', $uri);
+        }
+
+        $curlCommand  = 'curl -X'.strtoupper($method);
+        $curlCommand .= " '".$uri."'";
+
+        if (isset($body) === true && $body !== '') {
+            $curlCommand .= " -d '".$body."'";
+        }
+
+        return $curlCommand;
+
+    }//end buildCurlCommand()
+
 
 }//end class

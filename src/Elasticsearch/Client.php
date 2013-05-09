@@ -109,6 +109,70 @@ class Client
 
 
     /**
+     * Index a document
+     *
+     * @param string          $index  Index name
+     * @param string          $type   Type name
+     * @param array           $doc    Assoc array holding the doc
+     * @param null|string|int $id     Optional ID for doc
+     * @param null|array      $params Optional parameters
+     *
+     * @return void
+     */
+    public function index($index, $type, $doc, $id=null, $params=null)
+    {
+
+    }//end index()
+
+    /**
+     * Get a document
+     *
+     * @param string     $index  Index name
+     * @param string|int $id     ID for doc to get
+     * @param string     $type   Type name
+     * @param null|array $params Optional parameters
+     *
+     * @return void
+     */
+    public function get($index, $id, $type='_all', $params=null)
+    {
+
+    }//end get()
+
+    /**
+     * Updateda document
+     *
+     * @param string     $index  Index name
+     * @param string     $type   Type name
+     * @param string|int $id     ID for doc to get
+     * @param array      $body   Assoc array of the doc body
+     * @param null|array $params Optional parameters
+     *
+     * @return void
+     */
+    public function update($index, $type, $id, $body, $params=null)
+    {
+
+    }
+
+
+    /**
+     * Search for a document
+     *
+     * @param string|array $query  Query to perform
+     * @param null|string  $index  Optional Index name
+     * @param null|string  $type   Optional Type name
+     * @param null|array   $params Optional parameters
+     *
+     * @return void
+     */
+    public function search($query, $index=null, $type=null, $params=null)
+    {
+
+    }//end search()
+
+
+    /**
      * Sets up the DIC parameter object
      *
      * Merges user-specified parameters into the default list, then

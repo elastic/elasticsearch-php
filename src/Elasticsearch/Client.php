@@ -9,6 +9,9 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Connections\CurlMultiConnection;
+use Elasticsearch\Namespaces\ClusterNamespace;
+use Elasticsearch\Namespaces\IndicesNamespace;
+use Elasticsearch\Namespaces\IndiciesNamespace;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
@@ -41,6 +44,16 @@ class Client
      * @var \Pimple
      */
     protected $params;
+
+    /**
+     * @var IndicesNamespace
+     */
+    protected $indices;
+
+    /**
+     * @var ClusterNamespace
+     */
+    protected $cluster;
 
     /**
      * @var array
@@ -104,6 +117,8 @@ class Client
         $this->setParams($this->hosts, $params);
         $this->setLogging();
         $this->transport = $this->params['transport'];
+        $this->indices   = $this->params['indicesNamespace'];
+        $this->cluster   = $this->params['clusterNamespace'];
 
     }//end __construct()
 
@@ -170,6 +185,30 @@ class Client
     {
 
     }//end search()
+
+
+    /**
+     * Operate on the Indices Namespace of commands
+     *
+     * @return IndicesNamespace
+     */
+    public function indices()
+    {
+        return $this->indices;
+
+    }//end indices()
+
+
+    /**
+     * Operate on the Cluster namespace of commands
+     *
+     * @return ClusterNamespace
+     */
+    public function cluster()
+    {
+        return $this->cluster;
+
+    }//end cluster()
 
 
     /**
@@ -279,6 +318,18 @@ class Client
         $this->params['sniffer'] = function ($dicParams) {
             return new $dicParams['snifferClass']();
         };
+
+        $this->params['indicesNamespace'] = $this->params->share(
+            function ($dicParams) {
+                return new IndicesNamespace($dicParams['transport']);
+            }
+        );
+
+        $this->params['clusterNamespace'] = $this->params->share(
+            function ($dicParams) {
+                return new ClusterNamespace($dicParams['transport']);
+            }
+        );
 
     }//end setParams()
 

@@ -10,7 +10,7 @@ namespace Elasticsearch\Connections;
 use Monolog\Logger;
 
 /**
- * Abstrat Class BaseConnection
+ * Abstrat Class AbstractConnection
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Connections
@@ -18,7 +18,7 @@ use Monolog\Logger;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-abstract class BaseConnection
+abstract class AbstractConnection
 {
     /**
      * @var string

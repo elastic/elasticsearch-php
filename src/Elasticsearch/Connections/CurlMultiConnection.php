@@ -21,7 +21,7 @@ use Elasticsearch\Common\Exceptions\TransportException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class CurlMultiConnection extends BaseConnection implements ConnectionInterface
+class CurlMultiConnection extends AbstractConnection implements ConnectionInterface
 {
 
     /**

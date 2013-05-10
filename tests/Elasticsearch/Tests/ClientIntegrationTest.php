@@ -89,4 +89,40 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($ret['_version'], $retDoc['_version']);
 
     }//end testIndexDocumentWithIDThenGet()
+
+
+    /**
+     * Index a document, then retrieve it with a search
+     *
+     * @covers \Elasticsearch\Client::index
+     * @covers \Elasticsearch\Client::search
+     *
+     * @return void
+     */
+    public function testIndexDocumentThenSearch()
+    {
+        $client = new Elasticsearch\Client();
+        $index  = 'testintegrationindex'.microtime(true);
+        $client->indices()->createIndex($index);
+
+        usleep(500000); // @todo replace this with a legit call to cluster health API
+
+        $doc    = array('testField' => 'abc');
+        $type   = 'test';
+        $params = array('refresh' => true);
+        $ret    = $client->index($index, $type, $doc, null, $params);
+
+        $this->assertEquals(1, $ret['ok']);
+        $this->assertEquals(1, $ret['_version']);
+        $this->assertEquals($index, $ret['_index']);
+        $this->assertEquals($type, $ret['_type']);
+
+        $query['query']['match'] = $doc;
+        $retDoc = $client->search($query, $index, $type);
+
+        $this->assertEquals($ret['_id'], $retDoc['hits']['hits'][0]['_id']);
+
+        $client->indices()->deleteIndex($index);
+
+    }//end testIndexDocumentThenSearch()
 }

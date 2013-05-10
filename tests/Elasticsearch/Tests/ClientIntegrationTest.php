@@ -70,7 +70,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
         $doc    = array('testField' => 'abc');
         $index  = 'test';
         $type   = 'test';
-        $id     = time();
+        $id     = (string)microtime(true);
         $ret    = $client->index($index, $type, $doc, $id);
 
         $this->assertEquals(1, $ret['ok']);
@@ -107,7 +107,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
         $doc    = array('testField' => 'abc');
         $index  = 'test';
         $type   = 'test';
-        $id     = time();
+        $id     = (string)microtime(true);
 
         $ret    = $client->index($index, $type, $doc, $id);
         $this->assertEquals(1, $ret['ok']);

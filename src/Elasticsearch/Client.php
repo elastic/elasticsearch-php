@@ -12,11 +12,9 @@ use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Connections\CurlMultiConnection;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
-use Elasticsearch\Namespaces\IndiciesNamespace;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
-use Psr\Log\InvalidArgumentException;
 
 /**
  * Class Client
@@ -249,6 +247,18 @@ class Client
     }//end update()
 
 
+    /**
+     * Delete a document
+     *
+     * @param string          $index  Index name
+     * @param string          $type   Type name
+     * @param null|string|int $id     Optional ID of doc
+     * @param null|array      $body   Optional query to delete doc
+     * @param null|array      $params Optional params
+     *
+     * @return array
+     * @throws Exceptions\InvalidArgumentException
+     */
     public function delete($index, $type, $id=null, $body=null, $params=null)
     {
         $whitelist = array(
@@ -272,7 +282,7 @@ class Client
         } else if (isset($params['q']) === true || isset($body) === true) {
             $uri = "/$index/$type/_query/";
         } else {
-            throw new InvalidArgumentException(
+            throw new Exceptions\InvalidArgumentException(
                 'An ID or query must be supplied to delete'
             );
         }
@@ -297,10 +307,59 @@ class Client
      * @param null|string  $type   Optional Type name
      * @param null|array   $params Optional parameters
      *
-     * @return void
+     * @throws Common\Exceptions\InvalidArgumentException
+     * @return array
      */
     public function search($query, $index=null, $type=null, $params=null)
     {
+        $whitelist = array(
+                      'explain',
+                      'fields',
+                      'from',
+                      'ignore_indices',
+                      'indices_boost',
+                      'preference',
+                      'routing',
+                      'search_type',
+                      'size',
+                      'sort',
+                      'source',
+                      'stats',
+                      'timeout',
+                      'version',
+                     );
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'GET';
+        $uri    = '/_search/';
+
+        if (isset($index) === true) {
+            $uri = "/$index/_search/";
+
+            if (isset($type) === true) {
+                $uri = "/$index/$type/_search/";
+            }
+        }
+
+        if (is_string($query) === true) {
+            $params['q'] = $query;
+            $body        = null;
+        } else if (is_array($query) === true) {
+            $body = $query;
+        } else {
+            throw new Exceptions\InvalidArgumentException(
+                'Query must be a string or array'
+            );
+        }
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params,
+            $body
+        );
+
+        return $retValue['data'];
 
     }//end search()
 

@@ -153,10 +153,10 @@ class Client
         $this->checkParamWhitelist($params, $whitelist);
 
         $method = 'POST';
-        $uri    = "/$index/$type/$doc";
+        $uri    = "/$index/$type/";
         if ($id !== null) {
             $method = 'PUT';
-            $uri   .= "/$id";
+            $uri   .= "$id/";
         }
 
         $retValue = $this->transport->performRequest(

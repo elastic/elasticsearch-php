@@ -97,6 +97,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Elasticsearch\Client::index
      * @covers \Elasticsearch\Client::get
+     * @covers \Elasticsearch\Client::delete
      *
      * @return void
      */

@@ -21,6 +21,7 @@ class IndicesNamespaceIntegrationTest extends \PHPUnit_Framework_TestCase
      * Create an index then delete it
      *
      * @covers \Elasticsearch\Namespaces\IndicesNamespace::createIndex
+     * @covers \Elasticsearch\Namespaces\IndicesNamespace::deleteIndex
      *
      * @return void
      */

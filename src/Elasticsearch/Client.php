@@ -445,32 +445,7 @@ class Client
             $this->params[$key] = $value;
         }
 
-        // Only used by some connections - won't be instantiated until used.
-        $this->params['curlMultiHandle'] = $this->params->share(
-            function () {
-                return curl_multi_init();
-            }
-        );
 
-        // This will inject a shared object into all connections.
-        // Allows users to inject shared resources, similar to the multi-handle
-        // shared above (but in their own code).
-        $this->params['connectionParamsShared'] = $this->params->share(
-            function ($dicParams) {
-
-                $connectionParams = $dicParams['connectionParams'];
-
-                // Multihandle connections need a "static", shared curl multihandle.
-                if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
-                    $connectionParams = array_merge(
-                        $connectionParams,
-                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
-                    );
-                }
-
-                return $connectionParams;
-            }
-        );
 
         $this->params['connection'] = function ($dicParams) {
             return function ($host, $port=null) use ($dicParams) {
@@ -495,7 +470,26 @@ class Client
             );
         };
 
-        // Share the ConnectionPool class as we only want one floating around.
+        $this->params['sniffer'] = function ($dicParams) {
+            return new $dicParams['snifferClass']();
+        };
+
+
+
+
+
+        /*
+            ----------------
+            Shared Section
+            ----------------
+        */
+
+        $this->params['transport'] = $this->params->share(
+            function ($dicParams) use ($hosts) {
+                return new Transport($hosts, $dicParams, $dicParams['logObject']);
+            }
+        );
+
         $this->params['connectionPool'] = $this->params->share(
             function ($dicParams) {
                 return function ($connections) use ($dicParams) {
@@ -508,16 +502,11 @@ class Client
             }
         );
 
-        // Share the Transport class as we only want one floating around.
-        $this->params['transport'] = $this->params->share(
-            function ($dicParams) use ($hosts) {
-                return new Transport($hosts, $dicParams, $dicParams['logObject']);
+        $this->params['clusterNamespace'] = $this->params->share(
+            function ($dicParams) {
+                return new ClusterNamespace($dicParams['transport']);
             }
         );
-
-        $this->params['sniffer'] = function ($dicParams) {
-            return new $dicParams['snifferClass']();
-        };
 
         $this->params['indicesNamespace'] = $this->params->share(
             function ($dicParams) {
@@ -525,9 +514,30 @@ class Client
             }
         );
 
-        $this->params['clusterNamespace'] = $this->params->share(
+        // This will inject a shared object into all connections.
+        // Allows users to inject shared resources, similar to the multi-handle
+        // shared above (but in their own code).
+        $this->params['connectionParamsShared'] = $this->params->share(
             function ($dicParams) {
-                return new ClusterNamespace($dicParams['transport']);
+
+                $connectionParams = $dicParams['connectionParams'];
+
+                // Multihandle connections need a "static", shared curl multihandle.
+                if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
+                    $connectionParams = array_merge(
+                        $connectionParams,
+                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
+                    );
+                }
+
+                return $connectionParams;
+            }
+        );
+
+        // Only used by some connections - won't be instantiated until used.
+        $this->params['curlMultiHandle'] = $this->params->share(
+            function () {
+                return curl_multi_init();
             }
         );
 

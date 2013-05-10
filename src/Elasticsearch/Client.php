@@ -16,6 +16,7 @@ use Elasticsearch\Namespaces\IndiciesNamespace;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
+use Psr\Log\InvalidArgumentException;
 
 /**
  * Class Client
@@ -246,6 +247,46 @@ class Client
         return $retValue['data'];
 
     }//end update()
+
+
+    public function delete($index, $type, $id=null, $body=null, $params=null)
+    {
+        $whitelist = array(
+                      'consistency',
+                      'fields',
+                      'parent',
+                      'refresh',
+                      'replication',
+                      'routing',
+                      'timeout',
+                      'version_type',
+                      'q',
+                     );
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'DELETE';
+
+        // Must be delete-by-id or delete-by-query.
+        if (isset($id) === true) {
+            $uri = "/$index/$type/$id/";
+        } else if (isset($params['q']) === true || isset($body) === true) {
+            $uri = "/$index/$type/_query/";
+        } else {
+            throw new InvalidArgumentException(
+                'An ID or query must be supplied to delete'
+            );
+        }
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params,
+            $body
+        );
+
+        return $retValue['data'];
+
+    }//end delete()
 
 
     /**

@@ -398,6 +398,10 @@ class Client
      */
     private function checkParamWhitelist($params, $whitelist)
     {
+        if (isset($params) !== true) {
+            return; //no params, just return.
+        }
+
         foreach ($params as $key => $value) {
             if (array_key_exists($key, $whitelist) === false) {
                 throw new UnexpectedValueException($key.' is not a valid parameter');

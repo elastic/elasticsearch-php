@@ -403,7 +403,7 @@ class Client
         }
 
         foreach ($params as $key => $value) {
-            if (array_key_exists($key, $whitelist) === false) {
+            if (array_search($key, $whitelist) === false) {
                 throw new UnexpectedValueException($key.' is not a valid parameter');
             }
         }

@@ -64,7 +64,7 @@ class Client
                                 'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
                                 'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
                                 'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
-                                'serializer'            => 'JSONSerializer',
+                                'serializerClass'       => '\Elasticsearch\Serializers\JSONSerializer',
                                 'sniffOnStart'          => false,
                                 'sniffAfterRequests'    => false,
                                 'sniffOnConnectionFail' => false,
@@ -474,7 +474,9 @@ class Client
             return new $dicParams['snifferClass']();
         };
 
-
+        $this->params['serializer'] = function ($dicParams) {
+            return new $dicParams['serializerClass']();
+        };
 
 
 

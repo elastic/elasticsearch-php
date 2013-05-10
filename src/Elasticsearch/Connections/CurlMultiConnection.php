@@ -43,7 +43,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return CurlMultiConnection
      */
-    public function __construct($host, $port=9200, $connectionParams, $log, $trace)
+    public function __construct($host, $port, $connectionParams, $log, $trace)
     {
         if (function_exists('curl_version') !== true) {
             $log->addCritical('Curl library/extension is required for CurlMultiConnection.');
@@ -55,6 +55,9 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             throw new InvalidArgumentException('curlMultiHandle must be set in connectionParams');
         }
 
+        if (isset($port) !== true) {
+            $port = 9200;
+        }
         $this->multiHandle = $connectionParams['curlMultiHandle'];
         return parent::__construct($host, $port, $connectionParams, $log, $trace);
 

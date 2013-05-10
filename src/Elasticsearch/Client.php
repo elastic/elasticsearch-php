@@ -218,12 +218,34 @@ class Client
      * @param array      $body   Assoc array of the doc body
      * @param null|array $params Optional parameters
      *
-     * @return void
+     * @return array
      */
     public function update($index, $type, $id, $body, $params=null)
     {
+        $whitelist = array(
+                      'consistency',
+                      'parent',
+                      'refresh',
+                      'replication',
+                      'routing',
+                      'timeout',
+                      'version_type',
+                     );
+        $this->checkParamWhitelist($params, $whitelist);
 
-    }
+        $method = 'PUT';
+        $uri    = "/$index/$type/$id/_update";
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params,
+            $body
+        );
+
+        return $retValue['data'];
+
+    }//end update()
 
 
     /**

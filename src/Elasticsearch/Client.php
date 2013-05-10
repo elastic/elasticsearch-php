@@ -8,6 +8,7 @@
 namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Connections\CurlMultiConnection;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
@@ -132,12 +133,44 @@ class Client
      * @param null|string|int $id     Optional ID for doc
      * @param null|array      $params Optional parameters
      *
-     * @return void
+     * @return array
      */
     public function index($index, $type, $doc, $id=null, $params=null)
     {
+        $whitelist = array(
+                      'consistency',
+                      'op_type',
+                      'parent',
+                      'percolate',
+                      'refresh',
+                      'replication',
+                      'routing',
+                      'timeout',
+                      'timestamp',
+                      'ttl',
+                      'version',
+                      'version_type',
+                     );
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'POST';
+        $uri    = "/$index/$type/$doc";
+        if ($id !== null) {
+            $method = 'PUT';
+            $uri   .= "/$id";
+        }
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params,
+            $doc
+        );
+
+        return $retValue['data'];
 
     }//end index()
+
 
     /**
      * Get a document
@@ -209,6 +242,25 @@ class Client
         return $this->cluster;
 
     }//end cluster()
+
+
+    /**
+     * Check if param is in whitelist
+     *
+     * @param array $params    Assoc array of parameters
+     * @param array $whitelist Whitelist of keys
+     *
+     * @throws UnexpectedValueException
+     */
+    private function checkParamWhitelist($params, $whitelist)
+    {
+        foreach ($params as $key => $value) {
+            if (array_key_exists($key, $whitelist) === false) {
+                throw new UnexpectedValueException($key.' is not a valid parameter');
+            }
+        }
+
+    }//end checkParamWhitelist()
 
 
     /**

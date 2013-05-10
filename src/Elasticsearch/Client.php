@@ -180,12 +180,34 @@ class Client
      * @param string     $type   Type name
      * @param null|array $params Optional parameters
      *
-     * @return void
+     * @return array
      */
     public function get($index, $id, $type='_all', $params=null)
     {
+        $whitelist = array(
+                      'fields',
+                      'parent',
+                      'preference',
+                      'realtime',
+                      'refresh',
+                      'routing',
+                      'timeout',
+                     );
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'GET';
+        $uri    = "/$index/$type/$id/";
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params
+        );
+
+        return $retValue['data'];
 
     }//end get()
+
 
     /**
      * Updateda document

@@ -25,10 +25,53 @@ class IndicesNamespace extends AbstractNamespace
      * @param null|array $body   Optional body parameters (mapping, setting, etc)
      * @param null|array $params Optional parameters
      *
-     * @return void
+     * @return array
      */
     public function createIndex($index, $body=null, $params=null)
     {
+        $whitelist = array('timeout');
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'PUT';
+
+        $uri = "/$index/";
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params,
+            $body
+        );
+
+        return $retValue['data'];
 
     }//end createIndex()
+
+
+    /**
+     * Delete a new Elasticsearch index
+     *
+     * @param string     $index  Name for new index
+     * @param null|array $params Optional parameters
+     *
+     * @return array
+     */
+    public function deleteIndex($index, $params=null)
+    {
+        $whitelist = array('timeout');
+        $this->checkParamWhitelist($params, $whitelist);
+
+        $method = 'DELETE';
+
+        $uri = "/$index/";
+
+        $retValue = $this->transport->performRequest(
+            $method,
+            $uri,
+            $params
+        );
+
+        return $retValue['data'];
+
+    }//end deleteIndex()
 }

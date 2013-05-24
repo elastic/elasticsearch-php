@@ -175,7 +175,7 @@ class Transport
      */
     public function getAllConnections()
     {
-        return $this->connectionPool->getConnections();
+        return $this->connectionPool->getAllConnections();
 
     }//end getAllConnections()
 

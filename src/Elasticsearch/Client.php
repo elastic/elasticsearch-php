@@ -151,6 +151,8 @@ class Client
                       'version_type',
                      );
         $this->checkParamWhitelist($params, $whitelist);
+        $index = urlencode($index);
+        $type  = urlencode($type);
 
         $method = 'POST';
         $uri    = "/$index/$type/";
@@ -193,6 +195,9 @@ class Client
                       'timeout',
                      );
         $this->checkParamWhitelist($params, $whitelist);
+        $index = urlencode($index);
+        $type  = urlencode($type);
+        $id    = urlencode($id);
 
         $method = 'GET';
         $uri    = "/$index/$type/$id/";
@@ -231,6 +236,9 @@ class Client
                       'version_type',
                      );
         $this->checkParamWhitelist($params, $whitelist);
+        $index = urlencode($index);
+        $type  = urlencode($type);
+        $id    = urlencode($id);
 
         $method = 'PUT';
         $uri    = "/$index/$type/$id/_update";
@@ -273,11 +281,14 @@ class Client
                       'q',
                      );
         $this->checkParamWhitelist($params, $whitelist);
+        $index = urlencode($index);
+        $type  = urlencode($type);
 
         $method = 'DELETE';
 
         // Must be delete-by-id or delete-by-query.
         if (isset($id) === true) {
+            $id  = urlencode($id);
             $uri = "/$index/$type/$id/";
         } else if (isset($params['q']) === true || isset($body) === true) {
             $uri = "/$index/$type/_query/";
@@ -334,10 +345,12 @@ class Client
         $uri    = '/_search/';
 
         if (isset($index) === true) {
-            $uri = "/$index/_search/";
+            $index = urlencode($index);
+            $uri   = "/$index/_search/";
 
             if (isset($type) === true) {
-                $uri = "/$index/$type/_search/";
+                $type = urlencode($type);
+                $uri  = "/$index/$type/_search/";
             }
         }
 

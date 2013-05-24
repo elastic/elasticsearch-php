@@ -66,7 +66,7 @@ class Client
                                 'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
                                 'serializerClass'       => '\Elasticsearch\Serializers\JSONSerializer',
                                 'sniffOnStart'          => false,
-                                'sniffAfterRequests'    => false,
+                                'snifferTimeout'        => false,
                                 'sniffOnConnectionFail' => false,
                                 'randomizeHosts'        => true,
                                 'maxRetries'            => 3,

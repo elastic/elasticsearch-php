@@ -37,13 +37,11 @@ class Transport
      */
     private $connectionPool;
 
-    private $requestCounter = 0;
+    private $lastSniff;
 
     private $sniffsDueToFailure = 0;
 
-    private $sniffAfterRequestsOriginal;
-
-    private $sniffAfterRequests;
+    private $snifferTimeout;
 
     private $sniffOnConnectionFail;
 
@@ -99,8 +97,7 @@ class Transport
 
         $this->params = $params;
 
-        $this->sniffAfterRequests         = $params['sniffAfterRequests'];
-        $this->sniffAfterRequestsOriginal = $params['sniffAfterRequests'];
+        $this->snifferTimeout         = $params['snifferTimeout'];
         $this->sniffOnConnectionFail      = $params['sniffOnConnectionFail'];
         $this->sniffer                    = $params['sniffer'];
         $this->maxRetries                 = $params['maxRetries'];
@@ -191,12 +188,10 @@ class Transport
      */
     public function getConnection()
     {
-        if ($this->sniffAfterRequests === true) {
-            if ($this->requestCounter > $this->sniffAfterRequests) {
+        if ($this->snifferTimeout !== false) {
+            if ((time() + $this->lastSniff) > $this->snifferTimeout) {
                 $this->sniffHosts();
             }
-
-            $this->requestCounter += 1;
         }
 
         return $this->connectionPool->getConnection();
@@ -214,23 +209,23 @@ class Transport
      */
     public function sniffHosts($failure=false)
     {
-        $this->requestCounter = 0;
-        $nodeInfo = $this->performRequest('GET', '/_cluster/nodes');
+        $this->lastSniff = time();
+        $nodeInfo        = $this->performRequest('GET', '/_cluster/nodes');
+
         $hosts = $this->sniffer->parseNodes($this->transportSchema, $nodeInfo);
         $this->setConnections($hosts);
 
         if ($failure === true) {
             $this->log->addNotice('Sniffing cluster state due to failure.');
             $this->sniffsDueToFailure += 1;
-            $this->sniffAfterRequests  = (1 + ($this->sniffAfterRequestsOriginal / pow(2,$this->sniffsDueToFailure)));
 
         } else {
             $this->log->addNotice('Sniffing cluster state.');
             $this->sniffsDueToFailure = 0;
-            $this->sniffAfterRequests = $this->sniffAfterRequestsOriginal;
         }
 
     }//end sniffHosts()
+
 
     /**
      * Marks a connection dead, or initiates a cluster resniff

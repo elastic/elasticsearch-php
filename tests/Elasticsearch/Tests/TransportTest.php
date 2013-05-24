@@ -86,7 +86,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
         $dicParams['sniffer']     = function () use ($that) { return $that->getMock('Sniffer'); };
         $dicParams['sniffOnStart'] = false;
-        $dicParams['sniffAfterRequests'] = false;
+        $dicParams['snifferTimeout'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
@@ -126,7 +126,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
         $dicParams['sniffer']     = function () use ($that) { return $that->getMock('Sniffer'); };
         $dicParams['sniffOnStart'] = false;
-        $dicParams['sniffAfterRequests'] = false;
+        $dicParams['snifferTimeout'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
         $dicParams['maxRetries'] = 3;$dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');
@@ -168,7 +168,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
         $dicParams['sniffer']     = function () use ($that) { return $that->getMock('Sniffer'); };
         $dicParams['sniffOnStart'] = false;
-        $dicParams['sniffAfterRequests'] = false;
+        $dicParams['snifferTimeout'] = false;
         $dicParams['sniffOnConnectionFail'] = false;
         $dicParams['maxRetries'] = 3;
         $dicParams['serializer'] = $this->getMock('Serializer');

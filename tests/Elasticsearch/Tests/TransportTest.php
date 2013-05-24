@@ -68,6 +68,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Host parameter must be an array
      *
      * @covers \Elasticsearch\Transport::addConnection
+     * @covers \Elasticsearch\Transport::__construct
      * @return void
      */
     public function testAddConnectionWithInvalidString()
@@ -108,6 +109,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Host must be provided in host parameter
      *
      * @covers \Elasticsearch\Transport::addConnection
+     * @covers \Elasticsearch\Transport::__construct
      * @return void
      */
     public function testAddConnectionWithMissingHost()
@@ -150,6 +152,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Port must be numeric
      *
      * @covers \Elasticsearch\Transport::addConnection
+     * @covers \Elasticsearch\Transport::__construct
      * @return void
      */
     public function testAddConnectionWithNonNumericPort()

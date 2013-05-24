@@ -72,4 +72,38 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
     }//end testParserMultipleHost()
 
+
+    /**
+     * Cluster sniffing - abstract class
+     *
+     * @covers \Elasticsearch\Sniffers\Sniffer::sniff
+     * @covers \Elasticsearch\Sniffers\Sniffer::parseNodes
+     *
+     * @return void
+     */
+    public function testSniffingAbstract()
+    {
+        $nodeInfo = array ( 'ok' => true, 'cluster_name' => 'elasticsearch_zach', 'nodes' => array ( 'pDXSdoudTcmLY1D2F3ks_A' => array ( 'name' => 'Magilla', 'transport_address' => 'inet[/192.168.1.119:9300]', 'hostname' => 'zach-ThinkPad-W530', 'version' => '0.20.5', 'http_address' => 'inet[/192.168.1.119:9200]', ), ), );
+
+        $mockTransport = $this->getMock('\Elasticsearch\Transport', array(), array(), '', false);
+        $mockTransport->expects($this->once())
+            ->method('getAllConnections')
+            ->will($this->returnValue(5));
+        $mockTransport->expects($this->once())
+            ->method('performRequest')
+            ->will($this->returnValue($nodeInfo));
+
+        $sniffer = new Elasticsearch\Sniffers\Sniffer($mockTransport);
+        $hosts   = $sniffer->sniff('http');
+
+        $expected = array(
+            array(
+                'host' => '192.168.1.119',
+                'port' => 9200,
+            ),
+        );
+        $this->assertEquals($expected, $hosts);
+
+    }//end testSniffingAbstract()
+
 }//end class

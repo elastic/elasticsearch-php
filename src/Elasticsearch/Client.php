@@ -493,7 +493,15 @@ class Client
             return new $dicParams['serializerClass']();
         };
 
-
+        $this->params['connectionPool'] = function ($dicParams) {
+            return function ($connections) use ($dicParams) {
+                return new $dicParams['connectionPoolClass'](
+                    $connections,
+                    $dicParams['selector'],
+                    $dicParams['deadPool'],
+                    $dicParams['randomizeHosts']);
+            };
+        };
 
         /*
             ----------------
@@ -504,18 +512,6 @@ class Client
         $this->params['transport'] = $this->params->share(
             function ($dicParams) use ($hosts) {
                 return new Transport($hosts, $dicParams, $dicParams['logObject']);
-            }
-        );
-
-        $this->params['connectionPool'] = $this->params->share(
-            function ($dicParams) {
-                return function ($connections) use ($dicParams) {
-                    return new $dicParams['connectionPoolClass'](
-                        $connections,
-                        $dicParams['selector'],
-                        $dicParams['deadPool'],
-                        $dicParams['randomizeHosts']);
-                };
             }
         );
 

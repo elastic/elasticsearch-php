@@ -97,11 +97,11 @@ class Transport
 
         $this->params = $params;
 
-        $this->snifferTimeout         = $params['snifferTimeout'];
-        $this->sniffOnConnectionFail      = $params['sniffOnConnectionFail'];
-        $this->sniffer                    = $params['sniffer'];
-        $this->maxRetries                 = $params['maxRetries'];
-        $this->serializer                 = $params['serializer'];
+        $this->snifferTimeout        = $params['snifferTimeout'];
+        $this->sniffOnConnectionFail = $params['sniffOnConnectionFail'];
+        $this->sniffer               = $params['sniffer'];
+        $this->maxRetries            = $params['maxRetries'];
+        $this->serializer            = $params['serializer'];
 
         $this->setConnections($hosts);
 

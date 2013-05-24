@@ -484,7 +484,9 @@ class Client
         };
 
         $this->params['sniffer'] = function ($dicParams) {
-            return new $dicParams['snifferClass']();
+            return function ($transport) use ($dicParams) {
+                return new $dicParams['snifferClass']($transport);
+            };
         };
 
         $this->params['serializer'] = function ($dicParams) {

@@ -91,14 +91,14 @@ class Transport
 
         $this->snifferTimeout        = $params['snifferTimeout'];
         $this->sniffOnConnectionFail = $params['sniffOnConnectionFail'];
-        $this->sniffer               = $params['sniffer'];
+        $this->sniffer               = $params['sniffer']($this);
         $this->maxRetries            = $params['maxRetries'];
         $this->serializer            = $params['serializer'];
 
         $this->seeds = $hosts;
         $this->setConnections($hosts);
 
-        if ($this->params['sniffOnStart'] === true) {
+        if ($params['sniffOnStart'] === true) {
             $this->log->addNotice('Sniff on Start.');
             $this->sniffHosts();
         }
@@ -206,9 +206,8 @@ class Transport
     public function sniffHosts($failure=false)
     {
         $this->lastSniff = time();
-        $nodeInfo        = $this->performRequest('GET', '/_cluster/nodes');
 
-        $hosts = $this->sniffer->parseNodes($this->transportSchema, $nodeInfo);
+        $hosts = $this->sniffer->sniff($this->transportSchema);
         $this->setConnections($hosts);
 
         if ($failure === true) {
@@ -244,17 +243,22 @@ class Transport
     /**
      * Perform a request to the Cluster
      *
-     * @param string $method HTTP method to use
-     * @param string $uri    HTTP URI to send request to
-     * @param null   $params Optional query parameters
-     * @param null   $body   Optional query body
+     * @param string $method     HTTP method to use
+     * @param string $uri        HTTP URI to send request to
+     * @param null   $params     Optional query parameters
+     * @param null   $body       Optional query body
+     * @param null   $maxRetries Optional number of retries
      *
-     * @throws MaxRetriesException
+     * @throws Common\Exceptions\MaxRetriesException
      * @return array
      */
-    public function performRequest($method, $uri, $params=null, $body=null)
+    public function performRequest($method, $uri, $params=null, $body=null, $maxRetries=null)
     {
-        foreach (range(1, $this->maxRetries) as $attempt) {
+        if (isset($maxRetries) !== true) {
+            $maxRetries = $this->maxRetries;
+        }
+
+        foreach (range(1, $maxRetries) as $attempt) {
             $connection = $this->getConnection();
 
             if (isset($body) === true) {

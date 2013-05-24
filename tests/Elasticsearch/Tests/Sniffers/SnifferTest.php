@@ -28,7 +28,8 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     {
         $nodeInfo = array ( 'ok' => true, 'cluster_name' => 'elasticsearch_zach', 'nodes' => array ( 'pDXSdoudTcmLY1D2F3ks_A' => array ( 'name' => 'Magilla', 'transport_address' => 'inet[/192.168.1.119:9300]', 'hostname' => 'zach-ThinkPad-W530', 'version' => '0.20.5', 'http_address' => 'inet[/192.168.1.119:9200]', ), ), );
 
-        $sniffer = new Elasticsearch\Sniffers\Sniffer();
+        $mockTransport = $this->getMock('Transport');
+        $sniffer = new Elasticsearch\Sniffers\Sniffer($mockTransport);
         $hosts   = $sniffer->parseNodes('http', $nodeInfo);
 
         $expected = array(
@@ -63,7 +64,8 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
         $nodeInfo = array ( 'ok' => true, 'cluster_name' => 'elasticsearch_zach', 'nodes' => $hosts, );
 
-        $sniffer = new Elasticsearch\Sniffers\Sniffer();
+        $mockTransport = $this->getMock('Transport');
+        $sniffer = new Elasticsearch\Sniffers\Sniffer($mockTransport);
         $hosts   = $sniffer->parseNodes('http', $nodeInfo);
 
         $this->assertEquals($expected, $hosts);

@@ -37,6 +37,8 @@ class Transport
      */
     private $connectionPool;
 
+    private $seeds = array();
+
     private $lastSniff;
 
     private $sniffsDueToFailure = 0;
@@ -103,6 +105,7 @@ class Transport
         $this->maxRetries            = $params['maxRetries'];
         $this->serializer            = $params['serializer'];
 
+        $this->seeds = $hosts;
         $this->setConnections($hosts);
 
         if ($this->params['sniffOnStart'] === true) {
@@ -122,6 +125,9 @@ class Transport
      */
     public function setConnections($hosts)
     {
+        // Merge in the initial seed list (union not array_merge).
+        $hosts = $hosts + $this->seeds;
+
         $connections = array();
         foreach ($hosts as $host) {
             if (isset($host['port']) === true) {
@@ -132,7 +138,7 @@ class Transport
         }
 
         $this->transportSchema = $connections[0]->getTransportSchema();
-        $this->connectionPool = $this->params['connectionPool']($connections);
+        $this->connectionPool  = $this->params['connectionPool']($connections);
 
     }//end setConnections()
 

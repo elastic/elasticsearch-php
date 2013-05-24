@@ -17,28 +17,6 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 {
 
 
-    /**
-     * Test null constructors
-     *
-     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
-     * @expectedExceptionMessage Hosts parameter must be set
-     *
-     * @covers \Elasticsearch\Transport::__construct
-     * @return void
-     */
-    public function testNullConstructor()
-    {
-        $hosts = null;
-        $params = null;
-        // Empty constructor.
-        $log = $this->getMockBuilder('\Monolog\Logger')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $transport = new Elasticsearch\Transport($hosts, $params, $log);
-
-    }//end testNullConstructor()
-
 
     /**
      * Test string constructors

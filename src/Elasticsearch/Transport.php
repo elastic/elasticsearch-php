@@ -82,16 +82,6 @@ class Transport
     {
         $this->log = $log;
 
-        if (isset($hosts) !== true) {
-            $this->log->addCritical('Hosts parameter must be set');
-            throw new Exceptions\BadMethodCallException('Hosts parameter must be set');
-        }
-
-        if (isset($params) !== true) {
-            $this->log->addCritical('Params parameter must be set');
-            throw new Exceptions\BadMethodCallException('Params parameter must be set');
-        }
-
         if (is_array($hosts) !== true) {
             $this->log->addCritical('Hosts parameter must be an array');
             throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array');

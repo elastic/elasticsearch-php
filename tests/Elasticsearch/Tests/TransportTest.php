@@ -171,6 +171,56 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * Test adding a connection
+     *
+     * @covers \Elasticsearch\Transport::addConnection
+     * @covers \Elasticsearch\Transport::__construct
+     * @return void
+     */
+    public function testAddConnection()
+    {
+        $hosts = array(array('host' => 'localhost', 'port' => 9200));
+        $that = $this;
+        $dicParams['connectionPool'] = function ($connections) use ($that) {
+            $mockConnectionPool = $that->getMock('\Elasticsearch\ConnectionPool\ConnectionPool', array(), array(), '', false);
+            $mockConnectionPool->expects($that->once())
+                ->method('addConnection');
+
+            return $mockConnectionPool;
+        };
+        $dicParams['connection'] = function ($host, $port) use ($that) {
+            $mockConnection =  $that->getMock('Connection', array('getTransportSchema'));
+
+            $mockConnection->expects($that->any())
+                ->method('getTransportSchema')
+                ->will($that->returnValue('http'));
+
+            return $mockConnection;
+        };
+        $dicParams['sniffer']     = function () use ($that) { return $that->getMock('Sniffer'); };
+        $dicParams['sniffOnStart'] = false;
+        $dicParams['snifferTimeout'] = false;
+        $dicParams['sniffOnConnectionFail'] = false;
+        $dicParams['maxRetries'] = 3;
+        $dicParams['serializer'] = $this->getMock('Serializer');
+
+        $log = $this->getMockBuilder('\Monolog\Logger')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
+
+        $host = array(
+            'host' => 'localhost',
+            'port' => 9200,
+        );
+
+        $transport->addConnection($host);
+
+    }//end testAddConnection()
+
+
+    /**
      * Test sniffing on start
      *
      *

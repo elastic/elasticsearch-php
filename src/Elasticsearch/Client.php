@@ -9,7 +9,6 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
-use Elasticsearch\Connections\CurlMultiConnection;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Monolog\Handler\StreamHandler;

@@ -127,8 +127,8 @@ class Transport
             }
         }
 
-        $this->transportSchema = $connections[0]->getTransportSchema();
         $this->connectionPool  = $this->params['connectionPool']($connections);
+        $this->transportSchema = $this->connectionPool->getTransportSchema();
 
     }//end setConnections()
 

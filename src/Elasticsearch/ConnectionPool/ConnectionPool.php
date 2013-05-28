@@ -108,6 +108,23 @@ class ConnectionPool
 
 
     /**
+     * Get's the transport schema of the cluster
+     * Uses the first connection to find the schema
+     *
+     * @return string
+     */
+    public function getTransportSchema()
+    {
+        if (count($this->connections) > 0) {
+            return $this->connections[0]->getTransportSchema();
+        } else {
+            return 'NoSchema';
+        }
+
+    }//end getTransportSchema()
+
+
+    /**
      * Query our deadpool to see if any nodes can be returned to the connection list
      *
      * @param bool $force If set to true, forces the Deadpool to resurrect a

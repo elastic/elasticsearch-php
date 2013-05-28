@@ -37,23 +37,44 @@ class Transport
      */
     private $connectionPool;
 
+    /**
+     * @var array Array of seed nodes provided by the user
+     */
     private $seeds = array();
 
+    /**
+     * @var int Time of the last sniff
+     */
     private $lastSniff;
 
+    /**
+     * @var int Number of sniffs that were initiated due to failed requests
+     */
     private $sniffsDueToFailure = 0;
 
+    /**
+     * @var bool|int False if sniffing disabled, number of seconds if enabled
+     */
     private $snifferTimeout;
 
+    /**
+     * @var bool True if cluster sniffing is initiated on failed request
+     */
     private $sniffOnConnectionFail;
 
     /**
-     * @var Sniffer
+     * @var Sniffer Sniffer object
      */
     private $sniffer;
 
+    /**
+     * @var string Transport schema used by cluster
+     */
     private $transportSchema;
 
+    /**
+     * @var int Maximum number of retries before failing a request
+     */
     private $maxRetries;
 
     /**

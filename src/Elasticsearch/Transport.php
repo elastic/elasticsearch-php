@@ -199,12 +199,7 @@ class Transport
      */
     public function getConnection()
     {
-        if ($this->snifferTimeout !== false) {
-            if (($this->lastSniff + $this->snifferTimeout) < time()) {
-                $this->sniffHosts();
-            }
-        }
-
+        $this->checkSnifferTimeout();
         return $this->connectionPool->getConnection();
 
     }//end getConnection()
@@ -339,6 +334,22 @@ class Transport
         return $connections;
 
     }//end hostsToConnections()
+
+
+    /**
+     * Check the sniifer timeout and perform a sniff if required
+     *
+     * @return void
+     */
+    private function checkSnifferTimeout()
+    {
+        if ($this->snifferTimeout !== false) {
+            if (($this->lastSniff + $this->snifferTimeout) < time()) {
+                $this->sniffHosts();
+            }
+        }
+
+    }//end checkSnifferTimeout()
 
 
 }//end class

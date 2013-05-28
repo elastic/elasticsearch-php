@@ -94,6 +94,7 @@ class Transport
         $this->sniffer               = $params['sniffer']($this);
         $this->maxRetries            = $params['maxRetries'];
         $this->serializer            = $params['serializer'];
+        $this->lastSniff             = time();
 
         $this->seeds = $hosts;
         $this->setConnections($hosts);
@@ -185,7 +186,7 @@ class Transport
     public function getConnection()
     {
         if ($this->snifferTimeout !== false) {
-            if ((time() + $this->lastSniff) > $this->snifferTimeout) {
+            if (($this->lastSniff + $this->snifferTimeout) < time()) {
                 $this->sniffHosts();
             }
         }

@@ -140,14 +140,7 @@ class Transport
         // Merge in the initial seed list (union not array_merge).
         $hosts = $hosts + $this->seeds;
 
-        $connections = array();
-        foreach ($hosts as $host) {
-            if (isset($host['port']) === true) {
-                $connections[] = $this->params['connection']($host['host'], $host['port']);
-            } else {
-                $connections[] = $this->params['connection']($host['host']);
-            }
-        }
+        $connections = $this->hostsToConnections($hosts);
 
         $this->connectionPool  = $this->params['connectionPool']($connections);
         $this->transportSchema = $this->connectionPool->getTransportSchema();
@@ -320,6 +313,32 @@ class Transport
         }//end foreach
 
     }//end performRequest()
+
+
+    /**
+     * Convert host arrays into connections
+     *
+     * @param array $hosts Assoc array of host values
+     *
+     * @return array
+     */
+    private function hostsToConnections($hosts)
+    {
+        $connections = array();
+        foreach ($hosts as $host) {
+            if (isset($host['port']) === true) {
+                $connections[] = $this->params['connection'](
+                    $host['host'],
+                    $host['port']
+                );
+            } else {
+                $connections[] = $this->params['connection']($host['host']);
+            }
+        }
+
+        return $connections;
+
+    }//end hostsToConnections()
 
 
 }//end class

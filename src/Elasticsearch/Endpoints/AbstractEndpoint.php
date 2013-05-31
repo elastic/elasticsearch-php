@@ -27,7 +27,7 @@ abstract class AbstractEndpoint
     protected $type;
 
     /** @var  string|int */
-    protected $docID;
+    protected $id;
 
     /** @var  string */
     protected $method;
@@ -122,9 +122,9 @@ abstract class AbstractEndpoint
      *
      * @return $this
      */
-    public function setDocID($docID)
+    public function setID($docID)
     {
-        $this->docID = urlencode($docID);
+        $this->id = urlencode($docID);
         return $this;
     }
 

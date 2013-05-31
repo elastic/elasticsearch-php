@@ -62,33 +62,13 @@ class Client
      *
      * @param null|array $hosts  Array of Hosts to connect to
      * @param array      $params Array of injectable parameters
-     *
-     * @throws Common\Exceptions\InvalidArgumentException
      */
     public function __construct($hosts = null, $params = array())
     {
         if (isset($hosts) === false) {
-            $this->hosts[] = array('host' => 'localhost');
+            $this->hosts = $this->getDefaultHost();
         } else {
-            if (is_array($hosts) === false) {
-                throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array of strings');
-            }
-
-            foreach ($hosts as $host) {
-                if (strpos($host, ':') !== false) {
-                    $host = explode(':', $host);
-                    if ($host[1] === '' || is_numeric($host[1]) === false) {
-                        throw new Exceptions\InvalidArgumentException('Port must be a valid integer');
-                    }
-
-                    $this->hosts[] = array(
-                        'host' => $host[0],
-                        'port' => (int)$host[1],
-                    );
-                } else {
-                    $this->hosts[] = array('host' => $host);
-                }
-            }
+            $this->hosts = $this->buildHostsFromSeed($hosts);
         }
 
         $this->setParams($this->hosts, $params);
@@ -315,6 +295,60 @@ class Client
             $this->params['traceObject'] = $trace;
         }
 
+    }
+
+
+    /**
+     * @return array
+     */
+    private function getDefaultHost()
+    {
+        return array(array('host' => 'localhost', 'port' => 9200));
+    }
+
+
+    /**
+     * @param array $hosts
+     *
+     * @return array
+     * @throws Common\Exceptions\InvalidArgumentException
+     */
+    private function buildHostsFromSeed($hosts)
+    {
+        if (is_array($hosts) === false) {
+            throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array of strings');
+        }
+
+        $finalHosts = array();
+        foreach ($hosts as $host) {
+            if (strpos($host, ':') !== false) {
+                $finalHosts[] = $this->extractHostPortFromSeed($host);
+            } else {
+                $finalHosts[] = array('host' => $host);
+            }
+        }
+
+        return $finalHosts;
+    }
+
+
+    /**
+     * @param array $host
+     *
+     * @return array
+     * @throws Common\Exceptions\InvalidArgumentException
+     */
+    private function extractHostPortFromSeed($host)
+    {
+        $host = explode(':', $host);
+        if ($host[1] === '' || is_numeric($host[1]) === false) {
+            throw new Exceptions\InvalidArgumentException('Port must be a valid integer');
+        }
+
+         return array(
+            'host' => $host[0],
+            'port' => (int)$host[1],
+        );
     }
 
 

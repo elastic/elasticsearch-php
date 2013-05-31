@@ -261,29 +261,6 @@ class Client
 
 
     /**
-     * Check if param is in whitelist
-     *
-     * @param array $params    Assoc array of parameters
-     * @param array $whitelist Whitelist of keys
-     *
-     * @throws UnexpectedValueException
-     */
-    private function checkParamWhitelist($params, $whitelist)
-    {
-        if (isset($params) !== true) {
-            return; //no params, just return.
-        }
-
-        foreach ($params as $key => $value) {
-            if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException($key . ' is not a valid parameter');
-            }
-        }
-
-    }
-
-
-    /**
      * Sets up the DIC parameter object
      *
      * Merges user-specified parameters into the default list, then

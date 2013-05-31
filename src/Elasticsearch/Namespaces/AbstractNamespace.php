@@ -33,7 +33,7 @@ abstract class AbstractNamespace
     {
         $this->transport = $transport;
 
-    }//end __construct()
+    }
 
 
     /**
@@ -57,5 +57,5 @@ abstract class AbstractNamespace
             }
         }
 
-    }//end checkParamWhitelist()
+    }
 }

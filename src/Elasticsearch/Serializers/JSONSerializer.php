@@ -31,7 +31,7 @@ class JSONSerializer implements SerializerInterface
     {
         return json_encode($data);
 
-    }//end serialize()
+    }
 
 
     /**
@@ -45,5 +45,5 @@ class JSONSerializer implements SerializerInterface
     {
         return json_decode($data, true);
 
-    }//end deserialize()
+    }
 }

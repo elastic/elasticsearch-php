@@ -37,7 +37,7 @@ abstract class AbstractSniffer
     {
         $this->transport = $transport;
 
-    }//end __construct()
+    }
 
 
     /**
@@ -74,7 +74,7 @@ abstract class AbstractSniffer
 
         return $hosts;
 
-    }//end sniff()
+    }
 
 
 }//end class

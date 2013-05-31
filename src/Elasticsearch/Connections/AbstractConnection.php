@@ -63,7 +63,7 @@ abstract class AbstractConnection
         $this->trace = $trace;
         $this->connectionParams = $connectionParams;
 
-    }//end __construct()
+    }
 
 
     /**
@@ -107,7 +107,7 @@ abstract class AbstractConnection
             )
         );
 
-    }//end logRequestSuccess()
+    }
 
 
     /**
@@ -152,7 +152,7 @@ abstract class AbstractConnection
             )
         );
 
-    }//end logRequestFail()
+    }
 
 
     /**
@@ -181,7 +181,7 @@ abstract class AbstractConnection
 
         return $curlCommand;
 
-    }//end buildCurlCommand()
+    }
 
 
 }//end class

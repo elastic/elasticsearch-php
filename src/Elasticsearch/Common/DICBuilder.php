@@ -68,7 +68,7 @@ class DICBuilder
         $this->checkParamWhitelist($params);
         $this->createDICObject($hosts, $params);
 
-    }//end __construct()
+    }
 
 
     /**
@@ -80,7 +80,7 @@ class DICBuilder
     {
         return $this->dic;
 
-    }//end getDIC()
+    }
 
 
     /**
@@ -102,7 +102,7 @@ class DICBuilder
             }
         }
 
-    }//end checkParamWhitelist()
+    }
 
 
     /**
@@ -121,7 +121,7 @@ class DICBuilder
         $this->setNonSharedDICObjects();
         $this->setSharedDICObjects($hosts);
 
-    }//end createDICObject()
+    }
 
 
     /**
@@ -138,7 +138,7 @@ class DICBuilder
         foreach ($params as $key => $value) {
             $this->dic[$key] = $value;
         }
-    }//end setDICParams()
+    }
 
 
     /**

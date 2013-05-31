@@ -85,7 +85,7 @@ class ConnectionPool
         $this->deadPool       = $deadPool;
         $this->randomizeHosts = $randomizeHosts;
 
-    }//end __construct()
+    }
 
 
     /**
@@ -104,7 +104,7 @@ class ConnectionPool
 
         return $this->selector->select($this->connections);
 
-    }//end getConnection()
+    }
 
 
     /**
@@ -121,7 +121,7 @@ class ConnectionPool
             return 'NoSchema';
         }
 
-    }//end getTransportSchema()
+    }
 
 
     /**
@@ -140,7 +140,7 @@ class ConnectionPool
             $this->connections = array_merge($this->connections, $resurrected);
         }
 
-    }//end resurrect()
+    }
 
 
     /**
@@ -154,7 +154,7 @@ class ConnectionPool
     {
         $this->connections[] = $connection;
 
-    }//end addConnection()
+    }
 
 
     /**
@@ -172,7 +172,7 @@ class ConnectionPool
         $this->deadPool->markDead($this->connections[$position]);
         unset($this->connections[$position]);
 
-    }//end markDead()
+    }
 
 
     /**
@@ -184,6 +184,6 @@ class ConnectionPool
     {
         return $this->connections;
 
-    }//end getAllConnections()
+    }
 
 }

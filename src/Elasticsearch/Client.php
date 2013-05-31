@@ -88,7 +88,7 @@ class Client
                     $this->hosts[] = array('host' => $host);
                 }
             }
-        }//end if
+        }
 
         $this->setParams($this->hosts, $params);
         $this->setLogging();
@@ -96,7 +96,7 @@ class Client
         $this->indices   = $this->params['indicesNamespace'];
         $this->cluster   = $this->params['clusterNamespace'];
 
-    }//end __construct()
+    }
 
 
     /**
@@ -146,7 +146,7 @@ class Client
 
         return $retValue['data'];
 
-    }//end index()
+    }
 
 
     /**
@@ -186,7 +186,7 @@ class Client
 
         return $retValue['data'];
 
-    }//end get()
+    }
 
 
     /**
@@ -228,7 +228,7 @@ class Client
 
         return $retValue['data'];
 
-    }//end update()
+    }
 
 
     /**
@@ -283,7 +283,7 @@ class Client
 
         return $retValue['data'];
 
-    }//end delete()
+    }
 
 
     /**
@@ -350,7 +350,7 @@ class Client
 
         return $retValue['data'];
 
-    }//end search()
+    }
 
 
     /**
@@ -362,7 +362,7 @@ class Client
     {
         return $this->indices;
 
-    }//end indices()
+    }
 
 
     /**
@@ -374,7 +374,7 @@ class Client
     {
         return $this->cluster;
 
-    }//end cluster()
+    }
 
 
     /**
@@ -397,7 +397,7 @@ class Client
             }
         }
 
-    }//end checkParamWhitelist()
+    }
 
 
     /**
@@ -416,7 +416,7 @@ class Client
         $dicBuilder = new DICBuilder($hosts, $params);
         $this->params = $dicBuilder->getDIC();
 
-    }//end setParams()
+    }
 
 
     /**
@@ -455,7 +455,7 @@ class Client
             $this->params['traceObject'] = $trace;
         }
 
-    }//end setLogging()
+    }
 
 
-}//end class
+}

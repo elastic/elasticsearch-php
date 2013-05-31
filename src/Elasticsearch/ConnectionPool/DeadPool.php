@@ -53,7 +53,7 @@ class DeadPool
         $this->deadTime = $deadTime;
         $this->log = $log;
 
-    }//end __construct()
+    }
 
 
     /**
@@ -94,7 +94,7 @@ class DeadPool
 
         return $resurrected;
 
-    }//end resurrect()
+    }
 
 
     /**
@@ -121,7 +121,7 @@ class DeadPool
                              'time'       => $time + $this->deadTime,
                             );
 
-    }//end markDead()
+    }
 
 
 }//end class

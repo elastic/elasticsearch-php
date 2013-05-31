@@ -125,7 +125,7 @@ class Transport
             $this->sniffHosts();
         }
 
-    }//end __construct()
+    }
 
 
     /**
@@ -145,7 +145,7 @@ class Transport
         $this->connectionPool  = $this->params['connectionPool']($connections);
         $this->transportSchema = $this->connectionPool->getTransportSchema();
 
-    }//end setConnections()
+    }
 
 
     /**
@@ -176,7 +176,7 @@ class Transport
         $connection = $this->params['connection']($host['host'], $host['port']);
         $this->connectionPool->addConnection($connection);
 
-    }//end addConnection()
+    }
 
 
     /**
@@ -188,7 +188,7 @@ class Transport
     {
         return $this->connectionPool->getAllConnections();
 
-    }//end getAllConnections()
+    }
 
 
     /**
@@ -202,7 +202,7 @@ class Transport
         $this->checkSnifferTimeout();
         return $this->connectionPool->getConnection();
 
-    }//end getConnection()
+    }
 
 
     /**
@@ -229,7 +229,7 @@ class Transport
             $this->sniffsDueToFailure = 0;
         }
 
-    }//end sniffHosts()
+    }
 
 
     /**
@@ -247,7 +247,7 @@ class Transport
             $this->connectionPool->markDead($connection);
         }
 
-    }//end markDead()
+    }
 
 
     /**
@@ -295,7 +295,7 @@ class Transport
 
                 // Skip the return below and continue retrying.
                 continue;
-            }//end try
+            }
 
             $data = $this->serializer->deserialize($response['text']);
 
@@ -305,9 +305,9 @@ class Transport
                     'info'   => $response['info'],
                    );
 
-        }//end foreach
+        }
 
-    }//end performRequest()
+    }
 
 
     /**
@@ -333,7 +333,7 @@ class Transport
 
         return $connections;
 
-    }//end hostsToConnections()
+    }
 
 
     /**
@@ -349,7 +349,7 @@ class Transport
             }
         }
 
-    }//end checkSnifferTimeout()
+    }
 
 
 }//end class

@@ -61,7 +61,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         $this->multiHandle = $connectionParams['curlMultiHandle'];
         return parent::__construct($host, $port, $connectionParams, $log, $trace);
 
-    }//end __construct()
+    }
 
 
     /**
@@ -73,7 +73,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
     {
         return $this->transportSchema;
 
-    }//end getTransportSchema()
+    }
 
 
     /**
@@ -207,6 +207,6 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
                 'info'   => $response['requestInfo'],
                );
 
-    }//end performRequest()
+    }
 
 }

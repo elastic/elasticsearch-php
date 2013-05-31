@@ -50,7 +50,7 @@ class Sniffer extends AbstractSniffer
 
         return $hosts;
 
-    }//end parseNodes()
+    }
 
 
 }//end class

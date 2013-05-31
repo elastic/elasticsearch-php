@@ -45,7 +45,7 @@ class IndicesNamespace extends AbstractNamespace
 
         return $retValue['data'];
 
-    }//end createIndex()
+    }
 
 
     /**
@@ -73,5 +73,5 @@ class IndicesNamespace extends AbstractNamespace
 
         return $retValue['data'];
 
-    }//end deleteIndex()
+    }
 }

@@ -113,37 +113,15 @@ class Client
      */
     public function index($index, $type, $doc, $id = null, $params = null)
     {
-        $whitelist = array(
-            'consistency',
-            'op_type',
-            'parent',
-            'percolate',
-            'refresh',
-            'replication',
-            'routing',
-            'timeout',
-            'timestamp',
-            'ttl',
-            'version',
-            'version_type',
-        );
-        $this->checkParamWhitelist($params, $whitelist);
-        $index = urlencode($index);
-        $type  = urlencode($type);
+        /** @var Endpoints\Index $endpoint */
+        $endpoint = $this->params['endpoint']('Index');
+        $endpoint->setIndex($index)
+            ->setType($type)
+            ->setBody($doc)
+            ->setID($id)
+            ->setParams($params);
 
-        $method = 'POST';
-        $uri    = "/$index/$type/";
-        if ($id !== null) {
-            $method = 'PUT';
-            $uri .= "$id/";
-        }
-
-        $retValue = $this->transport->performRequest(
-            $method,
-            $uri,
-            $params,
-            $doc
-        );
+        $retValue = $endpoint->performRequest();
 
         return $retValue['data'];
 

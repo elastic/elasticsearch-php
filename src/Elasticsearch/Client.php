@@ -10,7 +10,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\DICBuilder;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
-use Elasticsearch\Endpoints\Search;
+use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Monolog\Handler\StreamHandler;
@@ -238,51 +238,21 @@ class Client
      * @param string          $index  Index name
      * @param string          $type   Type name
      * @param null|string|int $id     Optional ID of doc
-     * @param null|array      $body   Optional query to delete doc
      * @param null|array      $params Optional params
      *
+     * @internal param array|null $body Optional query to delete doc
      * @return array
-     * @throws Exceptions\InvalidArgumentException
      */
-    public function delete($index, $type, $id = null, $body = null, $params = null)
+    public function delete($index, $type, $id, $params = null)
     {
-        $whitelist = array(
-            'consistency',
-            'fields',
-            'parent',
-            'refresh',
-            'replication',
-            'routing',
-            'timeout',
-            'version_type',
-            'q',
-        );
-        $this->checkParamWhitelist($params, $whitelist);
-        $index = urlencode($index);
-        $type  = urlencode($type);
+        /** @var Endpoints\Delete $endpoint */
+        $endpoint = $this->params['endpoint']('Delete');
+        $endpoint->setIndex($index)
+        ->setType($type)
+        ->setID($id)
+        ->setParams($params);
 
-        $method = 'DELETE';
-
-        // Must be delete-by-id or delete-by-query.
-        if (isset($id) === true) {
-            $id  = urlencode($id);
-            $uri = "/$index/$type/$id/";
-        } else {
-            if (isset($params['q']) === true || isset($body) === true) {
-                $uri = "/$index/$type/_query/";
-            } else {
-                throw new Exceptions\InvalidArgumentException(
-                    'An ID or query must be supplied to delete'
-                );
-            }
-        }
-
-        $retValue = $this->transport->performRequest(
-            $method,
-            $uri,
-            $params,
-            $body
-        );
+        $retValue = $endpoint->performRequest();
 
         return $retValue['data'];
 
@@ -302,8 +272,8 @@ class Client
      */
     public function search($query, $index = null, $type = null, $params = null)
     {
-        /** @var Search $endpoint */
-        $endpoint = $this->params['searchEndpoint'];
+        /** @var Endpoints\Search $endpoint */
+        $endpoint = $this->params['endpoint']('Search');
         $endpoint->setQuery($query)
             ->setIndex($index)
             ->setType($type)

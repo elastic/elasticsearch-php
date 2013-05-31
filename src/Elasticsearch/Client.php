@@ -162,28 +162,14 @@ class Client
      */
     public function get($index, $id, $type = '_all', $params = null)
     {
-        $whitelist = array(
-            'fields',
-            'parent',
-            'preference',
-            'realtime',
-            'refresh',
-            'routing',
-            'timeout',
-        );
-        $this->checkParamWhitelist($params, $whitelist);
-        $index = urlencode($index);
-        $type  = urlencode($type);
-        $id    = urlencode($id);
+        /** @var Endpoints\Get $endpoint */
+        $endpoint = $this->params['endpoint']('Get');
+        $endpoint->setIndex($index)
+            ->setType($type)
+            ->setID($id)
+            ->setParams($params);
 
-        $method = 'GET';
-        $uri    = "/$index/$type/$id/";
-
-        $retValue = $this->transport->performRequest(
-            $method,
-            $uri,
-            $params
-        );
+        $retValue = $endpoint->performRequest();
 
         return $retValue['data'];
 

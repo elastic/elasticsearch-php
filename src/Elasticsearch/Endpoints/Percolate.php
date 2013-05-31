@@ -1,0 +1,103 @@
+<?php
+/**
+ * User: zach
+ * Date: 05/31/2013
+ * Time: 15:31:17 pm
+ */
+
+namespace Elasticsearch\Endpoints;
+
+use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Common\Exceptions;
+
+/**
+ * Class Percolate
+ * @package Elasticsearch\Endpoints
+ */
+class Percolate extends AbstractEndpoint
+{
+
+    /**
+     *TODO Validate auto-generated file
+     *     Implement per-class specific functions if required
+
+{
+  "percolate": {
+    "documentation": "http://elasticsearch.org/guide/reference/api/percolate/",
+    "methods": ["GET", "POST"],
+    "url": {
+      "path": "/{index}/{type}/_percolate",
+      "paths": ["/{index}/{type}/_percolate"],
+      "parts": {
+        "index": {
+          "type" : "string",
+          "required" : true,
+          "description" : "The name of the index with a registered percolator query"
+        },
+        "type": {
+          "type" : "string",
+          "required" : true,
+          "description" : "The document type"
+        }
+      },
+      "params": {
+        "prefer_local": {
+          "type" : "boolean",
+          "description" : "With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)"
+        }
+      }
+    },
+    "body": {
+      "description" : "The document (`doc`) to percolate against registered queries; optionally also a `query` to limit the percolation to specific registered queries"
+    }
+  }
+}
+
+
+     */
+
+
+    /**
+     * @return string
+     */
+    protected function getURI()
+    {
+
+        if (isset($index) !== true) {
+            throw new Exceptions\BadMethodCallException(
+                'index is required for Percolate'
+            );
+        }
+
+        if (isset($type) !== true) {
+            throw new Exceptions\BadMethodCallException(
+                'type is required for Percolate'
+            );
+        }
+
+        $uri   = '/{index}/{type}/_percolate';
+        $index = $this->index;
+        $type = $this->type;
+
+        return $uri;
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getParamWhitelist()
+    {
+        return array(
+            'prefer_local',
+        );
+    }
+
+    /**
+     * @return string
+     */
+    protected function getMethod()
+    {
+        //TODO Fix Me!
+        return 'GET,POST';
+    }
+}

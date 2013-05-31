@@ -134,9 +134,9 @@ class Index extends AbstractEndpoint
             );
         }
 
-        $id = $this->id;
+        $id    = $this->id;
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type";
 
         if (isset($id) === true) {
@@ -172,7 +172,10 @@ class Index extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'POST,PUT';
+        if (isset($id) === true) {
+            return 'PUT';
+        } else {
+            return 'POST';
+        }
     }
 }

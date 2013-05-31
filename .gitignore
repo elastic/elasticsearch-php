@@ -15,3 +15,6 @@ composer.phar
 Icon?
 ehthumbs.db
 Thumbs.db
+
+#generator related
+generator/output/*

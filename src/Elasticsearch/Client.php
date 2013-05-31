@@ -203,29 +203,15 @@ class Client
      */
     public function update($index, $type, $id, $body, $params = null)
     {
-        $whitelist = array(
-            'consistency',
-            'parent',
-            'refresh',
-            'replication',
-            'routing',
-            'timeout',
-            'version_type',
-        );
-        $this->checkParamWhitelist($params, $whitelist);
-        $index = urlencode($index);
-        $type  = urlencode($type);
-        $id    = urlencode($id);
+        /** @var Endpoints\Update $endpoint */
+        $endpoint = $this->params['endpoint']('Update');
+        $endpoint->setIndex($index)
+            ->setType($type)
+            ->setID($id)
+            ->setBody($body)
+            ->setParams($params);
 
-        $method = 'PUT';
-        $uri    = "/$index/$type/$id/_update";
-
-        $retValue = $this->transport->performRequest(
-            $method,
-            $uri,
-            $params,
-            $body
-        );
+        $retValue = $endpoint->performRequest();
 
         return $retValue['data'];
 

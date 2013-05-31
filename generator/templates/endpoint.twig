@@ -1,0 +1,94 @@
+<?php
+/**
+ * User: zach
+ * Date: {{ "now"|date("m/d/Y") }}
+ * Time: {{ "now"|date("H:i:s a") }}
+ */
+
+namespace Elasticsearch\Endpoints{% for class in namespace %}{{ loop.last ? ';' : '\\' ~ class|title  }}{%  endfor %}
+
+
+use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Common\Exceptions;
+
+/**
+ * Class {{ className|title }}
+ * @package Elasticsearch\Endpoints{% for class in namespace %}{{ loop.last ? '' : '\\' ~ class|title  }}{%  endfor %}
+
+ */
+class {{ className|title }} extends AbstractEndpoint
+{
+
+    /**
+     *TODO Validate auto-generated file
+     *     Implement per-class specific functions if required
+
+{{ json|raw }}
+
+     */
+
+
+    /**
+     * @return string
+     */
+    protected function getURI()
+    {
+
+{% for part, info in data.url.parts %}
+{% if info.required == true %}
+        if (isset(${{ part }}) !== true) {
+            throw new Exceptions\BadMethodCallException(
+                '{{ part }} is required for {{ className }}'
+            );
+        }
+
+{% endif %}
+{% endfor %}
+        $uri   = '{{ data.url.path }}';
+{% for part, info in data.url.parts %}
+        ${{ part }} = $this->{{ part }};
+{% endfor %}
+{% set counter = 0 %}
+{% for part, info in data.url.parts %}
+{% if info.required != true %}
+{% if counter == 0 %}
+
+        if (isset(${{ part }}) === true) {
+            $uri = "{{ data.url.paths[loop.index] }}";
+        }{% else %} elseif (isset(${{ part }}) === true{{ lastTest|raw }}) {
+            $uri = "{{ data.url.paths[loop.index] }}";
+        }
+{% endif %}
+{% set lastTest = ' && isset($' ~ part ~') === true' ~ lastTest %}
+{% endif %}
+{% set counter = counter + 1 %}
+{% endfor %}
+
+        return $uri;
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getParamWhitelist()
+    {
+        return array(
+{% for param, options in data.url.params %}
+            '{{ param }}',
+{% endfor %}
+        );
+    }
+
+    /**
+     * @return string
+     */
+    protected function getMethod()
+    {
+{% if data.methods|length > 1 %}
+        //TODO Fix Me!
+        return '{{ data.methods|join(',') }}';
+{% else %}
+        return '{{ data.methods[0] }}';
+{% endif %}
+    }
+}

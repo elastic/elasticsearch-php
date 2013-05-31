@@ -25,7 +25,7 @@ class ClusterNamespace extends AbstractNamespace
      *
      * @return void
      */
-    public function state($params=null)
+    public function state($params = null)
     {
 
     }

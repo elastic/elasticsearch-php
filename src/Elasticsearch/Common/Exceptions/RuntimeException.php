@@ -17,4 +17,6 @@ namespace Elasticsearch\Common\Exceptions;
 /**
  * RuntimeException
  */
-class RuntimeException extends \RuntimeException implements ElasticsearchException {}
+class RuntimeException extends \RuntimeException implements ElasticsearchException
+{
+}

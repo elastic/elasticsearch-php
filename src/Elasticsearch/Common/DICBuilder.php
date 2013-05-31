@@ -25,26 +25,26 @@ class DICBuilder
      * @var array
      */
     protected $paramDefaults = array(
-                                'connectionClass'       => '\Elasticsearch\Connections\CurlMultiConnection',
-                                'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
-                                'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-                                'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
-                                'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
-                                'serializerClass'       => '\Elasticsearch\Serializers\JSONSerializer',
-                                'sniffOnStart'          => false,
-                                'snifferTimeout'        => false,
-                                'sniffOnConnectionFail' => false,
-                                'randomizeHosts'        => true,
-                                'maxRetries'            => 3,
-                                'deadTimeout'           => 60,
-                                'connectionParams'      => array(),
-                                'logObject'             => null,
-                                'logPath'               => 'elasticsearch.log',
-                                'logLevel'              => Logger::WARNING,
-                                'traceObject'           => null,
-                                'tracePath'             => 'elasticsearch.log',
-                                'traceLevel'            => Logger::WARNING,
-                               );
+        'connectionClass'       => '\Elasticsearch\Connections\CurlMultiConnection',
+        'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
+        'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
+        'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
+        'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
+        'serializerClass'       => '\Elasticsearch\Serializers\JSONSerializer',
+        'sniffOnStart'          => false,
+        'snifferTimeout'        => false,
+        'sniffOnConnectionFail' => false,
+        'randomizeHosts'        => true,
+        'maxRetries'            => 3,
+        'deadTimeout'           => 60,
+        'connectionParams'      => array(),
+        'logObject'             => null,
+        'logPath'               => 'elasticsearch.log',
+        'logLevel'              => Logger::WARNING,
+        'traceObject'           => null,
+        'tracePath'             => 'elasticsearch.log',
+        'traceLevel'            => Logger::WARNING,
+    );
 
 
     /**
@@ -73,7 +73,7 @@ class DICBuilder
 
     /**
      * Get the Dependency injection container
-     * 
+     *
      * @return Pimple
      */
     public function getDIC()
@@ -85,7 +85,7 @@ class DICBuilder
 
     /**
      * Verify that all parameters are whitelisted
-     * 
+     *
      * @param array $params Array of params
      *
      * @throws Exceptions\UnexpectedValueException
@@ -97,7 +97,7 @@ class DICBuilder
         foreach ($params as $key => $value) {
             if (array_key_exists($key, $this->paramDefaults) === false) {
                 throw new Exceptions\UnexpectedValueException(
-                    $key.' is not a recognized parameter'
+                    $key . ' is not a recognized parameter'
                 );
             }
         }
@@ -175,7 +175,7 @@ class DICBuilder
     private function setConnectionObj()
     {
         $this->dic['connection'] = function ($dicParams) {
-            return function ($host, $port=null) use ($dicParams) {
+            return function ($host, $port = null) use ($dicParams) {
                 return new $dicParams['connectionClass'](
                     $host,
                     $port,
@@ -187,12 +187,14 @@ class DICBuilder
         };
     }
 
+
     private function setSelectorObj()
     {
         $this->dic['selector'] = function ($dicParams) {
             return new $dicParams['selectorClass']();
         };
     }
+
 
     private function setDeadpoolObj()
     {
@@ -204,6 +206,7 @@ class DICBuilder
         };
     }
 
+
     private function setSnifferObj()
     {
         $this->dic['sniffer'] = function ($dicParams) {
@@ -213,12 +216,14 @@ class DICBuilder
         };
     }
 
+
     private function setSerializerObj()
     {
         $this->dic['serializer'] = function ($dicParams) {
             return new $dicParams['serializerClass']();
         };
     }
+
 
     private function setConnectionPoolObj()
     {
@@ -233,6 +238,7 @@ class DICBuilder
         };
     }
 
+
     private function setTransportObj($hosts)
     {
         $this->dic['transport'] = $this->dic->share(
@@ -241,6 +247,7 @@ class DICBuilder
             }
         );
     }
+
 
     private function setClusterNamespaceObj()
     {
@@ -251,6 +258,7 @@ class DICBuilder
         );
     }
 
+
     private function setIndicesNamespaceObj()
     {
         $this->dic['indicesNamespace'] = $this->dic->share(
@@ -259,6 +267,7 @@ class DICBuilder
             }
         );
     }
+
 
     private function setSharedConnectionParamsObj()
     {
@@ -282,6 +291,7 @@ class DICBuilder
             }
         );
     }
+
 
     private function setCurlMultihandle()
     {

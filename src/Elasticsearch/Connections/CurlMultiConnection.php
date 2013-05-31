@@ -88,23 +88,23 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
      * @return array
      */
-    public function performRequest($method, $uri, $params=null, $body=null)
+    public function performRequest($method, $uri, $params = null, $body = null)
     {
-        $uri = $this->host.$uri;
+        $uri = $this->host . $uri;
 
         if (isset($params) === true) {
-            $uri .= '?'.http_build_query($params);
+            $uri .= '?' . http_build_query($params);
         }
 
         $curlHandle = curl_init();
 
         $opts = array(
-                 CURLOPT_RETURNTRANSFER => true,
-                 CURLOPT_TIMEOUT        => 3,
-                 CURLOPT_CONNECTTIMEOUT => 3,
-                 CURLOPT_URL            => $uri,
-                 CURLOPT_CUSTOMREQUEST  => $method,
-                );
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 3,
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_URL            => $uri,
+            CURLOPT_CUSTOMREQUEST  => $method,
+        );
 
         if (isset($body) === true) {
             $opts[CURLOPT_POST]       = true;
@@ -131,8 +131,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             } while ($execrun == CURLM_CALL_MULTI_PERFORM && $running === true);
 
             if ($execrun !== CURLM_OK) {
-                $this->log->addCritical('Unexpected Curl error: '.$execrun);
-                throw new TransportException('Unexpected Curl error: '.$execrun);
+                $this->log->addCritical('Unexpected Curl error: ' . $execrun);
+                throw new TransportException('Unexpected Curl error: ' . $execrun);
             }
 
             /*
@@ -169,8 +169,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {
-            $this->log->addError('Curl error: '.$response['error']);
-            throw new TransportException('Curl error: '.$response['error']);
+            $this->log->addError('Curl error: ' . $response['error']);
+            throw new TransportException('Curl error: ' . $response['error']);
         }
 
         // Log all 3xx-4xx errors.
@@ -186,7 +186,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
             // Throw exceptions on 3xx (server) errors.
             if ($response['requestInfo']['http_code'] < 400) {
-                $exceptionText = $response['requestInfo']['http_code'].' Server Exception: '.$response['responseText'];
+                $exceptionText = $response['requestInfo']['http_code'] . ' Server Exception: ' . $response['responseText'];
                 $this->log->addError($exceptionText);
                 throw new ServerErrorResponseException($exceptionText);
             }
@@ -202,10 +202,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         );
 
         return array(
-                'status' => $response['requestInfo']['http_code'],
-                'text'   => $response['responseText'],
-                'info'   => $response['requestInfo'],
-               );
+            'status' => $response['requestInfo']['http_code'],
+            'text'   => $response['responseText'],
+            'info'   => $response['requestInfo'],
+        );
 
     }
 

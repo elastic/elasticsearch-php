@@ -15,4 +15,6 @@ namespace Elasticsearch\Common\Exceptions;
 /**
  * ServerErrorResponseException
  */
-class ServerErrorResponseException extends TransportException implements ElasticsearchException {}
+class ServerErrorResponseException extends TransportException implements ElasticsearchException
+{
+}

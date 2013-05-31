@@ -16,4 +16,6 @@ namespace Elasticsearch\Common\Exceptions;
  * BadMethodCallException
  * Denote problems with a method call (e.g. incorrect number of arguments)
  */
-class MaxRetriesException extends \Exception implements ElasticsearchException {}
+class MaxRetriesException extends \Exception implements ElasticsearchException
+{
+}

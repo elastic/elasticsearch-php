@@ -16,4 +16,6 @@ namespace Elasticsearch\Common\Exceptions;
  * UnexpectedValueException
  * Denote a value that is outside the normally accepted values
  */
-class UnexpectedValueException extends \UnexpectedValueException implements ElasticsearchException {}
+class UnexpectedValueException extends \UnexpectedValueException implements ElasticsearchException
+{
+}

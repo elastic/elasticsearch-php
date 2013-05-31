@@ -16,4 +16,6 @@ namespace Elasticsearch\Common\Exceptions;
  * InvalidArgumentException
  * Denote invalid or incorrect argument values
  */
-class InvalidArgumentException extends \InvalidArgumentException implements ElasticsearchException {}
+class InvalidArgumentException extends \InvalidArgumentException implements ElasticsearchException
+{
+}

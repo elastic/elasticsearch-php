@@ -9,8 +9,8 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\TransportException;
-use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Sniffers\Sniffer;
@@ -213,7 +213,7 @@ class Transport
      *
      * @return void
      */
-    public function sniffHosts($failure=false)
+    public function sniffHosts($failure = false)
     {
         $this->lastSniff = time();
 
@@ -262,7 +262,7 @@ class Transport
      * @throws Common\Exceptions\MaxRetriesException
      * @return array
      */
-    public function performRequest($method, $uri, $params=null, $body=null, $maxRetries=null)
+    public function performRequest($method, $uri, $params = null, $body = null, $maxRetries = null)
     {
         if (isset($maxRetries) !== true) {
             $maxRetries = $this->maxRetries;
@@ -300,10 +300,10 @@ class Transport
             $data = $this->serializer->deserialize($response['text']);
 
             return array(
-                    'status' => $response['status'],
-                    'data'   => $data,
-                    'info'   => $response['info'],
-                   );
+                'status' => $response['status'],
+                'data'   => $data,
+                'info'   => $response['info'],
+            );
 
         }
 

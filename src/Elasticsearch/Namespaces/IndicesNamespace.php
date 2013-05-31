@@ -27,7 +27,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function createIndex($index, $body=null, $params=null)
+    public function createIndex($index, $body = null, $params = null)
     {
         $whitelist = array('timeout');
         $this->checkParamWhitelist($params, $whitelist);
@@ -56,7 +56,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function deleteIndex($index, $params=null)
+    public function deleteIndex($index, $params = null)
     {
         $whitelist = array('timeout');
         $this->checkParamWhitelist($params, $whitelist);

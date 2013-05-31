@@ -58,9 +58,9 @@ abstract class AbstractConnection
      */
     public function __construct($host, $port, $connectionParams, $log, $trace)
     {
-        $this->host = $this->transportSchema.'://'.$host.':'.$port;
-        $this->log = $log;
-        $this->trace = $trace;
+        $this->host             = $this->transportSchema . '://' . $host . ':' . $port;
+        $this->log              = $log;
+        $this->trace            = $trace;
         $this->connectionParams = $connectionParams;
 
     }
@@ -85,10 +85,10 @@ abstract class AbstractConnection
         $this->log->addInfo(
             'Request Success:',
             array(
-             'method'    => $method,
-             'uri'       => $fullURI,
-             'HTTP code' => $statusCode,
-             'duration'  => $duration,
+                'method'    => $method,
+                'uri'       => $fullURI,
+                'HTTP code' => $statusCode,
+                'duration'  => $duration,
             )
         );
         $this->log->addDebug('Response', array($response));
@@ -99,11 +99,11 @@ abstract class AbstractConnection
         $this->trace->addDebug(
             'Response:',
             array(
-             'response'  => $response,
-             'method'    => $method,
-             'uri'       => $fullURI,
-             'HTTP code' => $statusCode,
-             'duration'  => $duration,
+                'response'  => $response,
+                'method'    => $method,
+                'uri'       => $fullURI,
+                'HTTP code' => $statusCode,
+                'duration'  => $duration,
             )
         );
 
@@ -123,17 +123,24 @@ abstract class AbstractConnection
      *
      * @return void
      */
-    public function logRequestFail($method, $fullURI, $body, $duration, $statusCode=null, $response=null, $exception=null)
-    {
+    public function logRequestFail(
+        $method,
+        $fullURI,
+        $body,
+        $duration,
+        $statusCode = null,
+        $response = null,
+        $exception = null
+    ) {
         $this->log->addDebug('Request Body', array($body));
         $this->log->addInfo(
             'Request Success:',
             array(
-             'method'    => $method,
-             'uri'       => $fullURI,
-             'HTTP code' => $statusCode,
-             'duration'  => $duration,
-             'error'     => $exception,
+                'method'    => $method,
+                'uri'       => $fullURI,
+                'HTTP code' => $statusCode,
+                'duration'  => $duration,
+                'error'     => $exception,
             )
         );
         $this->log->addDebug('Response', array($response));
@@ -144,11 +151,11 @@ abstract class AbstractConnection
         $this->trace->addDebug(
             'Response:',
             array(
-             'response'  => $response,
-             'method'    => $method,
-             'uri'       => $fullURI,
-             'HTTP code' => $statusCode,
-             'duration'  => $duration,
+                'response'  => $response,
+                'method'    => $method,
+                'uri'       => $fullURI,
+                'HTTP code' => $statusCode,
+                'duration'  => $duration,
             )
         );
 
@@ -172,11 +179,11 @@ abstract class AbstractConnection
             str_replace('?', '?pretty=true', $uri);
         }
 
-        $curlCommand  = 'curl -X'.strtoupper($method);
-        $curlCommand .= " '".$uri."'";
+        $curlCommand = 'curl -X' . strtoupper($method);
+        $curlCommand .= " '" . $uri . "'";
 
         if (isset($body) === true && $body !== '') {
-            $curlCommand .= " -d '".$body."'";
+            $curlCommand .= " -d '" . $body . "'";
         }
 
         return $curlCommand;

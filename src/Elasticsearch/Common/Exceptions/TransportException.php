@@ -16,4 +16,6 @@ namespace Elasticsearch\Common\Exceptions;
  * BadMethodCallException
  * Denote problems with a method call (e.g. incorrect number of arguments)
  */
-class TransportException extends \Exception implements ElasticsearchException {}
+class TransportException extends \Exception implements ElasticsearchException
+{
+}

@@ -64,7 +64,7 @@ class Client
      *
      * @throws Common\Exceptions\InvalidArgumentException
      */
-    public function __construct($hosts=null, $params=array())
+    public function __construct($hosts = null, $params = array())
     {
         if (isset($hosts) === false) {
             $this->hosts[] = array('host' => 'localhost');
@@ -81,9 +81,9 @@ class Client
                     }
 
                     $this->hosts[] = array(
-                                      'host' => $host[0],
-                                      'port' => (int) $host[1],
-                                     );
+                        'host' => $host[0],
+                        'port' => (int)$host[1],
+                    );
                 } else {
                     $this->hosts[] = array('host' => $host);
                 }
@@ -110,22 +110,22 @@ class Client
      *
      * @return array
      */
-    public function index($index, $type, $doc, $id=null, $params=null)
+    public function index($index, $type, $doc, $id = null, $params = null)
     {
         $whitelist = array(
-                      'consistency',
-                      'op_type',
-                      'parent',
-                      'percolate',
-                      'refresh',
-                      'replication',
-                      'routing',
-                      'timeout',
-                      'timestamp',
-                      'ttl',
-                      'version',
-                      'version_type',
-                     );
+            'consistency',
+            'op_type',
+            'parent',
+            'percolate',
+            'refresh',
+            'replication',
+            'routing',
+            'timeout',
+            'timestamp',
+            'ttl',
+            'version',
+            'version_type',
+        );
         $this->checkParamWhitelist($params, $whitelist);
         $index = urlencode($index);
         $type  = urlencode($type);
@@ -134,7 +134,7 @@ class Client
         $uri    = "/$index/$type/";
         if ($id !== null) {
             $method = 'PUT';
-            $uri   .= "$id/";
+            $uri .= "$id/";
         }
 
         $retValue = $this->transport->performRequest(
@@ -159,17 +159,17 @@ class Client
      *
      * @return array
      */
-    public function get($index, $id, $type='_all', $params=null)
+    public function get($index, $id, $type = '_all', $params = null)
     {
         $whitelist = array(
-                      'fields',
-                      'parent',
-                      'preference',
-                      'realtime',
-                      'refresh',
-                      'routing',
-                      'timeout',
-                     );
+            'fields',
+            'parent',
+            'preference',
+            'realtime',
+            'refresh',
+            'routing',
+            'timeout',
+        );
         $this->checkParamWhitelist($params, $whitelist);
         $index = urlencode($index);
         $type  = urlencode($type);
@@ -200,17 +200,17 @@ class Client
      *
      * @return array
      */
-    public function update($index, $type, $id, $body, $params=null)
+    public function update($index, $type, $id, $body, $params = null)
     {
         $whitelist = array(
-                      'consistency',
-                      'parent',
-                      'refresh',
-                      'replication',
-                      'routing',
-                      'timeout',
-                      'version_type',
-                     );
+            'consistency',
+            'parent',
+            'refresh',
+            'replication',
+            'routing',
+            'timeout',
+            'version_type',
+        );
         $this->checkParamWhitelist($params, $whitelist);
         $index = urlencode($index);
         $type  = urlencode($type);
@@ -243,19 +243,19 @@ class Client
      * @return array
      * @throws Exceptions\InvalidArgumentException
      */
-    public function delete($index, $type, $id=null, $body=null, $params=null)
+    public function delete($index, $type, $id = null, $body = null, $params = null)
     {
         $whitelist = array(
-                      'consistency',
-                      'fields',
-                      'parent',
-                      'refresh',
-                      'replication',
-                      'routing',
-                      'timeout',
-                      'version_type',
-                      'q',
-                     );
+            'consistency',
+            'fields',
+            'parent',
+            'refresh',
+            'replication',
+            'routing',
+            'timeout',
+            'version_type',
+            'q',
+        );
         $this->checkParamWhitelist($params, $whitelist);
         $index = urlencode($index);
         $type  = urlencode($type);
@@ -266,12 +266,14 @@ class Client
         if (isset($id) === true) {
             $id  = urlencode($id);
             $uri = "/$index/$type/$id/";
-        } else if (isset($params['q']) === true || isset($body) === true) {
-            $uri = "/$index/$type/_query/";
         } else {
-            throw new Exceptions\InvalidArgumentException(
-                'An ID or query must be supplied to delete'
-            );
+            if (isset($params['q']) === true || isset($body) === true) {
+                $uri = "/$index/$type/_query/";
+            } else {
+                throw new Exceptions\InvalidArgumentException(
+                    'An ID or query must be supplied to delete'
+                );
+            }
         }
 
         $retValue = $this->transport->performRequest(
@@ -297,24 +299,24 @@ class Client
      * @throws Common\Exceptions\InvalidArgumentException
      * @return array
      */
-    public function search($query, $index=null, $type=null, $params=null)
+    public function search($query, $index = null, $type = null, $params = null)
     {
         $whitelist = array(
-                      'explain',
-                      'fields',
-                      'from',
-                      'ignore_indices',
-                      'indices_boost',
-                      'preference',
-                      'routing',
-                      'search_type',
-                      'size',
-                      'sort',
-                      'source',
-                      'stats',
-                      'timeout',
-                      'version',
-                     );
+            'explain',
+            'fields',
+            'from',
+            'ignore_indices',
+            'indices_boost',
+            'preference',
+            'routing',
+            'search_type',
+            'size',
+            'sort',
+            'source',
+            'stats',
+            'timeout',
+            'version',
+        );
         $this->checkParamWhitelist($params, $whitelist);
 
         $method = 'GET';
@@ -393,7 +395,7 @@ class Client
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException($key.' is not a valid parameter');
+                throw new UnexpectedValueException($key . ' is not a valid parameter');
             }
         }
 
@@ -413,7 +415,7 @@ class Client
      */
     private function setParams($hosts, $params)
     {
-        $dicBuilder = new DICBuilder($hosts, $params);
+        $dicBuilder   = new DICBuilder($hosts, $params);
         $this->params = $dicBuilder->getDIC();
 
     }

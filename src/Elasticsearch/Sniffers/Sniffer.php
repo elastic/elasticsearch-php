@@ -7,8 +7,6 @@
 
 namespace Elasticsearch\Sniffers;
 
-use Elasticsearch\Transport;
-
 /**
  * Class Sniffer
  *
@@ -34,16 +32,16 @@ class Sniffer extends AbstractSniffer
     public function parseNodes($transportSchema, $nodeInfo)
     {
         $pattern       = '/\/([^:]*):([0-9]+)\]/';
-        $schemaAddress = $transportSchema.'_address';
-        $hosts = array();
+        $schemaAddress = $transportSchema . '_address';
+        $hosts         = array();
 
         foreach ($nodeInfo['nodes'] as $node) {
             if (isset($node[$schemaAddress]) === true) {
                 if (preg_match($pattern, $node[$schemaAddress], $match) === 1) {
                     $hosts[] = array(
-                                'host' => $match[1],
-                                'port' => (int) $match[2],
-                               );
+                        'host' => $match[1],
+                        'port' => (int)$match[2],
+                    );
                 }
             }
         }

@@ -48,10 +48,10 @@ class DeadPool
      * @param int    $deadTime Timeout value before a dead connection is retried
      * @param Logger $log      Monolog logger object
      */
-    public function __construct($deadTime=60, $log)
+    public function __construct($deadTime = 60, $log)
     {
         $this->deadTime = $deadTime;
-        $this->log = $log;
+        $this->log      = $log;
 
     }
 
@@ -60,13 +60,13 @@ class DeadPool
      * Resurrect will return eligible dead nodes back to the connection pool
      *
      * @param bool $force If set to true, will force method
-     * to resurrect at least one connection
+     *                    to resurrect at least one connection
      *
      * @return array
      */
-    public function resurrect($force=false)
+    public function resurrect($force = false)
     {
-        $this->log->addInfo('Resurrecting (Force == '.print_r($force, true).')');
+        $this->log->addInfo('Resurrecting (Force == ' . print_r($force, true) . ')');
 
         $deadPool    = $this->deadPool;
         $resurrected = array();
@@ -107,7 +107,7 @@ class DeadPool
      *
      * @return void
      */
-    public function markDead(ConnectionInterface $connection, $time=null)
+    public function markDead(ConnectionInterface $connection, $time = null)
     {
         $this->log->addInfo('Marking connection as dead.');
         $this->log->addDebug('Connection:', array(print_r($connection, true)));
@@ -117,9 +117,9 @@ class DeadPool
         }
 
         $this->deadPool[] = array(
-                             'connection' => $connection,
-                             'time'       => $time + $this->deadTime,
-                            );
+            'connection' => $connection,
+            'time'       => $time + $this->deadTime,
+        );
 
     }
 

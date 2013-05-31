@@ -10,8 +10,8 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\ConnectionPool\DeadPool;
+use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\ConnectionInterface;
 
 /**
@@ -67,12 +67,12 @@ class ConnectionPool
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($connections, SelectorInterface $selector, DeadPool $deadPool, $randomizeHosts=true)
+    public function __construct($connections, SelectorInterface $selector, DeadPool $deadPool, $randomizeHosts = true)
     {
         $paramList = array('connections', 'deadPool', 'selector', 'randomizeHosts');
         foreach ($paramList as $param) {
             if (isset($$param) === false) {
-                throw new InvalidArgumentException('`'.$param.'` parameter must not be null');
+                throw new InvalidArgumentException('`' . $param . '` parameter must not be null');
             }
         }
 
@@ -128,11 +128,11 @@ class ConnectionPool
      * Query our deadpool to see if any nodes can be returned to the connection list
      *
      * @param bool $force If set to true, forces the Deadpool to resurrect a
-     * connection, even if the timeout has not expired yet
+     *                    connection, even if the timeout has not expired yet
      *
      * @return void
      */
-    public function resurrect($force=false)
+    public function resurrect($force = false)
     {
         $resurrected = $this->deadPool->resurrect($force);
 

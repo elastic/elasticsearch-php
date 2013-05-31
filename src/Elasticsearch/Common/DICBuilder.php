@@ -175,7 +175,7 @@ class DICBuilder
 
     private function setEndpointDICObjects()
     {
-        $this->setSearchEndpointObj();
+        $this->setEndpoint();
     }
 
 
@@ -310,10 +310,13 @@ class DICBuilder
         );
     }
 
-    private function setSearchEndpointObj()
+    private function setEndpoint()
     {
-        $this->dic['searchEndpoint'] = function ($dicParams) {
-            return new Endpoints\Search($dicParams['transport']);
+        $this->dic['endpoint'] = function ($dicParams) {
+            return function($class) use ($dicParams) {
+                $class = '\\Elasticsearch\\Endpoints\\'.$class;
+                return new $class($dicParams['transport']);
+            };
         };
     }
 

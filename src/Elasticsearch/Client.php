@@ -267,34 +267,42 @@ class Client
      */
     private function setLogging()
     {
-        // If no user-specified logger, provide a default file logger.
         if ($this->params['logObject'] === null) {
-            $log       = new Logger('log');
-            $handler   = new StreamHandler(
-                $this->params['logPath'],
-                $this->params['logLevel']
-            );
-            $processor = new IntrospectionProcessor();
-
-            $log->pushHandler($handler);
-            $log->pushProcessor($processor);
-
-            $this->params['logObject'] = $log;
+           $this->setDefaultLogger();
         }
 
-        // Same thing, but for the Trace logger.
         if ($this->params['traceObject'] === null) {
-            $trace        = new Logger('trace');
-            $traceHandler = new StreamHandler(
-                $this->params['tracePath'],
-                $this->params['traceLevel']
-            );
-
-            $trace->pushHandler($traceHandler);
-
-            $this->params['traceObject'] = $trace;
+            $this->setDefaultTracer();
         }
 
+    }
+
+    private function setDefaultLogger()
+    {
+        $log       = new Logger('log');
+        $handler   = new StreamHandler(
+            $this->params['logPath'],
+            $this->params['logLevel']
+        );
+        $processor = new IntrospectionProcessor();
+
+        $log->pushHandler($handler);
+        $log->pushProcessor($processor);
+
+        $this->params['logObject'] = $log;
+    }
+
+    private function setDefaultTracer()
+    {
+        $trace        = new Logger('trace');
+        $traceHandler = new StreamHandler(
+            $this->params['tracePath'],
+            $this->params['traceLevel']
+        );
+
+        $trace->pushHandler($traceHandler);
+
+        $this->params['traceObject'] = $trace;
     }
 
 

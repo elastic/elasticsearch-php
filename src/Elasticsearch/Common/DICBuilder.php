@@ -8,6 +8,7 @@
 namespace Elasticsearch\Common;
 
 
+use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Transport;
@@ -120,6 +121,7 @@ class DICBuilder
         $this->setDICParams($params);
         $this->setNonSharedDICObjects();
         $this->setSharedDICObjects($hosts);
+        $this->setEndpointDICObjects();
 
     }
 
@@ -169,6 +171,11 @@ class DICBuilder
         $this->setIndicesNamespaceObj();
         $this->setSharedConnectionParamsObj();
         $this->setCurlMultihandle();
+    }
+
+    private function setEndpointDICObjects()
+    {
+        $this->setSearchEndpointObj();
     }
 
 
@@ -301,6 +308,13 @@ class DICBuilder
                 return curl_multi_init();
             }
         );
+    }
+
+    private function setSearchEndpointObj()
+    {
+        $this->dic['searchEndpoint'] = function ($dicParams) {
+            return new Endpoints\Search($dicParams['transport']);
+        };
     }
 
 }//end class

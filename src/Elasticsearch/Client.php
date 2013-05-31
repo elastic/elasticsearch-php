@@ -10,6 +10,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\DICBuilder;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
+use Elasticsearch\Endpoints\Search;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Monolog\Handler\StreamHandler;
@@ -301,54 +302,14 @@ class Client
      */
     public function search($query, $index = null, $type = null, $params = null)
     {
-        $whitelist = array(
-            'explain',
-            'fields',
-            'from',
-            'ignore_indices',
-            'indices_boost',
-            'preference',
-            'routing',
-            'search_type',
-            'size',
-            'sort',
-            'source',
-            'stats',
-            'timeout',
-            'version',
-        );
-        $this->checkParamWhitelist($params, $whitelist);
+        /** @var Search $endpoint */
+        $endpoint = $this->params['searchEndpoint'];
+        $endpoint->setQuery($query)
+            ->setIndex($index)
+            ->setType($type)
+            ->setParams($params);
 
-        $method = 'GET';
-        $uri    = '/_search/';
-
-        if (isset($index) === true) {
-            $index = urlencode($index);
-            $uri   = "/$index/_search/";
-
-            if (isset($type) === true) {
-                $type = urlencode($type);
-                $uri  = "/$index/$type/_search/";
-            }
-        }
-
-        if (is_string($query) === true) {
-            $params['q'] = $query;
-            $body        = null;
-        } else if (is_array($query) === true) {
-            $body = $query;
-        } else {
-            throw new Exceptions\InvalidArgumentException(
-                'Query must be a string or array'
-            );
-        }
-
-        $retValue = $this->transport->performRequest(
-            $method,
-            $uri,
-            $params,
-            $body
-        );
+        $retValue = $endpoint->performRequest();
 
         return $retValue['data'];
 

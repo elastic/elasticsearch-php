@@ -38,6 +38,9 @@ function generateTemplate($path, $template)
         $path = str_replace('{','$',$path);
     }
 
+    $data['url']['path'] = str_replace('}','',$data['url']['path']);
+    $data['url']['path'] = str_replace('{','$',$data['url']['path']);
+
     $renderVars = array(
         'json'      => $json,
         'data'      => $data,

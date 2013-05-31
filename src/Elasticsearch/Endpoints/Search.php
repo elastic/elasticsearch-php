@@ -7,6 +7,7 @@
 
 namespace Elasticsearch\Endpoints;
 
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
@@ -203,7 +204,7 @@ class Search extends AbstractEndpoint
         $uri   = '/_search';
         $index = $this->index;
         $type = $this->type;
-        $scroll_id = $this->scroll_id;
+        //$scroll_id = $this->scroll_id;
 
         if (isset($index) === true) {
             $uri = "/$index/_search";

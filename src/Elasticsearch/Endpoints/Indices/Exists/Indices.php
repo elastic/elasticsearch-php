@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Exists;
@@ -52,14 +52,14 @@ class Indices extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Indices'
             );
         }
 
-        $uri   = '/{index}';
         $index = $this->index;
+        $uri   = "/$index";
 
         return $uri;
     }

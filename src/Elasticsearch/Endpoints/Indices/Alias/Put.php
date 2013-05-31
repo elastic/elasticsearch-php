@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
@@ -63,21 +63,21 @@ class Put extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Put'
             );
         }
 
-        if (isset($name) !== true) {
+        if (isset($this->name) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'name is required for Put'
             );
         }
 
-        $uri   = '/{index}/_alias/{name}';
         $index = $this->index;
         $name = $this->name;
+        $uri   = "/$index/_alias/$name";
 
         return $uri;
     }

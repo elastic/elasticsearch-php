@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Cluster\Node;
@@ -68,8 +68,8 @@ class Hot_Threads extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_cluster/nodes/hot_threads';
         $nodeId = $this->nodeId;
+        $uri   = "/_cluster/nodes/hot_threads";
 
         if (isset($nodeId) === true) {
             $uri = "/_cluster/nodes/hot_threads";

@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -122,22 +122,22 @@ class Index extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Index'
             );
         }
 
-        if (isset($type) !== true) {
+        if (isset($this->type) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'type is required for Index'
             );
         }
 
-        $uri   = '/{index}/{type}';
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/$type";
 
         if (isset($id) === true) {
             $uri = "/$index/$type/$id";

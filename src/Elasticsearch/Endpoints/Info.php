@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -47,7 +47,7 @@ class Info extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/';
+        $uri   = "/";
 
         return $uri;
     }

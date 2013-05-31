@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -86,9 +86,9 @@ class Delete_By_Query extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/{index}/_query';
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/_query";
 
         if (isset($index) === true) {
             $uri = "/$index/$type/_query";

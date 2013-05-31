@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -63,21 +63,21 @@ class Percolate extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Percolate'
             );
         }
 
-        if (isset($type) !== true) {
+        if (isset($this->type) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'type is required for Percolate'
             );
         }
 
-        $uri   = '/{index}/{type}/_percolate';
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/$type/_percolate";
 
         return $uri;
     }

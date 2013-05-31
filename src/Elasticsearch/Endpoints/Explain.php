@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -115,28 +115,28 @@ class Explain extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($id) !== true) {
+        if (isset($this->id) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'id is required for Explain'
             );
         }
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Explain'
             );
         }
 
-        if (isset($type) !== true) {
+        if (isset($this->type) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'type is required for Explain'
             );
         }
 
-        $uri   = '/{index}/{type}/{id}/_explain';
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/$type/$id/_explain";
 
         return $uri;
     }

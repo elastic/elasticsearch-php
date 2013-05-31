@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Type;
@@ -56,15 +56,15 @@ class Delete extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Delete'
             );
         }
 
-        $uri   = '/{index}/{type}/_mapping';
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/$type/_mapping";
  elseif (isset($type) === true) {
             $uri = "";
         }

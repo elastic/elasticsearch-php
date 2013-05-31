@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Template;
@@ -52,14 +52,14 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($name) !== true) {
+        if (isset($this->name) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'name is required for Get'
             );
         }
 
-        $uri   = '/_template/{name}';
         $name = $this->name;
+        $uri   = "/_template/$name";
 
         return $uri;
     }

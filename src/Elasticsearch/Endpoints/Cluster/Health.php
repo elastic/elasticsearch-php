@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Cluster;
@@ -87,8 +87,8 @@ class Health extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_cluster/health';
         $index = $this->index;
+        $uri   = "/_cluster/health";
 
         if (isset($index) === true) {
             $uri = "/_cluster/health/$index";

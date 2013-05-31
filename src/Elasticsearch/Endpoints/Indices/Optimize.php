@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -81,14 +81,14 @@ class Optimize extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Optimize'
             );
         }
 
-        $uri   = '/_optimize';
         $index = $this->index;
+        $uri   = "/_optimize";
 
         return $uri;
     }

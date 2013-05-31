@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Cluster\Node;
@@ -59,8 +59,8 @@ class Shutdown extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_shutdown';
         $nodeId = $this->nodeId;
+        $uri   = "/_shutdown";
 
         if (isset($nodeId) === true) {
             $uri = "/_cluster/nodes/_shutdown";

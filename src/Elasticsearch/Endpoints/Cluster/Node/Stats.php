@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Cluster\Node;
@@ -126,11 +126,11 @@ class Stats extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_cluster/nodes/stats';
         $fields = $this->fields;
         $metric_family = $this->metric_family;
         $metric = $this->metric;
         $nodeId = $this->nodeId;
+        $uri   = "/_cluster/nodes/stats";
 
         if (isset($fields) === true) {
             $uri = "/_cluster/nodes/$nodeId/stats";

@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
@@ -70,15 +70,15 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($name) !== true) {
+        if (isset($this->name) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'name is required for Get'
             );
         }
 
-        $uri   = '/_alias/{name}';
         $index = $this->index;
         $name = $this->name;
+        $uri   = "/_alias/$name";
 
         if (isset($index) === true) {
             $uri = "/$index/_alias/$name";

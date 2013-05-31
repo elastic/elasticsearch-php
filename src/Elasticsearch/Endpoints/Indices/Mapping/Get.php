@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Mapping;
@@ -57,21 +57,21 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Get'
             );
         }
 
-        if (isset($type) !== true) {
+        if (isset($this->type) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'type is required for Get'
             );
         }
 
-        $uri   = '/_mapping';
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/_mapping";
 
         return $uri;
     }

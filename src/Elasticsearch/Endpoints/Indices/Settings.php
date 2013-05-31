@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -53,8 +53,8 @@ class Settings extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_settings';
         $index = $this->index;
+        $uri   = "/_settings";
 
         if (isset($index) === true) {
             $uri = "/$index/_settings";

@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -55,8 +55,8 @@ class Delete extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/';
         $index = $this->index;
+        $uri   = "/";
 
         if (isset($index) === true) {
             $uri = "/$index";

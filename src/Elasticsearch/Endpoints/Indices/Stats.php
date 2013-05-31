@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -138,12 +138,12 @@ class Stats extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_stats';
         $fields = $this->fields;
         $index = $this->index;
         $indexing_types = $this->indexing_types;
         $metric_family = $this->metric_family;
         $search_groups = $this->search_groups;
+        $uri   = "/_stats";
 
         if (isset($fields) === true) {
             $uri = "/$index/_stats";

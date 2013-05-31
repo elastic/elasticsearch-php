@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
@@ -59,10 +59,10 @@ class Delete extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/{index}/_warmer';
         $index = $this->index;
         $name = $this->name;
         $type = $this->type;
+        $uri   = "/$index/_warmer";
 
         if (isset($index) === true) {
             $uri = "/$index/_warmer/$name";

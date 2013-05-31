@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -81,8 +81,8 @@ class Analyze extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_analyze';
         $index = $this->index;
+        $uri   = "/_analyze";
 
         if (isset($index) === true) {
             $uri = "/$index/_analyze";

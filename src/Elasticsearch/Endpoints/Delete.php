@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -94,28 +94,28 @@ class Delete extends AbstractEndpoint
     protected function getURI()
     {
 
-        if (isset($id) !== true) {
+        if (isset($this->id) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'id is required for Delete'
             );
         }
 
-        if (isset($index) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'index is required for Delete'
             );
         }
 
-        if (isset($type) !== true) {
+        if (isset($this->type) !== true) {
             throw new Exceptions\BadMethodCallException(
                 'type is required for Delete'
             );
         }
 
-        $uri   = '/{index}/{type}/{id}';
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/$index/$type/$id";
 
         return $uri;
     }

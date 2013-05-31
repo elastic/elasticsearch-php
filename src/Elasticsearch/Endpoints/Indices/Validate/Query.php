@@ -2,7 +2,7 @@
 /**
  * User: zach
  * Date: 05/31/2013
- * Time: 15:31:17 pm
+ * Time: 16:47:11 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Validate;
@@ -74,9 +74,9 @@ class Query extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri   = '/_validate/query';
         $index = $this->index;
         $type = $this->type;
+        $uri   = "/_validate/query";
 
         if (isset($index) === true) {
             $uri = "/$index/_validate/query";

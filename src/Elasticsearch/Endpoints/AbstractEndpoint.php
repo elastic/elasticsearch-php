@@ -75,7 +75,7 @@ abstract class AbstractEndpoint
             $this->getMethod(),
             $this->getURI(),
             $this->params,
-            $this->body
+            $this->getBody()
         );
     }
 
@@ -128,6 +128,14 @@ abstract class AbstractEndpoint
         return $this;
     }
 
+
+    /**
+     * @return array
+     */
+    protected function getBody()
+    {
+        return $this->body;
+    }
 
     /**
      * @param array $params

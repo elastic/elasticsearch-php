@@ -130,18 +130,6 @@ abstract class AbstractEndpoint
 
 
     /**
-     * @param array $body
-     *
-     * @return $this
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-        return $this;
-    }
-
-
-    /**
      * @param array $params
      *
      * @throws \Elasticsearch\Common\Exceptions\UnexpectedValueException

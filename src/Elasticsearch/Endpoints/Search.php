@@ -28,9 +28,9 @@ class Search extends AbstractEndpoint
     {
         if (is_string($query) === true) {
             $this->params['q'] = $query;
-            $this->setBody(null);
+            $this->body = null;
         } else if (is_array($query) === true) {
-            $this->setBody($query);
+            $this->body = $query;
         } else {
             throw new InvalidArgumentException(
                 'Query must be a string or array'

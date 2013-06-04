@@ -21,22 +21,22 @@ abstract class AbstractEndpoint
     protected $params = array();
 
     /** @var  string */
-    protected $index;
+    protected $index = null;
 
     /** @var  string */
-    protected $type;
+    protected $type = null;
 
     /** @var  string|int */
-    protected $id;
+    protected $id = null;
 
     /** @var  string */
-    protected $method;
+    protected $method = null;
 
     /** @var  array */
-    protected $body;
+    protected $body = null;
 
     /** @var \Elasticsearch\Transport  */
-    private $transport;
+    private $transport = null;
 
 
     /**
@@ -100,6 +100,10 @@ abstract class AbstractEndpoint
      */
     public function setIndex($index)
     {
+        if ($index === null) {
+            return $this;
+        }
+
         $this->index = urlencode($index);
         return $this;
     }
@@ -112,6 +116,10 @@ abstract class AbstractEndpoint
      */
     public function setType($type)
     {
+        if ($type === null) {
+            return $this;
+        }
+
         $this->type = urlencode($type);
         return $this;
     }
@@ -124,6 +132,10 @@ abstract class AbstractEndpoint
      */
     public function setID($docID)
     {
+        if ($docID === null) {
+            return $this;
+        }
+
         $this->id = urlencode($docID);
         return $this;
     }

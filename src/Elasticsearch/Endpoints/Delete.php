@@ -18,19 +18,6 @@ class Delete extends AbstractEndpoint
 {
 
     /**
-     * Over-ride base method since Delete doesn't use a body
-     *
-     * @param array $null
-     *
-     * @return $this
-     */
-    public function setBody($null)
-    {
-        return $this;
-    }
-
-
-    /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */

@@ -37,7 +37,7 @@ class {{ className|title }} extends AbstractEndpoint
 {% for part, info in data.url.parts %}
 {% if info.required == true %}
         if (isset($this->{{ part }}) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 '{{ part }} is required for {{ className }}'
             );
         }

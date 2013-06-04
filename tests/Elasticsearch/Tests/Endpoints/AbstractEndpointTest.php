@@ -68,7 +68,7 @@ class AbstractEndpointTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($paramWhiteList));
 
 
-        $params = array('param1');
+        $params = array('param1'=>'value');
         $stub->setParams($params);
 
     }
@@ -89,7 +89,12 @@ class AbstractEndpointTest extends \PHPUnit_Framework_TestCase
         ->method('getParamWhitelist')
         ->will($this->returnValue($paramWhiteList));
 
-        $stub->setParams($paramWhiteList);
+        $params = array(
+            'param1' => 'value',
+            'param2' => 'value',
+            'param3' => 'value'
+        );
+        $stub->setParams($params);
 
     }
 
@@ -113,7 +118,7 @@ class AbstractEndpointTest extends \PHPUnit_Framework_TestCase
         ->method('getParamWhitelist')
         ->will($this->returnValue($paramWhiteList));
 
-        $params = array('param10');
+        $params = array('param10' => 'value');
         $stub->setParams($params);
 
     }

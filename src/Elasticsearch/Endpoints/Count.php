@@ -16,65 +16,16 @@ use Elasticsearch\Common\Exceptions;
  */
 class Count extends AbstractEndpoint
 {
-
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "count": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/count/",
-    "methods": ["POST", "GET"],
-    "url": {
-      "path": "/_count",
-      "paths": ["/_count", "/{index}/_count", "/{index}/{type}/_count"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of indices to restrict the results"
-        },
-        "type": {
-          "type" : "list",
-          "description" : "A comma-separated list of types to restrict the results"
-        }
-      },
-      "params": {
-        "ignore_indices": {
-          "type" : "enum",
-          "options" : ["none","missing"],
-          "default" : "none",
-          "description" : "When performed on multiple indices, allows to ignore `missing` ones"
-        },
-        "min_score": {
-          "type" : "number",
-          "description" : "Include only documents with a specific `_score` value in the result"
-        },
-        "operation_threading": {
-          "description" : "TODO: ?"
-        },
-        "preference": {
-          "type" : "string",
-          "description" : "Specify the shards the operation should be performed on (default: random shard)"
-        },
-        "routing": {
-          "type" : "string",
-          "description" : "Specific routing value"
-        },
-        "source": {
-          "type" : "string",
-          "description" : "The URL-encoded query definition (instead of using the request body)"
-        }
-      }
-    },
-    "body": {
-      "description" : "A query to restrict the results (optional)"
-    }
-  }
-}
-
-
+     * @param $body
+     *
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string
@@ -82,15 +33,13 @@ class Count extends AbstractEndpoint
     protected function getURI()
     {
 
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_count";
+        $uri = array();
+        $uri[] = $this->getIndex();
+        $uri[] = $this->getType();
+        $uri[] = '_count';
+        $uri =  array_filter($uri);
 
-        if (isset($index) === true) {
-            $uri = "/$index/_count";
-        } elseif (isset($type) === true && isset($index) === true) {
-            $uri = "/$index/$type/_count";
-        }
+        $uri =  '/' . implode('/', $uri);
 
         return $uri;
     }
@@ -115,7 +64,25 @@ class Count extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'POST,GET';
+        return 'GET';
     }
+
+    private function getIndex()
+    {
+        if (isset($this->index) === true){
+            return $this->index;
+        } else {
+            return '_all';
+        }
+    }
+
+    private function getType()
+    {
+        if (isset($this->type) === true){
+            return $this->type;
+        } else {
+            return '';
+        }
+    }
+
 }

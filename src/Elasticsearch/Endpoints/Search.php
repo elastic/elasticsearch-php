@@ -200,20 +200,14 @@ class Search extends AbstractEndpoint
      */
     protected function getURI()
     {
+        $uri = array();
+        $uri[] = $this->getIndex();
+        $uri[] = $this->getType();
+        $uri[] = '_search';
+        $uri[] = $this->getScroll();
+        $uri =  array_filter($uri);
 
-        $uri   = '/_search';
-        $index = $this->index;
-        $type = $this->type;
-        //$scroll_id = $this->scroll_id;
-
-        if (isset($index) === true) {
-            $uri = "/$index/_search";
-        } elseif (isset($type) === true && isset($index) === true) {
-            $uri = "/$index/$type/_search";
-        }
- elseif (isset($scroll_id) === true && isset($type) === true && isset($index) === true) {
-            $uri = "/_search/scroll";
-        }
+        $uri =  '/' . implode('/', $uri);
 
         return $uri;
     }
@@ -260,7 +254,33 @@ class Search extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'GET';
+    }
+
+    private function getIndex()
+    {
+        if (isset($this->index) === true){
+            return $this->index;
+        } else {
+            return '_all';
+        }
+    }
+
+    private function getType()
+    {
+        if (isset($this->type) === true){
+            return $this->type;
+        } else {
+            return '';
+        }
+    }
+
+    private function getScroll()
+    {
+        if (isset($this->params['scroll_id']) === true ) {
+            return "scroll";
+        } else {
+            return '';
+        }
     }
 }

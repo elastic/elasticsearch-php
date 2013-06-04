@@ -5,10 +5,7 @@ use Elasticsearch;
 
 /**
  * Class ClientIntegrationTest
- *
- * @category   Tests
- * @package    Elasticsearch
- * @subpackage Tests
+ * @package Elasticsearch\Tests
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org

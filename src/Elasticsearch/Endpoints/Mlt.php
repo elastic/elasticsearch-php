@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 06/04/2013
+ * Time: 13:33:19 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -141,19 +141,19 @@ class Mlt extends AbstractEndpoint
     {
 
         if (isset($this->id) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'id is required for Mlt'
             );
         }
 
         if (isset($this->index) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'index is required for Mlt'
             );
         }
 
         if (isset($this->type) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'type is required for Mlt'
             );
         }

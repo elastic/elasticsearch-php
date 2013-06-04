@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 06/04/2013
+ * Time: 13:33:19 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Template;
@@ -53,7 +53,7 @@ class Get extends AbstractEndpoint
     {
 
         if (isset($this->name) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'name is required for Get'
             );
         }

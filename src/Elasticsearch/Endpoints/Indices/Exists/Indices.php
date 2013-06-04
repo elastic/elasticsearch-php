@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 06/04/2013
+ * Time: 13:33:19 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Exists;
@@ -53,7 +53,7 @@ class Indices extends AbstractEndpoint
     {
 
         if (isset($this->index) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'index is required for Indices'
             );
         }

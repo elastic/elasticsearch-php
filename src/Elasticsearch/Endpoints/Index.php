@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 06/04/2013
+ * Time: 13:33:19 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -123,20 +123,20 @@ class Index extends AbstractEndpoint
     {
 
         if (isset($this->index) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'index is required for Index'
             );
         }
 
         if (isset($this->type) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'type is required for Index'
             );
         }
 
-        $id    = $this->id;
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
+        $type = $this->type;
         $uri   = "/$index/$type";
 
         if (isset($id) === true) {
@@ -172,10 +172,7 @@ class Index extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if (isset($id) === true) {
-            return 'PUT';
-        } else {
-            return 'POST';
-        }
+        //TODO Fix Me!
+        return 'POST,PUT';
     }
 }

@@ -171,9 +171,9 @@ abstract class AbstractEndpoint
 
         $whitelist = $this->getParamWhitelist();
 
-        foreach ($params as $key => $value) {
-            if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException($key . ' is not a valid parameter');
+        foreach ($params as $value) {
+            if (array_search($value, $whitelist) === false) {
+                throw new UnexpectedValueException($value . ' is not a valid parameter');
             }
         }
 

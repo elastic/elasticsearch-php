@@ -87,34 +87,47 @@ class Delete extends AbstractEndpoint
 
      */
 
+    /**
+     * Over-ride base method since Delete doesn't use a body
+     *
+     * @param array $null
+     *
+     * @return $this
+     */
+    public function setBody($null)
+    {
+        return $this;
+    }
+
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
 
         if (isset($this->id) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'id is required for Delete'
             );
         }
 
         if (isset($this->index) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'index is required for Delete'
             );
         }
 
         if (isset($this->type) !== true) {
-            throw new Exceptions\BadMethodCallException(
+            throw new Exceptions\RuntimeException(
                 'type is required for Delete'
             );
         }
 
-        $id = $this->id;
+        $id    = $this->id;
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type/$id";
 
         return $uri;

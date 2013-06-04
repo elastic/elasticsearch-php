@@ -97,7 +97,7 @@ class Client
         $endpoint = $this->params['endpoint']('Index');
         $endpoint->setIndex($index)
             ->setType($type)
-            ->setBody($doc)
+            ->setDocument($doc)
             ->setID($id)
             ->setParams($params);
 

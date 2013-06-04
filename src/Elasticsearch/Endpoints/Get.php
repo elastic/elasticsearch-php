@@ -17,70 +17,36 @@ use Elasticsearch\Common\Exceptions;
 class Get extends AbstractEndpoint
 {
 
+
+    /** @var bool  */
+    private $returnOnlySource = false;
+
+    /** @var bool  */
+    private $checkOnlyExistance = false;
+
+
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "get": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/get/",
-    "methods": ["GET", "HEAD", "POST"],
-    "url": {
-      "path": "/{index}/{type}/{id}",
-      "paths": ["/{index}/{type}/{id}", "/{index}/{type}/{id}/_source"],
-      "parts": {
-        "id": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The document ID"
-        },
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index"
-        },
-        "type": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The type of the document (use `_all` to fetch the first document matching the ID across all types)"
-        }
-      },
-      "params": {
-        "fields": {
-          "type": "list",
-          "description" : "A comma-separated list of fields to return in the response"
-        },
-        "parent": {
-          "type" : "string",
-          "description" : "The ID of the parent document"
-        },
-        "preference": {
-          "type" : "string",
-          "description" : "Specify the shards the operation should be performed on (default: random shard)"
-        },
-        "realtime": {
-          "type" : "boolean",
-          "description" : "Specify whether to perform the operation in realtime or search mode"
-        },
-        "refresh": {
-          "type" : "boolean",
-          "description" : "Refresh the shard containing the document before performing the operation"
-        },
-        "routing": {
-          "type" : "string",
-          "description" : "Specific routing value"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
+     * @return $this
      */
+    public function returnOnlySource()
+    {
+        $this->returnOnlySource = true;
+        return $this;
+    }
 
 
     /**
+     * @return $this
+     */
+    public function checkOnlyExistance()
+    {
+        $this->checkOnlyExistance = true;
+        return $this;
+    }
+
+
+    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -104,10 +70,14 @@ class Get extends AbstractEndpoint
             );
         }
 
-        $id = $this->id;
+        $id    = $this->id;
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type/$id";
+
+        if ($this->returnOnlySource === true) {
+            $uri .= '/_source';
+        }
 
         return $uri;
     }
@@ -132,7 +102,10 @@ class Get extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,HEAD,POST';
+        if ($this->checkOnlyExistance === true) {
+            return 'HEAD';
+        } else {
+            return 'GET';
+        }
     }
 }

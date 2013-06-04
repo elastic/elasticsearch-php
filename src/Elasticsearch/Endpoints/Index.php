@@ -16,107 +16,33 @@ use Elasticsearch\Common\Exceptions;
  */
 class Index extends AbstractEndpoint
 {
+    /** @var bool  */
+    private $createIfAbsent = false;
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "index": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/index_/",
-    "methods": ["POST", "PUT"],
-    "url": {
-      "path": "/{index}/{type}",
-      "paths": ["/{index}/{type}", "/{index}/{type}/{id}", "/{index}/{type}/{id}/_create"],
-      "parts": {
-        "id": {
-          "type" : "string",
-          "description" : "Document ID"
-        },
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index"
-        },
-        "type": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The type of the document"
-        }
-      },
-      "params": {
-        "consistency": {
-          "type" : "enum",
-          "options" : ["one", "quorum", "all"],
-          "description" : "Explicit write consistency setting for the operation"
-        },
-        "id": {
-          "type" : "string",
-          "description" : "Specific document ID (when the POST method is used)"
-        },
-        "op_type": {
-          "type" : "enum",
-          "options" : ["index", "create"],
-          "default" : "index",
-          "description" : "Explicit operation type"
-        },
-        "parent": {
-          "type" : "string",
-          "description" : "ID of the parent document"
-        },
-        "percolate": {
-          "type" : "string",
-          "description" : "Percolator queries to execute while indexing the document"
-        },
-        "refresh": {
-          "type" : "boolean",
-          "description" : "Refresh the index after performing the operation"
-        },
-        "replication": {
-          "type" : "enum",
-          "options" : ["sync","async"],
-          "default" : "sync",
-          "description" : "Specific replication type"
-        },
-        "routing": {
-          "type" : "string",
-          "description" : "Specific routing value"
-        },
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        },
-        "timestamp": {
-          "type" : "time",
-          "description" : "Explicit timestamp for the document"
-        },
-        "ttl": {
-          "type" : "duration",
-          "description" : "Expiration time for the document"
-        },
-        "version" : {
-          "type" : "number",
-          "description" : "Explicit version number for concurrency control"
-        },
-        "version_type": {
-          "type" : "enum",
-          "options" : ["internal","external"],
-          "description" : "Specific version type"
-        }
-      }
-    },
-    "body": {
-      "description" : "The document",
-      "required" : true
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @return $this
      */
+    public function setDocument($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
+     * @return $this
+     */
+    public function createIfAbsent()
+    {
+        $this->createIfAbsent = true;
+        return $this;
+    }
+
+
+    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -134,14 +60,19 @@ class Index extends AbstractEndpoint
             );
         }
 
-        $id = $this->id;
+        $id    = $this->id;
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type";
 
         if (isset($id) === true) {
             $uri = "/$index/$type/$id";
         }
+
+        if ($this->createIfAbsent === true) {
+            $uri .= '/_create';
+        }
+
         return $uri;
     }
 
@@ -172,7 +103,24 @@ class Index extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'POST,PUT';
+        if (isset($this->id) === true) {
+            return 'PUT';
+        } else {
+            return 'POST';
+        }
+    }
+
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Document body must be set for index request');
+        } else {
+            return $this->body;
+        }
     }
 }

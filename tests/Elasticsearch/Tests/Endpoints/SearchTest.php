@@ -1,0 +1,190 @@
+<?php
+/**
+ * User: zach
+ * Date: 6/4/13
+ * Time: 11:10 AM
+ */
+
+namespace Elasticsearch\Tests\Endpoints;
+
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Endpoints\Search;
+use Mockery as m;
+
+/**
+ * Class SearchTest
+ * @package Elasticsearch\Tests\Endpoints
+ * @author  Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link    http://elasticsearch.org
+ */
+class SearchTest extends \PHPUnit_Framework_TestCase
+{
+
+    public function tearDown() {
+        m::close();
+    }
+
+    public function testSetStringQuery()
+    {
+        $params['q'] = 'testQuery';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 m::any(),
+                                 $params,
+                                 null
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->setQuery('testQuery')
+            ->performRequest();
+
+    }
+
+    public function testSetArrayQuery()
+    {
+        $query['query'] = 'testQuery';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 m::any(),
+                                 array(),
+                                 $query
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->setQuery($query)
+        ->performRequest();
+
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetIllegalQuery()
+    {
+        $query = 5;
+
+        $mockTransport = m::mock('\Elasticsearch\Transport');
+
+        $search = new Search($mockTransport);
+        $search->setQuery($query)
+        ->performRequest();
+
+    }
+
+    public function testGetURIWithNoIndexOrType()
+    {
+
+        $uri = '/_all/_search';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 $uri,
+                                 array(),
+                                 m::any()
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->performRequest();
+
+    }
+
+    public function testGetURIWithIndexButNoType()
+    {
+        $uri = '/testIndex/_search';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 $uri,
+                                 array(),
+                                 m::any()
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->setIndex('testIndex')
+            ->performRequest();
+
+    }
+
+    public function testGetURIWithTypeButNoIndex()
+    {
+
+        $uri = '/_all/testType/_search';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 $uri,
+                                 array(),
+                                 m::any()
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->setType('testType')
+        ->performRequest();
+
+    }
+
+    public function testGetURIWithBothTypeAndIndex()
+    {
+
+        $uri = '/testIndex/testType/_search';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 $uri,
+                                 array(),
+                                 m::any()
+                             )
+                         ->getMock();
+
+        $search = new Search($mockTransport);
+        $search->setIndex('testIndex')
+            ->setType('testType')
+            ->performRequest();
+
+    }
+
+    public function testGetURIWithScrollID()
+    {
+
+        $params['scroll_id'] = 'abc';
+        $uri = '/_all/_search/scroll';
+
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')
+                         ->with(
+                                 m::any(),
+                                 $uri,
+                                 $params,
+                                 m::any()
+                             )
+                         ->getMock();
+
+
+
+        $search = new Search($mockTransport);
+        $search->setParams($params)
+            ->performRequest();
+
+    }
+}

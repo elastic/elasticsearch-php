@@ -18,38 +18,21 @@ class Reroute extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "cluster.reroute": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/admin-cluster-reroute/",
-    "methods": ["POST"],
-    "url": {
-      "path": "/_cluster/reroute",
-      "paths": ["/_cluster/reroute"],
-      "parts": {
-      },
-      "params": {
-        "dry_run": {
-          "type" : "boolean",
-          "description" : "Simulate the operation only and return the resulting state"
-        },
-        "filter_metadata": {
-          "type" : "boolean",
-          "description" : "TODO: ?"
-        }
-      }
-    },
-    "body": {
-      "description" : "The definition of `commands` to perform (`move`, `cancel`, `allocate`)"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body of Reroute must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string

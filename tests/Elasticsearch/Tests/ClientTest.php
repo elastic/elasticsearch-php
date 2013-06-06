@@ -28,8 +28,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructorStringHost()
     {
         // Hosts param must be an array.
-        $hosts = 'localhost';
-        $client = new Elasticsearch\Client($hosts);
+        $params = array('hosts' => 'localhost');
+        $client = new Elasticsearch\Client($params);
 
     }//end testConstructorStringHost()
 
@@ -45,8 +45,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructorIllegalPort()
     {
         // Hosts param with single entry + illegal port.
-        $hosts = array('localhost:abc');
-        $client = new Elasticsearch\Client($hosts);
+        $params = array(
+            'hosts' => array('localhost:abc')
+        );
+        $client = new Elasticsearch\Client($params);
 
     }//end testConstructorIllegalPort()
 
@@ -62,8 +64,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructorEmptyPort()
     {
         // Hosts param with single entry + colon but no port.
-        $hosts = array('localhost:');
-        $client = new Elasticsearch\Client($hosts);
+        $params = array(
+            'hosts' => array('localhost:')
+        );
+        $client = new Elasticsearch\Client($params);
 
     }//end testConstructorEmptyPort()
 
@@ -80,7 +84,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         // String parameter instead of an array.
         $params = 'some arbitrary string';
-        $client = new Elasticsearch\Client(null, $params);
+        $client = new Elasticsearch\Client($params);
 
     }//end testConstructorStringParam()
 
@@ -97,6 +101,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         // String parameter instead of an array.
         $params = array('randomParam' => 'some arbitrary string');
-        $client = new Elasticsearch\Client(null, $params);
+        $client = new Elasticsearch\Client($params);
     }
 }

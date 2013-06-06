@@ -30,13 +30,6 @@ class Client
 {
 
     /**
-     * Holds an array of host/port tuples for the cluster
-     *
-     * @var array
-     */
-    protected $hosts;
-
-    /**
      * @var Transport
      */
     protected $transport;
@@ -60,23 +53,15 @@ class Client
     /**
      * Client constructor
      *
-     * @param null|array $hosts  Array of Hosts to connect to
-     * @param array      $params Array of injectable parameters
+     * @param array $params Array of injectable parameters
      */
-    public function __construct($hosts = null, $params = array())
+    public function __construct($params = array())
     {
-        if (isset($hosts) === false) {
-            $this->hosts = $this->getDefaultHost();
-        } else {
-            $this->hosts = $this->buildHostsFromSeed($hosts);
-        }
-
-        $this->setParams($this->hosts, $params);
+        $this->setParams($params);
         $this->setLogging();
         $this->transport = $this->params['transport'];
         $this->indices   = $this->params['indicesNamespace'];
         $this->cluster   = $this->params['clusterNamespace'];
-
     }
 
 
@@ -246,13 +231,21 @@ class Client
      * Merges user-specified parameters into the default list, then
      * builds a DIC to house all the information
      *
-     * @param array $hosts  Array of hosts
      * @param array $params Array of user settings
      *
+     * @internal param array $hosts Array of hosts
      * @return void
      */
-    private function setParams($hosts, $params)
+    private function setParams($params)
     {
+
+        if (isset($params['hosts']) === true) {
+            $hosts = $this->buildHostsFromSeed($params['hosts']);
+            unset($params['hosts']);
+        } else {
+            $hosts = $this->getDefaultHost();
+        }
+
         $dicBuilder   = new DICBuilder($hosts, $params);
         $this->params = $dicBuilder->getDIC();
 

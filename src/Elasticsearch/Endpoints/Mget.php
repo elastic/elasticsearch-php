@@ -41,15 +41,7 @@ class Mget extends AbstractEndpoint
     protected function getURI()
     {
 
-        $uri = array();
-        $uri[] = $this->getIndex();
-        $uri[] = $this->getType();
-        $uri[] = '_mget';
-        $uri =  array_filter($uri);
-
-        $uri =  '/' . implode('/', $uri);
-
-        return $uri;
+        return $this->getOptionalURI('_mget');
     }
 
     /**
@@ -75,21 +67,4 @@ class Mget extends AbstractEndpoint
         return 'GET';
     }
 
-    private function getIndex()
-    {
-        if (isset($this->index) === true){
-            return $this->index;
-        } else {
-            return '_all';
-        }
-    }
-
-    private function getType()
-    {
-        if (isset($this->type) === true){
-            return $this->type;
-        } else {
-            return '';
-        }
-    }
 }

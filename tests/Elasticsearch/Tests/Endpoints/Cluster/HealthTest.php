@@ -5,7 +5,7 @@
  * Time: 11:10 AM
  */
 
-namespace Elasticsearch\Tests\Endpoints;
+namespace Elasticsearch\Tests\Endpoints\Cluster;
 
 use Elasticsearch\Endpoints\Cluster\Health;
 use Mockery as m;

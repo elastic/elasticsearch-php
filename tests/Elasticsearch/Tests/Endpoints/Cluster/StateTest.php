@@ -5,7 +5,7 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints;
+namespace Elasticsearch\Tests\Endpoints\Cluster;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\Cluster\State;

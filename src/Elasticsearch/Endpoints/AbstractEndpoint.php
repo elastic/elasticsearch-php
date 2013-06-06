@@ -149,6 +149,51 @@ abstract class AbstractEndpoint
         return $this->body;
     }
 
+
+    /**
+     * @param string $endpoint
+     *
+     * @return string
+     */
+    protected function getOptionalURI($endpoint)
+    {
+        $uri = array();
+        $uri[] = $this->getOptionalIndex();
+        $uri[] = $this->getOptionalType();
+        $uri[] = $endpoint;
+        $uri =  array_filter($uri);
+
+       return '/' . implode('/', $uri);
+    }
+
+
+    /**
+     * @return string
+     */
+    private function getOptionalIndex()
+    {
+        if (isset($this->index) === true){
+            return $this->index;
+        } else {
+            return '_all';
+        }
+    }
+
+
+    /**
+     * @return string
+     */
+    private function getOptionalType()
+    {
+        if (isset($this->type) === true){
+            return $this->type;
+        } else {
+            return '';
+        }
+    }
+
+
+
     /**
      * @param array $params
      *

@@ -14,28 +14,8 @@ use Elasticsearch\Common\Exceptions;
  * Class Info
  * @package Elasticsearch\Endpoints\Cluster\Node
  */
-class Info extends AbstractEndpoint
+class Info extends AbstractNodeEndpoint
 {
-
-    /** @var null|string */
-    private $nodeID = null;
-
-
-    /**
-     * @param $nodeID
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setNodeID($nodeID)
-    {
-        if (is_string($nodeID) !== true) {
-            throw new Exceptions\InvalidArgumentException('NodeID must be a string');
-        }
-        $this->nodeID = urlencode($nodeID);
-        return $this;
-    }
-
 
     /**
      * @return string

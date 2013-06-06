@@ -14,34 +14,14 @@ use Elasticsearch\Common\Exceptions;
  * Class HotThreads
  * @package Elasticsearch\Endpoints\Cluster\Node
  */
-class HotThreads extends AbstractEndpoint
+class HotThreads extends AbstractNodeEndpoint
 {
-
-    /** @var null|string */
-    private $nodeID = null;
-
-
-    /**
-     * @param $nodeID
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setNodeID($nodeID)
-    {
-        if (is_string($nodeID) !== true) {
-            throw new Exceptions\InvalidArgumentException('NodeID must be a string');
-        }
-        $this->nodeID = urlencode($nodeID);
-        return $this;
-    }
 
     /**
      * @return string
      */
     protected function getURI()
     {
-
         $nodeID = $this->nodeID;
         $uri    = "/_cluster/nodes/hot_threads";
 

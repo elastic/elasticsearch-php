@@ -32,7 +32,7 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_msearch';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -51,7 +51,7 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/_msearch';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -72,7 +72,7 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/testType/_msearch';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -93,7 +93,7 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/testType/_msearch';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -127,7 +127,7 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
     public function testValidMsearch()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/testType/_msearch',

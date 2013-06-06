@@ -30,7 +30,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
         $query['docs'] = '1';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -67,7 +67,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -86,7 +86,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -107,7 +107,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/testType/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -128,7 +128,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/testType/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,

@@ -82,7 +82,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $doc = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'POST',
                                  '/testIndex/testType',
@@ -106,7 +106,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $doc = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'PUT',
                                  '/testIndex/testType/abc',
@@ -131,7 +131,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $doc = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'POST',
                                  '/testIndex/testType/_create',
@@ -156,7 +156,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $doc = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'PUT',
                                  '/testIndex/testType/abc/_create',

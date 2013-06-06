@@ -80,7 +80,7 @@ class ExplainTest extends \PHPUnit_Framework_TestCase
     public function testValidExplain()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/testType/testID/_explain',

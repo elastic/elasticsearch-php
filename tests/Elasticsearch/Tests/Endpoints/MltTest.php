@@ -97,7 +97,7 @@ class MltTest extends \PHPUnit_Framework_TestCase
     public function testValidMlt()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/testType/testID/_mlt',

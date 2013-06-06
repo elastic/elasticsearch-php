@@ -30,7 +30,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $query['docs'] = '1';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -66,7 +66,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $settings = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'PUT',
                                  '/_cluster/settings',
@@ -84,7 +84,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
     public function testValidSettingsWithoutBody()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/_cluster/settings',

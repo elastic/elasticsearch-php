@@ -30,7 +30,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $params['q'] = 'testQuery';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -50,7 +50,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $query['query'] = 'testQuery';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -87,7 +87,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_search';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -106,7 +106,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/_search';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -127,7 +127,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/testType/_search';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -148,7 +148,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/testType/_search';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -171,7 +171,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_search/scroll';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,

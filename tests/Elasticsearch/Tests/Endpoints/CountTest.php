@@ -30,7 +30,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_count';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -49,7 +49,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/_count';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -70,7 +70,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/testType/_count';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -91,7 +91,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/testType/_count';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -110,7 +110,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
     public function testValidCount()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/testType/_count',

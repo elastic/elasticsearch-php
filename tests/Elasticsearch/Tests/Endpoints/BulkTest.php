@@ -29,7 +29,7 @@ class BulkTest extends \PHPUnit_Framework_TestCase
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -66,7 +66,7 @@ class BulkTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/_bulk';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -85,7 +85,7 @@ class BulkTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/_bulk';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -106,7 +106,7 @@ class BulkTest extends \PHPUnit_Framework_TestCase
         $uri = '/_all/testType/_bulk';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -127,7 +127,7 @@ class BulkTest extends \PHPUnit_Framework_TestCase
         $uri = '/testIndex/testType/_bulk';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,

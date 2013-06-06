@@ -80,7 +80,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     public function testValidDelete()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'DELETE',
                                  '/testIndex/testType/testID',

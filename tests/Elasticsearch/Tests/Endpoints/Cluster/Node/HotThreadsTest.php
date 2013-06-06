@@ -28,7 +28,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
     public function testValidSettingsWithNodeID()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
+                         ->shouldReceive('performRequest')->once()->once()
                          ->with(
                                  'GET',
                                  '/_cluster/nodes/abc/hot_threads',
@@ -63,7 +63,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
     public function testValidSettingsWithoutNodeID()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/_cluster/nodes/hot_threads',

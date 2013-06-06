@@ -54,7 +54,7 @@ class PercolateTest extends \PHPUnit_Framework_TestCase
     public function testValidDelete()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/testType/_percolate',

@@ -80,7 +80,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     public function testValidUpdate()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'POST',
                                  '/testIndex/testType/testID/_update',

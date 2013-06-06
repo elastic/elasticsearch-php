@@ -46,7 +46,7 @@ class SuggestTest extends \PHPUnit_Framework_TestCase
         $uri = '/_suggest';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
@@ -63,7 +63,7 @@ class SuggestTest extends \PHPUnit_Framework_TestCase
     public function testValidSuggest()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/_suggest',

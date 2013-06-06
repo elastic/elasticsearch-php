@@ -28,7 +28,7 @@ class AbstractEndpointTest extends \PHPUnit_Framework_TestCase
     public function testPerformRequest()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()->once()
                          ->with(
                                  'GET',
                                  '/testIndex/',

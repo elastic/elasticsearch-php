@@ -30,7 +30,7 @@ class RerouteTest extends \PHPUnit_Framework_TestCase
         $query['docs'] = '1';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
@@ -64,7 +64,7 @@ class RerouteTest extends \PHPUnit_Framework_TestCase
     public function testValidReroute()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')
+                         ->shouldReceive('performRequest')->once()
                          ->with(
                                  'POST',
                                  '/_cluster/reroute',

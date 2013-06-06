@@ -11,6 +11,10 @@ namespace Elasticsearch\Endpoints\Cluster\Node;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
+/**
+ * Class AbstractNodeEndpoint
+ * @package Elasticsearch\Endpoints\Cluster\Node
+ */
 abstract class AbstractNodeEndpoint extends AbstractEndpoint
 {
 

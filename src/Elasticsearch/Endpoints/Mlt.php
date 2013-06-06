@@ -17,124 +17,27 @@ use Elasticsearch\Common\Exceptions;
 class Mlt extends AbstractEndpoint
 {
 
+
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "mlt": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/more-like-this/",
-    "methods": ["GET", "POST"],
-    "url": {
-      "path": "/{index}/{type}/{id}/_mlt",
-      "paths": ["/{index}/{type}/{id}/_mlt"],
-      "parts": {
-        "id": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The document ID"
-        },
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index"
-        },
-        "type": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The type of the document (use `_all` to fetch the first document matching the ID across all types)"
-        }
-      },
-      "params": {
-        "boost_terms": {
-          "type" : "number",
-          "description" : "The boost factor"
-        },
-        "max_doc_freq": {
-          "type" : "number",
-          "description" : "The word occurrence frequency as count: words with higher occurrence in the corpus will be ignored"
-        },
-        "max_query_terms": {
-          "type" : "number",
-          "description" : "The maximum query terms to be included in the generated query"
-        },
-        "max_word_len": {
-          "type" : "number",
-          "description" : "The minimum length of the word: longer words will be ignored"
-        },
-        "min_doc_freq": {
-          "type" : "number",
-          "description" : "The word occurrence frequency as count: words with lower occurrence in the corpus will be ignored"
-        },
-        "min_term_freq": {
-          "type" : "number",
-          "description" : "The term frequency as percent: terms with lower occurence in the source document will be ignored"
-        },
-        "min_word_len": {
-          "type" : "number",
-          "description" : "The minimum length of the word: shorter words will be ignored"
-        },
-        "mlt_fields": {
-          "type" : "list",
-          "description" : "Specific fields to perform the query against"
-        },
-        "percent_terms_to_match": {
-          "type" : "number",
-          "description" : "How many terms have to match in order to consider the document a match (default: 0.3)"
-        },
-        "routing": {
-          "type" : "string",
-          "description" : "Specific routing value"
-        },
-        "search_from": {
-          "type" : "number",
-          "description" : "The offset from which to return results"
-        },
-        "search_indices": {
-          "type" : "list",
-          "description" : "A comma-separated list of indices to perform the query against (default: the index containing the document)"
-        },
-        "search_query_hint": {
-          "type" : "string",
-          "description" : "The search query hint"
-        },
-        "search_scroll": {
-          "type" : "string",
-          "description" : "A scroll search request definition"
-        },
-        "search_size": {
-          "type" : "number",
-          "description" : "The number of documents to return (default: 10)"
-        },
-        "search_source": {
-          "type" : "string",
-          "description" : "A specific search request definition (instead of using the request body)"
-        },
-        "search_type": {
-          "type" : "string",
-          "description" : "Specific search type (eg. `dfs_then_fetch`, `count`, etc)"
-        },
-        "search_types": {
-          "type" : "list",
-          "description" : "A comma-separated list of types to perform the query against (default: the same type as the document)"
-        },
-        "stop_words": {
-          "type" : "list",
-          "description" : "A list of stop words to be ignored"
-        }
-      }
-    },
-    "body": {
-      "description" : "A specific search request definition"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body of MLT must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -158,9 +61,9 @@ class Mlt extends AbstractEndpoint
             );
         }
 
-        $id = $this->id;
+        $id    = $this->id;
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type/$id/_mlt";
 
         return $uri;
@@ -199,7 +102,6 @@ class Mlt extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'GET';
     }
 }

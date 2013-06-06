@@ -18,54 +18,21 @@ class Suggest extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "suggest": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/search/suggest/",
-    "methods": ["POST", "GET"],
-    "url": {
-      "path": "/_suggest",
-      "paths": ["/_suggest", "/{index}/_suggest"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices"
-        }
-      },
-      "params": {
-        "ignore_indices": {
-          "type" : "enum",
-          "options" : ["none","missing"],
-          "default" : "none",
-          "description" : "When performed on multiple indices, allows to ignore `missing` ones"
-        },
-        "operation_threading": {
-          "description" : "TODO: ?"
-        },
-        "preference": {
-          "type" : "string",
-          "description" : "Specify the shards the operation should be performed on (default: random shard)"
-        },
-        "routing": {
-          "type" : "string",
-          "description" : "Specific routing value"
-        },
-        "source": {
-          "type" : "string",
-          "description" : "The URL-encoded request definition (instead of using request body)"
-        }
-      }
-    },
-    "body": {
-      "description" : "The request definition"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body of Msearch must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
@@ -102,7 +69,6 @@ class Suggest extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'POST,GET';
+        return 'GET';
     }
 }

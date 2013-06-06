@@ -18,30 +18,21 @@ class Settings extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "cluster.settings": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/admin-cluster-update-settings/",
-    "methods": ["GET", "PUT"],
-    "url": {
-      "path": "/_cluster/settings",
-      "paths": ["/_cluster/settings"],
-      "parts": {
-      },
-      "params": {
-      }
-    },
-    "body": {
-      "description" : "The settings to be updated. Can be either `transient` or `persistent`."
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body of Settings must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string
@@ -68,7 +59,11 @@ class Settings extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,PUT';
+        if (isset($this->body) === true) {
+            return 'PUT';
+        } else {
+            return 'GET';
+        }
+
     }
 }

@@ -14,44 +14,8 @@ use Elasticsearch\Common\Exceptions;
  * Class Shutdown
  * @package Elasticsearch\Endpoints\Cluster\Node
  */
-class Shutdown extends AbstractEndpoint
+class Shutdown extends AbstractNodeEndpoint
 {
-
-    /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "cluster.node.shutdown": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/admin-cluster-nodes-shutdown/",
-    "methods": ["POST"],
-    "url": {
-      "path": "/_shutdown",
-      "paths": ["/_shutdown", "/_cluster/nodes/_shutdown", "/_cluster/nodes/{nodeId}/_shutdown"],
-      "parts": {
-        "nodeId": {
-          "type" : "list",
-          "description" : "A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on all nodes"
-        }
-      },
-      "params": {
-        "delay": {
-          "type" : "time",
-          "description" : "Set the delay for the operation (default: 1s)"
-        },
-        "exit": {
-          "type" : "boolean",
-          "description" : "Exit the JVM as well (default: true)"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
 
     /**
      * @return string
@@ -59,12 +23,13 @@ class Shutdown extends AbstractEndpoint
     protected function getURI()
     {
 
-        $nodeId = $this->nodeId;
-        $uri   = "/_shutdown";
+        $nodeID = $this->nodeID;
+        $uri    = "/_cluster/nodes/_shutdown";
 
-        if (isset($nodeId) === true) {
-            $uri = "/_cluster/nodes/_shutdown";
+        if (isset($nodeID) === true) {
+            $uri = "/_cluster/nodes/$nodeID/_shutdown";
         }
+
         return $uri;
     }
 

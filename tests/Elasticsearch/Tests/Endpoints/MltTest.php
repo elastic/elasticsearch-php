@@ -7,6 +7,7 @@
 
 namespace Elasticsearch\Tests\Endpoints;
 
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\Mlt;
 use Mockery as m;

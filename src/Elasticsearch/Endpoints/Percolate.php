@@ -18,46 +18,25 @@ class Percolate extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "percolate": {
-    "documentation": "http://elasticsearch.org/guide/reference/api/percolate/",
-    "methods": ["GET", "POST"],
-    "url": {
-      "path": "/{index}/{type}/_percolate",
-      "paths": ["/{index}/{type}/_percolate"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index with a registered percolator query"
-        },
-        "type": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The document type"
-        }
-      },
-      "params": {
-        "prefer_local": {
-          "type" : "boolean",
-          "description" : "With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)"
-        }
-      }
-    },
-    "body": {
-      "description" : "The document (`doc`) to percolate against registered queries; optionally also a `query` to limit the percolation to specific registered queries"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body of Msearch must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -76,7 +55,7 @@ class Percolate extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type/_percolate";
 
         return $uri;
@@ -97,7 +76,6 @@ class Percolate extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'GET';
     }
 }

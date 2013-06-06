@@ -17,28 +17,6 @@ use Elasticsearch\Common\Exceptions;
 class Info extends AbstractEndpoint
 {
 
-    /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "info": {
-    "documentation": "http://elasticsearch.org/guide/",
-    "methods": ["GET", "HEAD"],
-    "url": {
-      "path": "/",
-      "paths": ["/"],
-      "parts": {
-      },
-      "params": {
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
 
 
     /**
@@ -67,6 +45,6 @@ class Info extends AbstractEndpoint
     protected function getMethod()
     {
         //TODO Fix Me!
-        return 'GET,HEAD';
+        return 'GET';
     }
 }

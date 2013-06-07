@@ -5,16 +5,16 @@
  * Time: 16:47:11 pm
  */
 
-namespace Elasticsearch\Endpoints\Cluster;
+namespace Elasticsearch\Endpoints\Cluster\Settings;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Settings
+ * Class Set
  * @package Elasticsearch\Endpoints\Cluster
  */
-class Settings extends AbstractEndpoint
+class Set extends AbstractEndpoint
 {
 
     /**
@@ -59,11 +59,7 @@ class Settings extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if (isset($this->body) === true) {
-            return 'PUT';
-        } else {
-            return 'GET';
-        }
+        return 'PUT';
 
     }
 }

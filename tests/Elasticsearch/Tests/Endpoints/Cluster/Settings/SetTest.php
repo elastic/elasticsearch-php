@@ -5,20 +5,20 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Cluster;
+namespace Elasticsearch\Tests\Endpoints\Cluster\Settings;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Cluster\Settings;
+use Elasticsearch\Endpoints\Cluster\Settings\Set;
 use Mockery as m;
 
 /**
- * Class SettingsTest
+ * Class SetTest
  * @package Elasticsearch\Tests\Endpoints
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class SettingsTest extends \PHPUnit_Framework_TestCase
+class SetTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -39,7 +39,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Settings($mockTransport);
+        $action = new Set($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
@@ -55,7 +55,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
 
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Settings($mockTransport);
+        $action = new Set($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
@@ -75,25 +75,25 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Settings($mockTransport);
+        $action = new Set($mockTransport);
         $action->setBody($settings)
             ->performRequest();
 
     }
 
-    public function testValidSettingsWithoutBody()
+    public function testValidSetWithoutBody()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'GET',
+                                 'PUT',
                                  '/_cluster/settings',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Settings($mockTransport);
+        $action = new Set($mockTransport);
         $action->performRequest();
 
     }

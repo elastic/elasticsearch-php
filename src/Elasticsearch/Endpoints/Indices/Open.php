@@ -18,49 +18,21 @@ class Open extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.open": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-open-close/",
-    "methods": ["POST"],
-    "url": {
-      "path": "/{index}/_open",
-      "paths": ["/{index}/_open"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "description" : "The name of the index"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
 
-        $index = $this->index;
-        $uri   = "/$index/_open";
-
-        if (isset($index) === true) {
-            $uri = "";
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Open'
+            );
         }
+
+        $index = $this->index;
+        $uri   = "/$index/_close";
+
         return $uri;
     }
 

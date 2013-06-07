@@ -5,16 +5,16 @@
  * Time: 16:47:11 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints\Indices\Alias;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Alias
- * @package Elasticsearch\Endpoints\Indices
+ * Class Aliases
+ * @package Elasticsearch\Endpoints\Indices\Alias
  */
-class Alias extends AbstractEndpoint
+class Aliases extends AbstractEndpoint
 {
 
     /**

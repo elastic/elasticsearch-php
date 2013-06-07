@@ -18,62 +18,21 @@ class Analyze extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.analyze": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-analyze/",
-    "methods": ["GET", "POST"],
-    "url": {
-      "path": "/_analyze",
-      "paths": ["/_analyze", "/{index}/_analyze"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "description" : "The name of the index to scope the operation"
-        }
-      },
-      "params": {
-        "analyzer": {
-          "type" : "string",
-          "description" : "The name of the analyzer to use"
-        },
-        "field": {
-          "type" : "string",
-          "description" : "The name of the field to "
-        },
-        "filters": {
-          "type" : "list",
-          "description" : "A comma-separated list of filters to use for the analysis"
-        },
-        "index": {
-          "type" : "string",
-          "description" : "The name of the index to scope the operation"
-        },
-        "prefer_local": {
-          "type" : "boolean",
-          "description" : "With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)"
-        },
-        "text": {
-          "type" : "string",
-          "description" : "The text on which the analysis should be performed (when request body is not used)"
-        },
-        "tokenizer": {
-          "type" : "string",
-          "description" : "The name of the tokenizer to use for the analysis"
-        }
-      }
-    },
-    "body": {
-      "description" : "The text on which the analysis should be performed"
-    }
-  }
-}
-
-
+     * @param string $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_string($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be a string'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string
@@ -111,7 +70,6 @@ class Analyze extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'GET';
     }
 }

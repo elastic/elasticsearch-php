@@ -18,39 +18,7 @@ class Close extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.close": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-open-close/",
-    "methods": ["POST"],
-    "url": {
-      "path": "/{index}/_close",
-      "paths": ["/{index}/_close"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()

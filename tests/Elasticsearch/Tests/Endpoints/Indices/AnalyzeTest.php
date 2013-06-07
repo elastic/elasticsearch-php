@@ -5,7 +5,7 @@
  * Time: 11:10 AM
  */
 
-namespace Elasticsearch\Tests\Endpoints;
+namespace Elasticsearch\Tests\Endpoints\Indices;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\Indices\Analyze;

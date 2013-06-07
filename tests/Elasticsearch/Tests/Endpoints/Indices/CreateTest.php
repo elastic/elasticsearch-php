@@ -5,7 +5,7 @@
  * Time: 12:08 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints;
+namespace Elasticsearch\Tests\Endpoint\Indicess;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\Indices\Create;

@@ -12,7 +12,7 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Get
- * @package Elasticsearch\Endpoints\Cluster
+ * @package Elasticsearch\Endpoints\Cluster\Settings
  */
 class Get extends AbstractEndpoint
 {

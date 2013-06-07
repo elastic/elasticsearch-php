@@ -5,14 +5,14 @@
  * Time: 13:33:19 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Type;
+namespace Elasticsearch\Endpoints\Indices\Mapping;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Delete
- * @package Elasticsearch\Endpoints\Indices\Type
+ * @package Elasticsearch\Endpoints\Indices\Mapping
  */
 class Delete extends AbstractEndpoint
 {

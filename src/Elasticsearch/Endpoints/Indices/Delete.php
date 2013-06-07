@@ -17,39 +17,7 @@ use Elasticsearch\Common\Exceptions;
 class Delete extends AbstractEndpoint
 {
 
-    /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.delete": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-delete-index/",
-    "methods": ["DELETE"],
-    "url": {
-      "path": "/",
-      "paths": ["/", "/{index}"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of indices to delete; use `_all` or empty string to delete all indices"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     /**
      * @return string
      */
     protected function getURI()

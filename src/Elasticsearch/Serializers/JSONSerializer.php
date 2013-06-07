@@ -23,13 +23,18 @@ class JSONSerializer implements SerializerInterface
     /**
      * Serialize assoc array into JSON string
      *
-     * @param array $data Assoc array to encode into JSON
+     * @param string|array $data Assoc array to encode into JSON
      *
      * @return string
      */
     public function serialize($data)
     {
-        return json_encode($data);
+        if (is_string($data) === true) {
+            return $data;
+        } else {
+            return json_encode($data);
+        }
+
 
     }
 

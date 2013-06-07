@@ -12,13 +12,13 @@ use Elasticsearch\Endpoints\Indices\Create;
 use Mockery as m;
 
 /**
- * Class CloseTest
+ * Class CreateTest
  * @package Elasticsearch\Tests\Endpoints
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class CloseTest extends \PHPUnit_Framework_TestCase
+class CreateTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();

@@ -18,41 +18,25 @@ class Create extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.create": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-create-index/",
-    "methods": ["PUT", "POST"],
-    "url": {
-      "path": "/{index}",
-      "paths": ["/{index}"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the index"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": {
-      "description" : "The configuration for the index (`settings` and `mappings`)"
-    }
-  }
-}
-
-
+     * @param string $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -85,7 +69,10 @@ class Create extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'PUT,POST';
+        if (isset($this->body['mappings']) === true) {
+            return 'POST';
+        } else {
+            return 'PUT';
+        }
     }
 }

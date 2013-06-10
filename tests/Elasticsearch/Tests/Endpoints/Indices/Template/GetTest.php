@@ -2,23 +2,23 @@
 /**
  * User: zach
  * Date: 6/10/13
- * Time: 2:53 PM
+ * Time: 3:00 PM
  */
 
 namespace Elasticsearch\Tests\Endpoints\Indices\Template;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\Endpoints\Indices\Template\Delete;
+use Elasticsearch\Endpoints\Indices\Template\Get;
 use Mockery as m;
 
 /**
- * Class DeleteTest
+ * Class GetTest
  * @package Elasticsearch\Tests\Endpoints\Indices\Template
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class DeleteTest extends \PHPUnit_Framework_TestCase
+class GetTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -32,25 +32,25 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Delete($mockTransport);
+        $action = new Get($mockTransport);
         $action->performRequest();
 
     }
 
-    public function testValidDelete()
+    public function testValidGet()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'DELETE',
+                                 'GET',
                                  '/_template/testName',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Delete($mockTransport);
+        $action = new Get($mockTransport);
         $action->setIndex('testIndex')->setName('testName')
         ->performRequest();
 

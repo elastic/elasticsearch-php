@@ -14,39 +14,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Get
  * @package Elasticsearch\Endpoints\Indices\Template
  */
-class Get extends AbstractEndpoint
+class Get extends AbstractTemplateEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.template.get": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-templates/",
-    "methods": ["GET"],
-    "url": {
-      "path": "/_template/{name}",
-      "paths": ["/_template/{name}"],
-      "parts": {
-        "name": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the template"
-        }
-      },
-      "params": {
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()

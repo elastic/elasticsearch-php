@@ -48,7 +48,8 @@ class Put extends AbstractEndpoint
       }
     },
     "body": {
-      "description" : "The search request definition for the warmer (query, filters, facets, sorting, etc)"
+      "description" : "The search request definition for the warmer (query, filters, facets, sorting, etc)",
+      "required" : true
     }
   }
 }

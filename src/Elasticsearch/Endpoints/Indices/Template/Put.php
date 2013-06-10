@@ -47,7 +47,8 @@ class Put extends AbstractEndpoint
       }
     },
     "body": {
-      "description" : "The template definition"
+      "description" : "The template definition",
+      "required" : true
     }
   }
 }

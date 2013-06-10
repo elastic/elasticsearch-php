@@ -50,7 +50,10 @@ class Put extends AbstractEndpoint
         }
       }
     },
-    "body": null
+    "body": {
+    +      "description" : "The mapping definition",
+    +      "required" : true
+    }
   }
 }
 

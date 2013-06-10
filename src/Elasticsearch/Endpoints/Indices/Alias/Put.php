@@ -46,7 +46,8 @@ class Put extends AbstractEndpoint
       }
     },
     "body": {
-      "description" : "The settings for the alias, such as `routing` or `filter`"
+      "description" : "The settings for the alias, such as `routing` or `filter`",
+      "required" : true
     }
   }
 }

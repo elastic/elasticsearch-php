@@ -18,50 +18,24 @@ class Put extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.mapping.put": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-put-mapping/",
-    "methods": ["PUT", "POST"],
-    "url": {
-      "path": "/{index}/_mapping",
-      "paths": ["/{index}/_mapping", "/{index}/{type}/_mapping"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "required" : true,
-          "description" : "A comma-separated list of index names; use `_all` to perform the operation on all indices"
-        },
-        "type": {
-          "type" : "string",
-          "description" : "The name of the document type"
-        }
-      },
-      "params": {
-        "ignore_conflicts": {
-          "type" : "boolean",
-          "description" : "Specify whether to ignore conflicts while updating the mapping (default: false)"
-        },
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": {
-    +      "description" : "The mapping definition",
-    +      "required" : true
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -73,15 +47,13 @@ class Put extends AbstractEndpoint
             );
         }
 
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Put'
-            );
-        }
-
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/_mapping";
+
+        if (isset($type) === true) {
+            $uri = "/$index/$type/_mapping";
+        }
 
         return $uri;
     }
@@ -102,7 +74,20 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'PUT,POST';
+        return 'PUT';
+    }
+
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Put');
+        }
+
+        return $this->body;
     }
 }

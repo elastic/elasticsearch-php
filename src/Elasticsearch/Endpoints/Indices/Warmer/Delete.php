@@ -18,19 +18,12 @@ class Delete extends AbstractWarmerEndpoint
 {
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-
-        $uri = $this->getOptionalURI('_warmer');
-
-        $name = $this->name;
-        if (isset($name) === true) {
-            $uri .= "/$name";
-        }
-
-        return $uri;
+        return $this->getWarmerURI();
     }
 
     /**

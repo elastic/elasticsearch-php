@@ -25,18 +25,13 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testDeleteNoNameNoIndexNoType()
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testDeleteNoIndex()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'DELETE',
-                                 '/_all/_warmer',
-                                 array(),
-                                 null
-                             )
-                         ->getMock();
+        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Delete($mockTransport);
         $action->performRequest();
@@ -61,39 +56,39 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testDeleteWithType()
+    public function testDeleteWithIndexAndType()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'DELETE',
-                                 '/_all/testType/_warmer',
+                                 '/testIndex/testType/_warmer',
                                  array(),
                                  null
                              )
                          ->getMock();
 
         $action = new Delete($mockTransport);
-        $action->setType('testType')->performRequest();
+        $action->setIndex('testIndex')->setType('testType')->performRequest();
 
     }
 
-    public function testDeleteWithName()
+    public function testDeleteWithIndexAndName()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'DELETE',
-                                 '/_all/_warmer/testName',
+                                 '/testIndex/_warmer/testName',
                                  array(),
                                  null
                              )
                          ->getMock();
 
         $action = new Delete($mockTransport);
-        $action->setName('testName')->performRequest();
+        $action->setIndex('testIndex')->setName('testName')->performRequest();
 
     }
 

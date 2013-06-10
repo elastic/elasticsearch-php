@@ -8,6 +8,7 @@
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 abstract class AbstractWarmerEndpoint extends AbstractEndpoint
@@ -25,5 +26,28 @@ abstract class AbstractWarmerEndpoint extends AbstractEndpoint
     {
         $this->name = $name;
         return $this;
+    }
+
+
+    /**
+     * @return string
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getWarmerURI()
+    {
+        if (isset($this->index) !== true) {
+            throw new RuntimeException(
+                'index is required for Delete'
+            );
+        }
+
+        $uri = $this->getOptionalURI('_warmer');
+
+        $name = $this->name;
+        if (isset($name) === true) {
+            $uri .= "/$name";
+        }
+
+        return $uri;
     }
 }

@@ -14,71 +14,39 @@ use Elasticsearch\Common\Exceptions;
  * Class Put
  * @package Elasticsearch\Endpoints\Indices\Warmer
  */
-class Put extends AbstractEndpoint
+class Put extends AbstractWarmerEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.warmer.put": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-warmers/",
-    "methods": ["PUT"],
-    "url": {
-      "path": "/{index}/_warmer/{name}",
-      "paths": ["/{index}/_warmer/{name}", "/{index}/{type}/_warmer/{name}"],
-      "parts": {
-        "index": {
-          "type" : "list",
-     * "required" : true,
-          "description" : "A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices"
-        },
-        "name": {
-          "type" : "string",
-     * "required" : true,
-          "description" : "The name of the warmer"
-        },
-        "type": {
-          "type" : "list",
-          "description" : "A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types"
-        }
-      },
-      "params": {
-      }
-    },
-    "body": {
-      "description" : "The search request definition for the warmer (query, filters, facets, sorting, etc)",
-      "required" : true
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-
-        $index = $this->index;
-        $name = $this->name;
-        $type = $this->type;
-        $uri   = "/$index/_warmer/$name";
-
-        if (isset($index) === true) {
-            $uri = "/$index/$type/_warmer/$name";
-        } elseif (isset($name) === true && isset($index) === true) {
-            $uri = "";
-        }
- elseif (isset($type) === true && isset($name) === true && isset($index) === true) {
-            $uri = "";
+        if (isset($this->name) !== true) {
+            throw new Exceptions\RuntimeException(
+                'name is required for Put'
+            );
         }
 
-        return $uri;
+        return $this->getWarmerURI();
     }
 
     /**
@@ -96,5 +64,18 @@ class Put extends AbstractEndpoint
     protected function getMethod()
     {
         return 'PUT';
+    }
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Put');
+        }
+
+        return $this->body;
     }
 }

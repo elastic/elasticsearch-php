@@ -18,35 +18,7 @@ class Indices extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.exists.indices": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-indices-exists/",
-    "methods": ["HEAD"],
-    "url": {
-      "path": "/{index}",
-      "paths": ["/{index}"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "required" : true,
-          "description" : "A comma-separated list of indices to check"
-        }
-      },
-      "params": {
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()

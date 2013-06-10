@@ -13,7 +13,7 @@ use Mockery as m;
 
 /**
  * Class SettingsTest
- * @package Elasticsearch\Tests\Endpoints\Indices\Cluster\Node\HotThreads
+ * @package Elasticsearch\Tests\Endpoints\Indices\Cluster\Node
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

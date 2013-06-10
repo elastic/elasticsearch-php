@@ -13,7 +13,7 @@ use Mockery as m;
 
 /**
  * Class DeleteTest
- * @package Elasticsearch\Tests\Endpoints\Indices\Delete
+ * @package Elasticsearch\Tests\Endpoints\Indices\Mapping
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

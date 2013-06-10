@@ -7,13 +7,14 @@
 
 namespace Elasticsearch\Tests\Endpoint\Indicess;
 
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\Indices\Create;
 use Mockery as m;
 
 /**
  * Class CreateTest
- * @package Elasticsearch\Tests\Endpoints\Indices\Create
+ * @package Elasticsearch\Tests\Endpoints\Indices
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

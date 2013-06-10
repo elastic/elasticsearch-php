@@ -13,7 +13,7 @@ use Mockery as m;
 
 /**
  * Class GetTest
- * @package Elasticsearch\Tests\Endpoints\Indices\Settings\Get
+ * @package Elasticsearch\Tests\Endpoints\Indices\Settings
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

@@ -5,7 +5,7 @@
  * Time: 2:53 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Indices\Template\Template;
+namespace Elasticsearch\Tests\Endpoints\Indices\Template;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\Indices\Template\Delete;
@@ -13,7 +13,7 @@ use Mockery as m;
 
 /**
  * Class DeleteTest
- * @package Elasticsearch\Tests\Endpoints\Indices\Template\Delete
+ * @package Elasticsearch\Tests\Endpoints\Indices\Template
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

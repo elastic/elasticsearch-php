@@ -18,60 +18,11 @@ class Get extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.mapping.get": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-get-mapping/",
-    "methods": ["GET"],
-    "url": {
-      "path": "/_mapping",
-      "paths": ["/_mapping", "/{index}/_mapping", "/{index}/{type}/_mapping"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names; use `_all` or empty string for all indices"
-        },
-        "type": {
-          "type" : "list",
-          "description" : "A comma-separated list of document types"
-        }
-      },
-      "params": {
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
      * @return string
      */
     protected function getURI()
     {
-
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Get'
-            );
-        }
-
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Get'
-            );
-        }
-
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping";
-
-        return $uri;
+        return $this->getOptionalURI('_mapping');
     }
 
     /**

@@ -18,73 +18,28 @@ class Query extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.validate.query": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/validate/",
-    "methods": ["GET", "POST"],
-    "url": {
-      "path": "/_validate/query",
-      "paths": ["/_validate/query", "/{index}/_validate/query", "/{index}/{type}/_validate/query"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices"
-        },
-        "type": {
-          "type" : "list",
-          "description" : "A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types"
-        }
-      },
-      "params": {
-        "explain": {
-          "type" : "boolean",
-          "description" : "Return detailed information about the error"
-        },
-        "ignore_indices": {
-          "type" : "enum",
-          "options" : ["none","missing"],
-          "default" : "none",
-          "description" : "When performed on multiple indices, allows to ignore `missing` ones"
-        },
-        "operation_threading": {
-          "description" : "TODO: ?"
-        },
-        "source": {
-          "type" : "string",
-          "description" : "The URL-encoded query definition (instead of using the request body)"
-        }
-      }
-    },
-    "body": {
-      "description" : "The query definition"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string
      */
     protected function getURI()
     {
-
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_validate/query";
-
-        if (isset($index) === true) {
-            $uri = "/$index/_validate/query";
-        } elseif (isset($type) === true && isset($index) === true) {
-            $uri = "/$index/$type/_validate/query";
-        }
-
-        return $uri;
+        return $this->getOptionalURI('_validate/query');
     }
 
     /**
@@ -105,7 +60,6 @@ class Query extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'GET';
     }
 }

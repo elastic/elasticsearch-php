@@ -12,7 +12,7 @@ use Mockery as m;
 
 /**
  * Class OptimizeTest
- * @package Elasticsearch\Tests\Endpoints
+ * @package Elasticsearch\Tests\Endpoints\Indices\Optimize
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org

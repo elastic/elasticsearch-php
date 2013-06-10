@@ -8,17 +8,17 @@
 namespace Elasticsearch\Tests\Endpoints\Indices\Settings;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Indices\Settings\Set;
+use Elasticsearch\Endpoints\Indices\Settings\Put;
 use Mockery as m;
 
 /**
- * Class SetTest
+ * Class PutTest
  * @package Elasticsearch\Tests\Endpoints
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class SetTest extends \PHPUnit_Framework_TestCase
+class PutTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -39,7 +39,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
@@ -55,7 +55,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
@@ -73,7 +73,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->performRequest();
 
     }
@@ -91,7 +91,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->setIndex('testIndex')
         ->performRequest();
 

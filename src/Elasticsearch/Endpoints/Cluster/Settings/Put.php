@@ -1,20 +1,20 @@
 <?php
 /**
  * User: zach
- * Date: 6/7/13
- * Time: 2:58 PM
+ * Date: 05/31/2013
+ * Time: 16:47:11 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Settings;
+namespace Elasticsearch\Endpoints\Cluster\Settings;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Set
- * @package Elasticsearch\Endpoints\Indices\Settings
+ * Class Put
+ * @package Elasticsearch\Endpoints\Cluster
  */
-class Set extends AbstractEndpoint
+class Put extends AbstractEndpoint
 {
 
     /**
@@ -27,7 +27,7 @@ class Set extends AbstractEndpoint
     {
         if (is_array($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
-                'Body must be an array'
+                'Body of Settings must be an array'
             );
         }
         $this->body = $body;
@@ -40,12 +40,7 @@ class Set extends AbstractEndpoint
     protected function getURI()
     {
 
-        $index = $this->index;
-        $uri   = "/_settings";
-
-        if (isset($index) === true) {
-            $uri = "/$index/_settings";
-        }
+        $uri   = "/_cluster/settings";
 
         return $uri;
     }
@@ -65,5 +60,6 @@ class Set extends AbstractEndpoint
     protected function getMethod()
     {
         return 'PUT';
+
     }
 }

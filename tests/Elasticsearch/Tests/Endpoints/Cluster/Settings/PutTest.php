@@ -5,27 +5,27 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Cluster\Settings;
+namespace Elasticsearch\Tests\Endpoints\Cluster\Puttings;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Cluster\Settings\Set;
+use Elasticsearch\Endpoints\Cluster\Settings\Put;
 use Mockery as m;
 
 /**
- * Class SetTest
+ * Class PutTest
  * @package Elasticsearch\Tests\Endpoints
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class SetTest extends \PHPUnit_Framework_TestCase
+class PutTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
     }
 
 
-    public function testSetBody()
+    public function testPutBody()
     {
         $query['docs'] = '1';
 
@@ -39,7 +39,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
@@ -49,21 +49,21 @@ class SetTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testSetIllegalBody()
+    public function testPutIllegalBody()
     {
         $query = 5;
 
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->setBody($query)
         ->performRequest();
 
     }
 
-    public function testValidSettingsWithBody()
+    public function testValidPutWithBody()
     {
-        $settings = array('field' => 'value');
+        $Puttings = array('field' => 'value');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
@@ -71,17 +71,17 @@ class SetTest extends \PHPUnit_Framework_TestCase
                                  'PUT',
                                  '/_cluster/settings',
                                  array(),
-                                 $settings
+                                 $Puttings
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
-        $action->setBody($settings)
+        $action = new Put($mockTransport);
+        $action->setBody($Puttings)
             ->performRequest();
 
     }
 
-    public function testValidSetWithoutBody()
+    public function testValidPutWithoutBody()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
@@ -93,7 +93,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Set($mockTransport);
+        $action = new Put($mockTransport);
         $action->performRequest();
 
     }

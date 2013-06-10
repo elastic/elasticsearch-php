@@ -31,7 +31,6 @@ class Snapshot extends AbstractEndpoint
       "parts": {
         "index": {
           "type" : "list",
-          "required" : true,
           "description" : "A comma-separated list of index names; use `_all` or empty string for all indices"
         }
       },

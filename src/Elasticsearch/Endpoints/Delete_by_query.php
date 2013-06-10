@@ -31,6 +31,7 @@ class Delete_By_Query extends AbstractEndpoint
       "parts": {
         "index": {
           "type" : "list",
+          "required": true,
           "description" : "A comma-separated list of indices to restrict the operation"
         },
         "type": {

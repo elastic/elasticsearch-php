@@ -31,12 +31,10 @@ class Put extends AbstractEndpoint
       "parts": {
         "index": {
           "type" : "string",
-          "required" : true,
           "description" : "The name of the index with an alias"
         },
         "name": {
           "type" : "string",
-          "required" : true,
           "description" : "The name of the alias to be created or updated"
         }
       },

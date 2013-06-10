@@ -31,10 +31,12 @@ class Put extends AbstractEndpoint
       "parts": {
         "index": {
           "type" : "list",
+     * "required" : true,
           "description" : "A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices"
         },
         "name": {
           "type" : "string",
+     * "required" : true,
           "description" : "The name of the warmer"
         },
         "type": {

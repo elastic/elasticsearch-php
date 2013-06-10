@@ -36,7 +36,6 @@ class Put extends AbstractEndpoint
         },
         "type": {
           "type" : "string",
-          "required" : true,
           "description" : "The name of the document type"
         }
       },

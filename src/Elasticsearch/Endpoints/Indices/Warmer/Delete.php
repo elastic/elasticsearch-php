@@ -31,6 +31,7 @@ class Delete extends AbstractEndpoint
       "parts": {
         "index": {
           "type" : "list",
+          "required": true,
           "description" : "A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices"
         },
         "name" : {

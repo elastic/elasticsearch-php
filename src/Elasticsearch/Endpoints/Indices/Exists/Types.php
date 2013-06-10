@@ -76,7 +76,7 @@ class Types extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
         $uri   = "/$index/$type";
 
         return $uri;

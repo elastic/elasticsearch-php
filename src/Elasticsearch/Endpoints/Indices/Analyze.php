@@ -62,6 +62,7 @@ class Analyze extends AbstractEndpoint
             'prefer_local',
             'text',
             'tokenizer',
+            'format'
         );
     }
 

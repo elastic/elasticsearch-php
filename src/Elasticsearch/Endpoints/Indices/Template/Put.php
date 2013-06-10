@@ -7,57 +7,34 @@
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Put
  * @package Elasticsearch\Endpoints\Indices\Template
  */
-class Put extends AbstractEndpoint
+class Put extends AbstractTemplateEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.template.put": {
-    "documentation": "",
-    "methods": ["PUT", "POST"],
-    "url": {
-      "path": "/_template/{name}",
-      "paths": ["/_template/{name}"],
-      "parts": {
-        "name": {
-          "type" : "string",
-          "required" : true,
-          "description" : "The name of the template"
-        }
-      },
-      "params": {
-        "order": {
-          "type" : "number",
-          "description" : "The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)"
-        },
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit operation timeout"
-        }
-      }
-    },
-    "body": {
-      "description" : "The template definition",
-      "required" : true
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-
+    public function setBody($body)
+    {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -70,7 +47,7 @@ class Put extends AbstractEndpoint
         }
 
         $name = $this->name;
-        $uri   = "/_template/$name";
+        $uri  = "/_template/$name";
 
         return $uri;
     }
@@ -91,7 +68,19 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'PUT,POST';
+        return 'PUT';
+    }
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Put');
+        }
+
+        return $this->body;
     }
 }

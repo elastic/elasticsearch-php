@@ -1,0 +1,30 @@
+
+/**
+ * $params
+{% for key, arg in docBlockArgsRequired %}
+ *        ['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }} (Required)
+{% endfor %}
+{% for key, arg in docBlockArgsNotRequired %}
+ *        ['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }}
+{% endfor %}
+ *
+ * @param array Associative array of parameters
+ *
+ * @return array
+ */
+public function {{ functionName }}($params = null)
+{
+{% for arg in extractList %}
+    ${{ arg }} = $this->extractArgumentt($params, '{{ arg }}');
+    unset(${{ arg }});
+
+{% endfor %}
+
+    /** @var Endpoints\{{ namespace }} $endpoint */
+    $endpoint = $this->params['endpoint']('{{ namespace }}');
+{% for arg in extractList %}
+    {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
+{% endfor %}
+
+    return $endpoint->performRequest();
+}

@@ -21,7 +21,10 @@ use Elasticsearch\Transport;
  */
 abstract class AbstractNamespace
 {
+    /** @var \Elasticsearch\Transport  */
     protected $transport;
+
+    /** @var  callback */
     protected $dicEndpoints;
 
 

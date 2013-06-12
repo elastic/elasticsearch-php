@@ -18,13 +18,17 @@ class Create extends AbstractEndpoint
 {
 
     /**
-     * @param string $body
+     * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
     {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
         if (is_array($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
                 'Body must be an array'

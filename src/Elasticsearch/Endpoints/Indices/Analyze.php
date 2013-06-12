@@ -25,6 +25,10 @@ class Analyze extends AbstractEndpoint
      */
     public function setBody($body)
     {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
         if (is_string($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
                 'Body must be a string'

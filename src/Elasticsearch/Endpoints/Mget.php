@@ -25,9 +25,13 @@ class Mget extends AbstractEndpoint
      */
     public function setBody($body)
     {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
         if (is_array($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
-                'Body of Mget must be an array'
+                'Body must be an array'
             );
         }
         $this->body = $body;

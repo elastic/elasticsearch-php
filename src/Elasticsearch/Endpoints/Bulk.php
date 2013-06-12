@@ -26,6 +26,10 @@ class Bulk extends AbstractEndpoint
      */
     public function setBody($body)
     {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
         if (is_string($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
                 'Body of Bulk must be a string'

@@ -22,18 +22,35 @@ use Elasticsearch\Transport;
 abstract class AbstractNamespace
 {
     protected $transport;
+    protected $dicEndpoints;
 
 
     /**
      * Abstract constructor
      *
      * @param Transport $transport Transport object
+     * @param           $dicEndpoints
      */
-    public function __construct($transport)
+    public function __construct($transport, $dicEndpoints)
     {
         $this->transport = $transport;
-
+        $this->dicEndpoints = $dicEndpoints;
     }
 
+
+    /**
+     * @param array $params
+     * @param string $arg
+     *
+     * @return null|mixed
+     */
+    public function extractArgument($params, $arg)
+    {
+        if (isset($params[$arg]) === true) {
+            return $params[$arg];
+        } else {
+            return null;
+        }
+    }
 
 }

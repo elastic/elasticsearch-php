@@ -21,7 +21,7 @@ public function {{ functionName }}($params = null)
 {% endfor %}
 
     /** @var Endpoints\{{ namespace }} $endpoint */
-    $endpoint = $this->params['endpoint']('{{ namespace }}');
+    $endpoint = $this->dicEndpoints('{{ namespace }}');
 {% for arg in extractList %}
     {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
 {% endfor %}

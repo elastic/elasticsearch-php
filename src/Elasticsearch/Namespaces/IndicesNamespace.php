@@ -38,7 +38,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Exists\Indices');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -64,7 +65,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Segments');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -89,7 +91,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Template\Delete');
         $endpoint->setName($name);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -123,7 +126,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setName($name)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -148,7 +152,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Delete');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -208,7 +213,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setMetric_Family($metric_family)
                  ->setSearch_Groups($search_groups);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -237,7 +243,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -262,7 +269,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Gateway\Snapshot');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -291,7 +299,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -319,7 +328,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Flush');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -345,7 +355,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Refresh');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -380,7 +391,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setName($name)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -414,7 +426,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setName($name)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -453,7 +466,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -484,7 +498,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setName($name)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -522,7 +537,8 @@ class IndicesNamespace extends AbstractNamespace
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -553,7 +569,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setName($name);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -584,7 +601,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -613,7 +631,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -637,7 +656,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Template\Get');
         $endpoint->setName($name);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -667,7 +687,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -698,7 +719,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Optimize');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -728,7 +750,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setName($name);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -753,7 +776,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Open');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -783,7 +807,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -818,7 +843,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -852,7 +878,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Cache\Clear');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -882,7 +909,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -912,7 +940,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setName($name);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -940,7 +969,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Status');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -964,7 +994,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Settings\Get');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -989,7 +1020,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Close');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 

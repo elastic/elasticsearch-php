@@ -82,7 +82,8 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -122,7 +123,8 @@ class Client
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -163,7 +165,8 @@ class Client
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -202,7 +205,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -237,7 +241,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -276,7 +281,8 @@ class Client
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -334,7 +340,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -374,7 +381,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -409,7 +417,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -459,7 +468,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -496,7 +506,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -547,7 +558,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -580,7 +592,8 @@ class Client
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -631,7 +644,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -691,7 +705,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -721,7 +736,8 @@ class Client
         $endpoint->setScroll_Id($scroll_id)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -774,7 +790,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 

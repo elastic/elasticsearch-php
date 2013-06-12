@@ -31,5 +31,6 @@
 {% if allArgs|length > 0 %}
         $endpoint->setParams($params);
 {% endif %}
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }

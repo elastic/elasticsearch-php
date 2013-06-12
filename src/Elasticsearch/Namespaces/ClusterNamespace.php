@@ -64,7 +64,8 @@ class ClusterNamespace extends AbstractNamespace
                  ->setMetric($metric)
                  ->setNodeID($nodeID);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -96,7 +97,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Health');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -122,7 +124,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Reroute');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -157,7 +160,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Node\Info');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -185,7 +189,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Node\HotThreads');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -212,7 +217,8 @@ class ClusterNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Cluster\State $endpoint */
         $endpoint = $endpointBuilder('Cluster\State');
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -238,7 +244,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Node\Shutdown');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 
@@ -262,7 +269,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Settings');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
-        return $endpoint->performRequest();
+        $response = $endpoint->performRequest();
+        return $response['data'];
     }
 
 

@@ -65,7 +65,7 @@ class Client
         $this->transport    = $this->params['transport'];
         $this->indices      = $this->params['indicesNamespace'];
         $this->cluster      = $this->params['clusterNamespace'];
-        $this->dicEndpoints = $this->params->raw('endpoint');
+        $this->dicEndpoints = $this->params['endpoint'];
     }
 
 
@@ -118,7 +118,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Get $endpoint */
         $endpoint = $endpointBuilder('Get');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
@@ -159,7 +159,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Delete $endpoint */
         $endpoint = $endpointBuilder('Delete');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
@@ -272,7 +272,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Existss $endpoint */
         $endpoint = $endpointBuilder('Existss');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
@@ -329,7 +329,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Mlt $endpoint */
         $endpoint = $endpointBuilder('Mlt');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -454,7 +454,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Create $endpoint */
         $endpoint = $endpointBuilder('Create');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -542,7 +542,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Index $endpoint */
         $endpoint = $endpointBuilder('Index');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -626,7 +626,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Explain $endpoint */
         $endpoint = $endpointBuilder('Explain');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -769,7 +769,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Update $endpoint */
         $endpoint = $endpointBuilder('Update');
-        $endpoint->setId($id)
+        $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
                  ->setBody($body);

@@ -261,7 +261,7 @@ class DICBuilder
         $this->dic['clusterNamespace'] = $this->dic->share(
             function ($dicParams) {
                 /** @var Pimple $dicParams */
-                return new ClusterNamespace($dicParams['transport'], $dicParams->raw('endpoint'));
+                return new ClusterNamespace($dicParams['transport'], $dicParams['endpoint']);
             }
         );
     }
@@ -272,7 +272,7 @@ class DICBuilder
         $this->dic['indicesNamespace'] = $this->dic->share(
             function ($dicParams) {
                 /** @var Pimple $dicParams */
-                return new IndicesNamespace($dicParams['transport'], $dicParams->raw('endpoint'));
+                return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
             }
         );
     }

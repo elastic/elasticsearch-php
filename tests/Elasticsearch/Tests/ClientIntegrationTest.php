@@ -31,26 +31,32 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testIndexDocumentThenGet()
     {
         $client = new Elasticsearch\Client();
-        $doc    = array('testField' => 'abc');
-        $index  = 'test';
-        $type   = 'test';
-        $ret    = $client->index($index, $type, $doc);
+
+        $params = array();
+        $params['body']  = array('testField' => 'abc');
+        $params['index'] = 'test';
+        $params['type']  = 'test';
+        $ret = $client->index($params);
 
         $this->assertEquals(1, $ret['ok']);
         $this->assertEquals(1, $ret['_version']);
-        $this->assertEquals($index, $ret['_index']);
-        $this->assertEquals($type, $ret['_type']);
+        $this->assertEquals($params['index'], $ret['_index']);
+        $this->assertEquals($params['type'], $ret['_type']);
 
-        $retDoc = $client->get('test', $ret['_id']);
+        $getParams = array();
+        $getParams['index'] = $params['index'];
+        $getParams['type'] = $params['type'];
+        $getParams['id'] = $ret['_id'];
+        $retDoc = $client->get($getParams);
 
         $this->assertEquals(1, $retDoc['exists']);
-        $this->assertEquals($doc, $retDoc['_source']);
+        $this->assertEquals($params['body'], $retDoc['_source']);
         $this->assertEquals($ret['_id'], $retDoc['_id']);
-        $this->assertEquals($index, $retDoc['_index']);
-        $this->assertEquals($type, $retDoc['_type']);
+        $this->assertEquals($params['index'], $retDoc['_index']);
+        $this->assertEquals($params['type'], $retDoc['_type']);
         $this->assertEquals($ret['_version'], $retDoc['_version']);
 
-    }//end testIndexDocumentThenGet()
+    }
 
 
     /**
@@ -64,25 +70,30 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testIndexDocumentWithIDThenGet()
     {
         $client = new Elasticsearch\Client();
-        $doc    = array('testField' => 'abc');
-        $index  = 'test';
-        $type   = 'test';
-        $id     = (string)microtime(true);
-        $ret    = $client->index($index, $type, $doc, $id);
+        $params = array();
+        $params['body']  = array('testField' => 'abc');
+        $params['index'] = 'test';
+        $params['type']  = 'test';
+        $params['id']    = (string)microtime(true);
+        $ret = $client->index($params);
 
         $this->assertEquals(1, $ret['ok']);
         $this->assertEquals(1, $ret['_version']);
-        $this->assertEquals($index, $ret['_index']);
-        $this->assertEquals($type, $ret['_type']);
-        $this->assertEquals($id, $ret['_id']);
+        $this->assertEquals($params['index'], $ret['_index']);
+        $this->assertEquals($params['type'], $ret['_type']);
+        $this->assertEquals($params['id'], $ret['_id']);
 
-        $retDoc = $client->get('test', $id);
+        $getParams = array();
+        $getParams['index'] = $params['index'];
+        $getParams['type'] = $params['type'];
+        $getParams['id'] = $params['id'];
+        $retDoc = $client->get($getParams);
 
         $this->assertEquals(1, $retDoc['exists']);
-        $this->assertEquals($doc, $retDoc['_source']);
-        $this->assertEquals($id, $retDoc['_id']);
-        $this->assertEquals($index, $retDoc['_index']);
-        $this->assertEquals($type, $retDoc['_type']);
+        $this->assertEquals($params['body'], $retDoc['_source']);
+        $this->assertEquals($ret['_id'], $retDoc['_id']);
+        $this->assertEquals($params['index'], $retDoc['_index']);
+        $this->assertEquals($params['type'], $retDoc['_type']);
         $this->assertEquals($ret['_version'], $retDoc['_version']);
 
     }//end testIndexDocumentWithIDThenGet()
@@ -101,32 +112,43 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testIndexDocumentWithIDThenDeleteThenGet()
     {
         $client = new Elasticsearch\Client();
-        $doc    = array('testField' => 'abc');
-        $index  = 'test';
-        $type   = 'test';
-        $id     = (string)microtime(true);
+        $params = array();
+        $params['body']  = array('testField' => 'abc');
+        $params['index'] = 'test';
+        $params['type']  = 'test';
+        $params['id']    = (string)microtime(true);
+        $ret = $client->index($params);
 
-        $ret    = $client->index($index, $type, $doc, $id);
         $this->assertEquals(1, $ret['ok']);
         $this->assertEquals(1, $ret['_version']);
-        $this->assertEquals($index, $ret['_index']);
-        $this->assertEquals($type, $ret['_type']);
-        $this->assertEquals($id, $ret['_id']);
+        $this->assertEquals($params['index'], $ret['_index']);
+        $this->assertEquals($params['type'], $ret['_type']);
+        $this->assertEquals($params['id'], $ret['_id']);
 
-        $retDoc = $client->get('test', $id);
+        $getParams = array();
+        $getParams['index'] = $params['index'];
+        $getParams['type'] = $params['type'];
+        $getParams['id'] = $params['id'];
+        $retDoc = $client->get($getParams);
+
         $this->assertEquals(1, $retDoc['exists']);
-        $this->assertEquals($doc, $retDoc['_source']);
-        $this->assertEquals($id, $retDoc['_id']);
-        $this->assertEquals($index, $retDoc['_index']);
-        $this->assertEquals($type, $retDoc['_type']);
+        $this->assertEquals($params['body'], $retDoc['_source']);
+        $this->assertEquals($ret['_id'], $retDoc['_id']);
+        $this->assertEquals($params['index'], $retDoc['_index']);
+        $this->assertEquals($params['type'], $retDoc['_type']);
         $this->assertEquals($ret['_version'], $retDoc['_version']);
 
-        $retDelete = $client->delete($index, $type, $id);
+        $deleteParams = array();
+        $deleteParams['index'] = $params['index'];
+        $deleteParams['type'] = $params['type'];
+        $deleteParams['id'] = $params['id'];
+        $retDelete = $client->delete($deleteParams);
+
         $this->assertEquals(1, $retDelete['ok']);
         $this->assertEquals(1, $retDelete['found']);
-        $this->assertEquals($index, $retDelete['_index']);
+        $this->assertEquals($deleteParams['index'], $retDelete['_index']);
 
-        $retDoc = $client->get('test', $id);
+        $retDoc = $client->get($getParams);
         $this->assertNotEquals(1, $retDoc['exists']);
 
 
@@ -144,27 +166,32 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testIndexDocumentThenSearch()
     {
         $client = new Elasticsearch\Client();
-        $index  = 'testintegrationindex'.microtime(true);
-        $client->indices()->createIndex($index);
+        $indexParams['index']  = 'testintegrationindex'.microtime(true);
+        $client->indices()->create($indexParams);
 
         usleep(500000); // @todo replace this with a legit call to cluster health API
 
-        $doc    = array('testField' => 'abc');
-        $type   = 'test';
-        $params = array('refresh' => true);
-        $ret    = $client->index($index, $type, $doc, null, $params);
+        $params = array();
+        $params['body']  = array('testField' => 'abc');
+        $params['index'] = $indexParams['index'];
+        $params['type']  = 'test';
+        $params['refresh'] = true;
+        $ret = $client->index($params);
 
         $this->assertEquals(1, $ret['ok']);
         $this->assertEquals(1, $ret['_version']);
-        $this->assertEquals($index, $ret['_index']);
-        $this->assertEquals($type, $ret['_type']);
+        $this->assertEquals($params['index'], $ret['_index']);
+        $this->assertEquals($params['type'], $ret['_type']);
 
-        $query['query']['match'] = $doc;
-        $retDoc = $client->search($query, $index, $type);
+        $searchParams['index'] = $indexParams['index'];
+        $searchParams['type']  = 'test';
+        $searchParams['body']['query']['match'] =  $params['body'];
+        $retDoc = $client->search($searchParams);
 
         $this->assertEquals($ret['_id'], $retDoc['hits']['hits'][0]['_id']);
 
-        $client->indices()->deleteIndex($index);
+        $deleteParams['index'] = $indexParams['index'];
+        $client->indices()->delete($deleteParams);
 
     }//end testIndexDocumentThenSearch()
 }

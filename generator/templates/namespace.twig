@@ -28,6 +28,8 @@
 {% for arg in extractList %}
         {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
 {% endfor %}
-
+{% if allArgs|length > 0 %}
+        $endpoint->setParams($params);
+{% endif %}
         return $endpoint->performRequest();
     }

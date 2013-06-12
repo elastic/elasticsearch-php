@@ -22,7 +22,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['fields']        = (list) A comma-separated list of fields for `fielddata` metric (supports wildcards)
      *        ['metric_family'] = (enum) Limit the information returned to a certain metric family
      *        ['metric']        = (enum) Limit the information returned for `indices` family to a specific metric
-     *        ['nodeId']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['all']           = (boolean) Return all available information
      *        ['clear']         = (boolean) Reset the default level of detail
      *        ['fs']            = (boolean) Return information about the filesystem
@@ -50,8 +50,8 @@ class ClusterNamespace extends AbstractNamespace
         $metric = $this->extractArgument($params, 'metric');
         unset($params['metric']);
 
-        $nodeId = $this->extractArgument($params, 'nodeId');
-        unset($params['nodeId']);
+        $nodeID = $this->extractArgument($params, 'node_id');
+        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */
@@ -62,7 +62,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setFields($fields)
                  ->setMetric_Family($metric_family)
                  ->setMetric($metric)
-                 ->setNodeID($nodeId);
+                 ->setNodeID($nodeID);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -123,7 +123,7 @@ class ClusterNamespace extends AbstractNamespace
 
 
     /**
-     * $params['nodeId']      = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * $params['node_id']      = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['all']         = (boolean) Return all available information
      *        ['clear']       = (boolean) Reset the default settings
      *        ['http']        = (boolean) Return information about HTTP
@@ -142,8 +142,8 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function nodeInfo($params = array())
     {
-        $nodeId = $this->extractArgument($params, 'nodeId');
-        unset($params['nodeId']);
+        $nodeID = $this->extractArgument($params, 'node_id');
+        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */
@@ -151,14 +151,14 @@ class ClusterNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cluster\Node\Info $endpoint */
         $endpoint = $endpointBuilder('Cluster\Node\Info');
-        $endpoint->setNodeID($nodeId);
+        $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
 
 
     /**
-     * $params['nodeId']    = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * $params['node_id']    = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['interval']  = (time) The interval for the second sampling of threads
      *        ['snapshots'] = (number) Number of samples of thread stacktrace (default: 10)
      *        ['threads']   = (number) Specify the number of threads to provide information for (default: 3)
@@ -170,8 +170,8 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function nodeHotThreads($params = array())
     {
-        $nodeId = $this->extractArgument($params, 'nodeId');
-        unset($params['nodeId']);
+        $nodeID = $this->extractArgument($params, 'node_id');
+        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */
@@ -179,7 +179,7 @@ class ClusterNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cluster\Node\HotThreads $endpoint */
         $endpoint = $endpointBuilder('Cluster\Node\HotThreads');
-        $endpoint->setNodeID($nodeId);
+        $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -213,7 +213,7 @@ class ClusterNamespace extends AbstractNamespace
 
 
     /**
-     * $params['nodeId'] = (list) A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on all nodes
+     * $params['node_id'] = (list) A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on all nodes
      *        ['delay']  = (time) Set the delay for the operation (default: 1s)
      *        ['exit']   = (boolean) Exit the JVM as well (default: true)
      *
@@ -223,8 +223,8 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function nodeShutdown($params = array())
     {
-        $nodeId = $this->extractArgument($params, 'nodeId');
-        unset($params['nodeId']);
+        $nodeID = $this->extractArgument($params, 'node_id');
+        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */
@@ -232,7 +232,7 @@ class ClusterNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cluster\Node\Shutdown $endpoint */
         $endpoint = $endpointBuilder('Cluster\Node\Shutdown');
-        $endpoint->setNodeID($nodeId);
+        $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }

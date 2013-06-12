@@ -24,8 +24,12 @@ class Search extends AbstractEndpoint
      * @return $this
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      */
-    public function setQuery($query)
+    public function setBody($query)
     {
+        if (isset($query) !== true) {
+            return $this;
+        }
+
         if (is_string($query) === true) {
             $this->params['q'] = $query;
             $this->body = null;

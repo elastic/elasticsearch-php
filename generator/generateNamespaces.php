@@ -140,6 +140,7 @@ function generateTemplate($path, $template)
     $renderVars = array(
         'docBlockArgsRequired' => $docBlockArgsRequired,
         'docBlockArgsNotRequired' => $docBlockArgsNotRequired,
+        'allArgs' => $allArgs,
         'extractList' => $extractList,
         'namespace'    => $namespace,
         'functionName' => $functionName

@@ -1,30 +1,33 @@
-
-/**
- * $params
+    /**
 {% for key, arg in docBlockArgsRequired %}
- *        ['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }} (Required)
+     * {{ loop.first ? '$params' : '       ' }}['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }} (Required)
 {% endfor %}
 {% for key, arg in docBlockArgsNotRequired %}
- *        ['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }}
+     * {{ loop.first and docBlockArgsRequired|length == 0 ? '$params' : '       ' }}['{{ key }}']{{ arg.pad }} = ({{ arg.type }}) {{ arg.description|raw }}
 {% endfor %}
- *
- * @param array Associative array of parameters
- *
- * @return array
- */
-public function {{ functionName }}($params = null)
-{
+     *
+{% if allArgs|length > 0 %}
+     * @param $params array Associative array of parameters
+{% endif  %}
+     *
+     * @return array
+     */
+    public function {{ functionName }}({% if allArgs|length > 0 %}$params{% if docBlockArgsRequired|length == 0 %} = array(){% endif %}{% endif %})
+    {
 {% for arg in extractList %}
-    ${{ arg }} = $this->extractArgumentt($params, '{{ arg }}');
-    unset(${{ arg }});
+        ${{ arg }} = $this->extractArgument($params, '{{ arg }}');
+        unset($params['{{ arg }}']);
 
 {% endfor %}
 
-    /** @var Endpoints\{{ namespace }} $endpoint */
-    $endpoint = $this->dicEndpoints('{{ namespace }}');
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\{{ namespace }} $endpoint */
+        $endpoint = $endpointBuilder('{{ namespace }}');
 {% for arg in extractList %}
-    {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
+        {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
 {% endfor %}
 
-    return $endpoint->performRequest();
-}
+        return $endpoint->performRequest();
+    }

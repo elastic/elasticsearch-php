@@ -65,7 +65,7 @@ class Client
         $this->transport    = $this->params['transport'];
         $this->indices      = $this->params['indicesNamespace'];
         $this->cluster      = $this->params['clusterNamespace'];
-        $this->dicEndpoints = $this->params->raw('endpoints');
+        $this->dicEndpoints = $this->params->raw('endpoint');
     }
 
 

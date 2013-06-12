@@ -69,7 +69,7 @@ class Client
     }
 
 
-        /**
+    /**
      *
      *
      * @return array
@@ -189,6 +189,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -196,7 +199,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Count $endpoint */
         $endpoint = $endpointBuilder('Count');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -220,6 +224,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -227,7 +234,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Percolate $endpoint */
         $endpoint = $endpointBuilder('Percolate');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -312,6 +320,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -320,7 +331,8 @@ class Client
         $endpoint = $endpointBuilder('Mlt');
         $endpoint->setId($id)
                  ->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -349,6 +361,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -356,7 +371,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Mget $endpoint */
         $endpoint = $endpointBuilder('Mget');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -380,6 +396,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -387,7 +406,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Msearch $endpoint */
         $endpoint = $endpointBuilder('Msearch');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -425,6 +445,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -433,7 +456,8 @@ class Client
         $endpoint = $endpointBuilder('Create');
         $endpoint->setId($id)
                  ->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -459,6 +483,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -466,7 +493,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Bulk $endpoint */
         $endpoint = $endpointBuilder('Bulk');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -505,6 +533,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -513,7 +544,8 @@ class Client
         $endpoint = $endpointBuilder('Index');
         $endpoint->setId($id)
                  ->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -536,13 +568,17 @@ class Client
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Suggest $endpoint */
         $endpoint = $endpointBuilder('Suggest');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -581,6 +617,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -589,7 +628,8 @@ class Client
         $endpoint = $endpointBuilder('Explain');
         $endpoint->setId($id)
                  ->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -638,6 +678,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -645,7 +688,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('Search');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -665,13 +709,17 @@ class Client
         $scroll_id = $this->extractArgument($params, 'scroll_id');
         unset($params['scroll_id']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScroll_Id($scroll_id);
+        $endpoint->setScroll_Id($scroll_id)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -712,6 +760,9 @@ class Client
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -720,10 +771,14 @@ class Client
         $endpoint = $endpointBuilder('Update');
         $endpoint->setId($id)
                  ->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
+
+
+
 
 
     /**

@@ -133,7 +133,7 @@ function generateTemplate($path, $template)
         $extractList[] = $key;
     }
 
-    if (isset($allArgs['body']) === true) {
+    if (array_search('body',$allArgs) !== false) {
         $extractList[] = 'body';
     }
 

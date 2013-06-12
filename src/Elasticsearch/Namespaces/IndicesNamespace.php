@@ -225,13 +225,17 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Settings\Put $endpoint */
         $endpoint = $endpointBuilder('Indices\Settings\Put');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -363,6 +367,9 @@ class IndicesNamespace extends AbstractNamespace
         $name = $this->extractArgument($params, 'name');
         unset($params['name']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -370,7 +377,8 @@ class IndicesNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Put $endpoint */
         $endpoint = $endpointBuilder('Indices\Alias\Put');
         $endpoint->setIndex($index)
-                 ->setName($name);
+                 ->setName($name)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -431,6 +439,9 @@ class IndicesNamespace extends AbstractNamespace
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -439,7 +450,8 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Warmer\Put');
         $endpoint->setIndex($index)
                  ->setName($name)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -460,13 +472,17 @@ class IndicesNamespace extends AbstractNamespace
         $name = $this->extractArgument($params, 'name');
         unset($params['name']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Template\Put $endpoint */
         $endpoint = $endpointBuilder('Indices\Template\Put');
-        $endpoint->setName($name);
+        $endpoint->setName($name)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -493,6 +509,9 @@ class IndicesNamespace extends AbstractNamespace
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -500,7 +519,8 @@ class IndicesNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Indices\Validate\Query $endpoint */
         $endpoint = $endpointBuilder('Indices\Validate\Query');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -635,13 +655,17 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Create $endpoint */
         $endpoint = $endpointBuilder('Indices\Create');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -782,13 +806,17 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Analyze $endpoint */
         $endpoint = $endpointBuilder('Indices\Analyze');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -842,13 +870,17 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Aliases $endpoint */
         $endpoint = $endpointBuilder('Indices\Aliases');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+                 ->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -959,6 +991,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
+
 
 
 

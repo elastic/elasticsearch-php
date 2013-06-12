@@ -111,12 +111,16 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function reroute($params = array())
     {
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Reroute $endpoint */
         $endpoint = $endpointBuilder('Cluster\Reroute');
+        $endpoint->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
@@ -247,15 +251,22 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function settings($params = array())
     {
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Settings $endpoint */
         $endpoint = $endpointBuilder('Cluster\Settings');
+        $endpoint->setBody($body);
         $endpoint->setParams($params);
         return $endpoint->performRequest();
     }
+
+
+
 
 
 

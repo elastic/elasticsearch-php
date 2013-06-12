@@ -22,10 +22,16 @@ class Index extends AbstractEndpoint
     /**
      * @param array $body
      *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
-    public function setDocument($body)
+    public function setBody($body)
     {
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
         $this->body = $body;
         return $this;
     }

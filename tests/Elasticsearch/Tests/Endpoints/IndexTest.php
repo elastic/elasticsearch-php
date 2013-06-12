@@ -96,7 +96,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $index = new Index($mockTransport);
         $index->setIndex('testIndex')
         ->setType('testType')
-        ->setDocument($doc)
+        ->setBody($doc)
         ->performRequest();
 
     }
@@ -121,7 +121,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $index->setIndex('testIndex')
         ->setType('testType')
         ->setID('abc')
-        ->setDocument($doc)
+        ->setBody($doc)
         ->performRequest();
 
     }
@@ -145,7 +145,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $index = new Index($mockTransport);
         $index->setIndex('testIndex')
         ->setType('testType')
-        ->setDocument($doc)
+        ->setBody($doc)
         ->createIfAbsent()
         ->performRequest();
 
@@ -171,7 +171,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
         $index->setIndex('testIndex')
         ->setType('testType')
         ->setID('abc')
-        ->setDocument($doc)
+        ->setBody($doc)
         ->createIfAbsent()
         ->performRequest();
 

@@ -20,21 +20,20 @@ class IndicesNamespaceIntegrationTest extends \PHPUnit_Framework_TestCase
     /**
      * Create an index then delete it
      *
-     * @covers \Elasticsearch\Namespaces\IndicesNamespace::createIndex
-     * @covers \Elasticsearch\Namespaces\IndicesNamespace::deleteIndex
-     *
      * @return void
      */
     public function testIndexCreation()
     {
         $client = new Elasticsearch\Client();
-        $index  = 'testintegrationindex'.microtime(true);
+        $params = array();
+        $params['index'] = 'testintegrationindex'.microtime(true);
+        $retValue = $client->indices()->create($params);
 
-        $retValue = $client->indices()->createIndex($index);
         $this->assertEquals(1, $retValue['ok']);
         $this->assertEquals(1, $retValue['acknowledged']);
 
-        $retValue = $client->indices()->deleteIndex($index);
+        $deleteParams['index'] = $params['index'];
+        $retValue = $client->indices()->delete();
         $this->assertEquals(1, $retValue['ok']);
         $this->assertEquals(1, $retValue['acknowledged']);
 

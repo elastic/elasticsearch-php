@@ -164,27 +164,4 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testGetURIWithScrollID()
-    {
-
-        $params['scroll_id'] = 'abc';
-        $uri = '/_all/_search/scroll';
-
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 m::any(),
-                                 $uri,
-                                 $params,
-                                 m::any()
-                             )
-                         ->getMock();
-
-
-
-        $search = new Search($mockTransport);
-        $search->setParams($params)
-            ->performRequest();
-
-    }
 }

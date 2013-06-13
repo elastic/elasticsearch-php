@@ -49,16 +49,7 @@ class Search extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = array();
-        $uri[] = $this->getIndex();
-        $uri[] = $this->getType();
-        $uri[] = '_search';
-        $uri[] = $this->getScroll();
-        $uri =  array_filter($uri);
-
-        $uri =  '/' . implode('/', $uri);
-
-        return $uri;
+        return $this->getOptionalURI('_search');
     }
 
     /**
@@ -82,8 +73,6 @@ class Search extends AbstractEndpoint
             'preference',
             'q',
             'routing',
-            'scroll',
-            'scroll_id',
             'search_type',
             'size',
             'sort',
@@ -106,30 +95,4 @@ class Search extends AbstractEndpoint
         return 'GET';
     }
 
-    private function getIndex()
-    {
-        if (isset($this->index) === true){
-            return $this->index;
-        } else {
-            return '_all';
-        }
-    }
-
-    private function getType()
-    {
-        if (isset($this->type) === true){
-            return $this->type;
-        } else {
-            return '';
-        }
-    }
-
-    private function getScroll()
-    {
-        if (isset($this->params['scroll_id']) === true ) {
-            return "scroll";
-        } else {
-            return '';
-        }
-    }
 }

@@ -721,7 +721,7 @@ class Client
      */
     public function scroll($params = array())
     {
-        $scroll_id = $this->extractArgument($params, 'scroll_id');
+        $scrollID = $this->extractArgument($params, 'scroll_id');
         unset($params['scroll_id']);
 
         $body = $this->extractArgument($params, 'body');
@@ -733,7 +733,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScroll_Id($scroll_id)
+        $endpoint->setScrollID($scrollID)
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

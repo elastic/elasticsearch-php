@@ -25,7 +25,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function testSetStringQuery()
+    public function testSetStringBody()
     {
         $params['q'] = 'testQuery';
 
@@ -40,7 +40,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                          ->getMock();
 
         $search = new Search($mockTransport);
-        $search->setQuery('testQuery')
+        $search->setBody('testQuery')
             ->performRequest();
 
     }
@@ -60,7 +60,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                          ->getMock();
 
         $search = new Search($mockTransport);
-        $search->setQuery($query)
+        $search->setBody($query)
         ->performRequest();
 
     }
@@ -76,7 +76,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $search = new Search($mockTransport);
-        $search->setQuery($query)
+        $search->setBody($query)
         ->performRequest();
 
     }

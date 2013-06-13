@@ -25,7 +25,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function existIndices($params)
+    public function exists($params)
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -97,7 +97,7 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices
+     * $params['index'] = (list) A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices (Required)
      *        ['name']  = (string) The name of the warmer (supports wildcards); leave empty to delete all warmers
      *        ['type']  = (list) A comma-separated list of document types to register warmer for; use `_all` or empty string to perform the operation on all types
      *
@@ -105,7 +105,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function deleteWarmer($params = array())
+    public function deleteWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -249,14 +249,14 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names; use `_all` or empty string for all indices (Required)
+     * $params['index']          = (list) A comma-separated list of index names; use `_all` or empty string for all indices
      *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function snapshotIndex($params)
+    public function snapshotIndex($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -275,14 +275,14 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices (Required)
-     *        ['type']  = (list) A comma-separated list of document types (Required)
+     * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['type']  = (list) A comma-separated list of document types
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function getMapping($params)
+    public function getMapping($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -361,8 +361,39 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']   = (string) The name of the index with an alias (Required)
-     *        ['name']    = (string) The name of the alias to be created or updated (Required)
+     * $params['index']          = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
+     *        ['type']           = (list) A comma-separated list of document types to check (Required)
+     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function existsType($params)
+    {
+        $index = $this->extractArgument($params, 'index');
+        unset($params['index']);
+
+        $type = $this->extractArgument($params, 'type');
+        unset($params['type']);
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Exists\Type $endpoint */
+        $endpoint = $endpointBuilder('Indices\Exists\Type');
+        $endpoint->setIndex($index)
+                 ->setType($type);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
+     * $params['index']   = (string) The name of the index with an alias
+     *        ['name']    = (string) The name of the alias to be created or updated
      *        ['timeout'] = (time) Explicit timestamp for the document
      *        ['body']    = (time) Explicit timestamp for the document
      *
@@ -370,7 +401,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function putAlias($params)
+    public function putAlias($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -397,7 +428,7 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
+     * $params['index'] = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices (Required)
      *        ['name']  = (string) The name of the warmer (supports wildcards); leave empty to get all warmers
      *        ['type']  = (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
      *
@@ -405,7 +436,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function getWarmer($params = array())
+    public function getWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -432,8 +463,8 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices
-     *        ['name']  = (string) The name of the warmer
+     * $params['index'] = (list) A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices (Required)
+     *        ['name']  = (string) The name of the warmer (Required)
      *        ['type']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
      *        ['body']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
      *
@@ -441,7 +472,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function putWarmer($params = array())
+    public function putWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -576,9 +607,10 @@ class IndicesNamespace extends AbstractNamespace
 
     /**
      * $params['index']            = (list) A comma-separated list of index names; use `_all` to perform the operation on all indices (Required)
-     *        ['type']             = (string) The name of the document type (Required)
+     *        ['type']             = (string) The name of the document type
      *        ['ignore_conflicts'] = (boolean) Specify whether to ignore conflicts while updating the mapping (default: false)
      *        ['timeout']          = (time) Explicit operation timeout
+     *        ['body']             = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *
@@ -592,6 +624,8 @@ class IndicesNamespace extends AbstractNamespace
         $type = $this->extractArgument($params, 'type');
         unset($params['type']);
 
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -599,7 +633,8 @@ class IndicesNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Indices\Mapping\Put $endpoint */
         $endpoint = $endpointBuilder('Indices\Mapping\Put');
         $endpoint->setIndex($index)
-                 ->setType($type);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];
@@ -608,7 +643,7 @@ class IndicesNamespace extends AbstractNamespace
 
     /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` for all indices (Required)
-     *        ['type']  = (string) The name of the document type to delete
+     *        ['type']  = (string) The name of the document type to delete (Required)
      *
      * @param $params array Associative array of parameters
      *
@@ -782,37 +817,6 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
-     *        ['type']           = (list) A comma-separated list of document types to check (Required)
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function existTypes($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
-
-        $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
-
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Exists\Types $endpoint */
-        $endpoint = $endpointBuilder('Indices\Exists\Types');
-        $endpoint->setIndex($index)
-                 ->setType($type);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-        return $response['data'];
-    }
-
-
-    /**
      * $params['index']        = (string) The name of the index to scope the operation
      *        ['analyzer']     = (string) The name of the analyzer to use
      *        ['field']        = (string) The name of the field to
@@ -820,7 +824,8 @@ class IndicesNamespace extends AbstractNamespace
      *        ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
      *        ['text']         = (string) The text on which the analysis should be performed (when request body is not used)
      *        ['tokenizer']    = (string) The name of the tokenizer to use for the analysis
-     *        ['body']         = (string) The name of the tokenizer to use for the analysis
+     *        ['format']       = (enum) Format of the output
+     *        ['body']         = (enum) Format of the output
      *
      * @param $params array Associative array of parameters
      *
@@ -936,7 +941,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Exists\Alias $endpoint */
-        $endpoint = $endpointBuilder('Indices\Existss\Alias');
+        $endpoint = $endpointBuilder('Indices\Exists\Alias');
         $endpoint->setIndex($index)
                  ->setName($name);
         $endpoint->setParams($params);
@@ -1023,6 +1028,7 @@ class IndicesNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $response['data'];
     }
+
 
 
 

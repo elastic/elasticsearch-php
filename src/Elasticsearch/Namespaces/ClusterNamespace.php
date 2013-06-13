@@ -22,7 +22,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['fields']        = (list) A comma-separated list of fields for `fielddata` metric (supports wildcards)
      *        ['metric_family'] = (enum) Limit the information returned to a certain metric family
      *        ['metric']        = (enum) Limit the information returned for `indices` family to a specific metric
-     *        ['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['all']           = (boolean) Return all available information
      *        ['clear']         = (boolean) Reset the default level of detail
      *        ['fs']            = (boolean) Return information about the filesystem
@@ -130,7 +130,7 @@ class ClusterNamespace extends AbstractNamespace
 
 
     /**
-     * $params['node_id']      = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * $params['node_id']     = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['all']         = (boolean) Return all available information
      *        ['clear']       = (boolean) Reset the default settings
      *        ['http']        = (boolean) Return information about HTTP
@@ -166,7 +166,7 @@ class ClusterNamespace extends AbstractNamespace
 
 
     /**
-     * $params['node_id']    = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * $params['node_id']   = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['interval']  = (time) The interval for the second sampling of threads
      *        ['snapshots'] = (number) Number of samples of thread stacktrace (default: 10)
      *        ['threads']   = (number) Specify the number of threads to provide information for (default: 3)
@@ -224,8 +224,8 @@ class ClusterNamespace extends AbstractNamespace
 
     /**
      * $params['node_id'] = (list) A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on all nodes
-     *        ['delay']  = (time) Set the delay for the operation (default: 1s)
-     *        ['exit']   = (boolean) Exit the JVM as well (default: true)
+     *        ['delay']   = (time) Set the delay for the operation (default: 1s)
+     *        ['exit']    = (boolean) Exit the JVM as well (default: true)
      *
      * @param $params array Associative array of parameters
      *
@@ -250,7 +250,7 @@ class ClusterNamespace extends AbstractNamespace
 
 
     /**
-     * $params['body'] = () 
+     * $params['body'] = ()
      *
      * @param $params array Associative array of parameters
      *
@@ -272,6 +272,8 @@ class ClusterNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $response['data'];
     }
+
+
 
 
 

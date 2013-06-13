@@ -130,6 +130,9 @@ function generateTemplate($path, $template)
 
     $extractList = array();
     foreach ($data['url']['parts'] as $key => $value){
+        if ($key === 'node_id') {
+            $key = 'nodeID';
+        }
         $extractList[] = $key;
     }
 

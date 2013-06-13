@@ -26,7 +26,7 @@
         /** @var \Elasticsearch\Endpoints\{{ namespace }} $endpoint */
         $endpoint = $endpointBuilder('{{ namespace }}');
 {% for arg in extractList %}
-        {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg|title }}(${{ arg }}){{ loop.last ? ';' }}
+        {{ loop.first ? '$endpoint' : '         ' }}->set{{ arg == 'id' ? 'ID' : arg|title }}(${{ arg }}){{ loop.last ? ';' }}
 {% endfor %}
 {% if allArgs|length > 0 %}
         $endpoint->setParams($params);

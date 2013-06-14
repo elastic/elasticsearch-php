@@ -909,8 +909,8 @@ class IndicesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\Aliases $endpoint */
-        $endpoint = $endpointBuilder('Indices\Aliases');
+        /** @var \Elasticsearch\Endpoints\Indices\Alias\Aliases $endpoint */
+        $endpoint = $endpointBuilder('Indices\Alias\Aliases');
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);

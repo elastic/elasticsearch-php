@@ -1,7 +1,81 @@
 elasticsearch-php
 =================
 
-Temporary repo for elasticsearch PHP client
+Official low-level client for Elasticsearch. It's goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
+
+Features
+--------
+
+ - Configurable, automatic discovery of cluster nodes
+ - Persistent, Keep-Alive connections
+ - Load balancing (with pluggable selection strategy) across all availible nodes. Defaults to round-robin
+ - Failed connection penalization (time based - failed connections won't be retried until a timeout is reached)
+ - Pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
+
+
+Installation via Composer
+-------------------------
+The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
+
+1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file:
+
+```json
+    {
+        "require": {
+            "elasticsearch/elasticsearch": "~0.1"
+        }
+    }
+```
+
+2. Download and install Composer:
+
+        curl -s http://getcomposer.org/installer | php
+
+3. Install your dependencies:
+
+        php composer.phar install
+
+4. Require Composer's autoloader
+
+    Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
+
+        <?php
+        require 'vendor/autoload.php';
+
+You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
+
+Basic Usage
+-----
+```php
+    require 'vendor/autoload.php';
+    use \Elasticsearch\Elasticsearch;
+
+    // By default we connect to localhost:9200.
+    $client = new Client();
+
+    // Create a new index.
+    $parameters['index']  = 'example_index';
+    $client->indices()->create($parameters);
+
+    // Index a new document.
+    $document['index'] = 'example_index';
+    $document['type']  = 'testType';
+    $document['id']    = 'abc';
+    $document['body']  = array(
+                            'field1' => 'xyz',
+                            'field2' => '123'
+                         );
+
+    $response = $client->index($document);
+
+    $query['index'] = 'example_index';
+    $query['type']  = 'testType';
+    $query['body']['query']['match']['field1'] =  ['xyz'];
+
+    $queryResponse = $client->search($query);
+
+    echo $queryResponse['hits']['hits'][0]['_id']; // Echos 'abc'
+```
 
 License
 -------

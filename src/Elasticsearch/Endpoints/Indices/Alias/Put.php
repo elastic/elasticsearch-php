@@ -14,46 +14,29 @@ use Elasticsearch\Common\Exceptions;
  * Class Put
  * @package Elasticsearch\Endpoints\Indices\Alias
  */
-class Put extends AbstractEndpoint
+class Put extends AbstractAliasEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.alias.put": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-aliases/",
-    "methods": ["PUT"],
-    "url": {
-      "path": "/{index}/_alias/{name}",
-      "paths": ["/{index}/_alias/{name}", "/_alias/{name}", "/{index}/_alias", "/_alias"],
-      "parts": {
-        "index": {
-          "type" : "string",
-          "description" : "The name of the index with an alias"
-        },
-        "name": {
-          "type" : "string",
-          "description" : "The name of the alias to be created or updated"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit timestamp for the document"
-        }
-      }
-    },
-    "body": {
-      "description" : "The settings for the alias, such as `routing` or `filter`",
-      "required" : true
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
 
     /**
@@ -61,22 +44,13 @@ class Put extends AbstractEndpoint
      */
     protected function getURI()
     {
+        $uri = array();
+        $uri[] = $this->index;
+        $uri[] = '_alias';
+        $uri[] = $this->name;
 
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Put'
-            );
-        }
-
-        if (isset($this->name) !== true) {
-            throw new Exceptions\RuntimeException(
-                'name is required for Put'
-            );
-        }
-
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/$index/_alias/$name";
+        $uri = array_filter($uri);
+        $uri = '/'.implode('/',$uri);
 
         return $uri;
     }

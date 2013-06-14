@@ -18,38 +18,25 @@ class Aliases extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.alias": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-aliases/",
-    "methods": ["GET", "POST"],
-    "url": {
-      "path": "/_aliases",
-      "paths": ["/_aliases", "/{index}/_aliases"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names to filter aliases"
-        }
-      },
-      "params": {
-        "timeout": {
-          "type" : "time",
-          "description" : "Explicit timestamp for the document"
-        }
-      }
-    },
-    "body": {
-      "description" : "The definition of `actions` to perform"
-    }
-  }
-}
-
-
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
+    public function setBody($body)
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
 
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
+        $this->body = $body;
+        return $this;
+    }
 
     /**
      * @return string
@@ -81,7 +68,6 @@ class Aliases extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET,POST';
+        return 'POST';
     }
 }

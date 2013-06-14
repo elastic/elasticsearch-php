@@ -3,6 +3,8 @@ elasticsearch-php
 
 Official low-level client for Elasticsearch. It's goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 
+To maintain consistency across all the low-level clients (Ruby, Python, etc), clients accept simple associative arrays as parameters.  All parameters, from the URI to the document body, are defined in the associative array.
+
 Features
 --------
 
@@ -39,9 +41,10 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 
     Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
 
-        <?php
-        require 'vendor/autoload.php';
-
+```php
+    <?php
+    require 'vendor/autoload.php';
+```
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
 Basic Usage
@@ -65,16 +68,15 @@ Basic Usage
                             'field1' => 'xyz',
                             'field2' => '123'
                          );
-
     $response = $client->index($document);
 
+    // Perform a basic Match Query search.
     $query['index'] = 'example_index';
     $query['type']  = 'testType';
     $query['body']['query']['match']['field1'] =  ['xyz'];
-
     $queryResponse = $client->search($query);
 
-    echo $queryResponse['hits']['hits'][0]['_id']; // Echos 'abc'
+    echo $queryResponse['hits']['hits'][0]['_id']; // Outputs 'abc'
 ```
 
 License

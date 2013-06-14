@@ -14,57 +14,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Get
  * @package Elasticsearch\Endpoints\Indices\Alias
  */
-class Get extends AbstractEndpoint
+class Get extends AbstractAliasEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.alias.get": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-aliases/",
-    "methods": ["GET"],
-    "url": {
-      "path": "/_alias/{name}",
-      "paths": ["/_alias/{name}", "/{index}/_alias/{name}"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names to filter aliases"
-        },
-        "name": {
-          "type" : "list",
-          "required" : true,
-          "description" : "A comma-separated list of alias names to return"
-        }
-      },
-      "params": {
-        "ignore_indices": {
-          "type" : "enum",
-          "options" : ["none","missing"],
-          "default" : "none",
-          "description" : "When performed on multiple indices, allows to ignore `missing` ones"
-        },
-        "index": {
-          "type" : "list",
-          "description" : "A comma-separated list of index names to filter aliases"
-        },
-        "name": {
-          "type" : "list",
-          "description" : "A comma-separated list of alias names to return"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -77,7 +31,7 @@ class Get extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $name = $this->name;
+        $name  = $this->name;
         $uri   = "/_alias/$name";
 
         if (isset($index) === true) {

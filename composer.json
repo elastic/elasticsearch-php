@@ -19,12 +19,14 @@
     "mockery/mockery": "dev-master@dev",
     "squizlabs/php_codesniffer": "1.*",
     "phpmd/phpmd" : "1.4.*",
-    "twig/twig": "1.*"
+    "twig/twig": "1.*",
+    "athletic/athletic": "v0.1.0"
   },
   "autoload": {
     "psr-0": {
       "Elasticsearch": "src/",
-      "Elasticsearch\\Tests" : "tests/"
+      "Elasticsearch\\Tests" : "tests/",
+      "Elasticsearch\\Benchmarks" : "benchmarks/"
     }
   }
 }

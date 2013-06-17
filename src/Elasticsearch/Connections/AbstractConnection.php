@@ -7,6 +7,9 @@
 
 namespace Elasticsearch\Connections;
 
+use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
+use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
+use Elasticsearch\Common\Exceptions\TransportException;
 use Monolog\Logger;
 
 /**
@@ -70,7 +73,6 @@ abstract class AbstractConnection
      *
      * @param string $method
      * @param string $fullURI
-     * @param string $path
      * @param string $body
      * @param string $statusCode
      * @param string $response
@@ -162,6 +164,27 @@ abstract class AbstractConnection
 
 
     /**
+     * @param $curlErrorNumber
+     * @param $message
+     *
+     * @throws \Elasticsearch\Common\Exceptions\TransportException
+     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException
+     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
+     */
+    protected function throwCurlException($curlErrorNumber, $message)
+    {
+        switch ($curlErrorNumber) {
+            case 6:
+                throw new CouldNotResolveHostException($message);
+            case 7:
+                throw new CouldNotConnectToHost($message);
+            default:
+                throw new TransportException($message);
+        }
+    }
+
+
+    /**
      * Construct a string cURL command
      *
      * @param string $method HTTP method
@@ -189,5 +212,4 @@ abstract class AbstractConnection
 
     }
 
-
-}//end class
+}

@@ -16,6 +16,8 @@ class IndexingEvent extends AthleticEvent
     private $client;
 
     private $document;
+    private $largeDocument;
+    private $mediumDocument;
 
     protected function setUp()
     {
@@ -27,6 +29,16 @@ class IndexingEvent extends AthleticEvent
         $this->document['body']  = array('testField' => 'abc');
         $this->document['index'] = 'benchmarking_index';
         $this->document['type']  = 'test';
+
+        $this->mediumDocument = array();
+        $this->mediumDocument['body']['testField'] = str_repeat('a', 5000);
+        $this->mediumDocument['index']             = 'benchmarking_index';
+        $this->mediumDocument['type']              = 'test';
+
+        $this->largeDocument = array();
+        $this->largeDocument['body']['testField'] = str_repeat('a', 10000);
+        $this->largeDocument['index']             = 'benchmarking_index';
+        $this->largeDocument['type']              = 'test';
 
     }
 
@@ -43,5 +55,21 @@ class IndexingEvent extends AthleticEvent
     public function curlMultiHandleIndexing()
     {
         $this->client->index($this->document);
+    }
+
+    /**
+     * @iterations 1000
+     */
+    public function curlMultiHandleIndexingMedium()
+    {
+        $this->client->index($this->mediumDocument);
+    }
+
+    /**
+     * @iterations 1000
+     */
+    public function curlMultiHandleIndexingLarge()
+    {
+        $this->client->index($this->largeDocument);
     }
 }

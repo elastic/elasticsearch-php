@@ -20,7 +20,7 @@
     "squizlabs/php_codesniffer": "1.*",
     "phpmd/phpmd" : "1.4.*",
     "twig/twig": "1.*",
-    "athletic/athletic": "v0.1.*"
+    "athletic/athletic": "0.1.*"
   },
   "autoload": {
     "psr-0": {

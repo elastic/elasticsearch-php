@@ -173,8 +173,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             throw new TransportException('Curl error: ' . $response['error']);
         }
 
-        // Log all 3xx-4xx errors.
-        if ($response['requestInfo']['http_code'] >= 300) {
+        // Log all 4xx-5xx errors.
+        if ($response['requestInfo']['http_code'] >= 400) {
             $this->logRequestFail(
                 $method,
                 $uri,
@@ -184,8 +184,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
                 $response['error']
             );
 
-            // Throw exceptions on 3xx (server) errors.
-            if ($response['requestInfo']['http_code'] < 400) {
+            // Throw exceptions on 5xx (server) errors.
+            if ($response['requestInfo']['http_code'] >= 500) {
                 $exceptionText = $response['requestInfo']['http_code'] . ' Server Exception: ' . $response['responseText'];
                 $this->log->addError($exceptionText);
                 throw new ServerErrorResponseException($exceptionText);

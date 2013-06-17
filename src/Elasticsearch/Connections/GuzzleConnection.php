@@ -25,16 +25,14 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
 
     /**
-
      * @param string          $host             Host string
      * @param int             $port             Host port
      * @param array           $connectionParams Array of connection parameters
      * @param \Monolog\Logger $log              Monolog logger object
      * @param \Monolog\Logger $trace            Monolog logger object (for curl traces)
      *
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return CurlMultiConnection
+     * @return \Elasticsearch\Connections\GuzzleConnection
      */
     public function __construct($host, $port, $connectionParams, $log, $trace)
     {
@@ -79,6 +77,12 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $uri = $this->getURI($uri, $params);
         $request = $this->buildGuzzleRequest($method, $uri, $body);
         $response = $this->sendRequest($request, $body);
+
+        return array(
+            'status' => $response->getStatusCode(),
+            'text'   => $response->getBody(true),
+            'info'   => $response->getInfo(),
+        );
 
     }
 
@@ -129,6 +133,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      *
      * @param string  $body
      *
+     * @return \Guzzle\Http\Message\Response
      * @throws \Elasticsearch\Common\Exceptions\TransportException
      */
     private function sendRequest(Request $request, $body)
@@ -142,9 +147,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $this->logErrorDueToFailure($request, $exception, $body);
 
         } catch (CurlException $exception) {
-            $error = 'Curl error: ' . $exception->getMessage();
-            $this->log->addError($error);
-            throw new TransportException($error);
+           $this->processCurlError($exception);
 
         } catch (\Exception $exception) {
             $error = 'Unexpected error: ' . $exception->getMessage();
@@ -153,6 +156,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         }
 
         $this->processSuccessfulRequest($request, $body);
+        return $request->getResponse();
     }
 
 
@@ -186,13 +190,23 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $this->logRequestFail(
             $request->getMethod(),
             $request->getUrl(),
-            $response->getAge(),
+            $response->getInfo('total_time'),
             $response->getStatusCode(),
             $body,
             $exception->getMessage()
         );
     }
 
+
+    /**
+     * @param CurlException $exception\
+     */
+    private function processCurlError(CurlException $exception)
+    {
+        $error = 'Curl error: ' . $exception->getMessage();
+        $this->log->addError($error);
+        $this->throwCurlException($exception->getErrorNo(), $exception->getError());
+    }
 
     /**
      * @param Request $request
@@ -208,7 +222,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $body,
             $response->getStatusCode(),
             $response->getBody(true),
-            $response->getAge()
+            $response->getInfo('total_time')
         );
     }
 }

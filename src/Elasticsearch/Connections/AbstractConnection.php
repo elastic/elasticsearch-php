@@ -53,8 +53,7 @@ abstract class AbstractConnection
      * @param string $port             Host port
      * @param array  $connectionParams Array of connection-specific parameters
      * @param Logger $log              Monolog Logger object
-     *
-     * @return \Elasticsearch\Connections\BaseConnection
+     * @param Logger $trace
      */
     public function __construct($host, $port, $connectionParams, $log, $trace)
     {

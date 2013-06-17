@@ -8,6 +8,7 @@
 namespace Elasticsearch\Common;
 
 
+use Elasticsearch\Client;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
@@ -171,6 +172,7 @@ class DICBuilder
         $this->setIndicesNamespaceObj();
         $this->setSharedConnectionParamsObj();
         $this->setCurlMultihandle();
+        $this->setGuzzleClient();
     }
 
     private function setEndpointDICObjects()
@@ -292,7 +294,8 @@ class DICBuilder
                 if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
                     $connectionParams = array_merge(
                         $connectionParams,
-                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
+                        array('curlMultiHandle' => $dicParams['curlMultiHandle']),
+                        array('guzzleClient' => $dicParams['guzzleClient'])
                     );
                 }
 
@@ -308,6 +311,16 @@ class DICBuilder
         $this->dic['curlMultiHandle'] = $this->dic->share(
             function () {
                 return curl_multi_init();
+            }
+        );
+    }
+
+    private function setGuzzleClient()
+    {
+        // Only used by Guzzle connections - won't be instantiated until used.
+        $this->dic['guzzleClient'] = $this->dic->share(
+            function () {
+                return new \Guzzle\Http\Client();
             }
         );
     }

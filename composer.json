@@ -12,7 +12,8 @@
   "require": {
     "php": ">=5.3.0",
     "monolog/monolog": "1.5.0",
-    "pimple/pimple": "v1.0.2"
+    "pimple/pimple": "v1.0.2",
+    "guzzle/guzzle": "~3.7"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*",

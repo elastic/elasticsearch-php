@@ -38,7 +38,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     {
         if (isset($connectionParams['guzzleClient']) !== true) {
             $log->addCritical('guzzleClient must be set in connectionParams');
-            throw new InvalidArgumentException('curlMultiHandle must be set in connectionParams');
+            throw new InvalidArgumentException('guzzleClient must be set in connectionParams');
         }
 
         if (isset($port) !== true) {

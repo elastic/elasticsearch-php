@@ -294,7 +294,11 @@ class DICBuilder
                 if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
                     $connectionParams = array_merge(
                         $connectionParams,
-                        array('curlMultiHandle' => $dicParams['curlMultiHandle']),
+                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
+                    );
+                } elseif ($dicParams['connectionClass'] === '\Elasticsearch\Connections\GuzzleConnection') {
+                    $connectionParams = array_merge(
+                        $connectionParams,
                         array('guzzleClient' => $dicParams['guzzleClient'])
                     );
                 }
@@ -320,7 +324,13 @@ class DICBuilder
         // Only used by Guzzle connections - won't be instantiated until used.
         $this->dic['guzzleClient'] = $this->dic->share(
             function () {
-                return new \Guzzle\Http\Client();
+                $guzzle =  new \Guzzle\Http\Client(null,array(
+                    'curl.options' => array(
+                        'body_as_string'   => true
+                    )
+                ));
+
+                return $guzzle;
             }
         );
     }

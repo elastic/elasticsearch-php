@@ -12,8 +12,13 @@ use Elasticsearch\Client;
 
 class IndexingEvent extends AthleticEvent
 {
+    private $setupClient;
+
     /** @var  Client */
     private $client;
+
+    /** @var  Client */
+    private $guzzleClient;
 
     private $document;
     private $largeDocument;
@@ -22,8 +27,16 @@ class IndexingEvent extends AthleticEvent
     protected function setUp()
     {
         $this->client = new Client();
+
+        $guzzleParams = array(
+            'connectionClass' => '\Elasticsearch\Connections\GuzzleConnection'
+        );
+        $this->guzzleClient = new Client($guzzleParams);
+
+
+        $this->setupClient = new Client();
         $indexParams['index']  = 'benchmarking_index';
-        $this->client->indices()->create($indexParams);
+        $this->setupClient->indices()->create($indexParams);
 
         $this->document = array();
         $this->document['body']  = array('testField' => 'abc');
@@ -31,12 +44,12 @@ class IndexingEvent extends AthleticEvent
         $this->document['type']  = 'test';
 
         $this->mediumDocument = array();
-        $this->mediumDocument['body']['testField'] = str_repeat('a', 5000);
+        $this->mediumDocument['body']['testField'] = str_repeat('a', 1000);
         $this->mediumDocument['index']             = 'benchmarking_index';
         $this->mediumDocument['type']              = 'test';
 
         $this->largeDocument = array();
-        $this->largeDocument['body']['testField'] = str_repeat('a', 10000);
+        $this->largeDocument['body']['testField'] = str_repeat('a', 5000);
         $this->largeDocument['index']             = 'benchmarking_index';
         $this->largeDocument['type']              = 'test';
 
@@ -45,31 +58,55 @@ class IndexingEvent extends AthleticEvent
     protected function tearDown()
     {
         $indexParams['index']  = 'benchmarking_index';
-        $this->client->indices()->delete($indexParams);
+        $this->setupClient->indices()->delete($indexParams);
     }
 
+    /**
+     * @iterations 100
+     */
+    public function guzzleSmall()
+    {
+        $this->guzzleClient->index($this->document);
+    }
 
     /**
-     * @iterations 1000
+     * @iterations 100
      */
-    public function curlMultiHandleIndexing()
+    public function curlMultiHandleSmall()
     {
         $this->client->index($this->document);
     }
 
     /**
-     * @iterations 1000
+     * @iterations 100
      */
-    public function curlMultiHandleIndexingMedium()
+    public function guzzleMedium()
+    {
+        $this->guzzleClient->index($this->mediumDocument);
+    }
+
+    /**
+     * @iterations 100
+     */
+    public function curlMultiHandleMedium()
     {
         $this->client->index($this->mediumDocument);
     }
 
     /**
-     * @iterations 1000
+     * @iterations 100
      */
-    public function curlMultiHandleIndexingLarge()
+    public function guzzleLarge()
+    {
+        $this->guzzleClient->index($this->largeDocument);
+    }
+
+    /**
+     * @iterations 100
+     */
+    public function curlMultiHandleLarge()
     {
         $this->client->index($this->largeDocument);
     }
+
 }

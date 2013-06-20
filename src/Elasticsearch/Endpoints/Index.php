@@ -93,7 +93,6 @@ class Index extends AbstractEndpoint
     {
         return array(
             'consistency',
-            'id',
             'op_type',
             'parent',
             'percolate',

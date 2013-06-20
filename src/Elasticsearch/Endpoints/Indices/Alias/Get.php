@@ -47,8 +47,6 @@ class Get extends AbstractAliasEndpoint
     {
         return array(
             'ignore_indices',
-            'index',
-            'name',
         );
     }
 

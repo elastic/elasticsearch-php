@@ -40,17 +40,26 @@ class Put extends AbstractAliasEndpoint
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $uri = array();
-        $uri[] = $this->index;
-        $uri[] = '_alias';
-        $uri[] = $this->name;
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Delete'
+            );
+        }
 
-        $uri = array_filter($uri);
-        $uri = '/'.implode('/',$uri);
+        if (isset($this->name) !== true) {
+            throw new Exceptions\RuntimeException(
+                'name is required for Delete'
+            );
+        }
+
+        $index = $this->index;
+        $name  = $this->name;
+        $uri   = "/$index/_alias/$name";
 
         return $uri;
     }

@@ -16,7 +16,7 @@ namespace Elasticsearch\Serializers;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class JSONSerializer implements SerializerInterface
+class ArrayToJSONSerializer implements SerializerInterface
 {
 
 

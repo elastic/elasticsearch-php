@@ -51,13 +51,15 @@ class Put extends AbstractEndpoint
             );
         }
 
+        if (isset($this->type) !== true) {
+            throw new Exceptions\RuntimeException(
+                'type is required for Put'
+            );
+        }
+
         $index = $this->index;
         $type  = $this->type;
-        $uri   = "/$index/_mapping";
-
-        if (isset($type) === true) {
-            $uri = "/$index/$type/_mapping";
-        }
+        $uri = "/$index/$type/_mapping";
 
         return $uri;
     }

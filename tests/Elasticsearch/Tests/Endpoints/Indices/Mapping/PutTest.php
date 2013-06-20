@@ -35,7 +35,20 @@ class PutTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $index = new Put($mockTransport);
-        $index->setType('testType')->performRequest();
+        $index->setBody(array())->setType('testType')->performRequest();
+
+    }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testNoType()
+    {
+
+        $mockTransport = m::mock('\Elasticsearch\Transport');
+
+        $index = new Put($mockTransport);
+        $index->setIndex('testIndex')->setBody(array())->performRequest();
 
     }
 
@@ -48,7 +61,7 @@ class PutTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $index = new Put($mockTransport);
-        $index->setIndex('testType')->performRequest();
+        $index->setIndex('testType')->setType('testType')->performRequest();
 
     }
 
@@ -66,28 +79,8 @@ class PutTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testValidPutWithIndex()
-    {
 
-        $body = array('field' => 'value');
-
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'PUT',
-                                 '/testIndex/_mapping',
-                                 array(),
-                                 $body
-                             )
-                         ->getMock();
-
-        $action = new Put($mockTransport);
-        $action->setIndex('testIndex')->setBody($body)
-        ->performRequest();
-
-    }
-
-    public function testValidPutWithIndexAndType()
+    public function testValidPutWithIndexTypeAndBody()
     {
 
         $body = array('field' => 'value');

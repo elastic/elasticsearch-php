@@ -146,7 +146,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
                 https://github.com/php/php-src/blob/master/ext/curl/multi.c#L170
             */
 
-            if ($running === 1 && $execrun === CURLM_OK && curl_multi_select($this->multiHandle, 0.001) === -1) {
+            if ($running === 1 && $execrun === CURLM_OK && curl_multi_select($this->multiHandle, 0.5) === -1) {
                 /*
                     Perform a usleep if a previously executed select returned -1
                     @see https://bugs.php.net/bug.php?id=61141

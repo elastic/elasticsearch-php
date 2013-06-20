@@ -61,13 +61,6 @@ class IndexingEvent extends AthleticEvent
         $this->setupClient->indices()->delete($indexParams);
     }
 
-    /**
-     * @iterations 100
-     */
-    public function guzzleSmall()
-    {
-        $this->guzzleClient->index($this->document);
-    }
 
     /**
      * @iterations 100
@@ -75,14 +68,6 @@ class IndexingEvent extends AthleticEvent
     public function curlMultiHandleSmall()
     {
         $this->client->index($this->document);
-    }
-
-    /**
-     * @iterations 100
-     */
-    public function guzzleMedium()
-    {
-        $this->guzzleClient->index($this->mediumDocument);
     }
 
     /**
@@ -96,17 +81,34 @@ class IndexingEvent extends AthleticEvent
     /**
      * @iterations 100
      */
-    public function guzzleLarge()
+    public function curlMultiHandleLarge()
     {
-        $this->guzzleClient->index($this->largeDocument);
+        $this->client->index($this->largeDocument);
     }
 
     /**
      * @iterations 100
      */
-    public function curlMultiHandleLarge()
+    public function guzzleSmall()
     {
-        $this->client->index($this->largeDocument);
+        $this->guzzleClient->index($this->document);
+    }
+
+    /**
+     * @iterations 100
+     */
+    public function guzzleMedium()
+    {
+        $this->guzzleClient->index($this->mediumDocument);
+    }
+
+
+    /**
+     * @iterations 100
+     */
+    public function guzzleLarge()
+    {
+        $this->guzzleClient->index($this->largeDocument);
     }
 
 }

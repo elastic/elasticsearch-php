@@ -91,6 +91,7 @@ class Update extends AbstractEndpoint
             'timeout',
             'timestamp',
             'ttl',
+            'version',
             'version_type',
         );
     }

@@ -62,6 +62,7 @@ class Delete extends AbstractEndpoint
             'replication',
             'routing',
             'timeout',
+            'version',
             'version_type',
         );
     }

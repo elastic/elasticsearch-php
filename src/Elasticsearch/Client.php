@@ -93,7 +93,7 @@ class Client
      *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
      *        ['fields']     = (list) A comma-separated list of fields to return in the response
      *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']    = (string) Specific routing value
@@ -175,7 +175,7 @@ class Client
      *        ['type']           = (list) A comma-separated list of types to restrict the results
      *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['min_score']      = (number) Include only documents with a specific `_score` value in the result
-     *        ['preference']     = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['routing']        = (string) Specific routing value
      *        ['source']         = (string) The URL-encoded query definition (instead of using the request body)
      *        ['body']           = (string) The URL-encoded query definition (instead of using the request body)
@@ -251,7 +251,7 @@ class Client
      *        ['index']      = (string) The name of the index (Required)
      *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
      *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']    = (string) Specific routing value
@@ -350,7 +350,7 @@ class Client
      *        ['type']       = (string) The type of the document
      *        ['fields']     = (list) A comma-separated list of fields to return in the response
      *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']    = (string) Specific routing value
@@ -566,7 +566,7 @@ class Client
     /**
      * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
      *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['preference']     = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['routing']        = (string) Specific routing value
      *        ['source']         = (string) The URL-encoded request definition (instead of using request body)
      *        ['body']           = (string) The URL-encoded request definition (instead of using request body)
@@ -609,7 +609,7 @@ class Client
      *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
      *        ['parent']                   = (string) The ID of the parent document
-     *        ['preference']               = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (string) Specific routing value
      *        ['source']                   = (string) The URL-encoded query definition (instead of using the request body)
@@ -663,7 +663,7 @@ class Client
      *        ['indices_boost']            = (list) Comma-separated list of index boosts
      *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
-     *        ['preference']               = (string) Specify the shards the operation should be performed on (default: random shard)
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (list) A comma-separated list of specific routing values
      *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search

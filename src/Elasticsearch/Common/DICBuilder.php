@@ -27,7 +27,7 @@ class DICBuilder
      * @var array
      */
     protected $paramDefaults = array(
-        'connectionClass'       => '\Elasticsearch\Connections\CurlMultiConnection',
+        'connectionClass'       => '\Elasticsearch\Connections\GuzzleConnection',
         'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
         'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',

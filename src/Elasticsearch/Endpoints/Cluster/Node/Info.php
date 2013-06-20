@@ -48,6 +48,7 @@ class Info extends AbstractNodeEndpoint
             'process',
             'settings',
             'thread_pool',
+            'timeout',
             'transport',
         );
     }

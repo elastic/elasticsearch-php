@@ -32,7 +32,7 @@ class DICBuilder
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
         'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
         'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
-        'serializerClass'       => '\Elasticsearch\Serializers\JSONSerializer',
+        'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
         'sniffOnStart'          => false,
         'snifferTimeout'        => false,
         'sniffOnConnectionFail' => false,

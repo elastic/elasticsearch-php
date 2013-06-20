@@ -72,4 +72,17 @@ class Put extends AbstractAliasEndpoint
     {
         return 'PUT';
     }
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Put');
+        }
+
+        return $this->body;
+    }
 }

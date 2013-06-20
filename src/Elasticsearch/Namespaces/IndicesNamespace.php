@@ -819,7 +819,7 @@ class IndicesNamespace extends AbstractNamespace
     /**
      * $params['index']        = (string) The name of the index to scope the operation
      *        ['analyzer']     = (string) The name of the analyzer to use
-     *        ['field']        = (string) The name of the field to
+     *        ['field']        = (string) Use the analyzer configured for this field (instead of passing the analyzer name)
      *        ['filters']      = (list) A comma-separated list of filters to use for the analysis
      *        ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
      *        ['text']         = (string) The text on which the analysis should be performed (when request body is not used)

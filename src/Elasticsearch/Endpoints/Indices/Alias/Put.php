@@ -88,10 +88,6 @@ class Put extends AbstractAliasEndpoint
      */
     protected function getBody()
     {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Put');
-        }
-
         return $this->body;
     }
 }

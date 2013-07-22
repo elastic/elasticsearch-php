@@ -381,13 +381,18 @@ class IndicesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\Exists\Type $endpoint */
-        $endpoint = $endpointBuilder('Indices\Exists\Type');
+        /** @var \Elasticsearch\Endpoints\Indices\Exists\Types $endpoint */
+        $endpoint = $endpointBuilder('Indices\Exists\Types');
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        if ($response['status'] === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

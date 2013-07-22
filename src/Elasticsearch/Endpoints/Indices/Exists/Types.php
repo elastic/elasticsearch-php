@@ -18,46 +18,7 @@ class Types extends AbstractEndpoint
 {
 
     /**
-     *TODO Validate auto-generated file
-     *     Implement per-class specific functions if required
-
-{
-  "indices.exists.types": {
-    "documentation": "http://www.elasticsearch.org/guide/reference/api/admin-indices-types-exists/",
-    "methods": ["HEAD"],
-    "url": {
-      "path": "/{index}/{type}",
-      "paths": ["/{index}/{type}"],
-      "parts": {
-        "index": {
-          "type" : "list",
-          "required" : true,
-          "description" : "A comma-separated list of index names; use `_all` to check the types across all indices"
-        },
-        "type": {
-          "type" : "list",
-          "required" : true,
-          "description" : "A comma-separated list of document types to check"
-        }
-      },
-      "params": {
-        "ignore_indices": {
-          "type" : "enum",
-          "options" : ["none","missing"],
-          "default" : "none",
-          "description" : "When performed on multiple indices, allows to ignore `missing` ones"
-        }
-      }
-    },
-    "body": null
-  }
-}
-
-
-     */
-
-
-    /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()

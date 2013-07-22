@@ -256,7 +256,7 @@ class ClusterNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function settings($params = array())
+    public function putSettings($params = array())
     {
         $body = $this->extractArgument($params, 'body');
         unset($params['body']);
@@ -265,10 +265,27 @@ class ClusterNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cluster\Settings $endpoint */
-        $endpoint = $endpointBuilder('Cluster\Settings');
+        /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
+        $endpoint = $endpointBuilder('Cluster\Settings\Put');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function getSettings($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
+        $endpoint = $endpointBuilder('Cluster\Settings\Get');
         $response = $endpoint->performRequest();
         return $response['data'];
     }

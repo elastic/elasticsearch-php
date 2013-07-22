@@ -21,7 +21,8 @@
     "squizlabs/php_codesniffer": "1.*",
     "phpmd/phpmd" : "1.4.*",
     "twig/twig": "1.*",
-    "athletic/athletic": "~0.1"
+    "athletic/athletic": "~0.1",
+    "symfony/yaml": "2.4.*@dev"
   },
   "autoload": {
     "psr-0": {

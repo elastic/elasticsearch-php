@@ -7,6 +7,8 @@
 
 namespace Elasticsearch\Namespaces;
 
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+
 /**
  * Class IndicesNamespace
  *
@@ -38,8 +40,19 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Exists\Indices');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-        return $response['data'];
+
+        try {
+            $response = $endpoint->performRequest();
+        } catch (Missing404Exception $exception) {
+            return false;
+        }
+
+
+        if ($response['status'] === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -386,7 +399,13 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+
+        try {
+            $response = $endpoint->performRequest();
+        } catch (Missing404Exception $exception) {
+            return false;
+        }
+
 
         if ($response['status'] === 200) {
             return true;
@@ -950,8 +969,19 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setName($name);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-        return $response['data'];
+
+        try {
+            $response = $endpoint->performRequest();
+        } catch (Missing404Exception $exception) {
+            return false;
+        }
+
+
+        if ($response['status'] === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

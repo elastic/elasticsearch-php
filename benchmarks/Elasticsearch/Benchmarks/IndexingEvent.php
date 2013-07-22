@@ -24,9 +24,12 @@ class IndexingEvent extends AthleticEvent
     private $largeDocument;
     private $mediumDocument;
 
-    protected function setUp()
+    protected function classSetUp()
     {
-        $this->client = new Client();
+        $curlParams = array(
+            'connectionClass' => '\Elasticsearch\Connections\CurlMultiConnection'
+        );
+        $this->client = new Client($curlParams);
 
         $guzzleParams = array(
             'connectionClass' => '\Elasticsearch\Connections\GuzzleConnection'
@@ -55,7 +58,7 @@ class IndexingEvent extends AthleticEvent
 
     }
 
-    protected function tearDown()
+    protected function classTearDown()
     {
         $indexParams['index']  = 'benchmarking_index';
         $this->setupClient->indices()->delete($indexParams);

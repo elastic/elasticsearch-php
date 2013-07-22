@@ -9,13 +9,13 @@ namespace Elasticsearch\Connections;
 
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
 use \Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\ServerErrorResponseException;
 use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 
 class GuzzleConnection extends AbstractConnection implements ConnectionInterface
@@ -146,6 +146,11 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         } catch (ClientErrorResponseException $exception) {
             $this->logErrorDueToFailure($request, $exception, $body);
 
+            if ($exception->getResponse()->getStatusCode() === 404) {
+                throw new Missing404Exception($exception->getMessage(),null,$exception);
+            }
+
+
         } catch (CurlException $exception) {
            $this->processCurlError($exception);
 
@@ -179,11 +184,11 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
 
     /**
-     * @param Request                      $request
-     * @param ClientErrorResponseException $exception
-     * @param string                       $body
+     * @param Request    $request
+     * @param \Exception $exception
+     * @param string     $body
      */
-    private function logErrorDueToFailure(Request $request, ClientErrorResponseException $exception, $body)
+    private function logErrorDueToFailure(Request $request, \Exception $exception, $body)
     {
         $response = $request->getResponse();
 

@@ -171,6 +171,37 @@ class Client
 
 
     /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public function deleteByQuery($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        unset($params['index']);
+
+        $type = $this->extractArgument($params, 'type');
+        unset($params['type']);
+
+        $body = $this->extractArgument($params, 'body');
+        unset($params['body']);
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
+        $endpoint = $endpointBuilder('DeleteByQuery');
+        $endpoint->setIndex($index)
+                ->setType($type)
+                ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
      * $params['index']          = (list) A comma-separated list of indices to restrict the results
      *        ['type']           = (list) A comma-separated list of types to restrict the results
      *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones

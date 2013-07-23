@@ -9,19 +9,30 @@ namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 
 /**
  * Class Bulk
  * @package Elasticsearch\Endpoints
  */
-class Bulk extends AbstractEndpoint
+class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
 
-    //TODO Figure out a way for Bulk to ignore JSON serialization...
     /**
-     * @param string $body
+     * @param Transport           $transport
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Transport $transport, SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+        parent::__construct($transport);
+    }
+
+
+    /**
+     * @param string|array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -30,11 +41,14 @@ class Bulk extends AbstractEndpoint
             return $this;
         }
 
-        if (is_string($body) !== true) {
-            throw new Exceptions\InvalidArgumentException(
-                'Body of Bulk must be a string'
-            );
+        if (is_array($body) === true) {
+            $bulkBody = "";
+            foreach ($body as $item) {
+                $bulkBody .= $this->serializer->serialize($item)."\n";
+            }
+            $body = $bulkBody;
         }
+
         $this->body = $body;
         return $this;
     }

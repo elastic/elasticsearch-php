@@ -16,7 +16,7 @@ use Elasticsearch\Transport;
  * Class Msearch
  * @package Elasticsearch\Endpoints
  */
-class Msearch extends AbstractEndpoint
+class Msearch extends AbstractEndpoint implements BulkEndpointInterface
 {
     /** @var SerializerInterface  */
     private $serializer;
@@ -31,6 +31,8 @@ class Msearch extends AbstractEndpoint
         $this->serializer = $serializer;
         parent::__construct($transport);
     }
+
+
     /**
      * @param array|string $body
      *

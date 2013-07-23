@@ -38,27 +38,14 @@ class BulkTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Bulk($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+
+        $action = new Bulk($mockTransport, $mockSerializer);
         $action->setBody('bulk data')
         ->performRequest();
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $query = array('field' => 'value');
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Bulk($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
 
     public function testGetURIWithNoIndexOrType()
     {
@@ -74,8 +61,9 @@ class BulkTest extends \PHPUnit_Framework_TestCase
                                  m::any()
                              )
                          ->getMock();
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
 
-        $action = new Bulk($mockTransport);
+        $action = new Bulk($mockTransport, $mockSerializer);
         $action->performRequest();
 
     }
@@ -93,8 +81,9 @@ class BulkTest extends \PHPUnit_Framework_TestCase
                                  m::any()
                              )
                          ->getMock();
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
 
-        $action = new Bulk($mockTransport);
+        $action = new Bulk($mockTransport, $mockSerializer);
         $action->setIndex('testIndex')
         ->performRequest();
 
@@ -114,8 +103,9 @@ class BulkTest extends \PHPUnit_Framework_TestCase
                                  m::any()
                              )
                          ->getMock();
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
 
-        $action = new Bulk($mockTransport);
+        $action = new Bulk($mockTransport, $mockSerializer);
         $action->setType('testType')
         ->performRequest();
 
@@ -135,8 +125,9 @@ class BulkTest extends \PHPUnit_Framework_TestCase
                                  m::any()
                              )
                          ->getMock();
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
 
-        $action = new Bulk($mockTransport);
+        $action = new Bulk($mockTransport, $mockSerializer);
         $action->setIndex('testIndex')
         ->setType('testType')
         ->performRequest();

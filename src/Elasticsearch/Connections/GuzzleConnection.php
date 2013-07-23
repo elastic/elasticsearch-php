@@ -176,7 +176,11 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     {
         $this->logErrorDueToFailure($request, $exception, $body);
 
-        $exceptionText = $request->getResponse()->getStatusCode().' Server Exception: '.$exception->getMessage();
+        $statusCode    = $request->getResponse()->getStatusCode();
+        $exceptionText = $exception->getMessage();
+        $responseBody  = $request->getResponse()->getBody(true);
+
+        $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
         $this->log->addError($exceptionText);
         throw new ServerErrorResponseException($exceptionText);
 

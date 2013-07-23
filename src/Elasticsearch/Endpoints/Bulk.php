@@ -79,7 +79,6 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'POST,PUT';
+        return 'POST';
     }
 }

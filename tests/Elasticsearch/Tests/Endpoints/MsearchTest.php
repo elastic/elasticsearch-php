@@ -40,8 +40,9 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
                                  m::any()
                              )
                          ->getMock();
-
-        $action = new Msearch($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+        
+        $action = new Msearch($mockTransport, $mockSerializer);
         $action->performRequest();
 
     }
@@ -60,7 +61,9 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Msearch($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+        
+        $action = new Msearch($mockTransport, $mockSerializer);
         $action->setIndex('testIndex')
         ->performRequest();
 
@@ -81,7 +84,9 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Msearch($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+        
+        $action = new Msearch($mockTransport, $mockSerializer);
         $action->setType('testType')
         ->performRequest();
 
@@ -102,27 +107,15 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Msearch($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+        
+        $action = new Msearch($mockTransport, $mockSerializer);
         $action->setIndex('testIndex')
         ->setType('testType')
         ->performRequest();
 
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalBody()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Msearch($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
 
     public function testValidMsearch()
     {
@@ -136,7 +129,9 @@ class MsearchTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Msearch($mockTransport);
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+        
+        $action = new Msearch($mockTransport, $mockSerializer);
         $action->setIndex('testIndex')
         ->setType('testType')
         ->performRequest();

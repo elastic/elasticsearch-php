@@ -375,8 +375,8 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\Exists\Types $endpoint */
-        $endpoint = $endpointBuilder('Indices\Exists\Types');
+        /** @var \Elasticsearch\Endpoints\Exists $endpoint */
+        $endpoint = $endpointBuilder('Exists');
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);

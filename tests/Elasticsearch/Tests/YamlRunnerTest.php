@@ -59,6 +59,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    private function assertFalsey($value)
+    {
+        if ($value) {
+            $this->fail("Value is not falsey: ".print_r($value, true));
+        }
+    }
+
     private function waitForYellow()
     {
         $ch = curl_init("http://localhost:9200/_cluster/health");
@@ -201,7 +208,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                             $this->fail($exception->getMessage());
                         }
                         $response = array();
-                        
+
                     }
 
                 } elseif($operator === 'match') {
@@ -233,7 +240,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $this->assertFalse($response);
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
-                        $this->assertTruthy($actual);
+                        $this->assertFalsey($actual);
                     }
 
                     echo "\n";

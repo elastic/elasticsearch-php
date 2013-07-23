@@ -10,6 +10,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\DICBuilder;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
@@ -384,6 +385,8 @@ class Client
         try {
             $response = $endpoint->performRequest();
         } catch (Missing404Exception $exception) {
+            return false;
+        } catch (RoutingMissingException $exception) {
             return false;
         }
 

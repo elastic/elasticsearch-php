@@ -11,6 +11,7 @@ namespace Elasticsearch\Connections;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use \Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -178,7 +179,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
         $this->log->addError($exceptionText);
-        throw new ServerErrorResponseException($exceptionText);
+
+        if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
+            throw new RoutingMissingException($exceptionText);
+        } else {
+            throw new ServerErrorResponseException($exceptionText);
+        }
+
 
     }
 

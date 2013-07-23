@@ -113,15 +113,16 @@ class Client
 
 
     /**
-     * $params['id']         = (string) The document ID (Required)
-     *        ['index']      = (string) The name of the index (Required)
-     *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
-     *        ['fields']     = (list) A comma-separated list of fields to return in the response
-     *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
-     *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
-     *        ['routing']    = (string) Specific routing value
+     * $params['id']             = (string) The document ID (Required)
+     *        ['index']          = (string) The name of the index (Required)
+     *        ['type']           = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['ignore_missing'] = ??
+     *        ['fields']         = (list) A comma-separated list of fields to return in the response
+     *        ['parent']         = (string) The ID of the parent document
+     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['realtime']       = (boolean) Specify whether to perform the operation in realtime or search mode
+     *        ['refresh']        = (boolean) Refresh the shard containing the document before performing the operation
+     *        ['routing']        = (string) Specific routing value
      *
      * @param $params array Associative array of parameters
      *
@@ -147,6 +148,48 @@ class Client
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
+     * $params['id']             = (string) The document ID (Required)
+     *        ['index']          = (string) The name of the index (Required)
+     *        ['type']           = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['ignore_missing'] = ??
+     *        ['parent']         = (string) The ID of the parent document
+     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['realtime']       = (boolean) Specify whether to perform the operation in realtime or search mode
+     *        ['refresh']        = (boolean) Refresh the shard containing the document before performing the operation
+     *        ['routing']        = (string) Specific routing value
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getSource($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+        unset($params['id']);
+
+        $index = $this->extractArgument($params, 'index');
+        unset($params['index']);
+
+        $type = $this->extractArgument($params, 'type');
+        unset($params['type']);
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Get $endpoint */
+        $endpoint = $endpointBuilder('Get');
+        $endpoint->setID($id)
+                 ->setIndex($index)
+                 ->setType($type)
+                 ->returnOnlySource();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];
@@ -331,8 +374,8 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\Exists\Indices $endpoint */
-        $endpoint = $endpointBuilder('Indices\Exists\Indices');
+        /** @var \Elasticsearch\Endpoints\Indices\Exists\Types $endpoint */
+        $endpoint = $endpointBuilder('Indices\Exists\Types');
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);

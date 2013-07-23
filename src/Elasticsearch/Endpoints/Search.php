@@ -19,7 +19,7 @@ class Search extends AbstractEndpoint
 {
 
     /**
-     * @param $query
+     * @param string|array $query
      *
      * @return $this
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
@@ -30,16 +30,7 @@ class Search extends AbstractEndpoint
             return $this;
         }
 
-        if (is_string($query) === true) {
-            $this->params['q'] = $query;
-            $this->body = null;
-        } else if (is_array($query) === true) {
-            $this->body = $query;
-        } else {
-            throw new InvalidArgumentException(
-                'Query must be a string or array'
-            );
-        }
+        $this->body = $query;
 
         return $this;
     }
@@ -73,6 +64,7 @@ class Search extends AbstractEndpoint
             'preference',
             'q',
             'routing',
+            'scroll',
             'search_type',
             'size',
             'sort',

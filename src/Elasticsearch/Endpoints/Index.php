@@ -80,7 +80,7 @@ class Index extends AbstractEndpoint
         }
 
         if ($this->createIfAbsent === true) {
-            $uri .= '/_create';
+            $uri .= $this->addCreateFlag($uri);
         }
 
         return $uri;
@@ -131,5 +131,16 @@ class Index extends AbstractEndpoint
         } else {
             return $this->body;
         }
+    }
+
+    private function addCreateFlag()
+    {
+        if (isset($this->id) === true) {
+            return '/_create';
+        } else {
+            $this->params['op_type'] = 'create';
+            return "";
+        }
+
     }
 }

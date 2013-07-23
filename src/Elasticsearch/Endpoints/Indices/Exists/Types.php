@@ -26,13 +26,13 @@ class Types extends AbstractEndpoint
 
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Types'
+                'index is required for Types Exists'
             );
         }
 
         if (isset($this->type) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for Types'
+                'type is required for Types Exists'
             );
         }
 

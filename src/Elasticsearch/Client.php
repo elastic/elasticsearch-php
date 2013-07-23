@@ -331,14 +331,25 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Existss $endpoint */
-        $endpoint = $endpointBuilder('Existss');
+        /** @var \Elasticsearch\Endpoints\Indices\Exists\Indices $endpoint */
+        $endpoint = $endpointBuilder('Indices\Exists\Indices');
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-        return $response['data'];
+
+        try {
+            $response = $endpoint->performRequest();
+        } catch (Missing404Exception $exception) {
+            return false;
+        }
+
+
+        if ($response['status'] === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

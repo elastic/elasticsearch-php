@@ -7,6 +7,9 @@
 
 namespace Elasticsearch\Tests;
 use Elasticsearch;
+use Elasticsearch\Common\Exceptions\ClientErrorResponseException;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -33,6 +36,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        echo "\n>>>CLEARING<<<\n";
         $ch = curl_init("http://localhost:9200/_all");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -43,7 +47,33 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $this->yaml = new Parser();
         $this->client = new Elasticsearch\Client();
+
+        $this->waitForYellow();
     }
+
+    private function assertTruthy($value)
+    {
+        if (!$value) {
+            $this->fail("Value is not truthy: ".print_r($value, true));
+        }
+    }
+
+    private function waitForYellow()
+    {
+        $ch = curl_init("http://localhost:9200/_cluster/health");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+
+        $response = json_decode(curl_exec($ch), true);
+
+        while ($response['status'] === 'red') {
+            sleep(0.05);
+            $response = json_decode(curl_exec($ch), true);
+        }
+        curl_close($ch);
+    }
+
 
     public static function provider()
     {
@@ -85,7 +115,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         //* @runInSeparateProcess
 
 
-        print_r($testFile);
+        echo "$testFile\n";
 
         $fileData = file_get_contents($testFile);
         $documents = array_filter(explode("---", $fileData));
@@ -93,6 +123,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         foreach ($documents as $document) {
             try {
                 $values = $this->yaml->parse($document);
+
+
+                echo "   ".key($values)."\n";
                 $ret    = $this->executeTestCase($values);
 
             } catch (ParseException $e) {
@@ -105,42 +138,118 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function executeTestCase($test)
     {
+        if (key($test) === 'Basic multi-search') {
+            echo "hi";
+        }
+
         $stash = array();
         $response = array();
         reset($test);
+        $key = key($test);
 
-        foreach ($test[key($test)] as $operators) {
+        foreach ($test[$key] as $operators) {
 
 
             foreach ($operators as $operator => $settings) {
+                echo "      >$operator: ";
                 if ($operator === 'do') {
+                    if (key($settings) === 'catch') {
+
+                        $expectedError = $settings['catch'];
+                        next($settings);
+
+                        echo "(catch: $expectedError) ";
+                    } else {
+                        $expectedError = null;
+                    }
+
                     $method = key($settings);
                     $hash   = $settings[$method];
 
+                    echo "$method\n";
+
+                    array_walk_recursive($hash, function(&$item, $key) use ($stash) {
+                            if (is_string($item) === true || is_numeric($item) === true) {
+                                if (array_key_exists($item, $stash) == true) {
+                                    $item = $stash[$item];
+                                }
+                            }
+
+                        });
+
                     try {
                         $response = $this->callMethod($method, $hash);
-                    } catch (\Exception $exception) {
-                        $this->fail($exception->getMessage());
+
+                        $this->waitForYellow();
+
+                        if (isset($expectedError) === true) {
+                            $this->fail("Expected Exception not thrown: $expectedError");
+                        }
+                    } catch (Missing404Exception $exception){
+                        if ($expectedError === 'missing') {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
                     }
 
                 } elseif($operator === 'match') {
+
                     $expected = $settings[key($settings)];
-                    $actual   = $response[key($settings)];
+                    if (key($settings) === '') {
+                        $actual = $response;
+                    } else {
+                        $actual   = $this->getNestedVar($response, key($settings));
+                    }
+
                     $this->assertEquals($expected, $actual);
 
+                    echo "\n";
+
                 } elseif ($operator === "is_true") {
-                    $actual = $response[$settings];
-                    $this->assertTrue($actual);
+                    if (empty($settings) === true) {
+                        $this->assertTruthy($response);
+
+                    } else {
+                        $actual = $this->getNestedVar($response, $settings);
+                        $this->assertTruthy($actual);
+                    }
+
+                    echo "\n";
 
                 } elseif ($operator === "is_false") {
-                    $actual = $response[$settings];
-                    $this->assertFalse($actual);
+                    if (empty($settings) === true) {
+                        $this->assertFalse($response);
+                    } else {
+                        $actual = $this->getNestedVar($response, $settings);
+                        $this->assertTruthy($actual);
+                    }
 
-                }elseif ($operator === 'set') {
-                    $stash[$settings[key($settings)]] = 1;
+                    echo "\n";
+
+                } elseif ($operator === 'set') {
+                    //if (($response[$settings])
+                    //$this->assertCount($settings[key($settings)], $response[$settings]);
+                    $stash['$'.$settings[key($settings)]] = $response[key($settings)];
+
+                    echo "\n";
+
+                } elseif ($operator === "length") {
+                    $this->assertCount($settings[key($settings)], $response[key($settings)]);
+                    echo "\n";
+
+                } elseif ($operator === "lt") {
+                    $this->assertLessThan($settings[key($settings)], $response[key($settings)]);
+                    echo "\n";
+
+                } elseif ($operator === "gt") {
+                    $this->assertGreaterThan($settings[key($settings)], $response[key($settings)]);
+                    echo "\n";
+                } elseif ($operator === "skip") {
 
                 } else {
                     print_r($operators);
+                    echo "\n";
                 }
             }
         }
@@ -151,16 +260,15 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $ret = array();
 
         $methodParts = explode(".", $method);
-        try {
-            if (count($methodParts) > 1) {
-                $methodParts[1] = $this->snakeToCamel($methodParts[1]);
-                $ret = $this->client->$methodParts[0]()->$methodParts[1]($hash);
-            } else {
-                $ret = $this->client->$method($hash);
-            }
-        } catch (\Exception $exception) {
-            throw new \Exception($exception);
+
+        if (count($methodParts) > 1) {
+            $methodParts[1] = $this->snakeToCamel($methodParts[1]);
+            $ret = $this->client->$methodParts[0]()->$methodParts[1]($hash);
+        } else {
+            $method = $this->snakeToCamel($method);
+            $ret = $this->client->$method($hash);
         }
+
 
 
         return $ret;
@@ -168,6 +276,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function snakeToCamel($val) {
         return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $val))));
+    }
+
+    private function getNestedVar(&$context, $name) {
+        $pieces = preg_split('/(?<!\\\\)\./', $name);
+        foreach ($pieces as $piece) {
+            $piece = str_replace('\.', '.', $piece);
+            if (!is_array($context) || !array_key_exists($piece, $context)) {
+                // error occurred
+                return null;
+            }
+            $context = &$context[$piece];
+        }
+        return $context;
     }
 
 }

@@ -104,6 +104,10 @@ abstract class AbstractEndpoint
             return $this;
         }
 
+        if (is_array($index) === true) {
+            $index = implode(",", $index);
+        }
+
         $this->index = urlencode($index);
         return $this;
     }
@@ -118,6 +122,10 @@ abstract class AbstractEndpoint
     {
         if ($type === null) {
             return $this;
+        }
+
+        if (is_array($type) === true) {
+            $type = implode(",", $type);
         }
 
         $this->type = urlencode($type);

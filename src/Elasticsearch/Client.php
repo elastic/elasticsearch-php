@@ -9,6 +9,7 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\DICBuilder;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
@@ -84,6 +85,30 @@ class Client
         $endpoint = $endpointBuilder('Info');
         $response = $endpoint->performRequest();
         return $response['data'];
+    }
+
+
+    public function ping()
+    {
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Ping $endpoint */
+        $endpoint = $endpointBuilder('Ping');
+
+        try {
+            $response = $endpoint->performRequest();
+        } catch (Missing404Exception $exception) {
+            return false;
+        }
+
+
+        if ($response['status'] === 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

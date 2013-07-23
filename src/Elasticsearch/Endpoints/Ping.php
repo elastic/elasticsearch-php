@@ -11,10 +11,10 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Info
+ * Class Ping
  * @package Elasticsearch\Endpoints
  */
-class Info extends AbstractEndpoint
+class Ping extends AbstractEndpoint
 {
 
 
@@ -44,6 +44,6 @@ class Info extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'HEAD';
     }
 }

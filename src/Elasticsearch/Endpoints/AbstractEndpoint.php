@@ -88,7 +88,7 @@ abstract class AbstractEndpoint
     public function setParams($params)
     {
         $this->checkUserParams($params);
-        $this->params = $params;
+        $this->params = $this->convertArraysToStrings($params);
         return $this;
     }
 
@@ -238,6 +238,17 @@ abstract class AbstractEndpoint
             }
         }
 
+    }
+
+    private function convertArraysToStrings($params)
+    {
+        foreach ($params as &$param) {
+            if (is_array($param) === true) {
+                $param = implode(",", $param);
+            }
+        }
+
+        return $params;
     }
 
 }

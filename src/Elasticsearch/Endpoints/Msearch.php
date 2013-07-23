@@ -9,6 +9,8 @@ namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 
 /**
  * Class Msearch
@@ -16,9 +18,21 @@ use Elasticsearch\Common\Exceptions;
  */
 class Msearch extends AbstractEndpoint
 {
+    /** @var SerializerInterface  */
+    private $serializer;
+
 
     /**
-     * @param array $body
+     * @param Transport           $transport
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Transport $transport, SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+        parent::__construct($transport);
+    }
+    /**
+     * @param array|string $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
@@ -29,11 +43,14 @@ class Msearch extends AbstractEndpoint
             return $this;
         }
 
-        if (is_array($body) !== true) {
-            throw new Exceptions\InvalidArgumentException(
-                'Body must be an array'
-            );
+        if (is_array($body) === true) {
+            $bulkBody = "";
+            foreach ($body as $item) {
+                $bulkBody .= $this->serializer->serialize($item)."\n";
+            }
+            $body = $bulkBody;
         }
+
         $this->body = $body;
         return $this;
     }

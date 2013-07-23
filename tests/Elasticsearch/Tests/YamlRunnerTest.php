@@ -8,6 +8,7 @@
 namespace Elasticsearch\Tests;
 use Elasticsearch;
 use Elasticsearch\Common\Exceptions\ClientErrorResponseException;
+use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use FilesystemIterator;
@@ -191,6 +192,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
+                        $response = array();
+
+                    } catch (Conflict409Exception $exception) {
+                        if ($expectedError === 'conflict') {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = array();
+                        
                     }
 
                 } elseif($operator === 'match') {

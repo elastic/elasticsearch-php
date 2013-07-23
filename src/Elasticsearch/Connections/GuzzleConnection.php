@@ -8,6 +8,7 @@
 namespace Elasticsearch\Connections;
 
 
+use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
@@ -133,8 +134,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      *
      * @param string  $body
      *
-     * @return \Guzzle\Http\Message\Response
      * @throws \Elasticsearch\Common\Exceptions\TransportException
+     * @return \Guzzle\Http\Message\Response
      */
     private function sendRequest(Request $request, $body)
     {
@@ -144,12 +145,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $this->process5xxError($request, $exception, $body);
 
         } catch (ClientErrorResponseException $exception) {
-            $this->logErrorDueToFailure($request, $exception, $body);
-
-            if ($exception->getResponse()->getStatusCode() === 404) {
-                throw new Missing404Exception($exception->getMessage(),null,$exception);
-            }
-
+            $this->process4xxError($request, $exception, $body);
 
         } catch (CurlException $exception) {
            $this->processCurlError($exception);
@@ -184,6 +180,20 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $this->log->addError($exceptionText);
         throw new ServerErrorResponseException($exceptionText);
 
+    }
+
+
+    private function process4xxError(Request $request, ClientErrorResponseException $exception, $body)
+    {
+        $this->logErrorDueToFailure($request, $exception, $body);
+
+        $statusCode = $exception->getResponse()->getStatusCode();
+
+        if ($statusCode === 404) {
+            throw new Missing404Exception($exception->getMessage(), null, $exception);
+        } elseif ($statusCode === 409) {
+            throw new Conflict409Exception($exception->getMessage(), null, $exception);
+        }
     }
 
 

@@ -571,12 +571,13 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Create $endpoint */
-        $endpoint = $endpointBuilder('Create');
+        /** @var \Elasticsearch\Endpoints\Index $endpoint */
+        $endpoint = $endpointBuilder('Index');
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
-                 ->setBody($body);
+                 ->setBody($body)
+                 ->createIfAbsent();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

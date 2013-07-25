@@ -30,6 +30,10 @@ abstract class AbstractNodeEndpoint extends AbstractEndpoint
      */
     public function setNodeID($nodeID)
     {
+        if (isset($nodeID) !== true) {
+            return $this;
+        }
+
         if (is_string($nodeID) !== true) {
             throw new InvalidArgumentException('NodeID must be a string');
         }

@@ -15,6 +15,7 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
 use Elasticsearch\Common\Exceptions\NoShardAvailableException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
+use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use \Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -213,6 +214,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             throw new Missing404Exception($exceptionText, null, $exception);
         } elseif ($statusCode === 409) {
             throw new Conflict409Exception($exceptionText, null, $exception);
+        } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
+            throw new ScriptLangNotSupportedException($exceptionText);
         }
     }
 

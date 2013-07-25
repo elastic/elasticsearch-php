@@ -205,15 +205,8 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
 
-        $indexing_types = $this->extractArgument($params, 'indexing_types');
-        unset($params['indexing_types']);
-
-        $metric_family = $this->extractArgument($params, 'metric_family');
-        unset($params['metric_family']);
-
-        $search_groups = $this->extractArgument($params, 'search_groups');
-        unset($params['search_groups']);
-
+        $groups = $this->extractArgument($params, 'groups');
+        unset($params['groups']);
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -222,9 +215,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Stats');
         $endpoint->setFields($fields)
                  ->setIndex($index)
-                 ->setIndexing_Types($indexing_types)
-                 ->setMetric_Family($metric_family)
-                 ->setSearch_Groups($search_groups);
+                 ->setGroups($groups);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

@@ -912,7 +912,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function aliases($params = array())
+    public function updateAliases($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         unset($params['index']);
@@ -928,6 +928,31 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Alias\Aliases');
         $endpoint->setIndex($index)
                  ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
+     * $params['index']   = (list) A comma-separated list of index names to filter aliases
+     *        ['timeout'] = (time) Explicit timestamp for the document
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getAliases($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        unset($params['index']);
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Alias\Aliases $endpoint */
+        $endpoint = $endpointBuilder('Indices\Alias\Aliases');
+        $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

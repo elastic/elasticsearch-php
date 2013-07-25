@@ -68,6 +68,11 @@ class Aliases extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'POST';
+        if (isset($this->body) === true) {
+            return 'POST';
+        } else {
+            return 'GET';
+        }
+
     }
 }

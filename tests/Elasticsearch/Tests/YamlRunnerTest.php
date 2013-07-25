@@ -173,6 +173,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function replaceWithStash($values, $stash)
     {
+        if (count($stash) === 0) {
+            return $values;
+        }
+
         if (is_array($values) === true) {
             array_walk_recursive($values, function(&$item, $key) use ($stash) {
                     if (is_string($item) === true || is_numeric($item) === true) {
@@ -194,10 +198,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function executeTestCase($test)
     {
-        if (key($test) === 'Timestamp') {
-            echo "hi";
-        }
-
         $stash = array();
         $response = array();
         reset($test);
@@ -229,7 +229,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     try {
                         $response = $this->callMethod($method, $hash);
 
-                        $this->waitForYellow();
+                        //$this->waitForYellow();
 
                         if (isset($expectedError) === true) {
                             $this->fail("Expected Exception not thrown: $expectedError");
@@ -250,24 +250,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                         $response = array();
 
-                    } catch (RoutingMissingException $exception) {
-                        if ($expectedError === 'RoutingMissingException') {
-                            $this->assertTrue(true);
-                        } else {
+                    } catch (\Exception $exception) {
+                        if ($expectedError === null) {
                             $this->fail($exception->getMessage());
-                        }
-                        $response = array();
-
-                    } catch (AlreadyExpiredException $exception) {
-                        if ($expectedError === 'AlreadyExpiredException') {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = array();
-
-                    } catch (NoDocumentsToGetException $exception) {
-                        if ($expectedError === 'ActionRequestValidationException.+ no documents to get') {
+                        } elseif (preg_match("/$expectedError/", $exception->getMessage()) === 1) {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());
@@ -335,7 +321,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n";
                 } elseif ($operator === "skip") {
                     $version = $settings['version'];
-                    $version = explode(" - ", $version);
+                    $version = str_replace(" ", "", $version);
+                    $version = explode("-", $version);
                     if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
                         && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
                         echo "Skipping: ".$settings['reason']."\n";

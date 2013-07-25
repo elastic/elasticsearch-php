@@ -13,6 +13,7 @@ use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
+use Elasticsearch\Common\Exceptions\NoShardAvailableException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use \Guzzle\Http\Client;
@@ -186,6 +187,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             throw new RoutingMissingException($exceptionText);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
             throw new NoDocumentsToGetException($exceptionText);
+        } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
+            throw new NoShardAvailableException($exceptionText);
         } else {
             throw new ServerErrorResponseException($exceptionText);
         }

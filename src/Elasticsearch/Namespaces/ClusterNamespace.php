@@ -41,15 +41,6 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function nodeStats($params = array())
     {
-        $fields = $this->extractArgument($params, 'fields');
-        unset($params['fields']);
-
-        $metric_family = $this->extractArgument($params, 'metric_family');
-        unset($params['metric_family']);
-
-        $metric = $this->extractArgument($params, 'metric');
-        unset($params['metric']);
-
         $nodeID = $this->extractArgument($params, 'node_id');
         unset($params['node_id']);
 
@@ -59,10 +50,7 @@ class ClusterNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cluster\Node\Stats $endpoint */
         $endpoint = $endpointBuilder('Cluster\Node\Stats');
-        $endpoint->setFields($fields)
-                 ->setMetric_Family($metric_family)
-                 ->setMetric($metric)
-                 ->setNodeID($nodeID);
+        $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

@@ -14,6 +14,9 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
 {
 
 
+    /**
+     * @group ignore
+     */
     public function testClient()
     {
         $client = new Elasticsearch\Client();
@@ -27,6 +30,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
      * @covers \Elasticsearch\Client::get
      *
      * @return void
+     * @group ignore
      */
     public function testIndexDocumentThenGet()
     {
@@ -66,6 +70,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
      * @covers \Elasticsearch\Client::get
      *
      * @return void
+     * @group ignore
      */
     public function testIndexDocumentWithIDThenGet()
     {
@@ -108,6 +113,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
      * @covers \Elasticsearch\Client::delete
      *
      * @return void
+     * @group ignore
      */
     public function testIndexDocumentWithIDThenDeleteThenGet()
     {
@@ -162,6 +168,7 @@ class ClientIntegrationTest extends \PHPUnit_Framework_TestCase
      * @covers \Elasticsearch\Client::search
      *
      * @return void
+     * @group ignore
      */
     public function testIndexDocumentThenSearch()
     {

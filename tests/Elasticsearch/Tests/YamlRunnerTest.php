@@ -110,7 +110,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     public static function provider()
     {
-        $path = '../../../../elasticsearch-rest-api-spec/test/';
+        $path = dirname(__FILE__).'/../../../../elasticsearch-rest-api-spec/test/';
 
         $files = array();
         $objects = new RecursiveIteratorIterator(

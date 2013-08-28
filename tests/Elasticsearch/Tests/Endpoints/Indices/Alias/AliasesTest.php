@@ -61,7 +61,7 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'POST',
+                                 'GET',
                                  '/_aliases',
                                  array(),
                                  null
@@ -79,7 +79,7 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'POST',
+                                 'GET',
                                  '/testIndex/_aliases',
                                  array(),
                                  null

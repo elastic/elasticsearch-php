@@ -64,7 +64,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
     public function testGetURIWithNoIndexOrType()
     {
 
-        $uri = '/_all/_mget';
+        $uri = '/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
@@ -104,7 +104,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
     public function testGetURIWithTypeButNoIndex()
     {
 
-        $uri = '/_all/testType/_mget';
+        $uri = '/testType/_mget';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()

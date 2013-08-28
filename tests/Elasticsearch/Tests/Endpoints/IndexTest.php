@@ -128,14 +128,15 @@ class IndexTest extends \PHPUnit_Framework_TestCase
 
     public function testValidIndexNoIDWithCreateIfAbsent()
     {
-        $doc = array('field' => 'value');
+        $doc    = array('field' => 'value');
+        $params = array('op_type' => 'create');
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'POST',
-                                 '/testIndex/testType/_create',
-                                 array(),
+                                 '/testIndex/testType',
+                                 $params,
                                  $doc
                              )
                          ->getMock();

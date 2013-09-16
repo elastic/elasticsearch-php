@@ -1,0 +1,16 @@
+
+= Elasticsearch-PHP
+
+include::overview.asciidoc[]
+
+include::quickstart.asciidoc[]
+
+include::installation.asciidoc[]
+
+include::index-operations.asciidoc[]
+
+include::indexing-operations.asciidoc[]
+
+include::search-operations.asciidoc[]
+
+include::extending.asciidoc[]

@@ -7,6 +7,8 @@ include::quickstart.asciidoc[]
 
 include::installation.asciidoc[]
 
+include::configuration.asciidoc[]
+
 include::index-operations.asciidoc[]
 
 include::indexing-operations.asciidoc[]

@@ -1,0 +1,35 @@
+
+== Installation
+
+Elasticsearch-php only has a three requirements that you need to worry about:
+
+1. PHP 5.3.9 or higher
+2. [Composer](http://getcomposer.org/)
+3. [ext-curl](http://php.net/manual/en/book.curl.php): the Libcurl extension for PHP
+
+The rest of the dependencies will automatically be downloaded and installed by Composer.  Composer is a package and dependency manager for PHP.  Installing elasticsearch-php with Composer is very easy:
+
+=== Composer Installation
+
+1. Include elasticsearch-php in your `composer.json` file.  If you are starting a new project, simply paste the following JSON snippet into a new file called `composer.json`.  If you have an existing project, include this requirement under the rest of requirements already present:
+
+    {
+        "require": {
+            "elasticsearch/elasticsearch-php": "~0.1"
+        }
+    }
+
+2. Install the client with composer.  The first command download the `composer.phar` PHP package, and the second command invokes the installation.  Composer will automatically download any required dependencies, store them in a /vendor/ directory and build an autoloader.:
+    
+    curl -s http://getcomposer.org/installer | php
+    php composer.phar install
+
+3. Finally, include the generated autoloader in your main project.  If your project is already based on Composer, the autoloader is likely already included somewhere and you don't need to add it again.  Finally, instantiate a new client:
+
+    require 'vendor/autoload.php';
+    use Elasticsearch;
+
+    $client = new Elasticsearch\Client();
+
+
+More information about [Composer can be found at their website](http://getcomposer.org/).

@@ -185,13 +185,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $this->log->addError($exceptionText);
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            throw new RoutingMissingException($exceptionText);
+            throw new RoutingMissingException($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
-            throw new NoDocumentsToGetException($exceptionText);
+            throw new NoDocumentsToGetException($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            throw new NoShardAvailableException($exceptionText);
+            throw new NoShardAvailableException($exceptionText, $statusCode, $exception);
         } else {
-            throw new ServerErrorResponseException($exceptionText);
+            throw new ServerErrorResponseException($exceptionText, $statusCode, $exception);
         }
 
 
@@ -209,13 +209,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            throw new AlreadyExpiredException($exceptionText, null, $exception);
+            throw new AlreadyExpiredException($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 404) {
-            throw new Missing404Exception($exceptionText, null, $exception);
+            throw new Missing404Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 409) {
-            throw new Conflict409Exception($exceptionText, null, $exception);
+            throw new Conflict409Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            throw new ScriptLangNotSupportedException($exceptionText);
+            throw new ScriptLangNotSupportedException($exceptionText. $statusCode, $exception);
         }
     }
 

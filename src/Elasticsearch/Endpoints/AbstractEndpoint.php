@@ -91,7 +91,8 @@ abstract class AbstractEndpoint
             } else if (array_search($code, $this->ignore) === false) {
                 throw $exception;
             } else {
-                return array(); //TODO return null or dedicated object here instead?
+                //TODO return null or dedicated object here instead?
+                return array('data' => array());
             }
         }
 

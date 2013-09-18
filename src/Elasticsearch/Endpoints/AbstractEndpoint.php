@@ -38,6 +38,9 @@ abstract class AbstractEndpoint
     /** @var \Elasticsearch\Transport  */
     private $transport = null;
 
+    /** @var array  */
+    private $ignore = null;
+
 
     /**
      * @return string[]
@@ -67,16 +70,33 @@ abstract class AbstractEndpoint
 
     /**
      *
+     * @throws \Exception
      * @return array
      */
     public function performRequest()
     {
-        return $this->transport->performRequest(
-            $this->getMethod(),
-            $this->getURI(),
-            $this->params,
-            $this->getBody()
-        );
+        $result = array();
+
+        try {
+            $result =  $this->transport->performRequest(
+                $this->getMethod(),
+                $this->getURI(),
+                $this->params,
+                $this->getBody()
+            );
+        } catch (\Exception $exception) {
+            $code = $exception->getCode();
+            if ($this->ignore === null) {
+                throw $exception;
+            } else if (array_search($code, $this->ignore) === false) {
+                throw $exception;
+            } else {
+                return array(); //TODO return null or dedicated object here instead?
+            }
+        }
+
+        return $result;
+
     }
 
     /**
@@ -89,6 +109,7 @@ abstract class AbstractEndpoint
     {
         $this->checkUserParams($params);
         $this->params = $this->convertArraysToStrings($params);
+        $this->extractIgnore();
         return $this;
     }
 
@@ -239,6 +260,16 @@ abstract class AbstractEndpoint
         }
 
     }
+
+
+    private function extractIgnore()
+    {
+        if (isset($this->params['ignore']) === true) {
+            $this->ignore = explode(",", $this->params['ignore']);
+            unset($this->params['ignore']);
+        }
+    }
+
 
     private function convertArraysToStrings($params)
     {

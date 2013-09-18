@@ -337,6 +337,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         return;
                     }
                 }
+                ob_flush();
             }
         }
     }

@@ -93,6 +93,7 @@ class Update extends AbstractEndpoint
             'ttl',
             'version',
             'version_type',
+            'ignore'
         );
     }
 

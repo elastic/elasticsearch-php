@@ -215,7 +215,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         } elseif ($statusCode === 409) {
             throw new Conflict409Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            throw new ScriptLangNotSupportedException($exceptionText. $statusCode, $exception);
+            throw new ScriptLangNotSupportedException($exceptionText. $statusCode);
         }
     }
 

@@ -64,16 +64,15 @@ class Get extends AbstractEndpoint
             );
         }
 
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Get'
-            );
-        }
-
         $id    = $this->id;
         $index = $this->index;
         $type  = $this->type;
-        $uri   = "/$index/$type/$id";
+
+        if (isset($type) === true) {
+            $uri = "/$index/$type/$id";
+        } else {
+            $uri = "/$index/_all/$id";
+        }
 
         if ($this->returnOnlySource === true) {
             $uri .= '/_source';

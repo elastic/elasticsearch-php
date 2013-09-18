@@ -71,8 +71,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
-        curl_exec($ch);
-        curl_close($ch);
+        $response = curl_exec($ch);
 
         $this->waitForYellow();
     }
@@ -100,9 +99,17 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $response = json_decode(curl_exec($ch), true);
 
+        $counter = 0;
         while ($response['status'] === 'red') {
             sleep(0.05);
             $response = json_decode(curl_exec($ch), true);
+            ++$counter;
+
+            if ($counter > 100) {
+                echo "Aborting test due to failure in clearing cluster.\n";
+                print_r($response);
+                exit;
+            }
         }
         curl_close($ch);
     }
@@ -149,8 +156,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $files = func_get_args();
 
         foreach ($files as $testFile) {
-            $this->clearCluster();
             echo "$testFile\n";
+            ob_flush();
+            $this->clearCluster();
 
             $fileData = file_get_contents($testFile);
             $documents = array_filter(explode("---", $fileData));

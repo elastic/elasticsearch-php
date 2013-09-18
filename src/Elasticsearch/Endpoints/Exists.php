@@ -30,24 +30,24 @@ class Exists extends AbstractEndpoint
             );
         }
 
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Exists'
-            );
-        }
-
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Exists'
             );
         }
 
-        $id    = $this->id;
         $index = $this->index;
         $type  = $this->type;
-        $uri   = "/$index/$type/$id";
+        $id    = $this->id;
+
+        if (isset($type) === true) {
+            $uri  = "/$index/$type/$id";
+        } else {
+            $uri  = "/$index/_all/$id";
+        }
 
         return $uri;
+
     }
 
     /**

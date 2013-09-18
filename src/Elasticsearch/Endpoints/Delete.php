@@ -64,6 +64,7 @@ class Delete extends AbstractEndpoint
             'timeout',
             'version',
             'version_type',
+            'ignore'
         );
     }
 

@@ -67,6 +67,8 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group small
+     * @baseline
      */
     public function curlMultiHandleSmall()
     {
@@ -75,6 +77,8 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group medium
+     * @baseline
      */
     public function curlMultiHandleMedium()
     {
@@ -83,6 +87,8 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group large
+     * @baseline
      */
     public function curlMultiHandleLarge()
     {
@@ -91,6 +97,7 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group small
      */
     public function guzzleSmall()
     {
@@ -99,6 +106,7 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group medium
      */
     public function guzzleMedium()
     {
@@ -108,6 +116,7 @@ class IndexingEvent extends AthleticEvent
 
     /**
      * @iterations 100
+     * @group large
      */
     public function guzzleLarge()
     {

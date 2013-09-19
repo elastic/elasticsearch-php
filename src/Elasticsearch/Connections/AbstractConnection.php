@@ -48,6 +48,20 @@ abstract class AbstractConnection
      */
     protected $connectionParams;
 
+    /** @var bool  */
+    protected $isAlive = true;
+
+
+    /**
+     * @param      $method
+     * @param      $uri
+     * @param null $params
+     * @param null $body
+     *
+     * @return mixed
+     */
+    abstract public function performRequest($method, $uri, $params = null, $body = null);
+
 
     /**
      * Constructor
@@ -160,6 +174,32 @@ abstract class AbstractConnection
             )
         );
 
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function ping()
+    {
+        $response = $this->performRequest('HEAD', $this->host);
+
+        if ($response['status'] === 200) {
+            $this->isAlive = true;
+            return true;
+        } else {
+            $this->isAlive = false;
+            return false;
+        }
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isAlive()
+    {
+        return $this->isAlive;
     }
 
 

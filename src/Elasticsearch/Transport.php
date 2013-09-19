@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\ConnectionPool;
+use Elasticsearch\Connections\AbstractConnection;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Sniffers\Sniffer;
@@ -264,6 +265,26 @@ class Transport
      */
     public function performRequest($method, $uri, $params = null, $body = null, $maxRetries = null)
     {
+        $connection = $this->getConnection();
+
+        try {
+            if (isset($body) === true) {
+                $body = $this->serializer->serialize($body);
+            }
+
+            $response = $connection->performRequest(
+                $method,
+                $uri,
+                $params,
+                $body
+            );
+
+        } catch (TransportException $exception) {
+
+        }
+
+
+
         if (isset($maxRetries) !== true) {
             $maxRetries = $this->maxRetries;
         }
@@ -315,7 +336,7 @@ class Transport
      *
      * @param array $hosts Assoc array of host values
      *
-     * @return array
+     * @return AbstractConnection[]
      */
     private function hostsToConnections($hosts)
     {

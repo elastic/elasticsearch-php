@@ -171,7 +171,10 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      * @param ServerErrorResponseException $exception
      * @param string                       $body
      *
+     * @throws \Elasticsearch\Common\Exceptions\RoutingMissingException
+     * @throws \Elasticsearch\Common\Exceptions\NoShardAvailableException
      * @throws \Guzzle\Http\Exception\ServerErrorResponseException
+     * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException
      */
     private function process5xxError(Request $request, ServerErrorResponseException $exception, $body)
     {

@@ -9,6 +9,7 @@ namespace Elasticsearch\Connections;
 
 use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
+use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Monolog\Logger;
 
@@ -21,7 +22,7 @@ use Monolog\Logger;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-abstract class AbstractConnection
+abstract class AbstractConnection implements ConnectionInterface
 {
     /**
      * @var string
@@ -52,7 +53,7 @@ abstract class AbstractConnection
     protected $isAlive = false;
 
     /** @var float  */
-    private $pingTimeout = 0.01;    //TODO expose this
+    private $pingTimeout = 1;    //TODO expose this
 
 
     /**
@@ -66,6 +67,8 @@ abstract class AbstractConnection
      */
     abstract public function performRequest($method, $uri, $params = null, $body = null, $options = array());
 
+    /** @return string */
+    abstract public function getTransportSchema();
 
     /**
      * Constructor
@@ -187,7 +190,7 @@ abstract class AbstractConnection
     public function ping()
     {
         $options = array('timeout' => $this->pingTimeout);
-        $response = $this->performRequest('HEAD', $this->host, null, null, $options);
+        $response = $this->performRequest('HEAD', '', null, null, $options);
 
         if ($response['status'] === 200) {
             $this->isAlive = true;
@@ -198,6 +201,16 @@ abstract class AbstractConnection
         }
     }
 
+    /**
+     * @return array
+     */
+    public function sniff()
+    {
+        $options = array('timeout' => $this->pingTimeout);
+        return $this->performRequest('GET', '/_cluster/nodes', null, null, $options);
+
+    }
+
 
     /**
      * @return bool
@@ -205,6 +218,17 @@ abstract class AbstractConnection
     public function isAlive()
     {
         return $this->isAlive;
+    }
+
+
+    public function markAlive()
+    {
+        $this->isAlive = true;
+    }
+
+    public function markDead()
+    {
+        $this->isAlive = false;
     }
 
 
@@ -223,6 +247,8 @@ abstract class AbstractConnection
                 throw new CouldNotResolveHostException($message);
             case 7:
                 throw new CouldNotConnectToHost($message);
+            case 28:
+                throw new OperationTimeoutException($message);
             default:
                 throw new TransportException($message);
         }

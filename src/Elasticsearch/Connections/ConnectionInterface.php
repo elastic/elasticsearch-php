@@ -23,6 +23,12 @@ interface ConnectionInterface
 
     public function getTransportSchema();
 
+    public function isAlive();
+
+    public function markAlive();
+
+    public function markDead();
+
 
     public function performRequest($method, $uri, $params = null, $body = null);
 }

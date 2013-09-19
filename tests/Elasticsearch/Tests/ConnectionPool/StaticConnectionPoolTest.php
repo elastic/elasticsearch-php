@@ -20,23 +20,22 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddOneHostThenGetConnection()
     {
-
-        $mockConnection = $this->getMockBuilder('\Elasticsearch\Connections\GuzzleConnection')
-                          ->disableOriginalConstructor()
+        $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+                          ->shouldReceive('ping')
+                          ->andReturn(true)
+                          ->getMock()
+                          ->shouldReceive('isAlive')
+                          ->andReturn(true)
                           ->getMock();
-
-        $mockConnection->expects($this->once())
-            ->method('ping')
-            ->will($this->returnValue(true));
 
         $connections = array($mockConnection);
 
-        $selector = $this->getMock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector', array('select'));
-        $selector->expects($this->once())
-            ->method('select')
-            ->will($this->returnValue($mockConnection));
+        $selector = m::mock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
+                    ->shouldReceive('select')
+                    ->andReturn($connections[0])
+                    ->getMock();
 
-        $randomizeHosts = true;
+        $randomizeHosts = false;
         $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $randomizeHosts);
 
         $retConnection = $connectionPool->nextConnection();

@@ -49,18 +49,22 @@ abstract class AbstractConnection
     protected $connectionParams;
 
     /** @var bool  */
-    protected $isAlive = true;
+    protected $isAlive = false;
+
+    /** @var float  */
+    private $pingTimeout = 0.01;    //TODO expose this
 
 
     /**
-     * @param      $method
-     * @param      $uri
-     * @param null $params
-     * @param null $body
+     * @param       $method
+     * @param       $uri
+     * @param null  $params
+     * @param null  $body
+     * @param array $options
      *
      * @return mixed
      */
-    abstract public function performRequest($method, $uri, $params = null, $body = null);
+    abstract public function performRequest($method, $uri, $params = null, $body = null, $options = array());
 
 
     /**
@@ -182,7 +186,8 @@ abstract class AbstractConnection
      */
     public function ping()
     {
-        $response = $this->performRequest('HEAD', $this->host);
+        $options = array('timeout' => $this->pingTimeout);
+        $response = $this->performRequest('HEAD', $this->host, null, null, $options);
 
         if ($response['status'] === 200) {
             $this->isAlive = true;

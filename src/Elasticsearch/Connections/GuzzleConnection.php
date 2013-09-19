@@ -65,6 +65,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         return $this->transportSchema;
     }
 
+
     /**
      * Perform an HTTP request on the cluster
      *
@@ -72,16 +73,15 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      * @param string      $uri    HTTP URI to use for request
      * @param null|string $params Optional URI parameters
      * @param null|string $body   Optional request body
+     * @param array       $options
      *
-     * @throws \Elasticsearch\Common\Exceptions\TransportException
-     * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = array())
     {
 
         $uri = $this->getURI($uri, $params);
-        $request = $this->buildGuzzleRequest($method, $uri, $body);
+        $request = $this->buildGuzzleRequest($method, $uri, $body, $options);
         $response = $this->sendRequest($request, $body);
 
         return array(
@@ -115,19 +115,20 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      * @param string $method
      * @param string $uri
      * @param string $body
+     * @param array $options
      *
      * @return Request
      */
-    private function buildGuzzleRequest($method, $uri, $body)
+    private function buildGuzzleRequest($method, $uri, $body, $options = array())
     {
         if ($method === 'GET' && isset($body) === true) {
             $method = 'POST';
         }
 
         if (isset($body) === true) {
-            $request = $this->guzzle->$method($uri, array(), $body);
+            $request = $this->guzzle->$method($uri, array(), $body, $options);
         } else {
-            $request = $this->guzzle->$method($uri, array());
+            $request = $this->guzzle->$method($uri, array(), $options);
         }
 
         return $request;

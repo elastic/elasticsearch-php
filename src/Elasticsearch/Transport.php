@@ -10,6 +10,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Connections\AbstractConnection;
 use Elasticsearch\Connections\ConnectionInterface;
@@ -34,7 +35,7 @@ class Transport
     private $params;
 
     /**
-     * @var ConnectionPool
+     * @var AbstractConnectionPool
      */
     private $connectionPool;
 
@@ -44,39 +45,9 @@ class Transport
     private $seeds = array();
 
     /**
-     * @var int Time of the last sniff
-     */
-    private $lastSniff;
-
-    /**
-     * @var int Number of sniffs that were initiated due to failed requests
-     */
-    private $sniffsDueToFailure = 0;
-
-    /**
-     * @var bool|int False if sniffing disabled, number of seconds if enabled
-     */
-    private $snifferTimeout;
-
-    /**
      * @var bool True if cluster sniffing is initiated on failed request
      */
     private $sniffOnConnectionFail;
-
-    /**
-     * @var Sniffer Sniffer object
-     */
-    private $sniffer;
-
-    /**
-     * @var string Transport schema used by cluster
-     */
-    private $transportSchema;
-
-    /**
-     * @var int Maximum number of retries before failing a request
-     */
-    private $maxRetries;
 
     /**
      * @var SerializerInterface
@@ -109,21 +80,16 @@ class Transport
             throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array');
         }
 
-        $this->params = $params;
-
-        $this->snifferTimeout        = $params['snifferTimeout'];
-        $this->sniffOnConnectionFail = $params['sniffOnConnectionFail'];
-        $this->sniffer               = $params['sniffer']($this);
-        $this->maxRetries            = $params['maxRetries'];
-        $this->serializer            = $params['serializer'];
-        $this->lastSniff             = time();
+        $this->params     = $params;
+        $this->serializer = $params['serializer'];
+        $this->lastSniff  = time();
 
         $this->seeds = $hosts;
         $this->setConnections($hosts);
 
         if ($params['sniffOnStart'] === true) {
             $this->log->addNotice('Sniff on Start.');
-            $this->sniffHosts();
+            $this->connectionPool->scheduleCheck();
         }
 
     }
@@ -144,50 +110,6 @@ class Transport
         $connections = $this->hostsToConnections($hosts);
 
         $this->connectionPool  = $this->params['connectionPool']($connections);
-        $this->transportSchema = $this->connectionPool->getTransportSchema();
-
-    }
-
-
-    /**
-     * Add a new connection to the connectionPool
-     *
-     * @param array $host Assoc. array describing the host:port combo
-     *
-     * @throws Common\Exceptions\InvalidArgumentException
-     * @return void
-     */
-    public function addConnection($host)
-    {
-        if (is_array($host) !== true) {
-            $this->log->addCritical('Host parameter must be an array');
-            throw new Exceptions\InvalidArgumentException('Host parameter must be an array');
-        }
-
-        if (isset($host['host']) !== true) {
-            $this->log->addCritical('Host must be provided in host parameter');
-            throw new Exceptions\InvalidArgumentException('Host must be provided in host parameter');
-        }
-
-        if (isset($host['port']) === true && is_numeric($host['port']) === false) {
-            $this->log->addCritical('Port must be numeric');
-            throw new Exceptions\InvalidArgumentException('Port must be numeric');
-        }
-
-        $connection = $this->params['connection']($host['host'], $host['port']);
-        $this->connectionPool->addConnection($connection);
-
-    }
-
-
-    /**
-     * Return an array of all connections in the ConnectionPool
-     *
-     * @return array
-     */
-    public function getAllConnections()
-    {
-        return $this->connectionPool->getAllConnections();
 
     }
 
@@ -198,56 +120,10 @@ class Transport
      *
      * @return ConnectionInterface Connection
      */
+
     public function getConnection()
     {
-        $this->checkSnifferTimeout();
-        return $this->connectionPool->getConnection();
-
-    }
-
-
-    /**
-     * Sniff the cluster topology through the Cluster State API
-     *
-     * @param bool $failure Set to true if we are sniffing
-     *                      because of a failed connection
-     *
-     * @return void
-     */
-    public function sniffHosts($failure = false)
-    {
-        $this->lastSniff = time();
-
-        $hosts = $this->sniffer->sniff($this->transportSchema);
-        $this->setConnections($hosts);
-
-        if ($failure === true) {
-            $this->log->addNotice('Sniffing cluster state due to failure.');
-            $this->sniffsDueToFailure += 1;
-
-        } else {
-            $this->log->addNotice('Sniffing cluster state.');
-            $this->sniffsDueToFailure = 0;
-        }
-
-    }
-
-
-    /**
-     * Marks a connection dead, or initiates a cluster resniff
-     *
-     * @param ConnectionInterface $connection The connection to mark as dead
-     *
-     * @return void
-     */
-    public function markDead($connection)
-    {
-        if ($this->sniffOnConnectionFail === true) {
-            $this->sniffHosts(true);
-        } else {
-            $this->connectionPool->markDead($connection);
-        }
-
+        return $this->connectionPool->nextConnection();
     }
 
 
@@ -258,14 +134,17 @@ class Transport
      * @param string $uri        HTTP URI to send request to
      * @param null   $params     Optional query parameters
      * @param null   $body       Optional query body
-     * @param null   $maxRetries Optional number of retries
      *
-     * @throws Common\Exceptions\MaxRetriesException
+     * @throws Common\Exceptions\NoNodesAvailableException|\Exception
+     * @internal param null $maxRetries Optional number of retries
+     *
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $maxRetries = null)
+    public function performRequest($method, $uri, $params = null, $body = null)
     {
-        $connection = $this->getConnection();
+        $connection  = $this->getConnection();
+        $shouldRetry = true;
+        $response    = array();
 
         try {
             if (isset($body) === true) {
@@ -279,44 +158,7 @@ class Transport
                 $body
             );
 
-        } catch (TransportException $exception) {
-
-        }
-
-
-
-        if (isset($maxRetries) !== true) {
-            $maxRetries = $this->maxRetries;
-        }
-
-        foreach (range(1, $maxRetries) as $attempt) {
-            $connection = $this->getConnection();
-
-            if (isset($body) === true) {
-                $body = $this->serializer->serialize($body);
-            }
-
-            try {
-                $response = $connection->performRequest(
-                    $method,
-                    $uri,
-                    $params,
-                    $body
-                );
-
-            } catch (TransportException $e) {
-
-                $this->log->addWarning('Transport exception, retrying.', array($e->getMessage()));
-
-                $this->markDead($connection);
-                if ($attempt === $this->maxRetries) {
-                    $this->log->addError('The maxinum number of request retries has been reached');
-                    throw new MaxRetriesException('The maximum number of request retries has been reached.');
-                }
-
-                // Skip the return below and continue retrying.
-                continue;
-            }
+            $connection->markAlive();
 
             $data = $this->serializer->deserialize($response['text']);
 
@@ -326,8 +168,30 @@ class Transport
                 'info'   => $response['info'],
             );
 
+        } catch (Exceptions\Curl\OperationTimeoutException $exception) {
+            $this->connectionPool->scheduleCheck();
+
+        } catch (Exceptions\NoNodesAvailableException $exception) {
+            $this->log->addCritical('No alive nodes found in cluster');
+            throw $exception;
+
+        } catch (TransportException $exception) {
+            $connection->markDead();
+            $this->connectionPool->scheduleCheck();
+            $shouldRetry = $this->shouldRetry($method, $uri, $params, $body);
         }
 
+        if ($shouldRetry === true) {
+            return $this->performRequest($method, $uri, $params, $body);
+        }
+
+        return $response;
+    }
+
+
+    public function shouldRetry($method, $uri, $params, $body)
+    {
+        return true;
     }
 
 
@@ -357,20 +221,4 @@ class Transport
     }
 
 
-    /**
-     * Check the sniifer timeout and perform a sniff if required
-     *
-     * @return void
-     */
-    private function checkSnifferTimeout()
-    {
-        if ($this->snifferTimeout !== false) {
-            if (($this->lastSniff + $this->snifferTimeout) < time()) {
-                $this->sniffHosts();
-            }
-        }
-
-    }
-
-
-}//end class
+}

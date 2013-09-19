@@ -88,7 +88,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = array())
     {
         $uri = $this->host . $uri;
 
@@ -112,6 +112,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         }
 
         // Custom Curl options?  Merge them.
+        // TODO reconcile these with $options
         if (isset($this->connectionParams['curlOpts']) === true) {
             $opts = array_merge($opts, $this->connectionParams['curlOpts']);
         }

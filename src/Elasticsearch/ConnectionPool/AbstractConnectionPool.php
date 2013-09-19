@@ -11,6 +11,7 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\ConnectionFactory;
 
 abstract class AbstractConnectionPool
 {
@@ -21,6 +22,13 @@ abstract class AbstractConnectionPool
      * @var AbstractConnection[]
      */
     protected  $connections;
+
+    /**
+     * Array of initial seed connections
+     *
+     * @var AbstractConnection[]
+     */
+    protected  $seedConnections;
 
     /**
      * Selector object, used to select a connection on each request
@@ -37,8 +45,10 @@ abstract class AbstractConnectionPool
      */
     protected $randomizeHosts;
 
+    /** @var \Elasticsearch\Connections\ConnectionFactory  */
+    protected $connectionFactory;
 
-    public function __construct($connections, SelectorInterface $selector, $randomizeHosts = true)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $randomizeHosts = true)
     {
         $paramList = array('connections', 'selector', 'randomizeHosts');
         foreach ($paramList as $param) {
@@ -51,9 +61,11 @@ abstract class AbstractConnectionPool
             shuffle($connections);
         }
 
-        $this->connections    = $connections;
-        $this->selector       = $selector;
-        $this->randomizeHosts = $randomizeHosts;
+        $this->connections      = $connections;
+        $this->seedConnections  = $connections;
+        $this->selector         = $selector;
+        $this->randomizeHosts   = $randomizeHosts;
+        $this->connectionFactory = $factory;
 
     }
 
@@ -64,5 +76,7 @@ abstract class AbstractConnectionPool
      * @return AbstractConnection
      */
     abstract public function nextConnection($force = false);
+
+    abstract public function scheduleCheck();
 
 }

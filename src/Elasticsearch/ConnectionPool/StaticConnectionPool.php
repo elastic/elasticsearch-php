@@ -11,12 +11,13 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticConnectionPool extends AbstractConnectionPool
 {
-    public function __construct($connections, SelectorInterface $selector, $randomizeHosts = true)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $randomizeHosts = true)
     {
-        parent::__construct($connections, $selector, $randomizeHosts);
+        parent::__construct($connections, $selector, $factory, $randomizeHosts);
         $this->scheduleCheck();
     }
 
@@ -29,8 +30,8 @@ class StaticConnectionPool extends AbstractConnectionPool
      */
     public function nextConnection($force = false)
     {
-        $size = count($this->connections);
-        while ($size--) {
+        $total = count($this->connections);
+        while ($total--) {
             /** @var AbstractConnection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true || $connection->ping() === true) {
@@ -47,7 +48,7 @@ class StaticConnectionPool extends AbstractConnectionPool
 
     }
 
-    private function scheduleCheck()
+    public function scheduleCheck()
     {
         foreach ($this->connections as $connection) {
             /** @var AbstractConnection $connection */

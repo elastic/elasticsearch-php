@@ -28,9 +28,9 @@ class DICBuilder
      */
     protected $paramDefaults = array(
         'connectionClass'       => '\Elasticsearch\Connections\GuzzleConnection',
-        'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\ConnectionPool',
+        'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
+        'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticConnectionPool',
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-        'deadPoolClass'         => '\Elasticsearch\ConnectionPool\DeadPool',
         'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
         'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
         'sniffOnStart'          => false,
@@ -151,9 +151,8 @@ class DICBuilder
     private function setNonSharedDICObjects()
     {
         $this->setConnectionObj();
+        $this-> setConnectionFactoryObj();
         $this->setSelectorObj();
-        $this->setDeadpoolObj();
-        $this->setSnifferObj();
         $this->setSerializerObj();
         $this->setConnectionPoolObj();
     }
@@ -196,32 +195,18 @@ class DICBuilder
         };
     }
 
+    private function setConnectionFactoryObj()
+    {
+        $this->dic['connectionFactory'] = function($dicParams) {
+            return new $dicParams['connectionFactoryClass']($dicParams);
+        };
+    }
+
 
     private function setSelectorObj()
     {
         $this->dic['selector'] = function ($dicParams) {
             return new $dicParams['selectorClass']();
-        };
-    }
-
-
-    private function setDeadpoolObj()
-    {
-        $this->dic['deadPool'] = function ($dicParams) {
-            return new $dicParams['deadPoolClass'](
-                $dicParams['deadTimeout'],
-                $dicParams['logObject']
-            );
-        };
-    }
-
-
-    private function setSnifferObj()
-    {
-        $this->dic['sniffer'] = function ($dicParams) {
-            return function ($transport) use ($dicParams) {
-                return new $dicParams['snifferClass']($transport);
-            };
         };
     }
 
@@ -241,7 +226,7 @@ class DICBuilder
                 return new $dicParams['connectionPoolClass'](
                     $connections,
                     $dicParams['selector'],
-                    $dicParams['deadPool'],
+                    $dicParams['connectionFactory'],
                     $dicParams['randomizeHosts']);
             };
         };

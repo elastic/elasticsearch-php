@@ -46,6 +46,7 @@ class DICBuilder
         'traceObject'           => null,
         'tracePath'             => 'elasticsearch.log',
         'traceLevel'            => Logger::WARNING,
+        'guzzleOptions'         => array()
     );
 
 
@@ -308,12 +309,15 @@ class DICBuilder
     {
         // Only used by Guzzle connections - won't be instantiated until used.
         $this->dic['guzzleClient'] = $this->dic->share(
-            function () {
-                $guzzle =  new \Guzzle\Http\Client(null,array(
+            function ($dicParams) {
+                $guzzleOptions = array(
                     'curl.options' => array(
                         'body_as_string'   => true
                     )
-                ));
+                );
+
+                $guzzleOptions = array_merge($guzzleOptions, $dicParams['guzzleOptions']);
+                $guzzle =  new \Guzzle\Http\Client(null,$guzzleOptions);
 
                 return $guzzle;
             }

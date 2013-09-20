@@ -15,9 +15,9 @@ use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticConnectionPool extends AbstractConnectionPool
 {
-    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $randomizeHosts = true)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
     {
-        parent::__construct($connections, $selector, $factory, $randomizeHosts);
+        parent::__construct($connections, $selector, $factory, $connectionPoolParams);
         $this->scheduleCheck();
     }
 

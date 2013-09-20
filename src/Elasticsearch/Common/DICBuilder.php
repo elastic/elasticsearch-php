@@ -46,7 +46,8 @@ class DICBuilder
         'traceObject'           => null,
         'tracePath'             => 'elasticsearch.log',
         'traceLevel'            => Logger::WARNING,
-        'guzzleOptions'         => array()
+        'guzzleOptions'         => array(),
+        'connectionPoolParams'  => array()
     );
 
 
@@ -228,7 +229,9 @@ class DICBuilder
                     $connections,
                     $dicParams['selector'],
                     $dicParams['connectionFactory'],
-                    $dicParams['randomizeHosts']);
+                    $dicParams['randomizeHosts'],
+                    $dicParams['connectionPoolParams']
+                );
             };
         };
     }

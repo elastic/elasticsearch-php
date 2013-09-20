@@ -37,35 +37,29 @@ abstract class AbstractConnectionPool
      */
     protected $selector;
 
-    /**
-     * If set to true, connection list is randomized on construction
-     * Prevents Thundering Herds. Defaults to true
-     *
-     * @var bool
-     */
-    protected $randomizeHosts;
 
     /** @var \Elasticsearch\Connections\ConnectionFactory  */
     protected $connectionFactory;
 
-    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $randomizeHosts = true)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
     {
-        $paramList = array('connections', 'selector', 'randomizeHosts');
+        $paramList = array('connections', 'selector', 'connectionPoolParams');
         foreach ($paramList as $param) {
             if (isset($$param) === false) {
                 throw new InvalidArgumentException('`' . $param . '` parameter must not be null');
             }
         }
 
-        if ($randomizeHosts === true) {
+        $randomizeHosts = $connectionPoolParams['randomizeHosts'];
+        if (isset($randomizeHosts) === true && $randomizeHosts === true) {
             shuffle($connections);
         }
 
-        $this->connections      = $connections;
-        $this->seedConnections  = $connections;
-        $this->selector         = $selector;
-        $this->randomizeHosts   = $randomizeHosts;
-        $this->connectionFactory = $factory;
+        $this->connections          = $connections;
+        $this->seedConnections      = $connections;
+        $this->selector             = $selector;
+        $this->connectionPoolParams = $connectionPoolParams;
+        $this->connectionFactory    = $factory;
 
     }
 

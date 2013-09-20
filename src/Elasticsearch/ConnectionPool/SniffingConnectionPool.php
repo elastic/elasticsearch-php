@@ -25,7 +25,7 @@ class SniffingConnectionPool extends AbstractConnectionPool
     {
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
 
-        $this->setConnectionPoolParams();
+        $this->setConnectionPoolParams($connectionPoolParams);
         $this->nextSniff = time() + $this->sniffingInterval;
     }
 
@@ -148,10 +148,10 @@ class SniffingConnectionPool extends AbstractConnectionPool
 
     }
 
-    private function setConnectionPoolParams()
+    private function setConnectionPoolParams($connectionPoolParams)
     {
         if (isset($connectionPoolParams['sniffingInterval']) === true) {
-            $this->sniffingInterval = $connectionPoolParams['sniffingPoolInterval'];
+            $this->sniffingInterval = $connectionPoolParams['sniffingInterval'];
         }
     }
 }

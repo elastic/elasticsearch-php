@@ -94,10 +94,10 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         foreach (range(1,10) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
-                              ->shouldReceive('ping')->once()
+                              ->shouldReceive('ping')
                               ->andReturn(false)
                               ->getMock()
-                              ->shouldReceive('isAlive')->once()
+                              ->shouldReceive('isAlive')
                               ->andReturn(false)
                               ->getMock();
 
@@ -126,10 +126,10 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         foreach (range(1,9) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
-                              ->shouldReceive('ping')->once()
+                              ->shouldReceive('ping')
                               ->andReturn(false)
                               ->getMock()
-                              ->shouldReceive('isAlive')->once()
+                              ->shouldReceive('isAlive')
                               ->andReturn(false)
                               ->getMock();
 

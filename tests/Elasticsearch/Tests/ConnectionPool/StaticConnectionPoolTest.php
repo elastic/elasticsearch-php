@@ -6,17 +6,21 @@ use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Mockery as m;
 
 /**
- * Class ConnectionPoolTest
+ * Class StaticConnectionPoolTest
  *
  * @category   Tests
  * @package    Elasticsearch
- * @subpackage Tests/ConnectionPool
+ * @subpackage Tests/StaticConnectionPoolTest
  * @author     Zachary Tong <zachary.tong@elasticsearch.com>
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
 class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function tearDown() {
+        m::close();
+    }
 
     public function testAddOneHostThenGetConnection()
     {

@@ -190,7 +190,15 @@ abstract class AbstractConnection implements ConnectionInterface
     public function ping()
     {
         $options = array('timeout' => $this->pingTimeout);
-        $response = $this->performRequest('HEAD', '', null, null, $options);
+        try {
+            $response = $this->performRequest('HEAD', '', null, null, $options);
+
+        } catch (OperationTimeoutException $exception) {
+            $this->isAlive = false;
+            return false;
+
+        }
+
 
         if ($response['status'] === 200) {
             $this->isAlive = true;

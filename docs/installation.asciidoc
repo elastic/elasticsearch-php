@@ -15,7 +15,7 @@ The rest of the dependencies will automatically be downloaded and installed by C
 
     {
         "require": {
-            "elasticsearch/elasticsearch-php": "~0.1"
+            "elasticsearch/elasticsearch": "~0.1"
         }
     }
 

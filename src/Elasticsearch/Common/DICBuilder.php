@@ -31,14 +31,8 @@ class DICBuilder
         'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
         'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticConnectionPool',
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-        'snifferClass'          => '\Elasticsearch\Sniffers\Sniffer',
         'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
         'sniffOnStart'          => false,
-        'snifferTimeout'        => false,
-        'sniffOnConnectionFail' => false,
-        'randomizeHosts'        => true,
-        'maxRetries'            => 3,
-        'deadTimeout'           => 60,
         'connectionParams'      => array(),
         'logObject'             => null,
         'logPath'               => 'elasticsearch.log',
@@ -47,7 +41,9 @@ class DICBuilder
         'tracePath'             => 'elasticsearch.log',
         'traceLevel'            => Logger::WARNING,
         'guzzleOptions'         => array(),
-        'connectionPoolParams'  => array()
+        'connectionPoolParams'  => array(
+            'randomizeHosts' => true
+        ),
     );
 
 

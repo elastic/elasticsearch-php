@@ -13,17 +13,17 @@ All configurations (both simple parameters and more advanced component-replaceme
 
 The client accepts an array of hosts that you would like to connect to.  Each value in the array must be a string (either with or without the port number):
 
-[source,php]
-----
-    $params = array();
-    $params['hosts'] = array (
-        '192.168.1.1:9200',         // IP + Port
-        '192.168.1.2',              // Just IP
-        'mydomain.server.com:9201', // Domain + Port
-        'mydomain2.server.com'      // Just Domain 
-    );
 
-    $client = new Elasticsearch\Client($params);
+----
+$params = array();
+$params['hosts'] = array (
+    '192.168.1.1:9200',         // IP + Port
+    '192.168.1.2',              // Just IP
+    'mydomain.server.com:9201', // Domain + Port
+    'mydomain2.server.com'      // Just Domain 
+);
+
+$client = new Elasticsearch\Client($params);
 ----
 
 This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
@@ -31,35 +31,41 @@ This associative array holds all custom configurations that you may want to set.
 === Example: Configuring the Logger
 Let's change the logging location.  By default, the client will log to a file called 'elasticsearch.log' in the root of your project.  To change this location, simply do the following:
 
-    $params = array();
-    $params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
+----
+$params = array();
+$params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
 
-    $client = new Elasticsearch\Client($params);
+$client = new Elasticsearch\Client($params);
+----
 
 Not all parameters all strings.  For example, we can change the logging level of the client (defaults to WARN):
 
-    $params = array();
-    $params['logPath']  = '/var/logs/elasticsearch/elasticsearch.log';
-    $params['logLevel'] = \Monolog\Logger::INFO;
-    $client = new Elasticsearch\Client($params);
+----
+$params = array();
+$params['logPath']  = '/var/logs/elasticsearch/elasticsearch.log';
+$params['logLevel'] = \Monolog\Logger::INFO;
+$client = new Elasticsearch\Client($params);
+----
 
 Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger.  But since the logging library is [Monolog](https://github.com/Seldaek/monolog), we have access to a variety of loggers.
 
 Let's log to the SysLog instead of a file:
 
-    use Monolog\Logger;
+----
+use Monolog\Logger;
 
-    // Build a Monolog logger that uses the SyslogHandler
-    $log       = new Logger('log');
-    $handler   = new SyslogHandler('my_user');
-    $processor = new IntrospectionProcessor();
+// Build a Monolog logger that uses the SyslogHandler
+$log       = new Logger('log');
+$handler   = new SyslogHandler('my_user');
+$processor = new IntrospectionProcessor();
 
-    $log->pushHandler($handler);
-    $log->pushProcessor($processor);
+$log->pushHandler($handler);
+$log->pushProcessor($processor);
 
-    // Over-ride the client's logger object with your own
-    $params['logObject'] = $log;
-    $client = new Elasticsearch\Client($params);
+// Over-ride the client's logger object with your own
+$params['logObject'] = $log;
+$client = new Elasticsearch\Client($params);
+----
 
 === Example: Configuring the Selector Class
 When we changed the logger object, we provided a complete object that we wanted to over-ride the default with.  There are many configurations where this won't work.  For example, the Connection class must be instantiated repeatedly when new connections are made.
@@ -70,39 +76,45 @@ Let's configure the Selector class.  By default, the client uses a Round-Robin s
 
 Let's change it to a different Selector - the RandomSelector:
 
-    $params['selectorClass'] = '\Elasticsearch\ConnectionPool\Selectors\RandomSelector';
-    $client = new Elasticsearch\Client($params);
+----
+$params['selectorClass'] = '\Elasticsearch\ConnectionPool\Selectors\RandomSelector';
+$client = new Elasticsearch\Client($params);
+----
 
 The client will now query random nodes.  Let's go one step further and define our own selector, using custom business logic that is specific to your domain.  Most configurable components in the client adhere to an interface, which makes it easy to swap them out for your own class.
 
 Let's make a selector that only chooses the first connection.  This is obviously not a good selector (!!!), but it demonstrates the concept well:
 
-    namespace MyProject\Selectors;
+----
+namespace MyProject\Selectors;
 
-    use Elasticsearch\Connections\ConnectionInterface;
-    use Elasticsearch\ConnectionPool\Selectors\SelectorInterface
+use Elasticsearch\Connections\ConnectionInterface;
+use Elasticsearch\ConnectionPool\Selectors\SelectorInterface
 
-    class FirstSelector implements SelectorInterface
+class FirstSelector implements SelectorInterface
+{
+
+    /**
+     * Selects the first connection
+     *
+     * @param array $connections Array of Connection objects
+     *
+     * @return ConnectionInterface
+     */
+    public function select($connections)
     {
-
-        /**
-         * Selects the first connection
-         *
-         * @param array $connections Array of Connection objects
-         *
-         * @return ConnectionInterface
-         */
-        public function select($connections)
-        {
-            return $connections[0];
-        }
-
+        return $connections[0];
     }
+
+}
+----
 
 And now we can specify that when creating the client:
 
-    $params['selectorClass'] = '\MyProject\Selectors\FirstSelector';
-    $client = new Elasticsearch\Client($params);
+----
+$params['selectorClass'] = '\MyProject\Selectors\FirstSelector';
+$client = new Elasticsearch\Client($params);
+----
 
 === Full list of configurations
 

@@ -33,57 +33,69 @@ To index a document, we simply specify a `body` that contains the document that 
 
 The index, type and ID are also specified in the parameters assoc. array:
 
-    $params = array();
-    $params['body']  = array('testField' => 'abc');
-    $params['index'] = 'my_index';
-    $params['type']  = 'my_type';
-    $params['id']    = 'my_id';
-    $ret = $client->index($params);
+----
+$params = array();
+$params['body']  = array('testField' => 'abc');
+$params['index'] = 'my_index';
+$params['type']  = 'my_type';
+$params['id']    = 'my_id';
+$ret = $client->index($params);
+----
 
 === Get a document
 
 Let's get the document that we just indexed:
 
-    $getParams = array();
-    $getParams['index'] = 'my_index';
-    $getParams['type']  = 'my_type';
-    $getParams['id']    = 'my_id';
-    $retDoc = $client->get($getParams);
+----
+$getParams = array();
+$getParams['index'] = 'my_index';
+$getParams['type']  = 'my_type';
+$getParams['id']    = 'my_id';
+$retDoc = $client->get($getParams);
+----
 
 === Search for a document
 
 Searching is a hallmark of elasticsearch, so let's perform a search.  We are going to use the Match query as a demonstration:
 
-    $searchParams['index'] = 'my_index';
-    $searchParams['type']  = 'my_type';
-    $searchParams['body']['query']['match']['testField'] = 'abc';
-    $retDoc = $client->search($searchParams);
+----
+$searchParams['index'] = 'my_index';
+$searchParams['type']  = 'my_type';
+$searchParams['body']['query']['match']['testField'] = 'abc';
+$retDoc = $client->search($searchParams);
+----
 
 === Delete a document
 
 Alright, let's go ahead and delete the document that we added previously:
 
-    $deleteParams = array();
-    $deleteParams['index'] = $params['my_index'];
-    $deleteParams['type'] = $params['my_type'];
-    $deleteParams['id'] = $params['my_id'];
-    $retDelete = $client->delete($deleteParams);
+----
+$deleteParams = array();
+$deleteParams['index'] = $params['my_index'];
+$deleteParams['type'] = $params['my_type'];
+$deleteParams['id'] = $params['my_id'];
+$retDelete = $client->delete($deleteParams);
+----
 
 === Delete an index
 
 Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
 
-    $deleteParams['index'] = $indexParams['my_index'];
-    $client->indices()->delete($deleteParams);
-    
+----
+$deleteParams['index'] = $indexParams['my_index'];
+$client->indices()->delete($deleteParams);
+----
+
 === Create an index
 
 Ok, now that we are starting fresh, let's add a new index with some custom settings:
 
-    $indexParams['index'] = 'my_index';
-    $indexParams['body']['settings']['number_of_shards'] = 2;
-    $indexParams['body']['settings']['number_of_replicas'] = 0;
-    $client->indices()->create($indexParams);
+----
+$indexParams['index'] = 'my_index';
+$indexParams['body']['settings']['number_of_shards'] = 2;
+$indexParams['body']['settings']['number_of_replicas'] = 0;
+$client->indices()->create($indexParams);
+----
 
 == Wrap up
 

@@ -1,0 +1,107 @@
+
+== Search Operations
+
+Well...it isn't called elasticsearch for nothing.  Let's talk about search operations in the PHP client.  
+
+The client gives you full access to every query and parameter exposed by the REST API, following the naming scheme as much as possible.  Let's look at a few examples so you can become familiar with the syntax.
+
+=== Match Query
+
+Here is a standard curl for a Match query:
+
+----
+curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+    "query" : {
+        "match" : {
+            "testField" : "abc"
+        }
+    }
+}'
+----
+
+And here is the same query constructed in the client:
+----
+$params['index'] = 'my_index';
+$params['type']  = 'my_type';
+$params['body']['query']['match']['testField'] = 'abc';
+
+$results = $client->search($params);
+----
+
+As you can see, the translation between JSON and query is very straightforward.  In fact, you could serialize the JSON directly into the body and it would provide the same results:
+
+----
+$json = '{
+    "query" : {
+        "match" : {
+            "testField" : "abc"
+        }
+    }
+}';
+
+$params['index'] = 'my_index';
+$params['type']  = 'my_type';
+$params['body'] = json_decode($json, true);
+
+$results = $client->search($params);
+----
+
+The search results that come back are simply elasticsearch response elements serialized into an array.  Working with the search results is as simple as iterating over the array values:
+
+----
+$milliseconds = $results['took'];
+$maxScore     = $results['hits']['max_score'];
+
+$score = $results['hits']['hits'][0]['_score'];
+$doc   = $results['hits']['hits'][0]['_source'];
+----
+
+=== A more complicated example
+
+Let's construct a slightly more complicated example: a filtered query that contains both a filter and a query.  This is a very common activity in elasticsearch queries, so it will be a good demonstration.
+
+The curl version of the query:
+
+curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+    "query" : {
+        "filtered" : {
+            "filter" : {
+                "term" : {
+                    "my_field" : "abc"
+                }
+            },
+            "query" : {
+                "match" : {
+                    "my_other_field" : "xyz"
+                }
+            }
+        }
+    }
+}'
+
+And in PHP:
+
+----
+$params['index'] = 'my_index';
+$params['type']  = 'my_type';
+
+$filter = array();
+$filter['term']['my_field'] = 'abc';
+
+$query = array();
+$query['match']['my_other_field'] = 'xyz';
+
+$params['body']['query']['filtered'] = array(
+    "filter" => $filter,
+    "query"  => $query
+);
+
+$results = $client->search($params);
+----
+
+For clarity and ease of readability, the filter and query sections were allocated individually as variables and then composed together later.  This is often a good design pattern for applications, since it lets you treat the queries and filters as building blocks that can be passed around your application.
+
+Of course, at the end of the day, it is built into a single array.  You could easily build the entire array in one definition of nested array blocks, or build them line-by-line.  
+
+All the client requires is an associative array with a structure that matches the JSON query structure.
+

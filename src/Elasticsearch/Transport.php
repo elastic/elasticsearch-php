@@ -45,11 +45,6 @@ class Transport
     private $seeds = array();
 
     /**
-     * @var bool True if cluster sniffing is initiated on failed request
-     */
-    private $sniffOnConnectionFail;
-
-    /**
      * @var SerializerInterface
      */
     private $serializer;
@@ -82,7 +77,6 @@ class Transport
 
         $this->params     = $params;
         $this->serializer = $params['serializer'];
-        $this->lastSniff  = time();
 
         $this->seeds = $hosts;
         $this->setConnections($hosts);

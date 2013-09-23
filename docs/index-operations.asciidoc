@@ -1,0 +1,134 @@
+
+== Index Operations
+
+This section will walk you through the various index APIs that are exposed through the client.  Index operations include anything that manages an index itself (e.g. create an index, delete, change mappings, etc).
+
+We'll walk through a few common operations with detailed code snippets, then list the rest of the methods in a table.  The parameters are identical to the REST api, so it should be easy to perform the operation you need.
+
+=== Create an index
+
+The index operations are all contained under a distinct namespace, separated from other methods that are on the root client object.  As an example, let's create a new index:
+
+    $client = new Elasticsearch\Client();
+    $indexParams['index']  = 'my_index';    //index
+
+    $client->indices()->create($indexParams);
+
+This will create a default Elasticsearch index.  You can, of course, specify any parameters that would normally be included in a new index creation API.  All parameters that would normally go in the request body are located in the 'body' associative array:
+
+    $client = new Elasticsearch\Client();
+    $indexParams['index']  = 'my_index';
+
+    // Index Settings
+    $indexParams['body']['settings']['number_of_shards'] = 3;
+    $indexParams['body']['settings']['number_of_replicas'] = 2;
+
+    // Example Index Mapping
+    $myTypeMapping = array(
+        '_source' => array(
+            'enabled' => true
+        ),
+        'properties' => array(
+            'first_name' => array(
+                'type' => 'string',
+                'analyzer' => 'standard'
+            ),
+            'age' => array(
+                'type' => 'integer'
+            )
+        )
+    );
+    $indexParams['body']['mappings']['my_type'] = $myTypeMapping;
+
+    // Create the index
+    $client->indices()->create($indexParams);
+
+=== Delete an index
+
+Deleting an index is very simple:
+
+    $deleteParams['index'] = $indexParams['my_index'];
+    $client->indices()->delete($deleteParams);
+
+=== Put Settings API
+The Put Settings API allows you to modify any index setting that is dynamic:
+
+    $params['index'] = 'my_index';
+    $params['body']['index']['number_of_replicas'] = 0;
+    $params['body']['index']['refresh_interval'] = -1;
+
+    $ret = $client->indices()->putSettings($params);
+
+=== Get Settings API
+
+Get Settings API will show you the currently configured settings for one or more indexes:
+
+    // Get settings for one index
+    $params['index'] = 'my_index';
+    $ret = $client->indices()->getSettings($params);
+
+    // Get settings for several indexes
+    $params['index'] = array('my_index', 'my_index2');
+    $ret = $client->indices()->getSettings($params);
+
+=== Put Mappings API
+
+The Put Mappings API allows you to modify or add to an existing index's mapping.
+
+    // Set the index and type
+    $params['index'] = 'my_index';
+    $params['type'] = 'my_type2';
+
+    // Adding a new type to an existing index
+    $myTypeMapping2 = array(
+        '_source' => array(
+            'enabled' => true
+        ),
+        'properties' => array(
+            'first_name' => array(
+                'type' => 'string',
+                'analyzer' => 'standard'
+            ),
+            'age' => array(
+                'type' => 'integer'
+            )
+        )
+    );
+    $params['body']['my_type2'] = $myTypeMapping2;
+
+    // Create the index
+    $client->indices()->putMapping($params);
+
+=== Get Mappings API
+
+The Get Mappings API will return the mapping details about your indexes and types.  Depending on the mappings that you wish to retrieve, you can specify a number of combinations of index and type:
+
+    // Get mappings for all indexes and types
+    $ret = $client->indices()->getMapping();
+
+    // Get mappings for all types in 'my_index'
+    $params['index'] = 'my_index';
+    $ret = $client->indices()->getMapping($params);
+
+    // Get mappings for all types of 'my_type', regardless of index
+    $params['type'] = 'my_type';
+    $ret = $client->indices()->getMapping($params);
+
+    // Get mapping 'my_type' in 'my_index'
+    $params['index'] = 'my_index';
+    $params['type']  = 'my_type'
+    $ret = $client->indices()->getMapping($params);
+
+    // Get mappings for two indexes
+    $params['index'] = array('my_index', 'my_index2');
+    $ret = $client->indices()->getMapping($params);
+
+=== Other APIs in the Indices Namespace
+There are a number of other APIs in the indices namespace that allow you to manage your elasticsearch indexes (add/remove templates, flush segments, close indexes, etc).
+
+If you use an IDE with autocompletion, you should be able to easily explore the indices namspace by typing:
+    $client->indices()->
+
+And perusing the list of available methods.  Alternatively, browsing the \Elasticsearch\Namespaces\Indices.php file will show you the full list of available method calls (as well as parameter lists in the comments for each method).
+
+-

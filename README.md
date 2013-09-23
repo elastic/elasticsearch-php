@@ -47,37 +47,94 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 ```
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
-Basic Usage
+Index a document
 -----
+
+In elasticsearch-php, almost everything is configured by associative arrays.  The REST endpoint, document and optional parameters - everything is an associative array.
+
+To index a document, we simply specify a `body` that contains the document that we wish to index.  Each field in the document is represented by a different key/value pair in the associative array.
+
+The index, type and ID are also specified in the parameters assoc. array:
+
 ```php
-    require 'vendor/autoload.php';
-    use \Elasticsearch\Elasticsearch;
+    $params = array();
+    $params['body']  = array('testField' => 'abc');
+    $params['index'] = 'my_index';
+    $params['type']  = 'my_type';
+    $params['id']    = 'my_id';
+    $ret = $client->index($params);
+```
 
-    // By default we connect to localhost:9200.
-    $client = new Client();
+Get a document
+-----
 
-    // Create a new index.
-    $parameters['index']  = 'example_index';
-    $client->indices()->create($parameters);
+Let's get the document that we just indexed:
 
-    // Index a new document.
-    $document['index'] = 'example_index';
-    $document['type']  = 'testType';
-    $document['id']    = 'abc';
-    $document['body']  = array(
-                            'field1' => 'xyz',
-                            'field2' => '123'
-                         );
-    $response = $client->index($document);
+```php
+    $getParams = array();
+    $getParams['index'] = 'my_index';
+    $getParams['type']  = 'my_type';
+    $getParams['id']    = 'my_id';
+    $retDoc = $client->get($getParams);
+```
 
-    // Perform a basic Match Query search.
-    $query['index'] = 'example_index';
-    $query['type']  = 'testType';
-    $query['body']['query']['match']['field1'] =  ['xyz'];
-    $queryResponse = $client->search($query);
+Search for a document
+-----
+
+Searching is a hallmark of elasticsearch (no surprise there!), so let's perform a basic search.  We are going to use the Match query as a demonstration:
+
+```php
+    $searchParams['index'] = 'my_index';
+    $searchParams['type']  = 'my_type';
+    $searchParams['body']['query']['match']['testField'] = 'abc';
+    $queryResponse = $client->search($searchParams);
 
     echo $queryResponse['hits']['hits'][0]['_id']; // Outputs 'abc'
 ```
+
+Delete a document
+-----
+
+Alright, let's go ahead and delete the document that we added previously:
+
+```php
+    $deleteParams = array();
+    $deleteParams['index'] = $params['my_index'];
+    $deleteParams['type'] = $params['my_type'];
+    $deleteParams['id'] = $params['my_id'];
+    $retDelete = $client->delete($deleteParams);
+```
+
+Delete an index
+-----
+
+Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
+
+```php
+    $deleteParams['index'] = $indexParams['my_index'];
+    $client->indices()->delete($deleteParams);
+```
+
+Create an index
+-----
+
+Ok, now that we are starting fresh, let's add a new index with some custom settings:
+```php
+    $indexParams['index'] = 'my_index';
+    $indexParams['body']['settings']['number_of_shards'] = 2;
+    $indexParams['body']['settings']['number_of_replicas'] = 0;
+    $client->indices()->create($indexParams);
+```
+
+Wrap up
+=======
+
+That was just a crash-course overview of the client and it's syntax.  If you are familiar with elasticsearch, you'll notice that the methods are named just like REST endpoints.
+
+You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the $client object (indexing, searching, getting, etc).  Index and cluster management are located under the $client->indices() and $client->cluster() objects, respectively.
+
+Check out the rest of the Documentation to see how the entire client works.
+
 
 License
 -------

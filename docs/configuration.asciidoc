@@ -13,6 +13,8 @@ All configurations (both simple parameters and more advanced component-replaceme
 
 The client accepts an array of hosts that you would like to connect to.  Each value in the array must be a string (either with or without the port number):
 
+[source,php]
+----
     $params = array();
     $params['hosts'] = array (
         '192.168.1.1:9200',         // IP + Port
@@ -22,6 +24,7 @@ The client accepts an array of hosts that you would like to connect to.  Each va
     );
 
     $client = new Elasticsearch\Client($params);
+----
 
 This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
 

@@ -42,9 +42,25 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var  string */
     static $esVersion;
 
+
+    /**
+     * @return mixed
+     */
+    public static function getHostEnvVar()
+    {
+        if (isset($_SERVER['ES_TEST_HOST']) === true) {
+            return $_SERVER['ES_TEST_HOST'];
+        } else {
+            echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
+            exit;
+        }
+    }
+
+
     public static function setUpBeforeClass()
     {
-        $ch = curl_init("http://localhost:9200/");
+        $host = YamlRunnerTest::getHostEnvVar();
+        $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
@@ -66,7 +82,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private function clearCluster()
     {
         echo "\n>>>CLEARING<<<\n";
-        $ch = curl_init("http://localhost:9200/_all");
+        $host = YamlRunnerTest::getHostEnvVar();
+        $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
@@ -92,7 +109,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function waitForYellow()
     {
-        $ch = curl_init("http://localhost:9200/_cluster/health");
+        $host = YamlRunnerTest::getHostEnvVar();
+        $ch = curl_init("$host/_cluster/health");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);

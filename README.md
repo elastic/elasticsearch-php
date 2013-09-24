@@ -25,7 +25,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 ```json
     {
         "require": {
-            "elasticsearch/elasticsearch": "~0.1"
+            "elasticsearch/elasticsearch": "~0.4"
         }
     }
 ```

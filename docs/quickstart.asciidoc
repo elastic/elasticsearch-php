@@ -9,7 +9,7 @@ This section will give you a quick overview of the client and how the major func
 
     {
         "require": {
-            "elasticsearch/elasticsearch-php": "~0.1"
+            "elasticsearch/elasticsearch-php": "~0.4"
         }
     }
 

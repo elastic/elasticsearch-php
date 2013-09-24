@@ -20,7 +20,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Hosts parameter must be an array of strings
      *
      * @return void
      */
@@ -36,7 +35,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Port must be a valid integer
      *
      * @return void
      */
@@ -54,7 +52,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Port must be a valid integer
      *
      * @return void
      */
@@ -72,7 +69,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Parameters must be an array
      *
      * @return void
      */
@@ -88,7 +84,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedException \Elasticsearch\Common\Exceptions\UnexpectedValueException
-     * @expectedExceptionMessage randomParam is not a recognized parameter
      *
      * @return void
      */

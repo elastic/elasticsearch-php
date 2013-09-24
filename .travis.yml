@@ -1,0 +1,14 @@
+language: php
+php:
+  - "5.5"
+  - "5.4"
+  - "5.3"
+
+before_script:
+  - composer install --dev
+  - mkdir -p build/logs
+
+script: phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore --exclude-group yaml tests
+
+after_script:
+ - php vendor/bin/coveralls -v

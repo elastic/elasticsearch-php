@@ -1,0 +1,3 @@
+[submodule "elasticsearch-api"]
+	path = elasticsearch-api
+	url = https://github.com/elasticsearch/elasticsearch-rest-api-spec.git

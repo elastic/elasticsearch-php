@@ -23,3 +23,13 @@ The connection pool's job is to manage this set of unruly connections and try to
  In reality, if your script only executes a few queries, the sniffing concept is too robust.  It is really only useful for long-lived instances which potentially have the chance to "out-live" a static list
 
  For this reason, the default connection pool at this time is the staticConnectionPool.  You can, of course, change this default - but we strong recommend you load test and verify that it does not negatively impact your performance.
+
+ === RoundRobinSelector vs StickyRoundRobinSelector
+
+ In a similar vein as the connection pool, there is a PHP-specific selector that may be useful to some environments.
+
+ The selector's job is to return a single connection from an array of connections.  The default is a round-robin selector that operates on a randomized list of hosts.  This ensures an even load of traffic across your cluster.  Round-robin-ing happens on a per-request basis (e.g. sequential requests go to different nodes).
+
+ Considering the nature of many PHP scripts, it is possible this is a sub-optimal strategy due to overhead of creating new sockets.  For that reason, there is a slightly modified StickyRoundRobinSelector class.
+
+ This class prefers to use the same connection for every request, but if the node is dead (due to a previous connection failure) it will round-robin to the next node.  Using the default randomizeHosts = true setting, this still ensures even distribution of load across the cluster.  The load will simply be round-robin'ed on a per-script basis rather than a per-query basis.

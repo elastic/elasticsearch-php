@@ -107,9 +107,9 @@ Alright, let's go ahead and delete the document that we added previously:
 
 ```php
     $deleteParams = array();
-    $deleteParams['index'] = $params['my_index'];
-    $deleteParams['type'] = $params['my_type'];
-    $deleteParams['id'] = $params['my_id'];
+    $deleteParams['index'] = 'my_index';
+    $deleteParams['type'] = 'my_type';
+    $deleteParams['id'] = 'my_id';
     $retDelete = $client->delete($deleteParams);
 ```
 
@@ -119,7 +119,7 @@ Delete an index
 Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
 
 ```php
-    $deleteParams['index'] = $indexParams['my_index'];
+    $deleteParams['index'] = 'my_index';
     $client->indices()->delete($deleteParams);
 ```
 

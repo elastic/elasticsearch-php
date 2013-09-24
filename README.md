@@ -1,18 +1,19 @@
 elasticsearch-php
 =================
 
-Official low-level client for Elasticsearch. It's goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
+Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 
 To maintain consistency across all the low-level clients (Ruby, Python, etc), clients accept simple associative arrays as parameters.  All parameters, from the URI to the document body, are defined in the associative array.
 
 Features
 --------
 
+ - One-to-one mapping with REST API and other language clients
  - Configurable, automatic discovery of cluster nodes
- - Persistent, Keep-Alive connections
+ - Persistent, Keep-Alive connections (within the lifetime of the script)
  - Load balancing (with pluggable selection strategy) across all availible nodes. Defaults to round-robin
- - Failed connection penalization (time based - failed connections won't be retried until a timeout is reached)
- - Pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
+ - Puggable connection pools to offer different connection strategies
+ - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
 
 
 Installation via Composer

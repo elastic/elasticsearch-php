@@ -1,0 +1,25 @@
+
+== The Connection Pool
+
+The connection pool is an object inside the client that is responsible for maintaining the current list of nodes.  Theoretically, nodes are either dead or alive.
+
+However, in the real world, things are never so clear.  Nodes are sometimes in a gray-zone of "probably dead but not confirmed", "timed-out but unclear why" or "recently dead but now alive".
+
+The connection pool's job is to manage this set of unruly connections and try to provide the best behavior to the client.  There are currently two connection pool implementations:
+
+ - staticConnectionPool: the user provides a static list of hosts and the connection pool simply tries to use these connections as required
+ - sniffingConnectionPool: the user provides a seed list of hosts, which the client uses to sniff the rest of the cluster using the Cluster State API
+
+ === PHP and connection pooling
+
+ At first blush, the sniffingConnectionPool implementation seems superior.  For many languages, it is.  In PHP, the conversation is a bit more nuanced.
+
+ Because PHP is a share-nothing architecture, there is no way to maintain a connection pool across script instances.  This means that every script is responsible for creating, maintaining, and destroying connections on every instantiation.
+
+ Sniffing is a relatively lightweight operation, but it could be considered a non-negligible overhead for certain PHP applications.  
+
+ The average PHP script will likely load the client, excecute a few queries and then close.  Imagine this script being called 1000 times per second.  The sniffingConnectionPool will perform the sniffing and pinging process 1000 times per second.
+
+ In reality, if your script only executes a few queries, the sniffing concept is too robust.  It is really only useful for long-lived instances which potentially have the chance to "out-live" a static list
+
+ For this reason, the default connection pool at this time is the staticConnectionPool.  You can, of course, change this default - but we strong recommend you load test and verify that it does not negatively impact your performance.

@@ -15,4 +15,6 @@ include::indexing-operations.asciidoc[]
 
 include::search-operations.asciidoc[]
 
+include::connection-pool.asciidoc[]
+
 include::extending.asciidoc[]

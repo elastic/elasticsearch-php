@@ -136,7 +136,13 @@ class Transport
      */
     public function performRequest($method, $uri, $params = null, $body = null)
     {
-        $connection  = $this->getConnection();
+        try {
+            $connection  = $this->getConnection();
+        } catch (Exceptions\NoNodesAvailableException $exception) {
+            $this->log->addCritical('No alive nodes found in cluster');
+            throw $exception;
+        }
+
         $shouldRetry = true;
         $response    = array();
 
@@ -164,10 +170,6 @@ class Transport
 
         } catch (Exceptions\Curl\OperationTimeoutException $exception) {
             $this->connectionPool->scheduleCheck();
-
-        } catch (Exceptions\NoNodesAvailableException $exception) {
-            $this->log->addCritical('No alive nodes found in cluster');
-            throw $exception;
 
         } catch (TransportException $exception) {
             $connection->markDead();

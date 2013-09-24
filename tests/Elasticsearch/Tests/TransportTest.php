@@ -3,6 +3,8 @@
 namespace Elasticsearch\Tests;
 use Elasticsearch;
 
+use Mockery as m;
+
 /**
  * Class TransportTest
  *
@@ -16,6 +18,10 @@ use Elasticsearch;
 class TransportTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function tearDown()
+    {
+        m::close();
+    }
 
 
     /**
@@ -39,52 +45,380 @@ class TransportTest extends \PHPUnit_Framework_TestCase
     }//end testStringConstructor()
 
 
-
-    /**
-     * Test sniffing on start
-     *
-     *
-     * @covers \Elasticsearch\Transport::sniffHosts
-     * @covers \Elasticsearch\Transport::__construct
-     * @return void
-     * @group ignore
-     */
     public function testSniffOnStart()
     {
-        $hosts = array(array('host' => 'localhost', 'port' => 9200));
-        $that = $this;
-        $dicParams['connectionPool'] = function ($connections) use ($that) {
-            $mockConnectionPool = $that->getMock('\Elasticsearch\ConnectionPool\ConnectionPool', array(), array(), '', false);
-            $mockConnectionPool->expects($that->any())
-                ->method('getTransportSchema')
-                ->will($that->returnValue('http'));
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                        ->shouldReceive('scheduleCheck')->once()->getMock();
+
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
             return $mockConnectionPool;
         };
-        $dicParams['connection'] = function ($host, $port) use ($that) {
-            return $that->getMock('Connection', array('getTransportSchema'));
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface');
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\ConnectionInterface');
+        $mockConnectionFxn = function($host, $port = null) use ($mockConnection) {
+            return $mockConnection;
         };
-        $dicParams['sniffer'] = function () use ($that, $hosts) {
-            $mockSniffer =  $that->getMock('Sniffer', array('sniff'));
 
-            $mockSniffer->expects($that->once())
-            ->method('sniff')
-            ->will($that->returnValue($hosts));
+        // Eww...
+        $params = m::mock('Pimple')
+                      ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                      ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                      ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                      ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(true)->getMock();
 
-            return $mockSniffer;
-        };
-        $dicParams['sniffOnStart']   = true;
-        $dicParams['snifferTimeout'] = false;
-        $dicParams['sniffOnConnectionFail'] = false;
-        $dicParams['maxRetries'] = 3;
-        $dicParams['serializer'] = $this->getMock('Serializer');
+        $transport = new Elasticsearch\Transport($hosts, $params, $log);
+    }
 
+    public function testNoSniffOnStart()
+    {
         $log = $this->getMockBuilder('\Monolog\Logger')
-            ->disableOriginalConstructor()
-            ->getMock();
+               ->disableOriginalConstructor()
+               ->getMock();
 
-        $transport = new Elasticsearch\Transport($hosts, $dicParams, $log);
+        $hosts = array(array('host' => 'localhost'));
 
-    }//end testSniffOnStart()
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->never()->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface');
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\ConnectionInterface');
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        // Eww...
+        $params = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $params, $log);
+    }
+
+    public function testMixedHosts()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'), array('host' => 'localhost', 'port' => 9200));
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->never()->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface');
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\ConnectionInterface');
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        // Eww...
+        $params = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $params, $log);
+    }
+
+    public function testPerformRequestNoBody()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+        $method = 'GET';
+        $uri    = '/';
+        $params = null;
+        $body   = null;
+        $response = array(
+            'text' => 'texty text',
+            'status'   => '200',
+            'info'     => ''
+        );
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $body)->andReturn($response)->getMock()
+                          ->shouldReceive('markAlive')->once()->getMock();
+
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->never()->getMock()
+                              ->shouldReceive('nextConnection')->andReturn($mockConnection)->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
+                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+
+
+
+        // Eww...
+        $pimple = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
+        $ret = $transport->performRequest($method, $uri, $params, $body);
+
+        $expected = array(
+            'status' => $response['status'],
+            'data'   => 'out',
+            'info'   => $response['info']
+        );
+
+        $this->assertEquals($expected, $ret);
+
+    }
+
+    public function testPerformRequestWithBody()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+        $method = 'GET';
+        $uri    = '/';
+        $params = null;
+        $body   = array('field' => 'value');
+        $response = array(
+            'text' => 'texty text',
+            'status'   => '200',
+            'info'     => ''
+        );
+        $serializedBody = 'out_serialized';
+
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $serializedBody)->andReturn($response)->getMock()
+                          ->shouldReceive('markAlive')->once()->getMock();
+
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->never()->getMock()
+                              ->shouldReceive('nextConnection')->andReturn($mockConnection)->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
+                          ->shouldReceive('serialize')->with($body)->andReturn($serializedBody)->getMock()
+                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out_deserialize')->getMock();
+
+
+
+        // Eww...
+        $pimple = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
+        $ret = $transport->performRequest($method, $uri, $params, $body);
+
+        $expected = array(
+            'status' => $response['status'],
+            'data'   => 'out_deserialize',
+            'info'   => $response['info']
+        );
+
+        $this->assertEquals($expected, $ret);
+    }
+
+    public function testPerformRequestTimeout()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+        $method = 'GET';
+        $uri    = '/';
+        $params = null;
+        $body   = null;
+        $response = array(
+            'text' => 'texty text',
+            'status'   => '200',
+            'info'     => ''
+        );
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $body)->andThrow(new Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException())->getMock()
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $body)->andReturn($response)->getMock()
+                          ->shouldReceive('markAlive')->once()->getMock();
+
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->once()->getMock()
+                              ->shouldReceive('nextConnection')->twice()->andReturn($mockConnection)->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
+                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+
+
+
+        // Eww...
+        $pimple = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
+        $ret = $transport->performRequest($method, $uri, $params, $body);
+
+        $expected = array(
+            'status' => $response['status'],
+            'data'   => 'out',
+            'info'   => $response['info']
+        );
+
+        $this->assertEquals($expected, $ret);
+    }
+
+
+    /**
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     */
+    public function testPerformRequestNoNodesAvailable()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+        $method = 'GET';
+        $uri    = '/';
+        $params = null;
+        $body   = null;
+        $response = array(
+            'text' => 'texty text',
+            'status'   => '200',
+            'info'     => ''
+        );
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection');
+
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('nextConnection')->once()->andThrow(new Elasticsearch\Common\Exceptions\NoNodesAvailableException())->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface');
+
+        // Eww...
+        $pimple = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
+        $transport->performRequest($method, $uri, $params, $body);
+
+
+    }
+
+    public function testPerformRequestTransportException()
+    {
+        $log = $this->getMockBuilder('\Monolog\Logger')
+               ->disableOriginalConstructor()
+               ->getMock();
+
+        $hosts = array(array('host' => 'localhost'));
+        $method = 'GET';
+        $uri    = '/';
+        $params = null;
+        $body   = null;
+        $response = array(
+            'text' => 'texty text',
+            'status'   => '200',
+            'info'     => ''
+        );
+
+        $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $body)->andThrow(new Elasticsearch\Common\Exceptions\TransportException())->getMock()
+                          ->shouldReceive('performRequest')->once()->with($method, $uri, $params, $body)->andReturn($response)->getMock()
+                          ->shouldReceive('markDead')->once()->getMock()
+                          ->shouldReceive('markAlive')->once()->getMock();
+
+        $mockConnectionFxn = function($host, $port=null) use ($mockConnection) {
+            return $mockConnection;
+        };
+
+        $mockConnectionPool = m::mock('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+                              ->shouldReceive('scheduleCheck')->once()->getMock()
+                              ->shouldReceive('nextConnection')->twice()->andReturn($mockConnection)->getMock();
+        $mockConnectionPoolFxn = function($connections) use ($mockConnectionPool) {
+            return $mockConnectionPool;
+        };
+
+        $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
+                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+
+
+
+        // Eww...
+        $pimple = m::mock('Pimple')
+                  ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
+                  ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
+                  ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock();
+
+        $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
+        $ret = $transport->performRequest($method, $uri, $params, $body);
+
+        $expected = array(
+            'status' => $response['status'],
+            'data'   => 'out',
+            'info'   => $response['info']
+        );
+
+        $this->assertEquals($expected, $ret);
+
+    }
+
 
 
 }

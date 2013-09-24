@@ -225,7 +225,6 @@ class DICBuilder
                     $connections,
                     $dicParams['selector'],
                     $dicParams['connectionFactory'],
-                    $dicParams['randomizeHosts'],
                     $dicParams['connectionPoolParams']
                 );
             };

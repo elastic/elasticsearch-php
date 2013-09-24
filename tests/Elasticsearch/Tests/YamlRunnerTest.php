@@ -70,6 +70,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $response = json_decode($response, true);
         YamlRunnerTest::$esVersion = $response['version']['number'];
+        echo "ES Version: ".YamlRunnerTest::$esVersion."\n";
     }
 
     public function setUp()
@@ -90,7 +91,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $response = curl_exec($ch);
 
-        $ch = curl_init($host."_template/*");
+        $ch = curl_init($host."/_template/*");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);

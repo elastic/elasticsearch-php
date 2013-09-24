@@ -184,6 +184,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
             foreach ($documents as $document) {
                 try {
+                    $document = $this->checkForTimestamp($testFile, $document);
                     $values = $this->yaml->parse($document, false, false, false);
 
                     echo "   ".key($values)."\n";
@@ -395,6 +396,47 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $context = &$context[$piece];
         }
         return $context;
+    }
+
+
+    /**
+     * Really ugly hack until upstream Yaml date parsing is fixed
+     * See: https://github.com/symfony/symfony/issues/8580
+     * TODO
+     *
+     * @param $file
+     * @param $document
+     *
+     * @return mixed
+     */
+    private function checkForTimestamp($file, $document)
+    {
+        $isMatch = preg_match($this->getTimestampRegex(), $document, $matches);
+        if ($isMatch) {
+            $newTime = new \DateTime($matches[0].'GMT');
+            $document = preg_replace($this->getTimestampRegex(), $newTime->format('U') * 1000, $document);
+        }
+
+        return $document;
+
+    }
+
+    private function getTimestampRegex()
+    {
+        return <<<EOF
+        ~
+        (?P<year>[0-9][0-9][0-9][0-9])
+        -(?P<month>[0-9][0-9]?)
+        -(?P<day>[0-9][0-9]?)
+        (?:(?:[Tt]|[ \t]+)
+        (?P<hour>[0-9][0-9]?)
+        :(?P<minute>[0-9][0-9])
+        :(?P<second>[0-9][0-9])
+        (?:\.(?P<fraction>[0-9]*))?
+        (?:[ \t]*(?P<tz>Z|(?P<tz_sign>[-+])(?P<tz_hour>[0-9][0-9]?)
+        (?::(?P<tz_minute>[0-9][0-9]))?))?)?
+        ~x
+EOF;
     }
 
 }

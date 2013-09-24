@@ -64,6 +64,10 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
+    /**
+     * @group ignore
+     */
     public function test4xxErrorNonexistantEndpoint()
     {
         $host = 'localhost';
@@ -82,6 +86,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group ignore
+     */
     public function testQueryParams()
     {
         $host = 'localhost';
@@ -105,6 +112,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group ignore
+     */
     public function testQueryURI()
     {
         $host = 'localhost';
@@ -125,7 +135,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
+    /**
+     * @group ignore
+     */
     public function test4xxErrorInvalidIndexAndQueryBody()
     {
         $host = 'localhost';

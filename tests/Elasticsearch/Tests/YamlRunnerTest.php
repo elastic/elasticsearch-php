@@ -148,6 +148,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provider
+     * @group yaml
      */
     public function testYaml()
     {

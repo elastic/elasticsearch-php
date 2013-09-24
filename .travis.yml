@@ -1,14 +1,19 @@
+services:
+  - elasticsearch
+
 language: php
 php:
   - "5.5"
   - "5.4"
   - "5.3"
+env:
+  - ES_TEST_HOST=http://localhost:9200/
 
 before_script:
   - composer install --dev
   - mkdir -p build/logs
 
-script: phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore,yaml tests
+script: phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore tests
 
 after_script:
  - php vendor/bin/coveralls -v

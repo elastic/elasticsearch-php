@@ -22,6 +22,10 @@ use Mockery as m;
 class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function tearDown() {
+        m::close();
+    }
+
     public function testAddOneHostThenGetConnection()
     {
         $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
@@ -65,7 +69,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
 
         $selector = m::mock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
-                    ->shouldReceive('select')->once()
+                    ->shouldReceive('select')->twice()
                     ->andReturn($mockNewConnection)
                     ->getMock();
 
@@ -232,8 +236,8 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
                           ->shouldReceive('ping')->andReturn(true)->getMock()
                           ->shouldReceive('isAlive')->andReturn(true)->getMock()
-                          ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
-                          ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
+                          ->shouldReceive('getTransportSchema')->twice()->andReturn('http')->getMock()
+                          ->shouldReceive('sniff')->twice()->andReturn($clusterState)->getMock();
 
         $connections = array($mockConnection);
 
@@ -338,7 +342,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->shouldReceive('ping')->andReturn(true)->getMock()
                           ->shouldReceive('isAlive')->andReturn(true)->getMock()
                           ->shouldReceive('sniff')->andReturn($clusterState)->getMock()
-                          ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock();
+                          ->shouldReceive('getTransportSchema')->twice()->andReturn('http')->getMock();
 
         $connections[] = $mockConnection;
 
@@ -395,9 +399,9 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
                           ->shouldReceive('ping')->andReturn(true)->getMock()
                           ->shouldReceive('isAlive')->andReturn(true)->getMock()
-                          ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock()
+                          ->shouldReceive('sniff')->andReturn($clusterState)->getMock()
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
-                          ->shouldReceive('sniff')->once()->andThrow('Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException')->getMock();
+                          ->shouldReceive('sniff')->andThrow('Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException')->getMock();
 
         $connections[] = $mockConnection;
 

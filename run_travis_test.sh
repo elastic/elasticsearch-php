@@ -25,5 +25,3 @@ echo "Starting Elasticsearch v${ES_VERSION}"
 sleep 3
 
 phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore tests
-
-killall java 2>/dev/null

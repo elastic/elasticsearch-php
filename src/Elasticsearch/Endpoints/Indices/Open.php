@@ -31,7 +31,7 @@ class Open extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $uri   = "/$index/_close";
+        $uri   = "/$index/_open";
 
         return $uri;
     }

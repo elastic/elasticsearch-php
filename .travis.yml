@@ -1,19 +1,21 @@
-services:
-  - elasticsearch
-
 language: php
 php:
   - "5.5"
   - "5.4"
   - "5.3"
 env:
-  - ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.0 ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.1 ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.2 ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.3 ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.4 ES_TEST_HOST=http://localhost:9200
+  - ES_VERSION=0.90.5 ES_TEST_HOST=http://localhost:9200
 
 before_script:
   - composer install --dev
   - mkdir -p build/logs
 
-script: phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore tests
+script: ./run_travis_test.sh
 
 after_script:
  - php vendor/bin/coveralls -v

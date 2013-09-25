@@ -10,6 +10,7 @@ namespace Elasticsearch\Connections;
 
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
+use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
@@ -214,6 +215,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             throw new AlreadyExpiredException($exceptionText, $statusCode, $exception);
+        } elseif ($statusCode === 403) {
+            throw new Forbidden403Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 404) {
             throw new Missing404Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 409) {

@@ -149,7 +149,7 @@ class DICBuilder
     private function setNonSharedDICObjects()
     {
         $this->setConnectionObj();
-        $this-> setConnectionFactoryObj();
+        $this->setConnectionFactoryObj();
         $this->setSelectorObj();
         $this->setSerializerObj();
         $this->setConnectionPoolObj();

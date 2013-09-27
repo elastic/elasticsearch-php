@@ -21,7 +21,6 @@ This section will give you a quick overview of the client and how the major func
 3. Include the autoloader in your main project (if you haven't already), and instantiate a new client :
 
     require 'vendor/autoload.php';
-    use Elasticsearch;
 
     $client = new Elasticsearch\Client();
 

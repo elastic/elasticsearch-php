@@ -49,7 +49,6 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 ```php
     <?php
     require 'vendor/autoload.php';
-    use Elasticsearch;
 
     $client = new Elasticsearch\Client();
 ```

@@ -27,7 +27,6 @@ The rest of the dependencies will automatically be downloaded and installed by C
 3. Finally, include the generated autoloader in your main project.  If your project is already based on Composer, the autoloader is likely already included somewhere and you don't need to add it again.  Finally, instantiate a new client:
 
     require 'vendor/autoload.php';
-    use Elasticsearch;
 
     $client = new Elasticsearch\Client();
 

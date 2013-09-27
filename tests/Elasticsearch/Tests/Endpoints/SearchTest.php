@@ -27,20 +27,20 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
     public function testSetStringBody()
     {
-        $params['q'] = 'testQuery';
+        $body = 'testQuery';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  m::any(),
-                                 $params,
-                                 null
+                                 array(),
+                                 $body
                              )
                          ->getMock();
 
         $search = new Search($mockTransport);
-        $search->setBody('testQuery')
+        $search->setBody($body)
             ->performRequest();
 
     }

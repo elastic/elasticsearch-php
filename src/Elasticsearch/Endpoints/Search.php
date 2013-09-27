@@ -30,10 +30,7 @@ class Search extends AbstractEndpoint
             return $this;
         }
 
-        if (is_string($query) === true) {
-            $this->params['q'] = $query;
-            $this->body = null;
-        } else if (is_array($query) === true) {
+        if (is_string($query) === true || is_array($query) === true) {
             $this->body = $query;
         } else {
             throw new InvalidArgumentException(

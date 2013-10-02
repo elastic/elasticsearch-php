@@ -112,11 +112,11 @@ $indexParams['body']['settings']['number_of_replicas'] = 0;
 $client->indices()->create($indexParams);
 ----------------------------
 
-== Wrap up
+=== Wrap up
 
 That was just a crash-course overview of the client and it's syntax.  If you are familiar with elasticsearch, you'll notice that the methods are named just like REST endpoints.
 
-You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the $client object (indexing, searching, getting, etc).  Index and cluster management are located under the $client->indices() and $client->cluster() objects, respectively.
+You'll also notice that the client is configured in a manner that facilitates easy discovery via your IDE.  All core actions are available under the `$client` object (indexing, searching, getting, etc).  Index and cluster management are located under the `$client->indices()` and `$client->cluster()` objects, respectively.
 
 Check out the rest of the Documentation to see how the entire client works.
 

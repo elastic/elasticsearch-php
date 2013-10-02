@@ -5,24 +5,34 @@ This section will give you a quick overview of the client and how the major func
 
 === Installation
 
-1. Include elasticsearch-php in your `composer.json` file:
-
-    {
-        "require": {
-            "elasticsearch/elasticsearch-php": "~0.4"
-        }
+* Include elasticsearch-php in your `composer.json` file:
++
+[source,json]
+----------------------------
+{
+    "require": {
+        "elasticsearch/elasticsearch-php": "~0.4"
     }
+}
+----------------------------
 
-2. Install the client with composer:
-    
-    curl -s http://getcomposer.org/installer | php
-    php composer.phar install
+* Install the client with composer:
++
+[source,shell]
+----------------------------
+curl -s http://getcomposer.org/installer | php
+php composer.phar install
+----------------------------
 
-3. Include the autoloader in your main project (if you haven't already), and instantiate a new client :
+* Include the autoloader in your main project (if you haven't already), and instantiate a new client :
++
+[source,php]
+----------------------------
+require 'vendor/autoload.php';
 
-    require 'vendor/autoload.php';
+$client = new Elasticsearch\Client();
+----------------------------
 
-    $client = new Elasticsearch\Client();
 
 === Index a document
 
@@ -32,20 +42,22 @@ To index a document, we simply specify a `body` that contains the document that 
 
 The index, type and ID are also specified in the parameters assoc. array:
 
-----
+[source,php]
+----------------------------
 $params = array();
 $params['body']  = array('testField' => 'abc');
 $params['index'] = 'my_index';
 $params['type']  = 'my_type';
 $params['id']    = 'my_id';
 $ret = $client->index($params);
-----
+----------------------------
 
 === Get a document
 
 Let's get the document that we just indexed:
 
-----
+[source,php]
+----------------------------
 $getParams = array();
 $getParams['index'] = 'my_index';
 $getParams['type']  = 'my_type';
@@ -57,44 +69,48 @@ $retDoc = $client->get($getParams);
 
 Searching is a hallmark of elasticsearch, so let's perform a search.  We are going to use the Match query as a demonstration:
 
-----
+[source,php]
+----------------------------
 $searchParams['index'] = 'my_index';
 $searchParams['type']  = 'my_type';
 $searchParams['body']['query']['match']['testField'] = 'abc';
 $retDoc = $client->search($searchParams);
-----
+----------------------------
 
 === Delete a document
 
 Alright, let's go ahead and delete the document that we added previously:
 
-----
+[source,php]
+----------------------------
 $deleteParams = array();
 $deleteParams['index'] = 'my_index';
 $deleteParams['type'] = 'my_type';
 $deleteParams['id'] = 'my_id';
 $retDelete = $client->delete($deleteParams);
-----
+----------------------------
 
 === Delete an index
 
 Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
 
-----
+[source,php]
+----------------------------
 $deleteParams['index'] = 'my_index';
 $client->indices()->delete($deleteParams);
-----
+----------------------------
 
 === Create an index
 
 Ok, now that we are starting fresh, let's add a new index with some custom settings:
 
-----
+[source,php]
+----------------------------
 $indexParams['index'] = 'my_index';
 $indexParams['body']['settings']['number_of_shards'] = 2;
 $indexParams['body']['settings']['number_of_replicas'] = 0;
 $client->indices()->create($indexParams);
-----
+----------------------------
 
 == Wrap up
 

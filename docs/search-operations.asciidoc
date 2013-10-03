@@ -1,7 +1,7 @@
 
 == Search Operations
 
-Well...it isn't called elasticsearch for nothing.  Let's talk about search operations in the PHP client.  
+Well...it isn't called elasticsearch for nothing!  Let's talk about search operations in the PHP client.
 
 The client gives you full access to every query and parameter exposed by the REST API, following the naming scheme as much as possible.  Let's look at a few examples so you can become familiar with the syntax.
 
@@ -9,6 +9,7 @@ The client gives you full access to every query and parameter exposed by the RES
 
 Here is a standard curl for a Match query:
 
+[source,shell]
 ----
 curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     "query" : {
@@ -18,8 +19,11 @@ curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     }
 }'
 ----
+{zwsp} +
 
 And here is the same query constructed in the client:
+
+[source,php]
 ----
 $params['index'] = 'my_index';
 $params['type']  = 'my_type';
@@ -27,9 +31,13 @@ $params['body']['query']['match']['testField'] = 'abc';
 
 $results = $client->search($params);
 ----
+{zwsp} +
 
-As you can see, the translation between JSON and query is very straightforward.  In fact, you could serialize the JSON directly into the body and it would provide the same results:
+.Using Raw JSON
+****
+As you can see, the translation between JSON and query is very straightforward.  You could serialize JSON directly into the body, or even provide the raw JSON string.  The client will handle it just fine:
 
+[source,php]
 ----
 $json = '{
     "query" : {
@@ -41,13 +49,16 @@ $json = '{
 
 $params['index'] = 'my_index';
 $params['type']  = 'my_type';
-$params['body'] = json_decode($json, true);
+$params['body']  = $json;
 
 $results = $client->search($params);
 ----
+****
+{zwsp} +
 
 The search results that come back are simply elasticsearch response elements serialized into an array.  Working with the search results is as simple as iterating over the array values:
 
+[source,php]
 ----
 $milliseconds = $results['took'];
 $maxScore     = $results['hits']['max_score'];
@@ -55,6 +66,7 @@ $maxScore     = $results['hits']['max_score'];
 $score = $results['hits']['hits'][0]['_score'];
 $doc   = $results['hits']['hits'][0]['_source'];
 ----
+{zwsp} +
 
 === A more complicated example
 
@@ -62,6 +74,8 @@ Let's construct a slightly more complicated example: a filtered query that conta
 
 The curl version of the query:
 
+[source,shell]
+----
 curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     "query" : {
         "filtered" : {
@@ -78,9 +92,12 @@ curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
         }
     }
 }'
+----
+{zwsp} +
 
 And in PHP:
 
+[source,php]
 ----
 $params['index'] = 'my_index';
 $params['type']  = 'my_type';
@@ -98,6 +115,7 @@ $params['body']['query']['filtered'] = array(
 
 $results = $client->search($params);
 ----
+{zwsp} +
 
 For clarity and ease of readability, the filter and query sections were allocated individually as variables and then composed together later.  This is often a good design pattern for applications, since it lets you treat the queries and filters as building blocks that can be passed around your application.
 

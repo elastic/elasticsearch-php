@@ -3,33 +3,33 @@
 
 The connection pool is an object inside the client that is responsible for maintaining the current list of nodes.  Theoretically, nodes are either dead or alive.
 
-However, in the real world, things are never so clear.  Nodes are sometimes in a gray-zone of "probably dead but not confirmed", "timed-out but unclear why" or "recently dead but now alive".
+However, in the real world, things are never so clear.  Nodes are sometimes in a gray-zone of _"probably dead but not confirmed"_, _"timed-out but unclear why"_ or _"recently dead but now alive"_.
 
 The connection pool's job is to manage this set of unruly connections and try to provide the best behavior to the client.  There are currently two connection pool implementations:
 
- - staticConnectionPool: the user provides a static list of hosts and the connection pool simply tries to use these connections as required
- - sniffingConnectionPool: the user provides a seed list of hosts, which the client uses to sniff the rest of the cluster using the Cluster State API
+ - `staticConnectionPool`: the user provides a static list of hosts and the connection pool simply tries to use these connections as required
+ - `sniffingConnectionPool`: the user provides a seed list of hosts, which the client uses to sniff the rest of the cluster using the Cluster State API
 
- === PHP and connection pooling
+=== PHP and connection pooling
 
- At first blush, the sniffingConnectionPool implementation seems superior.  For many languages, it is.  In PHP, the conversation is a bit more nuanced.
+At first blush, the `sniffingConnectionPool` implementation seems superior.  For many languages, it is.  In PHP, the conversation is a bit more nuanced.
 
- Because PHP is a share-nothing architecture, there is no way to maintain a connection pool across script instances.  This means that every script is responsible for creating, maintaining, and destroying connections on every instantiation.
+Because PHP is a share-nothing architecture, there is no way to maintain a connection pool across script instances.  This means that every script is responsible for creating, maintaining, and destroying connections on every instantiation.
 
- Sniffing is a relatively lightweight operation but it may be considered a non-negligible overhead for certain PHP applications.
+Sniffing is a relatively lightweight operation but it may be considered a non-negligible overhead for certain PHP applications.
 
- The average PHP script will likely load the client, execute a few queries and then close.  Imagine this script being called 1000 times per second: sniffing connection pool will perform the sniffing and pinging process 1000 times per second.
+The average PHP script will likely load the client, execute a few queries and then close.  Imagine this script being called 1000 times per second: the sniffing connection pool will perform the sniffing and pinging process 1000 times per second.
 
- In reality, if your script only executes a few queries, the sniffing concept is _too_ robust.  It tends to be more useful in long-lived processes which potentially "out-live" a static list.
+In reality, if your script only executes a few queries, the sniffing concept is _too_ robust.  It tends to be more useful in long-lived processes which potentially "out-live" a static list.
 
- For this reason the default connection pool is currently the staticConnectionPool.  You can, of course, change this default - but we strong recommend you load test and verify that it does not negatively impact your performance.
+For this reason the default connection pool is currently the `staticConnectionPool`.  You can, of course, change this default - but we strong recommend you load test and verify that it does not negatively impact your performance.
 
- === RoundRobinSelector vs StickyRoundRobinSelector
+=== RoundRobinSelector vs StickyRoundRobinSelector
 
- In a similar vein as the connection pool, there is a PHP-specific selector that may be useful to some environments.
+In a similar vein as the connection pool, there is a PHP-specific selector that may be useful to some environments.
 
- The selector's job is to return a single connection from an array of connections.  The default is a round-robin selector that operates on a randomized list of hosts.  This ensures an even load of traffic across your cluster.  Round-robin'ing happens on a per-request basis (e.g. sequential requests go to different nodes).
+The selector's job is to return a single connection from an array of connections.  The default is a round-robin selector that operates on a randomized list of hosts.  This ensures an even load of traffic across your cluster.  Round-robin'ing happens on a per-request basis (e.g. sequential requests go to different nodes).
 
- Considering the nature of many PHP scripts, it is possible this is a sub-optimal strategy due to overhead of creating new connections.  For that reason, there is a slightly modified StickyRoundRobinSelector class.
+Considering the nature of many PHP scripts, it is possible this is a sub-optimal strategy due to overhead of creating new connections.  For that reason, there is a slightly modified `StickyRoundRobinSelector` class.
 
- This class prefers to use the same connection for every request, but if the node is dead (due to a previous connection failure) it will round-robin to the next node.  Using the default randomizeHosts = true setting, this still ensures even distribution of load across the cluster.  The load will simply be round-robin'ed on a per-script basis rather than a per-query basis.
+This class prefers to use the same connection for every request, but if the node is dead (due to a previous connection failure) it will round-robin to the next node.  Using the default `randomizeHosts = true` setting, this still ensures even distribution of load across the cluster.  The load will simply be round-robin'ed on a per-script basis rather than a per-query basis.

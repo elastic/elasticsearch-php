@@ -9,21 +9,24 @@ We'll walk through a few common operations with detailed code snippets, then lis
 
 The index operations are all contained under a distinct namespace, separated from other methods that are on the root client object.  As an example, let's create a new index:
 
+[source,php]
 ----
 $client = new Elasticsearch\Client();
 $indexParams['index']  = 'my_index';    //index
 
 $client->indices()->create($indexParams);
 ----
+{zwsp} +
 
-This will create a default Elasticsearch index.  You can, of course, specify any parameters that would normally be included in a new index creation API.  All parameters that would normally go in the request body are located in the 'body' associative array:
+You can, of course, specify any parameters that would normally be included in a new index creation API.  All parameters that would normally go in the request body are located in the 'body' associative array:
 
+[source,php]
 ----
 $client = new Elasticsearch\Client();
 $indexParams['index']  = 'my_index';
 
 // Index Settings
-$indexParams['body']['settings']['number_of_shards'] = 3;
+$indexParams['body']['settings']['number_of_shards']   = 3;
 $indexParams['body']['settings']['number_of_replicas'] = 2;
 
 // Example Index Mapping
@@ -46,19 +49,23 @@ $indexParams['body']['mappings']['my_type'] = $myTypeMapping;
 // Create the index
 $client->indices()->create($indexParams);
 ----
+{zwsp} +
 
 === Delete an index
 
 Deleting an index is very simple:
 
+[source,php]
 ----
 $deleteParams['index'] = $indexParams['my_index'];
 $client->indices()->delete($deleteParams);
 ----
+{zwsp} +
 
 === Put Settings API
 The Put Settings API allows you to modify any index setting that is dynamic:
 
+[source,php]
 ----
 $params['index'] = 'my_index';
 $params['body']['index']['number_of_replicas'] = 0;
@@ -66,11 +73,13 @@ $params['body']['index']['refresh_interval'] = -1;
 
 $ret = $client->indices()->putSettings($params);
 ----
+{zwsp} +
 
 === Get Settings API
 
 Get Settings API will show you the currently configured settings for one or more indexes:
 
+[source,php]
 ----
 // Get settings for one index
 $params['index'] = 'my_index';
@@ -80,15 +89,17 @@ $ret = $client->indices()->getSettings($params);
 $params['index'] = array('my_index', 'my_index2');
 $ret = $client->indices()->getSettings($params);
 ----
+{zwsp} +
 
 === Put Mappings API
 
 The Put Mappings API allows you to modify or add to an existing index's mapping.
 
+[source,php]
 ----
 // Set the index and type
 $params['index'] = 'my_index';
-$params['type'] = 'my_type2';
+$params['type']  = 'my_type2';
 
 // Adding a new type to an existing index
 $myTypeMapping2 = array(
@@ -107,14 +118,16 @@ $myTypeMapping2 = array(
 );
 $params['body']['my_type2'] = $myTypeMapping2;
 
-// Create the index
+// Update the index mapping
 $client->indices()->putMapping($params);
 ----
+{zwsp} +
 
 === Get Mappings API
 
 The Get Mappings API will return the mapping details about your indexes and types.  Depending on the mappings that you wish to retrieve, you can specify a number of combinations of index and type:
 
+[source,php]
 ----
 // Get mappings for all indexes and types
 $ret = $client->indices()->getMapping();
@@ -136,13 +149,15 @@ $ret = $client->indices()->getMapping($params);
 $params['index'] = array('my_index', 'my_index2');
 $ret = $client->indices()->getMapping($params);
 ----
+{zwsp} +
 
 === Other APIs in the Indices Namespace
 There are a number of other APIs in the indices namespace that allow you to manage your elasticsearch indexes (add/remove templates, flush segments, close indexes, etc).
 
 If you use an IDE with autocompletion, you should be able to easily explore the indices namspace by typing:
-    $client->indices()->
 
-And perusing the list of available methods.  Alternatively, browsing the \Elasticsearch\Namespaces\Indices.php file will show you the full list of available method calls (as well as parameter lists in the comments for each method).
-
--
+[source,php]
+----
+$client->indices()->
+----
+And perusing the list of available methods.  Alternatively, browsing the `\Elasticsearch\Namespaces\Indices.php` file will show you the full list of available method calls (as well as parameter lists in the comments for each method).

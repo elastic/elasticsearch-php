@@ -20,6 +20,10 @@ Features
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
 
 
+Documentation
+--------------
+[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+
 Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
@@ -140,7 +144,7 @@ That was just a crash-course overview of the client and it's syntax.  If you are
 
 You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the $client object (indexing, searching, getting, etc).  Index and cluster management are located under the $client->indices() and $client->cluster() objects, respectively.
 
-Check out the rest of the Documentation to see how the entire client works.
+Check out the rest of the [Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html) to see how the entire client works.
 
 
 License

@@ -4,8 +4,8 @@
 Elasticsearch-php only has a three requirements that you need to worry about:
 
 * PHP 5.3.9 or higher
-* http://getcomposer.org/:[Composer]
-* http://php.net/manual/en/book.curl.php:[ext-curl]: the Libcurl extension for PHP
+* http://getcomposer.org[Composer]
+* http://php.net/manual/en/book.curl.php[ext-curl]: the Libcurl extension for PHP
 
 The rest of the dependencies will automatically be downloaded and installed by Composer.  Composer is a package and dependency manager for PHP.  Installing elasticsearch-php with Composer is very easy:
 

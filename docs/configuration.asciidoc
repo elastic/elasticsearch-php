@@ -1,7 +1,7 @@
 
 == Configuration
 
-Almost every aspect of the client is configurable.  The client is built around http://pimple.sensiolabs.org/:[Pimple] a light-weight dependency injection container.  Most users will only need to configure a few parameters to suit their needs.
+Almost every aspect of the client is configurable.  The client is built around http://pimple.sensiolabs.org[Pimple] a light-weight dependency injection container.  Most users will only need to configure a few parameters to suit their needs.
 
 However, since the container also controls all object instantiation, it is possible for users to completely change the internal components used by the client.  A user could, for example, write a custom ConnectionPool class and use that instead of the default connection pools that ship with the client
 
@@ -40,7 +40,7 @@ $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Not all parameters all strings.  For example, we can change the logging level of the client (defaults to WARN):
+Not all parameters are strings.  For example, we can change the logging level of the client (defaults to WARN):
 
 [source,php]
 ----
@@ -51,7 +51,7 @@ $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger.  But since the logging library is https://github.com/Seldaek/monolog:[Monolog], we have access to a variety of loggers.
+Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger.  But since the logging library is https://github.com/Seldaek/monolog[Monolog], we have access to a variety of loggers.
 
 Let's log to the SysLog instead of a file:
 

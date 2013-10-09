@@ -93,7 +93,9 @@ class Get extends AbstractEndpoint
             'realtime',
             'refresh',
             'routing',
-            'ignore'
+            'ignore',
+            'exclude',
+            'include'
         );
     }
 

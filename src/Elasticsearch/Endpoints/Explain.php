@@ -90,6 +90,7 @@ class Explain extends AbstractEndpoint
             'q',
             'routing',
             'source',
+            '_source'
         );
     }
 

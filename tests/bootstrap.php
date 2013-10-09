@@ -7,6 +7,10 @@
 
 error_reporting(E_ALL | E_STRICT);
 
+// Set the default timezone. While this doesnt cause any tests to fail, PHP
+// complains if it is not set in 'date.timezone' of php.ini.
+date_default_timezone_set('UTC');
+
 // Ensure that composer has installed all dependencies
 if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
     die("Dependencies must be installed using composer:\n\nphp composer.phar install --dev\n\n"

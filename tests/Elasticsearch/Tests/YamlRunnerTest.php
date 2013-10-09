@@ -78,7 +78,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->yaml = new Parser();
-        $this->client = new Elasticsearch\Client();
+        $uri = parse_url($host = YamlRunnerTest::getHostEnvVar());
+
+        $params['hosts'] = array($uri['host'].':'.$uri['port']);
+        $this->client = new Elasticsearch\Client($params);
 
     }
 

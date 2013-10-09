@@ -50,6 +50,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public static function getHostEnvVar()
     {
         if (isset($_SERVER['ES_TEST_HOST']) === true) {
+            echo "Test Host: ".$_SERVER['ES_TEST_HOST']."\n";
             return $_SERVER['ES_TEST_HOST'];
         } else {
             echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';

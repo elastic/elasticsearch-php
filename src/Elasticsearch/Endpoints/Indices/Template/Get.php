@@ -24,12 +24,6 @@ class Get extends AbstractTemplateEndpoint
     protected function getURI()
     {
 
-        if (isset($this->name) !== true) {
-            throw new Exceptions\RuntimeException(
-                'name is required for Get'
-            );
-        }
-
         $name = $this->name;
         $uri   = "/_template/$name";
 

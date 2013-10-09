@@ -24,16 +24,23 @@ class GetTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
-    public function testNoName()
+
+    public function testValidGetNoName()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+            ->shouldReceive('performRequest')->once()
+            ->with(
+                'GET',
+                '/_template/',
+                array(),
+                null
+            )
+            ->getMock();
 
         $action = new Get($mockTransport);
-        $action->performRequest();
+        $action->setIndex('testIndex')
+            ->performRequest();
 
     }
 

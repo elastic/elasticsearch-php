@@ -39,4 +39,4 @@ require 'vendor/autoload.php';
 $client = new Elasticsearch\Client();
 --------------------------
 
-More information about http://getcomposer.org/:[Composer can be found at their website].
+More information about http://getcomposer.org/[Composer can be found at their website].

@@ -15,8 +15,8 @@ Features
  - One-to-one mapping with REST API and other language clients
  - Configurable, automatic discovery of cluster nodes
  - Persistent, Keep-Alive connections (within the lifetime of the script)
- - Load balancing (with pluggable selection strategy) across all availible nodes. Defaults to round-robin
- - Puggable connection pools to offer different connection strategies
+ - Load balancing (with pluggable selection strategy) across all available nodes. Defaults to round-robin
+ - Pluggable connection pools to offer different connection strategies
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
 
 

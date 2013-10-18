@@ -308,11 +308,13 @@ class DICBuilder
         // Only used by Guzzle connections - won't be instantiated until used.
         $this->dic['guzzleClient'] = $this->dic->share(
             function ($dicParams) {
-                $guzzleOptions = array(
-                    'curl.options' => array(
-                        'body_as_string'   => true
-                    )
-                );
+
+                $guzzleOptions = array();
+                $guzzleOptions['curl.options']['body_as_string'] = true;
+
+                if (isset($dicParams['connectionParams']['auth']) === true) {
+                    $guzzleOptions['request.options']['auth'] = $dicParams['connectionParams']['auth'];
+                }
 
                 $guzzleOptions = array_merge($guzzleOptions, $dicParams['guzzleOptions']);
                 $guzzle =  new \Guzzle\Http\Client(null,$guzzleOptions);

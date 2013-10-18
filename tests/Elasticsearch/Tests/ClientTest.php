@@ -3,6 +3,11 @@
 namespace Elasticsearch\Tests;
 use Elasticsearch;
 
+use Monolog\Logger;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 /**
  * Class ClientTest
  *
@@ -16,6 +21,10 @@ use Elasticsearch;
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp()
+    {
+        $this->root = vfsStream::setup('root');
+    }
 
     /**
      *
@@ -92,5 +101,52 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         // String parameter instead of an array.
         $params = array('randomParam' => 'some arbitrary string');
         $client = new Elasticsearch\Client($params);
+    }
+
+
+    /**
+     * This test is rather hacky...better way to test than check headers in log?
+     */
+    public function testBasicAuth()
+    {
+        $path = vfsStream::url('root');
+
+        $params = array();
+        $params['connectionParams']['auth'] = array('username', 'password', 'Basic');
+        $params['logPath'] = "$path/elasticsearch.log";
+        $params['logLevel'] = Logger::INFO;
+        $client = new Elasticsearch\Client($params);
+
+        try {
+            $client->ping();
+        } catch (Exception $e) {
+            // Ok to fail, not actually trying to connect.  Just want to see
+            // log for basic auth headers
+        }
+
+        $log = file_get_contents('vfs://root/elasticsearch.log');
+        $basicAuthSignature = '"authorization":["Basic dXNlcm5hbWU6cGFzc3dvcmQ="]';
+        $this->assertContains($basicAuthSignature, $log);
+    }
+
+    public function testNoBasicAuth()
+    {
+        $path = vfsStream::url('root');
+
+        $params = array();
+        $params['logPath'] = "$path/elasticsearch.log";
+        $params['logLevel'] = Logger::INFO;
+        $client = new Elasticsearch\Client($params);
+
+        try {
+            $client->ping();
+        } catch (Exception $e) {
+            // Ok to fail, not actually trying to connect.  Just want to see
+            // log
+        }
+
+        $log = file_get_contents('vfs://root/elasticsearch.log');
+        $basicAuthSignature = '"authorization"';
+        $this->assertNotContains($basicAuthSignature, $log);
     }
 }

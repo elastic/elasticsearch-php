@@ -28,6 +28,24 @@ $client = new Elasticsearch\Client($params);
 
 This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
 
+=== Example: Configuring HTTP Basic Auth
+HTTP basic authentication is a very common requirement.  To enable Basic Auth in the client, simply set a parameter with the required auth parameters:
+
+[source,php]
+----
+$params = array();
+$params['connectionParams']['auth'] = array(
+    'username',
+    'password',
+    'Basic' <1>
+);
+$client = new Elasticsearch\Client($params);
+----
+<1> Accepts four different options: `Basic`, `Digets`, `NTLM`, `Any`
+
+After being initialized with authentication credentials, all outgoing requests will automatically include the HTTP auth headers.
+
+
 === Example: Configuring the Logger
 Let's change the logging location.  By default, the client will log to a file called 'elasticsearch.log' in the root of your project.  To change this location, simply do the following:
 

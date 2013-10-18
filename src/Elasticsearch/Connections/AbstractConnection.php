@@ -95,13 +95,14 @@ abstract class AbstractConnection implements ConnectionInterface
      * @param string $method
      * @param string $fullURI
      * @param string $body
+     * @param array  $headers
      * @param string $statusCode
      * @param string $response
      * @param string $duration
      *
      * @return void
      */
-    public function logRequestSuccess($method, $fullURI, $body, $statusCode, $response, $duration)
+    public function logRequestSuccess($method, $fullURI, $body, $headers, $statusCode, $response, $duration)
     {
         $this->log->addDebug('Request Body', array($body));
         $this->log->addInfo(
@@ -109,6 +110,7 @@ abstract class AbstractConnection implements ConnectionInterface
             array(
                 'method'    => $method,
                 'uri'       => $fullURI,
+                'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
             )
@@ -138,6 +140,7 @@ abstract class AbstractConnection implements ConnectionInterface
      * @param string      $method
      * @param string      $fullURI
      * @param string      $body
+     * @param array       $headers
      * @param string      $duration
      * @param null|string $statusCode
      * @param null|string $response
@@ -149,6 +152,7 @@ abstract class AbstractConnection implements ConnectionInterface
         $method,
         $fullURI,
         $body,
+        $headers,
         $duration,
         $statusCode = null,
         $response = null,
@@ -160,6 +164,7 @@ abstract class AbstractConnection implements ConnectionInterface
             array(
                 'method'    => $method,
                 'uri'       => $fullURI,
+                'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
                 'error'     => $exception,

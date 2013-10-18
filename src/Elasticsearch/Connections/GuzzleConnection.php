@@ -22,6 +22,7 @@ use \Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\ServerErrorResponseException;
+use Guzzle\Http\Message\Header\HeaderCollection;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
@@ -235,11 +236,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     private function logErrorDueToFailure(Request $request, \Exception $exception, $body)
     {
         $response = $request->getResponse();
+        $headers = $request->getHeaders()->getAll();
 
         $this->logRequestFail(
             $request->getMethod(),
             $request->getUrl(),
             $response->getInfo('total_time'),
+            $headers,
             $response->getStatusCode(),
             $body,
             $exception->getMessage()
@@ -264,11 +267,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     private function processSuccessfulRequest(Request $request, $body)
     {
         $response = $request->getResponse();
+        $headers = $request->getHeaders()->getAll();
 
         $this->logRequestSuccess(
             $request->getMethod(),
             $request->getUrl(),
             $body,
+            $headers,
             $response->getStatusCode(),
             $response->getBody(true),
             $response->getInfo('total_time')

@@ -79,10 +79,11 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
     /**
      * Perform an HTTP request on the cluster
      *
-     * @param string      $method HTTP method to use for request
-     * @param string      $uri    HTTP URI to use for request
-     * @param null|string $params Optional URI parameters
-     * @param null|string $body   Optional request body
+     * @param string      $method  HTTP method to use for request
+     * @param string      $uri     HTTP URI to use for request
+     * @param null|string $params  Optional URI parameters
+     * @param null|string $body    Optional request body
+     * @param array       $options Optional options
      *
      * @throws \Elasticsearch\Common\Exceptions\TransportException
      * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
@@ -137,7 +138,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             }
 
             /*
-                Curl_multi_select not strictly nescessary, since we are only
+                Curl_multi_select not strictly necessary, since we are only
                 performing one request total.  May be useful if we ever
                 implement batching
 

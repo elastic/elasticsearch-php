@@ -408,7 +408,7 @@ class Client
      *        ['max_query_terms']        = (number) The maximum query terms to be included in the generated query
      *        ['max_word_len']           = (number) The minimum length of the word: longer words will be ignored
      *        ['min_doc_freq']           = (number) The word occurrence frequency as count: words with lower occurrence in the corpus will be ignored
-     *        ['min_term_freq']          = (number) The term frequency as percent: terms with lower occurence in the source document will be ignored
+     *        ['min_term_freq']          = (number) The term frequency as percent: terms with lower occurrence in the source document will be ignored
      *        ['min_word_len']           = (number) The minimum length of the word: shorter words will be ignored
      *        ['mlt_fields']             = (list) Specific fields to perform the query against
      *        ['percent_terms_to_match'] = (number) How many terms have to match in order to consider the document a match (default: 0.3)
@@ -592,7 +592,7 @@ class Client
      *        ['type']        = (string) Default document type for items which don't provide one
      *        ['consistency'] = (enum) Explicit write consistency setting for the operation
      *        ['refresh']     = (boolean) Refresh the index after performing the operation
-     *        ['replication'] = (enum) Explicitely set the replication type
+     *        ['replication'] = (enum) Explicitly set the replication type
      *        ['body']        = (string) Default document type for items which don't provide one
      *
      * @param $params array Associative array of parameters

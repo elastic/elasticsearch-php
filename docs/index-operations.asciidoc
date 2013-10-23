@@ -154,7 +154,7 @@ $ret = $client->indices()->getMapping($params);
 === Other APIs in the Indices Namespace
 There are a number of other APIs in the indices namespace that allow you to manage your elasticsearch indexes (add/remove templates, flush segments, close indexes, etc).
 
-If you use an IDE with autocompletion, you should be able to easily explore the indices namspace by typing:
+If you use an IDE with autocompletion, you should be able to easily explore the indices namespace by typing:
 
 [source,php]
 ----

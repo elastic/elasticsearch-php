@@ -14,7 +14,7 @@ use Elasticsearch\Common\Exceptions\TransportException;
 use Monolog\Logger;
 
 /**
- * Abstrat Class AbstractConnection
+ * Abstract Class AbstractConnection
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Connections

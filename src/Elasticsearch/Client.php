@@ -955,7 +955,15 @@ class Client
             $hosts = $this->getDefaultHost();
         }
 
-        $dicBuilder   = new DICBuilder($hosts, $params);
+        if (isset($params['dic']) !== true) {
+            $dicBuilder =  new DICBuilder($hosts, $params);
+        } else {
+            $dicBuilder = $params['dic']($hosts, $params);
+            unset($params['dic']);
+        }
+
+        /** @var DICBuilder $dicBuilder */
+
         $this->params = $dicBuilder->getDIC();
 
     }

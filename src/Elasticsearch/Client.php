@@ -727,6 +727,9 @@ class Client
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (string) Specific routing value
      *        ['source']                   = (string) The URL-encoded query definition (instead of using the request body)
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
      *        ['body']                     = (string) The URL-encoded query definition (instead of using the request body)
      *
      * @param $params array Associative array of parameters

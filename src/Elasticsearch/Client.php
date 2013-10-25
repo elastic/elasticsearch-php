@@ -114,16 +114,19 @@ class Client
 
 
     /**
-     * $params['id']             = (string) The document ID (Required)
-     *        ['index']          = (string) The name of the index (Required)
-     *        ['type']           = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
-     *        ['ignore_missing'] = ??
-     *        ['fields']         = (list) A comma-separated list of fields to return in the response
-     *        ['parent']         = (string) The ID of the parent document
-     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['realtime']       = (boolean) Specify whether to perform the operation in realtime or search mode
-     *        ['refresh']        = (boolean) Refresh the shard containing the document before performing the operation
-     *        ['routing']        = (string) Specific routing value
+     * $params['id']              = (string) The document ID (Required)
+     *        ['index']           = (string) The name of the index (Required)
+     *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['ignore_missing']  = ??
+     *        ['fields']          = (list) A comma-separated list of fields to return in the response
+     *        ['parent']          = (string) The ID of the parent document
+     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
+     *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
+     *        ['routing']         = (string) Specific routing value
+     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *
      * @param $params array Associative array of parameters
      *

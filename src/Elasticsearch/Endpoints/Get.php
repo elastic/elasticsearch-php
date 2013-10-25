@@ -95,7 +95,10 @@ class Get extends AbstractEndpoint
             'routing',
             'ignore',
             'exclude',
-            'include'
+            'include',
+            '_source',
+            '_source_include',
+            '_source_exclude'
         );
     }
 

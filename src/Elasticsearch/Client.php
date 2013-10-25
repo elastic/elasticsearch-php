@@ -1039,11 +1039,8 @@ class Client
 
         $finalHosts = array();
         foreach ($hosts as $host) {
-            if (strpos($host, ':') !== false) {
-                $finalHosts[] = $this->extractHostPortFromSeed($host);
-            } else {
-                $finalHosts[] = array('host' => $host);
-            }
+            $host = $this->prependMissingScheme($host);
+            $finalHosts[] = $this->extractURIParts($host);
         }
 
         return $finalHosts;
@@ -1056,17 +1053,36 @@ class Client
      * @return array
      * @throws Common\Exceptions\InvalidArgumentException
      */
-    private function extractHostPortFromSeed($host)
+    private function extractURIParts($host)
     {
-        $host = explode(':', $host);
-        if ($host[1] === '' || is_numeric($host[1]) === false) {
-            throw new Exceptions\InvalidArgumentException('Port must be a valid integer');
+
+        $parts = parse_url($host);
+
+        if ($parts === false) {
+            throw new Exceptions\InvalidArgumentException("Could not parse URI");
+        }
+
+        if (isset($parts['port']) !== true) {
+            $parts['port'] = 80;
         }
 
          return array(
-            'host' => $host[0],
-            'port' => (int)$host[1],
+            'host' => $parts['host'],
+            'port' => $parts['port'],
         );
+    }
+
+
+    /**
+     * @param string $host
+     *
+     * @return string
+     */
+    private function prependMissingScheme($host) {
+        if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+            $host = 'http://' . $host;
+        }
+        return $host;
     }
 
     /**

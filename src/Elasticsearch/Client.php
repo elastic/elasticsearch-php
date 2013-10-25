@@ -791,6 +791,9 @@ class Client
      *        ['size']                     = (number) Number of hits to return (default: 10)
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
      *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of using request body)
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
      *        ['suggest_field']            = (string) Specify which field to use for suggestions
      *        ['suggest_mode']             = (enum) Specify suggest mode

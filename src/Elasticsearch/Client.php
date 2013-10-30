@@ -462,15 +462,18 @@ class Client
 
 
     /**
-     * $params['index']      = (string) The name of the index
-     *        ['type']       = (string) The type of the document
-     *        ['fields']     = (list) A comma-separated list of fields to return in the response
-     *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
-     *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
-     *        ['routing']    = (string) Specific routing value
-     *        ['body']       = (string) Specific routing value
+     * $params['index']           = (string) The name of the index
+     *        ['type']            = (string) The type of the document
+     *        ['fields']          = (list) A comma-separated list of fields to return in the response
+     *        ['parent']          = (string) The ID of the parent document
+     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
+     *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
+     *        ['routing']         = (string) Specific routing value
+     *        ['body']            = (string) Specific routing value
+     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *
      * @param $params array Associative array of parameters
      *

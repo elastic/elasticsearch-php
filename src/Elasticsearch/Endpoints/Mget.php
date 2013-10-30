@@ -65,6 +65,9 @@ class Mget extends AbstractEndpoint
             'realtime',
             'refresh',
             'routing',
+            '_source',
+            '_source_include',
+            '_source_exclude'
         );
     }
 

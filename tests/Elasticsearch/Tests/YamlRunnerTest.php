@@ -203,7 +203,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $values = $this->yaml->parse($document, false, false, false);
 
                     echo "   ".key($values)."\n";
-                    $ret    = $this->executeTestCase($values);
+                    try {
+                        $ret  = $this->executeTestCase($values);
+                    } catch (SetupSkipException $exception) {
+                        // @TODO refactor this! This is a gross hack
+                        // This allows executeTestCase to signal that it encountered
+                        // a skip in a setup
+
+                        break;  //skip all remaining tests in this file
+                    }
+
 
                 } catch (ParseException $e) {
                     printf("Unable to parse the YAML string: %s", $e->getMessage());
@@ -377,6 +386,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
                         && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
                         echo "Skipping: ".$settings['reason']."\n";
+
+                        if ($key == 'setup') {
+                            throw new SetupSkipException();
+                        }
                         return;
                     }
                 }
@@ -462,4 +475,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 EOF;
     }
 
+}
+
+class SetupSkipException extends \Exception
+{
 }

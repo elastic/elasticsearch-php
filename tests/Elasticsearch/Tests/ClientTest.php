@@ -42,6 +42,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
+    public function testOneGoodOneBadHostNoException()
+    {
+        $params = array('hosts' => array (
+            '127.0.0.1:9200',
+            '127.0.0.1:9201',
+        ));
+        $this->client = new Elasticsearch\Client($params);
+
+    }
+
+
     /**
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      */

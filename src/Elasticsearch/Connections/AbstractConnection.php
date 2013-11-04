@@ -198,10 +198,9 @@ abstract class AbstractConnection implements ConnectionInterface
         try {
             $response = $this->performRequest('HEAD', '', null, null, $options);
 
-        } catch (OperationTimeoutException $exception) {
+        } catch (TransportException $exception) {
             $this->isAlive = false;
             return false;
-
         }
 
 

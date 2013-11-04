@@ -307,6 +307,42 @@ class IndicesNamespace extends AbstractNamespace
         return $response['data'];
     }
 
+    /**
+     * $params['index']            = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['type']             = (list) A comma-separated list of document types
+     *        ['field']            = (list) A comma-separated list of document fields
+     *        ['include_defaults'] = (bool) specifies default mapping values should be returned
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getFieldMapping($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        unset($params['index']);
+
+        $type = $this->extractArgument($params, 'type');
+        unset($params['type']);
+
+        $field = $this->extractArgument($params, 'field');
+        unset($params['field']);
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Mapping\GetField $endpoint */
+        $endpoint = $endpointBuilder('Indices\Mapping\GetField');
+        $endpoint->setIndex($index)
+                 ->setType($type)
+                 ->setField($field);
+
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
     /**
      * $params['index']          = (list) A comma-separated list of index names; use `_all` or empty string for all indices

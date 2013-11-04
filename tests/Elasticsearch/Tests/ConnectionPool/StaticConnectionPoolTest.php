@@ -30,7 +30,8 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->getMock()
                           ->shouldReceive('isAlive')
                           ->andReturn(true)
-                          ->getMock();
+                          ->getMock()
+                          ->shouldReceive('markDead')->once()->getMock();
 
         $connections = array($mockConnection);
 
@@ -63,7 +64,8 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                               ->getMock()
                               ->shouldReceive('isAlive')
                               ->andReturn(true)
-                              ->getMock();
+                              ->getMock()
+                              ->shouldReceive('markDead')->once()->getMock();
 
             $connections[] = $mockConnection;
         }
@@ -99,7 +101,10 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                               ->getMock()
                               ->shouldReceive('isAlive')
                               ->andReturn(false)
-                              ->getMock();
+                              ->getMock()
+                              ->shouldReceive('markDead')->once()->getMock()
+                              ->shouldReceive('getPingFailures')->andReturn(0)->once()->getMock()
+                              ->shouldReceive('getLastPing')->andReturn(time())->once()->getMock();
 
             $connections[] = $mockConnection;
         }
@@ -119,7 +124,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testAllExceptLastHostFailPing()
+    public function testAllExceptLastHostFailPingRevivesInSkip()
     {
 
         $connections = array();
@@ -131,7 +136,10 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                               ->getMock()
                               ->shouldReceive('isAlive')
                               ->andReturn(false)
-                              ->getMock();
+                              ->getMock()
+                              ->shouldReceive('markDead')->once()->getMock()
+                              ->shouldReceive('getPingFailures')->andReturn(0)->once()->getMock()
+                              ->shouldReceive('getLastPing')->andReturn(time())->once()->getMock();
 
             $connections[] = $mockConnection;
         }
@@ -141,8 +149,11 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->andReturn(true)
                           ->getMock()
                           ->shouldReceive('isAlive')->once()
-                          ->andReturn(true)
-                          ->getMock();
+                          ->andReturn(false)
+                          ->getMock()
+                          ->shouldReceive('markDead')->once()->getMock()
+                          ->shouldReceive('getPingFailures')->andReturn(0)->once()->getMock()
+                          ->shouldReceive('getLastPing')->andReturn(time())->once()->getMock();
 
         $connections[] = $goodConnection;
 
@@ -160,5 +171,54 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($goodConnection, $ret);
 
     }
+
+    public function testAllExceptLastHostFailPingRevivesPreSkip()
+    {
+
+        $connections = array();
+
+        foreach (range(1,9) as $index) {
+            $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+                              ->shouldReceive('ping')
+                              ->andReturn(false)
+                              ->getMock()
+                              ->shouldReceive('isAlive')
+                              ->andReturn(false)
+                              ->getMock()
+                              ->shouldReceive('markDead')->once()->getMock()
+                              ->shouldReceive('getPingFailures')->andReturn(0)->once()->getMock()
+                              ->shouldReceive('getLastPing')->andReturn(time())->once()->getMock();
+
+            $connections[] = $mockConnection;
+        }
+
+        $goodConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+                          ->shouldReceive('ping')->once()
+                          ->andReturn(true)
+                          ->getMock()
+                          ->shouldReceive('isAlive')->once()
+                          ->andReturn(false)
+                          ->getMock()
+                          ->shouldReceive('markDead')->once()->getMock()
+                          ->shouldReceive('getPingFailures')->andReturn(0)->once()->getMock()
+                          ->shouldReceive('getLastPing')->andReturn(time()-10000)->once()->getMock();
+
+        $connections[] = $goodConnection;
+
+        $selector = m::mock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
+                    ->shouldReceive('select')
+                    ->andReturnValues($connections)
+                    ->getMock();
+
+        $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
+
+        $randomizeHosts = false;
+        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+
+        $ret = $connectionPool->nextConnection();
+        $this->assertEquals($goodConnection, $ret);
+
+    }
+
 
 }

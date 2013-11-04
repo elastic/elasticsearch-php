@@ -55,6 +55,11 @@ abstract class AbstractConnection implements ConnectionInterface
     /** @var float  */
     private $pingTimeout = 1;    //TODO expose this
 
+    /** @var int  */
+    private $lastPing = 0;
+
+    /** @var int  */
+    private $failedPings = 0;
 
     /**
      * @param       $method
@@ -194,21 +199,22 @@ abstract class AbstractConnection implements ConnectionInterface
      */
     public function ping()
     {
+        $this->lastPing = time();
         $options = array('timeout' => $this->pingTimeout);
         try {
             $response = $this->performRequest('HEAD', '', null, null, $options);
 
         } catch (TransportException $exception) {
-            $this->isAlive = false;
+            $this->markDead();
             return false;
         }
 
 
         if ($response['status'] === 200) {
-            $this->isAlive = true;
+            $this->markAlive();
             return true;
         } else {
-            $this->isAlive = false;
+            $this->markDead();
             return false;
         }
     }
@@ -235,12 +241,32 @@ abstract class AbstractConnection implements ConnectionInterface
 
     public function markAlive()
     {
+        $this->failedPings = 0;
         $this->isAlive = true;
     }
 
     public function markDead()
     {
         $this->isAlive = false;
+        $this->failedPings += 1;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getLastPing()
+    {
+        return $this->lastPing;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getPingFailures()
+    {
+        return $this->failedPings;
     }
 
 

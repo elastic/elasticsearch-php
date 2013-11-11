@@ -6,6 +6,7 @@ use Elasticsearch;
 use Monolog\Logger;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use Psr\Log\LogLevel;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Mockery as m;
 
@@ -189,9 +190,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $path = vfsStream::url('root');
 
         $params = array();
+        $params['logging'] = true;
         $params['connectionParams']['auth'] = array('username', 'password', 'Basic');
         $params['logPath'] = "$path/elasticsearch.log";
-        $params['logLevel'] = Logger::INFO;
+        $params['logLevel'] = LogLevel::INFO;
 
         $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
 
@@ -218,8 +220,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $path = vfsStream::url('root');
 
         $params = array();
+        $params['logging'] = true;
         $params['logPath'] = "$path/elasticsearch.log";
-        $params['logLevel'] = Logger::INFO;
+        $params['logLevel'] = LogLevel::INFO;
 
         $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
 
@@ -235,5 +238,27 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $log = file_get_contents('vfs://root/elasticsearch.log');
         $basicAuthSignature = '"authorization"';
         $this->assertNotContains($basicAuthSignature, $log);
+    }
+
+    /**
+     * @group integration
+     */
+    public function testDisableLogging()
+    {
+        $path = vfsStream::url('root');
+
+        $params = array();
+        $params['logging'] = false;
+        $client = new Elasticsearch\Client($params);
+
+        try {
+            $client->ping();
+        } catch (Exception $e) {
+            // Ok to fail, not actually trying to connect.  Just want to see
+            // log
+        }
+
+        $logExists = file_exists('vfs://root/elasticsearch.log');
+        $this->assertFalse($logExists);
     }
 }

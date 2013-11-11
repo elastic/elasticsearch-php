@@ -34,6 +34,7 @@ class DICBuilder
         'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
         'sniffOnStart'          => false,
         'connectionParams'      => array(),
+        'logging'               => false,
         'logObject'             => null,
         'logPath'               => 'elasticsearch.log',
         'logLevel'              => Log\LogLevel::WARNING,

@@ -41,7 +41,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
         $connectionParams['guzzleClient'] = new Client();
 
-        $log = m::mock('\Monolog\Logger')->shouldReceive('addError')->once()->getMock();
+        $log = m::mock('\Monolog\Logger')->shouldReceive('error')->once()->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
@@ -57,7 +57,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
         $host = 'localhost';
         $port = 9800;
         $connectionParams['guzzleClient'] = new Client();
-        $log = m::mock('\Monolog\Logger')->shouldReceive('addError')->once()->getMock();
+        $log = m::mock('\Monolog\Logger')->shouldReceive('error')->once()->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
@@ -74,9 +74,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
-                ->shouldReceive('addDebug')
+                ->shouldReceive('debug')
                 ->times(6)->getMock()
-                ->shouldReceive('addInfo')
+                ->shouldReceive('info')
                 ->times(4)->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
@@ -95,9 +95,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
-               ->shouldReceive('addDebug')
+               ->shouldReceive('debug')
                ->times(3)->getMock()
-               ->shouldReceive('addInfo')
+               ->shouldReceive('info')
                ->times(2)->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
@@ -121,9 +121,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
-               ->shouldReceive('addDebug')
+               ->shouldReceive('debug')
                ->times(3)->getMock()
-               ->shouldReceive('addInfo')
+               ->shouldReceive('info')
                ->times(2)->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
@@ -144,9 +144,9 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
-               ->shouldReceive('addDebug')
+               ->shouldReceive('debug')
                ->times(6)->getMock()
-               ->shouldReceive('addInfo')
+               ->shouldReceive('info')
                ->times(4)->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);

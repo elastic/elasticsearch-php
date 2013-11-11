@@ -31,14 +31,16 @@ class AbstractConnectionTest extends \PHPUnit_Framework_TestCase
 
     public function testPing()
     {
+        $logger = new Elasticsearch\Common\EmptyLogger();
+
         $stub = $this->getMockForAbstractClass(
             'Elasticsearch\Connections\AbstractConnection',
             array(
                 'localhost',
                 9200,
                 array(),
-                null,
-                null
+                $logger,
+                $logger
             )
         );
 
@@ -58,14 +60,16 @@ class AbstractConnectionTest extends \PHPUnit_Framework_TestCase
 
     public function testPingBadCode()
     {
+        $logger = new Elasticsearch\Common\EmptyLogger();
+
         $stub = $this->getMockForAbstractClass(
             'Elasticsearch\Connections\AbstractConnection',
             array(
                 'localhost',
                 9200,
                 array(),
-                null,
-                null
+                $logger,
+                $logger
             )
         );
 
@@ -86,14 +90,15 @@ class AbstractConnectionTest extends \PHPUnit_Framework_TestCase
 
     public function testPingTimeout()
     {
+        $logger = new Elasticsearch\Common\EmptyLogger();
         $stub = $this->getMockForAbstractClass(
             'Elasticsearch\Connections\AbstractConnection',
             array(
                 'localhost',
                 9200,
                 array(),
-                null,
-                null
+                $logger,
+                $logger
             )
         );
 

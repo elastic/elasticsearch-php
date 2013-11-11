@@ -37,7 +37,7 @@ class GuzzleConnectionTest extends \PHPUnit_Framework_TestCase
         $port = 9200;
         $connectionParams = null;
 
-        $log = m::mock('\Monolog\Logger')->shouldReceive('addCritical')->once()->getMock();
+        $log = m::mock('\Monolog\Logger')->shouldReceive('critical')->once()->getMock();
 
         $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
 

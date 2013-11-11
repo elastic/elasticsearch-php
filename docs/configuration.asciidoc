@@ -47,29 +47,43 @@ After being initialized with authentication credentials, all outgoing requests w
 
 
 === Example: Configuring the Logger
-Let's change the logging location.  By default, the client will log to a file called 'elasticsearch.log' in the root of your project.  To change this location, simply do the following:
+By default, logging in the client is disabled for performance reasons.  If you wish to enable logging, simply set the `logging` parameter to true:
 
 [source,php]
 ----
 $params = array();
+$params['logging'] = true;
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
+
+This will enable logging to a file called `elasticsearch.log` inside your project directory.  The default logging level is `WARN`.  This is a logging level
+that only describes important events that should probably require action from you.
+
+Often, you'll want to change the logging location.  To change this location, simply do the following:
+
+[source,php]
+----
+$params = array();
+$params['logging'] = true;
 $params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
-
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Not all parameters are strings.  For example, we can change the logging level of the client (defaults to WARN):
+Not all parameters are strings.  For example, we can change the logging level of the client:
 
 [source,php]
 ----
 $params = array();
+$params['logging']  = true;
 $params['logPath']  = '/var/logs/elasticsearch/elasticsearch.log';
-$params['logLevel'] = \Monolog\Logger::INFO;
+$params['logLevel'] = Psr\Log\LogLevel::INFO;
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger.  But since the logging library is https://github.com/Seldaek/monolog[Monolog], we have access to a variety of loggers.
+Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger provided by the https://github.com/Seldaek/monolog[Monolog] framework.  Monolog provides a variety of loggers.
 
 Let's log to the SysLog instead of a file:
 
@@ -78,15 +92,32 @@ Let's log to the SysLog instead of a file:
 use Monolog\Logger;
 
 // Build a Monolog logger that uses the SyslogHandler
-$log       = new Logger('log');
+$logger    = new Logger('log');
 $handler   = new SyslogHandler('my_user');
 $processor = new IntrospectionProcessor();
 
-$log->pushHandler($handler);
-$log->pushProcessor($processor);
+$logger->pushHandler($handler);
+$logger->pushProcessor($processor);
 
 // Over-ride the client's logger object with your own
-$params['logObject'] = $log;
+$params['logging']   = true;
+$params['logObject'] = $logger;
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
+
+The client uses the generic https://github.com/php-fig/log[PSR\Log interface], which means that any PSR\Log compatible loggers will work just fine in the client.
+Replacing the logger with another PSR\Log compatible logger is similar to the previous example of configuring a Monolog logger:
+
+[source,php]
+----
+use Monolog\Logger;
+
+$logger = new MySpecialPSRLogger();
+
+
+$params['logging'] = true;
+$params['logObject'] = $logger;
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +

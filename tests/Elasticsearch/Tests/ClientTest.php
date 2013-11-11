@@ -249,6 +249,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $params = array();
         $params['logging'] = false;
+        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
         $client = new Elasticsearch\Client($params);
 
         try {

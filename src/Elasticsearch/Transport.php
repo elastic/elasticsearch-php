@@ -7,15 +7,12 @@
 
 namespace Elasticsearch;
 
-use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\ConnectionPool\ConnectionPool;
 use Elasticsearch\Connections\AbstractConnection;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Sniffers\Sniffer;
 use Psr\Log\LoggerInterface;
 
 /**

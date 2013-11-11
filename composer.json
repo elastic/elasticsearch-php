@@ -22,7 +22,7 @@
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.*@dev",
     "satooshi/php-coveralls": "dev-master",
-    "mikey179/vfsStream": "1.3.*@dev"
+    "mikey179/vfsStream": "~1.2"
   },
   "autoload": {
     "psr-0": {

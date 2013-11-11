@@ -8,6 +8,7 @@
 namespace Elasticsearch;
 
 use Elasticsearch\Common\DICBuilder;
+use Elasticsearch\Common\EmptyLogger;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
@@ -989,6 +990,11 @@ class Client
      */
     private function setLogging()
     {
+        if ($this->params['logging'] !== true) {
+            $this->setEmptyLogger();
+            return;
+        }
+
         if ($this->params['logObject'] === null) {
            $this->setDefaultLogger();
         }
@@ -997,6 +1003,12 @@ class Client
             $this->setDefaultTracer();
         }
 
+    }
+
+    private function setEmptyLogger()
+    {
+        $this->params['logObject'] = new EmptyLogger();
+        $this->params['traceObject'] = new EmptyLogger();
     }
 
     private function setDefaultLogger()

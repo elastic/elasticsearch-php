@@ -11,7 +11,7 @@ use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\TransportException;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Abstract Class AbstractConnection
@@ -35,12 +35,12 @@ abstract class AbstractConnection implements ConnectionInterface
     protected $host;
 
     /**
-     * @var Logger
+     * @var LoggerInterface
      */
     protected $log;
 
     /**
-     * @var Logger
+     * @var LoggerInterface
      */
     protected $trace;
 
@@ -75,16 +75,17 @@ abstract class AbstractConnection implements ConnectionInterface
     /** @return string */
     abstract public function getTransportSchema();
 
+
     /**
      * Constructor
      *
-     * @param string $host             Host string
-     * @param string $port             Host port
-     * @param array  $connectionParams Array of connection-specific parameters
-     * @param Logger $log              Monolog Logger object
-     * @param Logger $trace
+     * @param string                   $host             Host string
+     * @param string                   $port             Host port
+     * @param array                    $connectionParams Array of connection-specific parameters
+     * @param \Psr\Log\LoggerInterface $log              Logger object
+     * @param \Psr\Log\LoggerInterface $trace
      */
-    public function __construct($host, $port, $connectionParams, $log, $trace)
+    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
         $this->host             = $this->transportSchema . '://' . $host . ':' . $port;
         $this->log              = $log;
@@ -109,8 +110,8 @@ abstract class AbstractConnection implements ConnectionInterface
      */
     public function logRequestSuccess($method, $fullURI, $body, $headers, $statusCode, $response, $duration)
     {
-        $this->log->addDebug('Request Body', array($body));
-        $this->log->addInfo(
+        $this->log->debug('Request Body', array($body));
+        $this->log->info(
             'Request Success:',
             array(
                 'method'    => $method,
@@ -120,12 +121,12 @@ abstract class AbstractConnection implements ConnectionInterface
                 'duration'  => $duration,
             )
         );
-        $this->log->addDebug('Response', array($response));
+        $this->log->debug('Response', array($response));
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
-        $this->trace->addInfo($curlCommand);
-        $this->trace->addDebug(
+        $this->trace->info($curlCommand);
+        $this->trace->debug(
             'Response:',
             array(
                 'response'  => $response,
@@ -163,8 +164,8 @@ abstract class AbstractConnection implements ConnectionInterface
         $response = null,
         $exception = null
     ) {
-        $this->log->addDebug('Request Body', array($body));
-        $this->log->addInfo(
+        $this->log->debug('Request Body', array($body));
+        $this->log->info(
             'Request Success:',
             array(
                 'method'    => $method,
@@ -175,12 +176,12 @@ abstract class AbstractConnection implements ConnectionInterface
                 'error'     => $exception,
             )
         );
-        $this->log->addDebug('Response', array($response));
+        $this->log->debug('Response', array($response));
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
-        $this->trace->addInfo($curlCommand);
-        $this->trace->addDebug(
+        $this->trace->info($curlCommand);
+        $this->trace->debug(
             'Response:',
             array(
                 'response'  => $response,

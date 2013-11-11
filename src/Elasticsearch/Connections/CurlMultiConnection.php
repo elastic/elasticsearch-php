@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Connection
@@ -33,25 +34,25 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
     /**
      * Constructor
      *
-     * @param string          $host             Host string
-     * @param int             $port             Host port
-     * @param array           $connectionParams Array of connection parameters
-     * @param \Monolog\Logger $log              Monolog logger object
-     * @param \Monolog\Logger $trace            Monolog logger object (for curl traces)
+     * @param string                   $host             Host string
+     * @param int                      $port             Host port
+     * @param array                    $connectionParams Array of connection parameters
+     * @param \Psr\Log\LoggerInterface $log              logger object
+     * @param \Psr\Log\LoggerInterface $trace            logger object (for curl traces)
      *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return CurlMultiConnection
      */
-    public function __construct($host, $port, $connectionParams, $log, $trace)
+    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
         if (function_exists('curl_version') !== true) {
-            $log->addCritical('Curl library/extension is required for CurlMultiConnection.');
+            $log->critical('Curl library/extension is required for CurlMultiConnection.');
             throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
         }
 
         if (isset($connectionParams['curlMultiHandle']) !== true) {
-            $log->addCritical('curlMultiHandle must be set in connectionParams');
+            $log->critical('curlMultiHandle must be set in connectionParams');
             throw new InvalidArgumentException('curlMultiHandle must be set in connectionParams');
         }
 
@@ -118,7 +119,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             $opts = array_merge($opts, $this->connectionParams['curlOpts']);
         }
 
-        $this->log->addDebug("Curl Options:", $opts);
+        $this->log->debug("Curl Options:", $opts);
 
         curl_setopt_array($curlHandle, $opts);
         curl_multi_add_handle($this->multiHandle, $curlHandle);
@@ -133,7 +134,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             } while ($execrun == CURLM_CALL_MULTI_PERFORM && $running === 1);
 
             if ($execrun !== CURLM_OK) {
-                $this->log->addCritical('Unexpected Curl error: ' . $execrun);
+                $this->log->critical('Unexpected Curl error: ' . $execrun);
                 throw new TransportException('Unexpected Curl error: ' . $execrun);
             }
 
@@ -171,7 +172,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {
-            $this->log->addError('Curl error: ' . $response['error']);
+            $this->log->error('Curl error: ' . $response['error']);
             throw new TransportException('Curl error: ' . $response['error']);
         }
 
@@ -189,7 +190,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             // Throw exceptions on 5xx (server) errors.
             if ($response['requestInfo']['http_code'] >= 500) {
                 $exceptionText = $response['requestInfo']['http_code'] . ' Server Exception: ' . $response['responseText'];
-                $this->log->addError($exceptionText);
+                $this->log->error($exceptionText);
                 throw new ServerErrorResponseException($exceptionText);
             }
         }

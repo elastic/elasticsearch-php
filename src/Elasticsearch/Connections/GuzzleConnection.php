@@ -25,6 +25,7 @@ use Guzzle\Http\Exception\ServerErrorResponseException;
 use Guzzle\Http\Message\Header\HeaderCollection;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Psr\Log\LoggerInterface;
 
 class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 {
@@ -33,19 +34,19 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
 
     /**
-     * @param string          $host             Host string
-     * @param int             $port             Host port
-     * @param array           $connectionParams Array of connection parameters
-     * @param \Monolog\Logger $log              Monolog logger object
-     * @param \Monolog\Logger $trace            Monolog logger object (for curl traces)
+     * @param string                   $host             Host string
+     * @param int                      $port             Host port
+     * @param array                    $connectionParams Array of connection parameters
+     * @param \Psr\Log\LoggerInterface $log              logger object
+     * @param \Psr\Log\LoggerInterface $trace            logger object (for curl traces)
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return \Elasticsearch\Connections\GuzzleConnection
      */
-    public function __construct($host, $port, $connectionParams, $log, $trace)
+    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
         if (isset($connectionParams['guzzleClient']) !== true) {
-            $log->addCritical('guzzleClient must be set in connectionParams');
+            $log->critical('guzzleClient must be set in connectionParams');
             throw new InvalidArgumentException('guzzleClient must be set in connectionParams');
         }
 
@@ -160,7 +161,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
         } catch (\Exception $exception) {
             $error = 'Unexpected error: ' . $exception->getMessage();
-            $this->log->addCritical($error);
+            $this->log->critical($error);
             throw new TransportException($error);
         }
 
@@ -188,7 +189,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $responseBody  = $request->getResponse()->getBody(true);
 
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
-        $this->log->addError($exceptionText);
+        $this->log->error($exceptionText);
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             throw new RoutingMissingException($exceptionText, $statusCode, $exception);
@@ -256,7 +257,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     private function processCurlError(CurlException $exception)
     {
         $error = 'Curl error: ' . $exception->getMessage();
-        $this->log->addError($error);
+        $this->log->error($error);
         $this->throwCurlException($exception->getErrorNo(), $exception->getError());
     }
 

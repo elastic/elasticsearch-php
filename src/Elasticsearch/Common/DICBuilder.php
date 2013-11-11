@@ -13,7 +13,7 @@ use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Transport;
-use Monolog\Logger;
+use Psr\Log;
 use Pimple;
 
 class DICBuilder
@@ -36,10 +36,10 @@ class DICBuilder
         'connectionParams'      => array(),
         'logObject'             => null,
         'logPath'               => 'elasticsearch.log',
-        'logLevel'              => Logger::WARNING,
+        'logLevel'              => Log\LogLevel::WARNING,
         'traceObject'           => null,
         'tracePath'             => 'elasticsearch.log',
-        'traceLevel'            => Logger::WARNING,
+        'traceLevel'            => Log\LogLevel::WARNING,
         'guzzleOptions'         => array(),
         'connectionPoolParams'  => array(
             'randomizeHosts' => true

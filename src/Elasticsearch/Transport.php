@@ -16,7 +16,7 @@ use Elasticsearch\Connections\AbstractConnection;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Sniffers\Sniffer;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Transport
@@ -50,7 +50,7 @@ class Transport
     private $serializer;
 
     /**
-     * @var Logger
+     * @var LoggerInterface
      */
     private $log;
 
@@ -59,19 +59,18 @@ class Transport
      * Transport class is responsible for dispatching requests to the
      * underlying cluster connections
      *
-     * @param array   $hosts  Array of hosts in cluster
-     * @param \Pimple $params DIC containing dependencies
-     * @param Logger  $log    Monolog logger object
+     * @param array                    $hosts  Array of hosts in cluster
+     * @param \Pimple                  $params DIC containing dependencies
+     * @param \Psr\Log\LoggerInterface $log    Monolog logger object
      *
-     * @throws Exceptions\InvalidArgumentException
-     * @throws Exceptions\BadMethodCallException
+     * @throws Common\Exceptions\InvalidArgumentException
      */
-    public function __construct($hosts, $params, $log)
+    public function __construct($hosts, $params, LoggerInterface $log)
     {
         $this->log = $log;
 
         if (is_array($hosts) !== true) {
-            $this->log->addCritical('Hosts parameter must be an array');
+            $this->log->critical('Hosts parameter must be an array');
             throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array');
         }
 
@@ -139,7 +138,7 @@ class Transport
         try {
             $connection  = $this->getConnection();
         } catch (Exceptions\NoNodesAvailableException $exception) {
-            $this->log->addCritical('No alive nodes found in cluster');
+            $this->log->critical('No alive nodes found in cluster');
             throw $exception;
         }
 

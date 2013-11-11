@@ -7,6 +7,8 @@
 
 namespace Elasticsearch\Connections;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Interface ConnectionInterface
  *
@@ -18,8 +20,7 @@ namespace Elasticsearch\Connections;
  */
 interface ConnectionInterface
 {
-    public function __construct($host, $port, $connectionParams, $log, $trace);
-
+    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace);
 
     public function getTransportSchema();
 

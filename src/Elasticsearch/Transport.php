@@ -78,7 +78,7 @@ class Transport
         $this->setConnections($hosts);
 
         if ($params['sniffOnStart'] === true) {
-            $this->log->addNotice('Sniff on Start.');
+            $this->log->notice('Sniff on Start.');
             $this->connectionPool->scheduleCheck();
         }
 

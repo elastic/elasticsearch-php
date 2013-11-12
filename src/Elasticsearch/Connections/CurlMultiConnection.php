@@ -7,10 +7,19 @@
 
 namespace Elasticsearch\Connections;
 
+use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
+use Elasticsearch\Common\Exceptions\Conflict409Exception;
+use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
+use Elasticsearch\Common\Exceptions\NoShardAvailableException;
+use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
+use Guzzle\Parser\ParserRegistry;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -29,6 +38,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      * @var Resource
      */
     private $multiHandle;
+
+    private $headers;
 
 
     /**
@@ -59,6 +70,9 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         if (isset($port) !== true) {
             $port = 9200;
         }
+
+        $connectionParams = $this->transformAuth($connectionParams);
+
         $this->multiHandle = $connectionParams['curlMultiHandle'];
         return parent::__construct($host, $port, $connectionParams, $log, $trace);
 
@@ -92,31 +106,42 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = array())
     {
-        $uri = $this->host . $uri;
-
-        if (isset($params) === true) {
-            $uri .= '?' . http_build_query($params);
-        }
+        $uri = $this->getURI($uri, $params);
 
         $curlHandle = curl_init();
 
         $opts = array(
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 3,
-            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_TIMEOUT_MS     => 1000,
+            CURLOPT_CONNECTTIMEOUT_MS => 1000,
             CURLOPT_URL            => $uri,
             CURLOPT_CUSTOMREQUEST  => $method,
+            CURLOPT_HEADER         => true
         );
 
+        if ($method === 'GET') {
+            //Force these since Curl won't reset by itself
+            $opts[CURLOPT_NOBODY] = false;
+        } else if ($method === 'HEAD') {
+            $opts[CURLOPT_NOBODY] = true;
+        }
+
         if (isset($body) === true) {
-            $opts[CURLOPT_POST]       = true;
+            if ($method === 'GET'){
+                $opts[CURLOPT_CUSTOMREQUEST] = 'POST';
+            }
             $opts[CURLOPT_POSTFIELDS] = $body;
         }
 
-        // Custom Curl options?  Merge them.
+        if (isset($this->headers) && count($this->headers) > 0) {
+            $opts[CURLOPT_HTTPHEADER] = $this->headers;
+        }
+
         // TODO reconcile these with $options
-        if (isset($this->connectionParams['curlOpts']) === true) {
-            $opts = array_merge($opts, $this->connectionParams['curlOpts']);
+        if (isset($this->connectionParams['connectionParams']) === true) {
+
+            //MUST use union operator, array_merge rekeys numeric
+            $opts = $opts + $this->connectionParams['connectionParams'];
         }
 
         $this->log->debug("Curl Options:", $opts);
@@ -172,37 +197,31 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {
-            $this->log->error('Curl error: ' . $response['error']);
-            throw new TransportException('Curl error: ' . $response['error']);
+            $this->processCurlError($method, $uri, $response);
         }
 
-        // Log all 4xx-5xx errors.
-        if ($response['requestInfo']['http_code'] >= 400) {
-            $this->logRequestFail(
-                $method,
-                $uri,
-                $response['requestInfo']['total_time'],
-                $response['requestInfo']['http_code'],
-                $response['responseText'],
-                $response['error']
-            );
+        // Use Guzzle's message parser.  Loads an additional two classes
+        // TODO consider inlining this code
+        $response['responseText'] = ParserRegistry::getInstance()->getParser('message')->parseResponse($response['responseText']);
+        $response['responseText'] = $response['responseText']['body'];
 
-            // Throw exceptions on 5xx (server) errors.
-            if ($response['requestInfo']['http_code'] >= 500) {
-                $exceptionText = $response['requestInfo']['http_code'] . ' Server Exception: ' . $response['responseText'];
-                $this->log->error($exceptionText);
-                throw new ServerErrorResponseException($exceptionText);
-            }
+        if ($response['requestInfo']['http_code'] >= 400 && $response['requestInfo']['http_code'] < 500) {
+            $this->process4xxError($method, $uri, $response);
+        } else if ($response['requestInfo']['http_code'] >= 500) {
+            $this->process5xxError($method, $uri, $response);
         }
 
         $this->logRequestSuccess(
             $method,
             $uri,
             $body,
+            "",  //TODO FIX THIS
             $response['requestInfo']['http_code'],
             $response['responseText'],
             $response['requestInfo']['total_time']
         );
+
+
 
         return array(
             'status' => $response['requestInfo']['http_code'],
@@ -210,6 +229,168 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             'info'   => $response['requestInfo'],
         );
 
+    }
+
+
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     *
+     * @throws \Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException
+     * @throws \Elasticsearch\Common\Exceptions\Forbidden403Exception
+     * @throws \Elasticsearch\Common\Exceptions\Conflict409Exception
+     * @throws \Elasticsearch\Common\Exceptions\Missing404Exception
+     * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException
+     */
+    private function process4xxError($method, $uri, $response)
+    {
+        $this->logErrorDueToFailure($method, $uri, $response);
+
+        $statusCode    = $response['requestInfo']['http_code'];
+        $exceptionText = $response['error'];
+        $responseBody  = $response['responseText'];
+
+        $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
+
+        if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
+            throw new AlreadyExpiredException($exceptionText, $statusCode);
+        } elseif ($statusCode === 403) {
+            throw new Forbidden403Exception($exceptionText, $statusCode);
+        } elseif ($statusCode === 404) {
+            throw new Missing404Exception($exceptionText, $statusCode);
+        } elseif ($statusCode === 409) {
+            throw new Conflict409Exception($exceptionText, $statusCode);
+        } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
+            throw new ScriptLangNotSupportedException($exceptionText. $statusCode);
+        }
+    }
+
+
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     *
+     * @throws \Elasticsearch\Common\Exceptions\RoutingMissingException
+     * @throws \Elasticsearch\Common\Exceptions\NoShardAvailableException
+     * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException
+     * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
+     */
+    private function process5xxError($method, $uri, $response)
+    {
+        $this->logErrorDueToFailure($method, $uri, $response);
+
+        $statusCode    = $response['requestInfo']['http_code'];
+        $exceptionText = $response['error'];
+        $responseBody  = $response['responseText'];
+
+        $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
+        $this->log->error($exceptionText);
+
+        if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
+            throw new RoutingMissingException($exceptionText, $statusCode);
+        } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
+            throw new NoDocumentsToGetException($exceptionText, $statusCode);
+        } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
+            throw new NoShardAvailableException($exceptionText, $statusCode);
+        } else {
+            throw new ServerErrorResponseException($exceptionText, $statusCode);
+        }
+
+
+    }
+
+
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     */
+    private function processCurlError($method, $uri, $response)
+    {
+        $error = 'Curl error: ' . $response['error'];
+        $this->log->error($error);
+        $this->throwCurlException($response['errorNumber'], $response['error']);
+    }
+
+
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     */
+    private function logErrorDueToFailure($method, $uri, $response)
+    {
+        $this->logRequestFail(
+            $method,
+            $uri,
+            $response['requestInfo']['total_time'],
+            $response['requestInfo']['http_code'],
+            $response['responseText'],
+            $response['error']
+        );
+    }
+
+
+
+    /**
+     * @param array $connectionParams
+     * @return array
+     */
+    private function transformAuth($connectionParams)
+    {
+        if (isset($connectionParams['auth']) !== true) {
+            return $connectionParams;
+        }
+
+        $username = $connectionParams['auth'][0];
+        $password = $connectionParams['auth'][1];
+
+        switch ($connectionParams['auth'][2]) {
+            case 'Basic':
+                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+                $this->headers['authorization'] =  'Basic '.base64_encode("$username:$password");
+                unset($connectionParams['auth']);
+                return $connectionParams;
+                break;
+
+            case 'Digest':
+                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
+                break;
+
+            case 'NTLM':
+                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
+                break;
+
+            case 'Any':
+                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_ANY;
+                break;
+        }
+
+
+        $connectionParams['connectionParams'][CURLOPT_USERPWD] = "$username:$password";
+
+        unset($connectionParams['auth']);
+        return $connectionParams;
+
+    }
+
+    /**
+     * @param string $uri
+     * @param array $params
+     *
+     * @return string
+     */
+    private function getURI($uri, $params)
+    {
+        $uri = $this->host . $uri;
+
+        if (isset($params) === true) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $uri;
     }
 
 }

@@ -161,6 +161,7 @@ class Transport
             );
 
             $connection->markAlive();
+            $this->retryAttempts = 0;
 
             $data = $this->serializer->deserialize($response['text']);
 

@@ -198,7 +198,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             throw new NoShardAvailableException($exceptionText, $statusCode, $exception);
         } else {
-            throw new ServerErrorResponseException($exceptionText, $statusCode, $exception);
+            throw new \Elasticsearch\Common\Exceptions\ServerErrorResponseException($exceptionText, $statusCode, $exception);
         }
 
 

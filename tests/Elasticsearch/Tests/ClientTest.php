@@ -207,7 +207,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
 
         $log = file_get_contents('vfs://root/elasticsearch.log');
-        $basicAuthSignature = '"authorization":["Basic dXNlcm5hbWU6cGFzc3dvcmQ="]';
+        $basicAuthSignature = 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=';
         $this->assertContains($basicAuthSignature, $log);
     }
 

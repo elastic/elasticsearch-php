@@ -51,6 +51,9 @@ class Transport
      */
     private $log;
 
+    /** @var  int */
+    private $retryAttempts;
+
 
     /**
      * Transport class is responsible for dispatching requests to the
@@ -76,6 +79,10 @@ class Transport
 
         $this->seeds = $hosts;
         $this->setConnections($hosts);
+
+        if (isset($this->params['retries']) !== true) {
+            $this->params['retries'] = count($hosts);
+        }
 
         if ($params['sniffOnStart'] === true) {
             $this->log->notice('Sniff on Start.');
@@ -139,7 +146,6 @@ class Transport
             throw $exception;
         }
 
-        $shouldRetry = true;
         $response    = array();
 
         try {
@@ -167,12 +173,18 @@ class Transport
         } catch (Exceptions\Curl\OperationTimeoutException $exception) {
             $this->connectionPool->scheduleCheck();
 
+        } catch (Exceptions\ClientErrorResponseException $exception) {
+            throw $exception;   //We need 4xx errors to go straight to the user, no retries
+
+        } catch (Exceptions\ServerErrorResponseException $exception) {
+            throw $exception;   //We need 5xx errors to go straight to the user, no retries
+
         } catch (TransportException $exception) {
             $connection->markDead();
             $this->connectionPool->scheduleCheck();
-            $shouldRetry = $this->shouldRetry($method, $uri, $params, $body);
         }
 
+        $shouldRetry = $this->shouldRetry($method, $uri, $params, $body);
         if ($shouldRetry === true) {
             return $this->performRequest($method, $uri, $params, $body);
         }
@@ -181,9 +193,22 @@ class Transport
     }
 
 
+    /**
+     * @param $method
+     * @param $uri
+     * @param $params
+     * @param $body
+     *
+     * @return bool
+     */
     public function shouldRetry($method, $uri, $params, $body)
     {
-        return true;
+        if ($this->retryAttempts < $this->params['retries']) {
+            $this->retryAttempts += 1;
+            return true;
+        }
+
+        return false;
     }
 
 

@@ -116,7 +116,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             CURLOPT_CONNECTTIMEOUT_MS => 1000,
             CURLOPT_URL            => $uri,
             CURLOPT_CUSTOMREQUEST  => $method,
-            CURLOPT_HEADER         => true
+            CURLOPT_HEADER         => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_TCP_NODELAY    => false
         );
 
         if ($method === 'GET') {
@@ -199,11 +202,6 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         if ($response['error'] !== '') {
             $this->processCurlError($method, $uri, $response);
         }
-
-        // Use Guzzle's message parser.  Loads an additional two classes
-        // TODO consider inlining this code
-        $response['responseText'] = ParserRegistry::getInstance()->getParser('message')->parseResponse($response['responseText']);
-        $response['responseText'] = $response['responseText']['body'];
 
         if ($response['requestInfo']['http_code'] >= 400 && $response['requestInfo']['http_code'] < 500) {
             $this->process4xxError($method, $uri, $response);

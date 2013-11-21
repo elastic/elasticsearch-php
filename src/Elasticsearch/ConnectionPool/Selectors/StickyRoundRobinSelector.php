@@ -27,6 +27,8 @@ class StickyRoundRobinSelector implements SelectorInterface
      */
     private $current = 0;
 
+    /** @var int  */
+    private $currentCounter = 0;
 
     /**
      * Use current connection unless it is dead, otherwise round-robin
@@ -42,9 +44,10 @@ class StickyRoundRobinSelector implements SelectorInterface
             return $connections[$this->current];
         }
 
-        $this->current += 1;
+        $this->currentCounter += 1;
+        $this->current = $this->currentCounter % count($connections);
 
-        return $connections[$this->current % count($connections)];
+        return $connections[$this->current];
 
     }
 

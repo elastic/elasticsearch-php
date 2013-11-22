@@ -57,7 +57,7 @@ Deleting an index is very simple:
 
 [source,php]
 ----
-$deleteParams['index'] = $indexParams['my_index'];
+$deleteParams['index'] = 'my_index';
 $client->indices()->delete($deleteParams);
 ----
 {zwsp} +

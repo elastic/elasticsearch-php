@@ -262,4 +262,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $logExists = file_exists('vfs://root/elasticsearch.log');
         $this->assertFalse($logExists);
     }
+
+    public function testHighTimeout()
+    {
+
+        $params['connectionParams']['timeout'] = 5000;
+        $client = new Elasticsearch\Client($params);
+
+        try {
+            $client->ping();
+        } catch (Exception $e) {
+
+        }
+
+    }
 }

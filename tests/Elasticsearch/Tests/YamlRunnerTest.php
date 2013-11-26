@@ -81,6 +81,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $uri = parse_url($host = YamlRunnerTest::getHostEnvVar());
 
         $params['hosts'] = array($uri['host'].':'.$uri['port']);
+        $params['connectionParams']['timeout'] = 10000;
         $this->client = new Elasticsearch\Client($params);
 
     }
@@ -125,7 +126,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private function waitForYellow()
     {
         $host = YamlRunnerTest::getHostEnvVar();
-        $ch = curl_init("$host/_cluster/health");
+        $ch = curl_init("$host/_cluster/health?wait_for_status=yellow&timeout=50s");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
@@ -134,11 +135,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $counter = 0;
         while ($response['status'] === 'red') {
-            sleep(0.05);
+            sleep(0.5);
             $response = json_decode(curl_exec($ch), true);
             ++$counter;
 
-            if ($counter > 100) {
+            if ($counter > 10) {
                 echo "Aborting test due to failure in clearing cluster.\n";
                 print_r($response);
                 exit;

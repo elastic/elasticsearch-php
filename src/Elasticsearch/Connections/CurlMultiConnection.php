@@ -41,6 +41,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
     private $headers;
 
+    private $curlOpts;
+
 
     /**
      * Constructor
@@ -72,6 +74,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         }
 
         $connectionParams = $this->transformAuth($connectionParams);
+        $this->curlOpts = $this->generateCurlOpts($connectionParams);
 
         $this->multiHandle = $connectionParams['curlMultiHandle'];
         return parent::__construct($host, $port, $connectionParams, $log, $trace);
@@ -110,17 +113,9 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
         $curlHandle = curl_init();
 
-        $opts = array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT_MS     => 1000,
-            CURLOPT_CONNECTTIMEOUT_MS => 1000,
-            CURLOPT_URL            => $uri,
-            CURLOPT_CUSTOMREQUEST  => $method,
-            CURLOPT_HEADER         => false,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
-            CURLOPT_TCP_NODELAY    => false
-        );
+        $opts = $this->curlOpts;
+        $opts[CURLOPT_URL] = $uri;
+        $opts[CURLOPT_CUSTOMREQUEST]= $method;
 
         if ($method === 'GET') {
             //Force these since Curl won't reset by itself
@@ -134,17 +129,6 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
                 $opts[CURLOPT_CUSTOMREQUEST] = 'POST';
             }
             $opts[CURLOPT_POSTFIELDS] = $body;
-        }
-
-        if (isset($this->headers) && count($this->headers) > 0) {
-            $opts[CURLOPT_HTTPHEADER] = $this->headers;
-        }
-
-        // TODO reconcile these with $options
-        if (isset($this->connectionParams['connectionParams']) === true) {
-
-            //MUST use union operator, array_merge rekeys numeric
-            $opts = $opts + $this->connectionParams['connectionParams'];
         }
 
         $this->log->debug("Curl Options:", $opts);
@@ -347,18 +331,18 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
         switch ($connectionParams['auth'][2]) {
             case 'Basic':
-                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
                 $this->headers['authorization'] =  'Basic '.base64_encode("$username:$password");
                 unset($connectionParams['auth']);
                 return $connectionParams;
                 break;
 
             case 'Digest':
-                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
+                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
                 break;
 
             case 'NTLM':
-                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
+                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
                 break;
 
             case 'Any':
@@ -389,6 +373,37 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         }
 
         return $uri;
+    }
+
+    private function generateCurlOpts($connectionParams)
+    {
+        $opts = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT_MS     => 1000,
+            CURLOPT_CONNECTTIMEOUT_MS => 1000,
+            CURLOPT_HEADER         => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_TCP_NODELAY    => false
+        );
+
+        if (isset($this->headers) && count($this->headers) > 0) {
+            $opts[CURLOPT_HTTPHEADER] = $this->headers;
+        }
+
+        if (isset($connectionParams['timeout']) === true) {
+            $opts[CURLOPT_TIMEOUT_MS] = $connectionParams['timeout'];
+            $opts[CURLOPT_CONNECTTIMEOUT_MS] = $connectionParams['timeout'];
+        }
+
+        if (isset($connectionParams['connectionParams']['curlOpts'])) {
+            //MUST use union operator, array_merge rekeys numeric
+            $opts = $opts + $connectionParams['connectionParams']['curlOpts'];
+        }
+
+        return $opts;
+
+
     }
 
 }

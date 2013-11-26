@@ -117,6 +117,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         $opts[CURLOPT_URL] = $uri;
         $opts[CURLOPT_CUSTOMREQUEST]= $method;
 
+        if (count($options) > 0) {
+            $opts = $this->reconcileOptions($options) + $opts;
+        }
+
         if ($method === 'GET') {
             //Force these since Curl won't reset by itself
             $opts[CURLOPT_NOBODY] = false;
@@ -402,8 +406,17 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         }
 
         return $opts;
+    }
 
+    private function reconcileOptions($options)
+    {
+        $opts = array();
+        if (isset($options['timeout']) === true) {
+            $opts[CURLOPT_TIMEOUT_MS] = $options['timeout'];
+            $opts[CURLOPT_CONNECTTIMEOUT_MS] = $options['timeout'];
+        }
 
+        return $opts;
     }
 
 }

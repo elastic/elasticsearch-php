@@ -29,7 +29,7 @@ class DICBuilder
     protected $paramDefaults = array(
         'connectionClass'       => '\Elasticsearch\Connections\GuzzleConnection',
         'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
-        'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticConnectionPool',
+        'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool',
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
         'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
         'sniffOnStart'          => false,

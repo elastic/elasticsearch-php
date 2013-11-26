@@ -32,6 +32,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     /** @var  Client */
     private $guzzle;
 
+    private $connectionOpts = array();
+
 
     /**
      * @param string                   $host             Host string
@@ -54,6 +56,11 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $port = 9200;
         }
         $this->guzzle = $connectionParams['guzzleClient'];
+
+        if (isset($connectionParams['connectionParams'])) {
+            $this->connectionOpts = $connectionParams['connectionParams'];
+        }
+
         return parent::__construct($host, $port, $connectionParams, $log, $trace);
 
     }
@@ -84,6 +91,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
     {
 
         $uri = $this->getURI($uri, $params);
+
+        $options += $this->connectionOpts;
         $request = $this->buildGuzzleRequest($method, $uri, $body, $options);
         $response = $this->sendRequest($request, $body);
 

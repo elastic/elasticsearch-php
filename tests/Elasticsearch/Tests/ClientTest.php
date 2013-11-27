@@ -265,8 +265,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testHighTimeout()
     {
-
+        $params = array();
         $params['connectionParams']['timeout'] = 5000;
+        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
         $client = new Elasticsearch\Client($params);
 
         try {

@@ -105,8 +105,7 @@ class Client
             return false;
         }
 
-
-        if ($response['status'] === 200) {
+        if (isset($response['status']) === true && $response['status'] === 200) {
             return true;
         } else {
             return false;

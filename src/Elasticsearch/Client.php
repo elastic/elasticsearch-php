@@ -282,7 +282,7 @@ class Client
      *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['routing']        = (string) Specific routing value
      *        ['source']         = (string) The URL-encoded query definition (instead of using the request body)
-     *        ['body']           = (string) The URL-encoded query definition (instead of using the request body)
+     *        ['body']           = (array) A query to restrict the results (optional)
      *
      * @param $params array Associative array of parameters
      *
@@ -318,7 +318,7 @@ class Client
      * $params['index']        = (string) The name of the index with a registered percolator query (Required)
      *        ['type']         = (string) The document type (Required)
      *        ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
-     *        ['body']         = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
+     *        ['body']         = (array) The document (`doc`) to percolate against registered queries; optionally also a `query` to limit the percolation to specific registered queries
      *
      * @param $params array Associative array of parameters
      *
@@ -426,7 +426,7 @@ class Client
      *        ['search_type']            = (string) Specific search type (eg. `dfs_then_fetch`, `count`, etc)
      *        ['search_types']           = (list) A comma-separated list of types to perform the query against (default: the same type as the document)
      *        ['stop_words']             = (list) A list of stop words to be ignored
-     *        ['body']                   = (list) A list of stop words to be ignored
+     *        ['body']                   = (array) A specific search request definition
      *
      * @param $params array Associative array of parameters
      *
@@ -471,7 +471,7 @@ class Client
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
-     *        ['body']            = (string) Specific routing value
+     *        ['body']            = (array) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index and type is provided in the URL.
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
@@ -510,7 +510,7 @@ class Client
      * $params['index']       = (list) A comma-separated list of index names to use as default
      *        ['type']        = (list) A comma-separated list of document types to use as default
      *        ['search_type'] = (enum) Search operation type
-     *        ['body']        = (enum) Search operation type
+     *        ['body']        = (array|string) The request definitions (metadata-search request definition pairs), separated by newlines
      *
      * @param $params array Associative array of parameters
      *
@@ -557,7 +557,7 @@ class Client
      *        ['ttl']          = (duration) Expiration time for the document
      *        ['version']      = (number) Explicit version number for concurrency control
      *        ['version_type'] = (enum) Specific version type
-     *        ['body']         = (enum) Specific version type
+     *        ['body']         = (array) The document
      *
      * @param $params array Associative array of parameters
      *
@@ -648,7 +648,7 @@ class Client
      *        ['ttl']          = (duration) Expiration time for the document
      *        ['version']      = (number) Explicit version number for concurrency control
      *        ['version_type'] = (enum) Specific version type
-     *        ['body']         = (enum) Specific version type
+     *        ['body']         = (array) The document
      *
      * @param $params array Associative array of parameters
      *
@@ -690,7 +690,7 @@ class Client
      *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['routing']        = (string) Specific routing value
      *        ['source']         = (string) The URL-encoded request definition (instead of using request body)
-     *        ['body']           = (string) The URL-encoded request definition (instead of using request body)
+     *        ['body']           = (array) The request definition
      *
      * @param $params array Associative array of parameters
      *
@@ -805,7 +805,7 @@ class Client
      *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
      *        ['timeout']                  = (time) Explicit operation timeout
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
-     *        ['body']                     = (boolean) Specify whether to return document version as part of a hit
+     *        ['body']                     = (array|string) The search definition using the Query DSL
      *
      * @param $params array Associative array of parameters
      *
@@ -886,7 +886,7 @@ class Client
      *        ['timestamp']         = (time) Explicit timestamp for the document
      *        ['ttl']               = (duration) Expiration time for the document
      *        ['version_type']      = (number) Explicit version number for concurrency control
-     *        ['body']              = (number) Explicit version number for concurrency control
+     *        ['body']              = (array) The request definition using either `script` or partial `doc`
      *
      * @param $params array Associative array of parameters
      *

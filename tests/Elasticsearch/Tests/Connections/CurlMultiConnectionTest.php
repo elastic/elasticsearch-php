@@ -103,10 +103,11 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
 
         $opts = array();
         $connectionParams['curlMultiHandle'] = curl_multi_init();
+        $that = $this;
 
-        $argsValidator = function($args) {
-            $this->assertEquals($args[155], 5000);
-            $this->assertEquals($args[156], 5000);
+        $argsValidator = function($args) use ($that) {
+            $that->assertEquals($args[155], 5000);
+            $that->assertEquals($args[156], 5000);
 
             return true;
         };

@@ -1,4 +1,3 @@
-
 == Configuration
 
 Almost every aspect of the client is configurable.  The client is built around http://pimple.sensiolabs.org[Pimple] a light-weight dependency injection container.  Most users will only need to configure a few parameters to suit their needs.
@@ -41,7 +40,7 @@ $params['connectionParams']['auth'] = array(
 );
 $client = new Elasticsearch\Client($params);
 ----
-<1> Accepts four different options: `Basic`, `Digets`, `NTLM`, `Any`
+<1> Accepts four different options: `Basic`, `Digest`, `NTLM`, `Any`
 
 After being initialized with authentication credentials, all outgoing requests will automatically include the HTTP auth headers.
 

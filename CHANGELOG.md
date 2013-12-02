@@ -1,3 +1,19 @@
+## Release v0.4.3
+ - Disable SSL Verification and Header parsing in CurlMultiConnection [[0cf2c93]](http://github.com/elasticsearch/elasticsearch-php/commit/0cf2c938e5941a026687cda60bc6fdc76a494702)
+ - Add a Static Connection pool that does not ping [[6ec9cd5]](http://github.com/elasticsearch/elasticsearch-php/commit/6ec9cd5497c12dd9024e8dcd326134372aaec90d)
+ - Fix out-of-bounds error with StickyRoundRobinSelector [[043e8fb]](http://github.com/elasticsearch/elasticsearch-php/commit/043e8fbce79afe854b2b38347f6d92bfe45daba5)
+ - Make "No Ping" connection pool default [[4885009]](http://github.com/elasticsearch/elasticsearch-php/commit/488500929d31880ae15ed1588e4dbc8729e9a1cd)
+ - Refactor CurlMultiConnection's handling of curl options [[a72705d]](http://github.com/elasticsearch/elasticsearch-php/commit/a72705d7f7ae02cc8f45c2d14b1e0c0ec32387a8)
+ - Refactor handling of custom options in GuzzleConnection [[a8ebea5]](http://github.com/elasticsearch/elasticsearch-php/commit/a8ebea56ab378eb967c5f8226c774ff132ef0831)
+ - Reconcile configuration options and runtime options [[aeb123b]](http://github.com/elasticsearch/elasticsearch-php/commit/aeb123bf4f1750744d41939f69c7bbc50a88e11f)
+ - Increase timeout for YAML integration tests [[b3e0698]](http://github.com/elasticsearch/elasticsearch-php/commit/b3e0698bbfaa6793710810d0bcad632b257e282b)
+ - Fix parameter docblocks [[3a62636]](http://github.com/elasticsearch/elasticsearch-php/commit/3a62636e754ea85368359775afd4093e693657a3)
+ - Use test host env variable in test [[1db7d47]](http://github.com/elasticsearch/elasticsearch-php/commit/1db7d4736ac536561e2698d77e4eb3653986b90b)
+ - Fix edgecase where Ping throws exception instead of true/false [[72cd9e4]](http://github.com/elasticsearch/elasticsearch-php/commit/72cd9e474b5cd68421819e76242a4074c166301f)
+ - Pass $this as a re-named variable to closure, fixes test [[f690f8b]](http://github.com/elasticsearch/elasticsearch-php/commit/f690f8be56305452325a4c12837f8e01f37ab00b)
+ - Stricter enforcement of curl dependency [[9da9642]](http://github.com/elasticsearch/elasticsearch-php/commit/9da9642895d7ca12364993d69a33a62cf76c03b5)
+
+
 ## Release v0.4.2
  - Add include/exclude params to Get [e1259a4](http://github.com/elasticsearch/elasticsearch-php/commit/e1259a436a1213807041c36c2668d316c6b7915b)
  - Add _source to Explain [0b4215d](http://github.com/elasticsearch/elasticsearch-php/commit/0b4215d5b4ce9603a4c95b8deeaa3270f2a0666e)

@@ -59,7 +59,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      */
     public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
-        if (function_exists('curl_version') !== true) {
+        if (extension_loaded('curl') !== true) {
             $log->critical('Curl library/extension is required for CurlMultiConnection.');
             throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
         }

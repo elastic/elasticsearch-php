@@ -9,6 +9,7 @@ namespace Elasticsearch\Common;
 
 
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
@@ -299,6 +300,9 @@ class DICBuilder
         // Only used by some connections - won't be instantiated until used.
         $this->dic['curlMultiHandle'] = $this->dic->share(
             function () {
+                if (extension_loaded('curl') !== true) {
+                    throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
+                }
                 return curl_multi_init();
             }
         );

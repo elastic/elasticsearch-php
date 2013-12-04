@@ -39,6 +39,13 @@ class IndexingEvent extends AthleticEvent
 
         $this->setupClient = new Client();
         $indexParams['index']  = 'benchmarking_index';
+        $indexParams['body']['test']['_all']['enabled'] = false;
+        $indexParams['body']['test']['properties']['testField'] = array(
+            'type' => 'string',
+            'store' => 'no',
+            'index' => 'no'
+        );
+
         $this->setupClient->indices()->create($indexParams);
 
         $this->document = array();

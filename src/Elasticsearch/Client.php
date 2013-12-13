@@ -1292,7 +1292,7 @@ class Client
         }
 
         if (isset($parts['port']) !== true) {
-            $parts['port'] = 80;
+            $parts['port'] = 9200;
         }
 
          return array(

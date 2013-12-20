@@ -103,6 +103,19 @@ Searching is a hallmark of elasticsearch (no surprise there!), so let's perform 
     echo $queryResponse['hits']['hits'][0]['_id']; // Outputs 'abc'
 ```
 
+Update a document
+-----
+Let's update a document we have indexed:
+
+```php
+    $updateParams['index']          = 'my_index';
+    $updateParams['type']           = 'my_type';
+    $updateParams['id']             = 'my_id';
+    $updateParams['body']['doc']    = array('my_key' => 'new_value');
+
+    $retUpdate = $client->update($updateParams);
+```
+
 Delete a document
 -----
 

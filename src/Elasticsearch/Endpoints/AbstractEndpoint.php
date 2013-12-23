@@ -276,11 +276,23 @@ abstract class AbstractEndpoint
     {
         foreach ($params as &$param) {
             if (is_array($param) === true) {
-                $param = implode(",", $param);
+                if ($this->isNestedArray($param) !== true){
+                    $param = implode(",", $param);
+                }
+
             }
         }
 
         return $params;
+    }
+
+    private function isNestedArray($a) {
+        foreach ($a as $v) {
+            if (is_array($v)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

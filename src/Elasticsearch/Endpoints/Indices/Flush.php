@@ -41,8 +41,10 @@ class Flush extends AbstractEndpoint
         return array(
             'force',
             'full',
-            'ignore_indices',
             'refresh',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

@@ -38,8 +38,10 @@ class Segments extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_indices',
             'operation_threading',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

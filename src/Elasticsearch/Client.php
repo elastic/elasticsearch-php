@@ -243,6 +243,12 @@ class Client
 
 
     /**
+     *
+     * $params[''] @todo finish the rest of these params
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
      * @param array $params
      *
      * @return array
@@ -274,14 +280,16 @@ class Client
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of indices to restrict the results
-     *        ['type']           = (list) A comma-separated list of types to restrict the results
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['min_score']      = (number) Include only documents with a specific `_score` value in the result
-     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['routing']        = (string) Specific routing value
-     *        ['source']         = (string) The URL-encoded query definition (instead of using the request body)
-     *        ['body']           = (array) A query to restrict the results (optional)
+     * $params['index']              = (list) A comma-separated list of indices to restrict the results
+     *        ['type']               = (list) A comma-separated list of types to restrict the results
+     *        ['min_score']          = (number) Include only documents with a specific `_score` value in the result
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['routing']            = (string) Specific routing value
+     *        ['source']             = (string) The URL-encoded query definition (instead of using the request body)
+     *        ['body']               = (array) A query to restrict the results (optional)
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *

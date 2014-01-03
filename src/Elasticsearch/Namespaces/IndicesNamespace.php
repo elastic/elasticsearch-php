@@ -58,8 +58,10 @@ class IndicesNamespace extends AbstractNamespace
 
     /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['operation_threading'] = () TODO: ?
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -253,8 +255,10 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -345,11 +349,13 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['force']          = (boolean) TODO: ?
-     *        ['full']           = (boolean) TODO: ?
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['refresh']        = (boolean) Refresh the index after performing the operation
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['force']              = (boolean) TODO: ?
+     *        ['full']               = (boolean) TODO: ?
+     *        ['refresh']            = (boolean) Refresh the index after performing the operation
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -375,8 +381,10 @@ class IndicesNamespace extends AbstractNamespace
 
     /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['operation_threading'] = () TODO: ?
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -401,9 +409,11 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
-     *        ['type']           = (list) A comma-separated list of document types to check (Required)
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
+     *        ['type']               = (list) A comma-separated list of document types to check (Required)
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -781,12 +791,14 @@ class IndicesNamespace extends AbstractNamespace
     /**
      * $params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
-     *        ['ignore_indices']       = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
      *        ['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
      *        ['operation_threading']  = () TODO: ?
      *        ['refresh']              = (boolean) Specify whether the index should be refreshed after performing the operation (default: true)
      *        ['wait_for_merge']       = (boolean) Specify whether the request should block until the merge process is finished (default: true)
+     *        ['ignore_unavailable']   = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']     = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -905,17 +917,19 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']          = (list) A comma-separated list of index name to limit the operation
-     *        ['field_data']     = (boolean) Clear field data
-     *        ['fielddata']      = (boolean) Clear field data
-     *        ['fields']         = (list) A comma-separated list of fields to clear when using the `field_data` parameter (default: all)
-     *        ['filter']         = (boolean) Clear filter caches
-     *        ['filter_cache']   = (boolean) Clear filter caches
-     *        ['filter_keys']    = (boolean) A comma-separated list of keys to clear when using the `filter_cache` parameter (default: all)
-     *        ['id']             = (boolean) Clear ID caches for parent/child
-     *        ['id_cache']       = (boolean) Clear ID caches for parent/child
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['recycler']       = (boolean) Clear the recycler cache
+     * $params['index']              = (list) A comma-separated list of index name to limit the operation
+     *        ['field_data']         = (boolean) Clear field data
+     *        ['fielddata']          = (boolean) Clear field data
+     *        ['fields']             = (list) A comma-separated list of fields to clear when using the `field_data` parameter (default: all)
+     *        ['filter']             = (boolean) Clear filter caches
+     *        ['filter_cache']       = (boolean) Clear filter caches
+     *        ['filter_keys']        = (boolean) A comma-separated list of keys to clear when using the `filter_cache` parameter (default: all)
+     *        ['id']                 = (boolean) Clear ID caches for parent/child
+     *        ['id_cache']           = (boolean) Clear ID caches for parent/child
+     *        ['recycler']           = (boolean) Clear the recycler cache
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -971,8 +985,11 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['index']   = (list) A comma-separated list of index names to filter aliases
-     *        ['timeout'] = (time) Explicit timestamp for the document
+     * $params['index']              = (list) A comma-separated list of index names to filter aliases
+     *        ['timeout']            = (time) Explicit timestamp for the document
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *
@@ -996,9 +1013,11 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
-     * $params['name']           = (list) A comma-separated list of alias names to return (Required)
-     *        ['index']          = (list) A comma-separated list of index names to filter aliases
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     * $params['name']               = (list) A comma-separated list of alias names to return (Required)
+     *        ['index']              = (list) A comma-separated list of index names to filter aliases
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
      * @param $params array Associative array of parameters
      *

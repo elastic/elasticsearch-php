@@ -19,6 +19,7 @@ class Count extends AbstractEndpoint
     /**
      * @param $body
      *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -50,12 +51,14 @@ class Count extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_indices',
             'min_score',
             'operation_threading',
             'preference',
             'routing',
             'source',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

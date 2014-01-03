@@ -68,11 +68,13 @@ class DeleteByQuery extends AbstractEndpoint
     {
         return array(
             'consistency',
-            'ignore_indices',
             'replication',
             'routing',
             'source',
             'timeout',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

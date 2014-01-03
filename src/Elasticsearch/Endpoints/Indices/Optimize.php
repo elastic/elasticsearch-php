@@ -38,12 +38,14 @@ class Optimize extends AbstractEndpoint
     {
         return array(
             'flush',
-            'ignore_indices',
             'max_num_segments',
             'only_expunge_deletes',
             'operation_threading',
             'refresh',
             'wait_for_merge',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

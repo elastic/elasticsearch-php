@@ -45,9 +45,11 @@ class Clear extends AbstractEndpoint
             'filter_keys',
             'id',
             'id_cache',
-            'ignore_indices',
             'index',
             'recycler',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

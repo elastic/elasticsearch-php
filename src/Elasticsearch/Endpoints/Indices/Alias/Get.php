@@ -46,7 +46,9 @@ class Get extends AbstractAliasEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_indices',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards'
         );
     }
 

@@ -32,7 +32,12 @@ class ArrayToJSONSerializer implements SerializerInterface
         if (is_string($data) === true) {
             return $data;
         } else {
-            return json_encode($data);
+            $data = json_encode($data);
+            if ($data === '[]') {
+                return '{}';
+            } else {
+                return $data;
+            }
         }
 
 

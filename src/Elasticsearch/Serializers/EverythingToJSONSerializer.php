@@ -27,7 +27,12 @@ class EverythingToJSONSerializer implements SerializerInterface
      */
     public function serialize($data)
     {
-        return json_encode($data);
+        $data = json_encode($data);
+        if ($data === '[]') {
+            return '{}';
+        } else {
+            return $data;
+        }
     }
 
 

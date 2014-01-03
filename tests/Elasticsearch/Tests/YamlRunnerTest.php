@@ -112,6 +112,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function assertTruthy($value)
     {
+        echo "\n         |assertTruthy: ".json_encode($value)."\n";
+        ob_flush();
         if (!$value) {
             $this->fail("Value is not truthy: ".print_r($value, true));
         }
@@ -119,6 +121,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function assertFalsey($value)
     {
+        echo "\n         |assertFalsey: ".json_encode($value)."\n";
+        ob_flush();
         if ($value) {
             $this->fail("Value is not falsey: ".print_r($value, true));
         }
@@ -205,6 +209,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $values = $this->yaml->parse($document, false, false, false);
 
                     echo "   ".key($values)."\n";
+                    ob_flush();
                     try {
                         $ret  = $this->executeTestCase($values);
                     } catch (SetupSkipException $exception) {
@@ -261,7 +266,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
 
             foreach ($operators as $operator => $settings) {
-                echo "      >$operator: ";
+                echo "      > $operator: ";
+                ob_flush();
                 if ($operator === 'do') {
                     if (key($settings) === 'catch') {
 
@@ -269,6 +275,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         next($settings);
 
                         echo "(catch: $expectedError) ";
+                        ob_flush();
                     } else {
                         $expectedError = null;
                     }
@@ -276,12 +283,17 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $method = key($settings);
                     $hash   = $settings[$method];
 
-                    echo "$method\n";
+                    echo "\n         |$method\n";
+                    ob_flush();
+
 
                     $hash = $this->replaceWithStash($hash, $stash);
 
+
                     try {
                         $response = $this->callMethod($method, $hash);
+                        echo "         |".json_encode($response)."\n";
+                        ob_flush();
 
                         //$this->waitForYellow();
 
@@ -315,7 +327,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } catch (BadRequest400Exception $exception){
                         if ($expectedError === 'request') {
                             $this->assertTrue(true);
-                        } elseif (preg_match("/$expectedError/", $exception->getMessage()) === 1) {
+                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());

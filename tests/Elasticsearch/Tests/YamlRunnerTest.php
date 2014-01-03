@@ -8,6 +8,7 @@
 namespace Elasticsearch\Tests;
 use Elasticsearch;
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\ClientErrorResponseException;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
@@ -311,6 +312,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                         $response = array();
 
+                    } catch (BadRequest400Exception $exception){
+                        if ($expectedError === 'request') {
+                            $this->assertTrue(true);
+                        } elseif (preg_match("/$expectedError/", $exception->getMessage()) === 1) {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = array();
+
                     } catch (\Exception $exception) {
                         if ($expectedError === null) {
                             $this->fail($exception->getMessage());
@@ -355,7 +366,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 } elseif ($operator === "is_false") {
                     if (empty($settings) === true) {
                         $response = $this->replaceWithStash($response, $stash);
-                        $this->assertFalse($response);
+                        $this->assertFalsey($response);
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
                         $actual = $this->replaceWithStash($actual, $stash);

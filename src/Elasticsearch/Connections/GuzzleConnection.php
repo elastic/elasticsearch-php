@@ -9,6 +9,7 @@ namespace Elasticsearch\Connections;
 
 
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
@@ -234,6 +235,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             throw new Conflict409Exception($exceptionText, $statusCode, $exception);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
             throw new ScriptLangNotSupportedException($exceptionText. $statusCode);
+        } elseif ($statusCode === 400) {
+            throw new BadRequest400Exception($exceptionText, $statusCode, $exception);
         }
     }
 

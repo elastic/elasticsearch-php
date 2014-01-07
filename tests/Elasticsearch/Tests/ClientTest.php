@@ -88,7 +88,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $params = array(
             'retries' => 0,
-            'hosts' => array('localhost:abc')
+            'hosts' => array('localhost:8000')
         );
         $client = new Elasticsearch\Client($params);
         $client->exists(array("index" => 'test', 'id' => 'test'));

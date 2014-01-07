@@ -1,3 +1,0 @@
-[submodule "elasticsearch-api"]
-	path = elasticsearch-api
-	url = https://github.com/elasticsearch/elasticsearch.git

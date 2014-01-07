@@ -23,7 +23,8 @@
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.*@dev",
     "satooshi/php-coveralls": "dev-master",
-    "mikey179/vfsStream": "~1.2"
+    "mikey179/vfsStream": "~1.2",
+    "elasticsearch/elasticsearch_src" : "*"
   },
   "autoload": {
     "psr-0": {
@@ -31,5 +32,20 @@
       "Elasticsearch\\Tests" : "tests/",
       "Elasticsearch\\Benchmarks" : "benchmarks/"
     }
-  }
+  },
+  "repositories":[
+    {
+      "type":"package",
+      "package":{
+        "name":"elasticsearch/elasticsearch_src",
+        "description":"elasticsearch",
+        "version":"0.90.9",
+        "source":{
+          "type" : "git",
+          "url":"git://github.com/elasticsearch/elasticsearch.git",
+          "reference" : "4050aae925c19500dd442b59f1bca86333571c52"
+        }
+      }
+    }
+  ]
 }

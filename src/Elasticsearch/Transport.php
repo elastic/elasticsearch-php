@@ -146,7 +146,8 @@ class Transport
             throw $exception;
         }
 
-        $response    = array();
+        $response        = array();
+        $caughtException = null;
 
         try {
             if (isset($body) === true) {
@@ -173,6 +174,7 @@ class Transport
 
         } catch (Exceptions\Curl\OperationTimeoutException $exception) {
             $this->connectionPool->scheduleCheck();
+            $caughtException = $exception;
 
         } catch (Exceptions\ClientErrorResponseException $exception) {
             throw $exception;   //We need 4xx errors to go straight to the user, no retries
@@ -183,11 +185,16 @@ class Transport
         } catch (TransportException $exception) {
             $connection->markDead();
             $this->connectionPool->scheduleCheck();
+            $caughtException = $exception;
         }
 
         $shouldRetry = $this->shouldRetry($method, $uri, $params, $body);
         if ($shouldRetry === true) {
             return $this->performRequest($method, $uri, $params, $body);
+        }
+
+        if ($caughtException !== null) {
+            throw $caughtException;
         }
 
         return $response;

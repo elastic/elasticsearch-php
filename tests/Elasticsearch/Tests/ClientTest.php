@@ -56,6 +56,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @expectedException \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
+     */
+    public function testBadHost()
+    {
+        $params = array('hosts' => array (
+            '127.0.0.1:8200',
+        ));
+        $client = new Elasticsearch\Client($params);
+        $client->exists(array("index" => 'test', 'id' => 'test'));
+
+    }
+
+
+    /**
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
      */
     public function testConstructorIllegalPort()

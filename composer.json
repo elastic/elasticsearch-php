@@ -24,7 +24,7 @@
     "symfony/yaml": "2.4.*@dev",
     "satooshi/php-coveralls": "dev-master",
     "mikey179/vfsStream": "~1.2",
-    "elasticsearch/elasticsearch_src" : "*"
+    "elasticsearch/elasticsearch_src" : "dev-master"
   },
   "autoload": {
     "psr-0": {
@@ -39,11 +39,11 @@
       "package":{
         "name":"elasticsearch/elasticsearch_src",
         "description":"elasticsearch",
-        "version":"0.90.9",
+        "version":"dev-master",
         "source":{
           "type" : "git",
           "url":"git://github.com/elasticsearch/elasticsearch.git",
-          "reference" : "4050aae925c19500dd442b59f1bca86333571c52"
+          "reference" : "3cffe334ba6c2be9434c962c6944e74cf31df014"
         }
       }
     }

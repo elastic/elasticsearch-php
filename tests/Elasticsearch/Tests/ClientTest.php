@@ -81,6 +81,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @expectedException \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
+     */
+    public function testZeroRetries()
+    {
+        $params = array(
+            'retries' => 0,
+            'hosts' => array('localhost:abc')
+        );
+        $client = new Elasticsearch\Client($params);
+        $client->exists(array("index" => 'test', 'id' => 'test'));
+
+    }
+
 
     public function testConstructorEmptyPort()
     {

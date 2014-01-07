@@ -46,6 +46,7 @@ class DICBuilder
         'connectionPoolParams'  => array(
             'randomizeHosts' => true
         ),
+        'retries'               => null
     );
 
 

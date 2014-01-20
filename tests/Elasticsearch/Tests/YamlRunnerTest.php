@@ -91,7 +91,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         echo "\n>>>CLEARING<<<\n";
         $host = YamlRunnerTest::getHostEnvVar();
-        $ch = curl_init($host);
+        $ch = curl_init($host."/*");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
@@ -99,7 +99,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $response = curl_exec($ch);
         curl_close($ch);
 
-        $ch = curl_init($host."/_template/test");
+        $ch = curl_init($host."/_template/*");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);

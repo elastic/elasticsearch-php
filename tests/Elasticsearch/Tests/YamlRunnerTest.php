@@ -114,7 +114,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         echo "\n         |assertTruthy: ".json_encode($value)."\n";
         ob_flush();
-        if (!$value) {
+        if (isset($value) === false || $value === 0 || $value === false || $value === null || $value === '') {
             $this->fail("Value is not truthy: ".print_r($value, true));
         }
     }
@@ -123,7 +123,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         echo "\n         |assertFalsey: ".json_encode($value)."\n";
         ob_flush();
-        if ($value) {
+        if (!(isset($value) === false || $value === 0 || $value === false || $value === null || $value === '')) {
             $this->fail("Value is not falsey: ".print_r($value, true));
         }
     }

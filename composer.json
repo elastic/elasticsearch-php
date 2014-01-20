@@ -24,6 +24,7 @@
     "symfony/yaml": "2.4.*@dev",
     "satooshi/php-coveralls": "dev-master",
     "mikey179/vfsStream": "~1.2",
+    "twig/twig": "1.*",
     "elasticsearch/elasticsearch_src" : "dev-master"
   },
   "autoload": {

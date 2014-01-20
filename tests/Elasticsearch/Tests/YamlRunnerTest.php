@@ -211,7 +211,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "   ".key($values)."\n";
                     ob_flush();
                     try {
-                        $ret  = $this->executeTestCase($values);
+                        $ret  = $this->executeTestCase($values, $testFile);
                     } catch (SetupSkipException $exception) {
                         // @TODO refactor this! This is a gross hack
                         // This allows executeTestCase to signal that it encountered
@@ -255,7 +255,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         return $values;
     }
 
-    private function executeTestCase($test)
+    private function executeTestCase($test, $testFile)
     {
         $stash = array();
         $response = array();

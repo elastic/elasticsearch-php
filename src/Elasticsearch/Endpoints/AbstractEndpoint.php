@@ -92,7 +92,7 @@ abstract class AbstractEndpoint
                 throw $exception;
             } else {
                 //TODO return null or dedicated object here instead?
-                return array('data' => array());
+                return array('data' => $exception->getMessage());
             }
         }
 

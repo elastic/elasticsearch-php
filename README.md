@@ -19,6 +19,16 @@ Features
  - Pluggable connection pools to offer different connection strategies
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
 
+Version Matrix
+--------------
+Since there are breaking changes in Elasticsearch 1.0, you need to match your version of Elasticsearch to the appropriate version of this library.
+The master branch will always track Elasticsearch master.  Once 1.0.GA is released, a distinct 1.0 branch will be created to track Elasticsearch
+1.* releases.
+
+| Elasticsearch Version | Elasticsearch-PHP Branch |
+| --------------------- | ------------------------ |
+| >= 1.0                | dev-master               |
+| <= 0.90.*             | 0.4                      |
 
 Documentation
 --------------
@@ -28,7 +38,7 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file:
+1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file (change version to suit your version of Elasticsearch):
 
 ```json
     {

@@ -102,11 +102,11 @@ class {{ className|title }} extends AbstractEndpoint
         ${{ part }} = $this->{{ part }};
 {% endfor %}
         $uri   = "{{ data.url.default }}";
-
+{% set loopCounter = 0 %}
 {% for part, info in data.url.processed %}
 {% if info.count > 0 %}
 {% set counter = 0 %}
-        if ({% for param in info.params %}{% if counter == 0 %}isset(${{ param }}) === true{% else %} && isset(${{ param }}) === true{% endif %}{% set counter = counter + 1 %}{% endfor %}) {
+        {% if loopCounter != 0 %}else{% set loopCounter = 1 %}{% endif %}if ({% for param in info.params %}{% if counter == 0 %}isset(${{ param }}) === true{% else %} && isset(${{ param }}) === true{% endif %}{% set counter = counter + 1 %}{% endfor %}) {
             $uri = "{{ info.parsedPath }}";
         }
 {% endif %}

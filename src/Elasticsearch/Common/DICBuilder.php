@@ -7,12 +7,12 @@
 
 namespace Elasticsearch\Common;
 
-
-use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
+use Elasticsearch\Namespaces\NodesNamespace;
+use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Transport;
 use Psr\Log;
 use Pimple;
@@ -170,6 +170,8 @@ class DICBuilder
         $this->setTransportObj($hosts);
         $this->setClusterNamespaceObj();
         $this->setIndicesNamespaceObj();
+        $this->setNodesNamespaceObj();
+        $this->setSnapshotNamespaceObj();
         $this->setSharedConnectionParamsObj();
         $this->setCurlMultihandle();
         $this->setGuzzleClient();
@@ -262,6 +264,27 @@ class DICBuilder
             function ($dicParams) {
                 /** @var Pimple $dicParams */
                 return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
+            }
+        );
+    }
+
+    private function setNodesNamespaceObj()
+    {
+        $this->dic['nodesNamespace'] = $this->dic->share(
+            function ($dicParams) {
+                /** @var Pimple $dicParams */
+                return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
+            }
+        );
+    }
+
+
+    private function setSnapshotNamespaceObj()
+    {
+        $this->dic['snapshotNamespace'] = $this->dic->share(
+            function ($dicParams) {
+                /** @var Pimple $dicParams */
+                return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
             }
         );
     }

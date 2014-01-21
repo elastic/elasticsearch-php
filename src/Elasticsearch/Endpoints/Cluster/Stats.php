@@ -5,54 +5,53 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Cluster;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Stats
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Template
+ * @package Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Get extends AbstractEndpoint
+class Stats extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
+    private $node_id;
 
 
     /**
-     * @param $name
+     * @param $node_id
      *
      * @return $this
      */
-    public function setName($name)
+    public function setNode_Id($node_id)
     {
-        if (isset($name) !== true) {
+        if (isset($node_id) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->node_id = $node_id;
         return $this;
     }
 
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri   = "/_template";
+        $node_id = $this->node_id;
+        $uri   = "/_cluster/stats";
 
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        if (isset($node_id) === true) {
+            $uri = "/_cluster/stats/nodes/$node_id";
         }
 
         return $uri;
@@ -66,7 +65,7 @@ class Get extends AbstractEndpoint
     {
         return array(
             'flat_settings',
-            'local',
+            'human',
         );
     }
 

@@ -5,7 +5,7 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Warmer;
+namespace Elasticsearch\Endpoints\Snapshot;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
@@ -14,7 +14,7 @@ use Elasticsearch\Common\Exceptions;
  * Class Delete
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Warmer
+ * @package Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
@@ -22,22 +22,42 @@ use Elasticsearch\Common\Exceptions;
 
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of warmer names to delete (supports wildcards); use `_all` to delete all warmers in the specified indices. You must specify a name either in the uri or in the parameters.
-    private $name;
+    // A repository name
+    private $repository;
+
+
+    // A snapshot name
+    private $snapshot;
 
 
     /**
-     * @param $name
+     * @param $repository
      *
      * @return $this
      */
-    public function setName($name)
+    public function setRepository($repository)
     {
-        if (isset($name) !== true) {
+        if (isset($repository) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->repository = $repository;
+        return $this;
+    }
+
+
+    /**
+     * @param $snapshot
+     *
+     * @return $this
+     */
+    public function setSnapshot($snapshot)
+    {
+        if (isset($snapshot) !== true) {
+            return $this;
+        }
+
+        $this->snapshot = $snapshot;
         return $this;
     }
 
@@ -48,22 +68,22 @@ class Delete extends AbstractEndpoint
      */
     protected function getURI()
     {
-        if (isset($this->index) !== true) {
+        if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Delete'
+                'repository is required for Delete'
             );
         }
-        if (isset($this->name) !== true) {
+        if (isset($this->snapshot) !== true) {
             throw new Exceptions\RuntimeException(
-                'name is required for Delete'
+                'snapshot is required for Delete'
             );
         }
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/$index/_warmer/$name";
+        $repository = $this->repository;
+        $snapshot = $this->snapshot;
+        $uri   = "/_snapshot/$repository/$snapshot";
 
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_warmer/$name";
+        if (isset($repository) === true && isset($snapshot) === true) {
+            $uri = "/_snapshot/$repository/$snapshot";
         }
 
         return $uri;
@@ -77,7 +97,6 @@ class Delete extends AbstractEndpoint
     {
         return array(
             'master_timeout',
-            'name',
         );
     }
 

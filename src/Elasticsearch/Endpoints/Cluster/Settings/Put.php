@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints\Cluster\Settings;
@@ -12,11 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Put
- * @package Elasticsearch\Endpoints\Cluster
+ *
+ * @category Elasticsearch
+ * @package Elasticsearch\Endpoints\Cluster\Settings
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Put extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -38,16 +43,19 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
+
+
     /**
      * @return string
      */
     protected function getURI()
     {
-
         $uri   = "/_cluster/settings";
+
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -55,8 +63,10 @@ class Put extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'flat_settings',
         );
     }
+
 
     /**
      * @return string
@@ -64,6 +74,5 @@ class Put extends AbstractEndpoint
     protected function getMethod()
     {
         return 'PUT';
-
     }
 }

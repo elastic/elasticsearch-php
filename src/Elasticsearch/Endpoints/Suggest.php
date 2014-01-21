@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,11 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Suggest
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Suggest extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -39,20 +44,22 @@ class Suggest extends AbstractEndpoint
     }
 
 
+
     /**
      * @return string
      */
     protected function getURI()
     {
-
         $index = $this->index;
         $uri   = "/_suggest";
 
         if (isset($index) === true) {
             $uri = "/$index/_suggest";
         }
+
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -60,13 +67,28 @@ class Suggest extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_indices',
-            'operation_threading',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'preference',
             'routing',
             'source',
         );
     }
+
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Suggest');
+        }
+        return $this->body;
+    }
+
 
     /**
      * @return string

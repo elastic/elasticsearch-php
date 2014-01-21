@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -12,13 +12,18 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Analyze
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Indices
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Analyze extends AbstractEndpoint
 {
-
     /**
-     * @param string $body
+     * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
@@ -29,29 +34,32 @@ class Analyze extends AbstractEndpoint
             return $this;
         }
 
-        if (is_string($body) !== true) {
+        if (is_array($body) !== true) {
             throw new Exceptions\InvalidArgumentException(
-                'Body must be a string'
+                'Body must be an array'
             );
         }
         $this->body = $body;
         return $this;
     }
 
+
+
     /**
      * @return string
      */
     protected function getURI()
     {
-
         $index = $this->index;
         $uri   = "/_analyze";
 
         if (isset($index) === true) {
             $uri = "/$index/_analyze";
         }
+
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -66,9 +74,10 @@ class Analyze extends AbstractEndpoint
             'prefer_local',
             'text',
             'tokenizer',
-            'format'
+            'format',
         );
     }
+
 
     /**
      * @return string

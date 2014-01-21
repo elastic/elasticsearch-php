@@ -5,23 +5,31 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Mapping;
+namespace Elasticsearch\Endpoints\Snapshot;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put
+ * Class Create
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Mapping
+ * @package Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Put extends AbstractEndpoint
+class Create extends AbstractEndpoint
 {
+    // A repository name
+    private $repository;
+
+
+    // A snapshot name
+    private $snapshot;
+
+
     /**
      * @param array $body
      *
@@ -46,24 +54,59 @@ class Put extends AbstractEndpoint
 
 
     /**
+     * @param $repository
+     *
+     * @return $this
+     */
+    public function setRepository($repository)
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+
+        $this->repository = $repository;
+        return $this;
+    }
+
+
+    /**
+     * @param $snapshot
+     *
+     * @return $this
+     */
+    public function setSnapshot($snapshot)
+    {
+        if (isset($snapshot) !== true) {
+            return $this;
+        }
+
+        $this->snapshot = $snapshot;
+        return $this;
+    }
+
+
+    /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->type) !== true) {
+        if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for Put'
+                'repository is required for Create'
             );
         }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping/$type";
+        if (isset($this->snapshot) !== true) {
+            throw new Exceptions\RuntimeException(
+                'snapshot is required for Create'
+            );
+        }
+        $repository = $this->repository;
+        $snapshot = $this->snapshot;
+        $uri   = "/_snapshot/$repository/$snapshot";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mapping";
-        } elseif (isset($type) === true) {
-            $uri = "/_mapping/$type";
+        if (isset($repository) === true && isset($snapshot) === true) {
+            $uri = "/_snapshot/$repository/$snapshot";
         }
 
         return $uri;
@@ -76,26 +119,9 @@ class Put extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_conflicts',
-            'timeout',
             'master_timeout',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
+            'wait_for_completion',
         );
-    }
-
-
-    /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
-    protected function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Put Mapping');
-        }
-        return $this->body;
     }
 
 

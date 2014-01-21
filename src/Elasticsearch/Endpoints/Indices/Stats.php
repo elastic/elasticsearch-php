@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -12,47 +12,32 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Stats
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Indices
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Stats extends AbstractEndpoint
 {
-
-    /**
-     * @param string|array $fields
-     *
-     * @return $this
-     */
-    public function setFields($fields)
-    {
-        if (isset($fields) !== true) {
-            return $this;
-        }
-
-        if (is_array($fields) === true) {
-            $fields = implode(",", $fields);
-        }
-
-        $this->params['fields'] = $fields;
-        return $this;
-    }
+    // Limit the information returned the specific metrics.
+    private $metric;
 
 
     /**
-     * @param string|array $groups
+     * @param $metric
      *
      * @return $this
      */
-    public function setGroups($groups)
+    public function setMetric($metric)
     {
-        if (isset($groups) !== true) {
+        if (isset($metric) !== true) {
             return $this;
         }
 
-        if (is_array($groups) === true) {
-            $groups = implode(",", $groups);
-        }
-
-        $this->params['groups'] = $groups;
+        $this->metric = $metric;
         return $this;
     }
 
@@ -62,12 +47,21 @@ class Stats extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         $index = $this->index;
-        $uri   = "/$index/_stats";
+        $metric = $this->metric;
+        $uri   = "/_stats";
+
+        if (isset($index) === true && isset($metric) === true) {
+            $uri = "/$index/_stats/$metric";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_stats";
+        } elseif (isset($metric) === true) {
+            $uri = "/_stats/$metric";
+        }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -75,23 +69,16 @@ class Stats extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'all',
-            'clear',
-            'docs',
-            'fielddata',
-            'filter_cache',
-            'flush',
-            'get',
-            'id_cache',
-            'ignore_indices',
-            'indexing',
-            'merge',
-            'refresh',
-            'search',
-            'store',
-            'warmer',
+            'completion_fields',
+            'fielddata_fields',
+            'fields',
+            'groups',
+            'human',
+            'level',
+            'types',
         );
     }
+
 
     /**
      * @return string

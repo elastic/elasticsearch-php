@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,12 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Mlt
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Mlt extends AbstractEndpoint
 {
-
-
     /**
      * @param array $body
      *
@@ -40,38 +44,40 @@ class Mlt extends AbstractEndpoint
     }
 
 
+
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Mlt'
             );
         }
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Mlt'
             );
         }
-
         if (isset($this->type) !== true) {
             throw new Exceptions\RuntimeException(
                 'type is required for Mlt'
             );
         }
-
-        $id    = $this->id;
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
+        $type = $this->type;
         $uri   = "/$index/$type/$id/_mlt";
+
+        if (isset($index) === true && isset($type) === true && isset($id) === true) {
+            $uri = "/$index/$type/$id/_mlt";
+        }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -82,10 +88,10 @@ class Mlt extends AbstractEndpoint
             'boost_terms',
             'max_doc_freq',
             'max_query_terms',
-            'max_word_len',
+            'max_word_length',
             'min_doc_freq',
             'min_term_freq',
-            'min_word_len',
+            'min_word_length',
             'mlt_fields',
             'percent_terms_to_match',
             'routing',
@@ -100,6 +106,7 @@ class Mlt extends AbstractEndpoint
             'stop_words',
         );
     }
+
 
     /**
      * @return string

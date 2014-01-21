@@ -1,20 +1,46 @@
 <?php
 /**
  * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Delete
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Indices\Template
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
-class Delete extends AbstractTemplateEndpoint
+
+class Delete extends AbstractEndpoint
 {
+    // The name of the template
+    private $name;
+
+
+    /**
+     * @param $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        if (isset($name) !== true) {
+            return $this;
+        }
+
+        $this->name = $name;
+        return $this;
+    }
+
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -22,18 +48,21 @@ class Delete extends AbstractTemplateEndpoint
      */
     protected function getURI()
     {
-
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
                 'name is required for Delete'
             );
         }
-
         $name = $this->name;
         $uri   = "/_template/$name";
 
+        if (isset($name) === true) {
+            $uri = "/_template/$name";
+        }
+
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -42,8 +71,10 @@ class Delete extends AbstractTemplateEndpoint
     {
         return array(
             'timeout',
+            'master_timeout',
         );
     }
+
 
     /**
      * @return string

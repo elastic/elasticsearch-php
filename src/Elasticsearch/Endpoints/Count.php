@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,12 +12,18 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Count
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Count extends AbstractEndpoint
 {
     /**
-     * @param $body
+     * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
@@ -37,13 +43,26 @@ class Count extends AbstractEndpoint
         return $this;
     }
 
+
+
     /**
      * @return string
      */
     protected function getURI()
     {
-        return $this->getOptionalURI('_count');
+        $index = $this->index;
+        $type = $this->type;
+        $uri   = "/_count";
+
+        if (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_count";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_count";
+        }
+
+        return $uri;
     }
+
 
     /**
      * @return string[]
@@ -51,16 +70,16 @@ class Count extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'min_score',
-            'operation_threading',
             'preference',
             'routing',
             'source',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards'
         );
     }
+
 
     /**
      * @return string
@@ -69,5 +88,4 @@ class Count extends AbstractEndpoint
     {
         return 'GET';
     }
-
 }

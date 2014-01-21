@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints\Indices;
@@ -12,11 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Segments
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Indices
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Segments extends AbstractEndpoint
 {
-
     /**
      * @return string
      */
@@ -32,18 +37,21 @@ class Segments extends AbstractEndpoint
         return $uri;
     }
 
+
     /**
      * @return string[]
      */
     protected function getParamWhitelist()
     {
         return array(
-            'operation_threading',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'human',
+            'operation_threading',
         );
     }
+
 
     /**
      * @return string

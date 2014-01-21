@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 15:31:18 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -13,25 +13,30 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Search
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Search extends AbstractEndpoint
 {
-
     /**
-     * @param $query
+     * @param array $body
      *
-     * @return $this
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
      */
-    public function setBody($query)
+    public function setBody($body)
     {
-        if (isset($query) !== true) {
+        if (isset($body) !== true) {
             return $this;
         }
 
-        if (is_string($query) === true || is_array($query) === true) {
-            $this->body = $query;
+        if (is_string($body) === true || is_array($body) === true) {
+            $this->body = $body;
         } else {
             throw new InvalidArgumentException(
                 'Query must be a string or array'
@@ -41,13 +46,26 @@ class Search extends AbstractEndpoint
         return $this;
     }
 
+
+
     /**
      * @return string
      */
     protected function getURI()
     {
-        return $this->getOptionalURI('_search');
+        $index = $this->index;
+        $type = $this->type;
+        $uri   = "/_search";
+
+        if (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_search";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_search";
+        }
+
+        return $uri;
     }
+
 
     /**
      * @return string[]
@@ -62,11 +80,12 @@ class Search extends AbstractEndpoint
             'explain',
             'fields',
             'from',
-            'ignore_indices',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'indices_boost',
             'lenient',
             'lowercase_expanded_terms',
-            'operation_threading',
             'preference',
             'q',
             'routing',
@@ -76,8 +95,8 @@ class Search extends AbstractEndpoint
             'sort',
             'source',
             '_source',
-            '_source_include',
             '_source_exclude',
+            '_source_include',
             'stats',
             'suggest_field',
             'suggest_mode',
@@ -88,6 +107,7 @@ class Search extends AbstractEndpoint
         );
     }
 
+
     /**
      * @return string
      */
@@ -95,5 +115,4 @@ class Search extends AbstractEndpoint
     {
         return 'GET';
     }
-
 }

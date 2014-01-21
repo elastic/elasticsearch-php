@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,11 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Update
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Update extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -39,38 +44,40 @@ class Update extends AbstractEndpoint
     }
 
 
+
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Update'
             );
         }
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Update'
             );
         }
-
         if (isset($this->type) !== true) {
             throw new Exceptions\RuntimeException(
                 'type is required for Update'
             );
         }
-
-        $id    = $this->id;
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
+        $type = $this->type;
         $uri   = "/$index/$type/$id/_update";
+
+        if (isset($index) === true && isset($type) === true && isset($id) === true) {
+            $uri = "/$index/$type/$id/_update";
+        }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -82,7 +89,6 @@ class Update extends AbstractEndpoint
             'fields',
             'lang',
             'parent',
-            'percolate',
             'refresh',
             'replication',
             'retry_on_conflict',
@@ -93,9 +99,9 @@ class Update extends AbstractEndpoint
             'ttl',
             'version',
             'version_type',
-            'ignore'
         );
     }
+
 
     /**
      * @return string

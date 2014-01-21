@@ -5,44 +5,41 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Create
+ * Class Clearscroll
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices
+ * @package Elasticsearch\Endpoints
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Create extends AbstractEndpoint
+class Clearscroll extends AbstractEndpoint
 {
+    // A comma-separated list of scroll IDs to clear
+    private $scroll_id;
+
+
     /**
-     * @param array $body
+     * @param $scroll_id
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
-    public function setBody($body)
+    public function setScroll_Id($scroll_id)
     {
-        if (isset($body) !== true) {
+        if (isset($scroll_id) !== true) {
             return $this;
         }
 
-        if (is_array($body) !== true) {
-            throw new Exceptions\InvalidArgumentException(
-                'Body must be an array'
-            );
-        }
-        $this->body = $body;
+        $this->scroll_id = $scroll_id;
         return $this;
     }
-
 
 
     /**
@@ -51,16 +48,16 @@ class Create extends AbstractEndpoint
      */
     protected function getURI()
     {
-        if (isset($this->index) !== true) {
+        if (isset($this->scroll_id) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Create'
+                'scroll_id is required for Clearscroll'
             );
         }
-        $index = $this->index;
-        $uri   = "/$index";
+        $scroll_id = $this->scroll_id;
+        $uri   = "/_search/scroll/$scroll_id";
 
-        if (isset($index) === true) {
-            $uri = "/$index";
+        if (isset($scroll_id) === true) {
+            $uri = "/_search/scroll/$scroll_id";
         }
 
         return $uri;
@@ -73,8 +70,6 @@ class Create extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'timeout',
-            'master_timeout',
         );
     }
 
@@ -84,10 +79,6 @@ class Create extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if (isset($this->body['mappings']) === true) {
-            return 'POST';
-        } else {
-            return 'PUT';
-        }
+        return 'DELETE';
     }
 }

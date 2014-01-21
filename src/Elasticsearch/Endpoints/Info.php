@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,23 +12,27 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Info
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Info extends AbstractEndpoint
 {
-
-
-
     /**
      * @return string
      */
     protected function getURI()
     {
-
         $uri   = "/";
+
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -38,6 +42,7 @@ class Info extends AbstractEndpoint
         return array(
         );
     }
+
 
     /**
      * @return string

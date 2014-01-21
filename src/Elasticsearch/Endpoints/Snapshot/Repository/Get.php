@@ -5,7 +5,7 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Snapshot\Repository;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
@@ -14,7 +14,7 @@ use Elasticsearch\Common\Exceptions;
  * Class Get
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Template
+ * @package Elasticsearch\Endpoints\Snapshot\Repository
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
@@ -22,37 +22,36 @@ use Elasticsearch\Common\Exceptions;
 
 class Get extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    // A comma-separated list of repository names
+    private $repository;
 
 
     /**
-     * @param $name
+     * @param $repository
      *
      * @return $this
      */
-    public function setName($name)
+    public function setRepository($repository)
     {
-        if (isset($name) !== true) {
+        if (isset($repository) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->repository = $repository;
         return $this;
     }
 
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri   = "/_template";
+        $repository = $this->repository;
+        $uri   = "/_snapshot";
 
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        if (isset($repository) === true) {
+            $uri = "/_snapshot/$repository";
         }
 
         return $uri;
@@ -65,7 +64,7 @@ class Get extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'flat_settings',
+            'master_timeout',
             'local',
         );
     }

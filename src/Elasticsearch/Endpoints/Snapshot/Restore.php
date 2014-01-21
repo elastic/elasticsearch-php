@@ -5,23 +5,31 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints;
+namespace Elasticsearch\Endpoints\Snapshot;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Percolate
+ * Class Restore
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints
+ * @package Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Percolate extends AbstractEndpoint
+class Restore extends AbstractEndpoint
 {
+    // A repository name
+    private $repository;
+
+
+    // A snapshot name
+    private $snapshot;
+
+
     /**
      * @param array $body
      *
@@ -46,27 +54,59 @@ class Percolate extends AbstractEndpoint
 
 
     /**
+     * @param $repository
+     *
+     * @return $this
+     */
+    public function setRepository($repository)
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+
+        $this->repository = $repository;
+        return $this;
+    }
+
+
+    /**
+     * @param $snapshot
+     *
+     * @return $this
+     */
+    public function setSnapshot($snapshot)
+    {
+        if (isset($snapshot) !== true) {
+            return $this;
+        }
+
+        $this->snapshot = $snapshot;
+        return $this;
+    }
+
+
+    /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->index) !== true) {
+        if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Percolate'
+                'repository is required for Restore'
             );
         }
-        if (isset($this->type) !== true) {
+        if (isset($this->snapshot) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for Percolate'
+                'snapshot is required for Restore'
             );
         }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/_percolate";
+        $repository = $this->repository;
+        $snapshot = $this->snapshot;
+        $uri   = "/_snapshot/$repository/$snapshot/_restore";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_percolate";
+        if (isset($repository) === true && isset($snapshot) === true) {
+            $uri = "/_snapshot/$repository/$snapshot/_restore";
         }
 
         return $uri;
@@ -79,21 +119,9 @@ class Percolate extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'prefer_local',
+            'master_timeout',
+            'wait_for_completion',
         );
-    }
-
-
-    /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
-    protected function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Percolate');
-        }
-        return $this->body;
     }
 
 
@@ -102,6 +130,6 @@ class Percolate extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

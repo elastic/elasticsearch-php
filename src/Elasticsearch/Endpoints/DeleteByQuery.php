@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -11,12 +11,17 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class DeleteByQuery
+ * Class Deletebyquery
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
-class DeleteByQuery extends AbstractEndpoint
-{
 
+class Deletebyquery extends AbstractEndpoint
+{
     /**
      * @param array $body
      *
@@ -38,6 +43,8 @@ class DeleteByQuery extends AbstractEndpoint
         return $this;
     }
 
+
+
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
@@ -46,20 +53,22 @@ class DeleteByQuery extends AbstractEndpoint
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Delete'
+                'index is required for Deletebyquery'
             );
         }
-
         $index = $this->index;
-        $type  = $this->type;
+        $type = $this->type;
         $uri   = "/$index/_query";
 
-        if (isset($type) === true) {
+        if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_query";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_query";
         }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -67,16 +76,21 @@ class DeleteByQuery extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'analyzer',
             'consistency',
+            'default_operator',
+            'df',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'replication',
+            'q',
             'routing',
             'source',
             'timeout',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards'
         );
     }
+
 
     /**
      * @return string

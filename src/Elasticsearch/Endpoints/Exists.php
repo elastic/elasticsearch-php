@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 7/23/13
- * Time: 4:51 PM
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,43 +12,49 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Exists
- * @package Elasticsearch\Endpoints\Indices\Exists
+ *
+ * @category Elasticsearch
+ * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Exists extends AbstractEndpoint
 {
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Exists'
-            );
-        }
-
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Exists'
             );
         }
-
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Exists'
+            );
+        }
+        if (isset($this->type) !== true) {
+            throw new Exceptions\RuntimeException(
+                'type is required for Exists'
+            );
+        }
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
+        $type = $this->type;
+        $uri   = "/$index/$type/$id";
 
-        if (isset($type) === true) {
-            $uri  = "/$index/$type/$id";
-        } else {
-            $uri  = "/$index/_all/$id";
+        if (isset($index) === true && isset($type) === true && isset($id) === true) {
+            $uri = "/$index/$type/$id";
         }
 
         return $uri;
-
     }
+
 
     /**
      * @return string[]
@@ -58,11 +64,12 @@ class Exists extends AbstractEndpoint
         return array(
             'parent',
             'preference',
-            'refresh',
             'realtime',
-            'routing'
+            'refresh',
+            'routing',
         );
     }
+
 
     /**
      * @return string

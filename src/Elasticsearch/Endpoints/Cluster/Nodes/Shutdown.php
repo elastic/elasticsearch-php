@@ -5,54 +5,53 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Shutdown
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Template
+ * @package Elasticsearch\Endpoints\Cluster\Nodes
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Get extends AbstractEndpoint
+class Shutdown extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    // A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you&#039;re connected to, leave empty to perform the operation on all nodes
+    private $node_id;
 
 
     /**
-     * @param $name
+     * @param $node_id
      *
      * @return $this
      */
-    public function setName($name)
+    public function setNodeID($node_id)
     {
-        if (isset($name) !== true) {
+        if (isset($node_id) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->node_id = $node_id;
         return $this;
     }
 
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri   = "/_template";
+        $node_id = $this->node_id;
+        $uri   = "/_shutdown";
 
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        if (isset($node_id) === true) {
+            $uri = "/_cluster/nodes/$node_id/_shutdown";
         }
 
         return $uri;
@@ -65,8 +64,8 @@ class Get extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'flat_settings',
-            'local',
+            'delay',
+            'exit',
         );
     }
 
@@ -76,6 +75,6 @@ class Get extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

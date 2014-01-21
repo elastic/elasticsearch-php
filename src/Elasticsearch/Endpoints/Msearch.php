@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -14,13 +14,16 @@ use Elasticsearch\Transport;
 
 /**
  * Class Msearch
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
-class Msearch extends AbstractEndpoint implements BulkEndpointInterface
-{
-    /** @var SerializerInterface  */
-    private $serializer;
 
+class Msearch extends AbstractEndpoint
+{
 
     /**
      * @param Transport           $transport
@@ -57,13 +60,26 @@ class Msearch extends AbstractEndpoint implements BulkEndpointInterface
         return $this;
     }
 
+
+
     /**
      * @return string
      */
     protected function getURI()
     {
-        return $this->getOptionalURI('_msearch');
+        $index = $this->index;
+        $type = $this->type;
+        $uri   = "/_msearch";
+
+        if (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_msearch";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_msearch";
+        }
+
+        return $uri;
     }
+
 
     /**
      * @return string[]
@@ -74,6 +90,20 @@ class Msearch extends AbstractEndpoint implements BulkEndpointInterface
             'search_type',
         );
     }
+
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for MSearch');
+        }
+        return $this->body;
+    }
+
 
     /**
      * @return string

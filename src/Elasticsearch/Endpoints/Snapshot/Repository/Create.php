@@ -5,23 +5,27 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Indices\Mapping;
+namespace Elasticsearch\Endpoints\Snapshot\Repository;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put
+ * Class Create
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Mapping
+ * @package Elasticsearch\Endpoints\Snapshot\Repository
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 
-class Put extends AbstractEndpoint
+class Create extends AbstractEndpoint
 {
+    // A repository name
+    private $repository;
+
+
     /**
      * @param array $body
      *
@@ -46,24 +50,37 @@ class Put extends AbstractEndpoint
 
 
     /**
+     * @param $repository
+     *
+     * @return $this
+     */
+    public function setRepository($repository)
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+
+        $this->repository = $repository;
+        return $this;
+    }
+
+
+    /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->type) !== true) {
+        if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for Put'
+                'repository is required for Create'
             );
         }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping/$type";
+        $repository = $this->repository;
+        $uri   = "/_snapshot/$repository";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mapping";
-        } elseif (isset($type) === true) {
-            $uri = "/_mapping/$type";
+        if (isset($repository) === true) {
+            $uri = "/_snapshot/$repository";
         }
 
         return $uri;
@@ -76,12 +93,8 @@ class Put extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'ignore_conflicts',
-            'timeout',
             'master_timeout',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
+            'timeout',
         );
     }
 
@@ -93,7 +106,7 @@ class Put extends AbstractEndpoint
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Put Mapping');
+            throw new Exceptions\RuntimeException('Body is required for Create Repository');
         }
         return $this->body;
     }

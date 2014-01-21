@@ -1,8 +1,8 @@
 <?php
 /**
  * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
+ * Date: 01/20/2014
+ * Time: 14:34:49 pm
  */
 
 namespace Elasticsearch\Endpoints;
@@ -12,11 +12,16 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Get
+ *
+ * @category Elasticsearch
  * @package Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
+
 class Get extends AbstractEndpoint
 {
-
 
     /** @var bool  */
     private $returnOnlySource = false;
@@ -34,7 +39,6 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return $this
      */
@@ -51,27 +55,28 @@ class Get extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Get'
             );
         }
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Get'
             );
         }
-
-        $id    = $this->id;
+        if (isset($this->type) !== true) {
+            throw new Exceptions\RuntimeException(
+                'type is required for Get'
+            );
+        }
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
+        $type = $this->type;
+        $uri   = "/$index/$type/$id";
 
-        if (isset($type) === true) {
+        if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id";
-        } else {
-            $uri = "/$index/_all/$id";
         }
 
         if ($this->returnOnlySource === true) {
@@ -80,6 +85,7 @@ class Get extends AbstractEndpoint
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -93,14 +99,14 @@ class Get extends AbstractEndpoint
             'realtime',
             'refresh',
             'routing',
-            'ignore',
-            'exclude',
-            'include',
             '_source',
+            '_source_exclude',
             '_source_include',
-            '_source_exclude'
+            'version',
+            'version_type',
         );
     }
+
 
     /**
      * @return string

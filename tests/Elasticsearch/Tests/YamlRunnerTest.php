@@ -83,6 +83,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $params['hosts'] = array($uri['host'].':'.$uri['port']);
         $params['connectionParams']['timeout'] = 10000;
+        $params['logging'] = true;
+        $params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
         $this->client = new Elasticsearch\Client($params);
 
     }
@@ -198,33 +200,43 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         foreach ($files as $testFile) {
             echo "$testFile\n";
             ob_flush();
-            $this->clearCluster();
 
             $fileData = file_get_contents($testFile);
             $documents = array_filter(explode("---", $fileData));
 
+            $yamlDocs = array();
+            $setup = null;
             foreach ($documents as $document) {
                 try {
-                    $document = $this->checkForTimestamp($testFile, $document);
-                    $values = $this->yaml->parse($document, false, false, false);
+                    $tDoc = array();
+                    $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
+                    $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, true, false);
 
-                    echo "   ".key($values)."\n";
-                    ob_flush();
-                    try {
-                        $ret  = $this->executeTestCase($values, $testFile);
-                    } catch (SetupSkipException $exception) {
-                        // @TODO refactor this! This is a gross hack
-                        // This allows executeTestCase to signal that it encountered
-                        // a skip in a setup
-
-                        break;  //skip all remaining tests in this file
+                    if (key($tDoc['values']) === 'setup') {
+                        $setup = $tDoc['values'];
+                    } else {
+                        $yamlDocs[] = $tDoc;
                     }
-
 
                 } catch (ParseException $e) {
                     printf("Unable to parse the YAML string: %s", $e->getMessage());
                 }
             }
+
+            foreach ($yamlDocs as $doc) {
+                echo "   ".key($doc['values'])."\n";
+                ob_flush();
+
+                $this->clearCluster();
+
+                if ($setup !== null) {
+                    $this->executeTestCase($setup, $testFile);
+                }
+               $this->executeTestCase($doc['values'], $testFile);
+
+            }
+
+
         }
 
 
@@ -326,6 +338,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     } catch (BadRequest400Exception $exception){
                         if ($expectedError === 'request') {
+                            $this->assertTrue(true);
+                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = array();
+
+                    } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception){
+                        if ($expectedError === 'param') {
                             $this->assertTrue(true);
                         } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
                             $this->assertTrue(true);

@@ -357,11 +357,11 @@ class DICBuilder
     {
         $this->dic['endpoint'] = function ($dicParams) {
             return function($class) use ($dicParams) {
-                $class = '\\Elasticsearch\\Endpoints\\'.$class;
-                if (array_key_exists('Elasticsearch\Endpoints\BulkEndpointInterface', class_implements($class, true)) === true) {
-                    return new $class($dicParams['transport'], $dicParams['serializer']);
+                $fullPath = '\\Elasticsearch\\Endpoints\\'.$class;
+                if ($class === 'Bulk' || $class === 'Msearch') {
+                    return new $fullPath($dicParams['transport'], $dicParams['serializer']);
                 } else {
-                    return new $class($dicParams['transport']);
+                    return new $fullPath($dicParams['transport']);
                 }
 
             };

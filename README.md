@@ -5,9 +5,6 @@ Official low-level client for Elasticsearch. Its goal is to provide common groun
 
 To maintain consistency across all the low-level clients (Ruby, Python, etc), clients accept simple associative arrays as parameters.  All parameters, from the URI to the document body, are defined in the associative array.
 
-| Branch | Unit Tests | Coverage |
-| ------ | ---------- | -------- |
-| [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable.png)](https://packagist.org/packages/elasticsearch/elasticsearch) | [![Build Status](https://travis-ci.org/elasticsearch/elasticsearch-php.png?branch=master)](https://travis-ci.org/elasticsearch/elasticsearch-php) | [![Coverage Status](https://coveralls.io/repos/elasticsearch/elasticsearch-php/badge.png?branch=master)](https://coveralls.io/r/elasticsearch/elasticsearch-php?branch=master) |
 
 Features
 --------

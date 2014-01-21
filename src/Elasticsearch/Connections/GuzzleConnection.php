@@ -202,13 +202,13 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $this->log->error($exceptionText);
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            throw new RoutingMissingException($exceptionText, $statusCode, $exception);
+            throw new RoutingMissingException($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
-            throw new NoDocumentsToGetException($exceptionText, $statusCode, $exception);
+            throw new NoDocumentsToGetException($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            throw new NoShardAvailableException($exceptionText, $statusCode, $exception);
+            throw new NoShardAvailableException($responseBody, $statusCode, $exception);
         } else {
-            throw new \Elasticsearch\Common\Exceptions\ServerErrorResponseException($exceptionText, $statusCode, $exception);
+            throw new \Elasticsearch\Common\Exceptions\ServerErrorResponseException($responseBody, $statusCode, $exception);
         }
 
 
@@ -226,17 +226,17 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            throw new AlreadyExpiredException($exceptionText, $statusCode, $exception);
+            throw new AlreadyExpiredException($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 403) {
-            throw new Forbidden403Exception($exceptionText, $statusCode, $exception);
+            throw new Forbidden403Exception($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 404) {
-            throw new Missing404Exception($exceptionText, $statusCode, $exception);
+            throw new Missing404Exception($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 409) {
-            throw new Conflict409Exception($exceptionText, $statusCode, $exception);
+            throw new Conflict409Exception($responseBody, $statusCode, $exception);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            throw new ScriptLangNotSupportedException($exceptionText. $statusCode);
+            throw new ScriptLangNotSupportedException($responseBody. $statusCode);
         } elseif ($statusCode === 400) {
-            throw new BadRequest400Exception($exceptionText, $statusCode, $exception);
+            throw new BadRequest400Exception($responseBody, $statusCode, $exception);
         }
     }
 

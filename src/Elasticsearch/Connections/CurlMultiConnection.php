@@ -241,17 +241,17 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            throw new AlreadyExpiredException($exceptionText, $statusCode);
+            throw new AlreadyExpiredException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
-            throw new Forbidden403Exception($exceptionText, $statusCode);
+            throw new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
-            throw new Missing404Exception($exceptionText, $statusCode);
+            throw new Missing404Exception($responseBody, $statusCode);
         } elseif ($statusCode === 409) {
-            throw new Conflict409Exception($exceptionText, $statusCode);
+            throw new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            throw new ScriptLangNotSupportedException($exceptionText. $statusCode);
+            throw new ScriptLangNotSupportedException($responseBody. $statusCode);
         } elseif ($statusCode === 400) {
-            throw new BadRequest400Exception($exceptionText, $statusCode);
+            throw new BadRequest400Exception($responseBody, $statusCode);
         }
     }
 
@@ -278,13 +278,13 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         $this->log->error($exceptionText);
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            throw new RoutingMissingException($exceptionText, $statusCode);
+            throw new RoutingMissingException($responseBody, $statusCode);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
-            throw new NoDocumentsToGetException($exceptionText, $statusCode);
+            throw new NoDocumentsToGetException($responseBody, $statusCode);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            throw new NoShardAvailableException($exceptionText, $statusCode);
+            throw new NoShardAvailableException($responseBody, $statusCode);
         } else {
-            throw new ServerErrorResponseException($exceptionText, $statusCode);
+            throw new ServerErrorResponseException($responseBody, $statusCode);
         }
 
 

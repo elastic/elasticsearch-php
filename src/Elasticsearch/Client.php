@@ -16,6 +16,8 @@ use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
+use Elasticsearch\Namespaces\NodesNamespace;
+use Elasticsearch\Namespaces\SnapshotNamespace;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
@@ -52,6 +54,16 @@ class Client
      */
     protected $cluster;
 
+    /**
+     * @var NodesNamespace
+     */
+    protected $nodes;
+
+    /**
+     * @var NodesNamespace
+     */
+    protected $snapshot;
+
     /** @var  callback */
     protected $dicEndpoints;
 
@@ -68,6 +80,8 @@ class Client
         $this->transport    = $this->params['transport'];
         $this->indices      = $this->params['indicesNamespace'];
         $this->cluster      = $this->params['clusterNamespace'];
+        $this->nodes        = $this->params['nodesNamespace'];
+        $this->snapshot     = $this->params['snapshotNamespace'];
         $this->dicEndpoints = $this->params['endpoint'];
     }
 
@@ -951,6 +965,28 @@ class Client
     public function cluster()
     {
         return $this->cluster;
+    }
+
+
+    /**
+     * Operate on the Nodes namespace of commands
+     *
+     * @return NodesNamespace
+     */
+    public function nodes()
+    {
+        return $this->nodes;
+    }
+
+
+    /**
+     * Operate on the Snapshot namespace of commands
+     *
+     * @return SnapshotNamespace
+     */
+    public function snapshot()
+    {
+        return $this->snapshot;
     }
 
 

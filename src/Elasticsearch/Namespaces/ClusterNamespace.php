@@ -37,7 +37,7 @@ class ClusterNamespace extends AbstractNamespace
     public function health($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -64,7 +64,7 @@ class ClusterNamespace extends AbstractNamespace
     public function reroute($params = array())
     {
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -116,7 +116,7 @@ class ClusterNamespace extends AbstractNamespace
     public function putSettings($params = array())
     {
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */

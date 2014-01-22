@@ -29,10 +29,10 @@ class SnapshotNamespace extends AbstractNamespace
     public function create($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        unset($params['snapshot']);
+        
 
 
         /** @var callback $endpointBuilder */
@@ -59,10 +59,10 @@ class SnapshotNamespace extends AbstractNamespace
     public function createRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -88,10 +88,10 @@ class SnapshotNamespace extends AbstractNamespace
     public function delete($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        unset($params['snapshot']);
+        
 
 
         /** @var callback $endpointBuilder */
@@ -118,7 +118,7 @@ class SnapshotNamespace extends AbstractNamespace
     public function deleteRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
 
         /** @var callback $endpointBuilder */
@@ -143,10 +143,10 @@ class SnapshotNamespace extends AbstractNamespace
     public function get($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        unset($params['snapshot']);
+        
 
 
         /** @var callback $endpointBuilder */
@@ -173,7 +173,7 @@ class SnapshotNamespace extends AbstractNamespace
     public function getRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
 
         /** @var callback $endpointBuilder */
@@ -199,10 +199,10 @@ class SnapshotNamespace extends AbstractNamespace
     public function restore($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        unset($params['repository']);
+        
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        unset($params['snapshot']);
+        
 
 
         /** @var callback $endpointBuilder */

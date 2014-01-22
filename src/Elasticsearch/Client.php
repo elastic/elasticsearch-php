@@ -149,13 +149,13 @@ class Client
     public function get($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -190,13 +190,13 @@ class Client
     public function getSource($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -233,13 +233,13 @@ class Client
     public function delete($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -270,13 +270,13 @@ class Client
     public function deleteByQuery($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -312,13 +312,13 @@ class Client
     public function count($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -348,13 +348,13 @@ class Client
     public function percolate($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -388,13 +388,13 @@ class Client
     public function exists($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -456,16 +456,16 @@ class Client
     public function mlt($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -504,13 +504,13 @@ class Client
     public function mget($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -540,13 +540,13 @@ class Client
     public function msearch($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -587,16 +587,16 @@ class Client
     public function create($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -630,13 +630,13 @@ class Client
     public function bulk($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -678,16 +678,16 @@ class Client
     public function index($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -720,10 +720,10 @@ class Client
     public function suggest($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -767,16 +767,16 @@ class Client
     public function explain($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -835,13 +835,13 @@ class Client
     public function search($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -870,11 +870,8 @@ class Client
     public function scroll($params = array())
     {
         $scrollID = $this->extractArgument($params, 'scroll_id');
-        unset($params['scroll_id']);
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -916,16 +913,16 @@ class Client
     public function update($params)
     {
         $id = $this->extractArgument($params, 'id');
-        unset($params['id']);
+
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -1158,10 +1155,16 @@ class Client
      *
      * @return null|mixed
      */
-    private function extractArgument($params, $arg)
+    public function extractArgument(&$params, $arg)
     {
+        if (is_object($params) === true) {
+            $params = (array)$params;
+        }
+
         if (isset($params[$arg]) === true) {
-            return $params[$arg];
+            $val = $params[$arg];
+            unset($params[$arg]);
+            return $val;
         } else {
             return null;
         }

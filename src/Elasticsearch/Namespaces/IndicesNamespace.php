@@ -30,7 +30,7 @@ class IndicesNamespace extends AbstractNamespace
     public function exists($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -70,7 +70,7 @@ class IndicesNamespace extends AbstractNamespace
     public function segments($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -96,7 +96,7 @@ class IndicesNamespace extends AbstractNamespace
     public function deleteTemplate($params)
     {
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -123,13 +123,13 @@ class IndicesNamespace extends AbstractNamespace
     public function deleteWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -157,7 +157,7 @@ class IndicesNamespace extends AbstractNamespace
     public function delete($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -202,10 +202,8 @@ class IndicesNamespace extends AbstractNamespace
     public function stats($params = array())
     {
         $metric = $this->extractArgument($params, '$metric');
-        unset($params['$metric']);
 
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -231,10 +229,10 @@ class IndicesNamespace extends AbstractNamespace
     public function putSettings($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -263,7 +261,7 @@ class IndicesNamespace extends AbstractNamespace
     public function snapshotIndex($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -289,10 +287,10 @@ class IndicesNamespace extends AbstractNamespace
     public function getMapping($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -320,13 +318,10 @@ class IndicesNamespace extends AbstractNamespace
     public function getFieldMapping($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
 
         $field = $this->extractArgument($params, 'field');
-        unset($params['field']);
 
 
         /** @var callback $endpointBuilder */
@@ -360,7 +355,7 @@ class IndicesNamespace extends AbstractNamespace
     public function flush($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -389,7 +384,7 @@ class IndicesNamespace extends AbstractNamespace
     public function refresh($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -418,10 +413,10 @@ class IndicesNamespace extends AbstractNamespace
     public function existsType($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -461,13 +456,13 @@ class IndicesNamespace extends AbstractNamespace
     public function putAlias($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -496,13 +491,13 @@ class IndicesNamespace extends AbstractNamespace
     public function getWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -532,16 +527,16 @@ class IndicesNamespace extends AbstractNamespace
     public function putWarmer($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -572,10 +567,10 @@ class IndicesNamespace extends AbstractNamespace
     public function putTemplate($params)
     {
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -607,13 +602,13 @@ class IndicesNamespace extends AbstractNamespace
     public function validateQuery($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -643,10 +638,10 @@ class IndicesNamespace extends AbstractNamespace
     public function getAlias($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -676,13 +671,13 @@ class IndicesNamespace extends AbstractNamespace
     public function putMapping($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -709,10 +704,10 @@ class IndicesNamespace extends AbstractNamespace
     public function deleteMapping($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $type = $this->extractArgument($params, 'type');
-        unset($params['type']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -738,7 +733,7 @@ class IndicesNamespace extends AbstractNamespace
     public function getTemplate($params)
     {
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -763,7 +758,7 @@ class IndicesNamespace extends AbstractNamespace
     public function existsTemplate($params)
     {
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -801,10 +796,10 @@ class IndicesNamespace extends AbstractNamespace
     public function create($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -839,7 +834,7 @@ class IndicesNamespace extends AbstractNamespace
     public function optimize($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -866,10 +861,10 @@ class IndicesNamespace extends AbstractNamespace
     public function deleteAlias($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -896,7 +891,7 @@ class IndicesNamespace extends AbstractNamespace
     public function open($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -929,10 +924,10 @@ class IndicesNamespace extends AbstractNamespace
     public function analyze($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -970,7 +965,7 @@ class IndicesNamespace extends AbstractNamespace
     public function clearCache($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -997,10 +992,10 @@ class IndicesNamespace extends AbstractNamespace
     public function updateAliases($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $body = $this->extractArgument($params, 'body');
-        unset($params['body']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -1027,10 +1022,10 @@ class IndicesNamespace extends AbstractNamespace
     public function getAliases($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -1059,10 +1054,10 @@ class IndicesNamespace extends AbstractNamespace
     public function existsAlias($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -1103,7 +1098,7 @@ class IndicesNamespace extends AbstractNamespace
     public function status($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -1128,10 +1123,10 @@ class IndicesNamespace extends AbstractNamespace
     public function getSettings($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
         $name = $this->extractArgument($params, 'name');
-        unset($params['name']);
+
 
 
         /** @var callback $endpointBuilder */
@@ -1158,7 +1153,7 @@ class IndicesNamespace extends AbstractNamespace
     public function close($params)
     {
         $index = $this->extractArgument($params, 'index');
-        unset($params['index']);
+
 
 
         /** @var callback $endpointBuilder */

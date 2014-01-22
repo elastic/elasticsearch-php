@@ -108,6 +108,10 @@ abstract class AbstractEndpoint
      */
     public function setParams($params)
     {
+        if (is_object($params) === true) {
+            $params = (array)$params;
+        }
+
         $this->checkUserParams($params);
         $this->params = $this->convertArraysToStrings($params);
         $this->extractIgnore();

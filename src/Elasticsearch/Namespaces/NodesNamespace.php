@@ -42,13 +42,10 @@ class NodesNamespace extends AbstractNamespace
     public function stats($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
-        unset($params['node_id']);
 
         $metric = $this->extractArgument($params, 'metric');
-        unset($params['metric']);
 
         $index_metric = $this->extractArgument($params, 'index_metric');
-        unset($params['index_metric']);
 
 
         /** @var callback $endpointBuilder */
@@ -85,8 +82,6 @@ class NodesNamespace extends AbstractNamespace
     public function info($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
-        unset($params['node_id']);
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -113,7 +108,6 @@ class NodesNamespace extends AbstractNamespace
     public function hotThreads($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
-        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */
@@ -139,7 +133,6 @@ class NodesNamespace extends AbstractNamespace
     public function shutdown($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
-        unset($params['node_id']);
 
 
         /** @var callback $endpointBuilder */

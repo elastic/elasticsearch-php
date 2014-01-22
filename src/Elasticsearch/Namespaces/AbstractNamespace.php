@@ -47,10 +47,16 @@ abstract class AbstractNamespace
      *
      * @return null|mixed
      */
-    public function extractArgument($params, $arg)
+    public function extractArgument(&$params, $arg)
     {
+        if (is_object($params) === true) {
+            $params = (array)$params;
+        }
+
         if (isset($params[$arg]) === true) {
-            return $params[$arg];
+            $val = $params[$arg];
+            unset($params[$arg]);
+            return $val;
         } else {
             return null;
         }

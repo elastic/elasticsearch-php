@@ -380,7 +380,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     $expected = $this->replaceWithStash($expected, $stash);
                     $actual = $this->replaceWithStash($actual, $stash);
+                    if (is_object($expected) === true) {
+                        $expected = (array)$expected;
+                    }
                     $this->assertEquals($expected, $actual);
+                    //$this->assertSame()
 
                     echo "\n";
 

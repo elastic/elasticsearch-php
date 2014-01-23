@@ -2,7 +2,7 @@
 
 Elasticsearch-php only has a three requirements that you need to worry about:
 
-* PHP 5.3.9 or higher (link:php-version-requirement.asciidoc[See this for explanation as to minimum version requirement]
+* PHP 5.3.9 or higher (refer to <<_php_version_requirement>> for more details)
 * http://getcomposer.org[Composer]
 * http://php.net/manual/en/book.curl.php[ext-curl]: the Libcurl extension for PHP
 

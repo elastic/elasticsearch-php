@@ -8,7 +8,7 @@ Elasticsearch-php only has a three requirements that you need to worry about:
 
 The rest of the dependencies will automatically be downloaded and installed by Composer.  Composer is a package and dependency manager for PHP.  Installing elasticsearch-php with Composer is very easy
 
-== Version Matrix
+=== Version Matrix
 
 Since there are breaking changes in Elasticsearch 1.0, you need to match your version of Elasticsearch to the appropriate version of this library.
 The master branch will always track Elasticsearch master.  Once 1.0.GA is released, a distinct 1.0 branch will be created to track Elasticsearch
@@ -17,8 +17,7 @@ The master branch will always track Elasticsearch master.  Once 1.0.GA is releas
 .Version Matrix
 [options="header"]
 |===================================================
-| Elasticsearch Version | Elasticsearch-PHP Branch 
-| --------------------- | ------------------------ 
+| Elasticsearch Version | Elasticsearch-PHP Branch
 | >= 1.0                | dev-master               
 | <= 0.90.*             | 0.4                      
 |===================================================

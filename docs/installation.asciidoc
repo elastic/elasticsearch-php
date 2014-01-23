@@ -1,4 +1,3 @@
-
 == Installation
 
 Elasticsearch-php only has a three requirements that you need to worry about:
@@ -18,11 +17,11 @@ The master branch will always track Elasticsearch master.  Once 1.0.GA is releas
 .Version Matrix
 [options="header"]
 |===================================================
-| Elasticsearch Version | Elasticsearch-PHP Branch |
-| --------------------- | ------------------------ |
-| >= 1.0                | dev-master               |
-| <= 0.90.*             | 0.4                      |
-====================================================
+| Elasticsearch Version | Elasticsearch-PHP Branch 
+| --------------------- | ------------------------ 
+| >= 1.0                | dev-master               
+| <= 0.90.*             | 0.4                      
+|===================================================
 
 
 === Composer Installation

@@ -20,7 +20,7 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class Stats extends AbstractEndpoint
+class Stats extends AbstractNodesEndpoint
 {
     // Limit the information returned to the specified metrics
     private $metric;
@@ -28,11 +28,6 @@ class Stats extends AbstractEndpoint
 
     // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices` (or `all`) metric isn&#039;t specified.
     private $indexMetric;
-
-
-    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
-    private $node_id;
-
 
     /**
      * @param $metric
@@ -75,29 +70,13 @@ class Stats extends AbstractEndpoint
 
 
     /**
-     * @param $node_id
-     *
-     * @return $this
-     */
-    public function setNodeID($node_id)
-    {
-        if (isset($node_id) !== true) {
-            return $this;
-        }
-
-        $this->node_id = $node_id;
-        return $this;
-    }
-
-
-    /**
      * @return string
      */
     protected function getURI()
     {
         $metric = $this->metric;
         $index_metric = $this->indexMetric;
-        $node_id = $this->node_id;
+        $node_id = $this->nodeID;
         $uri   = "/_nodes/stats";
 
         if (isset($node_id) === true && isset($metric) === true && isset($index_metric) === true) {

@@ -20,34 +20,15 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class Shutdown extends AbstractEndpoint
+class Shutdown extends AbstractNodesEndpoint
 {
-    // A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you&#039;re connected to, leave empty to perform the operation on all nodes
-    private $node_id;
-
-
-    /**
-     * @param $node_id
-     *
-     * @return $this
-     */
-    public function setNodeID($node_id)
-    {
-        if (isset($node_id) !== true) {
-            return $this;
-        }
-
-        $this->node_id = $node_id;
-        return $this;
-    }
-
 
     /**
      * @return string
      */
     protected function getURI()
     {
-        $node_id = $this->node_id;
+        $node_id = $this->nodeID;
         $uri   = "/_shutdown";
 
         if (isset($node_id) === true) {

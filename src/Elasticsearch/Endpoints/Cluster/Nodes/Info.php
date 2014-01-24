@@ -20,31 +20,11 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class Info extends AbstractEndpoint
+class Info extends AbstractNodesEndpoint
 {
-    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
-    private $node_id;
-
 
     // A comma-separated list of metrics you wish returned. Leave empty to return all.
     private $metric;
-
-
-    /**
-     * @param $node_id
-     *
-     * @return $this
-     */
-    public function setNodeID($node_id)
-    {
-        if (isset($node_id) !== true) {
-            return $this;
-        }
-
-        $this->node_id = $node_id;
-        return $this;
-    }
-
 
     /**
      * @param $metric
@@ -71,7 +51,7 @@ class Info extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $node_id = $this->node_id;
+        $node_id = $this->nodeID;
         $metric = $this->metric;
         $uri   = "/_nodes";
 

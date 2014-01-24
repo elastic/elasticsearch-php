@@ -170,7 +170,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
             /** @var FilesystemIterator $object */
             if ($object->isFile() === true && $object->getFilename() !== 'README.asciidoc' && $object->getFilename() !== 'TODO.txt') {
-                $files[] = array($object->getPathInfo()->getRealPath()."/".$object->getBasename());
+                $path = $object->getPathInfo()->getRealPath()."/".$object->getBasename();
+                $files[] = array($path);
             }
         }
 
@@ -200,6 +201,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         foreach ($files as $testFile) {
             echo "$testFile\n";
             ob_flush();
+
+            if ($this->skipTest($testFile) === true) {
+                $this->markTestSkipped('Skipped due to skip-list');
+            }
 
             $fileData = file_get_contents($testFile);
             $documents = array_filter(explode("---", $fileData));
@@ -523,6 +528,23 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         (?::(?P<tz_minute>[0-9][0-9]))?))?)?
         ~x
 EOF;
+    }
+
+    private function skipTest($path)
+    {
+        $skipList = array(
+            'indices.delete_mapping/all_path_options.yaml',
+            'indices.exists_type/10_basic.yaml',
+            'indices.get_mapping/10_basic.yaml'
+        );
+
+        foreach ($skipList as $skip) {
+            if (strpos($path, $skip) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

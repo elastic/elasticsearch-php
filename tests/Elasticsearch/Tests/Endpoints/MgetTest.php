@@ -27,7 +27,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
 
     public function testSetBody()
     {
-        $query['docs'] = '1';
+        $body['docs'] = '1';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
@@ -35,68 +35,53 @@ class MgetTest extends \PHPUnit_Framework_TestCase
                                  m::any(),
                                  m::any(),
                                  array(),
-                                 $query
+                                 $body
                              )
                          ->getMock();
 
         $action = new Mget($mockTransport);
-        $action->setBody($query)
+        $action->setBody($body)
         ->performRequest();
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Mget($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
 
     public function testGetURIWithNoIndexOrType()
     {
 
         $uri = '/_mget';
-
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
                                  array(),
-                                 m::any()
+                                 $body
                              )
                          ->getMock();
 
         $action = new Mget($mockTransport);
-        $action->performRequest();
+        $action->setBody($body)->performRequest();
 
     }
 
     public function testGetURIWithIndexButNoType()
     {
         $uri = '/testIndex/_mget';
-
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
                                  array(),
-                                 m::any()
+                                 $body
                              )
                          ->getMock();
 
         $action = new Mget($mockTransport);
-        $action->setIndex('testIndex')
+        $action->setBody($body)->setIndex('testIndex')
         ->performRequest();
 
     }
@@ -104,20 +89,20 @@ class MgetTest extends \PHPUnit_Framework_TestCase
     public function testGetURIWithTypeButNoIndex()
     {
 
-        $uri = '/testType/_mget';
-
+        $uri = '/_all/testType/_mget';
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
                                  array(),
-                                 m::any()
+                                 $body
                              )
                          ->getMock();
 
         $action = new Mget($mockTransport);
-        $action->setType('testType')
+        $action->setBody($body)->setType('testType')
         ->performRequest();
 
     }
@@ -126,7 +111,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
     {
 
         $uri = '/testIndex/testType/_mget';
-
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
@@ -138,7 +123,7 @@ class MgetTest extends \PHPUnit_Framework_TestCase
                          ->getMock();
 
         $action = new Mget($mockTransport);
-        $action->setIndex('testIndex')
+        $action->setBody($body)->setIndex('testIndex')
         ->setType('testType')
         ->performRequest();
 

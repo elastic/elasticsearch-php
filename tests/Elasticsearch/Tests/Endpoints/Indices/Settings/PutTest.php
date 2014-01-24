@@ -45,54 +45,39 @@ class PutTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalBody()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Put($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
-
     public function testValidSegmentsWithNoIndex()
     {
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'PUT',
                                  '/_settings',
                                  array(),
-                                 null
+                                 array('docs' => 1)
                              )
                          ->getMock();
 
         $action = new Put($mockTransport);
-        $action->performRequest();
+        $action->setBody($body)->performRequest();
 
     }
 
     public function testValidSegmentsWithIndex()
     {
-
+        $body['docs'] = '1';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'PUT',
                                  '/testIndex/_settings',
                                  array(),
-                                 null
+                                 array('docs' => 1)
                              )
                          ->getMock();
 
         $action = new Put($mockTransport);
-        $action->setIndex('testIndex')
+        $action->setBody($body)->setIndex('testIndex')
         ->performRequest();
 
     }

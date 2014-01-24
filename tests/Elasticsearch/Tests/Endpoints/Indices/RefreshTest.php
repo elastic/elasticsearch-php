@@ -28,7 +28,7 @@ class RefreshTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'POST',
+                                 'GET',
                                  '/_refresh',
                                  array(),
                                  null
@@ -46,7 +46,7 @@ class RefreshTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'POST',
+                                 'GET',
                                  '/testIndex/_refresh',
                                  array(),
                                  null

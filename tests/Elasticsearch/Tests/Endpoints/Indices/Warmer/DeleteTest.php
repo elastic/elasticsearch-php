@@ -38,42 +38,32 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testDeleteWithIndex()
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testDeleteWithOnlyIndex()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'DELETE',
-                                 '/testIndex/_warmer',
-                                 array(),
-                                 null
-                             )
-                         ->getMock();
+        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Delete($mockTransport);
         $action->setIndex('testIndex')->performRequest();
 
     }
 
-    public function testDeleteWithIndexAndType()
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testDeleteWithOnlyName()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'DELETE',
-                                 '/testIndex/testType/_warmer',
-                                 array(),
-                                 null
-                             )
-                         ->getMock();
+        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Delete($mockTransport);
-        $action->setIndex('testIndex')->setType('testType')->performRequest();
+        $action->setName('testName')->performRequest();
 
     }
-
     public function testDeleteWithIndexAndName()
     {
 
@@ -89,24 +79,6 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
         $action = new Delete($mockTransport);
         $action->setIndex('testIndex')->setName('testName')->performRequest();
-
-    }
-
-    public function testDeleteWithIndexTypeAndName()
-    {
-
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'DELETE',
-                                 '/testIndex/testType/_warmer/testName',
-                                 array(),
-                                 null
-                             )
-                         ->getMock();
-
-        $action = new Delete($mockTransport);
-        $action->setIndex('testIndex')->setType('testType')->setName('testName')->performRequest();
 
     }
 

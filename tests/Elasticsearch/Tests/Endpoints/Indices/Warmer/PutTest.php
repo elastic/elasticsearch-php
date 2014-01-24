@@ -26,13 +26,18 @@ class PutTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testPutNoIndex()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')->once()
+                         ->with(
+                                 'PUT',
+                                 '/_warmer/testName',
+                                 array(),
+                                 null
+                             )
+                         ->getMock();
 
         $action = new Put($mockTransport);
         $action->setName('testName')->setBody(array())->performRequest();
@@ -104,22 +109,5 @@ class PutTest extends \PHPUnit_Framework_TestCase
         $action->setIndex('testIndex')->setName('testName')->setBody($body)->setType('testType')->performRequest();
 
     }
-
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testPutWithIllegalBody()
-    {
-        $body = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Put($mockTransport);
-        $action->setBody($body);
-
-    }
-
-
 
 }

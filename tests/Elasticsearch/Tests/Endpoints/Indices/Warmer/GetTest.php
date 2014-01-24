@@ -25,13 +25,18 @@ class GetTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testGetNoIndex()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')->once()
+                         ->with(
+                                 'GET',
+                                 '/_warmer',
+                                 array(),
+                                 null
+                             )
+                         ->getMock();
 
         $action = new Get($mockTransport);
         $action->performRequest();
@@ -56,18 +61,14 @@ class GetTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
+    /**
+     * @expectedException RuntimeException
+     */
     public function testGetWithIndexAndType()
     {
 
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'GET',
-                                 '/testIndex/testType/_warmer',
-                                 array(),
-                                 null
-                             )
-                         ->getMock();
+        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Get($mockTransport);
         $action->setIndex('testIndex')->setType('testType')->performRequest();

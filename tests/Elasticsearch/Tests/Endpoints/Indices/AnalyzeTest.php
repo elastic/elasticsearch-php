@@ -45,22 +45,6 @@ class AnalyzeTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $body = array('field' => 'value');
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Analyze($mockTransport);
-        $action->setBody($body)
-        ->performRequest();
-
-    }
-
     public function testGetURIWithNoIndex()
     {
 

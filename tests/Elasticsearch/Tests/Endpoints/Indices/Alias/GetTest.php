@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Tests\Endpoints\Indices\Alias;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\Indices\Alias\Get;
 use Mockery as m;
 
@@ -25,25 +24,35 @@ class GetTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-
-    /**
-     * @expectedException RuntimeException
-     */
     public function testNoIndexOrName()
     {
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')->once()
+                         ->with(
+                                 'GET',
+                                 '/_alias',
+                                 array(),
+                                 null
+                             )
+                         ->getMock();
 
         $action = new Get($mockTransport);
         $action->performRequest();
 
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
+
     public function testNoName()
     {
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')->once()
+                         ->with(
+                                 'GET',
+                                 '/testIndex/_alias',
+                                 array(),
+                                 null
+                             )
+                         ->getMock();
 
         $action = new Get($mockTransport);
         $action->setIndex('testIndex')->performRequest();

@@ -36,22 +36,6 @@ class CreateTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $body = 'abc';
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Create($mockTransport);
-        $action->setBody($body);
-
-    }
-
-
     /**
      * @expectedException RuntimeException
      */

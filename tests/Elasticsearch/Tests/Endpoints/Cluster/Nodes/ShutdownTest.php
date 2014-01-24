@@ -8,17 +8,17 @@
 namespace Elasticsearch\Tests\Endpoints\Cluster\Node;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Cluster\Node\HotThreads;
+use Elasticsearch\Endpoints\Cluster\Nodes\Shutdown;
 use Mockery as m;
 
 /**
- * Class SettingsTest
+ * Class ShutdownTest
  * @package Elasticsearch\Tests\Endpoints\Indices\Cluster\Node
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class SettingsTest extends \PHPUnit_Framework_TestCase
+class ShutdownTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -30,14 +30,14 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()->once()
                          ->with(
-                                 'GET',
-                                 '/_cluster/nodes/abc/hot_threads',
+                                 'POST',
+                                 '/_cluster/nodes/abc/_shutdown',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new HotThreads($mockTransport);
+        $action = new Shutdown($mockTransport);
         $action->setNodeID('abc')
         ->performRequest();
 
@@ -51,9 +51,9 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
     {
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new HotThreads($mockTransport);
+        $action = new Shutdown($mockTransport);
 
-        $nodeID = array('field' => 'value');
+        $nodeID = new \stdClass();
 
         $action->setNodeID($nodeID)
         ->performRequest();
@@ -65,14 +65,14 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'GET',
-                                 '/_cluster/nodes/hot_threads',
+                                 'POST',
+                                 '/_shutdown',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new HotThreads($mockTransport);
+        $action = new Shutdown($mockTransport);
         $action->performRequest();
 
     }

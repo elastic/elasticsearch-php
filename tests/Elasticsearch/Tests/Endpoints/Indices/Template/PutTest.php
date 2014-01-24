@@ -64,21 +64,6 @@ class PutTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testInvalidBody()
-    {
-        $body = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $index = new Put($mockTransport);
-        $index->setIndex('testType')->setBody($body);
-
-    }
-
     public function testValidPut()
     {
         $body = array('field' => 'value');

@@ -5,20 +5,20 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Cluster\Node;
+namespace Elasticsearch\Tests\Endpoints\Cluster\Nodes;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Cluster\Node\Info;
+use Elasticsearch\Endpoints\Cluster\Nodes\HotThreads;
 use Mockery as m;
 
 /**
- * Class InfoTest
+ * Class SettingsTest
  * @package Elasticsearch\Tests\Endpoints\Indices\Cluster\Node
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class InfoTest extends \PHPUnit_Framework_TestCase
+class HotThreadsTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -31,13 +31,13 @@ class InfoTest extends \PHPUnit_Framework_TestCase
                          ->shouldReceive('performRequest')->once()->once()
                          ->with(
                                  'GET',
-                                 '/_cluster/nodes/abc',
+                                 '/_cluster/nodes/abc/hotthreads',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Info($mockTransport);
+        $action = new HotThreads($mockTransport);
         $action->setNodeID('abc')
         ->performRequest();
 
@@ -51,12 +51,11 @@ class InfoTest extends \PHPUnit_Framework_TestCase
     {
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Info($mockTransport);
+        $action = new HotThreads($mockTransport);
 
-        $nodeID = array('field' => 'value');
+        $nodeID = new \stdClass();
 
-        $action->setNodeID($nodeID)
-        ->performRequest();
+        $action->setNodeID($nodeID);;
 
     }
 
@@ -66,13 +65,13 @@ class InfoTest extends \PHPUnit_Framework_TestCase
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
-                                 '/_cluster/nodes',
+                                 '/_cluster/nodes/hotthreads',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Info($mockTransport);
+        $action = new HotThreads($mockTransport);
         $action->performRequest();
 
     }

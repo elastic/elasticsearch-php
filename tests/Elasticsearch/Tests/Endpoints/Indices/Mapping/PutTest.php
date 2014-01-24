@@ -29,19 +29,6 @@ class PutTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException RuntimeException
      */
-    public function testNoIndex()
-    {
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $index = new Put($mockTransport);
-        $index->setBody(array())->setType('testType')->performRequest();
-
-    }
-
-    /**
-     * @expectedException RuntimeException
-     */
     public function testNoType()
     {
 
@@ -62,20 +49,6 @@ class PutTest extends \PHPUnit_Framework_TestCase
 
         $index = new Put($mockTransport);
         $index->setIndex('testType')->setType('testType')->performRequest();
-
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testInvalidBody()
-    {
-        $body = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $index = new Put($mockTransport);
-        $index->setIndex('testType')->setBody($body)->performRequest();
 
     }
 

@@ -25,18 +25,16 @@ class SuggestTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalBody()
-    {
-        $query = 5;
 
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testGetURIWithNoIndexOrBody()
+    {
+        $mockTransport = m::mock('\Elasticsearch\Transport');;
 
         $action = new Suggest($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
+        $action->performRequest();
 
     }
 
@@ -44,36 +42,37 @@ class SuggestTest extends \PHPUnit_Framework_TestCase
     {
 
         $uri = '/_suggest';
-
+        $body = 'abc';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
                                  $uri,
                                  array(),
-                                 m::any()
+                                 $body
                              )
                          ->getMock();
 
         $action = new Suggest($mockTransport);
-        $action->performRequest();
+        $action->setBody($body)->performRequest();
 
     }
 
     public function testValidSuggest()
     {
+        $body = 'abc';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
                                  '/testIndex/_suggest',
                                  array(),
-                                 null
+                                 $body
                              )
                          ->getMock();
 
         $action = new Suggest($mockTransport);
-        $action->setIndex('testIndex')
+        $action->setBody($body)->setIndex('testIndex')
         ->performRequest();
 
     }

@@ -28,17 +28,6 @@ class PutTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetStringBody()
-    {
-        $body = 'value';
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-        $action = new Put($mockTransport);
-        $action->setBody($body)->performRequest();
-    }
-
     public function testSetArrayBody()
     {
         $body = array('field' => 'value');
@@ -68,13 +57,18 @@ class PutTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testNoIndex()
     {
         $body = array('field' => 'value');
-        $mockTransport = m::mock('\Elasticsearch\Transport');
+        $mockTransport = m::mock('\Elasticsearch\Transport')
+                         ->shouldReceive('performRequest')->once()
+                         ->with(
+                                 'PUT',
+                                 '/_alias/testName',
+                                 array(),
+                                 $body
+                             )
+                         ->getMock();
 
         $action = new Put($mockTransport);
         $action->setBody($body)->setName('testName')->performRequest();

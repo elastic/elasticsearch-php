@@ -28,12 +28,12 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testSetStringBody()
     {
         $body = 'testQuery';
-
+        $uri = '/_search';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
-                                 m::any(),
+                                 $uri,
                                  array(),
                                  $body
                              )
@@ -48,12 +48,12 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testSetArrayQuery()
     {
         $query['query'] = 'testQuery';
-
+        $uri = '/_search';
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  m::any(),
-                                 m::any(),
+                                 $uri,
                                  array(),
                                  $query
                              )
@@ -66,25 +66,10 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $search = new Search($mockTransport);
-        $search->setBody($query)
-        ->performRequest();
-
-    }
-
     public function testGetURIWithNoIndexOrType()
     {
 
-        $uri = '/_all/_search';
+        $uri = '/_search';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()

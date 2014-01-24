@@ -8,8 +8,8 @@
 namespace Elasticsearch\Tests\Endpoints\Indices\Alias;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\Endpoints\Indices\Alias\Aliases;
+use Elasticsearch\Endpoints\Indices\Aliases\Get;
+use Elasticsearch\Endpoints\Indices\Aliases\Update;
 use Mockery as m;
 
 /**
@@ -26,17 +26,6 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetStringBody()
-    {
-        $body = 'value';
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-        $action = new Aliases($mockTransport);
-        $action->setBody($body)->performRequest();
-    }
-
     public function testSetArrayBody()
     {
         $body = array('field' => 'value');
@@ -50,7 +39,7 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Aliases($mockTransport);
+        $action = new Update($mockTransport);
         $action->setBody($body)->performRequest();
 
     }
@@ -68,7 +57,7 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Aliases($mockTransport);
+        $action = new Get($mockTransport);
         $action->performRequest();
 
     }
@@ -86,7 +75,7 @@ class AliasesTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Aliases($mockTransport);
+        $action = new Get($mockTransport);
         $action->setIndex('testIndex')->performRequest();
 
     }

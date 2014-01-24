@@ -5,7 +5,7 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Cluster\Puttings;
+namespace Elasticsearch\Tests\Endpoints\Cluster\Settings;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\Cluster\Settings\Put;
@@ -38,22 +38,6 @@ class PutTest extends \PHPUnit_Framework_TestCase
                                  $query
                              )
                          ->getMock();
-
-        $action = new Put($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
-
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testPutIllegalBody()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Put($mockTransport);
         $action->setBody($query)

@@ -25,7 +25,7 @@ class GetTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function testValidDeleteWithIndex()
+    public function testValidGetWithIndex()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
@@ -44,14 +44,14 @@ class GetTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testValidDeleteWithType()
+    public function testValidGetWithType()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
-                                 '/_all/testType/_mapping',
+                                 '/_mapping/testType',
                                  array(),
                                  null
                              )
@@ -63,14 +63,14 @@ class GetTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testValidDeleteWithNoIndexOrType()
+    public function testValidGetWithNoIndexOrType()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
-                                 '/_all/_mapping',
+                                 '/_mapping',
                                  array(),
                                  null
                              )
@@ -81,14 +81,14 @@ class GetTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testValidDeleteWithIndexAndType()
+    public function testValidGetWithIndexAndType()
     {
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
                                  'GET',
-                                 '/testIndex/testType/_mapping',
+                                 '/testIndex/_mapping/testType',
                                  array(),
                                  null
                              )

@@ -45,22 +45,6 @@ class RerouteTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalBody()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Reroute($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
-
     public function testValidReroute()
     {
         $mockTransport = m::mock('\Elasticsearch\Transport')

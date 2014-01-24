@@ -5,20 +5,20 @@
  * Time: 1:02 PM
  */
 
-namespace Elasticsearch\Tests\Endpoints\Cluster\Node;
+namespace Elasticsearch\Tests\Endpoints\Cluster\Nodes;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\Cluster\Node\Shutdown;
+use Elasticsearch\Endpoints\Cluster\Nodes\Info;
 use Mockery as m;
 
 /**
- * Class ShutdownTest
+ * Class InfoTest
  * @package Elasticsearch\Tests\Endpoints\Indices\Cluster\Node
  * @author  Zachary Tong <zachary.tong@elasticsearch.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://elasticsearch.org
  */
-class ShutdownTest extends \PHPUnit_Framework_TestCase
+class InfoTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown() {
         m::close();
@@ -30,14 +30,14 @@ class ShutdownTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()->once()
                          ->with(
-                                 'POST',
-                                 '/_cluster/nodes/abc/_shutdown',
+                                 'GET',
+                                 '/_nodes/abc',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Shutdown($mockTransport);
+        $action = new Info($mockTransport);
         $action->setNodeID('abc')
         ->performRequest();
 
@@ -51,9 +51,9 @@ class ShutdownTest extends \PHPUnit_Framework_TestCase
     {
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $action = new Shutdown($mockTransport);
+        $action = new Info($mockTransport);
 
-        $nodeID = array('field' => 'value');
+        $nodeID = new \stdClass();
 
         $action->setNodeID($nodeID)
         ->performRequest();
@@ -65,14 +65,14 @@ class ShutdownTest extends \PHPUnit_Framework_TestCase
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()
                          ->with(
-                                 'POST',
-                                 '/_cluster/nodes/_shutdown',
+                                 'GET',
+                                 '/_nodes',
                                  array(),
                                  null
                              )
                          ->getMock();
 
-        $action = new Shutdown($mockTransport);
+        $action = new Info($mockTransport);
         $action->performRequest();
 
     }

@@ -39,42 +39,10 @@ class ScrollTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetArrayBody()
-    {
-        $body = array('field' => 'value');
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Scroll($mockTransport);
-        $action->setBody($body);
-
-
-    }
-
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIllegalQuery()
-    {
-        $query = 5;
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Scroll($mockTransport);
-        $action->setBody($query)
-        ->performRequest();
-
-    }
-
-
     public function testWithBodyNoScrollID()
     {
         $body = 'scrollID';
-        $uri = '/_search/scroll/';
+        $uri = '/_search/scroll';
 
         $mockTransport = m::mock('\Elasticsearch\Transport')
                          ->shouldReceive('performRequest')->once()

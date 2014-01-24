@@ -64,7 +64,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             '127.0.0.1:8200',
         ));
         $client = new Elasticsearch\Client($params);
-        $client->exists(array("index" => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
 
     }
 
@@ -91,7 +91,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost:8000')
         );
         $client = new Elasticsearch\Client($params);
-        $client->exists(array("index" => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
 
     }
 

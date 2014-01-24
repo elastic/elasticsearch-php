@@ -9,7 +9,7 @@
 namespace Elasticsearch\Tests\Endpoints\Indices\Exists;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\Endpoints\Indices\Exists\Indices;
+use Elasticsearch\Endpoints\Indices\Exists;
 use Mockery as m;
 
 /**
@@ -30,10 +30,9 @@ class IndicesTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoIndex()
     {
-
         $mockTransport = m::mock('\Elasticsearch\Transport');
 
-        $index = new Indices($mockTransport);
+        $index = new Exists($mockTransport);
         $index->performRequest();
 
     }
@@ -50,7 +49,7 @@ class IndicesTest extends \PHPUnit_Framework_TestCase
                              )
                          ->getMock();
 
-        $action = new Indices($mockTransport);
+        $action = new Exists($mockTransport);
         $action->setIndex('testIndex')->performRequest();
 
     }

@@ -67,6 +67,10 @@ You can find out more on how to install Composer, configure autoloading, and oth
 
 You'll notice that the installation command specified `--no-dev`.  This prevents Composer from installing the various testing and development dependencies.  For average users, there is no need to install the test suite (which also includes the complete source code of Elasticsearch).  If you wish to contribute to development, just omit the `--no-dev` flag to be able to run tests.
 
+PHP Version Requirement
+----
+The minimum version of PHP that this library supports is 5.3.9.  For a longer explanation as to why this is the case, see [Minimum PHP Version Requirement Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/_php_version_requirement.html).
+
 Index a document
 -----
 

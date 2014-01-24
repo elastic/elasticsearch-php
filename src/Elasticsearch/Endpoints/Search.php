@@ -35,14 +35,7 @@ class Search extends AbstractEndpoint
             return $this;
         }
 
-        if (is_string($body) === true || is_array($body) === true) {
-            $this->body = $body;
-        } else {
-            throw new InvalidArgumentException(
-                'Query must be a string or array'
-            );
-        }
-
+        $this->body = $body;
         return $this;
     }
 
@@ -61,6 +54,8 @@ class Search extends AbstractEndpoint
             $uri = "/$index/$type/_search";
         } elseif (isset($index) === true) {
             $uri = "/$index/_search";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_search";
         }
 
         return $uri;

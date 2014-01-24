@@ -54,6 +54,8 @@ class Mget extends AbstractEndpoint
             $uri = "/$index/$type/_mget";
         } elseif (isset($index) === true) {
             $uri = "/$index/_mget";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_mget";
         }
 
         return $uri;

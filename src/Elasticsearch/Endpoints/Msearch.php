@@ -75,6 +75,8 @@ class Msearch extends AbstractEndpoint
             $uri = "/$index/$type/_msearch";
         } elseif (isset($index) === true) {
             $uri = "/$index/_msearch";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_msearch";
         }
 
         return $uri;

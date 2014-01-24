@@ -43,6 +43,7 @@ class Get extends AbstractEndpoint
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -56,6 +57,8 @@ class Get extends AbstractEndpoint
             $uri = "/$index/$type/_warmer/$name";
         } elseif (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_warmer/$name";
+        } elseif (isset($index) === true && isset($type) === true) {
+            throw new Exceptions\RuntimeException('Invalid index/type/name combination. If index + type are defined, name must also be defined');
         } elseif (isset($index) === true) {
             $uri = "/$index/_warmer";
         } elseif (isset($name) === true) {

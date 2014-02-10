@@ -23,7 +23,7 @@ use Elasticsearch\Common\Exceptions;
 class Stats extends AbstractEndpoint
 {
     // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
-    private $node_id;
+    private $nodeID;
 
 
     /**
@@ -31,13 +31,13 @@ class Stats extends AbstractEndpoint
      *
      * @return $this
      */
-    public function setNode_Id($node_id)
+    public function setNodeID($node_id)
     {
         if (isset($node_id) !== true) {
             return $this;
         }
 
-        $this->node_id = $node_id;
+        $this->nodeID = $node_id;
         return $this;
     }
 
@@ -47,7 +47,7 @@ class Stats extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $node_id = $this->node_id;
+        $node_id = $this->nodeID;
         $uri   = "/_cluster/stats";
 
         if (isset($node_id) === true) {

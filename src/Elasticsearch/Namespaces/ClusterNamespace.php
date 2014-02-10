@@ -105,6 +105,29 @@ class ClusterNamespace extends AbstractNamespace
         return $response['data'];
     }
 
+    /**
+     * $params['flat_settings']          = (boolean) Return settings in flat format (default: false)
+     *        ['human'] = (boolean) Whether to return time and byte values in human-readable format.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function stats($params = array())
+    {
+        $nodeID = $this->extractArgument($params, 'node_id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cluster\Stats $endpoint */
+        $endpoint = $endpointBuilder('Cluster\Stats');
+        $endpoint->setNodeID($nodeID)
+                 ->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
     /**
      * $params['body'] = ()

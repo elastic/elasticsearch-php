@@ -435,18 +435,27 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $this->assertGreaterThan($settings[key($settings)], $this->getNestedVar($response, key($settings)));
                     echo "\n";
                 } elseif ($operator === "skip") {
-                    $version = $settings['version'];
-                    $version = str_replace(" ", "", $version);
-                    $version = explode("-", $version);
-                    if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
-                        && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
-                        echo "Skipping: ".$settings['reason']."\n";
+                    if (isset($settings['version']) === true) {
+                        $version = $settings['version'];
+                        $version = str_replace(" ", "", $version);
+                        $version = explode("-", $version);
+                        if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
+                            && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
+                            echo "Skipping: ".$settings['reason']."\n";
 
-                        if ($key == 'setup') {
-                            throw new SetupSkipException();
+                            if ($key == 'setup') {
+                                throw new SetupSkipException();
+                            }
+                            return;
                         }
-                        return;
+                    } else if (isset($settings['features']) === true) {
+                        $feature = $settings['features'];
+
+                        if ($feature === 'regex') {
+
+                        }
                     }
+
                 }
                 ob_flush();
             }

@@ -20,7 +20,7 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class Pendingtasks extends AbstractEndpoint
+class PendingTasks extends AbstractEndpoint
 {
     /**
      * @return string

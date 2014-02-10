@@ -88,6 +88,7 @@ class Client
         $this->cluster      = $this->params['clusterNamespace'];
         $this->nodes        = $this->params['nodesNamespace'];
         $this->snapshot     = $this->params['snapshotNamespace'];
+        $this->cat          = $this->params['catNamespace'];
         $this->dicEndpoints = $this->params['endpoint'];
     }
 

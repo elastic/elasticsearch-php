@@ -14,6 +14,7 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Endpoints;
+use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
@@ -63,6 +64,11 @@ class Client
      * @var NodesNamespace
      */
     protected $snapshot;
+
+    /**
+     * @var CatNamespace
+     */
+    protected $cat;
 
     /** @var  callback */
     protected $dicEndpoints;
@@ -984,6 +990,17 @@ class Client
     public function snapshot()
     {
         return $this->snapshot;
+    }
+
+
+    /**
+     * Operate on the Cat namespace of commands
+     *
+     * @return SnapshotNamespace
+     */
+    public function cat()
+    {
+        return $this->cat;
     }
 
 

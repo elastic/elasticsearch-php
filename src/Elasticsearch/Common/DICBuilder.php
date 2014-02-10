@@ -9,6 +9,7 @@ namespace Elasticsearch\Common;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints;
+use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
@@ -171,6 +172,7 @@ class DICBuilder
         $this->setClusterNamespaceObj();
         $this->setIndicesNamespaceObj();
         $this->setNodesNamespaceObj();
+        $this->setCatNamespaceObj();
         $this->setSnapshotNamespaceObj();
         $this->setSharedConnectionParamsObj();
         $this->setCurlMultihandle();
@@ -285,6 +287,16 @@ class DICBuilder
             function ($dicParams) {
                 /** @var Pimple $dicParams */
                 return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
+            }
+        );
+    }
+
+    private function setCatNamespaceObj()
+    {
+        $this->dic['catNamespace'] = $this->dic->share(
+            function ($dicParams) {
+                /** @var Pimple $dicParams */
+                return new CatNamespace($dicParams['transport'], $dicParams['endpoint']);
             }
         );
     }

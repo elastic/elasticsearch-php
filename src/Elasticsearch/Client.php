@@ -61,7 +61,7 @@ class Client
     protected $nodes;
 
     /**
-     * @var NodesNamespace
+     * @var SnapshotNamespace
      */
     protected $snapshot;
 

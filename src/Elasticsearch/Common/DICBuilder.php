@@ -33,7 +33,7 @@ class DICBuilder
         'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
         'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool',
         'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-        'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
+        'serializerClass'       => '\Elasticsearch\Serializers\SmartSerializer',
         'sniffOnStart'          => false,
         'connectionParams'      => array(),
         'logging'               => false,

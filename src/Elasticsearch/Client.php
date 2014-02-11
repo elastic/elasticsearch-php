@@ -379,6 +379,38 @@ class Client
 
 
     /**
+     * $params['index']              = (string) Default index for items which don't provide one
+     *        ['type']               = (string) Default document type for items which don't provide one
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function mpercolate($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $type = $this->extractArgument($params, 'type');
+        $body = $this->extractArgument($params, 'body');
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\MPercolate $endpoint */
+        $endpoint = $endpointBuilder('MPercolate');
+        $endpoint->setIndex($index)
+                 ->setType($type)
+                 ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
      * $params['id']         = (string) The document ID (Required)
      *        ['index']      = (string) The name of the index (Required)
      *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)

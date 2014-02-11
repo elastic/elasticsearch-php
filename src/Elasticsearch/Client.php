@@ -395,12 +395,9 @@ class Client
     public function percolate($params)
     {
         $index = $this->extractArgument($params, 'index');
-
-
-        $type = $this->extractArgument($params, 'type');
-
-
-        $body = $this->extractArgument($params, 'body');
+        $type  = $this->extractArgument($params, 'type');
+        $id    = $this->extractArgument($params, 'id');
+        $body  = $this->extractArgument($params, 'body');
 
 
 
@@ -411,6 +408,7 @@ class Client
         $endpoint = $endpointBuilder('Percolate');
         $endpoint->setIndex($index)
                  ->setType($type)
+                 ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

@@ -58,11 +58,12 @@ class Percolate extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $type = $this->type;
+        $type  = $this->type;
+        $id    = $this->id;
         $uri   = "/$index/$type/_percolate";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_percolate";
+        if (isset($id) === true) {
+            $uri = "/$index/$type/$id/_percolate";
         }
 
         return $uri;

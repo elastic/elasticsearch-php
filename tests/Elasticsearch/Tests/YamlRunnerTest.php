@@ -573,7 +573,8 @@ EOF;
         $skipList = array(
             'indices.delete_mapping/all_path_options.yaml',
             'indices.exists_type/10_basic.yaml',
-            'indices.get_mapping/10_basic.yaml'
+            'indices.get_mapping/10_basic.yaml',
+            'indices.create/10_basic.yaml'
         );
 
         foreach ($skipList as $skip) {

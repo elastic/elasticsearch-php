@@ -50,22 +50,6 @@ class PercolateTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
-    /**
-     * @expectedException RuntimeException
-     */
-    public function testNoBody()
-    {
-
-        $mockTransport = m::mock('\Elasticsearch\Transport');
-
-        $action = new Percolate($mockTransport);
-        $action->setIndex('testIndex')
-        ->setType('testType')
-        ->performRequest();
-
-    }
-
     public function testValidPercolate()
     {
         $body = 'abc';

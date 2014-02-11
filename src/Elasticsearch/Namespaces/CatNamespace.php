@@ -59,7 +59,7 @@ class CatNamespace extends AbstractNamespace
      */
     public function allocation($params = array())
     {
-        $nodeID = $this->extractArgument($params, 'nodeID');
+        $nodeID = $this->extractArgument($params, 'node_id');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;

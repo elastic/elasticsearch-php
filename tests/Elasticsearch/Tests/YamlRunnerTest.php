@@ -198,6 +198,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         foreach ($files as $testFile) {
             echo "$testFile\n";
             ob_flush();
+
+            if ($this->skipTest($testFile) === true) {
+                $this->markTestSkipped('Skipped due to skip-list');
+            }
+
             $this->clearCluster();
 
             $fileData = file_get_contents($testFile);
@@ -497,6 +502,21 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         (?::(?P<tz_minute>[0-9][0-9]))?))?)?
         ~x
 EOF;
+    }
+
+    private function skipTest($path)
+    {
+        $skipList = array(
+            'indices.create/10_basic.yaml'
+        );
+
+        foreach ($skipList as $skip) {
+            if (strpos($path, $skip) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

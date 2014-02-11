@@ -341,6 +341,46 @@ class Client
         return $response['data'];
     }
 
+    /**
+     * $params['index']              = (list) A comma-separated list of indices to restrict the results
+     *        ['type']               = (list) A comma-separated list of types to restrict the results
+     *        ['id']                 = (string) ID of document
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['routing']            = (string) Specific routing value
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['body']               = (array) A query to restrict the results (optional)
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['percolate_index']    = (string) The index to count percolate the document into. Defaults to index.
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *        ['version']            = (number) Explicit version number for concurrency control
+     *        ['version_type']       = (enum) Specific version type
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function countPercolate($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $type  = $this->extractArgument($params, 'type');
+        $id    = $this->extractArgument($params, 'id');
+        $body  = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\CountPercolate $endpoint */
+        $endpoint = $endpointBuilder('CountPercolate');
+        $endpoint->setIndex($index)
+                 ->setType($type)
+                 ->setID($id)
+                 ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
     /**
      * $params['index']        = (string) The name of the index with a registered percolator query (Required)

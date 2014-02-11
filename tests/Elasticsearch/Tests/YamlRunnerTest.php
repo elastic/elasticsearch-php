@@ -315,6 +315,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
 
                     try {
+                        echo "         |".json_encode($hash)."\n";
                         $response = $this->callMethod($method, $hash);
                         echo "         |".json_encode($response)."\n";
                         ob_flush();

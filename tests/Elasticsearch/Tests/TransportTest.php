@@ -196,7 +196,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $response = array(
             'text' => 'texty text',
             'status'   => '200',
-            'info'     => ''
+            'info'     => array()
         );
 
         $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
@@ -215,7 +215,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
-                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+                          ->shouldReceive('deserialize')->with($response['text'], array())->andReturn('out')->getMock();
 
 
 
@@ -256,7 +256,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $response = array(
             'text' => 'texty text',
             'status'   => '200',
-            'info'     => ''
+            'info'     => array()
         );
         $serializedBody = 'out_serialized';
 
@@ -278,7 +278,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
         $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
                           ->shouldReceive('serialize')->with($body)->andReturn($serializedBody)->getMock()
-                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out_deserialize')->getMock();
+                          ->shouldReceive('deserialize')->with($response['text'], array())->andReturn('out_deserialize')->getMock();
 
 
 
@@ -318,7 +318,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $response = array(
             'text' => 'texty text',
             'status'   => '200',
-            'info'     => ''
+            'info'     => array()
         );
 
         $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
@@ -338,7 +338,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
-                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+                          ->shouldReceive('deserialize')->with($response['text'], array())->andReturn('out')->getMock();
 
 
 
@@ -382,7 +382,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $response = array(
             'text' => 'texty text',
             'status'   => '200',
-            'info'     => ''
+            'info'     => array()
         );
 
         $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection');
@@ -429,7 +429,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $response = array(
             'text' => 'texty text',
             'status'   => '200',
-            'info'     => ''
+            'info'     => array()
         );
 
         $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection')
@@ -450,7 +450,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface')
-                          ->shouldReceive('deserialize')->with($response['text'])->andReturn('out')->getMock();
+                          ->shouldReceive('deserialize')->with($response['text'], array())->andReturn('out')->getMock();
 
 
 

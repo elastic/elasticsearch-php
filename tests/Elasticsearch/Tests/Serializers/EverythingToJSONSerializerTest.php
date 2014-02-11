@@ -49,7 +49,7 @@ class EverythingToJSONSerializerTest extends PHPUnit_Framework_TestCase
         $serializer = new EverythingToJSONSerializer();
         $body = '{"field":"value"}';
 
-        $ret = $serializer->deserialize($body);
+        $ret = $serializer->deserialize($body, array());
 
         $body = json_decode($body, true);
         $this->assertEquals($body, $ret);

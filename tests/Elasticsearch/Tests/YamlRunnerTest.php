@@ -130,6 +130,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    private function assertRegex($pattern, $actual) {
+        $pattern .= "mx";
+        $result = preg_match($pattern, $actual, $matches);
+        $this->assertEquals(1, $result);
+
+    }
+
     private function waitForYellow()
     {
         $host = YamlRunnerTest::getHostEnvVar();
@@ -325,6 +332,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                         $response = array();
 
+
                     } catch (Conflict409Exception $exception) {
                         if ($expectedError === 'conflict') {
                             $this->assertTrue(true);
@@ -378,6 +386,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $expected = $settings[key($settings)];
                     if (key($settings) === '') {
                         $actual = $response;
+                    } else if (key($settings) === '$body') {
+                        $actual = $response;
                     } else {
                         $actual   = $this->getNestedVar($response, key($settings));
 
@@ -388,7 +398,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     if (is_object($expected) === true) {
                         $expected = (array)$expected;
                     }
-                    $this->assertEquals($expected, $actual);
+
+                    if ($this->checkForRegex($expected) === true) {
+                        $this->assertRegex($expected, $actual);
+                    } else {
+                        $this->assertEquals($expected, $actual);
+                    }
+
                     //$this->assertSame()
 
                     echo "\n";
@@ -519,6 +535,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         return $document;
 
+    }
+
+    private function checkForRegex($value) {
+        if (is_string($value) !== true) {
+            return false;
+        }
+
+        $value = trim($value);
+        if (substr($value, 0, 1) === '/' && substr($value, strlen($value) - 1, 1) === '/') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private function getTimestampRegex()

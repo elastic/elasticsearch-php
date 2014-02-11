@@ -37,6 +37,10 @@ class State extends AbstractEndpoint
             return $this;
         }
 
+        if (is_array($metric) === true) {
+            $metric = implode(",", $metric);
+        }
+
         $this->metric = $metric;
         return $this;
     }

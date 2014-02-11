@@ -164,7 +164,7 @@ class Transport
             $connection->markAlive();
             $this->retryAttempts = 0;
 
-            $data = $this->serializer->deserialize($response['text']);
+            $data = $this->serializer->deserialize($response['text'], $response['info']);
 
             return array(
                 'status' => $response['status'],

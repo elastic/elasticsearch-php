@@ -40,10 +40,11 @@ class EverythingToJSONSerializer implements SerializerInterface
      * Deserialize JSON into an assoc array
      *
      * @param string $data JSON encoded string
+     * @param array  $headers Response headers
      *
      * @return array
      */
-    public function deserialize($data)
+    public function deserialize($data, $headers)
     {
         return json_decode($data, true);
 

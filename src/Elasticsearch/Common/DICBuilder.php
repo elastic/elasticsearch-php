@@ -370,7 +370,7 @@ class DICBuilder
         $this->dic['endpoint'] = function ($dicParams) {
             return function($class) use ($dicParams) {
                 $fullPath = '\\Elasticsearch\\Endpoints\\'.$class;
-                if ($class === 'Bulk' || $class === 'Msearch') {
+                if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
                     return new $fullPath($dicParams['transport'], $dicParams['serializer']);
                 } else {
                     return new $fullPath($dicParams['transport']);

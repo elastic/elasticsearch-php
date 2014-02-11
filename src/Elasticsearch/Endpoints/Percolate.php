@@ -76,7 +76,15 @@ class Percolate extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'prefer_local',
+            'routing',
+            'preference',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
+            'percolate_index',
+            'percolate_type',
+            'version',
+            'version_type',
         );
     }
 
@@ -87,9 +95,6 @@ class Percolate extends AbstractEndpoint
      */
     protected function getBody()
     {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Percolate');
-        }
         return $this->body;
     }
 

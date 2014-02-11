@@ -94,6 +94,7 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function state($params = array())
     {
+        $index = $this->extractArgument($params, 'index');
         $metric = $this->extractArgument($params, 'metric');
 
         /** @var callback $endpointBuilder */
@@ -101,7 +102,9 @@ class ClusterNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cluster\State $endpoint */
         $endpoint = $endpointBuilder('Cluster\State');
-        $endpoint->setParams($params)->setMetric($metric);
+        $endpoint->setParams($params)
+                 ->setIndex($index)
+                 ->setMetric($metric);
         $response = $endpoint->performRequest();
         return $response['data'];
     }

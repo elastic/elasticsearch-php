@@ -1,3 +1,19 @@
+## Release v0.4.4
+ - Adjust benchmark to use minimal index structure [[102c971]](http://github.com/elasticsearch/elasticsearch-php/commit/102c971decf12c6704943bda5dacc72cd89e281f)
+ - Update index-operations.asciidoc [[e36c0e4]](http://github.com/elasticsearch/elasticsearch-php/commit/e36c0e4e9e36006b6ddd76b3d98444f12a6de007)
+ - Nested array parameters should not be imploded [[bdc8cc8]](http://github.com/elasticsearch/elasticsearch-php/commit/bdc8cc859858a82e9025d9d33134fb3a638a75fc)
+ - Update REST Spec to use core ES repo [[2caf86e]](http://github.com/elasticsearch/elasticsearch-php/commit/2caf86e9dd70c35abd6042606497e92cfe2f4a24)
+ - update docs to include updating indexed document [[79541bf]](http://github.com/elasticsearch/elasticsearch-php/commit/79541bf88ed7f77af56aef353b391949a28038bc)
+ - Replace `ignore_indices` with `ignore_unavailable`, `expand_wildcards` and `allow_no_indices`. [[fbd4084]](http://github.com/elasticsearch/elasticsearch-php/commit/fbd4084066ba689f3eae3348b568dc4ef81cf3e0)
+ - Add support for generic 400 exceptions [[d237939]](http://github.com/elasticsearch/elasticsearch-php/commit/d2379393b99aebf2e385c410eacfb20b22a8186b)
+ - Encode proper JSON objects when body is empty [[f681e56]](http://github.com/elasticsearch/elasticsearch-php/commit/f681e56eefeff676bbb0303409aedcf14c1b528d)
+ - Handle regex exceptions correctly [[a61cce1]](http://github.com/elasticsearch/elasticsearch-php/commit/a61cce105503a142851026cf0c6f5aea6c581572)
+ - Exception was not being thrown properly if retries fail [[63cfea8]](http://github.com/elasticsearch/elasticsearch-php/commit/63cfea80824416fc4c77490e345d951461e4c09d)
+ - Add `retries` parameter to whitelist [[8ba8b16]](http://github.com/elasticsearch/elasticsearch-php/commit/8ba8b16ff67174eb487c59cc136d6cf9631b1f3a)
+ - ZeroRetry test needs to specify a non-existent host [[e4b8edc]](http://github.com/elasticsearch/elasticsearch-php/commit/e4b8edc84152762fff085f5a26b8a560dd287abe)
+ - Remove git submodule in favor of pure-composer solution [[53df7be]](http://github.com/elasticsearch/elasticsearch-php/commit/53df7beea2d66b3ec41e023945e97fe0e240f72b)
+
+
 ## Release v0.4.3
  - Disable SSL Verification and Header parsing in CurlMultiConnection [[0cf2c93]](http://github.com/elasticsearch/elasticsearch-php/commit/0cf2c938e5941a026687cda60bc6fdc76a494702)
  - Add a Static Connection pool that does not ping [[6ec9cd5]](http://github.com/elasticsearch/elasticsearch-php/commit/6ec9cd5497c12dd9024e8dcd326134372aaec90d)

@@ -19,12 +19,13 @@ Features
 Version Matrix
 --------------
 Since there are breaking changes in Elasticsearch 1.0, you need to match your version of Elasticsearch to the appropriate version of this library.
-The master branch will always track Elasticsearch master.  Once 1.0.GA is released, a distinct 1.0 branch will be created to track Elasticsearch
-1.* releases.
+If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch.  Otherwise, use the `1.0` branch.
+
+The master branch will always track Elasticsearch master, but it is not recommended to use `dev-master` in your production code.
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 1.0                | dev-master               |
+| >= 1.0                | 1.0                      |
 | <= 0.90.*             | 0.4                      |
 
 Documentation
@@ -40,7 +41,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 ```json
     {
         "require": {
-            "elasticsearch/elasticsearch": "~0.4"
+            "elasticsearch/elasticsearch": "~1.0"
         }
     }
 ```

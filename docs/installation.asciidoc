@@ -15,11 +15,12 @@ If you are using a version older than 1.0, you must install the `0.4` Elasticsea
 
 The master branch will always track Elasticsearch master, but it is not recommended to use `dev-master` in your production code.
 
-| Elasticsearch Version | Elasticsearch-PHP Branch |
-| --------------------- | ------------------------ |
-| >= 1.0                | 1.0                      |
-| <= 0.90.*             | 0.4                      |
-
+[width="40%",options="header",frame="topbot"]
+|============================
+|Elasticsearch Version | Elasticsearch-PHP Branch
+| >= 1.0                | `1.0`
+| <= 0.90.*             | `0.4`
+|============================
 
 === Composer Installation
 

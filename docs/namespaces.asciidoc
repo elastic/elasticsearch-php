@@ -5,13 +5,16 @@ The client has a number of "namespaces", which generally expose administrative
 functionality.  The namespaces correspond to the various administrative endpoints
 in Elasticsearch.  This is a complete list of namespaces:
 
-| Namespace | Functionality |
-| -----------| --------------------------------------------------------------------------------------------------- |
-| indices()  | Index-centric stats and info                                                                        |
-| nodes()    | Node-centric stats and info                                                                         |
-| cluster()  | Cluster-centric stats and info                                                                      |
-| snapshot() | Methods to snapshot/restore your cluster and indices                                                |
-| cat()      | Access to the Cat API (which is generally used standalone from the command line                     |
+
+[width="40%",options="header",frame="topbot"]
+|============================
+| Namespace  | Functionality
+| `indices()`  | Index-centric stats and info
+| `nodes()`    | Node-centric stats and info
+| `cluster()`  | Cluster-centric stats and info
+| `snapshot()` | Methods to snapshot/restore your cluster and indices
+| `cat()`      | Access to the Cat API (which is generally used standalone from the command line
+|============================
 
 Some methods are available in several different namespaces, which give you
 the same information but grouped into different contexts.  To see how these

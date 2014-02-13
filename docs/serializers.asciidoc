@@ -1,0 +1,112 @@
+
+== Serializers
+
+The client has three serializers available.  You will most likely never need
+to change the serializer, unless you have special requirements or are
+implementing a new protocol.
+
+The job of the serializer is to encode the outgoing request body and decode
+the incoming response body.  In 99% of cases, this is a simple conversion
+to/from JSON.
+
+The default serializer is the `SmartSerializer`
+
+=== SmartSerializer
+==== Serialize()
+The `SmartSerializer` inspects the data to be encoded.  If the request body
+is provided as a string, it is passed directly to Elasticsearch as a string.
+This allows users to provide raw JSON, or raw strings for certain endpoints that
+dont have structure (such as the Analyze endpoint).
+
+If the data is an array, it is converted to json.  If the data provided was an
+empty array, the serializer manually converts the JSON from an empty array (`[]`)
+to an empty object (`{}`) so that it is valid JSON for Elasticsearch request
+bodies.
+
+==== Deserialize()
+When decoding the response body, the `SmartSerializer` introspects the
+`content_type` headers to determine the appropriate encoding.  If the data is
+encoded as JSON, it is decoded into an array using `json_decode`.  Otherwise,
+it is returned as a string.
+
+This functionality is required to cooperate with endpoints such as the `Cat`
+endpoints, which return tabular text instead of JSON.
+
+=== ArrayToJSONSerializer
+==== Serialize()
+The `ArrayToJSONSerializer` inspects the data to be encoded.  If the request body
+is provided as a string, it is passed directly to Elasticsearch as a string.
+This allows users to provide raw JSON, or raw strings for certain endpoints that
+dont have structure (such as the Analyze endpoint).
+
+If the data is an array, it is converted to json.  If the data provided was an
+empty array, the serializer manually converts the JSON from an empty array (`[]`)
+to an empty object (`{}`) so that it is valid JSON for Elasticsearch request
+bodies.
+
+==== Deserialize()
+When decoding the response body, everything is decoded to JSON from JSON.  If
+the data is not valid JSON, `null` will be returned.
+
+=== EverythingToJSONSerializer
+==== Serialize()
+The `EverythingToJSONSerializer` tries to convert everything to JSON.
+
+If the data provided was an empty array, the serializer manually converts the
+JSON from an empty array (`[]`) to an empty object (`{}`) so that it is valid
+JSON for Elasticsearch request bodies.
+
+If the data was not an array and/or not convertible to JSON, the method returns
+`null`.
+
+==== Deserialize()
+When decoding the response body, everything is decoded to JSON from JSON.  If
+the data is not valid JSON, `null` will be returned.
+
+
+=== Implementing your own Serializer
+If you want to use your own custom serializer, you need to implement the
+`SerializerInterface` interface:
+
+
+[source,php]
+----
+class MyCustomSerializer implements SerializerInterface
+{
+
+    /**
+     * Serialize request body
+     *
+     * @param string|array $data Request body
+     *
+     * @return string
+     */
+    public function serialize($data)
+    {
+        // code here
+    }
+
+    /**
+     * Deserialize response body
+     *
+     * @param string $data Response body
+     * @param array  $headers Response Headers
+     *
+     * @return array|string
+     */
+    public function deserialize($data, $headers)
+    {
+        // code here
+    }
+}
+----
+{zwsp} +
+
+To use it, you simply provide the class path in the configuration parameters:
+
+[source,php]
+----
+$params['serializerClass'] = '\MyProject\Serializers\MyCustomSerializer';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +

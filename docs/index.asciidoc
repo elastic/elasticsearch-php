@@ -15,6 +15,8 @@ include::indexing-operations.asciidoc[]
 
 include::search-operations.asciidoc[]
 
+include::namespaces.asciidoc[]
+
 include::connection-pool.asciidoc[]
 
 include::php-version-requirement.asciidoc[]

@@ -179,23 +179,28 @@ $client = new Elasticsearch\Client($params);
 
 === Full list of configurations
 
-.Configurations
-[width="40%",frame="topbot",options="header"]
-|======================
-|Parameter Name | Default
-|connectionClass | '\Elasticsearch\Connections\GuzzleConnection'
-|connectionFactoryClass | '\Elasticsearch\Connections\ConnectionFactory'
-|connectionPoolClass | '\Elasticsearch\ConnectionPool\StaticConnectionPool'
-|selectorClass | '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector'
-|serializerClass | '\Elasticsearch\Serializers\ArrayToJSONSerializer'
-|sniffOnStart | false
-|connectionParams | array()
-|logObject | null
-|logPath | 'elasticsearch.log'
-|logLevel | Logger::WARNING
-|traceObject | null
-|tracePath | 'elasticsearch.log'
-|traceLevel | Logger::WARNING
-|guzzleOptions | array()
-|connectionPoolParams | array()
-|======================
+.Default Configurations
+[source,php]
+----
+$paramDefaults = array(
+    'connectionClass'       => '\Elasticsearch\Connections\GuzzleConnection',
+    'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
+    'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticConnectionPool',
+    'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
+    'serializerClass'       => '\Elasticsearch\Serializers\ArrayToJSONSerializer',
+    'sniffOnStart'          => false,
+    'connectionParams'      => array(),
+    'logging'               => false,
+    'logObject'             => null,
+    'logPath'               => 'elasticsearch.log',
+    'logLevel'              => Log\LogLevel::WARNING,
+    'traceObject'           => null,
+    'tracePath'             => 'elasticsearch.log',
+    'traceLevel'            => Log\LogLevel::WARNING,
+    'guzzleOptions'         => array(),
+    'connectionPoolParams'  => array(
+        'randomizeHosts' => true
+    ),
+    'retries'               => null
+);
+----

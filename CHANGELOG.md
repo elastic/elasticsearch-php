@@ -1,3 +1,11 @@
+## Release 1.0.1
+ - Add documentation about namespaces [[a34a021]](http://github.com/elasticsearch/elasticsearch-php/commit/a34a0210d85ef6dc3bd4070afded8334aaa8528e)
+ - Fix tables, because asciidoc !== markdown [[c5cac5c]](http://github.com/elasticsearch/elasticsearch-php/commit/c5cac5c83fa9ede9df0da584203c98b974af51ea)
+ - Update default configuration list [[d329b8d]](http://github.com/elasticsearch/elasticsearch-php/commit/d329b8d73b8846521354c6f959de0d0e2f78f846)
+ - Add documentation about serializers [[d7062e4]](http://github.com/elasticsearch/elasticsearch-php/commit/d7062e4f27c182ddebf96b5e58c91ee6d8ec114e)
+ - Cluster\Info endpoint should accept metric parameter [[d04d816]](http://github.com/elasticsearch/elasticsearch-php/commit/d04d81691d0dca181fe6883ad45feaa7d7796981)
+
+
 ## Release 1.0
  - Master tests should track Elasticsearch master [[6ae948a]](http://github.com/elasticsearch/elasticsearch-php/commit/6ae948a66f978fced22ce41da0797d9c3a44c733)
  - Update readme with note about --no-dev [[0c7ab25]](http://github.com/elasticsearch/elasticsearch-php/commit/0c7ab25402c4076c95b3c37e0a5c731b408581c7)

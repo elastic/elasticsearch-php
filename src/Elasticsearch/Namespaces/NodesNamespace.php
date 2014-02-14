@@ -62,18 +62,11 @@ class NodesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id']     = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['all']         = (boolean) Return all available information
-     *        ['clear']       = (boolean) Reset the default settings
-     *        ['http']        = (boolean) Return information about HTTP
-     *        ['jvm']         = (boolean) Return information about the JVM
-     *        ['network']     = (boolean) Return information about network
-     *        ['os']          = (boolean) Return information about the operating system
-     *        ['plugin']      = (boolean) Return information about plugins
-     *        ['process']     = (boolean) Return information about the Elasticsearch process
-     *        ['settings']    = (boolean) Return information about node settings
-     *        ['thread_pool'] = (boolean) Return information about the thread pool
-     *        ['transport']   = (boolean) Return information about transport
+     * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['metric']        = (list) A comma-separated list of metrics you wish returned. Leave empty to return all.
+     *        ['flat_settings'] = (boolean) Return settings in flat format (default: false)
+     *        ['human']         = (boolean) Whether to return time and byte values in human-readable format.
+
      *
      * @param $params array Associative array of parameters
      *
@@ -82,13 +75,14 @@ class NodesNamespace extends AbstractNamespace
     public function info($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
+        $metric = $this->extractArgument($params, 'metric');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Info $endpoint */
         $endpoint = $endpointBuilder('Cluster\Nodes\Info');
-        $endpoint->setNodeID($nodeID);
+        $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

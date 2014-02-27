@@ -226,7 +226,7 @@ abstract class AbstractConnection implements ConnectionInterface
     public function sniff()
     {
         $options = array('timeout' => $this->pingTimeout);
-        return $this->performRequest('GET', '/_cluster/nodes', null, null, $options);
+        return $this->performRequest('GET', '/_nodes/_all/clear', null, null, $options);
 
     }
 

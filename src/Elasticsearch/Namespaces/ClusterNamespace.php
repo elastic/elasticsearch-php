@@ -56,6 +56,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
      *        ['filter_metadata'] = (boolean) Don't return cluster state metadata (default: false)
      *        ['body']            = (boolean) Don't return cluster state metadata (default: false)
+     *        ['explain']         = (boolean) Return an explanation of why the commands can or cannot be executed
      *
      * @param $params array Associative array of parameters
      *

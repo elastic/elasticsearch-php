@@ -63,6 +63,7 @@ class Reroute extends AbstractEndpoint
             'filter_metadata',
             'master_timeout',
             'timeout',
+            'explain'
         );
     }
 

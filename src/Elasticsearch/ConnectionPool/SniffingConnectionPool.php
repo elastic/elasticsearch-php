@@ -113,7 +113,9 @@ class SniffingConnectionPool extends AbstractConnectionPool
             return false;
         }
 
-        $nodes = $this->parseClusterState($connection->getTransportSchema(), $response);
+        // TODO wire in the serializer?
+        $nodeInfo = json_decode($response['text'], true);
+        $nodes = $this->parseClusterState($connection->getTransportSchema(), $nodeInfo);
 
         if (count($nodes) === 0) {
             return false;

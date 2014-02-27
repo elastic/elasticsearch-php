@@ -44,7 +44,7 @@
         "source":{
           "type" : "git",
           "url":"git://github.com/elasticsearch/elasticsearch.git",
-          "reference" : "550c4079949baabef17e5a7845aadf36dccb41af"
+          "reference" : "d355c2bdb8dd455c5ab01cce341e5d9fe32b492e"
         }
       }
     }

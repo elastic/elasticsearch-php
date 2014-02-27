@@ -107,7 +107,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost:'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 80));
+                $expected = array(array('host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }
@@ -127,7 +127,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 80));
+                $expected = array(array('host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }

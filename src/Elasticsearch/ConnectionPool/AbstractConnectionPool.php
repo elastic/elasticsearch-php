@@ -50,8 +50,8 @@ abstract class AbstractConnectionPool
             }
         }
 
-        $randomizeHosts = $connectionPoolParams['randomizeHosts'];
-        if (isset($randomizeHosts) === true && $randomizeHosts === true) {
+        if (isset($connectionPoolParams['randomizeHosts']) === true
+            && $connectionPoolParams['randomizeHosts'] === true) {
             shuffle($connections);
         }
 

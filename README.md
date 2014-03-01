@@ -38,32 +38,36 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 
 1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file (change version to suit your version of Elasticsearch):
 
-```json
-    {
-        "require": {
-            "elasticsearch/elasticsearch": "~1.0"
+    ```json
+        {
+            "require": {
+                "elasticsearch/elasticsearch": "~1.0"
+            }
         }
-    }
-```
+    ```
 
 2. Download and install Composer:
 
+    ```bash
         curl -s http://getcomposer.org/installer | php
+    ```
 
 3. Install your dependencies:
 
+    ```bash
         php composer.phar install --no-dev
+    ```
 
 4. Require Composer's autoloader
 
     Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
 
-```php
-    <?php
-    require 'vendor/autoload.php';
+    ```php
+        <?php
+        require 'vendor/autoload.php';
 
-    $client = new Elasticsearch\Client();
-```
+        $client = new Elasticsearch\Client();
+    ```
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
 You'll notice that the installation command specified `--no-dev`.  This prevents Composer from installing the various testing and development dependencies.  For average users, there is no need to install the test suite (which also includes the complete source code of Elasticsearch).  If you wish to contribute to development, just omit the `--no-dev` flag to be able to run tests.
@@ -169,7 +173,7 @@ Wrap up
 
 That was just a crash-course overview of the client and it's syntax.  If you are familiar with elasticsearch, you'll notice that the methods are named just like REST endpoints.
 
-You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the $client object (indexing, searching, getting, etc).  Index and cluster management are located under the $client->indices() and $client->cluster() objects, respectively.
+You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the `$client` object (indexing, searching, getting, etc).  Index and cluster management are located under the `$client->indices()` and `$client->cluster()` objects, respectively.
 
 Check out the rest of the [Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html) to see how the entire client works.
 

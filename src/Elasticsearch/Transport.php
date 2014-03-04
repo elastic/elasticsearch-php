@@ -81,7 +81,7 @@ class Transport
         $this->setConnections($hosts);
 
         if (isset($this->params['retries']) !== true || $this->params['retries'] === null) {
-            $this->params['retries'] = count($hosts);
+            $this->params['retries'] = count($hosts) -1;
         }
 
         if ($params['sniffOnStart'] === true) {

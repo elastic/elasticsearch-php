@@ -74,7 +74,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                       ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                       ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(true)->getMock()
                       ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                      ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                      ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                       ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $params, $log);
@@ -142,7 +142,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $params, $log);
@@ -176,7 +176,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 2)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(2)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $params, $log);
@@ -226,7 +226,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
@@ -289,7 +289,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
@@ -349,7 +349,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
@@ -406,7 +406,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $pimple, $log);
@@ -461,7 +461,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('sniffOnStart')->andReturn(false)->getMock()
                   ->shouldReceive('offsetExists')->with('retries')->andReturn(false)->getMock()
-                  ->shouldReceive('offsetSet')->with('retries', 1)->getMock()
+                  ->shouldReceive('offsetSet')->with('retries', 0)->getMock()
                   ->shouldReceive('offsetGet')->with('retries')->andReturn(1)->getMock();
 
         $transport = new Elasticsearch\Transport($hosts, $pimple, $log);

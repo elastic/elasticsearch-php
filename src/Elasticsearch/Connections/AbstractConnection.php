@@ -200,7 +200,6 @@ abstract class AbstractConnection implements ConnectionInterface
      */
     public function ping()
     {
-        $this->lastPing = time();
         $options = array('timeout' => $this->pingTimeout);
         try {
             $response = $this->performRequest('HEAD', '', null, null, $options);
@@ -244,12 +243,14 @@ abstract class AbstractConnection implements ConnectionInterface
     {
         $this->failedPings = 0;
         $this->isAlive = true;
+        $this->lastPing = time();
     }
 
     public function markDead()
     {
         $this->isAlive = false;
         $this->failedPings += 1;
+        $this->lastPing = time();
     }
 
 

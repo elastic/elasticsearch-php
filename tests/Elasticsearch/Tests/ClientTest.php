@@ -47,10 +47,35 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOneGoodOneBadHostNoException()
     {
         $params = array('hosts' => array (
-            '127.0.0.1:9200',
             '127.0.0.1:9201',
+            '127.0.0.1:9200',
         ));
-        $this->client = new Elasticsearch\Client($params);
+        $client = new Elasticsearch\Client($params);
+
+        // Perform three requests to make sure the bad host is tried at least once
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+
+    }
+
+
+    /**
+     * @expectedException Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
+     */
+    public function testOneGoodOneBadHostNoRetryException()
+    {
+        $params = array('hosts' => array (
+            '127.0.0.1:9201',
+            '127.0.0.1:9200',
+        ));
+        $params['retries'] = 0;
+        $client = new Elasticsearch\Client($params);
+
+        // Perform three requests to make sure the bad host is tried at least once
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
 
     }
 

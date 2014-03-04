@@ -80,7 +80,7 @@ class Transport
         $this->seeds = $hosts;
         $this->setConnections($hosts);
 
-        if (isset($this->params['retries']) !== true) {
+        if (isset($this->params['retries']) !== true || $this->params['retries'] === null) {
             $this->params['retries'] = count($hosts);
         }
 

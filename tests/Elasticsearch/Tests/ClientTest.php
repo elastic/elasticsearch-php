@@ -47,8 +47,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOneGoodOneBadHostNoException()
     {
         $params = array('hosts' => array (
-            '127.0.0.1:9201',
-            '127.0.0.1:9200',
+            '127.0.0.1:80',
+            $_SERVER['ES_TEST_HOST'],
         ));
         $client = new Elasticsearch\Client($params);
 
@@ -66,8 +66,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOneGoodOneBadHostNoRetryException()
     {
         $params = array('hosts' => array (
-            '127.0.0.1:9201',
-            '127.0.0.1:9200',
+            '127.0.0.1:80',
+            $_SERVER['ES_TEST_HOST'],
         ));
         $params['retries'] = 0;
         $client = new Elasticsearch\Client($params);

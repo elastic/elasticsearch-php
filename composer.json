@@ -24,12 +24,8 @@
     "symfony/yaml": "2.4.*@dev",
     "satooshi/php-coveralls": "dev-master",
     "mikey179/vfsStream": "~1.2",
-<<<<<<< HEAD
-    "elasticsearch/elasticsearch_src" : "*"
-=======
     "twig/twig": "1.*",
     "cpliakas/git-wrapper": "~1.0"
->>>>>>> e6d6e80... [TEST] update mechanism to retrieve yaml tests
   },
   "autoload": {
     "psr-0": {
@@ -37,24 +33,5 @@
       "Elasticsearch\\Tests" : "tests/",
       "Elasticsearch\\Benchmarks" : "benchmarks/"
     }
-<<<<<<< HEAD
-  },
-  "repositories":[
-    {
-      "type":"package",
-      "package":{
-        "name":"elasticsearch/elasticsearch_src",
-        "description":"elasticsearch",
-        "version":"0.90.9",
-        "source":{
-          "type" : "git",
-          "url":"git://github.com/elasticsearch/elasticsearch.git",
-          "reference" : "4050aae925c19500dd442b59f1bca86333571c52"
-        }
-      }
-    }
-  ]
-=======
   }
->>>>>>> fd6b8a9... Update mechanism to retrieve yaml tests
 }

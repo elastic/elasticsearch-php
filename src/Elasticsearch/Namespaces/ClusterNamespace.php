@@ -279,6 +279,26 @@ class ClusterNamespace extends AbstractNamespace
     }
 
 
+    /**
+     * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout']  = (time) Specify timeout for connection to master
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function pendingTasks($params = array())
+    {
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cluster\PendingTasks $endpoint */
+        $endpoint = $endpointBuilder('Cluster\PendingTasks');
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
 
 
 

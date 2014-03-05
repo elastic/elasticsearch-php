@@ -25,7 +25,7 @@
     "satooshi/php-coveralls": "dev-master",
     "mikey179/vfsStream": "~1.2",
     "twig/twig": "1.*",
-    "elasticsearch/elasticsearch_src" : "dev-master"
+    "cpliakas/git-wrapper": "~1.0"
   },
   "autoload": {
     "psr-0": {
@@ -33,6 +33,7 @@
       "Elasticsearch\\Tests" : "tests/",
       "Elasticsearch\\Benchmarks" : "benchmarks/"
     }
+<<<<<<< HEAD
   },
   "repositories":[
     {
@@ -49,4 +50,7 @@
       }
     }
   ]
+=======
+  }
+>>>>>>> fd6b8a9... Update mechanism to retrieve yaml tests
 }

@@ -33,24 +33,5 @@
       "Elasticsearch\\Tests" : "tests/",
       "Elasticsearch\\Benchmarks" : "benchmarks/"
     }
-<<<<<<< HEAD
-  },
-  "repositories":[
-    {
-      "type":"package",
-      "package":{
-        "name":"elasticsearch/elasticsearch_src",
-        "description":"elasticsearch",
-        "version":"dev-master",
-        "source":{
-          "type" : "git",
-          "url":"git://github.com/elasticsearch/elasticsearch.git",
-          "reference" : "d355c2bdb8dd455c5ab01cce341e5d9fe32b492e"
-        }
-      }
-    }
-  ]
-=======
   }
->>>>>>> fd6b8a9... Update mechanism to retrieve yaml tests
 }

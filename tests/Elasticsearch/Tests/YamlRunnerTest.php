@@ -222,7 +222,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 try {
                     $tDoc = array();
                     $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
-                    $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, true, false);
+                    $tDoc['document'] = $this->checkForEmptyProperty($testFile, $tDoc['document']);
+                    $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, false, true);
 
                     if (key($tDoc['values']) === 'setup') {
                         $setup = $tDoc['values'];
@@ -295,7 +296,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 if ($operator === 'do') {
                     if (key($settings) === 'catch') {
 
-                        $expectedError = str_replace("/", "", $settings['catch']);
+                        $catch = $this->getValue($settings, 'catch');
+                        $expectedError = str_replace("/", "", $catch);
                         next($settings);
 
                         echo "(catch: $expectedError) ";
@@ -305,7 +307,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     }
 
                     $method = key($settings);
-                    $hash   = $settings[$method];
+                    $hash = $this->getValue($settings, $method);
 
                     echo "\n         |$method\n";
                     ob_flush();
@@ -384,7 +386,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                 } elseif($operator === 'match') {
 
-                    $expected = $settings[key($settings)];
+                    $expected = $this->getValue($settings, key($settings));
                     if (key($settings) === '') {
                         $actual = $response;
                     } else if (key($settings) === '$body') {
@@ -396,8 +398,15 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     $expected = $this->replaceWithStash($expected, $stash);
                     $actual = $this->replaceWithStash($actual, $stash);
-                    if (is_object($expected) === true) {
-                        $expected = (array)$expected;
+                    if ($actual != $expected) {
+                        //Holy janky batman
+                        if (is_array($actual) && count($actual) == 0) {
+                            $actual = (object) $actual;
+                        } else {
+                            $actual = json_decode(json_encode($actual));
+                        }
+
+                        $expected = json_decode(json_encode($expected));
                     }
 
                     if ($this->checkForRegex($expected) === true) {
@@ -436,20 +445,24 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n";
 
                 } elseif ($operator === 'set') {
-                    $stash['$'.$settings[key($settings)]] = $this->getNestedVar($response, key($settings));
+                    $stashKey = $this->getValue($settings, key($settings));
+                    $stash["$$stashKey"] = $this->getNestedVar($response, key($settings));
 
                     echo "\n";
 
                 } elseif ($operator === "length") {
-                    $this->assertCount($settings[key($settings)], $this->getNestedVar($response, key($settings)));
+                    $expectedCount = $this->getValue($settings, key($settings));
+                    $this->assertCount($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
 
                 } elseif ($operator === "lt") {
-                    $this->assertLessThan($settings[key($settings)], $this->getNestedVar($response, key($settings)));
+                    $expectedCount = $this->getValue($settings, key($settings));
+                    $this->assertLessThan($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
 
                 } elseif ($operator === "gt") {
-                    $this->assertGreaterThan($settings[key($settings)], $this->getNestedVar($response, key($settings)));
+                    $expectedCount = $this->getValue($settings, key($settings));
+                    $this->assertGreaterThan($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
                 } elseif ($operator === "skip") {
                     if (isset($settings['version']) === true) {
@@ -498,6 +511,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         return $ret;
     }
 
+    private function getValue($a, $key) {
+        if (is_array($a)) {
+            return $a[$key];
+        } elseif(is_object($a)) {
+            return $a->$key;
+        } else {
+            die('non-array, non-object in getValue()');
+        }
+    }
+
     private function snakeToCamel($val) {
         return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $val))));
     }
@@ -536,6 +559,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         return $document;
 
+    }
+
+    private function checkForEmptyProperty($file, $document) {
+        $pattern = "/{.*?('').*?:.*?{/";
+
+        $document = preg_replace($pattern, '{ $body: {', $document);
+
+        return $document;
     }
 
     private function checkForRegex($value) {

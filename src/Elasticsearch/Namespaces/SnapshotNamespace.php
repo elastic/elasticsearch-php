@@ -32,8 +32,8 @@ class SnapshotNamespace extends AbstractNamespace
         
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
 
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -42,6 +42,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Snapshot\Create');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
+                 ->setBody($body)
                  ->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];
@@ -202,7 +203,8 @@ class SnapshotNamespace extends AbstractNamespace
         
 
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
+
+        $body = $this->extractArgument($params, 'body');
 
 
         /** @var callback $endpointBuilder */
@@ -212,6 +214,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Snapshot\Restore');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
+                 ->setBody($body)
                  ->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

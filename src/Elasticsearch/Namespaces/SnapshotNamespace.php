@@ -209,7 +209,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint */
-        $endpoint = $endpointBuilder('Snapshot\Get');
+        $endpoint = $endpointBuilder('Snapshot\Restore');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
                  ->setParams($params);

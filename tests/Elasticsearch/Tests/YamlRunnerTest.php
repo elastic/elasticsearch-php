@@ -131,7 +131,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
     private function assertRegex($pattern, $actual) {
-        $pattern .= "mx";
+        $pattern = trim($pattern);
+
+        // PHP doesn't like unescaped forward slashes, switch to a new delimeter
+        // to make life easier
+        $pattern = substr($pattern, 1, strlen($pattern)-2);
+        $pattern = "%$pattern%mx";
+        ob_flush();
         $result = preg_match($pattern, $actual, $matches);
         $this->assertEquals(1, $result);
 

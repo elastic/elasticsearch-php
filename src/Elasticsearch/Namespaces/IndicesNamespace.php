@@ -398,6 +398,31 @@ class IndicesNamespace extends AbstractNamespace
         return $response['data'];
     }
 
+    /**
+     * $params['index']       = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['detailed']    = (bool) Whether to display detailed information about shard recovery
+     *        ['active_only'] = (bool) Display only those recoveries that are currently on-going
+     *        ['human']       = (bool) Whether to return time and byte values in human-readable format.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function recovery($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
+        $endpoint = $endpointBuilder('Indices\Recovery');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)

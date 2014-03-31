@@ -59,3 +59,24 @@ $params['index'] = array('my_index1', 'my_index2');
 $response = $client->indices()->stats($params);
 ----
 {zwsp} +
+
+As another example, here is how you might add an alias to an existing index:
+
+[source,php]
+----
+$params['body'] = array(
+    'actions' => array(
+        array(
+            'add' => array(
+                'index' => 'myindex',
+                'alias' => 'myalias'
+            )
+        )
+    )
+);
+$client->indices()->updateAliases($params);
+----
+
+Notice how both the `stats` calls and the updateAlias took a variety of parameters,
+each according to what the particular API requires.  The `stats` API only requires
+an index name(s), while the `updateAlias` requires a body of actions.

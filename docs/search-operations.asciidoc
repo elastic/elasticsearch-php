@@ -123,3 +123,68 @@ Of course, at the end of the day, it is built into a single array.  You could ea
 
 All the client requires is an associative array with a structure that matches the JSON query structure.
 
+=== Function_Score query
+A special note needs to be made about the `function_score` query.  Due to the way PHP handles JSON encoding, everything is converted to an array of one for or another.
+This is usually not a problem, since most places in the Elasticsearch API accept arrays or empty objects interchangeably.
+
+However, the `function_score` is a little different and needs to differentiate between empty arrays and empty objects.  For example, consider this query:
+
+[source,json]
+----
+{
+   "query":{
+      "function_score":{
+         "functions":[
+            {
+               "random_score":{}
+            }
+         ],
+         "boost_mode":"replace",
+         "query":{
+            "match_all":{}
+         }
+      }
+   }
+}
+----
+
+The `function_score` defines an array of objects, and the `random_score` key has an empty object as it's value.  PHP's json_encode will convert that query to this:
+
+[source,json]
+----
+{
+   "query":{
+      "function_score":{
+         "functions":[
+            {
+               "random_score":[]
+            }
+         ],
+         "boost_mode":"replace",
+         "query":{
+            "match_all":[]
+         }
+      }
+   }
+}
+----
+
+Which will result in a parse exception from Elasticsearch.  What we need to do is tell PHP that `random_score` contains an empty *object*, not an array.  To do so,
+we need to specify an explicitly empty object:
+
+[source,json]
+----
+$params['body'] = array(
+    'query' => array(
+        'function_score' => array(
+            'functions' => array(
+                array("random_score" => new \stdClass())
+            ),
+            'query' => array('match_all' => array())
+        )
+    )
+);
+$results = $client->search($params);
+----
+
+Now, the JSON will be encoded properly and your query will no longer generate a parser exception.

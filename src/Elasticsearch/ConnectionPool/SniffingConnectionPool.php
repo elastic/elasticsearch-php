@@ -124,10 +124,11 @@ class SniffingConnectionPool extends AbstractConnectionPool
         $this->connections = array();
 
         foreach ($nodes as $node) {
-            $this->connections[] = $this->connectionFactory->create(
-                $node['host'],
-                $node['port']
+            $nodeDetails = array(
+                'host' => $node['host'],
+                'port' => $node['port']
             );
+            $this->connections[] = $this->connectionFactory->create($nodeDetails);
         }
 
         $this->nextSniff = time() + $this->sniffingInterval;

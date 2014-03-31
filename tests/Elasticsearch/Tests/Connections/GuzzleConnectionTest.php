@@ -33,13 +33,12 @@ class GuzzleConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoGuzzleClient()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams = null;
 
         $log = m::mock('\Monolog\Logger')->shouldReceive('critical')->once()->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
 
     }
 

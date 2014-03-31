@@ -231,14 +231,9 @@ class Transport
     {
         $connections = array();
         foreach ($hosts as $host) {
-            if (isset($host['port']) === true) {
-                $connections[] = $this->params['connection'](
-                    $host['host'],
-                    $host['port']
-                );
-            } else {
-                $connections[] = $this->params['connection']($host['host']);
-            }
+            $connections[] = $this->params['connection'](
+                $host
+            );
         }
 
         return $connections;

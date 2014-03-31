@@ -38,14 +38,13 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoMultihandle()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams = null;
 
         $log = $this->getMockBuilder('\Monolog\Logger')
             ->disableOriginalConstructor()
             ->getMock();
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($hostDetails, $connectionParams, $log, $log);
 
     }//end testNoMultihandle()
 
@@ -60,14 +59,13 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadHost()
     {
-        $host = 'localhost5';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost5', 'port' => 9200);
         $connectionParams['curlMultiHandle'] = curl_multi_init();
 
         $log = $this->getMockBuilder('\Monolog\Logger')
             ->disableOriginalConstructor()
             ->getMock();
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($hostDetails, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }//end testBadHost()
@@ -83,14 +81,13 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadPort()
     {
-        $host = 'localhost';
-        $port = 9800;
+        $hostDetails = array('host' => 'localhost', 'port' => 9800);
         $connectionParams['curlMultiHandle'] = curl_multi_init();
         $log = $this->getMockBuilder('\Monolog\Logger')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($hostDetails, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }
@@ -98,8 +95,7 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
     public function testPingTimeout()
     {
 
-        $host = 'localhost';
-        $port = 9800;
+        $hostDetails = array('host' => 'localhost', 'port' => 9800);
 
         $opts = array();
         $connectionParams['curlMultiHandle'] = curl_multi_init();
@@ -115,7 +111,7 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
         $log = m::mock('Psr\Log\LoggerInterface')->shouldReceive('debug')->with("Curl Options:", \Mockery::on($argsValidator))->getMock();
         $trace = m::mock('Psr\Log\LoggerInterface');
 
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($host, $port, $connectionParams, $log, $trace);
+        $connection = new Elasticsearch\Connections\CurlMultiConnection($hostDetails, $connectionParams, $log, $trace);
         try{
             $ret = $connection->performRequest('GET', '/', null, null, array('timeout' => 5000));
         } catch (\Exception $e) {

@@ -12,16 +12,14 @@ use Elasticsearch\Common\AbstractFactory;
 class ConnectionFactory extends AbstractFactory
 {
     /**
-     * @param string $host
-     * @param int $port
+     * @param $hostDetails
      *
      * @return AbstractConnection
      */
-    public function create($host, $port)
+    public function create($hostDetails)
     {
         return $this->container['connection'](
-            $host,
-            $port,
+            $hostDetails,
             $this->container['connectionParamsShared'],
             $this->container['logObject'],
             $this->container['traceObject']

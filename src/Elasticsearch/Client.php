@@ -1323,10 +1323,7 @@ class Client
             $parts['port'] = 9200;
         }
 
-         return array(
-            'host' => $parts['host'],
-            'port' => $parts['port'],
-        );
+        return $parts;
     }
 
 

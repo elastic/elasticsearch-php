@@ -59,9 +59,58 @@ $ret = $client->index($params);
 
 Elasticsearch also supports bulk indexing of documents.  The client provides an interface to bulk index too, but it is less user-friendly.  In the future we will be adding "helper" methods that simplify this process.
 
-The bulk API method expects a bulk body identical to the kind elasticsearch expects: JSON action/metadata pairs separated by new lines.
+The bulk API method expects a bulk body identical to the kind elasticsearch expects: JSON action/metadata pairs separated by new lines.  A common bulk-creation
+pattern is as follows:
 
-If you are specifying these manually, http://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.nowdoc:[Nowdocs] are probably the best method.  Otherwise, when you construct them algorithmically, take care to ensure newlines ("\n") separates all lines...including the last!
+.Bulk indexing with PHP arrays
+[source,php]
+----
+for($i = 0; $i < 100; $i++) {
+    $params['body'][] = array(
+        'index' => array(
+            '_id' => $i
+        )
+    );
+
+    $params['body'][] = array(
+        'doc' => array(
+            'my_field' => 'my_value',
+            'second_field => 'some more values'
+        )
+    );
+}
+
+$responses = $client->bulk($params);
+----
+
+You can of course use any of the available bulk methods.  Here is an example of using upserts:
+
+.Bulk upserting with PHP arrays
+[source,php]
+----
+for($i = 0; $i < 100; $i++) {
+    $params['body'][] = array(
+        'update' => array(
+            '_id' => $i
+        )
+    );
+
+    $params['body'][] = array(
+        'doc_as_upsert' => 'true'
+        'doc' => array(
+            'my_field' => 'my_value',
+            'second_field => 'some more values'
+        )
+    );
+}
+
+$responses = $client->bulk($params);
+----
+
+
+==== Bulk updating with Nowdocs
+
+If you are specifying bulks manually or extracting them from an existing JSON file, http://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.nowdoc:[Nowdocs] are probably the best method.  Otherwise, when you construct them algorithmically, take care to ensure newlines ("\n") separates all lines...including the last!
 
 .Bulk indexing
 [source,php]

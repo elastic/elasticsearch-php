@@ -24,7 +24,7 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $mockConnection = m::mock('\Elasticsearch\Connections\AbstractConnection');
-        $mockFunction = function($host, $port, $params, $log, $trace) use ($mockConnection) {
+        $mockFunction = function($hostDetails, $params, $log, $trace) use ($mockConnection) {
             return $mockConnection;
         };
 
@@ -35,11 +35,13 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
                       ->shouldReceive('offsetGet')->with('logObject')->andReturn(array())->getMock()
                       ->shouldReceive('offsetGet')->with('traceObject')->andReturn(array())->getMock();
 
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array(
+            'host' => 'localhost',
+            'port' => 9200
+        );
 
         $factory = new ConnectionFactory($mockPimple);
-        $connection = $factory->create($host, $port);
+        $connection = $factory->create($hostDetails);
 
         $this->assertEquals($mockConnection, $connection);
     }

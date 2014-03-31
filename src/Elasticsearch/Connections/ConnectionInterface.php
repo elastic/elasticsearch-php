@@ -20,7 +20,7 @@ use Psr\Log\LoggerInterface;
  */
 interface ConnectionInterface
 {
-    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace);
+    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace);
 
     public function getTransportSchema();
 

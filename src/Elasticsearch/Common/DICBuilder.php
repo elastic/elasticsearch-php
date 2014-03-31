@@ -188,10 +188,9 @@ class DICBuilder
     private function setConnectionObj()
     {
         $this->dic['connection'] = function ($dicParams) {
-            return function ($host, $port = null) use ($dicParams) {
+            return function ($hostDetails) use ($dicParams) {
                 return new $dicParams['connectionClass'](
-                    $host,
-                    $port,
+                    $hostDetails,
                     $dicParams['connectionParamsShared'],
                     $dicParams['logObject'],
                     $dicParams['traceObject']

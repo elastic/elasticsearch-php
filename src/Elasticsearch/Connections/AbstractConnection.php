@@ -79,15 +79,18 @@ abstract class AbstractConnection implements ConnectionInterface
     /**
      * Constructor
      *
-     * @param string                   $host             Host string
-     * @param string                   $port             Host port
+     * @param array                    $hostDetails
      * @param array                    $connectionParams Array of connection-specific parameters
      * @param \Psr\Log\LoggerInterface $log              Logger object
      * @param \Psr\Log\LoggerInterface $trace
      */
-    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
+    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
-        $this->host             = $this->transportSchema . '://' . $host . ':' . $port;
+        $host = $this->transportSchema.'://'.$hostDetails['host'].':'.$hostDetails['port'];
+        if (isset($hostDetails['path']) === true) {
+            $host .= $hostDetails['path'];
+        }
+        $this->host             = $host;
         $this->log              = $log;
         $this->trace            = $trace;
         $this->connectionParams = $connectionParams;
@@ -269,6 +272,15 @@ abstract class AbstractConnection implements ConnectionInterface
     public function getPingFailures()
     {
         return $this->failedPings;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
     }
 
 

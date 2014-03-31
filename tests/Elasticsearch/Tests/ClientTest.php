@@ -66,7 +66,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOneGoodOneBadHostNoRetryException()
     {
         $params = array('hosts' => array (
-            '127.0.0.1:80',
+            '127.0.0.1:1',
             $_SERVER['ES_TEST_HOST'],
         ));
         $params['retries'] = 0;
@@ -132,7 +132,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost:'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 9200));
+                $expected = array(array('scheme' => 'http', 'host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }
@@ -152,7 +152,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 9200));
+                $expected = array(array('scheme' => 'http', 'host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }
@@ -172,7 +172,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('localhost:9200'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 9200));
+                $expected = array(array('scheme' => 'http', 'host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }
@@ -192,7 +192,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'hosts' => array('http://localhost:9200'),
             'dic' => function ($hosts, $params) use ($mockDIC, $that) {
 
-                $expected = array(array('host' => 'localhost', 'port' => 9200));
+                $expected = array(array('scheme' => 'http', 'host' => 'localhost', 'port' => 9200));
                 $that->assertEquals($expected, $hosts);
                 return $mockDIC;
             }

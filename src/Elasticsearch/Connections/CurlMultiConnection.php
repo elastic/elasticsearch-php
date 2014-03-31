@@ -48,8 +48,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
     /**
      * Constructor
      *
-     * @param string                   $host             Host string
-     * @param int                      $port             Host port
+     * @param array                    $hostDetails
      * @param array                    $connectionParams Array of connection parameters
      * @param \Psr\Log\LoggerInterface $log              logger object
      * @param \Psr\Log\LoggerInterface $trace            logger object (for curl traces)
@@ -58,7 +57,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return CurlMultiConnection
      */
-    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
+    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
         if (extension_loaded('curl') !== true) {
             $log->critical('Curl library/extension is required for CurlMultiConnection.');
@@ -70,15 +69,15 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             throw new InvalidArgumentException('curlMultiHandle must be set in connectionParams');
         }
 
-        if (isset($port) !== true) {
-            $port = 9200;
+        if (isset($hostDetails['port']) !== true) {
+            $hostDetails['port'] = 9200;
         }
 
         $connectionParams = $this->transformAuth($connectionParams);
         $this->curlOpts = $this->generateCurlOpts($connectionParams);
 
         $this->multiHandle = $connectionParams['curlMultiHandle'];
-        return parent::__construct($host, $port, $connectionParams, $log, $trace);
+        return parent::__construct($hostDetails, $connectionParams, $log, $trace);
 
     }
 

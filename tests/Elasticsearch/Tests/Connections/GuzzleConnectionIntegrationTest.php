@@ -36,14 +36,13 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function test5xxErrorBadHost()
     {
-        $host = 'localhost5';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost5', 'port' => 9200);
 
         $connectionParams['guzzleClient'] = new Client();
 
         $log = m::mock('\Monolog\Logger')->shouldReceive('error')->once()->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }
@@ -54,12 +53,11 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function test5xxErrorBadPort()
     {
-        $host = 'localhost';
-        $port = 9800;
+        $hostDetails = array('host' => 'localhost', 'port' => 9800);
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')->shouldReceive('error')->once()->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/');
 
     }
@@ -70,8 +68,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function test4xxErrorNonexistantEndpoint()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
                 ->shouldReceive('debug')
@@ -79,7 +76,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
                 ->shouldReceive('info')
                 ->times(4)->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
         $ret = $connection->performRequest('GET', '/abc');
 
         $this->assertEquals(400, $ret['status']);
@@ -91,8 +88,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryParams()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
                ->shouldReceive('debug')
@@ -100,7 +96,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
                ->shouldReceive('info')
                ->times(2)->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
         $params['pretty'] = 'true';
 
         $ret = $connection->performRequest('GET', '/', $params);
@@ -117,8 +113,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryURI()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
                ->shouldReceive('debug')
@@ -126,7 +121,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
                ->shouldReceive('info')
                ->times(2)->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
 
         $ret = $connection->performRequest('GET', '/_cluster/nodes/');
 
@@ -140,8 +135,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function test4xxErrorInvalidIndexAndQueryBody()
     {
-        $host = 'localhost';
-        $port = 9200;
+        $hostDetails = array('host' => 'localhost', 'port' => 9200);
         $connectionParams['guzzleClient'] = new Client();
         $log = m::mock('\Monolog\Logger')
                ->shouldReceive('debug')
@@ -149,7 +143,7 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
                ->shouldReceive('info')
                ->times(4)->getMock();
 
-        $connection = new GuzzleConnection($host, $port, $connectionParams, $log, $log);
+        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
 
         $body = '{"testsetting":"123"}';
 

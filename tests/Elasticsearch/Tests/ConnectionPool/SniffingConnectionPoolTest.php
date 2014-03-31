@@ -74,7 +74,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                    ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($mockNewConnection)->getMock();
+                    ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($mockNewConnection)->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false,
@@ -106,7 +106,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->shouldReceive('select')->once()->andReturn($mockNewConnection)->getMock();
 
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                             ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($mockNewConnection)->getMock();
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($mockNewConnection)->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false
@@ -258,8 +258,8 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                             ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($newConnections[0])->getMock()
-                             ->shouldReceive('create')->with('192.168.1.119', 9201)->andReturn($newConnections[1])->getMock();
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[0])->getMock()
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[1])->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false,
@@ -308,8 +308,8 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                             ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($newConnections[0])->getMock()
-                             ->shouldReceive('create')->with('192.168.1.119', 9201)->andReturn($newConnections[1])->getMock();
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[0])->getMock()
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[1])->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false,
@@ -361,8 +361,8 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                             ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($newConnections[10])->getMock()
-                             ->shouldReceive('create')->with('192.168.1.119', 9201)->andReturn($newConnections[11])->getMock();
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[10])->getMock()
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[11])->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false,
@@ -424,8 +424,8 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $RRConnections = $newConnections;
         //array_push($connections);
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory')
-                             ->shouldReceive('create')->with('192.168.1.119', 9200)->andReturn($newConnections[10])->getMock()
-                             ->shouldReceive('create')->with('192.168.1.119', 9201)->andReturn($newConnections[11])->getMock();
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[10])->getMock()
+                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[11])->getMock();
 
         $connectionPoolParams = array(
             'randomizeHosts' => false,

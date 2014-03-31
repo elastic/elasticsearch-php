@@ -37,8 +37,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
 
     /**
-     * @param string                   $host             Host string
-     * @param int                      $port             Host port
+     * @param array                    $hostDetails
      * @param array                    $connectionParams Array of connection parameters
      * @param \Psr\Log\LoggerInterface $log              logger object
      * @param \Psr\Log\LoggerInterface $trace            logger object (for curl traces)
@@ -46,15 +45,15 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return \Elasticsearch\Connections\GuzzleConnection
      */
-    public function __construct($host, $port, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
+    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
         if (isset($connectionParams['guzzleClient']) !== true) {
             $log->critical('guzzleClient must be set in connectionParams');
             throw new InvalidArgumentException('guzzleClient must be set in connectionParams');
         }
 
-        if (isset($port) !== true) {
-            $port = 9200;
+        if (isset($hostDetails['port']) !== true) {
+            $hostDetails['port'] = 9200;
         }
         $this->guzzle = $connectionParams['guzzleClient'];
 
@@ -62,7 +61,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $this->connectionOpts = $connectionParams['connectionParams'];
         }
 
-        return parent::__construct($host, $port, $connectionParams, $log, $trace);
+        return parent::__construct($hostDetails, $connectionParams, $log, $trace);
 
     }
 

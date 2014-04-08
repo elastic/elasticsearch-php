@@ -30,6 +30,7 @@ interface ConnectionInterface
 
     public function markDead();
 
+    public function getLastRequestInfo();
 
     public function performRequest($method, $uri, $params = null, $body = null);
 }

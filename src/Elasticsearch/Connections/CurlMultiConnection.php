@@ -44,6 +44,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
     private $curlOpts;
 
+    private $lastRequest = array();
+
 
     /**
      * Constructor
@@ -137,6 +139,15 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
         $this->log->debug("Curl Options:", $opts);
 
+        $this->lastRequest = array('request' =>
+                                   array(
+                                        'uri'     => $uri,
+                                        'body'    => $body,
+                                        'options' => $options,
+                                        'method'  => $method
+                                    )
+                                );
+
         curl_setopt_array($curlHandle, $opts);
         curl_multi_add_handle($this->multiHandle, $curlHandle);
 
@@ -197,6 +208,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             $this->process5xxError($method, $uri, $response);
         }
 
+        $this->lastRequest['response']['body']    = $response['responseText'];
+        $this->lastRequest['response']['info']    = $response['requestInfo'];
+        $this->lastRequest['response']['status']  = $response['requestInfo']['http_code'];
+
         $this->logRequestSuccess(
             $method,
             $uri,
@@ -215,6 +230,15 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             'info'   => $response['requestInfo'],
         );
 
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getLastRequestInfo()
+    {
+        return $this->lastRequest;
     }
 
 

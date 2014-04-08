@@ -35,6 +35,8 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
     private $connectionOpts = array();
 
+    private $lastRequest = array();
+
 
     /**
      * @param array                    $hostDetails
@@ -106,6 +108,15 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
 
     /**
+     * @return array
+     */
+    public function getLastRequestInfo()
+    {
+        return $this->lastRequest;
+    }
+
+
+    /**
      * @param string $uri
      * @param array $params
      *
@@ -138,8 +149,20 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         }
 
         if (isset($body) === true) {
+            $this->lastRequest = array( 'request' => array(
+                'uri'     => $uri,
+                'body'    => $body,
+                'options' => $options,
+                'method'  => $method
+            ));
             $request = $this->guzzle->$method($uri, array(), $body, $options);
         } else {
+            $this->lastRequest = array( 'request' => array(
+                'uri'     => $uri,
+                'body'    => null,
+                'options' => $options,
+                'method'  => $method
+            ));
             $request = $this->guzzle->$method($uri, array(), $options);
         }
 
@@ -247,8 +270,15 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      */
     private function logErrorDueToFailure(Request $request, \Exception $exception, $body)
     {
-        $response = $request->getResponse();
-        $headers = $request->getHeaders()->getAll();
+        $response     = $request->getResponse();
+        $headers      = $request->getHeaders()->getAll();
+        $info         = $response->getInfo();
+        $responseBody = $response->getBody(true);
+        $status       = $response->getStatusCode();
+
+        $this->lastRequest['response']['body']    = $responseBody;
+        $this->lastRequest['response']['info']    = $info;
+        $this->lastRequest['response']['status']  = $status;
 
         $this->logRequestFail(
             $request->getMethod(),
@@ -278,16 +308,21 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
      */
     private function processSuccessfulRequest(Request $request, $body)
     {
-        $response = $request->getResponse();
-        $headers = $request->getHeaders()->getAll();
+        $response     = $request->getResponse();
+        $headers      = $request->getHeaders()->getAll();
+        $responseBody = $response->getBody(true);
+        $status       = $response->getStatusCode();
+
+        $this->lastRequest['response']['body']    = $responseBody;
+        $this->lastRequest['response']['status']  = $status;
 
         $this->logRequestSuccess(
             $request->getMethod(),
             $request->getUrl(),
             $body,
             $headers,
-            $response->getStatusCode(),
-            $response->getBody(true),
+            $status,
+            $responseBody,
             $response->getInfo('total_time')
         );
     }

@@ -75,6 +75,9 @@ abstract class AbstractConnection implements ConnectionInterface
     /** @return string */
     abstract public function getTransportSchema();
 
+    /** @return array */
+    abstract public function getLastRequestInfo();
+
 
     /**
      * Constructor

@@ -38,7 +38,7 @@ class Client
     /**
      * @var Transport
      */
-    protected $transport;
+    public $transport;
 
     /**
      * @var \Pimple

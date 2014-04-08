@@ -249,7 +249,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 $this->clearCluster();
 
                 if ($setup !== null) {
-                    $this->executeTestCase($setup, $testFile);
+                    try {
+                        $this->executeTestCase($setup, $testFile);
+                    } catch (SetupSkipException $e) {
+                        break;  //exit this test since we skipped in the setup
+                    }
+
                 }
                $this->executeTestCase($doc['values'], $testFile);
 

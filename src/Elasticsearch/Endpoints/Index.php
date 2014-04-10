@@ -76,7 +76,7 @@ class Index extends AbstractEndpoint
         }
 
         if ($this->createIfAbsent === true) {
-            $uri .= $this->addCreateFlag($uri);
+            $uri .= $this->addCreateFlag();
         }
 
         return $uri;

@@ -3,6 +3,7 @@ php:
   - "5.5"
   - "5.4"
   - "5.3"
+  - hhvm
 env:
   - ES_VERSION=0.90.0 ES_TEST_HOST=http://localhost:9200
   - ES_VERSION=0.90.1 ES_TEST_HOST=http://localhost:9200

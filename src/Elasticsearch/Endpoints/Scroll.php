@@ -25,6 +25,8 @@ class Scroll extends AbstractEndpoint
     // The scroll ID
     private $scroll_id;
 
+    private $clear = false;
+
 
     /**
      * @param array $body
@@ -43,6 +45,12 @@ class Scroll extends AbstractEndpoint
         return $this;
     }
 
+
+    public function setClearScroll($clear)
+    {
+        $this->clear = $clear;
+        return $this;
+    }
 
 
     /**
@@ -94,6 +102,10 @@ class Scroll extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        if ($this->clear == true) {
+            return 'DELETE';
+        }
+
         return 'GET';
     }
 }

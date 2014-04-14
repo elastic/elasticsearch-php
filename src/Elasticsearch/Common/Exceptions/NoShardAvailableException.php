@@ -16,6 +16,6 @@ namespace Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class NoShardAvailableException extends \Exception implements ElasticsearchException
+class NoShardAvailableException extends ServerErrorResponseException implements ElasticsearchException
 {
 }

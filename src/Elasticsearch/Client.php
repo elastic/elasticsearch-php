@@ -1069,6 +1069,35 @@ class Client
 
 
     /**
+     * $params['scroll_id'] = (string) The scroll ID for scrolled search
+     *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['body']      = (string) The scroll ID for scrolled search
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function clearScroll($params = array())
+    {
+        $scrollID = $this->extractArgument($params, 'scroll_id');
+
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
+        $endpoint = $endpointBuilder('Scroll');
+        $endpoint->setScrollID($scrollID)
+                 ->setBody($body)
+                 ->setClearScroll(true);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
      * $params['id']                = (string) Document ID (Required)
      *        ['index']             = (string) The name of the index (Required)
      *        ['type']              = (string) The type of the document (Required)

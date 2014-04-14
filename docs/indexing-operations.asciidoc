@@ -1,4 +1,3 @@
-
 == Indexing Operations
 
 Indexing is very easy in the client.  Since associative arrays can easily be converted into JSON documents, indexing documents is simply a matter of providing the correctly structured associative array and calling a method.
@@ -75,7 +74,7 @@ for($i = 0; $i < 100; $i++) {
     $params['body'][] = array(
         'doc' => array(
             'my_field' => 'my_value',
-            'second_field => 'some more values'
+            'second_field' => 'some more values'
         )
     );
 }

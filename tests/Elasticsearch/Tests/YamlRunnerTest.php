@@ -373,6 +373,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                         $response = array();
 
+                    } catch (ServerErrorResponseException $exception){
+                        if ($expectedError === 'request') {
+                            $this->assertTrue(true);
+                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = array();
+
                     } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception){
                         if ($expectedError === 'param') {
                             $this->assertTrue(true);

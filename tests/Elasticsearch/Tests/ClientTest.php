@@ -338,7 +338,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Elasticsearch\Client($params);
 
         try {
-            $client->exists(['index' => 't', 'type' => 't', 'id' => 1]);
+            $client->exists(array('index' => 't', 'type' => 't', 'id' => 1));
         } catch (\Exception $e) {
 
         }

@@ -1,4 +1,3 @@
-
 == Search Operations
 
 Well...it isn't called elasticsearch for nothing!  Let's talk about search operations in the PHP client.
@@ -32,6 +31,7 @@ $params['body']['query']['match']['testField'] = 'abc';
 $results = $client->search($params);
 ----
 {zwsp} +
+
 
 .Using Raw JSON
 ****
@@ -67,6 +67,41 @@ $score = $results['hits']['hits'][0]['_score'];
 $doc   = $results['hits']['hits'][0]['_source'];
 ----
 {zwsp} +
+
+=== Bool Queries
+
+Bool queries can be easily constructed using the client. For example, this query:
+[source,shell]
+----
+curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+    "query" : {
+        "bool" : {
+            "must": {
+                "match" : {
+                    "testField" : "abc"
+                },
+                "match" : {
+                    "anotherTestField" : "xyz"
+                }
+            }
+        }
+    }
+}'
+----
+{zwsp} +
+
+Would be structured like this (Note the position of the square brackets):
+[source,php]
+----
+$params['index'] = 'my_index';
+$params['type']  = 'my_type';
+$params['body']['query']['bool']['must'][]['match']['testField'] = 'abc';
+$params['body']['query']['bool']['must'][]['match']['anotherTestField'] = 'xyz';
+
+$results = $client->search($params);
+----
+{zwsp} +
+
 
 === A more complicated example
 

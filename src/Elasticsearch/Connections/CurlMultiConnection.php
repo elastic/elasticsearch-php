@@ -75,6 +75,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             $hostDetails['port'] = 9200;
         }
 
+        if (isset($hostDetails['scheme']) !== true) {
+            $hostDetails['scheme'] = 'http';
+        }
+
         $connectionParams = $this->transformAuth($connectionParams);
         $this->curlOpts = $this->generateCurlOpts($connectionParams);
 

@@ -330,4 +330,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
 
     }
+
+    public function testHTTPS()
+    {
+        // Hosts param must be an array.
+        $params = array('hosts' => array('https://localhost'));
+        $client = new Elasticsearch\Client($params);
+
+        try {
+            $client->exists(['index' => 't', 'type' => 't', 'id' => 1]);
+        } catch (\Exception $e) {
+
+        }
+
+        $last = $client->transport->getLastConnection()->getLastRequestInfo();
+        $this->assertEquals('https://localhost:9200/t/t/1?', $last['request']['uri']);
+
+    }
 }

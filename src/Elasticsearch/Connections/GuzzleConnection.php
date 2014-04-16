@@ -57,6 +57,11 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         if (isset($hostDetails['port']) !== true) {
             $hostDetails['port'] = 9200;
         }
+
+        if (isset($hostDetails['scheme']) !== true) {
+            $hostDetails['scheme'] = 'http';
+        }
+
         $this->guzzle = $connectionParams['guzzleClient'];
 
         if (isset($connectionParams['connectionParams'])) {

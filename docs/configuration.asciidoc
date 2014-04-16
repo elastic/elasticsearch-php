@@ -11,7 +11,7 @@ A common operation will be telling the client what nodes are in your cluster.  B
 
 All configurations (both simple parameters and more advanced component-replacement) are injected into the constructor of the client.  
 
-The client accepts an array of hosts that you would like to connect to.  Each value in the array must be a string (either with or without the port number):
+The client accepts an array of hosts that you would like to connect to.  Each value in the array must be a string (either with or without the port number).  SSL can be enabled by prefixing the host with 'https':
 
 [source,php]
 ----
@@ -20,7 +20,9 @@ $params['hosts'] = array (
     '192.168.1.1:9200',         // IP + Port
     '192.168.1.2',              // Just IP
     'mydomain.server.com:9201', // Domain + Port
-    'mydomain2.server.com'      // Just Domain 
+    'mydomain2.server.com',     // Just Domain
+    'https://localhost',        // SSL to localhost
+    'https://192.168.1.3:9200'  // SSL to IP + Port
 );
 
 $client = new Elasticsearch\Client($params);

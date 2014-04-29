@@ -1011,6 +1011,38 @@ class Client
         return $response['data'];
     }
 
+    /**
+     * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+     *        ['type']               = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['routing']            = (string) Specific routing value
+     *        ['local']              = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function searchShards($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $type = $this->extractArgument($params, 'type');
+
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\SearchShards $endpoint */
+        $endpoint = $endpointBuilder('SearchShards');
+        $endpoint->setIndex($index)
+                 ->setType($type);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices

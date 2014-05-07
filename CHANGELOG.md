@@ -1,3 +1,19 @@
+## Release 1.1.0
+ - [DOCS] Add more examples of bulk indexing/updating [[6d25569]](http://github.com/elasticsearch/elasticsearch-php/commit/6d25569c74ef3cc9439a4078cc3ca478f137f41a)
+ - [DOCS] Add updateAlias example [[a75b7f2]](http://github.com/elasticsearch/elasticsearch-php/commit/a75b7f20210cda7dc54b3613b7d60c849caa8996)
+ - [DOCS] Add example of function_score and defining explicitly empty objects [[ed66d23]](http://github.com/elasticsearch/elasticsearch-php/commit/ed66d23c297a6ef823393e23b74fd9734f91f8a7)
+ - Add ability to get last request info [[f1092c5]](http://github.com/elasticsearch/elasticsearch-php/commit/f1092c5b05c1d05662afb7901d75dc8402572525)
+ - [TEST] Fix bug where skips in setup are ignored [[21c8698]](http://github.com/elasticsearch/elasticsearch-php/commit/21c86986a0753e3d6f104e8e3302feb4621a438b)
+ - Match function call with function signature [[9a9e95e]](http://github.com/elasticsearch/elasticsearch-php/commit/9a9e95ef9efa8a0b42ccefcd1b71d27eca3bc2e5)
+ - Add clearScroll method [[9b85c2d]](http://github.com/elasticsearch/elasticsearch-php/commit/9b85c2dfc931919d29d60fd47fa9ebd014832055)
+ - [TEST] Properly handle 5xx errors when `request` is being caught [[d299c61]](http://github.com/elasticsearch/elasticsearch-php/commit/d299c6143e6e87b3606c28f57b66d4c3a70a724e)
+ - Various exceptions should extend ServerErrorResponseException [[9022a9e]](http://github.com/elasticsearch/elasticsearch-php/commit/9022a9e2c97aadb31023987cf17e554033994ed4)
+ - Fixed missing ' in Bulk indexing example code [[b90b7d3]](http://github.com/elasticsearch/elasticsearch-php/commit/b90b7d3729f4b92da525f4f41bdf70fd22ec159f)
+ - Fix bug where scheme prefix always defaulted to HTTP [[4020db6]](http://github.com/elasticsearch/elasticsearch-php/commit/4020db6dfe1be099311c70a0cb3812859524c640)
+ - [TEST] Change array syntax to be PHP 5.3 compatible [[f884c54]](http://github.com/elasticsearch/elasticsearch-php/commit/f884c54b64da532a48685fe9364b679e28a14528)
+ - Added a Bool Query section [[7b0011f]](http://github.com/elasticsearch/elasticsearch-php/commit/7b0011f0e34a72e4d42977457bcddc5f7e65d9b3)
+ - Add SearchShards endpoint [[7d7b667]](http://github.com/elasticsearch/elasticsearch-php/commit/7d7b66781ea526f99ba79b3d053c7feeaa9474e0)
+
 ## Release 1.0.2
  - Update IndicesNamespace.php [[8656c33]](http://github.com/elasticsearch/elasticsearch-php/commit/8656c332e818e7361cbcecda621270a1e75ab017)
  - [YAML] Update ES dependency commit point [[d0b9526]](http://github.com/elasticsearch/elasticsearch-php/commit/d0b952667a2af4bc4b957a548b359c933e9a9a82)

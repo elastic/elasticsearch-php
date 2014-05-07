@@ -29,11 +29,8 @@ class SnapshotNamespace extends AbstractNamespace
     public function create($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -42,7 +39,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Snapshot\Create');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
-                 ->setParams($params);
+                 ->setParams($params)
+                 ->setBody($body);
         $response = $endpoint->performRequest();
         return $response['data'];
     }
@@ -59,11 +57,7 @@ class SnapshotNamespace extends AbstractNamespace
     public function createRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -88,11 +82,7 @@ class SnapshotNamespace extends AbstractNamespace
     public function delete($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -118,8 +108,6 @@ class SnapshotNamespace extends AbstractNamespace
     public function deleteRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -143,8 +131,6 @@ class SnapshotNamespace extends AbstractNamespace
     public function get($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
         $snapshot = $this->extractArgument($params, 'snapshot');
         
 
@@ -173,8 +159,6 @@ class SnapshotNamespace extends AbstractNamespace
     public function getRepository($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
@@ -199,17 +183,39 @@ class SnapshotNamespace extends AbstractNamespace
     public function restore($params = array())
     {
         $repository = $this->extractArgument($params, 'repository');
-        
-
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint */
-        $endpoint = $endpointBuilder('Snapshot\Get');
+        /** @var \Elasticsearch\Endpoints\Snapshot\Restore $endpoint */
+        $endpoint = $endpointBuilder('Snapshot\Restore');
+        $endpoint->setRepository($repository)
+                 ->setSnapshot($snapshot)
+                 ->setParams($params)
+                 ->setBody($body);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+    /**
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function status($params = array())
+    {
+        $repository = $this->extractArgument($params, 'repository');
+        $snapshot = $this->extractArgument($params, 'snapshot');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Snapshot\Status $endpoint */
+        $endpoint = $endpointBuilder('Snapshot\Status');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
                  ->setParams($params);

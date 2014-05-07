@@ -43,7 +43,7 @@ $params['connectionParams']['auth'] = array(
 );
 $client = new Elasticsearch\Client($params);
 ----
-<1> Accepts four different options: `Basic`, `Digets`, `NTLM`, `Any`
+<1> Accepts four different options: `Basic`, `Digests`, `NTLM`, `Any`
 
 After being initialized with authentication credentials, all outgoing requests will automatically include the HTTP auth headers.
 

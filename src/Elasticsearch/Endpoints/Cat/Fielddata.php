@@ -50,7 +50,7 @@ class Fielddata extends AbstractEndpoint
         $uri   = "/_cat/fielddata";
 
         if (isset($fields) === true) {
-            $uri = "/_cat/aliases/$fields";
+            $uri = "/_cat/fielddata/$fields";
         }
 
         return $uri;

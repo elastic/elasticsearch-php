@@ -137,7 +137,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $pattern = substr($pattern, 1, strlen($pattern)-2);
         $pattern = str_replace('/', '\/', $pattern);
         $pattern = "/$pattern/mx";
-        echo "\n> pattern: $pattern\n";
+        echo "\n         |> actual: $actual\n";
+        echo "\n         |> pattern: $pattern\n";
         ob_flush();
         $result = preg_match($pattern, $actual, $matches);
         $this->assertEquals(1, $result);

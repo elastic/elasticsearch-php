@@ -1,0 +1,50 @@
+<?php
+
+require 'vendor/autoload.php';
+
+use Task\Plugin\PHPUnitPlugin;
+use Task\Plugin\ProcessPlugin;
+use GitWrapper\GitWrapper;
+
+$project = new Task\Project('elasticsearch/elasticsearch-php');
+
+$project->inject(function ($container) {
+    $container['phpunit'] = new PHPUnitPlugin;
+    $container['git'] = new GitWrapper;
+    $container['ps'] = new ProcessPlugin;
+});
+
+$project->addTask('test:update', 'Update test dependencies', ['git', function ($git) {
+    $git = $git->workingCopy(__DIR__.'/util/elasticsearch');
+
+    $this->getOutput()->writeln('Update elasticsearch submodule');
+    $git->fetchAll(array('verbose' => true));
+
+    $hash = getenv('TEST_BUILD_REF') ?: 'origin/1.x';
+
+    $this->getOutput()->writeln("Checkout yaml tests (hash: $hash)");
+    $git->checkout($hash, array('force' => true, 'quiet' => true));
+}]);
+
+$project->addTask('test', 'Run test suite', ['test:update'], ['phpunit', function ($phpunit) {
+    putenv('ES_TEST_HOST='.getenv('ES_TEST_HOST') ?: 'http://localhost:9200');
+
+    $phpunit->getCommand()
+        ->addCoverage('clover', 'build/log/clover.xml')
+        ->excludeGroups(['ignore'])
+        ->setTestFile('tests')
+        ->pipe($this->getOutput());
+}]);
+
+$project->addTask('es', ['ps', function ($ps) {
+    $ps->build($this->getProperty('bin'))
+        ->add('-Des.gateway.type=none')
+        ->add('-Des.http.port=9200')
+        ->add('-Des.index.store.type=memory')
+        ->add('-Des.discovery.zen.ping.multicast.enabled=false')
+        ->add('-Des.node.bench=true')
+        ->add('-Des/script.disable_dynamic=false')
+        ->pipe($this->getOutput());
+}]);
+
+return $project;

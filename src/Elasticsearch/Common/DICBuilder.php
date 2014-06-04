@@ -201,7 +201,7 @@ class DICBuilder
 
     private function setConnectionFactoryObj()
     {
-        $this->dic['connectionFactory'] = function($dicParams) {
+        $this->dic['connectionFactory'] = function ($dicParams) {
             return new $dicParams['connectionFactoryClass']($dicParams);
         };
     }
@@ -240,64 +240,52 @@ class DICBuilder
 
     private function setTransportObj($hosts)
     {
-        $this->dic['transport'] = $this->dic->share(
-            function ($dicParams) use ($hosts) {
-                return new Transport($hosts, $dicParams, $dicParams['logObject']);
-            }
-        );
+        $this->dic['transport'] = function ($dicParams) use ($hosts) {
+            return new Transport($hosts, $dicParams, $dicParams['logObject']);
+        };
     }
 
 
     private function setClusterNamespaceObj()
     {
-        $this->dic['clusterNamespace'] = $this->dic->share(
-            function ($dicParams) {
-                /** @var Pimple $dicParams */
-                return new ClusterNamespace($dicParams['transport'], $dicParams['endpoint']);
-            }
-        );
+        $this->dic['clusterNamespace'] = function ($dicParams) {
+            /** @var Pimple $dicParams */
+            return new ClusterNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
     }
 
 
     private function setIndicesNamespaceObj()
     {
-        $this->dic['indicesNamespace'] = $this->dic->share(
-            function ($dicParams) {
-                /** @var Pimple $dicParams */
-                return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
-            }
-        );
+        $this->dic['indicesNamespace'] = function ($dicParams) {
+            /** @var Pimple $dicParams */
+            return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
     }
 
     private function setNodesNamespaceObj()
     {
-        $this->dic['nodesNamespace'] = $this->dic->share(
-            function ($dicParams) {
-                /** @var Pimple $dicParams */
-                return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
-            }
-        );
+        $this->dic['nodesNamespace'] = function ($dicParams) {
+            /** @var Pimple $dicParams */
+            return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
     }
 
 
     private function setSnapshotNamespaceObj()
     {
-        $this->dic['snapshotNamespace'] = $this->dic->share(
-            function ($dicParams) {
-                /** @var Pimple $dicParams */
-                return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
-            }
-        );
+        $this->dic['snapshotNamespace'] = function ($dicParams) {
+            /** @var Pimple $dicParams */
+            return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
     }
 
     private function setCatNamespaceObj()
     {
-        $this->dic['catNamespace'] = $this->dic->share(
-            function ($dicParams) {
-                /** @var Pimple $dicParams */
-                return new CatNamespace($dicParams['transport'], $dicParams['endpoint']);
-            }
-        );
+        $this->dic['catNamespace'] = function ($dicParams) {
+            /** @var Pimple $dicParams */
+            return new CatNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
     }
 
 
@@ -306,77 +294,66 @@ class DICBuilder
         // This will inject a shared object into all connections.
         // Allows users to inject shared resources, similar to the multi-handle
         // shared above (but in their own code).
-        $this->dic['connectionParamsShared'] = $this->dic->share(
-            function ($dicParams) {
+        $this->dic['connectionParamsShared'] = function ($dicParams) {
+            $connectionParams = $dicParams['connectionParams'];
 
-                $connectionParams = $dicParams['connectionParams'];
-
-                // Multihandle connections need a "static", shared curl multihandle.
-                if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
-                    $connectionParams = array_merge(
-                        $connectionParams,
-                        array('curlMultiHandle' => $dicParams['curlMultiHandle'])
-                    );
-                } elseif ($dicParams['connectionClass'] === '\Elasticsearch\Connections\GuzzleConnection') {
-                    $connectionParams = array_merge(
-                        $connectionParams,
-                        array('guzzleClient' => $dicParams['guzzleClient'])
-                    );
-                }
-
-                return $connectionParams;
+            // Multihandle connections need a "static", shared curl multihandle.
+            if ($dicParams['connectionClass'] === '\Elasticsearch\Connections\CurlMultiConnection') {
+                $connectionParams = array_merge(
+                    $connectionParams,
+                    array('curlMultiHandle' => $dicParams['curlMultiHandle'])
+                );
+            } elseif ($dicParams['connectionClass'] === '\Elasticsearch\Connections\GuzzleConnection') {
+                $connectionParams = array_merge(
+                    $connectionParams,
+                    array('guzzleClient' => $dicParams['guzzleClient'])
+                );
             }
-        );
+
+            return $connectionParams;
+        };
     }
 
 
     private function setCurlMultihandle()
     {
         // Only used by some connections - won't be instantiated until used.
-        $this->dic['curlMultiHandle'] = $this->dic->share(
-            function () {
-                if (extension_loaded('curl') !== true) {
-                    throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
-                }
-                return curl_multi_init();
+        $this->dic['curlMultiHandle'] = function () {
+            if (extension_loaded('curl') !== true) {
+                throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
             }
-        );
+            return curl_multi_init();
+        };
     }
 
     private function setGuzzleClient()
     {
         // Only used by Guzzle connections - won't be instantiated until used.
-        $this->dic['guzzleClient'] = $this->dic->share(
-            function ($dicParams) {
+        $this->dic['guzzleClient'] = function ($dicParams) {
+            $guzzleOptions = array();
+            $guzzleOptions['curl.options']['body_as_string'] = true;
 
-                $guzzleOptions = array();
-                $guzzleOptions['curl.options']['body_as_string'] = true;
-
-                if (isset($dicParams['connectionParams']['auth']) === true) {
-                    $guzzleOptions['request.options']['auth'] = $dicParams['connectionParams']['auth'];
-                }
-
-                $guzzleOptions = array_merge($guzzleOptions, $dicParams['guzzleOptions']);
-                $guzzle =  new \Guzzle\Http\Client(null,$guzzleOptions);
-
-                return $guzzle;
+            if (isset($dicParams['connectionParams']['auth']) === true) {
+                $guzzleOptions['request.options']['auth'] = $dicParams['connectionParams']['auth'];
             }
-        );
+
+            $guzzleOptions = array_merge($guzzleOptions, $dicParams['guzzleOptions']);
+            $guzzle =  new \Guzzle\Http\Client(null, $guzzleOptions);
+
+            return $guzzle;
+        };
     }
 
     private function setEndpoint()
     {
-        $this->dic['endpoint'] = function ($dicParams) {
-            return function($class) use ($dicParams) {
-                $fullPath = '\\Elasticsearch\\Endpoints\\'.$class;
-                if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
-                    return new $fullPath($dicParams['transport'], $dicParams['serializer']);
-                } else {
-                    return new $fullPath($dicParams['transport']);
-                }
-
-            };
-        };
+        $dicParams = $this->dic;
+        $this->dic['endpoint'] = $this->dic->protect(function ($class) use ($dicParams) {
+            $fullPath = '\\Elasticsearch\\Endpoints\\'.$class;
+            if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
+                return new $fullPath($dicParams['transport'], $dicParams['serializer']);
+            } else {
+                return new $fullPath($dicParams['transport']);
+            }
+        });
     }
-
 }//end class

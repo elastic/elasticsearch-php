@@ -584,6 +584,7 @@ class IndicesNamespace extends AbstractNamespace
      *        ['order']   = (number) The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
      *        ['timeout'] = (time) Explicit operation timeout
      *        ['body']    = (time) Explicit operation timeout
+     *        ['create']  = (bool) Whether the index template should only be added if new or can also replace an existing one
      *
      * @param $params array Associative array of parameters
      *

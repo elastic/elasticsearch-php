@@ -93,6 +93,7 @@ class Put extends AbstractEndpoint
             'timeout',
             'master_timeout',
             'flat_settings',
+            'create'
         );
     }
 

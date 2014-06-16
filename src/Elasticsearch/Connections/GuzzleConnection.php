@@ -288,10 +288,10 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $this->logRequestFail(
             $request->getMethod(),
             $request->getUrl(),
-            $response->getInfo('total_time'),
+            $body,
             $headers,
             $response->getStatusCode(),
-            $body,
+            $responseBody,
             $exception->getMessage()
         );
     }

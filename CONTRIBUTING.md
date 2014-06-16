@@ -16,23 +16,30 @@ The process for contributing to any of the Elasticsearch repositories is similar
         $> curl -s http://getcomposer.org/installer | php
         $> php composer.phar install --dev
 
+    [Task](http://taskphp.github.io) is used to run build and test routines. We strongly suggest you install the [CLI](https://github.com/taskphp/cli); instructions can be found on either of those links.
+
 3. Ensure a version of Elasticsearch is running on your machine.  Recommended "test" configuration is:
 
         $> bin/elasticsearch -d -Des.gateway.type=none -Des.http.port=9200 \
             -Des.index.store.type=memory -Des.discovery.zen.ping.multicast.enabled=false \
             -Des.node.bench=true -Des.script.disable_dynamic=false
 
+    You can run this via Task:
+
+        $> task es -p bin=path/to/elasticsearch/bin/elasticsearch
+
 4. Run the unit and yaml integration tests to ensure your changes do not break existing code.  The exported `TEST_BUILD_REF` should match the branch of Elasticsearch that is running on your machine (since tests are specific to the server version):
 
         $> export TEST_BUILD_REF='origin/1.x'
         $> export ES_TEST_HOST='http://localhost:9200'
+    
+    Update test dependencies and run the suite with Task. **WARNING: the unit tests will clear your cluster and data..._do not_ run the tests on a production cluster!**:
 
-    Then proceed to initialize the REST yaml tests and run the package. **WARNING: the unit tests will clear your cluster
-    and data..._do not_ run the tests on a production cluster!**
+        $> task test
 
-        $> php util/RestSpecRunner.php
-        $> php phpunit.phar --bootstrap tests/bootstrap.php --no-configuration \
-            --coverage-clover build/logs/clover.xml --exclude-group ignore tests
+    To manually update test dependencies:
+
+        $> task test:update
 
 4. Rebase your changes
 

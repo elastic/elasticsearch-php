@@ -175,8 +175,8 @@ abstract class AbstractConnection implements ConnectionInterface
         $exception = null
     ) {
         $this->log->debug('Request Body', array($body));
-        $this->log->info(
-            'Request Success:',
+        $this->log->warning(
+            'Request Failure:',
             array(
                 'method'    => $method,
                 'uri'       => $fullURI,
@@ -186,7 +186,7 @@ abstract class AbstractConnection implements ConnectionInterface
                 'error'     => $exception,
             )
         );
-        $this->log->debug('Response', array($response));
+        $this->log->warning('Response', array($response));
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);

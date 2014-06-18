@@ -1,3 +1,18 @@
+## Release 1.2.0
+ - Add Snapshot/Status endpoint [[f88d7ca]](http://github.com/elasticsearch/elasticsearch-php/commit/f88d7ca1e8e50229862175aed418c4a6dc4352cd)
+ - Add Snapshot/Status implementation [[ed85658]](http://github.com/elasticsearch/elasticsearch-php/commit/ed85658c88f6e3542e6865b5f4394de40b400b07)
+ - [DOCS] Fix typo [[90aeea4]](http://github.com/elasticsearch/elasticsearch-php/commit/90aeea4dfcdac2a91ffb97c27d841413c6b1753b)
+ - [TEST] Reconfigure regex parsing/matching [[3d8cc12]](http://github.com/elasticsearch/elasticsearch-php/commit/3d8cc1298a8145bb4239f190dbbe43d482f9abe2)
+ - [TEST] Fix incorrect feature-skip behavior [[ad10df9]](http://github.com/elasticsearch/elasticsearch-php/commit/ad10df9e3fa5870fca9ed1c6bd60fe560e3157dc)
+ - Add Cat/Fielddata endpoint [[950fbaa]](http://github.com/elasticsearch/elasticsearch-php/commit/950fbaad0e6a0ae0301b91638a833b0c0c985d82)
+ - Fix Cat/Fielddata endpoint URI [[4ea7149]](http://github.com/elasticsearch/elasticsearch-php/commit/4ea7149cb8a808af0ab66067c4f700397ec20f1d)
+ - [TEST] Improve Regex debugging output [[f93837a]](http://github.com/elasticsearch/elasticsearch-php/commit/f93837a81122f3306738de55629f1946746415fd)
+ - Update CONTRIBUTING.md [[f3a39a7]](http://github.com/elasticsearch/elasticsearch-php/commit/f3a39a7389167c7b5c378fe0647431459b5dfc8d)
+ - Update Pimple to 2.0 [[e1cc94e]](http://github.com/elasticsearch/elasticsearch-php/commit/e1cc94e5e8275d59e448f66319553377edef84ad)
+ - Add 'create' param to Indices/PutTemplate API [[b06ed72]](http://github.com/elasticsearch/elasticsearch-php/commit/b06ed72d432354e72ad7496678b9fa55593a6b4a)
+ - Add metric param to Indices/Stats endpoint [[8dace3f]](http://github.com/elasticsearch/elasticsearch-php/commit/8dace3fc2f4041a982f7f7f3c0d33421ab5fc6c5)
+ - Fix logging of response errors [[7d91545]](http://github.com/elasticsearch/elasticsearch-php/commit/7d915455d3e14ef9ba68c82681040c8d91aad6c8)
+
 ## Release 1.1.0
  - [DOCS] Add more examples of bulk indexing/updating [[6d25569]](http://github.com/elasticsearch/elasticsearch-php/commit/6d25569c74ef3cc9439a4078cc3ca478f137f41a)
  - [DOCS] Add updateAlias example [[a75b7f2]](http://github.com/elasticsearch/elasticsearch-php/commit/a75b7f20210cda7dc54b3613b7d60c849caa8996)

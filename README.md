@@ -181,7 +181,7 @@ Check out the rest of the [Documentation](http://www.elasticsearch.org/guide/en/
 License
 -------
 
-Copyright 2013 Elasticsearch
+Copyright 2014 Elasticsearch
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -27,7 +27,7 @@ use Psr\Log\LoggerInterface;
 class Transport
 {
     /**
-     * @var \Pimple
+     * @var \Pimple\Container
      */
     private $params;
 
@@ -63,7 +63,7 @@ class Transport
      * underlying cluster connections
      *
      * @param array                    $hosts  Array of hosts in cluster
-     * @param \Pimple                  $params DIC containing dependencies
+     * @param \Pimple\Container        $params DIC containing dependencies
      * @param \Psr\Log\LoggerInterface $log    Monolog logger object
      *
      * @throws Common\Exceptions\InvalidArgumentException

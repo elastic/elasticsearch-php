@@ -41,7 +41,7 @@ class Client
     public $transport;
 
     /**
-     * @var \Pimple
+     * @var \Pimple\Container
      */
     protected $params;
 

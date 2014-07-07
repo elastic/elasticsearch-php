@@ -8,7 +8,7 @@
 namespace Elasticsearch\Common;
 
 
-use Pimple;
+use Pimple\Container as Pimple;
 
 abstract class AbstractFactory
 {

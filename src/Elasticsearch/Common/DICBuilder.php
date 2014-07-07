@@ -16,12 +16,12 @@ use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Transport;
 use Psr\Log;
-use Pimple;
+use Pimple\Container as Pimple;
 
 class DICBuilder
 {
     /**
-     * @var \Pimple
+     * @var Pimple
      */
     private $dic;
 

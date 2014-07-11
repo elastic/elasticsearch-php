@@ -9,6 +9,8 @@ include::installation.asciidoc[]
 
 include::configuration.asciidoc[]
 
+include::php_json_objects.asciidoc[]
+
 include::index-operations.asciidoc[]
 
 include::indexing-operations.asciidoc[]

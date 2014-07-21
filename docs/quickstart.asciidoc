@@ -5,7 +5,7 @@ This section will give you a quick overview of the client and how the major func
 
 === Installation
 
-* Include elasticsearch-php in your `composer.json` file:
+* Include elasticsearch in your `composer.json` file:
 +
 [source,json]
 ----------------------------

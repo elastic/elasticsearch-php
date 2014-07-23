@@ -18,7 +18,7 @@ The process for contributing to any of the Elasticsearch repositories is similar
 
 3. Ensure a version of Elasticsearch is running on your machine.  Recommended "test" configuration is:
 
-        $> bin/elasticsearch -d -Des.gateway.type=none -Des.http.port=9200 \
+        $> bin/elasticsearch -Des.gateway.type=none -Des.http.port=9200 \
             -Des.index.store.type=memory -Des.discovery.zen.ping.multicast.enabled=false \
             -Des.node.bench=true -Des.script.disable_dynamic=false
 

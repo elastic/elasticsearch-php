@@ -17,6 +17,6 @@ namespace Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class ScriptLangNotSupportedException extends \Exception implements ElasticsearchException
+class ScriptLangNotSupportedException extends BadRequest400Exception implements ElasticsearchException
 {
 }

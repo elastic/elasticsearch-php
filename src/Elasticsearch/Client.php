@@ -1260,6 +1260,74 @@ class Client
         return $response['data'];
     }
 
+    /**
+     * $params['id']   = (string) The search template ID (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getTemplate($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Template\Get $endpoint */
+        $endpoint = $endpointBuilder('Template\Get');
+        $endpoint->setID($id);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+    /**
+     * $params['id']   = (string) The search template ID (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function deleteTemplate($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Template\Delete $endpoint */
+        $endpoint = $endpointBuilder('Template\Delete');
+        $endpoint->setID($id);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+    /**
+     * $params['id']   = (string) The search template ID (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function putTemplate($params)
+    {
+        $id   = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Template\Put $endpoint */
+        $endpoint = $endpointBuilder('Template\Put');
+        $endpoint->setID($id)
+                 ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 
 
     /**

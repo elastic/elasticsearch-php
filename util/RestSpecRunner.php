@@ -17,11 +17,14 @@ if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
         . "See http://getcomposer.org for help with installing composer\n");
 }
 
+echo "Base directory: ". dirname(__DIR__)."\n";
+
 // Include the composer autoloader
 $autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
 
 $gitWrapper = new \GitWrapper\GitWrapper();
+echo "Git cwd: ".dirname(__DIR__) . "/util/elasticsearch\n";
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
 

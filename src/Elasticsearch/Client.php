@@ -1183,6 +1183,82 @@ class Client
     }
 
 
+    /**
+     * $params['id']   = (string) The script ID (Required)
+     *        ['lang'] = (string) The script language (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getScript($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+        $lang = $this->extractArgument($params, 'lang');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Script\Get $endpoint */
+        $endpoint = $endpointBuilder('Script\Get');
+        $endpoint->setID($id)
+                 ->setLang($lang);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+    /**
+     * $params['id']   = (string) The script ID (Required)
+     *        ['lang'] = (string) The script language (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function deleteScript($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+        $lang = $this->extractArgument($params, 'lang');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Script\Delete $endpoint */
+        $endpoint = $endpointBuilder('Script\Delete');
+        $endpoint->setID($id)
+                 ->setLang($lang);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+    /**
+     * $params['id']   = (string) The script ID (Required)
+     *        ['lang'] = (string) The script language (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function putScript($params)
+    {
+        $id   = $this->extractArgument($params, 'id');
+        $lang = $this->extractArgument($params, 'lang');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Script\Put $endpoint */
+        $endpoint = $endpointBuilder('Script\Put');
+        $endpoint->setID($id)
+                 ->setLang($lang)
+                 ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
 
 
 

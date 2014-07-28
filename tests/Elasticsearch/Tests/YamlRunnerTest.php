@@ -245,7 +245,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
 
             foreach ($yamlDocs as $doc) {
-                echo "   ".key($doc['values'])."\n";
+                $ts = date('c');
+                echo "   ".key($doc['values'])." [$ts]\n";
                 ob_flush();
 
                 $this->clearCluster();

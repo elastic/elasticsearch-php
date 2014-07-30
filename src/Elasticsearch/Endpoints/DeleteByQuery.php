@@ -20,7 +20,7 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class DeleteByquery extends AbstractEndpoint
+class DeleteByQuery extends AbstractEndpoint
 {
     /**
      * @param array $body

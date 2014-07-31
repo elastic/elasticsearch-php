@@ -1,3 +1,18 @@
+## Release 1.3.0
+ - Changed the guzzle requirement to the HTTP component only [[aec04a2]](http://github.com/elasticsearch/elasticsearch-php/commit/aec04a27bf0382e7d2754effdfd641f0388eda83)
+ - comma fix [[8f623e2]](http://github.com/elasticsearch/elasticsearch-php/commit/8f623e2200e9c8346a43b4a8e645601d3e7df2fd)
+ - Remove usage of Pimple class with new Pimple\Container class, bump pimple version to 2.1 [[6470863]](http://github.com/elasticsearch/elasticsearch-php/commit/6470863bb1540bcce2431c95259f1b8248bf07b0)
+ - Update README.md [[f82569f]](http://github.com/elasticsearch/elasticsearch-php/commit/f82569f8ee85bb3c3a853b186ec23b1f94357eed)
+ - [DOCS] Add explanation of common JSON patterns in PHP [[36861fb]](http://github.com/elasticsearch/elasticsearch-php/commit/36861fb37e329cd060e741ec14a7f1643194706a)
+ - [DOCS] Add advanced example of creating an index [[8817599]](http://github.com/elasticsearch/elasticsearch-php/commit/88175990da7fd8467424d8aa574d7ba8797ac187)
+ - Fix casing of class [[0768b5e]](http://github.com/elasticsearch/elasticsearch-php/commit/0768b5ed85c61c5086dba8ac7b6517b94f11a085)
+ - [DOCS] Elasticsearch does not need to run in daemon mode for tests [[ee4c9a3]](http://github.com/elasticsearch/elasticsearch-php/commit/ee4c9a3f82d10cf103288ebb06b4a843188f8e89)
+ - [TEST] Add some logging to RestSpecRunner [[a9376d4]](http://github.com/elasticsearch/elasticsearch-php/commit/a9376d4b99a75b762614f625b209334e717e0335)
+ - Add Get/Put/Delete Script endpoints [[07ddc97]](http://github.com/elasticsearch/elasticsearch-php/commit/07ddc977cf47c4a2ac6b17eb451c517aa9f59b4f)
+ - ScriptLangNotSupported exception should extended BadRequest400 [[02784fd]](http://github.com/elasticsearch/elasticsearch-php/commit/02784fd4bce6d4d8281099a19e064d74c7968ee5)
+ - Add Get/Put/Delete Template endpoints [[f003010]](http://github.com/elasticsearch/elasticsearch-php/commit/f0030100bac400c7490600c9e49a3bb093e8db85)
+ - [TEST] Add timestamp to yaml runner [[b0d351f]](http://github.com/elasticsearch/elasticsearch-php/commit/b0d351f33b3a1b38990e64aa265e67d734843dd8)
+
 ## Release 1.2.0
  - Add Snapshot/Status endpoint [[f88d7ca]](http://github.com/elasticsearch/elasticsearch-php/commit/f88d7ca1e8e50229862175aed418c4a6dc4352cd)
  - Add Snapshot/Status implementation [[ed85658]](http://github.com/elasticsearch/elasticsearch-php/commit/ed85658c88f6e3542e6865b5f4394de40b400b07)

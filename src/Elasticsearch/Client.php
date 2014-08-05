@@ -1377,7 +1377,7 @@ class Client
     /**
      * Operate on the Cat namespace of commands
      *
-     * @return SnapshotNamespace
+     * @return CatNamespace
      */
     public function cat()
     {

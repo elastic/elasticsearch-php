@@ -113,13 +113,14 @@ $client = new Elasticsearch\Client($params);
 This will enable logging to a file called `elasticsearch.log` inside your project directory.  The default logging level is `WARN`.  This is a logging level
 that only describes important events that should probably require action from you.
 
-Often, you'll want to change the logging location.  To change this location, simply do the following:
+Often, you'll want to change the logging location or set the logs file permissions to group writeable. To change these things, simply do the following:
 
 [source,php]
 ----
 $params = array();
 $params['logging'] = true;
 $params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
+$params['logPermission'] = 0664;
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +

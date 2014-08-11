@@ -40,9 +40,13 @@ class DICBuilder
         'logObject'             => null,
         'logPath'               => 'elasticsearch.log',
         'logLevel'              => Log\LogLevel::WARNING,
+        'logBubble'             => true,
+        'logPermission'         => null,
         'traceObject'           => null,
         'tracePath'             => 'elasticsearch.log',
         'traceLevel'            => Log\LogLevel::WARNING,
+        'traceBubble'           => true,
+        'tracePermission'       => null,
         'guzzleOptions'         => array(),
         'connectionPoolParams'  => array(
             'randomizeHosts' => true

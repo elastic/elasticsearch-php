@@ -1454,7 +1454,9 @@ class Client
         $log       = new Logger('log');
         $handler   = new StreamHandler(
             $this->params['logPath'],
-            $this->params['logLevel']
+            $this->params['logLevel'],
+            $this->params['logBubble'],
+            $this->params['logPermission']
         );
         $processor = new IntrospectionProcessor();
 
@@ -1469,7 +1471,9 @@ class Client
         $trace        = new Logger('trace');
         $traceHandler = new StreamHandler(
             $this->params['tracePath'],
-            $this->params['traceLevel']
+            $this->params['traceLevel'],
+            $this->params['traceBubble'],
+            $this->params['tracePermission']
         );
 
         $trace->pushHandler($traceHandler);

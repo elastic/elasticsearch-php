@@ -72,10 +72,8 @@ for($i = 0; $i < 100; $i++) {
     );
 
     $params['body'][] = array(
-        'doc' => array(
-            'my_field' => 'my_value',
-            'second_field' => 'some more values'
-        )
+        'my_field' => 'my_value',
+        'second_field' => 'some more values'
     );
 }
 

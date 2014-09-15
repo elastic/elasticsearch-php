@@ -18,6 +18,8 @@ $params['index'] = 'my_index';
 $params['type']  = 'my_type';
 $params['id']    = 'my_id';
 
+//You can use $params['refresh'] = true; to force elasticsearch to clear cache
+
 // Document will be indexed to my_index/my_type/my_id
 $ret = $client->index($params);
 ----

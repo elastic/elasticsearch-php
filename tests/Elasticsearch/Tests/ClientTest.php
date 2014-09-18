@@ -347,4 +347,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://localhost:9200/t/t/1?', $last['request']['uri']);
 
     }
+
+    public function testCustomQueryParams() {
+        $params = array();
+
+        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $client = new Elasticsearch\Client($params);
+
+        $getParams = array(
+            'index' => 'test',
+            'type' => 'test',
+            'id' => 1,
+            'parent' => 'abc',
+            'custom' => array('customToken' => 'abc', 'otherToken' => 123)
+        );
+        $exists = $client->exists($getParams);
+    }
 }

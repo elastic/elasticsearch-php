@@ -98,6 +98,26 @@ JSON object which could be decoded.  In the second example, it was simply a stri
 Since the client has no way of knowing what the exception response will contain,
 no attempts to decode it are taken.
 
+=== Providing custom query parameters
+
+Sometimes you need to provide custom query params, such as authentication tokens for a third-party plugin or proxy.
+All query parameters are white-listed in Elasticsearch-php, which is to protect you from specifying a param which is
+not accepted by Elasticsearch.
+
+If you need custom parameters, you need to bypass this whitelisting mechanism.  To do so, add them to the `custom`
+parameter as an array of values:
+
+[source,php]
+----
+$getParams = array(
+    'index' => 'test',
+    'type' => 'test',
+    'id' => 1,
+    'parent' => 'abc',  // white-listed
+    'custom' => array('customToken' => 'abc', 'otherToken' => 123) // user-defined, not white listed, not checked
+);
+$exists = $client->exists($getParams);
+----
 
 === Example: Configuring the Logger
 By default, logging in the client is disabled for performance reasons.  If you wish to enable logging, simply set the `logging` parameter to true:

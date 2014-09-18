@@ -113,6 +113,7 @@ abstract class AbstractEndpoint
         }
 
         $this->checkUserParams($params);
+        $params = $this->convertCustom($params);
         $this->params = $this->convertArraysToStrings($params);
         $this->extractIgnore();
         return $this;
@@ -256,7 +257,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('ignore'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'custom'));
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
@@ -273,6 +274,17 @@ abstract class AbstractEndpoint
             $this->ignore = explode(",", $this->params['ignore']);
             unset($this->params['ignore']);
         }
+    }
+
+    private function convertCustom($params)
+    {
+        if (isset($params['custom']) === true) {
+            foreach ($params['custom'] as $k => $v) {
+                $params[$k] = $v;
+            }
+            unset($params['custom']);
+        }
+        return $params;
     }
 
 

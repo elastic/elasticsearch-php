@@ -63,7 +63,7 @@ $getParams['index'] = 'my_index';
 $getParams['type']  = 'my_type';
 $getParams['id']    = 'my_id';
 $retDoc = $client->get($getParams);
-----
+----------------------------
 
 === Search for a document
 

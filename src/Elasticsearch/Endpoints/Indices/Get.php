@@ -81,6 +81,6 @@ class Get extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'HEAD';
+        return 'GET';
     }
 }

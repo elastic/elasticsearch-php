@@ -57,6 +57,37 @@ class IndicesNamespace extends AbstractNamespace
 
 
     /**
+     * $params['index'] = (list) A comma-separated list of indices to check (Required)
+     *        ['feature'] = (list) A comma-separated list of features to return
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *        ['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return bool
+     */
+    public function get($params)
+    {
+        $index = $this->extractArgument($params, 'index');
+        $feature = $this->extractArgument($params, 'feature');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Get $endpoint */
+        $endpoint = $endpointBuilder('Indices\Get');
+        $endpoint->setIndex($index)
+                 ->setFeature($feature)
+                 ->setParams($params);
+
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
+
+    /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['operation_threading'] = () TODO: ?
      *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)

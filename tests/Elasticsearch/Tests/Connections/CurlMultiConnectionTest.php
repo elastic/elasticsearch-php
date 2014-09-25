@@ -71,27 +71,6 @@ class CurlMultiConnectionTest extends \PHPUnit_Framework_TestCase
     }//end testBadHost()
 
 
-    /**
-     * Test bad port number
-     *
-     * @expectedException \Elasticsearch\Common\Exceptions\TransportException
-     *
-     * @covers \Elasticsearch\Connections\CurlMultiConnection::performRequest
-     * @return void
-     */
-    public function testBadPort()
-    {
-        $hostDetails = array('host' => 'localhost', 'port' => 9800);
-        $connectionParams['curlMultiHandle'] = curl_multi_init();
-        $log = $this->getMockBuilder('\Monolog\Logger')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $connection = new Elasticsearch\Connections\CurlMultiConnection($hostDetails, $connectionParams, $log, $log);
-        $ret = $connection->performRequest('GET', '/');
-
-    }
-
     public function testPingTimeout()
     {
 

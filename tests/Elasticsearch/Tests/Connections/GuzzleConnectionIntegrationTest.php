@@ -49,21 +49,6 @@ class GuzzleConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
-     */
-    public function test5xxErrorBadPort()
-    {
-        $hostDetails = array('host' => 'localhost', 'port' => 9800);
-        $connectionParams['guzzleClient'] = new Client();
-        $log = m::mock('\Monolog\Logger')->shouldReceive('error')->once()->getMock();
-
-        $connection = new GuzzleConnection($hostDetails, $connectionParams, $log, $log);
-        $ret = $connection->performRequest('GET', '/');
-
-    }
-
-
-    /**
      * @group ignore
      */
     public function test4xxErrorNonexistantEndpoint()

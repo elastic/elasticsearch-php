@@ -209,6 +209,10 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             }
         } while ($running === 1);
 
+        $this->lastRequest['response']['body']    = $response['responseText'];
+        $this->lastRequest['response']['info']    = $response['requestInfo'];
+        $this->lastRequest['response']['status']  = $response['requestInfo']['http_code'];
+
         // If there was an error response, something like a time-out or
         // refused connection error occurred.
         if ($response['error'] !== '') {
@@ -220,10 +224,6 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         } else if ($response['requestInfo']['http_code'] >= 500) {
             $this->process5xxError($method, $uri, $body, $response);
         }
-
-        $this->lastRequest['response']['body']    = $response['responseText'];
-        $this->lastRequest['response']['info']    = $response['requestInfo'];
-        $this->lastRequest['response']['status']  = $response['requestInfo']['http_code'];
 
         $this->logRequestSuccess(
             $method,

@@ -319,6 +319,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
         $status       = $response->getStatusCode();
 
         $this->lastRequest['response']['body']    = $responseBody;
+        $this->lastRequest['response']['info']    = $response->getInfo();
         $this->lastRequest['response']['status']  = $status;
 
         $this->logRequestSuccess(

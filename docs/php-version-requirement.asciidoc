@@ -59,6 +59,6 @@ when it was fixed.
 In summary, PHP version 5.3.9 is the lowest compatible version.  There are currently
 no plans to refactor the code to work around these two bugs.
 
-PHP 5.3.9 is nearly two years old, and two new major versions (5.4, 5.5) have been
+PHP 5.3.9 is nearly two years old, and three new major versions (5.4, 5.5, 5.6) have been
 released since then.  It is highly advised to upgrade to a newer major version, as
 a large number of bugs and performance improvements have been made during that time.

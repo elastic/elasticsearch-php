@@ -79,7 +79,8 @@ class TermVector extends AbstractEndpoint
             'payloads',
             'preference',
             'routing',
-            'parent'
+            'parent',
+            'realtime'
         );
     }
 

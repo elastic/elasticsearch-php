@@ -132,6 +132,7 @@ abstract class AbstractEndpoint
         }
 
         if (is_array($index) === true) {
+            $index = array_map('trim', $index);
             $index = implode(",", $index);
         }
 
@@ -152,6 +153,7 @@ abstract class AbstractEndpoint
         }
 
         if (is_array($type) === true) {
+            $type = array_map('trim', $type);
             $type = implode(",", $type);
         }
 

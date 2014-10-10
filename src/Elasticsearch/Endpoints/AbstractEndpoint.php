@@ -263,7 +263,11 @@ abstract class AbstractEndpoint
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException($key . ' is not a valid parameter');
+                throw new UnexpectedValueException(sprintf(
+                    '"%s" is not a valid parameter. Allowed parameters are: "%s"',
+                    $key,
+                    implode('", "', $whitelist)
+                ));
             }
         }
 

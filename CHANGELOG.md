@@ -1,4 +1,29 @@
 ## Release 1.3.0
+- e8b6ffa Add parameters white list to InvalidParameter exception message
+- c1e8d1f Add Snapshot/Verify endpoint
+- 165ef1d Update Monolog dependency to ~1.11
+- 29ebbec Trim whitespace around index and types
+- 607104c Add 'realtime' param to TermVector and MTermVector Endpoints
+- de889d1 Update php-version-requirement.asciidoc
+- 0d74862 [DOCS] Add documentation about scan/scroll APIs
+- f0e8ca9 Add missing curl info for guzzle connection on successful request.
+- b0fd50a Remove old tests that conflict with newer integration tests
+- 3c10afe Prevent CurlMultiConnection from over-riding curl options
+- 9d4af75 Add 'version' and 'version_type' to GetScript and DeleteScript Endpoints
+- 34f0333 Add 'version' and 'op_type' to Put Script Endpoint
+- 24d6cb0 Indices/Get endpoint should use GET HTTP method
+- 5109154 Add 'version_type' to Put Script Endpoint
+- 682164c Add 'metric' param to Reroute Endpoint
+- cd0de7e Add Indices/Get endpoint
+- 4746b74 changed "strong" to adverb "strongly"
+- a874ac7 Update indexing-operations.asciidoc
+- f95d403 [DOCS] Add documentation for custom query params
+- 2c8ecd9 [DOCS] Fix documentation formatting
+- da1953c Add ability to specify custom query params
+- 5d05515 Add wildcard_expansion param to getMapping endpoint
+- 9b88589 Added log permission and bubble to settings
+
+## Release 1.2.2
  - Changed the guzzle requirement to the HTTP component only [[aec04a2]](http://github.com/elasticsearch/elasticsearch-php/commit/aec04a27bf0382e7d2754effdfd641f0388eda83)
  - comma fix [[8f623e2]](http://github.com/elasticsearch/elasticsearch-php/commit/8f623e2200e9c8346a43b4a8e645601d3e7df2fd)
  - Remove usage of Pimple class with new Pimple\Container class, bump pimple version to 2.1 [[6470863]](http://github.com/elasticsearch/elasticsearch-php/commit/6470863bb1540bcce2431c95259f1b8248bf07b0)

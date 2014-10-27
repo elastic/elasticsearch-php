@@ -47,17 +47,20 @@ class Get extends AbstractEndpoint
      */
     protected function getURI()
     {
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Get'
+            );
+        }
+        if (isset($this->name) !== true) {
+            throw new Exceptions\RuntimeException(
+                'name is required for Get'
+            );
+        }
+
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_alias";
-
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        } else if (isset($index) === true) {
-            $uri = "/$index/_alias";
-        } else if (isset($name) === true) {
-            $uri = "/_alias/$name";
-        }
+        $uri = "/$index/_alias/$name";
 
         return $uri;
     }

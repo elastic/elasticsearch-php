@@ -56,7 +56,9 @@ class PutTest extends \PHPUnit_Framework_TestCase
         $action->performRequest();
     }
 
-
+    /**
+     * @expectedException RuntimeException
+     */
     public function testNoIndex()
     {
         $body = array('field' => 'value');

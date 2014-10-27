@@ -72,15 +72,15 @@ class Put extends AbstractEndpoint
                 'name is required for Put'
             );
         }
+
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Put'
+            );
+        }
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_alias/$name";
-
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        } elseif (isset($name) === true) {
-            $uri = "/_alias/$name";
-        }
+        $uri = "/$index/_alias/$name";
 
         return $uri;
     }

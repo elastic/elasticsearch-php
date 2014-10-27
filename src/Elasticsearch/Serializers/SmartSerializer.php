@@ -57,7 +57,14 @@ class SmartSerializer implements SerializerInterface
     {
         if (isset($headers['content_type']) === true) {
             if (strpos($headers['content_type'], 'json') !== false) {
-                return json_decode($data, true);
+
+                // Unusually high/low scores may cause integer overflows. Supress E_NOTICEs momentarily.
+                $e = error_reporting();
+                error_reporting($e ^ E_NOTICE);
+                $decoded = json_decode($data, true);
+                error_reporting($e);
+
+                return $decoded;
             } else {
                 //Not json, return as string
                 return $data;

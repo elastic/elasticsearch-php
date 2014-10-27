@@ -62,15 +62,7 @@ class PutTest extends \PHPUnit_Framework_TestCase
     public function testNoIndex()
     {
         $body = array('field' => 'value');
-        $mockTransport = m::mock('\Elasticsearch\Transport')
-                         ->shouldReceive('performRequest')->once()
-                         ->with(
-                                 'PUT',
-                                 '/_alias/testName',
-                                 array(),
-                                 $body
-                             )
-                         ->getMock();
+        $mockTransport = m::mock('\Elasticsearch\Transport');
 
         $action = new Put($mockTransport);
         $action->setBody($body)->setName('testName')->performRequest();

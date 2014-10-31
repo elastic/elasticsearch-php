@@ -7,6 +7,8 @@
 
 namespace Elasticsearch\Serializers;
 
+use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
+
 /**
  * Class SmartSerializer
  *
@@ -51,6 +53,7 @@ class SmartSerializer implements SerializerInterface
      * @param string $data JSON encoded string
      * @param array  $headers Response Headers
      *
+     * @throws JsonErrorException
      * @return array
      */
     public function deserialize($data, $headers)
@@ -58,13 +61,16 @@ class SmartSerializer implements SerializerInterface
         if (isset($headers['content_type']) === true) {
             if (strpos($headers['content_type'], 'json') !== false) {
 
-                // Unusually high/low scores may cause integer overflows. Supress E_NOTICEs momentarily.
-                $e = error_reporting();
-                error_reporting($e ^ E_NOTICE);
-                $decoded = json_decode($data, true);
-                error_reporting($e);
+                $result = @json_decode($data, true);
 
-                return $decoded;
+                // Throw exception only if E_NOTICE is on to maintain backwards-compatibility on systems that silently ignore E_NOTICEs.
+                if (json_last_error() !== JSON_ERROR_NONE && (error_reporting() & E_NOTICE) === E_NOTICE) {
+                    $e = new JsonErrorException(json_last_error(), $data, $result);
+                    throw $e;
+                }
+
+                return $result;
+
             } else {
                 //Not json, return as string
                 return $data;

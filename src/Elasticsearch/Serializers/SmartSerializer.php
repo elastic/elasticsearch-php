@@ -47,7 +47,7 @@ class SmartSerializer implements SerializerInterface
 
 
     /**
-     * Deserialize by introspecting content_type.  Tries to deserialize JSON,
+     * Deserialize by introspecting content_type. Tries to deserialize JSON,
      * otherwise returns string
      *
      * @param string $data JSON encoded string
@@ -61,15 +61,7 @@ class SmartSerializer implements SerializerInterface
         if (isset($headers['content_type']) === true) {
             if (strpos($headers['content_type'], 'json') !== false) {
 
-                $result = @json_decode($data, true);
-
-                // Throw exception only if E_NOTICE is on to maintain backwards-compatibility on systems that silently ignore E_NOTICEs.
-                if (json_last_error() !== JSON_ERROR_NONE && (error_reporting() & E_NOTICE) === E_NOTICE) {
-                    $e = new JsonErrorException(json_last_error(), $data, $result);
-                    throw $e;
-                }
-
-                return $result;
+                return $this->decode($data);
 
             } else {
                 //Not json, return as string
@@ -78,9 +70,30 @@ class SmartSerializer implements SerializerInterface
 
         } else {
             //No content headers, assume json
-            return json_decode($data, true);
+            return $this->decode($data);
         }
 
 
+    }
+
+    /**
+     * @todo For 2.0, remove the E_NOTICE check before raising the exception.
+     *
+     * @param $data
+     *
+     * @return array
+     * @throws JsonErrorException
+     */
+    private function decode($data)
+    {
+        $result = @json_decode($data, true);
+
+        // Throw exception only if E_NOTICE is on to maintain backwards-compatibility on systems that silently ignore E_NOTICEs.
+        if (json_last_error() !== JSON_ERROR_NONE && (error_reporting() & E_NOTICE) === E_NOTICE) {
+            $e = new JsonErrorException(json_last_error(), $data, $result);
+            throw $e;
+        }
+
+        return $result;
     }
 }

@@ -33,8 +33,8 @@ class JsonErrorException extends \Exception implements ElasticsearchException
 
     public function __construct($code, $input, $result, $previous = null)
     {
-        if (!isset(self::$messages[$code])) {
-            throw new \InvalidArgumentException('Invalid JSON error code.');
+        if (isset(self::$messages[$code]) !== true) {
+            throw new \InvalidArgumentException(sprintf('%d is not a valid JSON error code.', $code));
         }
 
         parent::__construct(self::$messages[$code], $code, $previous);

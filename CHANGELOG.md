@@ -1,3 +1,6 @@
+## Release 1.3.1
+- Add LGPL v2.1 license - Elasticsearch-PHP is now dual licensed under both Apache v2.0 & LGPL v2.1 [[8071d10]](http://github.com/elasticsearch/elasticsearch-php/commit/8071d1085f4d9cde5016dcf9fd28023e25f8e77a)
+
 ## Release 1.3.0
 - e8b6ffa Add parameters white list to InvalidParameter exception message
 - c1e8d1f Add Snapshot/Verify endpoint
@@ -16,7 +19,7 @@
 - 682164c Add 'metric' param to Reroute Endpoint
 - cd0de7e Add Indices/Get endpoint
 - 4746b74 changed "strong" to adverb "strongly"
-- a874ac7 Update indexing-operations.asciidoc
+- a874ac7 Updkate indexing-operations.asciidoc
 - f95d403 [DOCS] Add documentation for custom query params
 - 2c8ecd9 [DOCS] Fix documentation formatting
 - da1953c Add ability to specify custom query params

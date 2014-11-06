@@ -178,19 +178,47 @@ You'll also notice that the client is configured in a manner that facilitates ea
 Check out the rest of the [Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html) to see how the entire client works.
 
 
-License
+Available Licenses
 -------
 
-Copyright 2014 Elasticsearch
+Starting with version 1.3.1, Elasticsearch-PHP is available under two licenses: Apache v2.0 and LGPL v2.1.  Versions
+prior to 1.3.1 are still licensed with only Apache v2.0
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+The user may choose which license they wish to use.  Since there is no discriminating executable or distribution bundle
+to differentiate licensing, the user should document their license choice externally, in case the library is re-distributed.
+If no explicit choice is made, assumption is that redistribution obeys rules of both licenses.
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### Contributions
+All contributions to the library are to be so that they can be licensed under both licenses.
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Apache v2.0 License:
+>Copyright 2013-2014 Elasticsearch
+>
+>Licensed under the Apache License, Version 2.0 (the "License");
+>you may not use this file except in compliance with the License.
+>You may obtain a copy of the License at
+>
+>    http://www.apache.org/licenses/LICENSE-2.0
+>
+>Unless required by applicable law or agreed to in writing, software
+>distributed under the License is distributed on an "AS IS" BASIS,
+>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+>See the License for the specific language governing permissions and
+>limitations under the License.
+
+LGPL v2.1 Notice:
+>Copyright (C) 2013-2014 Elasticsearch
+>
+>This library is free software; you can redistribute it and/or
+>modify it under the terms of the GNU Lesser General Public
+>License as published by the Free Software Foundation; either
+>version 2.1 of the License, or (at your option) any later version.
+>
+>This library is distributed in the hope that it will be useful,
+>but WITHOUT ANY WARRANTY; without even the implied warranty of
+>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+>Lesser General Public License for more details.
+>
+>You should have received a copy of the GNU Lesser General Public
+>License along with this library; if not, write to the Free Software
+>Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA

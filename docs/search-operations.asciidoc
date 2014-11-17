@@ -95,8 +95,10 @@ Would be structured like this (Note the position of the square brackets):
 ----
 $params['index'] = 'my_index';
 $params['type']  = 'my_type';
-$params['body']['query']['bool']['must'][]['match']['testField'] = 'abc';
-$params['body']['query']['bool']['must'][]['match']['anotherTestField'] = 'xyz';
+$params['body']['query']['bool']['must'] = array(
+    array('match' => array('testField' => 'abc')),
+    array('match' => array('anotherTestField' => 'xyz')),
+);
 
 $results = $client->search($params);
 ----

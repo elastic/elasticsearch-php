@@ -107,6 +107,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -175,6 +177,8 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -217,6 +221,8 @@ class Client
                  ->returnOnlySource();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -259,6 +265,8 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -296,6 +304,8 @@ class Client
                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -338,6 +348,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -378,6 +390,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -412,6 +426,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -444,6 +460,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -484,6 +502,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -523,6 +543,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -635,6 +657,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -679,6 +703,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -715,6 +741,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -767,6 +795,8 @@ class Client
                  ->createIfAbsent();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -805,6 +835,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -857,6 +889,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -891,6 +925,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -946,6 +982,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1010,6 +1048,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1042,6 +1082,8 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1070,6 +1112,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1098,6 +1142,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1127,6 +1173,8 @@ class Client
                  ->setClearScroll(true);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1181,6 +1229,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1207,6 +1257,8 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1232,6 +1284,8 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1259,6 +1313,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1281,6 +1337,8 @@ class Client
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1303,6 +1361,8 @@ class Client
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 
@@ -1327,6 +1387,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+        $response['data']['_info'] = $response['info'];
+
         return $response['data'];
     }
 

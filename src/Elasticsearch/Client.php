@@ -466,7 +466,7 @@ class Client
      *
      * @return array
      */
-    public function termvector($params = array())
+    public function termvectors($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         $type  = $this->extractArgument($params, 'type');
@@ -476,8 +476,8 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
-        /** @var \Elasticsearch\Endpoints\TermVector $endpoint */
-        $endpoint = $endpointBuilder('TermVector');
+        /** @var \Elasticsearch\Endpoints\TermVectors $endpoint */
+        $endpoint = $endpointBuilder('TermVectors');
         $endpoint->setIndex($index)
                  ->setType($type)
                  ->setID($id)

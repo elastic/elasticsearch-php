@@ -649,7 +649,7 @@ EOF;
             // Breaking changes in null alias
             $skipList = array(
                 'indices.delete_alias/all_path_options.yaml',
-                'indices.put_alias/10_basic.yaml'
+                'indices.put_alias/all_path_options.yaml'
             );
 
             foreach ($skipList as $skip) {

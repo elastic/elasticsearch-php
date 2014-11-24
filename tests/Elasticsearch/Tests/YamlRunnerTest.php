@@ -259,7 +259,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     }
 
                 }
-               $this->executeTestCase($doc['values'], $testFile);
+                $this->executeTestCase($doc['values'], $testFile);
 
             }
 
@@ -277,13 +277,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         if (is_array($values) === true) {
             array_walk_recursive($values, function(&$item, $key) use ($stash) {
-                    if (is_string($item) === true || is_numeric($item) === true) {
-                        if (array_key_exists($item, $stash) == true) {
-                            $item = $stash[$item];
-                        }
+                if (is_string($item) === true || is_numeric($item) === true) {
+                    if (array_key_exists($item, $stash) == true) {
+                        $item = $stash[$item];
                     }
+                }
 
-                });
+            });
         } elseif (is_string($values) || is_numeric($values)) {
             if (array_key_exists($values, $stash) == true) {
                 $values = $stash[$values];
@@ -627,18 +627,35 @@ EOF;
     }
 
     private function skipTest($path)
-    {
+    {//all_path_options
         $skipList = array(
             'indices.delete_mapping/all_path_options.yaml',
             'indices.exists_type/10_basic.yaml',
             'indices.get_mapping/10_basic.yaml',
             'indices.create/10_basic.yaml',
-            'indices.get_alias/10_basic.yaml'
+            'indices.get_alias/10_basic.yaml',
+            'cat.allocation/10_basic.yaml'      //regex breaks PHP
         );
 
         foreach ($skipList as $skip) {
             if (strpos($path, $skip) !== false) {
                 return true;
+            }
+        }
+
+        //TODO make this more generic
+        if (version_compare(YamlRunnerTest::$esVersion, "1.4.0", "<")) {
+
+            // Breaking changes in null alias
+            $skipList = array(
+                'indices.delete_alias/all_path_options.yaml',
+                'indices.put_alias/10_basic.yaml'
+            );
+
+            foreach ($skipList as $skip) {
+                if (strpos($path, $skip) !== false) {
+                    return true;
+                }
             }
         }
 

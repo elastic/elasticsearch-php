@@ -5,7 +5,7 @@ Almost every aspect of the client is configurable.  The client is built around h
 
 However, since the container also controls all object instantiation, it is possible for users to completely change the internal components used by the client.  A user could, for example, write a custom ConnectionPool class and use that instead of the default connection pools that ship with the client
 
-=== Example: Configuring the Hosts
+=== Host Configuration
 
 A common operation will be telling the client what nodes are in your cluster.  By default, the client will connect to 'localhost:9200', which obviously doesn't work in many production environments.
 
@@ -30,7 +30,7 @@ $client = new Elasticsearch\Client($params);
 
 This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
 
-=== Example: Configuring HTTP Basic Auth
+=== HTTP Basic Auth
 HTTP basic authentication is a very common requirement.  To enable Basic Auth in the client, simply set a parameter with the required auth parameters:
 
 [source,php]
@@ -48,7 +48,7 @@ $client = new Elasticsearch\Client($params);
 After being initialized with authentication credentials, all outgoing requests will automatically include the HTTP auth headers.
 
 
-=== Example: Ignoring exceptions
+=== Ignoring exceptions
 The library attempts to throw exceptions for common problems.  These exceptions
 match the HTTP response code provided by Elasticsearch.  For example, attempting to
 GET a nonexistent document will throw a `MissingDocument404Exception`.
@@ -119,7 +119,7 @@ $getParams = array(
 $exists = $client->exists($getParams);
 ----
 
-=== Example: Configuring the Logger
+=== Configuring the Logger
 By default, logging in the client is disabled for performance reasons.  If you wish to enable logging, simply set the `logging` parameter to true:
 
 [source,php]
@@ -157,9 +157,7 @@ $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Easy, right?  Let's get a little more complicated and specify a custom logger.  By default, the client uses a file-based logger provided by the https://github.com/Seldaek/monolog[Monolog] framework.  Monolog provides a variety of loggers.
-
-Let's log to the SysLog instead of a file:
+By default, the client uses a file-based logger provided by the https://github.com/Seldaek/monolog[Monolog] framework.  Monolog provides a variety of loggers.  For example, we can instruct the client to log to SysLog instead of a file:
 
 [source,php]
 ----
@@ -181,6 +179,7 @@ $client = new Elasticsearch\Client($params);
 {zwsp} +
 
 The client uses the generic https://github.com/php-fig/log[PSR\Log interface], which means that any PSR\Log compatible loggers will work just fine in the client.
+
 Replacing the logger with another PSR\Log compatible logger is similar to the previous example of configuring a Monolog logger:
 
 [source,php]
@@ -196,60 +195,6 @@ $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-=== Example: Configuring the Selector Class
-When we changed the logger object, we provided a complete object that we wanted to over-ride the default with.  There are many configurations where this won't work.  For example, the Connection class must be instantiated repeatedly when new connections are made.
-
-Rather than provide an anonymous function or callback which builds new objects, the client simply accepts a class path which is used to build new objects.  
-
-Let's configure the Selector class.  By default, the client uses a Round-Robin selector (called RoundRobinSelector, unsurprisingly).  This will select connections in a loop, evenly distributing requests against your whole cluster.
-
-Let's change it to a different Selector - the RandomSelector:
-
-[source,php]
-----
-$params['selectorClass'] = '\Elasticsearch\ConnectionPool\Selectors\RandomSelector';
-$client = new Elasticsearch\Client($params);
-----
-{zwsp} +
-
-The client will now query random nodes.  Let's go one step further and define our own selector, using custom business logic that is specific to your domain.  Most configurable components in the client adhere to an interface, which makes it easy to swap them out for your own class.
-
-Let's make a selector that only chooses the first connection.  This is obviously not a good selector (!!!), but it demonstrates the concept well:
-
-[source,php]
-----
-namespace MyProject\Selectors;
-
-use Elasticsearch\Connections\ConnectionInterface;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface
-
-class FirstSelector implements SelectorInterface
-{
-
-    /**
-     * Selects the first connection
-     *
-     * @param array $connections Array of Connection objects
-     *
-     * @return ConnectionInterface
-     */
-    public function select($connections)
-    {
-        return $connections[0];
-    }
-
-}
-----
-{zwsp} +
-
-And now we can specify that when creating the client:
-
-[source,php]
-----
-$params['selectorClass'] = '\MyProject\Selectors\FirstSelector';
-$client = new Elasticsearch\Client($params);
-----
-{zwsp} +
 
 === Full list of configurations
 

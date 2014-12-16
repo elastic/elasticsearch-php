@@ -5,12 +5,29 @@ The connection pool is an object inside the client that is responsible for maint
 
 However, in the real world, things are never so clear.  Nodes are sometimes in a gray-zone of _"probably dead but not confirmed"_, _"timed-out but unclear why"_ or _"recently dead but now alive"_.
 
-The connection pool's job is to manage this set of unruly connections and try to provide the best behavior to the client.  There are currently two connection pool implementations:
+The connection pool's job is to manage this set of unruly connections and try to provide the best behavior to the client.  There are several
+connection pool implementations that you can choose from:
 
- - `staticConnectionPool`: the user provides a static list of hosts and the connection pool simply tries to use these connections as required
- - `sniffingConnectionPool`: the user provides a seed list of hosts, which the client uses to sniff the rest of the cluster using the Cluster State API
+=== staticNoPingConnectionPool (default)
 
-=== PHP and connection pooling
+This connection pool maintains a static list of hosts, which are assumed to be alive when the client initializes.  If
+a node fails a request, it is marked as `dead` for 60 seconds and the next node is tried.  After 60 seconds, the node
+is revived and put back into rotation.  Each additional failed request will cause the dead timeout to increase exponentially.
+
+A successful request will reset the "failed ping timeout" counter.
+
+=== staticConnectionPool
+
+Identical to the `staticNoPingConnectionPool`, except it pings nodes before they are used to determine if they are alive.
+This may be useful for long-running scripts, but tends to be additional overhead that is unescessary for average PHP scripts.
+
+=== sniffingConnectionPool
+
+Unlike the two previous static connection pools, this one is dynamic.  The user provides a seed list of hosts, which the
+client uses to "sniff" and discover the rest of the cluster.  It achieves this through the Cluster State API.  As new
+nodes are added or removed from the cluster, the client will update it's pool of active connections.
+
+=== Which connection pool to choose? PHP and connection pooling
 
 At first blush, the `sniffingConnectionPool` implementation seems superior.  For many languages, it is.  In PHP, the conversation is a bit more nuanced.
 
@@ -24,12 +41,96 @@ In reality, if your script only executes a few queries, the sniffing concept is 
 
 For this reason the default connection pool is currently the `staticConnectionPool`.  You can, of course, change this default - but we strongly recommend you load test and verify that it does not negatively impact your performance.
 
-=== RoundRobinSelector vs StickyRoundRobinSelector
+=== Changing the Connection Pool
 
-In a similar vein as the connection pool, there is a PHP-specific selector that may be useful to some environments.
+Changing the connection pool is very simple: instantiate the client with your chosen connection pool implementation:
 
-The selector's job is to return a single connection from an array of connections.  The default is a round-robin selector that operates on a randomized list of hosts.  This ensures an even load of traffic across your cluster.  Round-robin'ing happens on a per-request basis (e.g. sequential requests go to different nodes).
+[source,php]
+----
+$params['connectionPoolClass'] = '\Elasticsearch\ConnectionPool\SniffingConnectionPool';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
 
-Considering the nature of many PHP scripts, it is possible this is a sub-optimal strategy due to overhead of creating new connections.  For that reason, there is a slightly modified `StickyRoundRobinSelector` class.
+== Selectors
 
-This class prefers to use the same connection for every request, but if the node is dead (due to a previous connection failure) it will round-robin to the next node.  Using the default `randomizeHosts = true` setting, this still ensures even distribution of load across the cluster.  The load will simply be round-robin'ed on a per-script basis rather than a per-query basis.
+The connection pool maintains the list of connections, and decides when nodes should transition from alive to dead (and
+vice versa).  It has no logic to choose connections, however.  That job belongs to the Selector class.
+
+The selector's job is to return a single connection from a provided array of connections.  Like the Connection Pool, there
+  are several implementations to choose from:
+
+=== RoundRobinSelector (Default)
+
+This selector returns connections in a round-robin fashion.  Node #1 is selected on the first request, Node #2 on
+the second request, etc.  This ensures an even load of traffic across your cluster.  Round-robin'ing happens on a
+per-request basis (e.g. sequential requests go to different nodes).
+
+=== StickyRoundRobinSelector
+
+This selector is "sticky", in that it prefers to reuse the same connection repeatedly.  For example, Node #1 is chosen
+on the first request.  Node #1 will continue to be re-used for each subsequent request until that node fails.  Upon failure,
+the selector will round-robin to the next available node, then "stick" to that node.
+
+This is an ideal strategy for many PHP scripts.  Since PHP scripts are shared-nothing and tend to exit quickly, creating
+new connections for each request is often a sub-optimal strategy and introduces a lot of overhead.  Instead, it is typically
+better to "stick" to a single connection for the duration of the script.
+
+By default, this selector will randomize the hosts upon initialization, which will still guarantee an even distribution
+of load across the cluster.  It changes the round-robin dynamics from per-request to per-script.
+
+=== RandomSelector
+
+This selector simply returns a random node, regardless of state.  It is generally just for testing
+
+=== Changing or replacing Selector Class
+
+Changing the selector is also very simple: instantiate the client with your chosen implementation:
+
+[source,php]
+----
+$params['selectorClass'] = '\Elasticsearch\ConnectionPool\Selectors\RandomSelector';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
+
+The client will now query random nodes.  It is sometimes useful to build a custom selector which services your particular
+cluster with custom business logic.
+
+For example, we can build a new selector that only selects the first connection each time. This is obviously not a good
+selector (!!!), but it demonstrates the concept well:
+
+[source,php]
+----
+namespace MyProject\Selectors;
+
+use Elasticsearch\Connections\ConnectionInterface;
+use Elasticsearch\ConnectionPool\Selectors\SelectorInterface
+
+class FirstSelector implements SelectorInterface
+{
+
+    /**
+     * Selects the first connection
+     *
+     * @param array $connections Array of Connection objects
+     *
+     * @return ConnectionInterface
+     */
+    public function select($connections)
+    {
+        return $connections[0];
+    }
+
+}
+----
+{zwsp} +
+
+And now we can specify that when creating the client:
+
+[source,php]
+----
+$params['selectorClass'] = '\MyProject\Selectors\FirstSelector';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +

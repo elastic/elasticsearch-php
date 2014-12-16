@@ -1,3 +1,20 @@
+## Release 1.3.2
+
+- [DOCS] add details about getLastRequestInfo() [[314112a]](http://github.com/elasticsearch/elasticsearch-php/commit/314112a)
+- [DOCS] Add documentation about connection objects, changing, extending, replacing [[e1cc315]](http://github.com/elasticsearch/elasticsearch-php/commit/e1cc315)
+- [DOCS] Move and expand documentation about connection pools, selectors [[759f8c4]](http://github.com/elasticsearch/elasticsearch-php/commit/759f8c4)
+- Properly instantiate instance-specific params for subclasses of CurlMultiConnection and GuzzleConnection [[d707bf8]](http://github.com/elasticsearch/elasticsearch-php/commit/d707bf8)
+- [DOCS] Tweak the version matrix [[6d9c790]](http://github.com/elasticsearch/elasticsearch-php/commit/6d9c790)
+- [DOCS] (pr/157) Update search-operations.asciidoc [[0c9a749]](http://github.com/elasticsearch/elasticsearch-php/commit/0c9a749)
+- [TEST] bad path in the skiplist [[b3eeae5]](http://github.com/elasticsearch/elasticsearch-php/commit/b3eeae5)
+- [TEST] Update skiplist [[60759a4]](http://github.com/elasticsearch/elasticsearch-php/commit/60759a4)
+- (pr/146) json_decode handling when content type isn't specified. Also some CS fixes. [[0dfbbb2]](http://github.com/elasticsearch/elasticsearch-php/commit/0dfbbb2)
+- Throw exception instead of supressing error reporting momentarily. [[ebeabb5]](http://github.com/elasticsearch/elasticsearch-php/commit/ebeabb5)
+- Supress potential E_NOTICES about integer overflows due to unusually high/low scores. [[9b22a3c]](http://github.com/elasticsearch/elasticsearch-php/commit/9b22a3c)
+- [TEST] Remove ignored tests [[693ceec]](http://github.com/elasticsearch/elasticsearch-php/commit/693ceec)
+- (pr/149) fix logRequestFail bad method call [[5e63662]](http://github.com/elasticsearch/elasticsearch-php/commit/5e63662)
+- Store last request response data before processing any errors. [[9b9f64a]](http://github.com/elasticsearch/elasticsearch-php/commit/9b9f64a)
+
 ## Release 1.3.1
 - Add LGPL v2.1 license - Elasticsearch-PHP is now dual licensed under both Apache v2.0 & LGPL v2.1 [[8071d10]](http://github.com/elasticsearch/elasticsearch-php/commit/8071d1085f4d9cde5016dcf9fd28023e25f8e77a)
 

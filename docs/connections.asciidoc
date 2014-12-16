@@ -109,3 +109,88 @@ interface ConnectionInterface
 
 The abstract `AbstractConnection` class provides useful boilerplate which you may wish to extend, such as various
 utility logging methods.
+
+=== Getting information about the last request
+
+Logging is useful, but it is difficult to dial the verobisity to exactly what you want.  Sometimes you just want a
+method that returns details about the last request and response.
+
+For example, here we execute a search and then request details about that search:
+
+[source,php]
+----
+$client = new Elasticsearch\Client();
+
+$results = $client->search([
+    'index' => 'test',
+    'type' => 'test',
+    'body' => [
+        'query' => [
+            'filtered' => [
+                'filter' => [
+                    'term' => [
+                        'first_name' => 'zach'
+                    ]
+                ]
+            ]
+        ]
+    ]
+]);
+
+$info = $client->transport->getLastConnection()->getLastRequestInfo();
+print_r($info);
+----
+
+This will yield an output such as:
+
+[source,php]
+----
+Array
+(
+    [request] => Array
+        (
+            [uri] => http://localhost:9200/test/test/_search?
+            [body] => {"query":{"filtered":{"filter":{"term":{"first_name":"zach"}}}}}
+            [options] => Array
+                (
+                )
+            [method] => POST
+        )
+    [response] => Array
+        (
+            [body] => {"took":45,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":0,"max_score":null,"hits":[]}}
+            [info] => Array
+                (
+                    [url] => http://localhost:9200/test/test/_search
+                    [content_type] => application/json; charset=UTF-8
+                    [http_code] => 200
+                    [header_size] => 87
+                    [request_size] => 191
+                    [filetime] => -1
+                    [ssl_verify_result] => 0
+                    [redirect_count] => 0
+                    [total_time] => 0.053979
+                    [namelookup_time] => 0.001221
+                    [connect_time] => 0.001941
+                    [pretransfer_time] => 0.002086
+                    [size_upload] => 64
+                    [size_download] => 123
+                    [speed_download] => 2278
+                    [speed_upload] => 1185
+                    [download_content_length] => 123
+                    [upload_content_length] => 64
+                    [starttransfer_time] => 0.053467
+                    [redirect_time] => 0
+                    [certinfo] => Array
+                        (
+                        )
+                    [primary_ip] => ::1
+                    [primary_port] => 9200
+                    [local_ip] => ::1
+                    [local_port] => 51168
+                    [redirect_url] =>
+                )
+            [status] => 200
+        )
+)
+----

@@ -21,6 +21,8 @@ include::namespaces.asciidoc[]
 
 include::connection-pool.asciidoc[]
 
+include::connections.asciidoc[]
+
 include::serializers.asciidoc[]
 
 include::php-version-requirement.asciidoc[]

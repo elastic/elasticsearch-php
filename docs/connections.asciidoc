@@ -1,0 +1,111 @@
+
+== Connections
+
+Each node in your cluster is represented by a Connection object inside the client.  These objects are responsible
+for communicating to the node, logging success or failure and reporting the results back to the Transport.
+
+There are two Connection classes in the client which you can choose from:
+
+=== GuzzleConnection (default)
+
+The connection class uses the third party Guzzle HTTP library for communication.  Guzzle is an excellent library which
+wraps PHP's cURL functionality.  This object is default because Guzzle has much experience fighting the oddities
+and quirks of PHP cURL.
+
+=== CurlMultiConnection
+
+This is a lightweight connection class that also utilizes PHP's cURL functionality (it uses the same set of curl-multiselect
+functionality that Guzzle does).  This class is entirely self-contained, however, so it can offer real advantages in speed
+when it comes to autoloading costs (since Guzzle requires several classes to be autoloaded).  It has not been as
+rigorously tested as Guzzle, which is why it is not default.
+
+Once the relevant files have been autoloaded, performance between Guzzle and CurlMultiConnection is identical since
+they both leverage the same underlying cURL calls.  It is recommended to only use CurlMultiConnection when you need
+very fast autoloading, such as autocompletion.
+
+=== Changing your ConnectionClass
+
+Changing the connection class is very simple: instantiate the client with your chosen connection implementation:
+
+[source,php]
+----
+$params['connectionPoolClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
+
+=== Extending an existing Connection Class
+
+Like many other components, you can completely replace the Connection object with your own.
+The easiest way to do this is to over-ride one of the existing connection classes:
+
+[source,php]
+----
+namespace MyProject;
+
+class MyConnection extends \Elasticsearch\Connections\GuzzleConnection {
+
+    /**
+     * Perform an HTTP request on the cluster
+     *
+     * @param string      $method HTTP method to use for request
+     * @param string      $uri    HTTP URI to use for request
+     * @param null|string $params Optional URI parameters
+     * @param null|string $body   Optional request body
+     * @param array       $options
+     *
+     * @return array
+     */
+    public function performRequest($method, $uri, $params = null, $body = null, $options = array())
+    {
+        // do pre-request stuff
+        $response = parent::performRequest($method, $uri, $params, $body, $options);
+        // do post-request stuff
+        return $response;
+    }
+}
+----
+{zwsp} +
+
+This allows you to leverage the existing boilerplate and just over-ride the methods that you wish to tinker with.  You
+can then use your new class by specifying it at instantiation.
+
+
+[source,php]
+----
+$params['connectionPoolClass'] = '\MyProject\MyConnection';
+$client = new Elasticsearch\Client($params);
+----
+{zwsp} +
+
+
+=== Writing your own Connection Class
+
+If you wish to completely write your own connection class, you just need to implement the `ConnectionInterface`.
+
+[source,php]
+----
+namespace Elasticsearch\Connections;
+
+use Psr\Log\LoggerInterface;
+
+interface ConnectionInterface
+{
+    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace);
+
+    public function getTransportSchema();
+
+    public function isAlive();
+
+    public function markAlive();
+
+    public function markDead();
+
+    public function getLastRequestInfo();
+
+    public function performRequest($method, $uri, $params = null, $body = null);
+}
+----
+
+The abstract `AbstractConnection` class provides useful boilerplate which you may wish to extend, such as various
+utility logging methods.

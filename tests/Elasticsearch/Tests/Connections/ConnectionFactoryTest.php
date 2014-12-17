@@ -29,7 +29,7 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
         };
 
         // Eww...
-        $mockPimple = m::mock('Pimple')
+        $mockPimple = m::mock('\Pimple\Container')
                       ->shouldReceive('offsetGet')->with('connection')->andReturn($mockFunction)->getMock()
                       ->shouldReceive('offsetGet')->with('connectionParamsShared')->andReturn(array())->getMock()
                       ->shouldReceive('offsetGet')->with('logObject')->andReturn(array())->getMock()

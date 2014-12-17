@@ -68,7 +68,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         // Eww...
-        $params = m::mock('Pimple')
+        $params = m::mock('\Pimple\Container')
                       ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                       ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                       ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -103,7 +103,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         // Eww...
-        $params = m::mock('Pimple')
+        $params = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -136,7 +136,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         // Eww...
-        $params = m::mock('Pimple')
+        $params = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -170,7 +170,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         };
 
         // Eww...
-        $params = m::mock('Pimple')
+        $params = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -220,7 +220,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
         // Eww...
-        $pimple = m::mock('Pimple')
+        $pimple = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -283,7 +283,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
         // Eww...
-        $pimple = m::mock('Pimple')
+        $pimple = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -343,7 +343,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
         // Eww...
-        $pimple = m::mock('Pimple')
+        $pimple = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
@@ -400,7 +400,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
         $mockSerializer = m::mock('\Elasticsearch\Serializers\SerializerInterface');
 
         // Eww...
-        $pimple = m::mock('Pimple')
+        $pimple = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
@@ -455,7 +455,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 
         // Eww...
-        $pimple = m::mock('Pimple')
+        $pimple = m::mock('\Pimple\Container')
                   ->shouldReceive('offsetGet')->with('connectionPool')->andReturn($mockConnectionPoolFxn)->getMock()
                   ->shouldReceive('offsetGet')->with('serializer')->andReturn($mockSerializer)->getMock()
                   ->shouldReceive('offsetGet')->with('connection')->andReturn($mockConnectionFxn)->getMock()

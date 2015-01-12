@@ -62,6 +62,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
      */
     public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
+        parent::__construct($hostDetails, $connectionParams, $log, $trace);
+
         if (extension_loaded('curl') !== true) {
             $log->critical('Curl library/extension is required for CurlMultiConnection.');
             throw new RuntimeException('Curl library/extension is required for CurlMultiConnection.');
@@ -80,11 +82,11 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             $hostDetails['scheme'] = 'http';
         }
 
+        $connectionParams = $connectionParams + $this->connectionParams;
         $connectionParams = $this->transformAuth($connectionParams);
         $this->curlOpts = $this->generateCurlOpts($connectionParams);
 
         $this->multiHandle = $connectionParams['curlMultiHandle'];
-        return parent::__construct($hostDetails, $connectionParams, $log, $trace);
 
     }
 
@@ -379,27 +381,24 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
         switch ($connectionParams['auth'][2]) {
             case 'Basic':
-                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-                $this->headers['authorization'] =  'Basic '.base64_encode("$username:$password");
-                unset($connectionParams['auth']);
-                return $connectionParams;
+                $connectionParams['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
                 break;
 
             case 'Digest':
-                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
+                $connectionParams['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
                 break;
 
             case 'NTLM':
-                $connectionParams['connectionParams']['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
+                $connectionParams['curlOpts'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
                 break;
 
             case 'Any':
-                $connectionParams['connectionParams'][CURLOPT_HTTPAUTH] = CURLAUTH_ANY;
+                $connectionParams[CURLOPT_HTTPAUTH] = CURLAUTH_ANY;
                 break;
         }
 
 
-        $connectionParams['connectionParams'][CURLOPT_USERPWD] = "$username:$password";
+        $connectionParams['curlOpts'][CURLOPT_USERPWD] = "$username:$password";
 
         unset($connectionParams['auth']);
         return $connectionParams;
@@ -444,9 +443,9 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             $opts[CURLOPT_CONNECTTIMEOUT_MS] = $connectionParams['timeout'];
         }
 
-        if (isset($connectionParams['connectionParams']['curlOpts'])) {
+        if (isset($connectionParams['curlOpts'])) {
             //MUST use union operator, array_merge rekeys numeric
-            $opts = $opts + $connectionParams['connectionParams']['curlOpts'];
+            $opts = $connectionParams['curlOpts'] +  $opts;
         }
 
         return $opts;

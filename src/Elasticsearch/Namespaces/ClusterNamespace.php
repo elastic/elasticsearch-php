@@ -41,14 +41,14 @@ class ClusterNamespace extends AbstractNamespace
 
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Health $endpoint */
         $endpoint = $endpointBuilder('Cluster\Health');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
 
@@ -69,14 +69,14 @@ class ClusterNamespace extends AbstractNamespace
 
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Reroute $endpoint */
         $endpoint = $endpointBuilder('Cluster\Reroute');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -99,7 +99,7 @@ class ClusterNamespace extends AbstractNamespace
         $metric = $this->extractArgument($params, 'metric');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\State $endpoint */
         $endpoint = $endpointBuilder('Cluster\State');
@@ -107,7 +107,7 @@ class ClusterNamespace extends AbstractNamespace
                  ->setIndex($index)
                  ->setMetric($metric);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -123,14 +123,14 @@ class ClusterNamespace extends AbstractNamespace
         $nodeID = $this->extractArgument($params, 'node_id');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Stats $endpoint */
         $endpoint = $endpointBuilder('Cluster\Stats');
         $endpoint->setNodeID($nodeID)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
 
@@ -148,14 +148,14 @@ class ClusterNamespace extends AbstractNamespace
 
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
         $endpoint = $endpointBuilder('Cluster\Settings\Put');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
 
@@ -167,13 +167,13 @@ class ClusterNamespace extends AbstractNamespace
     public function getSettings($params = array())
     {
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
         $endpoint = $endpointBuilder('Cluster\Settings\Get');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
 
@@ -189,13 +189,13 @@ class ClusterNamespace extends AbstractNamespace
     {
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\PendingTasks $endpoint */
         $endpoint = $endpointBuilder('Cluster\PendingTasks');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
 
 }

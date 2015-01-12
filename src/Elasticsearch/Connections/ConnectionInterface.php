@@ -7,6 +7,7 @@
 
 namespace Elasticsearch\Connections;
 
+use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -20,7 +21,8 @@ use Psr\Log\LoggerInterface;
  */
 interface ConnectionInterface
 {
-    public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace);
+    public function __construct($handler, $hostDetails, $connectionParams,
+                                SerializerInterface $serializer, LoggerInterface $log, LoggerInterface $trace);
 
     public function getTransportSchema();
 
@@ -32,5 +34,5 @@ interface ConnectionInterface
 
     public function getLastRequestInfo();
 
-    public function performRequest($method, $uri, $params = null, $body = null);
+    public function performRequest($method, $uri, $params = null, $body = null, $async = false);
 }

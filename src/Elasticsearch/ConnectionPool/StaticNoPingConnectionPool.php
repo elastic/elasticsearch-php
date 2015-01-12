@@ -10,6 +10,7 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticNoPingConnectionPool extends AbstractConnectionPool
@@ -53,11 +54,11 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool
     }
 
     /**
-     * @param AbstractConnection $connection
+     * @param \Elasticsearch\Connections\Connection $connection
      *
      * @return bool
      */
-    private function readyToRevive(AbstractConnection $connection)
+    private function readyToRevive(Connection $connection)
     {
         $timeout = min(
             $this->pingTimeout * pow(2, $connection->getPingFailures()),

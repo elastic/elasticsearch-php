@@ -25,7 +25,7 @@ abstract class AbstractNamespace
     protected $transport;
 
     /** @var  callback */
-    protected $dicEndpoints;
+    protected $endpoints;
 
 
     /**
@@ -34,10 +34,10 @@ abstract class AbstractNamespace
      * @param Transport $transport Transport object
      * @param           $dicEndpoints
      */
-    public function __construct($transport, $dicEndpoints)
+    public function __construct($transport, $endpoints)
     {
         $this->transport = $transport;
-        $this->dicEndpoints = $dicEndpoints;
+        $this->endpoints = $endpoints;
     }
 
 

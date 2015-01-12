@@ -7,22 +7,45 @@
 
 namespace Elasticsearch\Connections;
 
-use Elasticsearch\Common\AbstractFactory;
+use Elasticsearch\Serializers\SerializerInterface;
+use Psr\Log\LoggerInterface;
 
-class ConnectionFactory extends AbstractFactory
+class ConnectionFactory
 {
+    /** @var  array */
+    private $connectionParams;
+
+    /** @var  LoggerInterface */
+    private $logger;
+
+    /** @var  LoggerInterface */
+    private $tracer;
+
+    private $handler;
+
+    public function __construct($handler, array $connectionParams, SerializerInterface $serializer, LoggerInterface $logger, LoggerInterface $tracer)
+    {
+        $this->handler          = $handler;
+        $this->connectionParams = $connectionParams;
+        $this->logger           = $logger;
+        $this->tracer           = $tracer;
+        $this->serializer       = $serializer;
+
+    }
     /**
      * @param $hostDetails
      *
-     * @return AbstractConnection
+     * @return Connection
      */
     public function create($hostDetails)
     {
-        return $this->container['connection'](
+        return new Connection(
+            $this->handler,
             $hostDetails,
-            $this->container['connectionParamsShared'],
-            $this->container['logObject'],
-            $this->container['traceObject']
+            $this->connectionParams,
+            $this->serializer,
+            $this->logger,
+            $this->tracer
         );
     }
 }

@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\ConnectionFactory;
 use Elasticsearch\Connections\ConnectionInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
@@ -26,25 +27,12 @@ use Psr\Log\LoggerInterface;
  */
 class Transport
 {
-    /**
-     * @var \Pimple\Container
-     */
-    private $params;
 
     /**
      * @var AbstractConnectionPool
      */
     private $connectionPool;
 
-    /**
-     * @var array Array of seed nodes provided by the user
-     */
-    private $seeds = array();
-
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
 
     /**
      * @var LoggerInterface
@@ -54,65 +42,42 @@ class Transport
     /** @var  int */
     private $retryAttempts;
 
-    /** @var  AbstractConnection */
+    /** @var  Connection */
     private $lastConnection;
+
+    /** @var int  */
+    private $retries;
+
 
 
     /**
      * Transport class is responsible for dispatching requests to the
      * underlying cluster connections
      *
-     * @param array                    $hosts  Array of hosts in cluster
-     * @param \Pimple\Container        $params DIC containing dependencies
+     * @param array $hosts  Array of hosts in cluster
+     * @param $retries
+     * @param bool $sniffOnStart
+     * @param Connections\ConnectionFactory $connectionFactory
+     * @param ConnectionPool\AbstractConnectionPool $connectionPool
+     * @param Serializers\SerializerInterface $serializer
      * @param \Psr\Log\LoggerInterface $log    Monolog logger object
      *
      * @throws Common\Exceptions\InvalidArgumentException
+     * @internal param \Pimple\Container $params DIC containing dependencies
      */
-    public function __construct($hosts, $params, LoggerInterface $log)
+    public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
-        $this->log = $log;
 
-        if (is_array($hosts) !== true) {
-            $this->log->critical('Hosts parameter must be an array');
-            throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array');
-        }
+        $this->log            = $log;
+        $this->connectionPool = $connectionPool;
+        $this->retries        = $retries;
 
-        $this->params     = $params;
-        $this->serializer = $params['serializer'];
-
-        $this->seeds = $hosts;
-        $this->setConnections($hosts);
-
-        if (isset($this->params['retries']) !== true || $this->params['retries'] === null) {
-            $this->params['retries'] = count($hosts) -1;
-        }
-
-        if ($params['sniffOnStart'] === true) {
+        if ($sniffOnStart === true) {
             $this->log->notice('Sniff on Start.');
             $this->connectionPool->scheduleCheck();
         }
 
     }
-
-
-    /**
-     * Creates Connection objects and instantiates a ConnectionPool object
-     *
-     * @param array $hosts Assoc array of hosts to add to connection pool
-     *
-     * @return void
-     */
-    public function setConnections($hosts)
-    {
-        // Merge in the initial seed list (union not array_merge).
-        $hosts = $hosts + $this->seeds;
-
-        $connections = $this->hostsToConnections($hosts);
-
-        $this->connectionPool  = $this->params['connectionPool']($connections);
-
-    }
-
 
     /**
      * Returns a single connection from the connection pool
@@ -132,15 +97,19 @@ class Transport
      *
      * @param string $method     HTTP method to use
      * @param string $uri        HTTP URI to send request to
-     * @param null   $params     Optional query parameters
-     * @param null   $body       Optional query body
+     * @param null $params     Optional query parameters
+     * @param null $body       Optional query body
+     * @param array $options
      *
+     * @throws Common\Exceptions\ServerErrorResponseException|\Exception
+     * @throws Common\Exceptions\ClientErrorResponseException|\Exception
+     * @throws Common\Exceptions\Curl\OperationTimeoutException|Common\Exceptions\TransportException|\Exception
      * @throws Common\Exceptions\NoNodesAvailableException|\Exception
      * @internal param null $maxRetries Optional number of retries
      *
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [])
     {
         try {
             $connection  = $this->getConnection();
@@ -154,27 +123,21 @@ class Transport
         $this->lastConnection = $connection;
 
         try {
-            if (isset($body) === true) {
-                $body = $this->serializer->serialize($body);
-            }
 
             $response = $connection->performRequest(
                 $method,
                 $uri,
                 $params,
-                $body
+                $body,
+                $options
             );
 
-            $connection->markAlive();
-            $this->retryAttempts = 0;
+            $response->promise()->then(function($response) {
+                $this->retryAttempts = 0;
+                //TODO check success vs failure
+            });
 
-            $data = $this->serializer->deserialize($response['text'], $response['info']);
-
-            return array(
-                'status' => $response['status'],
-                'data'   => $data,
-                'info'   => $response['info'],
-            );
+            return $response;
 
         } catch (Exceptions\Curl\OperationTimeoutException $exception) {
             $this->connectionPool->scheduleCheck();
@@ -215,7 +178,7 @@ class Transport
      */
     public function shouldRetry($method, $uri, $params, $body)
     {
-        if ($this->retryAttempts < $this->params['retries']) {
+        if ($this->retryAttempts < $this->retries) {
             $this->retryAttempts += 1;
             return true;
         }
@@ -233,27 +196,6 @@ class Transport
     public function getLastConnection()
     {
         return $this->lastConnection;
-    }
-
-
-    /**
-     * Convert host arrays into connections
-     *
-     * @param array $hosts Assoc array of host values
-     *
-     * @return AbstractConnection[]
-     */
-    private function hostsToConnections($hosts)
-    {
-        $connections = array();
-        foreach ($hosts as $host) {
-            $connections[] = $this->params['connection'](
-                $host
-            );
-        }
-
-        return $connections;
-
     }
 
 

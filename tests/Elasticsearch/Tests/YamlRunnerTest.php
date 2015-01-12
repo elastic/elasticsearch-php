@@ -82,10 +82,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $uri = parse_url($host = YamlRunnerTest::getHostEnvVar());
 
         $params['hosts'] = array($uri['host'].':'.$uri['port']);
-        $params['connectionParams']['timeout'] = 10000;
-        $params['logging'] = true;
-        $params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
-        $this->client = new Elasticsearch\Client($params);
+        //$params['connectionParams']['timeout'] = 10000;
+        //$params['logging'] = true;
+        //$params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
+
+        $this->client = Elasticsearch\Client::newBuilder()->setHosts($params['hosts'])->build();
 
     }
 
@@ -332,7 +333,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     try {
                         echo "         |".json_encode($hash)."\n";
-                        $response = $this->callMethod($method, $hash);
+                        $response = $this->callMethod($method, $hash)['body'];
                         echo "         |".json_encode($response)."\n";
                         ob_flush();
 

@@ -41,6 +41,9 @@ abstract class AbstractEndpoint
     /** @var array  */
     private $ignore = null;
 
+    /** @var array  */
+    private $clientParams = [];
+
 
     /**
      * @return string[]
@@ -69,7 +72,6 @@ abstract class AbstractEndpoint
 
 
     /**
-     *
      * @throws \Exception
      * @return array
      */
@@ -82,7 +84,8 @@ abstract class AbstractEndpoint
                 $this->getMethod(),
                 $this->getURI(),
                 $this->params,
-                $this->getBody()
+                $this->getBody(),
+                $this->clientParams
             );
         } catch (\Exception $exception) {
             $code = $exception->getCode();
@@ -114,6 +117,7 @@ abstract class AbstractEndpoint
 
         $this->checkUserParams($params);
         $params = $this->convertCustom($params);
+        $this->extractRingOptions($params);
         $this->params = $this->convertArraysToStrings($params);
         $this->extractIgnore();
         return $this;
@@ -175,6 +179,21 @@ abstract class AbstractEndpoint
 
         $this->id = urlencode($docID);
         return $this;
+    }
+
+    /**
+     * @param $result
+     * @return callable|array
+     */
+    public function resultOrFuture($result)
+    {
+
+        $async = isset($this->clientParams['client']['future']) ? $this->clientParams['client']['future'] : null;
+        if (is_null($async) || $async === false) {
+            return $result->wait();
+        } elseif ($async === true || $async === 'lazy') {
+            return $result;
+        }
     }
 
 
@@ -259,7 +278,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'custom', 'curlOpts'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'custom', 'curlOpts', 'client'));
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
@@ -279,6 +298,14 @@ abstract class AbstractEndpoint
         if (isset($this->params['ignore']) === true) {
             $this->ignore = explode(",", $this->params['ignore']);
             unset($this->params['ignore']);
+        }
+    }
+
+    private function extractRingOptions(&$params)
+    {
+        if (isset($params['client']) === true) {
+            $this->clientParams['client'] = $params['client'];
+            unset($params['client']);
         }
     }
 

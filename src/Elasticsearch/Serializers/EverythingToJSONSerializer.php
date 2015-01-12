@@ -15,9 +15,8 @@ namespace Elasticsearch\Serializers;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class EverythingToJSONSerializer implements SerializerInterface
+class EverythingToJSONSerializer extends AbstractJsonSerializer
 {
-
     /**
      * Serialize assoc array into JSON string
      *
@@ -27,14 +26,8 @@ class EverythingToJSONSerializer implements SerializerInterface
      */
     public function serialize($data)
     {
-        $data = json_encode($data);
-        if ($data === '[]') {
-            return '{}';
-        } else {
-            return $data;
-        }
+        return $this->jsonEncode($data);
     }
-
 
     /**
      * Deserialize JSON into an assoc array
@@ -46,7 +39,6 @@ class EverythingToJSONSerializer implements SerializerInterface
      */
     public function deserialize($data, $headers)
     {
-        return json_decode($data, true);
-
+        return $this->jsonDecode($data);
     }
 }

@@ -429,8 +429,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
             CURLOPT_TIMEOUT_MS     => 1000,
             CURLOPT_CONNECTTIMEOUT_MS => 1000,
             CURLOPT_HEADER         => false,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_TCP_NODELAY    => false
         );
 

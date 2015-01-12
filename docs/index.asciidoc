@@ -26,3 +26,5 @@ include::connections.asciidoc[]
 include::serializers.asciidoc[]
 
 include::php-version-requirement.asciidoc[]
+
+include::security.asciidoc[]

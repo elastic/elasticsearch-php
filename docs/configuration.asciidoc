@@ -32,24 +32,6 @@ $client = new Elasticsearch\Client($params);
 
 This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
 
-=== HTTP Basic Auth
-HTTP basic authentication is a very common requirement.  To enable Basic Auth in the client, simply set a parameter with the required auth parameters:
-
-[source,php]
-----
-$params = array();
-$params['connectionParams']['auth'] = array(
-    'username',
-    'password',
-    'Basic' <1>
-);
-$client = new Elasticsearch\Client($params);
-----
-<1> Accepts four different options: `Basic`, `Digests`, `NTLM`, `Any`
-
-After being initialized with authentication credentials, all outgoing requests will automatically include the HTTP auth headers.
-
-
 === Ignoring exceptions
 The library attempts to throw exceptions for common problems.  These exceptions
 match the HTTP response code provided by Elasticsearch.  For example, attempting to

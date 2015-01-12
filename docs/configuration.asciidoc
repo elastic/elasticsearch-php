@@ -17,12 +17,14 @@ The client accepts an array of hosts that you would like to connect to.  Each va
 ----
 $params = array();
 $params['hosts'] = array (
-    '192.168.1.1:9200',         // IP + Port
-    '192.168.1.2',              // Just IP
-    'mydomain.server.com:9201', // Domain + Port
-    'mydomain2.server.com',     // Just Domain
-    'https://localhost',        // SSL to localhost
-    'https://192.168.1.3:9200'  // SSL to IP + Port
+    '192.168.1.1:9200',                 // IP + Port
+    '192.168.1.2',                      // Just IP
+    'mydomain.server.com:9201',         // Domain + Port
+    'mydomain2.server.com',             // Just Domain
+    'https://localhost',                // SSL to localhost
+    'https://192.168.1.3:9200',         // SSL to IP + Port
+    'http://user:pass@localhost:9200',  // HTTP Basic Auth
+    'https://user:pass@localhost:9200',  // SSL + HTTP Basic Auth
 );
 
 $client = new Elasticsearch\Client($params);

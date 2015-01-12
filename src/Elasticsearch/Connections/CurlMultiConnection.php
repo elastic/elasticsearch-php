@@ -8,6 +8,7 @@
 namespace Elasticsearch\Connections;
 
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
+use Elasticsearch\Common\Exceptions\Authentication401Exception;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
@@ -278,6 +279,8 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             throw new AlreadyExpiredException($responseBody, $statusCode);
+        } elseif ($statusCode === 401) {
+            throw new Authentication401Exception($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
             throw new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {

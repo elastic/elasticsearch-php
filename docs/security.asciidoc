@@ -87,7 +87,7 @@ Note: Guzzle's `CURL_OPTIONS` parameter will accept any PHP http://php.net/manua
 
 Self-signed certificates are certs that have not been signed by a public CA.  They are signed by your own organization.  Self-signed certificates are often used for internal purposes, when you can securely spread the root certificate yourself.  It should not be used when being exposed to public consumers, since this leaves the client vulnerable to man-in-the-middle attacks.
 
-If you are using a self-signed certificate, you need to provide the certificate to the client and disable peer verification.
+If you are using a self-signed certificate, you need to provide the certificate to the client:
 
 [source,php]
 ----
@@ -99,18 +99,16 @@ $params['hosts'] = array (
 $params['guzzleOptions'] = array(
     \Guzzle\Http\Client::SSL_CERT_AUTHORITY => 'system',
     \Guzzle\Http\Client::CURL_OPTIONS => [
-        CURLOPT_SSL_VERIFYPEER => false, <1>
-        CURLOPT_SSL_VERIFYHOST => 2, <2>
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
         CURLOPT_CAINFO => 'cacert.pem', <3>
         CURLOPT_SSLCERTTYPE => 'PEM', <4>
     ]
 );
 $client = new Elasticsearch\Client($params);
 ----
-<1> Verify Peer is now false, since the cert cannot be verified against a public CA
-<2> Verify Host should still be enabled, since you still want the host to match the certificate
-<3> CAInfo is used to specify the path to the self-signed certificate
-<4> Finally, the certificate type is specified.  PEM is default, so you can omit this if you are using .pem certs
+<1> CAInfo is used to specify the path to the self-signed certificate
+<2> Finally, the certificate type is specified.  PEM is default, so you can omit this if you are using .pem certs
 
 ==== CurlMultiConnection + Public CA Cert
 
@@ -152,7 +150,7 @@ Note that the syntax for specifying curl options is different from Guzzle.
 
 ==== CurlMultiConnection + Self-Signed Certificates
 
-To use self-signed certificates, you need to provide the certificate and disable peer verification, just like Guzzle, albeit with slightly different syntax:
+To use self-signed certificates, you need to provide the certificate, just like Guzzle, albeit with slightly different syntax:
 
 [source,php]
 ----
@@ -164,7 +162,7 @@ $params['hosts'] = array (
 );
 
 $params['connectionParams']['curlOpts'] = array(
-    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYPEER => true,
     CURLOPT_SSL_VERIFYHOST => 2,
     CURLOPT_CAINFO => 'cacert.pem',
     CURLOPT_SSLCERTTYPE => 'PEM'
@@ -188,7 +186,7 @@ $params['connectionParams']['auth'] = array('user', 'pass', 'Basic');
 $params['guzzleOptions'] = array(
     \Guzzle\Http\Client::SSL_CERT_AUTHORITY => 'system',
     \Guzzle\Http\Client::CURL_OPTIONS => [
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
         CURLOPT_CAINFO => 'cacert.pem',
         CURLOPT_SSLCERTTYPE => 'PEM',

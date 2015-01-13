@@ -24,7 +24,7 @@ use \Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\ServerErrorResponseException;
-use Guzzle\Http\Message\Header\HeaderCollection;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use Psr\Log\LoggerInterface;
@@ -160,7 +160,10 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
                 'options' => $options,
                 'method'  => $method
             ));
-            $request = $this->guzzle->$method($uri, array(), $body, $options);
+
+            /** @var EntityEnclosingRequest $request */
+            $request = $this->guzzle->$method($uri, array('content-type' => 'application/json'), $body, $options);
+
         } else {
             $this->lastRequest = array( 'request' => array(
                 'uri'     => $uri,
@@ -168,7 +171,7 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
                 'options' => $options,
                 'method'  => $method
             ));
-            $request = $this->guzzle->$method($uri, array(), $options);
+            $request = $this->guzzle->$method($uri, array(), array(), $options);
         }
 
         return $request;

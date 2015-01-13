@@ -163,6 +163,9 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
 
             /** @var EntityEnclosingRequest $request */
             $request = $this->guzzle->$method($uri, array('content-type' => 'application/json'), $body, $options);
+            if (isset($options['auth'])) {
+                $request->setAuth($options['auth'][0],$options['auth'][1],$options['auth'][2]);
+            }
 
         } else {
             $this->lastRequest = array( 'request' => array(
@@ -172,6 +175,9 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
                 'method'  => $method
             ));
             $request = $this->guzzle->$method($uri, array(), array(), $options);
+            if (isset($options['auth'])) {
+                $request->setAuth($options['auth'][0],$options['auth'][1],$options['auth'][2]);
+            }
         }
 
         return $request;

@@ -504,7 +504,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                     } else if (isset($settings['features']) === true) {
                         $feature = $settings['features'];
-                        $whitelist = array();
+                        $whitelist = array('gtelte');
 
                         if (array_search($feature, $whitelist) === false) {
                             echo "Unsupported optional feature: $feature\n";

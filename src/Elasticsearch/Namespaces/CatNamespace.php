@@ -346,4 +346,28 @@ class CatNamespace extends AbstractNamespace
         return $response['data'];
     }
 
+    /**
+     * $params['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function segments($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Segments $endpoint */
+        $endpoint = $endpointBuilder('Cat\Segments');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 }

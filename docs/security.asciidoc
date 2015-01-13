@@ -101,8 +101,8 @@ $params['guzzleOptions'] = array(
     \Guzzle\Http\Client::CURL_OPTIONS => [
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_CAINFO => 'cacert.pem', <3>
-        CURLOPT_SSLCERTTYPE => 'PEM', <4>
+        CURLOPT_CAINFO => 'cacert.pem', <1>
+        CURLOPT_SSLCERTTYPE => 'PEM', <2>
     ]
 );
 $client = new Elasticsearch\Client($params);

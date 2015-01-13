@@ -39,7 +39,7 @@ After being initialized with authentication credentials, all outgoing requests w
 
 === SSL Configuration
 
-Configuring SSL is a little more complex.  First you need to identify if you are using an SSL certificate from a Certificate Authority (CA), or a self-signed certificate.  Then you need to identify which ConnectionClass you are using, since they have slightly different syntax to enable SSL.
+Configuring SSL is a little more complex.  First you need to identify if your certificate has been signed by a public Certificate Authority (CA), or if it is a self-signed certificate.  Then you need to identify which ConnectionClass you are using, since they have slightly different syntax to enable SSL.
 
 ==== GuzzleConnection + Public CA Cert
 

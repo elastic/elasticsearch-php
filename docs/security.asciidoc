@@ -41,6 +41,15 @@ After being initialized with authentication credentials, all outgoing requests w
 
 Configuring SSL is a little more complex.  First you need to identify if your certificate has been signed by a public Certificate Authority (CA), or if it is a self-signed certificate.  Then you need to identify which ConnectionClass you are using, since they have slightly different syntax to enable SSL.
 
+[NOTE]
+.A note on libcurl version
+=================
+If you believe the client is configured to correctly use SSL, but it simply is not working, check your libcurl version.  On certain platforms, various features may or may not be available depending on version number of libcurl.  For example, the `--cacert` option was not added to the OSX version of libcurl until version 7.37.1.  The `--cacert` option is equivalent to PHP's `CURLOPT_CAINFO` constant, meaning that custom certificate paths will not work on lower versions.
+
+If you are encountering problems, update your libcurl version and/or check the http://curl.haxx.se/changes.html[curl changelog].
+=================
+
+
 ==== GuzzleConnection + Public CA Cert
 
 If your certificate has been signed by a public Certificate Authority and your server has up-to-date root certificates, you only need to use `https` in the host path.  Guzzle will automatically verify SSL certificates:

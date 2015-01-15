@@ -39,7 +39,7 @@ The average PHP script will likely load the client, execute a few queries and th
 
 In reality, if your script only executes a few queries, the sniffing concept is _too_ robust.  It tends to be more useful in long-lived processes which potentially "out-live" a static list.
 
-For this reason the default connection pool is currently the `staticConnectionPool`.  You can, of course, change this default - but we strongly recommend you load test and verify that it does not negatively impact your performance.
+For this reason the default connection pool is currently the `staticNoPingConnectionPool`.  You can, of course, change this default - but we strongly recommend you load test and verify that it does not negatively impact your performance.
 
 === Changing the Connection Pool
 

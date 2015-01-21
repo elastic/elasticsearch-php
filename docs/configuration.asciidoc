@@ -124,7 +124,6 @@ Often, you'll want to change the logging location or set the logs file permissio
 $params = array();
 $params['logging'] = true;
 $params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
-$params['logPermission'] = 0664;
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +

@@ -109,7 +109,7 @@ class Transport
      *
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [])
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], $ignore = [])
     {
         try {
             $connection  = $this->getConnection();
@@ -124,20 +124,28 @@ class Transport
 
         try {
 
-            $response = $connection->performRequest(
+            $deferred = $connection->performRequest(
                 $method,
                 $uri,
                 $params,
                 $body,
-                $options
+                $options,
+                $ignore
             );
 
-            $response->promise()->then(function($response) {
-                $this->retryAttempts = 0;
-                //TODO check success vs failure
-            });
+            $deferred->promise()->then(
+                //onSuccess
+                function($response) {
+                    $this->retryAttempts = 0;
+                    //TODO check success vs failure
+                },
+                //onFailure
+                function($response) {
+                    //some kind of real faiure here, like a timeout
+                    //print_r($response);
+                });
 
-            return $response;
+            return $deferred;
 
         } catch (Exceptions\Curl\OperationTimeoutException $exception) {
             $this->connectionPool->scheduleCheck();

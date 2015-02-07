@@ -7,7 +7,7 @@
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\UnexpectedValueException;
+
 use Elasticsearch\Transport;
 
 /**

@@ -131,7 +131,7 @@ class Connection implements ConnectionInterface
      *
      * @return mixed
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = array())
+    public function performRequest($method, $uri, $params = null, $body = null, $options = array(), $ignore = [])
     {
         if (isset($body) === true) {
             $body = $this->serializer->serialize($body);
@@ -145,9 +145,15 @@ class Connection implements ConnectionInterface
             'client'      => ['timeout' => 1.0],                 //TODO fix this!
             'headers'     => [
                 'host'  => [$this->host]
-            ]
+            ],
+            'ignore' => $ignore
+
         ];
         $request = array_merge_recursive($request, $this->connectionParams, $options);
+
+        // make sure we start at the beginning of the stream, so it stays a moderate size
+        // better strategy to let grow and rewind/reset periodically?  need to bench
+        rewind($this->connectionParams['client']['save_to']);
 
         $handler = $this->handler;
         $future = $handler($request, $this);
@@ -173,18 +179,15 @@ class Connection implements ConnectionInterface
     {
         return function (array $request, Connection $connection) use ($handler, $logger, $tracer) {
             // Send the request using the wrapped handler.
-            return Core::proxy($handler($request), function ($response) use ($connection, $logger, $tracer) {
-                // Add the headers to the response when it is available.
-                //foreach ($headers as $key => $value) {
-                //    $response['headers'][$key] = (array) $value;
-                //}
-                // Note that you can return a regular response array when using
-                // the proxy method.
+            return Core::proxy($handler($request), function ($response) use ($connection, $logger, $tracer, $request) {
+
                 if (isset($response['error']) === true) {
 
                     if ($response['error'] instanceof ConnectException) {
                         $this->throwCurlException($response['curl']['errno'], $response['error']->getMessage());
                     } else if ($response['error'] instanceof RingException) {
+                        throw new TransportException($response['error']->getMessage());
+                    } else {
                         throw new TransportException($response['error']->getMessage());
                     }
                 } else {
@@ -194,9 +197,9 @@ class Connection implements ConnectionInterface
                     $response['body'] = stream_get_contents($response['body'], $response['headers']['Content-Length'][0]);
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {
-                        $this->process4xxError($response['status'], $response['body']);
+                        $this->process4xxError($response['status'], $response['body'], $request['ignore']);
                     } else if ($response['status'] >= 500) {
-                        $this->process5xxError($response['status'], $response['body']);
+                        $this->process5xxError($response['status'], $response['body'], $request['ignore']);
                     }
 
                     // No error, deserialize
@@ -477,10 +480,14 @@ class Connection implements ConnectionInterface
      * @throws \Elasticsearch\Common\Exceptions\Missing404Exception
      * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException
      */
-    private function process4xxError($statusCode, $responseBody)
+    private function process4xxError($statusCode, $responseBody, $ignore)
     {
 
         //$exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
+
+        if (array_search($statusCode, $ignore) !== false) {
+            return;
+        }
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             throw new AlreadyExpiredException($responseBody, $statusCode);
@@ -508,7 +515,7 @@ class Connection implements ConnectionInterface
      * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException
      * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
      */
-    private function process5xxError($response)
+    private function process5xxError($response, $ignore)
     {
         $statusCode    = $response['requestInfo']['http_code'];
         $exceptionText = $response['error'];
@@ -516,6 +523,10 @@ class Connection implements ConnectionInterface
 
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
         $this->log->error($exceptionText);
+
+        if (array_search($statusCode, $ignore) !== false) {
+            return;
+        }
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             throw new RoutingMissingException($responseBody, $statusCode);

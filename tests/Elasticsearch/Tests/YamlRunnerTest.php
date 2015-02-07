@@ -51,7 +51,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public static function getHostEnvVar()
     {
         if (isset($_SERVER['ES_TEST_HOST']) === true) {
-            echo "Test Host: ".$_SERVER['ES_TEST_HOST']."\n";
             return $_SERVER['ES_TEST_HOST'];
         } else {
             echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
@@ -63,6 +62,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $host = YamlRunnerTest::getHostEnvVar();
+        echo "Test Host: $host\n";
+
         $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -222,6 +223,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 $this->markTestSkipped('Skipped due to skip-list');
             }
 
+            if (isset($_SERVER['TEST_CASE']) === true && !empty($_SERVER['TEST_CASE'])) {
+                if ($_SERVER['TEST_CASE'] !== $testFile) {
+                    $this->markTestSkipped('Skipping, these are not the tests you\'re looking for...');
+                }
+            }
+
             $fileData = file_get_contents($testFile);
             $documents = array_filter(explode("---", $fileData));
 
@@ -333,7 +340,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     try {
                         echo "         |".json_encode($hash)."\n";
-                        $response = $this->callMethod($method, $hash)['body'];
+                        $response = $this->callMethod($method, $hash);
                         echo "         |".json_encode($response)."\n";
                         ob_flush();
 

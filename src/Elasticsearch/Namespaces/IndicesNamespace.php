@@ -7,7 +7,7 @@
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
 /**
  * Class IndicesNamespace
@@ -31,6 +31,8 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
+        //manually make this verbose so we can check status code
+        $params['verbose'] = true;
 
 
         /** @var callback $endpointBuilder */
@@ -41,18 +43,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        }
-
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
     }
 
 
@@ -470,9 +461,10 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
+        //manually make this verbose so we can check status code
+        $params['verbose'] = true;
 
 
         /** @var callback $endpointBuilder */
@@ -484,18 +476,7 @@ class IndicesNamespace extends AbstractNamespace
                  ->setType($type);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        }
-
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
     }
 
 
@@ -816,7 +797,8 @@ class IndicesNamespace extends AbstractNamespace
     {
         $name = $this->extractArgument($params, 'name');
 
-
+        //manually make this verbose so we can check status code
+        $params['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -826,18 +808,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setName($name);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        }
-
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
     }
 
 
@@ -1115,7 +1086,8 @@ class IndicesNamespace extends AbstractNamespace
 
         $name = $this->extractArgument($params, 'name');
 
-
+        //manually make this verbose so we can check status code
+        $params['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1126,18 +1098,7 @@ class IndicesNamespace extends AbstractNamespace
                  ->setName($name);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        }
-
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
     }
 
 

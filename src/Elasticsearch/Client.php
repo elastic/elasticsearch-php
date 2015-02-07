@@ -7,12 +7,9 @@
 
 namespace Elasticsearch;
 
-use Elasticsearch\Common\DICBuilder;
-use Elasticsearch\Common\EmptyLogger;
+
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
@@ -20,6 +17,7 @@ use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NamespaceFutureUtil;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
+use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
 
 /**
@@ -561,7 +559,8 @@ class Client
 
         $type = $this->extractArgument($params, 'type');
 
-
+        //manually make this verbose so we can check status code
+        $params['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -573,20 +572,8 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        } catch (RoutingMissingException $exception) {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
 
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 

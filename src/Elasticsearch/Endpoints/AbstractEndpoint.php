@@ -10,6 +10,7 @@ namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Transport;
+use Exception;
 
 /**
  * Class AbstractEndpoint
@@ -39,7 +40,10 @@ abstract class AbstractEndpoint
     private $transport = null;
 
     /** @var array  */
-    private $ignore = null;
+    private $ignore = [];
+
+    /** @var bool  */
+    private $verbose = false;
 
     /** @var array  */
     private $clientParams = [];
@@ -77,29 +81,17 @@ abstract class AbstractEndpoint
      */
     public function performRequest()
     {
-        $result = array();
 
-        try {
-            $result =  $this->transport->performRequest(
-                $this->getMethod(),
-                $this->getURI(),
-                $this->params,
-                $this->getBody(),
-                $this->clientParams
-            );
-        } catch (\Exception $exception) {
-            $code = $exception->getCode();
-            if ($this->ignore === null) {
-                throw $exception;
-            } else if (array_search($code, $this->ignore) === false) {
-                throw $exception;
-            } else {
-                //TODO return null or dedicated object here instead?
-                return array('data' => $exception->getMessage());
-            }
-        }
+        $promise =  $this->transport->performRequest(
+            $this->getMethod(),
+            $this->getURI(),
+            $this->params,
+            $this->getBody(),
+            $this->clientParams,
+            $this->ignore
+        );
 
-        return $result;
+        return $promise;
 
     }
 
@@ -119,7 +111,7 @@ abstract class AbstractEndpoint
         $params = $this->convertCustom($params);
         $this->extractRingOptions($params);
         $this->params = $this->convertArraysToStrings($params);
-        $this->extractIgnore();
+        $this->extractIgnoreVerbose();
         return $this;
     }
 
@@ -188,11 +180,18 @@ abstract class AbstractEndpoint
     public function resultOrFuture($result)
     {
 
+        $response = null;
         $async = isset($this->clientParams['client']['future']) ? $this->clientParams['client']['future'] : null;
         if (is_null($async) || $async === false) {
-            return $result->wait();
+            $response = $result->wait();
         } elseif ($async === true || $async === 'lazy') {
             return $result;
+        }
+
+        if (isset($this->verbose) && $this->verbose == true) {
+            return $response;
+        } else {
+            return $response['body'];
         }
     }
 
@@ -278,7 +277,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'custom', 'curlOpts', 'client'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'verbose', 'custom', 'curlOpts', 'client'));
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
@@ -293,11 +292,16 @@ abstract class AbstractEndpoint
     }
 
 
-    private function extractIgnore()
+    private function extractIgnoreVerbose()
     {
         if (isset($this->params['ignore']) === true) {
             $this->ignore = explode(",", $this->params['ignore']);
             unset($this->params['ignore']);
+        }
+
+        if (isset($this->params['verbose']) === true) {
+            $this->verbose = $this->params['verbose'];
+            unset($this->params['verbose']);
         }
     }
 

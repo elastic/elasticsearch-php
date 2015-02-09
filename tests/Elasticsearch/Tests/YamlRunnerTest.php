@@ -230,6 +230,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
 
             $fileData = file_get_contents($testFile);
+            $containsExist = strpos($fileData, "exists");
             $documents = array_filter(explode("---", $fileData));
 
             $yamlDocs = array();
@@ -254,22 +255,49 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
             foreach ($yamlDocs as $doc) {
                 $ts = date('c');
-                echo "   ".key($doc['values'])." [$ts]\n";
+                echo "   ".key($doc['values'])." [$ts] - Future: false\n";
                 ob_flush();
 
                 $this->clearCluster();
 
                 if ($setup !== null) {
                     try {
-                        $this->executeTestCase($setup, $testFile);
+                        $this->executeTestCase($setup, $testFile, false);
                     } catch (SetupSkipException $e) {
                         break;  //exit this test since we skipped in the setup
                     }
 
                 }
-                $this->executeTestCase($doc['values'], $testFile);
+                $this->executeTestCase($doc['values'], $testFile, false);
 
             }
+
+
+            echo "Rerunning in Future mode...\n";
+            foreach ($yamlDocs as $doc) {
+                $ts = date('c');
+                echo "   ".key($doc['values'])." [$ts] - Future: true\n";
+
+                if ($containsExist !== false) {
+                    $this->markTestSkipped('Test contains `exist`, not easily tested in async. Skipping.');
+                }
+
+                ob_flush();
+
+                $this->clearCluster();
+
+                if ($setup !== null) {
+                    try {
+                        $this->executeTestCase($setup, $testFile, false);
+                    } catch (SetupSkipException $e) {
+                        break;  //exit this test since we skipped in the setup
+                    }
+
+                }
+                $this->executeTestCase($doc['values'], $testFile, true);
+
+            }
+
 
 
         }
@@ -302,7 +330,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         return $values;
     }
 
-    private function executeTestCase($test, $testFile)
+    private function executeTestCase($test, $testFile, $future)
     {
         $stash = array();
         $response = array();
@@ -340,7 +368,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     try {
                         echo "         |".json_encode($hash)."\n";
-                        $response = $this->callMethod($method, $hash);
+                        $response = $this->callMethod($method, $hash, $future);
                         echo "         |".json_encode($response)."\n";
                         ob_flush();
 
@@ -526,11 +554,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function callMethod($method, $hash)
+    private function callMethod($method, $hash, $future)
     {
         $ret = array();
 
         $methodParts = explode(".", $method);
+
+        if ($future === true) {
+            if (is_object($hash)) {
+                $hash = json_decode(json_encode($hash), true);
+            }
+            $hash['client'] = [];
+            $hash['client']['future'] = true;
+        }
 
         if (count($methodParts) > 1) {
             $methodParts[1] = $this->snakeToCamel($methodParts[1]);
@@ -541,8 +577,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
 
+        //return $future ? $ret['body'] : $ret;
+        if ($future) {
+            $ret->wait();
 
-        return $ret;
+            return $ret['body'];
+        } else {
+            return $ret;
+        }
     }
 
     private function getValue($a, $key) {

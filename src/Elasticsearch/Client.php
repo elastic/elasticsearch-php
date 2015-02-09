@@ -104,7 +104,7 @@ class Client
      *
      * @return array
      */
-    public function info()
+    public function info($params)
     {
 
         /** @var callback $endpointBuilder */
@@ -112,7 +112,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
-        $response = $endpoint->performRequest();
+        $response = $endpoint->setParams($params)->performRequest();
         return $endpoint->resultOrFuture($response);
     }
 

@@ -18,7 +18,8 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class ClientBuilder {
+class ClientBuilder
+{
 
     /** @var Transport */
     private $transport;
@@ -55,9 +56,8 @@ class ClientBuilder {
     /** @var  int */
     private $retries;
 
-    /** @var bool  */
+    /** @var bool */
     private $sniffOnStart = false;
-
 
 
     /**
@@ -192,12 +192,6 @@ class ClientBuilder {
     }
 
 
-
-
-
-
-
-
     /**
      * @return Client
      */
@@ -231,7 +225,6 @@ class ClientBuilder {
         }
 
 
-
         if (is_null($this->selector)) {
             $this->selector = new Selectors\RoundRobinSelector();
         } elseif (is_string($this->selector)) {
@@ -243,11 +236,11 @@ class ClientBuilder {
 
 
         if (is_null($this->endpoint)) {
-            $transport  = $this->transport;
+            $transport = $this->transport;
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($transport, $serializer) {
-                $fullPath = '\\Elasticsearch\\Endpoints\\'.$class;
+                $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
                 if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
                     return new $fullPath($transport, $serializer);
                 } else {
@@ -257,7 +250,6 @@ class ClientBuilder {
         }
 
         return new Client($this->transport, $this->endpoint);
-
 
     }
 
@@ -371,13 +363,13 @@ class ClientBuilder {
      *
      * @return string
      */
-    private function prependMissingScheme($host) {
+    private function prependMissingScheme($host)
+    {
         if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
             $host = 'http://' . $host;
         }
         return $host;
     }
-
 
 
 }

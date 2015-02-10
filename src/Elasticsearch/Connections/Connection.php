@@ -143,7 +143,7 @@ class Connection implements ConnectionInterface
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            'client'      => ['timeout' => 1.0],                 //TODO fix this!
+            //'client'      => ['timeout' => 1.0],                 //TODO fix this!
             'headers'     => [
                 'host'  => [$this->host]
             ],
@@ -337,16 +337,20 @@ class Connection implements ConnectionInterface
      */
     public function ping()
     {
-        $options = array('timeout' => $this->pingTimeout);
+        $options = [
+            'client' => [
+                'timeout' => $this->pingTimeout
+            ]
+        ];
         try {
-            $response = $this->performRequest('HEAD', '', null, null, $options);
+            $response = $this->performRequest('HEAD', '/', null, null, $options);
 
         } catch (TransportException $exception) {
             $this->markDead();
             return false;
         }
 
-
+        $response = $response->wait();
         if ($response['status'] === 200) {
             $this->markAlive();
             return true;

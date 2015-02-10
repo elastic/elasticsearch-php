@@ -17,6 +17,7 @@ use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use FilesystemIterator;
+use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -272,8 +273,60 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
             }
 
+        }
 
-            echo "Rerunning in Future mode...\n";
+
+    }
+
+
+    /**
+     * @dataProvider provider
+     * @group yaml
+     */
+    public function testFutureModeYaml()
+    {
+        //* @runInSeparateProcess
+
+        $files = func_get_args();
+
+        foreach ($files as $testFile) {
+            echo "$testFile\n";
+            ob_flush();
+
+            if ($this->skipTest($testFile) === true) {
+                $this->markTestSkipped('Skipped due to skip-list');
+            }
+
+            if (isset($_SERVER['TEST_CASE']) === true && !empty($_SERVER['TEST_CASE'])) {
+                if ($_SERVER['TEST_CASE'] !== $testFile) {
+                    $this->markTestSkipped('Skipping, these are not the tests you\'re looking for...');
+                }
+            }
+
+            $fileData = file_get_contents($testFile);
+            $containsExist = strpos($fileData, "exists");
+            $documents = array_filter(explode("---", $fileData));
+
+            $yamlDocs = array();
+            $setup = null;
+            foreach ($documents as $document) {
+                try {
+                    $tDoc = array();
+                    $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
+                    $tDoc['document'] = $this->checkForEmptyProperty($testFile, $tDoc['document']);
+                    $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, false, true);
+
+                    if (key($tDoc['values']) === 'setup') {
+                        $setup = $tDoc['values'];
+                    } else {
+                        $yamlDocs[] = $tDoc;
+                    }
+
+                } catch (ParseException $e) {
+                    printf("Unable to parse the YAML string: %s", $e->getMessage());
+                }
+            }
+
             foreach ($yamlDocs as $doc) {
                 $ts = date('c');
                 echo "   ".key($doc['values'])." [$ts] - Future: true\n";
@@ -297,12 +350,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 $this->executeTestCase($doc['values'], $testFile, true);
 
             }
-
-
-
         }
-
-
     }
 
     private function replaceWithStash($values, $stash)
@@ -576,9 +624,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $ret = $this->client->$method($hash);
         }
 
-
-        //return $future ? $ret['body'] : $ret;
-        if ($future) {
+        if ($future && $ret instanceof FutureArrayInterface) {
             $ret->wait();
 
             return $ret['body'];

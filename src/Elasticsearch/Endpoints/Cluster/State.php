@@ -75,7 +75,8 @@ class State extends AbstractEndpoint
             'master_timeout',
             'flat_settings',
             'index_templates',
-            'expand_wildcards'
+            'expand_wildcards',
+            'ignore_unavailable'
         );
     }
 

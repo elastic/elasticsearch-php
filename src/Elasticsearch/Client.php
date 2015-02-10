@@ -18,7 +18,6 @@ use Elasticsearch\Namespaces\NamespaceFutureUtil;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
-use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 
 /**

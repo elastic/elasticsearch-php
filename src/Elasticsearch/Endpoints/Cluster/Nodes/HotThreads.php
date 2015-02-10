@@ -7,7 +7,7 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+
 use Elasticsearch\Common\Exceptions;
 
 /**

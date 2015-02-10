@@ -25,9 +25,9 @@ use Elasticsearch\Serializers\SerializerInterface;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
-use GuzzleHttp\Ring\Future\FutureValue;
+
 use Psr\Log\LoggerInterface;
-use React\Promise\Deferred;
+
 
 /**
  * Class AbstractConnection

@@ -10,7 +10,7 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticConnectionPool extends AbstractConnectionPool
@@ -28,7 +28,7 @@ class StaticConnectionPool extends AbstractConnectionPool
     /**
      * @param bool $force
      *
-     * @return AbstractConnection
+     * @return Connection
      * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
@@ -37,7 +37,7 @@ class StaticConnectionPool extends AbstractConnectionPool
 
         $total = count($this->connections);
         while ($total--) {
-            /** @var AbstractConnection $connection */
+            /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
                return $connection;
@@ -70,11 +70,11 @@ class StaticConnectionPool extends AbstractConnectionPool
     }
 
     /**
-     * @param AbstractConnection $connection
+     * @param Connection $connection
      *
      * @return bool
      */
-    private function readyToRevive(AbstractConnection $connection)
+    private function readyToRevive(Connection $connection)
     {
         $timeout = min(
             $this->pingTimeout * pow(2, $connection->getPingFailures()),

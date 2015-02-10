@@ -10,7 +10,7 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
 abstract class AbstractConnectionPool
@@ -19,14 +19,14 @@ abstract class AbstractConnectionPool
     /**
      * Array of connections
      *
-     * @var AbstractConnection[]
+     * @var Connection[]
      */
     protected  $connections;
 
     /**
      * Array of initial seed connections
      *
-     * @var AbstractConnection[]
+     * @var Connection[]
      */
     protected  $seedConnections;
 
@@ -67,7 +67,7 @@ abstract class AbstractConnectionPool
     /**
      * @param bool $force
      *
-     * @return AbstractConnection
+     * @return Connection
      */
     abstract public function nextConnection($force = false);
 

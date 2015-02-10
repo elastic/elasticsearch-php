@@ -11,7 +11,7 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
 class SniffingConnectionPool extends AbstractConnectionPool
@@ -34,7 +34,7 @@ class SniffingConnectionPool extends AbstractConnectionPool
     /**
      * @param bool $force
      *
-     * @return AbstractConnection
+     * @return Connection
      * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
@@ -43,7 +43,7 @@ class SniffingConnectionPool extends AbstractConnectionPool
 
         $size = count($this->connections);
         while ($size--) {
-            /** @var AbstractConnection $connection */
+            /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true || $connection->ping() === true) {
                 return $connection;
@@ -77,7 +77,7 @@ class SniffingConnectionPool extends AbstractConnectionPool
         $total = count($this->connections);
 
         while ($total--) {
-            /** @var AbstractConnection $connection */
+            /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
 
             if ($connection->isAlive() xor $force) {
@@ -102,10 +102,10 @@ class SniffingConnectionPool extends AbstractConnectionPool
 
 
     /**
-     * @param AbstractConnection $connection
+     * @param Connection $connection
      * @return bool
      */
-    private function sniffConnection(AbstractConnection $connection)
+    private function sniffConnection(Connection $connection)
     {
         try {
             $response = $connection->sniff();

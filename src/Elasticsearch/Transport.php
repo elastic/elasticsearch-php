@@ -10,10 +10,8 @@ namespace Elasticsearch;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\Connections\AbstractConnection;
-use Elasticsearch\Connections\ConnectionFactory;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
-use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -192,7 +190,7 @@ class Transport
      * Returns the last used connection so that it may be inspected.  Mainly
      * for debugging/testing purposes.
      *
-     * @return AbstractConnection
+     * @return Connection
      */
     public function getLastConnection()
     {

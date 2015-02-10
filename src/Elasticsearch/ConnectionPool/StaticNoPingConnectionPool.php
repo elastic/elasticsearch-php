@@ -9,7 +9,6 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\AbstractConnection;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
@@ -27,14 +26,14 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool
     /**
      * @param bool $force
      *
-     * @return AbstractConnection
+     * @return Connection
      * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {
         $total = count($this->connections);
         while ($total--) {
-            /** @var AbstractConnection $connection */
+            /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
                 return $connection;

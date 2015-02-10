@@ -25,6 +25,9 @@
     "twig/twig": "1.*",
     "cpliakas/git-wrapper": "~1.0"
   },
+  "suggest": {
+    "monolog/monolog": "Allows for client-level logging and tracing"
+  },
   "autoload": {
     "psr-0": {
       "Elasticsearch": "src/",

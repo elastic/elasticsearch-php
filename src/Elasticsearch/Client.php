@@ -105,7 +105,7 @@ class Client
      * @param $params
      * @return array
      */
-    public function info($params)
+    public function info($params = [])
     {
 
         /** @var callback $endpointBuilder */
@@ -118,7 +118,7 @@ class Client
     }
 
 
-    public function ping($params)
+    public function ping($params = [])
     {
 
         /** @var callback $endpointBuilder */

@@ -43,6 +43,7 @@ class Verify extends AbstractEndpoint
 
 
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()

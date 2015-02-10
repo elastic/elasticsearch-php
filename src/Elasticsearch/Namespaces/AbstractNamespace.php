@@ -32,7 +32,7 @@ abstract class AbstractNamespace
      * Abstract constructor
      *
      * @param Transport $transport Transport object
-     * @param           $dicEndpoints
+     * @param $endpoints
      */
     public function __construct($transport, $endpoints)
     {

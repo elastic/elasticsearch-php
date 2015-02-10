@@ -83,7 +83,9 @@ class Client
     /**
      * Client constructor
      *
-     * @param array $params Array of injectable parameters
+     * @param Transport $transport
+     * @param callable $endpoint
+     * @param callable $endpoint
      */
     public function __construct(Transport $transport, callable $endpoint)
     {
@@ -101,8 +103,7 @@ class Client
 
 
     /**
-     *
-     *
+     * @param $params
      * @return array
      */
     public function info($params)

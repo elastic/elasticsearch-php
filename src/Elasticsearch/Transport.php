@@ -49,21 +49,14 @@ class Transport
     private $retries;
 
 
-
     /**
      * Transport class is responsible for dispatching requests to the
      * underlying cluster connections
      *
-     * @param array $hosts  Array of hosts in cluster
      * @param $retries
      * @param bool $sniffOnStart
-     * @param Connections\ConnectionFactory $connectionFactory
      * @param ConnectionPool\AbstractConnectionPool $connectionPool
-     * @param Serializers\SerializerInterface $serializer
      * @param \Psr\Log\LoggerInterface $log    Monolog logger object
-     *
-     * @throws Common\Exceptions\InvalidArgumentException
-     * @internal param \Pimple\Container $params DIC containing dependencies
      */
     public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
@@ -101,11 +94,11 @@ class Transport
      * @param null $body       Optional query body
      * @param array $options
      *
+     * @param array $ignore
      * @throws Common\Exceptions\ServerErrorResponseException|\Exception
      * @throws Common\Exceptions\ClientErrorResponseException|\Exception
      * @throws Common\Exceptions\Curl\OperationTimeoutException|Common\Exceptions\TransportException|\Exception
      * @throws Common\Exceptions\NoNodesAvailableException|\Exception
-     * @internal param null $maxRetries Optional number of retries
      *
      * @return array
      */

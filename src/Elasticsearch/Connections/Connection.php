@@ -123,12 +123,13 @@ class Connection implements ConnectionInterface
 
 
     /**
-     * @param       $method
-     * @param       $uri
-     * @param null  $params
-     * @param null  $body
+     * @param $method
+     * @param $uri
+     * @param null $params
+     * @param null $body
      * @param array $options
      *
+     * @param array $ignore
      * @return mixed
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = array(), $ignore = [])
@@ -470,15 +471,16 @@ class Connection implements ConnectionInterface
 
 
     /**
-     * @param $method
-     * @param $uri
-     * @param $response
-     *
+     * @param $statusCode
+     * @param $responseBody
+     * @param $ignore
      * @throws \Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException
-     * @throws \Elasticsearch\Common\Exceptions\Forbidden403Exception
-     * @throws \Elasticsearch\Common\Exceptions\Conflict409Exception
      * @throws \Elasticsearch\Common\Exceptions\Missing404Exception
      * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException
+     * @throws \Elasticsearch\Common\Exceptions\Forbidden403Exception
+     * @throws \Elasticsearch\Common\Exceptions\BadRequest400Exception
+     * @throws \Elasticsearch\Common\Exceptions\Conflict409Exception
+     *
      */
     private function process4xxError($statusCode, $responseBody, $ignore)
     {
@@ -506,10 +508,9 @@ class Connection implements ConnectionInterface
 
 
     /**
-     * @param $method
-     * @param $uri
      * @param $response
      *
+     * @param $ignore
      * @throws \Elasticsearch\Common\Exceptions\RoutingMissingException
      * @throws \Elasticsearch\Common\Exceptions\NoShardAvailableException
      * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException

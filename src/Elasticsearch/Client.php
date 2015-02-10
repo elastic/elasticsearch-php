@@ -18,6 +18,7 @@ use Elasticsearch\Namespaces\NamespaceFutureUtil;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
+use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 
 /**
@@ -117,7 +118,7 @@ class Client
     }
 
 
-    public function ping()
+    public function ping($params)
     {
 
         /** @var callback $endpointBuilder */
@@ -127,18 +128,14 @@ class Client
         $endpoint = $endpointBuilder('Ping');
 
         try {
-            $response = $endpoint->performRequest();
+            $response = $endpoint->setParams($params)->performRequest();
+            $endpoint->resultOrFuture($response);
+
         } catch (Missing404Exception $exception) {
             return false;
         }
-        return $response;
-        /*
-        if (isset($response['status']) === true && $response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
-        */
+
+        return true;
     }
 
 

@@ -10,15 +10,14 @@ namespace Elasticsearch\Benchmarks;
 use \Athletic\AthleticEvent;
 use Elasticsearch\Client;
 
-class IndexingEvent extends AthleticEvent
+class AsyncVsSyncIndexingEvent extends AthleticEvent
 {
+    /** @var  Client */
     private $setupClient;
 
     /** @var  Client */
     private $client;
 
-    /** @var  Client */
-    private $guzzleClient;
 
     private $document;
     private $largeDocument;
@@ -26,18 +25,10 @@ class IndexingEvent extends AthleticEvent
 
     protected function classSetUp()
     {
-        $curlParams = array(
-            'connectionClass' => '\Elasticsearch\Connections\CurlMultiConnection'
-        );
-        $this->client = new Client($curlParams);
 
-        $guzzleParams = array(
-            'connectionClass' => '\Elasticsearch\Connections\GuzzleConnection'
-        );
-        $this->guzzleClient = new Client($guzzleParams);
+        $this->client = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
 
-
-        $this->setupClient = new Client();
+        $this->setupClient = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
         $indexParams['index']  = 'benchmarking_index';
         $indexParams['body']['test']['_all']['enabled'] = false;
         $indexParams['body']['test']['properties']['testField'] = array(
@@ -73,61 +64,94 @@ class IndexingEvent extends AthleticEvent
 
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group small
      * @baseline
      */
-    public function curlMultiHandleSmall()
+    public function syncSmall()
     {
-        $this->client->index($this->document);
+        $responses = [];
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($this->document);
+        }
     }
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group medium
      * @baseline
      */
-    public function curlMultiHandleMedium()
+    public function syncMedium()
     {
-        $this->client->index($this->mediumDocument);
+        $responses = [];
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($this->mediumDocument);
+        }
     }
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group large
      * @baseline
      */
-    public function curlMultiHandleLarge()
+    public function syncLarge()
     {
-        $this->client->index($this->largeDocument);
+        $responses = [];
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($this->largeDocument);
+        }
     }
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group small
      */
-    public function guzzleSmall()
+    public function asyncSmall()
     {
-        $this->guzzleClient->index($this->document);
+        $responses = [];
+        $asyncDoc = $this->document;
+        $asyncDoc['client']['future'] = 'lazy';
+
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($asyncDoc);
+        }
+
+        $responses[999]->wait();
     }
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group medium
      */
-    public function guzzleMedium()
+    public function asyncMedium()
     {
-        $this->guzzleClient->index($this->mediumDocument);
+        $responses = [];
+        $asyncDoc = $this->mediumDocument;
+        $asyncDoc['client']['future'] = 'lazy';
+
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($asyncDoc);
+        }
+
+        $responses[999]->wait();
     }
 
 
     /**
-     * @iterations 100
+     * @iterations 10
      * @group large
      */
-    public function guzzleLarge()
+    public function asyncLarge()
     {
-        $this->guzzleClient->index($this->largeDocument);
+        $responses = [];
+        $asyncDoc = $this->largeDocument;
+        $asyncDoc['client']['future'] = 'lazy';
+
+        for ($i = 0; $i < 1000; $i++) {
+            $responses[] = $this->client->index($asyncDoc);
+        }
+
+        $responses[999]->wait();
     }
 
 }

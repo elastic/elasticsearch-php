@@ -24,7 +24,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddOneHostThenGetConnection()
     {
-        $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                           ->shouldReceive('ping')
                           ->andReturn(true)
                           ->getMock()
@@ -58,7 +58,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connections = array();
 
         foreach (range(1,10) as $index) {
-            $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+            $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(true)
                               ->getMock()
@@ -95,7 +95,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connections = array();
 
         foreach (range(1,10) as $index) {
-            $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+            $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(false)
                               ->getMock()
@@ -130,7 +130,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connections = array();
 
         foreach (range(1,9) as $index) {
-            $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+            $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(false)
                               ->getMock()
@@ -144,7 +144,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
             $connections[] = $mockConnection;
         }
 
-        $goodConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $goodConnection = m::mock('\Elasticsearch\Connections\Connection')
                           ->shouldReceive('ping')->once()
                           ->andReturn(true)
                           ->getMock()
@@ -178,7 +178,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connections = array();
 
         foreach (range(1,9) as $index) {
-            $mockConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+            $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(false)
                               ->getMock()
@@ -192,7 +192,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
             $connections[] = $mockConnection;
         }
 
-        $goodConnection = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $goodConnection = m::mock('\Elasticsearch\Connections\Connection')
                           ->shouldReceive('ping')->once()
                           ->andReturn(true)
                           ->getMock()

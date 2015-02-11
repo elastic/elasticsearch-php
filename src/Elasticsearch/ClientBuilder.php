@@ -12,7 +12,9 @@ use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 
 use Elasticsearch\Serializers\SmartSerializer;
+use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
+use GuzzleHttp\Ring\Client\Middleware;
 use GuzzleHttp\Ring\Core;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -58,7 +60,6 @@ class ClientBuilder
 
     /** @var bool */
     private $sniffOnStart = false;
-
 
     /**
      * @param \Elasticsearch\Connections\ConnectionFactory $connectionFactory
@@ -191,6 +192,52 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * @return callable
+     * @throws \RuntimeException
+     */
+    public static function defaultHandler()
+    {
+        $future = null;
+        if (extension_loaded('curl')) {
+            $config = [ 'mh' => curl_multi_init() ];
+            if (function_exists('curl_reset')) {
+                $default = new CurlHandler();
+                $future = new CurlMultiHandler($config);
+            } else {
+                $default = new CurlMultiHandler($config);
+            }
+        } else {
+            throw new \RuntimeException('Elasticsearch-PHP requires cURL, or a custom HTTP handler.');
+        }
+        return $future ? Middleware::wrapFuture($default, $future) : $default;
+    }
+
+    /**
+     * @return CurlMultiHandler
+     * @throws \RuntimeException
+     */
+    public static function singleHandler()
+    {
+        if (function_exists('curl_reset')) {
+            return new CurlMultiHandler([ 'mh' => curl_multi_init() ]);
+        } else {
+            throw new \RuntimeException('CurlMulti handler requires cURL.');
+        }
+    }
+
+    /**
+     * @return CurlHandler
+     * @throws \RuntimeException
+     */
+    public static function multiHandler()
+    {
+        if (function_exists('curl_reset')) {
+            return new CurlHandler();
+        } else {
+            throw new \RuntimeException('CurlSingle handler requires cURL.');
+        }
+    }
 
     /**
      * @return Client
@@ -200,9 +247,7 @@ class ClientBuilder
         $this->buildLoggers();
 
         if (is_null($this->handler)) {
-            $this->handler = new CurlMultiHandler([
-                'mh' => curl_multi_init()
-            ]);
+            $this->handler = ClientBuilder::defaultHandler();
         }
 
         if (is_null($this->serializer)) {

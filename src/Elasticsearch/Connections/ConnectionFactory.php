@@ -35,7 +35,7 @@ class ConnectionFactory implements ConnectionFactoryInterface
     /**
      * @param $hostDetails
      *
-     * @return Connection
+     * @return ConnectionInterface
      */
     public function create($hostDetails)
     {

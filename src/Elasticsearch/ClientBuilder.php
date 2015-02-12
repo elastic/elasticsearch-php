@@ -119,6 +119,21 @@ class ClientBuilder
         }
     }
 
+    /**
+     * @param $path string
+     * @return \Monolog\Logger\Logger
+     */
+    public static function defaultLogger($path, $level = Logger::WARNING)
+    {
+        $log       = new Logger('log');
+        $handler   = new StreamHandler($path, $level);
+        $processor = new IntrospectionProcessor();
+        $log->pushHandler($handler);
+        $log->pushProcessor($processor);
+        return $log;
+    }
+
+
 
 
 

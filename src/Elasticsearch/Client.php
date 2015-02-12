@@ -557,7 +557,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
 
         //manually make this verbose so we can check status code
-        $params['verbose'] = true;
+        $params['client']['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

@@ -277,7 +277,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('ignore', 'verbose', 'custom', 'curlOpts', 'client'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('client'));
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
@@ -299,9 +299,9 @@ abstract class AbstractEndpoint
             unset($this->params['ignore']);
         }
 
-        if (isset($this->params['verbose']) === true) {
-            $this->verbose = $this->params['verbose'];
-            unset($this->params['verbose']);
+        if (isset($this->params['client']['verbose']) === true) {
+            $this->verbose = $this->params['client']['verbose'];
+            unset($this->params['client']['verbose']);
         }
     }
 

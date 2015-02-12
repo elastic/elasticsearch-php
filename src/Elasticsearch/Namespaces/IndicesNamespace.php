@@ -32,7 +32,7 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
 
         //manually make this verbose so we can check status code
-        $params['verbose'] = true;
+        $params['client']['verbose'] = true;
 
 
         /** @var callback $endpointBuilder */
@@ -464,7 +464,7 @@ class IndicesNamespace extends AbstractNamespace
         $type = $this->extractArgument($params, 'type');
 
         //manually make this verbose so we can check status code
-        $params['verbose'] = true;
+        $params['client']['verbose'] = true;
 
 
         /** @var callback $endpointBuilder */
@@ -798,7 +798,7 @@ class IndicesNamespace extends AbstractNamespace
         $name = $this->extractArgument($params, 'name');
 
         //manually make this verbose so we can check status code
-        $params['verbose'] = true;
+        $params['client']['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1087,7 +1087,7 @@ class IndicesNamespace extends AbstractNamespace
         $name = $this->extractArgument($params, 'name');
 
         //manually make this verbose so we can check status code
-        $params['verbose'] = true;
+        $params['client']['verbose'] = true;
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

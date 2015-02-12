@@ -608,12 +608,18 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $methodParts = explode(".", $method);
 
+        if (is_object($hash)) {
+            $hash = json_decode(json_encode($hash), true);
+        }
+
         if ($future === true) {
-            if (is_object($hash)) {
-                $hash = json_decode(json_encode($hash), true);
-            }
             $hash['client'] = [];
             $hash['client']['future'] = true;
+        }
+
+        if (isset($hash['ignore']) === true) {
+            $hash['client']['ignore'] = $hash['ignore'];
+            unset($hash['ignore']);
         }
 
         if (count($methodParts) > 1) {

@@ -109,9 +109,8 @@ abstract class AbstractEndpoint
 
         $this->checkUserParams($params);
         $params = $this->convertCustom($params);
-        $this->extractRingOptions($params);
+        $this->extractOptions($params);
         $this->params = $this->convertArraysToStrings($params);
-        $this->extractIgnoreVerbose();
         return $this;
     }
 
@@ -292,21 +291,29 @@ abstract class AbstractEndpoint
     }
 
 
-    private function extractIgnoreVerbose()
+    /**
+     * @param $params       Note: this is passed by-reference!
+     */
+    private function extractOptions(&$params)
     {
-        if (isset($this->params['ignore']) === true) {
-            $this->ignore = explode(",", $this->params['ignore']);
-            unset($this->params['ignore']);
+        $ignore = isset($params['client']['ignore']) ? $params['client']['ignore'] : null;
+        if (isset($ignore) === true) {
+            if (is_string($ignore)) {
+                $this->ignore = explode(",", $ignore);
+            } elseif (is_array($ignore)) {
+                $this->ignore = $ignore;
+            } else {
+                $this->ignore = [$ignore];
+            }
+
+            unset($params['client']['ignore']);
         }
 
-        if (isset($this->params['client']['verbose']) === true) {
-            $this->verbose = $this->params['client']['verbose'];
-            unset($this->params['client']['verbose']);
+        if (isset($params['client']['verbose']) === true) {
+            $this->verbose = $params['client']['verbose'];
+            unset($params['client']['verbose']);
         }
-    }
 
-    private function extractRingOptions(&$params)
-    {
         if (isset($params['client']) === true) {
             $this->clientParams['client'] = $params['client'];
             unset($params['client']);

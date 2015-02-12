@@ -8,6 +8,7 @@ use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
+use Elasticsearch\Connections\ConnectionFactoryInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 
@@ -29,7 +30,7 @@ class ClientBuilder
     /** @var callback */
     private $endpoint;
 
-    /** @var  ConnectionFactory */
+    /** @var  ConnectionFactoryInterface */
     private $connectionFactory;
 
     private $handler;
@@ -119,11 +120,13 @@ class ClientBuilder
     }
 
 
+
+
     /**
-     * @param \Elasticsearch\Connections\ConnectionFactory $connectionFactory
+     * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
      * @return $this
      */
-    public function setConnectionFactory(ConnectionFactory $connectionFactory)
+    public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
     {
         $this->connectionFactory = $connectionFactory;
         return $this;

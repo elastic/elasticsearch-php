@@ -10,7 +10,7 @@ namespace Elasticsearch\Connections;
 use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
-class ConnectionFactory
+class ConnectionFactory implements ConnectionFactoryInterface
 {
     /** @var  array */
     private $connectionParams;

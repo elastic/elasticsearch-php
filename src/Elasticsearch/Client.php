@@ -71,13 +71,6 @@ class Client
     /** @var  callback */
     protected $endpoints;
 
-    /**
-     * @return ClientBuilder
-     */
-    public static function newBuilder()
-    {
-        return new ClientBuilder();
-    }
 
     /**
      * Client constructor

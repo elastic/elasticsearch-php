@@ -61,6 +61,64 @@ class ClientBuilder
     /** @var bool */
     private $sniffOnStart = false;
 
+
+    /**
+     * @return ClientBuilder
+     */
+    public static function create()
+    {
+        return new ClientBuilder();
+    }
+
+
+    /**
+     * @return callable
+     * @throws \RuntimeException
+     */
+    public static function defaultHandler()
+    {
+        $future = null;
+        if (extension_loaded('curl')) {
+            $config = [ 'mh' => curl_multi_init() ];
+            if (function_exists('curl_reset')) {
+                $default = new CurlHandler();
+                $future = new CurlMultiHandler($config);
+            } else {
+                $default = new CurlMultiHandler($config);
+            }
+        } else {
+            throw new \RuntimeException('Elasticsearch-PHP requires cURL, or a custom HTTP handler.');
+        }
+        return $future ? Middleware::wrapFuture($default, $future) : $default;
+    }
+
+    /**
+     * @return CurlMultiHandler
+     * @throws \RuntimeException
+     */
+    public static function singleHandler()
+    {
+        if (function_exists('curl_reset')) {
+            return new CurlMultiHandler([ 'mh' => curl_multi_init() ]);
+        } else {
+            throw new \RuntimeException('CurlMulti handler requires cURL.');
+        }
+    }
+
+    /**
+     * @return CurlHandler
+     * @throws \RuntimeException
+     */
+    public static function multiHandler()
+    {
+        if (function_exists('curl_reset')) {
+            return new CurlHandler();
+        } else {
+            throw new \RuntimeException('CurlSingle handler requires cURL.');
+        }
+    }
+
+
     /**
      * @param \Elasticsearch\Connections\ConnectionFactory $connectionFactory
      * @return $this
@@ -192,52 +250,9 @@ class ClientBuilder
         return $this;
     }
 
-    /**
-     * @return callable
-     * @throws \RuntimeException
-     */
-    public static function defaultHandler()
-    {
-        $future = null;
-        if (extension_loaded('curl')) {
-            $config = [ 'mh' => curl_multi_init() ];
-            if (function_exists('curl_reset')) {
-                $default = new CurlHandler();
-                $future = new CurlMultiHandler($config);
-            } else {
-                $default = new CurlMultiHandler($config);
-            }
-        } else {
-            throw new \RuntimeException('Elasticsearch-PHP requires cURL, or a custom HTTP handler.');
-        }
-        return $future ? Middleware::wrapFuture($default, $future) : $default;
-    }
 
-    /**
-     * @return CurlMultiHandler
-     * @throws \RuntimeException
-     */
-    public static function singleHandler()
-    {
-        if (function_exists('curl_reset')) {
-            return new CurlMultiHandler([ 'mh' => curl_multi_init() ]);
-        } else {
-            throw new \RuntimeException('CurlMulti handler requires cURL.');
-        }
-    }
 
-    /**
-     * @return CurlHandler
-     * @throws \RuntimeException
-     */
-    public static function multiHandler()
-    {
-        if (function_exists('curl_reset')) {
-            return new CurlHandler();
-        } else {
-            throw new \RuntimeException('CurlSingle handler requires cURL.');
-        }
-    }
+
 
     /**
      * @return Client

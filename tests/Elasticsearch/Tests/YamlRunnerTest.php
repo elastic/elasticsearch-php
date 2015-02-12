@@ -88,7 +88,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         //$params['logging'] = true;
         //$params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
 
-        $this->client = Elasticsearch\Client::newBuilder()->setHosts($params['hosts'])->build();
+        $this->client = Elasticsearch\ClientBuilder::create()->setHosts($params['hosts'])->build();
 
     }
 

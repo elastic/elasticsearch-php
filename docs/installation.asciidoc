@@ -59,10 +59,10 @@ More information about http://getcomposer.org/[Composer can be found at their we
 --------------------------
 require 'vendor/autoload.php';
 
-$client = Client::newBuilder()->build();
+$client = ClientBuilder::create()->build();
 --------------------------
 +
-Client instantiation is performed with a static helper function `newBuilder()`.  This returns a ClientBuilder object,
+Client instantiation is performed with a static helper function `create()`.  This creates a ClientBuilder object,
 which helps you to set custom configurations.  When you are done configuring, you call the `build()` method to generate
 a `Client` object.  We'll discuss configuration more in the Configuration section
 

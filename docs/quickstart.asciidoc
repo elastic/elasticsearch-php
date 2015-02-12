@@ -30,7 +30,7 @@ php composer.phar install --no-dev
 ----------------------------
 require 'vendor/autoload.php';
 
-$client = Client::newBuilder()->build();
+$client = ClientBuilder::create()->build();
 ----------------------------
 
 

@@ -9,6 +9,8 @@ include::installation.asciidoc[]
 
 include::configuration.asciidoc[]
 
+include::per-request-configuration.asciidoc[]
+
 include::php_json_objects.asciidoc[]
 
 include::index-operations.asciidoc[]
@@ -19,9 +21,11 @@ include::search-operations.asciidoc[]
 
 include::namespaces.asciidoc[]
 
+include::security.asciidoc[]
+
 include::connection-pool.asciidoc[]
 
-include::connections.asciidoc[]
+include::selectors.asciidoc[]
 
 include::serializers.asciidoc[]
 

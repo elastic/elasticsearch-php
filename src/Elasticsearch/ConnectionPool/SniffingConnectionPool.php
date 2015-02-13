@@ -14,7 +14,7 @@ use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
-class SniffingConnectionPool extends AbstractConnectionPool
+class SniffingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
     /** @var int  */
     private $sniffingInterval = 300;

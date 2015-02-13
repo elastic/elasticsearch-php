@@ -13,7 +13,7 @@ use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
-class StaticConnectionPool extends AbstractConnectionPool
+class StaticConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
     private $pingTimeout    = 60;
     private $maxPingTimeout = 3600;

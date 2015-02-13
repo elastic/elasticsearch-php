@@ -13,7 +13,7 @@ use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
-abstract class AbstractConnectionPool
+abstract class AbstractConnectionPool implements ConnectionPoolInterface
 {
 
     /**

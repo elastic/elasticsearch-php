@@ -49,6 +49,10 @@ $clientBuilder->setHosts($hosts)            // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
 
+=== Authorization and Encryption
+
+For details about HTTP Authorization and SSL encryption, please see link:_security.html[Authorization and SSL].
+
 === Set retries
 
 By default, the client will retry `n` times, where `n = number of nodes` in your cluster.  If you would like to disable

@@ -1,6 +1,10 @@
-== PHP Version Requirement
+== PHP Version Requirement for Elasticsearch-PHP v2.0.x
 
-Elasticsearch-php requires PHP version 5.3.9 or higher.  There are two bugs in PHP
+Version 2.0 of Elasticsearch-PHP requires PHP version 5.4.0 or higher.
+
+== PHP Version Requirement for Elasticsearch-PHP v1.0.x and 0.4.x
+
+Versions 1.0.x and 0.4.x require PHP version 5.3.9 or higher.  There are two bugs in PHP
 below 5.3.9 which cause problems for this library.
 
 === Bug #54367

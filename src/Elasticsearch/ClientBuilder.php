@@ -62,6 +62,15 @@ class ClientBuilder
     /** @var bool */
     private $sniffOnStart = false;
 
+    /** @var null|array  */
+    private $sslCert = null;
+
+    /** @var null|array  */
+    private $sslKey = null;
+
+    /** @var null|bool|string */
+    private $sslVerification = null;
+
 
     /**
      * @return ClientBuilder
@@ -268,6 +277,37 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * @param $cert
+     * @param null|string $password
+     * @return $this
+     */
+    public function setSSLCert($cert, $password = null)
+    {
+        $this->sslCert = [$cert, $password];
+        return $this;
+    }
+
+    /**
+     * @param $key
+     * @param null|string $password
+     * @return $this
+     */
+    public function setSSLKey($key, $password = null)
+    {
+        $this->sslKey = [$key, $password];
+        return $this;
+    }
+
+    /**
+     * @param bool|string $value
+     * @return $this
+     */
+    public function setSSLVerification($value = true)
+    {
+        $this->sslVerification = $value;
+        return $this;
+    }
 
 
 
@@ -282,6 +322,34 @@ class ClientBuilder
         if (is_null($this->handler)) {
             $this->handler = ClientBuilder::defaultHandler();
         }
+
+        $sslOptions = null;
+        if (isset($this->sslKey)) {
+            $sslOptions['ssl_key'] = $this->sslKey;
+        }
+        if (isset($this->sslCert)) {
+            $sslOptions['cert'] = $this->sslCert;
+        }
+        if (isset($this->sslVerification)) {
+            $sslOptions['verify'] = $this->sslVerification;
+        }
+
+        if (!is_null($sslOptions)) {
+            $sslHandler = function (callable $handler, array $sslOptions) {
+                return function (array $request) use ($handler, $sslOptions) {
+                    // Add our custom headers
+                    foreach ($sslOptions as $key => $value) {
+                        $request['client'][$key] = $value;
+                    }
+
+                    // Send the request using the handler and return the response.
+                    return $handler($request);
+                };
+            };
+            $this->handler = $sslHandler($this->handler, $sslOptions);
+        }
+
+
 
         if (is_null($this->serializer)) {
             $this->serializer = new SmartSerializer();

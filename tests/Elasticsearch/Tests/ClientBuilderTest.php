@@ -17,7 +17,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSimple()
     {
         $clientBuilder = ClientBuilder::create();
-        $clientBuilder->setHosts(['127.0.0.1:9200'])->build();
+        $client = $clientBuilder->setHosts(['127.0.0.1:9200'])->build();
 
         //$future = $client->search(['client' => ['future' => true]]);
 
@@ -26,16 +26,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         //$response = $future->wait();
 
         $params = [
-            'index' => 'my_index',
-            'body' => [
-                'settings' => [
-                    'number_of_shards' => 2,
-                    'number_of_replicas' => 0
-                ]
+            'index' => 'test',
+            'type' => 'test',
+            'id' => 1,
+            'client' => [
+                'verbose' => true
             ]
         ];
-
-        $response = $client->indices()->create($params);
+        $response = $client->get($params);
         print_r($response);
 
 

@@ -23,7 +23,7 @@ method of the ClientBuilder object:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool')
             ->build();
 ----
@@ -39,7 +39,7 @@ To use the `staticConnectionPool`:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool')
             ->build();
 ----
@@ -56,7 +56,7 @@ To use the `staticConnectionPool`:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool')
             ->build();
 ----
@@ -99,7 +99,7 @@ You can then instantiate an instance of your ConnectionPool and inject it into t
 ----
 $myConnectionPool = new MyCustomConnectionPool();
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool($myConnectionPool)
             ->build();
 ----
@@ -144,7 +144,7 @@ If your constructor matches AbstractConnectionPool, you may use either object in
 ----
 $myConnectionPool = new MyCustomConnectionPool();
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool($myConnectionPool)                                      // object injection
             ->setConnectionPool('/MyProject/ConnectionPools/MyCustomConnectionPool')    // or namespace
             ->build();

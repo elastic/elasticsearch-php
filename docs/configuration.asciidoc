@@ -26,7 +26,7 @@ $hosts = [
     'https://localhost',        // SSL to localhost
     'https://192.168.1.3:9200'  // SSL to IP + Port
 ];
-$client = Client::newBuilder()              // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()              // Instantiate a new ClientBuilder
                     ->setHosts($hosts)      // Set the hosts
                     ->build();              // Build the client object
 ----
@@ -44,7 +44,7 @@ $hosts = [
     'https://localhost',        // SSL to localhost
     'https://192.168.1.3:9200'  // SSL to IP + Port
 ];
-$clientBuilder = Client::newBuilder();      // Instantiate a new ClientBuilder
+$clientBuilder = ClientBuilder::create();      // Instantiate a new ClientBuilder
 $clientBuilder->setHosts($hosts)            // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
@@ -57,7 +57,7 @@ retries, or change the number, you can do so with the `setRetries()` method:
 [source,php]
 ----
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
                     ->setRetries(2)
                     ->build();
 ----
@@ -94,7 +94,7 @@ to do is provide the path to your desired logging location:
 ----
 $logger = ClientBuilder::defaultLogger('path/to/your.log');
 
-$client = Client::newBuilder()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
@@ -105,7 +105,7 @@ You can also specify the severity of log messages that you wish to log:
 ----
 $logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);     // set severity with second parameter
 
-$client = Client::newBuilder()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
@@ -122,7 +122,7 @@ use Monolog\Handler\StreamHandler;
 $logger = new Logger('name');
 $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
-$client = Client::newBuilder()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set your custom logger
             ->build();                  // Build the client object
 ----
@@ -148,7 +148,7 @@ $singleHandler  = ClientBuilder::singleHandler();
 $multiHandler   = ClientBuilder::multiHandler();
 $customHandler  = new MyCustomHandler();
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setHandler($defaultHandler)
             ->build();
 ----
@@ -168,7 +168,7 @@ Connection pools are configured via the `setConnectionPool()` method:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool')
             ->build();
 ----
@@ -183,7 +183,7 @@ via the `setSelector()` method:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSelector('\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector')
             ->build();
 ----
@@ -202,7 +202,7 @@ it can be done via the `setSerializer()` method:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer('\Elasticsearch\Serializers\SmartSerializer')
             ->build();
 ----
@@ -244,7 +244,7 @@ class MyConnectionFactory implements ConnectionFactoryInterface
 
 $connectionFactory = new MyConnectionFactory($handler, $connectionParams, $serializer, $logger, $tracer);
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer($connectionFactory);
             ->build();
 ----
@@ -281,7 +281,7 @@ $newEndpoint = function ($class) use ($transport, $serializer) {
     }
 };
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setEndpoint($newEndpoint)
             ->build();
 ----

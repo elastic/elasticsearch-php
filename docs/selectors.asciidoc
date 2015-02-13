@@ -17,7 +17,7 @@ The `RoundRobinSelector` is default, but if you wish to explicitily configure it
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSelector('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
             ->build();
 ----
@@ -41,7 +41,7 @@ If you wish to use this selector, you may do so with:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSelector('\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector')
             ->build();
 ----
@@ -56,7 +56,7 @@ If you wish to use this selector, you may do so with:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSelector('\Elasticsearch\ConnectionPool\Selectors\RandomSelector')
             ->build();
 ----
@@ -99,7 +99,7 @@ You can then use your custom selector either via object injection or namespace i
 ----
 $mySelector = new MyCustomSelector();
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSelector($mySelector)                             // object injection
             ->setSelector('\MyProject\Selectors\FirstSelector')    // or namespace
             ->build();

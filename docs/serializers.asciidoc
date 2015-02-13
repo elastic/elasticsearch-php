@@ -39,7 +39,7 @@ do so by using the `setSerializer()` method on the ClientBuilder object:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer('\Elasticsearch\Serializers\SmartSerializer');
             ->build();
 ----
@@ -68,7 +68,7 @@ You can select  `ArrayToJSONSerializer` by using the `setSerializer()` method on
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer('\Elasticsearch\Serializers\ArrayToJSONSerializer');
             ->build();
 ----
@@ -96,7 +96,7 @@ You can select  `EverythingToJSONSerializer` by using the `setSerializer()` meth
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer('\Elasticsearch\Serializers\EverythingToJSONSerializer');
             ->build();
 ----
@@ -146,7 +146,7 @@ object:
 
 [source,php]
 ----
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer('\MyProject\Serializers\MyCustomSerializer');
             ->build();
 ----
@@ -159,7 +159,7 @@ client, you can instantiate an object and provide that instead:
 $mySerializer = new MyCustomSerializer($a, $b, $c);
 $mySerializer->setFoo("bar");
 
-$client = Client::newBuilder()
+$client = ClientBuilder::create()
             ->setSerializer($mySerializer);
             ->build();
 ----

@@ -95,7 +95,7 @@ to do is provide the path to your desired logging location:
 $logger = ClientBuilder::defaultLogger('path/to/your.log');
 
 $client = Client::newBuilder()          // Instantiate a new ClientBuilder
-            ->setLogger($logger);       // Set the logger with a default logger
+            ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
 
@@ -106,7 +106,7 @@ You can also specify the severity of log messages that you wish to log:
 $logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);     // set severity with second parameter
 
 $client = Client::newBuilder()          // Instantiate a new ClientBuilder
-            ->setLogger($logger);       // Set the logger with a default logger
+            ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
 
@@ -123,7 +123,7 @@ $logger = new Logger('name');
 $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
 $client = Client::newBuilder()          // Instantiate a new ClientBuilder
-            ->setLogger($logger);       // Set your custom logger
+            ->setLogger($logger)        // Set your custom logger
             ->build();                  // Build the client object
 ----
 
@@ -149,7 +149,7 @@ $multiHandler   = ClientBuilder::multiHandler();
 $customHandler  = new MyCustomHandler();
 
 $client = Client::newBuilder()
-            ->setHandler($defaultHandler);
+            ->setHandler($defaultHandler)
             ->build();
 ----
 
@@ -169,7 +169,7 @@ Connection pools are configured via the `setConnectionPool()` method:
 [source,php]
 ----
 $client = Client::newBuilder()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool');
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool')
             ->build();
 ----
 
@@ -184,7 +184,7 @@ via the `setSelector()` method:
 [source,php]
 ----
 $client = Client::newBuilder()
-            ->setSelector('\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector');
+            ->setSelector('\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector')
             ->build();
 ----
 
@@ -203,7 +203,7 @@ it can be done via the `setSerializer()` method:
 [source,php]
 ----
 $client = Client::newBuilder()
-            ->setSerializer('\Elasticsearch\Serializers\SmartSerializer');
+            ->setSerializer('\Elasticsearch\Serializers\SmartSerializer')
             ->build();
 ----
 
@@ -282,7 +282,7 @@ $newEndpoint = function ($class) use ($transport, $serializer) {
 };
 
 $client = Client::newBuilder()
-            ->setEndpoint($newEndpoint);
+            ->setEndpoint($newEndpoint)
             ->build();
 ----
 

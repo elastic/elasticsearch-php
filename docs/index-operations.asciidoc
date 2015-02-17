@@ -1,63 +1,69 @@
 
-== Index Operations
+== Index Management Operations
 
-This section will walk you through the various index APIs that are exposed through the client.  Index operations include anything that manages an index itself (e.g. create an index, delete, change mappings, etc).
-
-We'll walk through a few common operations with detailed code snippets, then list the rest of the methods in a table.  The parameters are identical to the REST api, so it should be easy to perform the operation you need.
+Index management operations allow you to manage the indices in your Elasticsearch cluster, such as creating, deleting and
+updating indices and their mappings/settings.
 
 === Create an index
 
-The index operations are all contained under a distinct namespace, separated from other methods that are on the root client object.  As an example, let's create a new index:
+The index operations are all contained under a distinct namespace, separated from other methods that are on the root
+client object.  As an example, let's create a new index:
 
 [source,php]
 ----
-$client = new Elasticsearch\Client();
-$indexParams['index']  = 'my_index';    //index
+$client = ClientBuilder::create()->build();
+$params = [
+    'index' => 'my_index'
+];
 
-$client->indices()->create($indexParams);
+// Create the index
+$response = $client->indices()->create($indexParams);
 ----
 {zwsp} +
 
-You can, of course, specify any parameters that would normally be included in a new index creation API.  All parameters that would normally go in the request body are located in the 'body' associative array:
+You can specify any parameters that would normally be included in a new index creation API.  All parameters that
+would normally go in the request body are located in the 'body' parameter:
 
 [source,php]
 ----
-$client = new Elasticsearch\Client();
-$indexParams['index']  = 'my_index';
+$client = ClientBuilder::create()->build();
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'settings' => [
+            'number_of_shards' => 3,
+            'number_of_replicas' => 2
+        ],
+        'mappings' => [
+            'my_type' => [
+                '_source' => [
+                    'enabled' => true,
+                    'properties' => [
+                        'first_name' => [
+                            'type' => 'string',
+                            'analyzer' => 'standard'
+                        ],
+                        'age' => [
+                            'type' => 'integer'
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+];
 
-// Index Settings
-$indexParams['body']['settings']['number_of_shards']   = 3;
-$indexParams['body']['settings']['number_of_replicas'] = 2;
 
-// Example Index Mapping
-$myTypeMapping = array(
-    '_source' => array(
-        'enabled' => true
-    ),
-    'properties' => array(
-        'first_name' => array(
-            'type' => 'string',
-            'analyzer' => 'standard'
-        ),
-        'age' => array(
-            'type' => 'integer'
-        )
-    )
-);
-$indexParams['body']['mappings']['my_type'] = $myTypeMapping;
-
-// Create the index
-$client->indices()->create($indexParams);
+// Create the index with mappings and settings now
+$response = $client->indices()->create($params);
 ----
 {zwsp} +
 
 === Create an index (advanced example)
 
-This is a more complicated example of creating an index, showing how to define analyzers, tokenizers, filters and index settings.
-Although essentially the same as the previous example, the more complicated example can be helpful for "real world" usage
-of the client, since this particular syntax is easy to mess up.
-
-For brevity, the example is presented using PHP 5.4+ short array syntax (`[]` as opposed to `array()`).
+This is a more complicated example of creating an index, showing how to define analyzers, tokenizers, filters and
+index settings. Although essentially the same as the previous example, the more complicated example can be helpful
+for "real world" usage of the client, since this particular syntax is easy to mess up.
 
 [source,php]
 ----
@@ -149,8 +155,8 @@ Deleting an index is very simple:
 
 [source,php]
 ----
-$deleteParams['index'] = 'my_index';
-$client->indices()->delete($deleteParams);
+$params = ['index' => 'my_index'];
+$response = $client->indices()->delete($params);
 ----
 {zwsp} +
 
@@ -159,11 +165,17 @@ The Put Settings API allows you to modify any index setting that is dynamic:
 
 [source,php]
 ----
-$params['index'] = 'my_index';
-$params['body']['index']['number_of_replicas'] = 0;
-$params['body']['index']['refresh_interval'] = -1;
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'settings' => [
+            'number_of_replicas' => 0,
+            'refresh_interval' => -1
+        ]
+    ]
+];
 
-$ret = $client->indices()->putSettings($params);
+$response = $client->indices()->putSettings($params);
 ----
 {zwsp} +
 
@@ -174,12 +186,14 @@ Get Settings API will show you the currently configured settings for one or more
 [source,php]
 ----
 // Get settings for one index
-$params['index'] = 'my_index';
-$ret = $client->indices()->getSettings($params);
+$params = ['index' => 'my_index'];
+$response = $client->indices()->getSettings($params);
 
-// Get settings for several indexes
-$params['index'] = array('my_index', 'my_index2');
-$ret = $client->indices()->getSettings($params);
+// Get settings for several indices
+$params = [
+    'index' => [ 'my_index', 'my_index2' ]
+];
+$response = $client->indices()->getSettings($params);
 ----
 {zwsp} +
 
@@ -190,25 +204,26 @@ The Put Mappings API allows you to modify or add to an existing index's mapping.
 [source,php]
 ----
 // Set the index and type
-$params['index'] = 'my_index';
-$params['type']  = 'my_type2';
-
-// Adding a new type to an existing index
-$myTypeMapping2 = array(
-    '_source' => array(
-        'enabled' => true
-    ),
-    'properties' => array(
-        'first_name' => array(
-            'type' => 'string',
-            'analyzer' => 'standard'
-        ),
-        'age' => array(
-            'type' => 'integer'
-        )
-    )
-);
-$params['body']['my_type2'] = $myTypeMapping2;
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type2',
+    'body' => [
+        'my_type2' => [
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties' => [
+                'first_name' => [
+                    'type' => 'string',
+                    'analyzer' => 'standard'
+                ],
+                'age' => [
+                    'type' => 'integer'
+                ]
+            ]
+        ]
+    ]
+];
 
 // Update the index mapping
 $client->indices()->putMapping($params);
@@ -222,24 +237,28 @@ The Get Mappings API will return the mapping details about your indexes and type
 [source,php]
 ----
 // Get mappings for all indexes and types
-$ret = $client->indices()->getMapping();
+$response = $client->indices()->getMapping();
 
 // Get mappings for all types in 'my_index'
-$params['index'] = 'my_index';
-$ret = $client->indices()->getMapping($params);
+$params = ['index' => 'my_index'];
+$response = $client->indices()->getMapping($params);
 
 // Get mappings for all types of 'my_type', regardless of index
-$params['type'] = 'my_type';
-$ret = $client->indices()->getMapping($params);
+$params = ['type' => 'my_type' ];
+$response = $client->indices()->getMapping($params);
 
 // Get mapping 'my_type' in 'my_index'
-$params['index'] = 'my_index';
-$params['type']  = 'my_type'
-$ret = $client->indices()->getMapping($params);
+$params = [
+    'index' => 'my_index'
+    'type' => 'my_type'
+];
+$response = $client->indices()->getMapping($params);
 
 // Get mappings for two indexes
-$params['index'] = array('my_index', 'my_index2');
-$ret = $client->indices()->getMapping($params);
+$params = [
+    'index' => [ 'my_index', 'my_index2' ]
+];
+$response = $client->indices()->getMapping($params);
 ----
 {zwsp} +
 

@@ -103,13 +103,14 @@ class ClientBuilder
     }
 
     /**
-     * @return CurlMultiHandler
+     * @param array $params
      * @throws \RuntimeException
+     * @return CurlMultiHandler
      */
-    public static function multiHandler()
+    public static function multiHandler($params = [])
     {
         if (function_exists('curl_reset')) {
-            return new CurlMultiHandler([ 'mh' => curl_multi_init() ]);
+            return new CurlMultiHandler(array_merge([ 'mh' => curl_multi_init() ], $params));
         } else {
             throw new \RuntimeException('CurlMulti handler requires cURL.');
         }

@@ -106,7 +106,7 @@ class ClientBuilder
      * @return CurlMultiHandler
      * @throws \RuntimeException
      */
-    public static function singleHandler()
+    public static function multiHandler()
     {
         if (function_exists('curl_reset')) {
             return new CurlMultiHandler([ 'mh' => curl_multi_init() ]);
@@ -119,7 +119,7 @@ class ClientBuilder
      * @return CurlHandler
      * @throws \RuntimeException
      */
-    public static function multiHandler()
+    public static function singleHandler()
     {
         if (function_exists('curl_reset')) {
             return new CurlHandler();
@@ -456,7 +456,7 @@ class ClientBuilder
      */
     private function getDefaultHost()
     {
-        return array(array('host' => 'localhost', 'port' => 9200));
+        return ['localhost:9200'];
     }
 
 

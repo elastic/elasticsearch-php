@@ -1,8 +1,9 @@
 == Search Operations
 
-Well...it isn't called elasticsearch for nothing!  Let's talk about search operations in the PHP client.
+Well...it isn't called elasticsearch for nothing!  Let's talk about search operations in the client.
 
-The client gives you full access to every query and parameter exposed by the REST API, following the naming scheme as much as possible.  Let's look at a few examples so you can become familiar with the syntax.
+The client gives you full access to every query and parameter exposed by the REST API, following the naming scheme as
+much as possible. Let's look at a few examples so you can become familiar with the syntax.
 
 === Match Query
 
@@ -24,18 +25,52 @@ And here is the same query constructed in the client:
 
 [source,php]
 ----
-$params['index'] = 'my_index';
-$params['type']  = 'my_type';
-$params['body']['query']['match']['testField'] = 'abc';
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
 
 $results = $client->search($params);
+----
+{zwsp} +
+
+Notice how the structure and layout of the PHP array is identical to that of the JSON request body.  This makes it very
+simple to convert JSON examples into PHP.  A quick method to check your PHP array (for more complex examples) is to
+encode it back to JSON and check by eye:
+
+[source,php]
+----
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
+
+print_r(json_encode($params['body']));
+
+
+{"query":{"match":{"testField":"abc"}}}
 ----
 {zwsp} +
 
 
 .Using Raw JSON
 ****
-As you can see, the translation between JSON and query is very straightforward.  You could serialize JSON directly into the body, or even provide the raw JSON string.  The client will handle it just fine:
+Sometimes it is convenient to use raw JSON for testing purposes, or when migrating from a different system.  You can
+use raw JSON as a string in the body, and the client will detect this automatically:
 
 [source,php]
 ----
@@ -47,19 +82,36 @@ $json = '{
     }
 }';
 
-$params['index'] = 'my_index';
-$params['type']  = 'my_type';
-$params['body']  = $json;
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => $json
+];
 
 $results = $client->search($params);
 ----
 ****
 {zwsp} +
 
-The search results that come back are simply elasticsearch response elements serialized into an array.  Working with the search results is as simple as iterating over the array values:
+Search results follow the same format as Elasticsearch search response, the only difference is that the JSON response is
+serialized back into PHP arrays. Working with the search results is as simple as iterating over the array values:
 
 [source,php]
 ----
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
+
+$results = $client->search($params);
+
 $milliseconds = $results['took'];
 $maxScore     = $results['hits']['max_score'];
 
@@ -76,14 +128,14 @@ Bool queries can be easily constructed using the client. For example, this query
 curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     "query" : {
         "bool" : {
-            "must": {
-                "match" : {
-                    "testField" : "abc"
+            "must": [
+                {
+                    "match" : { "testField" : "abc" }
                 },
-                "match" : {
-                    "anotherTestField" : "xyz"
+                {
+                    "match" : { "testField2" : "xyz" }
                 }
-            }
+            ]
         }
     }
 }'
@@ -93,21 +145,33 @@ curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
 Would be structured like this (Note the position of the square brackets):
 [source,php]
 ----
-$params['index'] = 'my_index';
-$params['type']  = 'my_type';
-$params['body']['query']['bool']['must'] = array(
-    array('match' => array('testField' => 'abc')),
-    array('match' => array('anotherTestField' => 'xyz')),
-);
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'bool' => [
+                'must' => [
+                    [ 'match' => [ 'testField' => 'abc' ] ],
+                    [ 'match' => [ 'testField2' => 'xyz' ] ],
+                ]
+            ]
+        ]
+    ]
+];
 
 $results = $client->search($params);
 ----
 {zwsp} +
 
+Notice that the `must` clause accepts an array of arrays.  This will be serialized into an array of JSON objects internally,
+so the final resulting output will be identical to the curl example.  For more details about arrays vs objects in PHP,
+see link:_php_json_objects.html[Dealing with JSON Arrays and Objects in PHP].
 
 === A more complicated example
 
-Let's construct a slightly more complicated example: a filtered query that contains both a filter and a query.  This is a very common activity in elasticsearch queries, so it will be a good demonstration.
+Let's construct a slightly more complicated example: a filtered query that contains both a filter and a query.
+This is a very common activity in elasticsearch queries, so it will be a good demonstration.
 
 The curl version of the query:
 
@@ -117,14 +181,10 @@ curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     "query" : {
         "filtered" : {
             "filter" : {
-                "term" : {
-                    "my_field" : "abc"
-                }
+                "term" : { "my_field" : "abc" }
             },
             "query" : {
-                "match" : {
-                    "my_other_field" : "xyz"
-                }
+                "match" : { "my_other_field" : "xyz" }
             }
         }
     }
@@ -136,95 +196,28 @@ And in PHP:
 
 [source,php]
 ----
-$params['index'] = 'my_index';
-$params['type']  = 'my_type';
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'filtered' => [
+                'filter' => [
+                    'term' => [ 'my_field' => 'abc' ]
+                ],
+                'query' => [
+                    'match' => [ 'my_other_field' => 'xyz' ]
+                ]
+            ]
+        ]
+    ]
+];
 
-$filter = array();
-$filter['term']['my_field'] = 'abc';
-
-$query = array();
-$query['match']['my_other_field'] = 'xyz';
-
-$params['body']['query']['filtered'] = array(
-    "filter" => $filter,
-    "query"  => $query
-);
 
 $results = $client->search($params);
 ----
 {zwsp} +
 
-For clarity and ease of readability, the filter and query sections were allocated individually as variables and then composed together later.  This is often a good design pattern for applications, since it lets you treat the queries and filters as building blocks that can be passed around your application.
-
-Of course, at the end of the day, it is built into a single array.  You could easily build the entire array in one definition of nested array blocks, or build them line-by-line.  
-
-All the client requires is an associative array with a structure that matches the JSON query structure.
-
-=== Function_Score query
-A special note needs to be made about the `function_score` query.  Due to the way PHP handles JSON encoding, everything is converted to an array of one for or another.
-This is usually not a problem, since most places in the Elasticsearch API accept arrays or empty objects interchangeably.
-
-However, the `function_score` is a little different and needs to differentiate between empty arrays and empty objects.  For example, consider this query:
-
-[source,json]
-----
-{
-   "query":{
-      "function_score":{
-         "functions":[
-            {
-               "random_score":{}
-            }
-         ],
-         "boost_mode":"replace",
-         "query":{
-            "match_all":{}
-         }
-      }
-   }
-}
-----
-
-The `function_score` defines an array of objects, and the `random_score` key has an empty object as it's value.  PHP's json_encode will convert that query to this:
-
-[source,json]
-----
-{
-   "query":{
-      "function_score":{
-         "functions":[
-            {
-               "random_score":[]
-            }
-         ],
-         "boost_mode":"replace",
-         "query":{
-            "match_all":[]
-         }
-      }
-   }
-}
-----
-
-Which will result in a parse exception from Elasticsearch.  What we need to do is tell PHP that `random_score` contains an empty *object*, not an array.  To do so,
-we need to specify an explicitly empty object:
-
-[source,php]
-----
-$params['body'] = array(
-    'query' => array(
-        'function_score' => array(
-            'functions' => array(
-                array("random_score" => new \stdClass())
-            ),
-            'query' => array('match_all' => array())
-        )
-    )
-);
-$results = $client->search($params);
-----
-
-Now, the JSON will be encoded properly and your query will no longer generate a parser exception.
 
 === Scan/Scroll
 
@@ -236,18 +229,18 @@ This is an example which can be used as a template for more advanced operations:
 
 [source,php]
 ----
-$client = new Elasticsearch\Client();
-$params = array(
+$client = ClientBuilder::create()->build();
+$params = [
     "search_type" => "scan",    // use search_type=scan
     "scroll" => "30s",          // how long between scroll requests. should be small!
     "size" => 50,               // how many results *per shard* you want back
     "index" => "my_index",
-    "body" => array(
-        "query" => array(
-            "match_all" => array()
-        )
-    )
-);
+    "body" => [
+        "query" => [
+            "match_all" => []
+        ]
+    ]
+];
 
 $docs = $client->search($params);   // Execute the search
 $scroll_id = $docs['_scroll_id'];   // The response will contain no results, just a _scroll_id
@@ -256,11 +249,10 @@ $scroll_id = $docs['_scroll_id'];   // The response will contain no results, jus
 while (\true) {
 
     // Execute a Scroll request
-    $response = $client->scroll(
-        array(
+    $response = $client->scroll([
             "scroll_id" => $scroll_id,  //...using our previously obtained _scroll_id
             "scroll" => "30s"           // and the same timeout window
-        )
+        ]
     );
 
     // Check to see if we got any search hits from the scroll

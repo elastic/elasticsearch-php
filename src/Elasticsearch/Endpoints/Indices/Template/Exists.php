@@ -71,6 +71,7 @@ class Exists extends AbstractEndpoint
     {
         return array(
             'local',
+            'master_timeout'
         );
     }
 

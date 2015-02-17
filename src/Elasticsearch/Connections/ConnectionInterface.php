@@ -8,6 +8,7 @@
 namespace Elasticsearch\Connections;
 
 use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -34,5 +35,5 @@ interface ConnectionInterface
 
     public function getLastRequestInfo();
 
-    public function performRequest($method, $uri, $params = null, $body = null, $async = false);
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport);
 }

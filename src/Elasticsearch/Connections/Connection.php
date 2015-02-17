@@ -22,6 +22,7 @@ use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
@@ -132,7 +133,7 @@ class Connection implements ConnectionInterface
      * @param array $ignore
      * @return mixed
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = array(), $ignore = [], $verbose = false)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport)
     {
         if (isset($body) === true) {
             $body = $this->serializer->serialize($body);
@@ -145,9 +146,7 @@ class Connection implements ConnectionInterface
             'body'        => $body,
             'headers'     => [
                 'host'  => [$this->host]
-            ],
-            'ignore' => $ignore,
-            'verbose' => $verbose
+            ]
 
         ];
         $request = array_merge_recursive($request, $this->connectionParams, $options);
@@ -157,7 +156,7 @@ class Connection implements ConnectionInterface
         rewind($this->connectionParams['client']['save_to']);
 
         $handler = $this->handler;
-        $future = $handler($request, $this);
+        $future = $handler($request, $this, $transport, $options);
 
         return $future;
 
@@ -178,17 +177,34 @@ class Connection implements ConnectionInterface
 
     private function wrapHandler (callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
     {
-        return function (array $request, Connection $connection) use ($handler, $logger, $tracer) {
+        return function (array $request, Connection $connection, Transport $transport, $options) use ($handler, $logger, $tracer) {
             // Send the request using the wrapped handler.
-            return Core::proxy($handler($request), function ($response) use ($connection, $logger, $tracer, $request) {
+            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
 
                 if (isset($response['error']) === true) {
 
-                    if ($response['error'] instanceof ConnectException) {
+                    if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
+                        $connection->markDead();
+                        $transport->connectionPool->scheduleCheck();
+
+                        $shouldRetry = $transport->shouldRetry($request);
+                        if ($shouldRetry === true) {
+                            return $this->performRequest(
+                                $request['http_method'],
+                                $request['uri'],
+                                [],
+                                $request['body'],
+                                $options,
+                                $transport
+                            );
+                        }
+
+                        // Due to the magic of futures, this will only be invoked if the final retry fails, since
+                        // successful resolutions will go down the alternate `else` path the second time through
+                        // the proxy
                         $this->throwCurlException($response['curl']['errno'], $response['error']->getMessage());
-                    } else if ($response['error'] instanceof RingException) {
-                        throw new TransportException($response['error']->getMessage());
                     } else {
+                        // Something went seriously wrong, bail
                         throw new TransportException($response['error']->getMessage());
                     }
                 } else {
@@ -211,6 +227,8 @@ class Connection implements ConnectionInterface
                 return $request['verbose'] ? $response : $response['body'];
 
             });
+
+            return $response;
         };
     }
 

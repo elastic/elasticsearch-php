@@ -434,7 +434,7 @@ class ClientBuilder
         }
 
         if (is_null($this->retries)) {
-            $this->retries = count($connections) - 1;
+            $this->retries = count($connections);
         }
 
         if (is_null($this->transport)) {

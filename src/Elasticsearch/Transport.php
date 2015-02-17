@@ -29,7 +29,7 @@ class Transport
     /**
      * @var AbstractConnectionPool
      */
-    private $connectionPool;
+    public $connectionPool;
 
 
     /**
@@ -38,13 +38,13 @@ class Transport
     private $log;
 
     /** @var  int */
-    private $retryAttempts;
+    public $retryAttempts = 0;
 
     /** @var  Connection */
-    private $lastConnection;
+    public $lastConnection;
 
     /** @var int  */
-    private $retries;
+    public $retries;
 
 
     /**
@@ -112,71 +112,41 @@ class Transport
         $response             = array();
         $caughtException      = null;
         $this->lastConnection = $connection;
+        $options = array_merge($options, [ 'ignore' => $ignore, 'verbose' => $verbose ]);
 
-        try {
+        $future = $connection->performRequest(
+            $method,
+            $uri,
+            $params,
+            $body,
+            $options,
+            $this
+        );
 
-            $deferred = $connection->performRequest(
-                $method,
-                $uri,
-                $params,
-                $body,
-                $options,
-                $ignore,
-                $verbose
-            );
+        $future->promise()->then(
+            //onSuccess
+            function($response) {
+                $this->retryAttempts = 0;
+                // Note, this could be a 4xx or 5xx error
+            },
+            //onFailure
+            function($response) {
+                //some kind of real faiure here, like a timeout
+                $this->connectionPool->scheduleCheck();
+                // log stuff
+            });
 
-            $deferred->promise()->then(
-                //onSuccess
-                function($response) {
-                    $this->retryAttempts = 0;
-                    //TODO check success vs failure
-                },
-                //onFailure
-                function($response) {
-                    //some kind of real faiure here, like a timeout
-                    //print_r($response);
-                });
+        return $future;
 
-            return $deferred;
-
-        } catch (Exceptions\Curl\OperationTimeoutException $exception) {
-            $this->connectionPool->scheduleCheck();
-            $caughtException = $exception;
-
-        } catch (Exceptions\ClientErrorResponseException $exception) {
-            throw $exception;   //We need 4xx errors to go straight to the user, no retries
-
-        } catch (Exceptions\ServerErrorResponseException $exception) {
-            throw $exception;   //We need 5xx errors to go straight to the user, no retries
-
-        } catch (TransportException $exception) {
-            $connection->markDead();
-            $this->connectionPool->scheduleCheck();
-            $caughtException = $exception;
-        }
-
-        $shouldRetry = $this->shouldRetry($method, $uri, $params, $body);
-        if ($shouldRetry === true) {
-            return $this->performRequest($method, $uri, $params, $body);
-        }
-
-        if ($caughtException !== null) {
-            throw $caughtException;
-        }
-
-        return $response;
     }
 
 
     /**
-     * @param $method
-     * @param $uri
-     * @param $params
-     * @param $body
+     * @param $request
      *
      * @return bool
      */
-    public function shouldRetry($method, $uri, $params, $body)
+    public function shouldRetry($request)
     {
         if ($this->retryAttempts < $this->retries) {
             $this->retryAttempts += 1;

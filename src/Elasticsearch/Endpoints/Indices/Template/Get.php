@@ -67,6 +67,7 @@ class Get extends AbstractEndpoint
         return array(
             'flat_settings',
             'local',
+            'master_timeout'
         );
     }
 

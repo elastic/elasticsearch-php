@@ -100,7 +100,7 @@ class Transport
      *
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], $ignore = [])
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], $ignore = [], $verbose = false)
     {
         try {
             $connection  = $this->getConnection();
@@ -121,7 +121,8 @@ class Transport
                 $params,
                 $body,
                 $options,
-                $ignore
+                $ignore,
+                $verbose
             );
 
             $deferred->promise()->then(

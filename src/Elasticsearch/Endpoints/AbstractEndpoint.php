@@ -88,7 +88,8 @@ abstract class AbstractEndpoint
             $this->params,
             $this->getBody(),
             $this->clientParams,
-            $this->ignore
+            $this->ignore,
+            $this->verbose
         );
 
         return $promise;
@@ -182,15 +183,9 @@ abstract class AbstractEndpoint
         $response = null;
         $async = isset($this->clientParams['client']['future']) ? $this->clientParams['client']['future'] : null;
         if (is_null($async) || $async === false) {
-            $response = $result->wait();
+            return $result->wait();
         } elseif ($async === true || $async === 'lazy') {
             return $result;
-        }
-
-        if (isset($this->verbose) && $this->verbose == true) {
-            return $response;
-        } else {
-            return $response['body'];
         }
     }
 

@@ -82,16 +82,18 @@ class ClientBuilder
 
 
     /**
-     * @return callable
+     * @param array $singleParams
+     * @param array $multiParams
      * @throws \RuntimeException
+     * @return callable
      */
-    public static function defaultHandler()
+    public static function defaultHandler($multiParams = [], $singleParams = [])
     {
         $future = null;
         if (extension_loaded('curl')) {
-            $config = [ 'mh' => curl_multi_init() ];
+            $config = array_merge([ 'mh' => curl_multi_init() ], $multiParams);
             if (function_exists('curl_reset')) {
-                $default = new CurlHandler();
+                $default = new CurlHandler($singleParams);
                 $future = new CurlMultiHandler($config);
             } else {
                 $default = new CurlMultiHandler($config);

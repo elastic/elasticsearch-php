@@ -132,7 +132,7 @@ class Connection implements ConnectionInterface
      * @param array $ignore
      * @return mixed
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = array(), $ignore = [])
+    public function performRequest($method, $uri, $params = null, $body = null, $options = array(), $ignore = [], $verbose = false)
     {
         if (isset($body) === true) {
             $body = $this->serializer->serialize($body);
@@ -143,11 +143,11 @@ class Connection implements ConnectionInterface
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            //'client'      => ['timeout' => 1.0],                 //TODO fix this!
             'headers'     => [
                 'host'  => [$this->host]
             ],
-            'ignore' => $ignore
+            'ignore' => $ignore,
+            'verbose' => $verbose
 
         ];
         $request = array_merge_recursive($request, $this->connectionParams, $options);
@@ -208,7 +208,7 @@ class Connection implements ConnectionInterface
 
                 }
 
-                return $response;
+                return $request['verbose'] ? $response : $response['body'];
 
             });
         };

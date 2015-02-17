@@ -632,11 +632,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         if ($future && $ret instanceof FutureArrayInterface) {
             $ret->wait();
-
-            return $ret['body'];
-        } else {
-            return $ret;
         }
+
+        return $ret;
     }
 
     private function getValue($a, $key) {

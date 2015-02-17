@@ -258,5 +258,5 @@ $params = [
         'verify' => 'path/to/cacert.pem'      //Use a self-signed certificate
     ]
 ];
-$future = $client->get($params);
+$result = $client->get($params);
 ----

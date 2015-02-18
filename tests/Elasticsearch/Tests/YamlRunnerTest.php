@@ -20,6 +20,7 @@ use FilesystemIterator;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
@@ -231,11 +232,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
 
             $fileData = file_get_contents($testFile);
-            $containsExist = strpos($fileData, "exists");
             $documents = array_filter(explode("---", $fileData));
 
             $yamlDocs = array();
             $setup = null;
+
             foreach ($documents as $document) {
                 try {
                     $tDoc = array();
@@ -631,7 +632,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         if ($future && $ret instanceof FutureArrayInterface) {
-            $ret->wait();
+            $ret = $ret->wait();
         }
 
         return $ret;

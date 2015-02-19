@@ -20,8 +20,6 @@
     "mockery/mockery": "dev-master@dev",
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.3 as 2.4.2",
-    "satooshi/php-coveralls": "dev-master",
-    "mikey179/vfsStream": "~1.2",
     "twig/twig": "1.*",
     "cpliakas/git-wrapper": "~1.0"
   },

@@ -27,12 +27,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function setUp()
-    {
-        $this->root = vfsStream::setup('root');
-    }
-
-
     public function testOneGoodOneBadHostNoException()
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80', $_SERVER['ES_TEST_HOST']])->build();

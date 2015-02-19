@@ -250,23 +250,6 @@ abstract class AbstractEndpoint
      */
     private function checkUserParams($params)
     {
-        try {
-            $this->ifParamsInvalidThrowException($params);
-        } catch (UnexpectedValueException $exception) {
-            throw $exception;
-        }
-    }
-
-    /**
-     * Check if param is in whitelist
-     *
-     * @param array $params    Assoc array of parameters
-     *
-     * @throws \Elasticsearch\Common\Exceptions\UnexpectedValueException
-     *
-     */
-    private function ifParamsInvalidThrowException($params)
-    {
         if (isset($params) !== true) {
             return; //no params, just return.
         }
@@ -282,7 +265,6 @@ abstract class AbstractEndpoint
                 ));
             }
         }
-
     }
 
 

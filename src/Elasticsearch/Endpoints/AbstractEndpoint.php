@@ -254,7 +254,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('client'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom'));
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {

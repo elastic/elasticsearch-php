@@ -110,10 +110,10 @@ class Connection implements ConnectionInterface
 
         $auth = '';
         if (isset($hostDetails['user']) && isset($hostDetails['pass'])) {
-            $auth = $hostDetails['user'].':'.$hostDetails['pass'];
+            $auth = $hostDetails['user'].':'.$hostDetails['pass'].'@';
         }
 
-        $host = $auth.'@'.$hostDetails['host'].':'.$hostDetails['port'];
+        $host = $auth.$hostDetails['host'].':'.$hostDetails['port'];
         if (isset($hostDetails['path']) === true) {
             $host .= $hostDetails['path'];
         }

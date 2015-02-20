@@ -12,7 +12,6 @@
   "require": {
     "php": ">=5.4",
     "psr/log": "~1.0",
-    "ext-curl": "*",
     "guzzlehttp/ringphp" : "~1.0"
   },
   "require-dev": {
@@ -24,6 +23,7 @@
     "cpliakas/git-wrapper": "~1.0"
   },
   "suggest": {
+    "ext-curl": "*",
     "monolog/monolog": "Allows for client-level logging and tracing"
   },
   "autoload": {

@@ -32,9 +32,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80', $_SERVER['ES_TEST_HOST']])->build();
 
         // Perform three requests to make sure the bad host is tried at least once
-        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
-        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
-        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $client->info();
+        $client->info();
+        $client->info();
 
     }
 
@@ -44,7 +44,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testOneGoodOneBadHostNoRetryException()
     {
-        $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80', $_SERVER['ES_TEST_HOST']])->build();
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80', $_SERVER['ES_TEST_HOST']])->setRetries(0)->build();
 
         // Perform three requests to make sure the bad host is tried at least once
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
@@ -55,12 +55,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
+     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testBadHost()
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80'])->build();
-        $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
+        $response = $client->info();
 
     }
 

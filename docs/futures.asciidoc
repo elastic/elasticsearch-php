@@ -89,7 +89,8 @@ for ($i = 0; $i < 1000; $i++) {
 
 
 foreach ($futures as $future) {
-    echo $future['_source'];       // access future's values, causing resolution if necessary
+    // access future's values, causing resolution if necessary
+    echo $future['_source'];
 }
 ----
 
@@ -117,7 +118,8 @@ for ($i = 0; $i < 1000; $i++) {
     $futures[] = $client->get($params);     //queue up the request
 }
 
-$futures[999]->wait();    //wait() forces future resolution and will execute the underlying curl batch
+//wait() forces future resolution and will execute the underlying curl batch
+$futures[999]->wait();
 ----
 
 === Changing batch size
@@ -171,7 +173,8 @@ for ($i = 0; $i < 499; $i++) {
     $futures[] = $client->get($params);     //queue up the request
 }
 
-$body = $future[499]['body'];   // resolve the future, and therefore the underlying batch
+// resolve the future, and therefore the underlying batch
+$body = $future[499]['body'];
 ----
 
 === Heterogeneous batches are OK
@@ -226,23 +229,30 @@ $params = [
 
 $futures['searchRequest'] = $client->search($params);      // Third request
 
-$searchResults = $futures['searchRequest']['hits'];        // Resolve futures...blocks until network call completes
-$doc = $futures['getRequest']['_source'];                  // Should return immediately, since the previous future resolved the batch
+// Resolve futures...blocks until network call completes
+$searchResults = $futures['searchRequest']['hits'];
+
+// Should return immediately, since the previous future resolved the entire batch
+$doc = $futures['getRequest']['_source'];
 ----
 
 === Caveats to Future mode
 
 There are a few caveats to using future mode.  The biggest is also the most obvious: you need to deal with resolving the
-future yourself.  This is usually trivia, but can sometimes introduce unexpected complications.  For example, if you
-resolve manually using `wait()`, you may need to call `wait()` several times if there were retries.  This is because
-each retry will introduce another layer of wrapped futures, and each needs to be resolved to get the final result.
+future yourself.  This is usually trivia, but can sometimes introduce unexpected complications.
 
-This is not needed if you access values via the ArrayInterface however (e.g. `$response['hits']['hits']), since
+For example, if you resolve manually using `wait()`, you may need to call `wait()` several times if there were retries.
+This is because each retry will introduce another layer of wrapped futures, and each needs to be resolved to get the
+final result.
+
+This is not needed if you access values via the ArrayInterface however (e.g. `$response['hits']['hits']`), since
 FutureArrayInterface will automatically and fully resolve the future to provide values.
 
 Another caveat is that certain APIs will lose their "helper" functionality.  For example, "exists" APIs (e.g.
 `$client->exists()`, `$client->indices()->exists`, `$client->indices->templateExists()`, etc) typically return a true
-or false under normal operation.  When operated in future mode, the unwrapping of the future is left to your application,
+or false under normal operation.
+
+When operated in future mode, unwrapping of the future is left to your application,
 which means the client can no longer inspect the response and return a simple true/false.  Instead, you'll see the raw
 response from Elasticsearch and will have to take action appropriately.
 

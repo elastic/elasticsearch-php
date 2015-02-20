@@ -26,7 +26,7 @@ $hosts = [
     'https://localhost',        // SSL to localhost
     'https://192.168.1.3:9200'  // SSL to IP + Port
 ];
-$client = ClientBuilder::create()              // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()           // Instantiate a new ClientBuilder
                     ->setHosts($hosts)      // Set the hosts
                     ->build();              // Build the client object
 ----
@@ -44,8 +44,8 @@ $hosts = [
     'https://localhost',        // SSL to localhost
     'https://192.168.1.3:9200'  // SSL to IP + Port
 ];
-$clientBuilder = ClientBuilder::create();      // Instantiate a new ClientBuilder
-$clientBuilder->setHosts($hosts)            // Set the hosts
+$clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
+$clientBuilder->setHosts($hosts);           // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
 
@@ -70,7 +70,7 @@ $client = ClientBuilder::create()
 === Enabling the Logger
 Elasticsearch-PHP supports logging, but it is not enabled by default for performance reasons.  If you wish to enable logging,
 you need to select a logging implementation, install it, then enable the logger in the Client.  The recommended logger
-is https://github.com/Seldaek/monolog[Monolog], but any logger that implements the PSR/Log interface will work.
+is https://github.com/Seldaek/monolog[Monolog], but any logger that implements the `PSR/Log` interface will work.
 
 You might have noticed that Monolog was suggested during installation.  To begin using Monolog, add it to your `composer.json`:
 
@@ -78,6 +78,8 @@ You might have noticed that Monolog was suggested during installation.  To begin
 ----------------------------
 {
     "require": {
+        ...
+        "elasticsearch/elasticsearch" : "~2.0",
         "monolog/monolog": "~1.0"
     }
 }
@@ -98,7 +100,7 @@ to do is provide the path to your desired logging location:
 ----
 $logger = ClientBuilder::defaultLogger('path/to/your.log');
 
-$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
@@ -107,9 +109,10 @@ You can also specify the severity of log messages that you wish to log:
 
 [source,php]
 ----
-$logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);     // set severity with second parameter
+// set severity with second parameter
+$logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);
 
-$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set the logger with a default logger
             ->build();                  // Build the client object
 ----
@@ -126,7 +129,7 @@ use Monolog\Handler\StreamHandler;
 $logger = new Logger('name');
 $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
-$client = ClientBuilder::create()          // Instantiate a new ClientBuilder
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
             ->setLogger($logger)        // Set your custom logger
             ->build();                  // Build the client object
 ----
@@ -172,12 +175,13 @@ Connection pools are configured via the `setConnectionPool()` method:
 
 [source,php]
 ----
+$connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
 $client = ClientBuilder::create()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool')
+            ->setConnectionPool($connectionPool)
             ->build();
 ----
 
-For more details, please see the dedicated page on link:_connection-pool.html[configuring connection pools].
+For more details, please see the dedicated page on link:_connection_pool.html[configuring connection pools].
 
 === Setting the Connection Selector
 
@@ -187,8 +191,9 @@ via the `setSelector()` method:
 
 [source,php]
 ----
+$selector = '\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector';
 $client = ClientBuilder::create()
-            ->setSelector('\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector')
+            ->setSelector($selector)
             ->build();
 ----
 
@@ -206,8 +211,9 @@ it can be done via the `setSerializer()` method:
 
 [source,php]
 ----
+$serializer = '\Elasticsearch\Serializers\SmartSerializer';
 $client = ClientBuilder::create()
-            ->setSerializer('\Elasticsearch\Serializers\SmartSerializer')
+            ->setSerializer($serializer)
             ->build();
 ----
 
@@ -230,10 +236,15 @@ interface.
 class MyConnectionFactory implements ConnectionFactoryInterface
 {
 
-    public function __construct($handler, array $connectionParams, SerializerInterface $serializer, LoggerInterface $logger, LoggerInterface $tracer)
+    public function __construct($handler, array $connectionParams,
+                                SerializerInterface $serializer,
+                                LoggerInterface $logger,
+                                LoggerInterface $tracer)
     {
        // Code here
     }
+
+
     /**
      * @param $hostDetails
      *
@@ -246,10 +257,16 @@ class MyConnectionFactory implements ConnectionFactoryInterface
 }
 
 
-$connectionFactory = new MyConnectionFactory($handler, $connectionParams, $serializer, $logger, $tracer);
+$connectionFactory = new MyConnectionFactory(
+    $handler,
+    $connectionParams,
+    $serializer,
+    $logger,
+    $tracer
+);
 
 $client = ClientBuilder::create()
-            ->setSerializer($connectionFactory);
+            ->setConnectionFactory($connectionFactory);
             ->build();
 ----
 

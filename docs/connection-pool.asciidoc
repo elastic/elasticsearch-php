@@ -1,5 +1,5 @@
 
-== The Connection Pool
+== Connection Pool
 
 The connection pool is an object inside the client that is responsible for maintaining the current list of nodes.
 Theoretically, nodes are either dead or alive.
@@ -33,7 +33,7 @@ Note that the implementation is specified via a namespace path to the class.
 === staticConnectionPool
 
 Identical to the `staticNoPingConnectionPool`, except it pings nodes before they are used to determine if they are alive.
-This may be useful for long-running scripts, but tends to be additional overhead that is unescessary for average PHP scripts.
+This may be useful for long-running scripts, but tends to be additional overhead that is unnecessary for average PHP scripts.
 
 To use the `staticConnectionPool`:
 

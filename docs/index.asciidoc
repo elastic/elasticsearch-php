@@ -11,6 +11,8 @@ include::configuration.asciidoc[]
 
 include::per-request-configuration.asciidoc[]
 
+include::futures.asciidoc[]
+
 include::php_json_objects.asciidoc[]
 
 include::index-operations.asciidoc[]

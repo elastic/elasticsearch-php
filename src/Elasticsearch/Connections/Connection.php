@@ -138,7 +138,7 @@ class Connection implements ConnectionInterface
      * @param \Elasticsearch\Transport $transport
      * @return mixed
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null)
     {
         if (isset($body) === true) {
             $body = $this->serializer->serialize($body);
@@ -182,7 +182,7 @@ class Connection implements ConnectionInterface
 
     private function wrapHandler (callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
     {
-        return function (array $request, Connection $connection, Transport $transport, $options) use ($handler, $logger, $tracer) {
+        return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler, $logger, $tracer) {
             // Send the request using the wrapped handler.
             $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
 
@@ -192,7 +192,10 @@ class Connection implements ConnectionInterface
                         $connection->markDead();
                         $transport->connectionPool->scheduleCheck();
 
-                        if ($transport->shouldRetry($request)) {
+                        $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : true;
+                        $shouldRetry = $transport->shouldRetry($request);
+
+                        if ($shouldRetry && !$neverRetry) {
                             return $transport->performRequest(
                                 $request['http_method'],
                                 $request['uri'],
@@ -232,9 +235,6 @@ class Connection implements ConnectionInterface
 
                 return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
 
-            },
-            function ($error) {
-                throw $error;
             });
 
             return $response;
@@ -366,18 +366,21 @@ class Connection implements ConnectionInterface
     {
         $options = [
             'client' => [
-                'timeout' => $this->pingTimeout
+                'timeout' => $this->pingTimeout,
+                'never_retry' => true,
+                'verbose' => true
             ]
         ];
         try {
             $response = $this->performRequest('HEAD', '/', null, null, $options);
+            $response = $response->wait();
 
         } catch (TransportException $exception) {
             $this->markDead();
             return false;
         }
 
-        $response = $response->wait();
+
         if ($response['status'] === 200) {
             $this->markAlive();
             return true;
@@ -392,9 +395,13 @@ class Connection implements ConnectionInterface
      */
     public function sniff()
     {
-        $options = array('timeout' => $this->pingTimeout);
+        $options = [
+            'client' => [
+                'timeout' => $this->pingTimeout,
+                'never_retry' => true
+            ]
+        ];
         return $this->performRequest('GET', '/_nodes/_all/clear', null, null, $options);
-
     }
 
 

@@ -113,7 +113,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
             return false;
         }
 
-        $nodes = $this->parseClusterState($connection->getTransportSchema(), $response['body']);
+        $nodes = $this->parseClusterState($connection->getTransportSchema(), $response);
 
         if (count($nodes) === 0) {
             return false;

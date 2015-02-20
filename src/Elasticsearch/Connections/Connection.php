@@ -218,9 +218,11 @@ class Connection implements ConnectionInterface
                     $response['body'] = stream_get_contents($response['body'], $response['headers']['Content-Length'][0]);
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {
-                        $this->process4xxError($response['status'], $response['body'], $request['ignore']);
+                        $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
+                        $this->process4xxError($response['status'], $response['body'], $ignore);
                     } else if ($response['status'] >= 500) {
-                        $this->process5xxError($response['status'], $response['body'], $request['ignore']);
+                        $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
+                        $this->process5xxError($response['status'], $response['body'], $ignore);
                     }
 
                     // No error, deserialize

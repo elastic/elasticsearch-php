@@ -92,15 +92,10 @@ class Transport
      * @param null $body       Optional query body
      * @param array $options
      *
-     * @param array $ignore
-     * @throws Common\Exceptions\ServerErrorResponseException|\Exception
-     * @throws Common\Exceptions\ClientErrorResponseException|\Exception
-     * @throws Common\Exceptions\Curl\OperationTimeoutException|Common\Exceptions\TransportException|\Exception
      * @throws Common\Exceptions\NoNodesAvailableException|\Exception
-     *
      * @return array
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], $ignore = [], $verbose = false)
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [])
     {
         try {
             $connection  = $this->getConnection();
@@ -112,7 +107,6 @@ class Transport
         $response             = array();
         $caughtException      = null;
         $this->lastConnection = $connection;
-        $options = array_merge($options, [ 'ignore' => $ignore, 'verbose' => $verbose ]);
 
         $future = $connection->performRequest(
             $method,

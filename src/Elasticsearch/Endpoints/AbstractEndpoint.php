@@ -11,6 +11,7 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Transport;
 use Exception;
+use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 /**
  * Class AbstractEndpoint
@@ -40,13 +41,7 @@ abstract class AbstractEndpoint
     private $transport = null;
 
     /** @var array  */
-    private $ignore = [];
-
-    /** @var bool  */
-    private $verbose = false;
-
-    /** @var array  */
-    private $clientParams = [];
+    private $options = [];
 
 
     /**
@@ -87,9 +82,7 @@ abstract class AbstractEndpoint
             $this->getURI(),
             $this->params,
             $this->getBody(),
-            $this->clientParams,
-            $this->ignore,
-            $this->verbose
+            $this->options
         );
 
         return $promise;
@@ -181,9 +174,16 @@ abstract class AbstractEndpoint
     {
 
         $response = null;
-        $async = isset($this->clientParams['client']['future']) ? $this->clientParams['client']['future'] : null;
+        $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
         if (is_null($async) || $async === false) {
-            return $result->wait();
+
+            do {
+                $result = $result->wait();
+            } while ($result instanceof FutureArrayInterface);
+
+
+            return $result;
+            //var_dump($response);
         } elseif ($async === true || $async === 'lazy') {
             return $result;
         }
@@ -273,27 +273,22 @@ abstract class AbstractEndpoint
      */
     private function extractOptions(&$params)
     {
-        $ignore = isset($params['client']['ignore']) ? $params['client']['ignore'] : null;
+
+        // Extract out client options, then start transforming
+        if (isset($params['client']) === true) {
+            $this->options['client'] = $params['client'];
+            unset($params['client']);
+        }
+
+        $ignore = isset($this->options['client']['ignore']) ? $this->options['client']['ignore'] : null;
         if (isset($ignore) === true) {
             if (is_string($ignore)) {
-                $this->ignore = explode(",", $ignore);
+                $this->options['client']['ignore'] = explode(",", $ignore);
             } elseif (is_array($ignore)) {
-                $this->ignore = $ignore;
+                $this->options['client']['ignore'] = $ignore;
             } else {
-                $this->ignore = [$ignore];
+                $this->options['client']['ignore'] = [$ignore];
             }
-
-            unset($params['client']['ignore']);
-        }
-
-        if (isset($params['client']['verbose']) === true) {
-            $this->verbose = $params['client']['verbose'];
-            unset($params['client']['verbose']);
-        }
-
-        if (isset($params['client']) === true) {
-            $this->clientParams['client'] = $params['client'];
-            unset($params['client']);
         }
     }
 
@@ -311,10 +306,10 @@ abstract class AbstractEndpoint
 
     private function convertArraysToStrings($params)
     {
-        foreach ($params as &$param) {
-            if (is_array($param) === true) {
-                if ($this->isNestedArray($param) !== true){
-                    $param = implode(",", $param);
+        foreach ($params as $key => &$value) {
+            if (!($key === 'client' || $key == 'custom') && is_array($value) === true) {
+                if ($this->isNestedArray($value) !== true){
+                    $value = implode(",", $value);
                 }
 
             }

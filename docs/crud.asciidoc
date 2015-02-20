@@ -120,6 +120,7 @@ for ($i = 0; $i <= 100000; $i++) {
         unset($responses);
     }
 }
+----
 
 == Getting Documents
 

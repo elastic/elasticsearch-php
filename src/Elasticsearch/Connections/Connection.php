@@ -28,6 +28,7 @@ use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
 
 use Psr\Log\LoggerInterface;
+use React\Promise\RejectedPromise;
 
 
 /**
@@ -134,8 +135,7 @@ class Connection implements ConnectionInterface
      * @param null $params
      * @param null $body
      * @param array $options
-     *
-     * @param array $ignore
+     * @param \Elasticsearch\Transport $transport
      * @return mixed
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport)
@@ -192,15 +192,13 @@ class Connection implements ConnectionInterface
                         $connection->markDead();
                         $transport->connectionPool->scheduleCheck();
 
-                        $shouldRetry = $transport->shouldRetry($request);
-                        if ($shouldRetry === true) {
-                            return $this->performRequest(
+                        if ($transport->shouldRetry($request)) {
+                            return $transport->performRequest(
                                 $request['http_method'],
                                 $request['uri'],
                                 [],
                                 $request['body'],
-                                $options,
-                                $transport
+                                $options
                             );
                         }
 
@@ -208,6 +206,7 @@ class Connection implements ConnectionInterface
                         // successful resolutions will go down the alternate `else` path the second time through
                         // the proxy
                         $this->throwCurlException($response['curl']['errno'], $response['error']->getMessage());
+                        //return new RejectedPromise('abc');
                     } else {
                         // Something went seriously wrong, bail
                         throw new TransportException($response['error']->getMessage());
@@ -229,8 +228,11 @@ class Connection implements ConnectionInterface
 
                 }
 
-                return $request['verbose'] ? $response : $response['body'];
+                return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
 
+            },
+            function ($error) {
+                throw $error;
             });
 
             return $response;

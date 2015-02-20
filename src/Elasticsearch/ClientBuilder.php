@@ -3,6 +3,7 @@
 namespace Elasticsearch;
 
 
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
@@ -17,7 +18,6 @@ use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
 use GuzzleHttp\Ring\Core;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

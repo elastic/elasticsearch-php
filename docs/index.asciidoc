@@ -30,3 +30,5 @@ include::selectors.asciidoc[]
 include::serializers.asciidoc[]
 
 include::php-version-requirement.asciidoc[]
+
+include::breaking-changes.asciidoc[]

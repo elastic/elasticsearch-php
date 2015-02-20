@@ -192,7 +192,7 @@ class Connection implements ConnectionInterface
                         $connection->markDead();
                         $transport->connectionPool->scheduleCheck();
 
-                        $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : true;
+                        $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
                         $shouldRetry = $transport->shouldRetry($request);
 
                         if ($shouldRetry && !$neverRetry) {

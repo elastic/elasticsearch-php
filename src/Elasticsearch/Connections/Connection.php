@@ -208,8 +208,7 @@ class Connection implements ConnectionInterface
                         // Due to the magic of futures, this will only be invoked if the final retry fails, since
                         // successful resolutions will go down the alternate `else` path the second time through
                         // the proxy
-                        $this->throwCurlException($response['curl']['errno'], $response['error']->getMessage());
-                        //return new RejectedPromise('abc');
+                        $this->throwCurlException($request, $response);
                     } else {
                         // Something went seriously wrong, bail
                         throw new TransportException($response['error']->getMessage());
@@ -222,17 +221,25 @@ class Connection implements ConnectionInterface
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
-                        $this->process4xxError($response['status'], $response['body'], $ignore);
+                        $this->process4xxError($request, $response, $ignore);
                     } else if ($response['status'] >= 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
-                        $this->process5xxError($response['status'], $response['body'], $ignore);
+                        $this->process5xxError($request, $response, $ignore);
                     }
 
                     // No error, deserialize
                     $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
 
                 }
-
+                $this->logRequestSuccess(
+                    $request['http_method'],
+                    $response['effective_url'],
+                    $request['body'],
+                    $request['headers'],
+                    $response['status'],
+                    $response['body'],
+                    $response['transfer_stats']['total_time']
+                );
                 return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
 
             });
@@ -318,16 +325,7 @@ class Connection implements ConnectionInterface
      *
      * @return void
      */
-    public function logRequestFail(
-        $method,
-        $fullURI,
-        $body,
-        $headers,
-        $duration,
-        $statusCode = null,
-        $response = null,
-        $exception = null
-    ) {
+    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, $exception) {
         $this->log->debug('Request Body', array($body));
         $this->log->warning(
             'Request Failure:',
@@ -464,18 +462,36 @@ class Connection implements ConnectionInterface
      * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException
      * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
      */
-    protected function throwCurlException($curlErrorNumber, $message)
+    protected function throwCurlException($request, $response)
     {
-        switch ($curlErrorNumber) {
+        $exception = null;
+        $message = $response['error']->getMessage();
+        switch ($response['curl']['errno']) {
             case 6:
-                throw new CouldNotResolveHostException($message);
+                $exception = new CouldNotResolveHostException($message);
+                break;
             case 7:
-                throw new CouldNotConnectToHost($message);
+                $exception = new CouldNotConnectToHost($message);
+                break;
             case 28:
-                throw new OperationTimeoutException($message);
+                $exception = new OperationTimeoutException($message);
+                break;
             default:
-                throw new TransportException($message);
+                $exception = new TransportException($message);
         }
+
+        $this->logRequestFail(
+            $request['http_method'],
+            $response['effective_url'],
+            $request['body'],
+            $request['headers'],
+            $response['status'],
+            $response['body'],
+            $response['transfer_stats']['total_time'],
+            $exception
+        );
+
+        throw $exception;
     }
 
 
@@ -509,56 +525,62 @@ class Connection implements ConnectionInterface
 
 
     /**
-     * @param $statusCode
-     * @param $responseBody
+     * @param $request
+     * @param $response
      * @param $ignore
-     * @throws \Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException
-     * @throws \Elasticsearch\Common\Exceptions\Missing404Exception
-     * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException
-     * @throws \Elasticsearch\Common\Exceptions\Forbidden403Exception
-     * @throws \Elasticsearch\Common\Exceptions\BadRequest400Exception
-     * @throws \Elasticsearch\Common\Exceptions\Conflict409Exception
-     *
+     * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException|\Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException|null
      */
-    private function process4xxError($statusCode, $responseBody, $ignore)
+    private function process4xxError($request, $response, $ignore)
     {
 
-        //$exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
+        $statusCode = $response['status'];
+        $responseBody = $response['body'];
 
-        if (array_search($statusCode, $ignore) !== false) {
+        if (array_search($response['status'], $ignore) !== false) {
             return;
         }
 
+        $exception = null;
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            throw new AlreadyExpiredException($responseBody, $statusCode);
+            $exception = new AlreadyExpiredException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
-            throw new Forbidden403Exception($responseBody, $statusCode);
+            $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
-            throw new Missing404Exception($responseBody, $statusCode);
+            $exception = new Missing404Exception($responseBody, $statusCode);
         } elseif ($statusCode === 409) {
-            throw new Conflict409Exception($responseBody, $statusCode);
+            $exception = new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            throw new ScriptLangNotSupportedException($responseBody. $statusCode);
+            $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
         } elseif ($statusCode === 400) {
-            throw new BadRequest400Exception($responseBody, $statusCode);
+            $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
+
+        $this->logRequestFail(
+            $request['http_method'],
+            $response['effective_url'],
+            $request['body'],
+            $request['headers'],
+            $response['status'],
+            $response['body'],
+            $response['transfer_stats']['total_time'],
+            $exception
+        );
+
+        throw $exception;
     }
 
 
     /**
+     * @param $request
      * @param $response
-     *
      * @param $ignore
-     * @throws \Elasticsearch\Common\Exceptions\RoutingMissingException
-     * @throws \Elasticsearch\Common\Exceptions\NoShardAvailableException
-     * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException
-     * @throws \Elasticsearch\Common\Exceptions\ServerErrorResponseException
+     * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException|\Elasticsearch\Common\Exceptions\NoShardAvailableException|\Elasticsearch\Common\Exceptions\RoutingMissingException|\Elasticsearch\Common\Exceptions\ServerErrorResponseException
      */
-    private function process5xxError($response, $ignore)
+    private function process5xxError($request, $response, $ignore)
     {
-        $statusCode    = $response['requestInfo']['http_code'];
+        $statusCode = $response['status'];
+        $responseBody = $response['body'];
         $exceptionText = $response['error'];
-        $responseBody  = $response['responseText'];
 
         $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
         $this->log->error($exceptionText);
@@ -567,15 +589,29 @@ class Connection implements ConnectionInterface
             return;
         }
 
+        $exception = null;
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            throw new RoutingMissingException($responseBody, $statusCode);
+            $exception = new RoutingMissingException($responseBody, $statusCode);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
-            throw new NoDocumentsToGetException($responseBody, $statusCode);
+            $exception = new NoDocumentsToGetException($responseBody, $statusCode);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            throw new NoShardAvailableException($responseBody, $statusCode);
+            $exception = new NoShardAvailableException($responseBody, $statusCode);
         } else {
-            throw new ServerErrorResponseException($responseBody, $statusCode);
+            $exception = new ServerErrorResponseException($responseBody, $statusCode);
         }
+
+        $this->logRequestFail(
+            $request['http_method'],
+            $response['effective_url'],
+            $request['body'],
+            $request['headers'],
+            $response['status'],
+            $response['body'],
+            $response['transfer_stats']['total_time'],
+            $exception
+        );
+
+        throw $exception;
 
 
     }

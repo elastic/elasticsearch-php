@@ -34,7 +34,7 @@ Since there are breaking changes in Elasticsearch 1.0 (and 2.0 when it is releas
 
 Documentation
 --------------
-[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/2.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
 Installation via Composer
 -------------------------

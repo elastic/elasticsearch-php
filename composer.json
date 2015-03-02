@@ -13,7 +13,7 @@
     "php": ">=5.3.9",
     "monolog/monolog": "~1.11",
     "pimple/pimple": "~3.0",
-    "guzzle/http": "~3.7",
+    "guzzle/guzzle": "~3.0",
     "psr/log": "~1.0",
     "ext-curl": "*"
   },

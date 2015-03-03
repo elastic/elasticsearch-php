@@ -232,7 +232,7 @@ class IndicesNamespace extends AbstractNamespace
      */
     public function stats($params = array())
     {
-        $metric = $this->extractArgument($params, '$metric');
+        $metric = $this->extractArgument($params, 'metric');
 
         $index = $this->extractArgument($params, 'index');
 

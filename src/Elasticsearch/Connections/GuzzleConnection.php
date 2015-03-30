@@ -153,25 +153,49 @@ class GuzzleConnection extends AbstractConnection implements ConnectionInterface
             $method = 'POST';
         }
 
+        $headers = array();
         if (isset($body) === true) {
-            $this->lastRequest = array( 'request' => array(
+            $headers['content-type'] = 'application/json';
+        }
+
+        $this->lastRequest = array(
+            'request' => array(
                 'uri'     => $uri,
                 'body'    => $body,
                 'options' => $options,
                 'method'  => $method
-            ));
+            )
+        );
 
-            /** @var EntityEnclosingRequest $request */
-            $request = $this->guzzle->$method($uri, array('content-type' => 'application/json'), $body, $options);
+        switch ($method) {
+            case 'HEAD':
+                $request = $this->guzzle->head($uri, $headers, $options);
+                break;
 
-        } else {
-            $this->lastRequest = array( 'request' => array(
-                'uri'     => $uri,
-                'body'    => null,
-                'options' => $options,
-                'method'  => $method
-            ));
-            $request = $this->guzzle->$method($uri, array(), array(), $options);
+            case 'DELETE':
+                $request = $this->guzzle->delete($uri, $headers, $body, $options);
+                break;
+
+            case 'PUT':
+                $request = $this->guzzle->put($uri, $headers, $body, $options);
+                break;
+
+            case 'PATCH':
+                $request = $this->guzzle->patch($uri, $headers, $body, $options);
+                break;
+
+            case 'POST':
+                $request = $this->guzzle->post($uri, $headers, $body, $options);
+                break;
+
+            case 'OPTIONS':
+                $request = $this->guzzle->options($uri, $options);
+                break;
+
+            case 'GET':
+            default:
+                $request = $this->guzzle->get($uri, $headers, $options);
+                break;
         }
 
         return $request;

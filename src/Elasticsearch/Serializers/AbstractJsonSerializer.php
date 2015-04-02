@@ -23,7 +23,7 @@ abstract class AbstractJsonSerializer implements SerializerInterface
      */
     protected static function jsonEncode($value)
     {
-        $result = json_encode($value);
+        $result = json_encode($value, JSON_FORCE_OBJECT);
 
         if (static::hasJsonError()) {
             throw new JsonSerializationError(json_last_error(), $value, $result);

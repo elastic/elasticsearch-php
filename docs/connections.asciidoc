@@ -29,7 +29,7 @@ Changing the connection class is very simple: instantiate the client with your c
 
 [source,php]
 ----
-$params['connectionPoolClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
+$params['connectionClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
@@ -73,7 +73,7 @@ can then use your new class by specifying it at instantiation.
 
 [source,php]
 ----
-$params['connectionPoolClass'] = '\MyProject\MyConnection';
+$params['connectionClass'] = '\MyProject\MyConnection';
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +

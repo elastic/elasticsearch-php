@@ -27,10 +27,14 @@
     "monolog/monolog": "Allows for client-level logging and tracing"
   },
   "autoload": {
-    "psr-0": {
-      "Elasticsearch": "src/",
-      "Elasticsearch\\Tests" : "tests/",
-      "Elasticsearch\\Benchmarks" : "benchmarks/"
+    "psr-4": {
+      "Elasticsearch\\": "src/Elasticsearch/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/",
+      "Elasticsearch\\Benchmarks\\": "benchmarks/Elasticsearch/Benchmarks/"
     }
   },
   "repositories": [

@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testOneGoodOneBadHostNoException()
     {
         $params = array('hosts' => array (
-            '127.0.0.1:80',
+            '127.0.0.1:1',
             $_SERVER['ES_TEST_HOST'],
         ));
         $client = new Elasticsearch\Client($params);

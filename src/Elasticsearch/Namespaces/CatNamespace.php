@@ -370,4 +370,28 @@ class CatNamespace extends AbstractNamespace
         return $response['data'];
     }
 
+
+    /**
+     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function plugins($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->dicEndpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Plugins $endpoint */
+        $endpoint = $endpointBuilder('Cat\Plugins');
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $response['data'];
+    }
+
 }

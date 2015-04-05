@@ -38,10 +38,11 @@ class Exists extends AbstractEndpoint
 
         if (isset($this->type) === true) {
             $uri .= "/$this->type";
-        }
 
-        if (isset($this->id) === true) {
-            $uri .= "/$this->id";
+            if (isset($this->id) === true) {
+                $uri .= "/$this->id";
+            }
+
         }
 
         return $uri;

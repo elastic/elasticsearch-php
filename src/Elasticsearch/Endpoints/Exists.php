@@ -28,28 +28,20 @@ class Exists extends AbstractEndpoint
      */
     protected function getURI()
     {
-        if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
-                'id is required for Exists'
-            );
-        }
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Exists'
             );
         }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Exists'
-            );
-        }
-        $id = $this->id;
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/$id";
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id";
+        $uri = "/$this->index";
+
+        if (isset($this->type) === true) {
+            $uri .= "/$this->type";
+        }
+
+        if (isset($this->id) === true) {
+            $uri .= "/$this->id";
         }
 
         return $uri;

@@ -31,6 +31,34 @@ Since there are breaking changes in Elasticsearch 1.0 (and 2.0 when it is releas
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.
 
+v2.0 Beta
+--------------
+
+Did you know there is a brand new version of Elasticsearch-PHP in beta right now?  If you are currently using ES-PHP, you should
+try it out and [send feedback](https://github.com/elastic/elasticsearch-php/issues/193)!  If you are new to Elasticsearch-PHP,
+you should start your project with v2.0, since that is the direction that the codebase is moving in.
+
+v2.0 features:
+
+- New HTTP core based on [RingPHP](https://github.com/guzzle/RingPHP), the internal HTTP core that powers [Guzzle5](https://github.com/guzzle/guzzle)
+- Because of RingPHP, we can now expose an optional asynchronous mode (based on futures) which allows parallel execution of curl requests,
+for much better throughput
+- Fewer dependencies, making for a smaller distribution and fewer conflicts
+- Simplification of the architecture, making the entire codebase smaller and more pluggable with less overhead
+
+[Check out the documentation here](http://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/index.html).  [Breaking changes here](http://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_breaking_changes_from_1_x.html).
+
+Try it in your project today!
+
+
+```json
+    {
+        "require": {
+            "elasticsearch/elasticsearch": "~2.0"
+        }
+    }
+```
+
 Documentation
 --------------
 [Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!

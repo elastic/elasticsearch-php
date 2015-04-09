@@ -1,3 +1,39 @@
+## Release 1.3.4
+- Pin mockery on specific version [[e9aa82c]](http://github.com/elasticsearch/elasticsearch-php/commit/e9aa82c)
+- Update Composer.json with PSR-4 [[19d5f11]](http://github.com/elasticsearch/elasticsearch-php/commit/19d5f11)
+- [TESTS] Make unit test more reliable [[80a8c4c]](http://github.com/elasticsearch/elasticsearch-php/commit/80a8c4c)
+- Merge pull request #211 from ignaciovazquez/fix-docs [[c6960c0]](http://github.com/elasticsearch/elasticsearch-php/commit/c6960c0)
+- Add Cat\Plugins endpoint [[15f3582]](http://github.com/elasticsearch/elasticsearch-php/commit/15f3582)
+- Fix GuzzleConnection inline auth bug [[e94d27a]](http://github.com/elasticsearch/elasticsearch-php/commit/e94d27a)
+- Indices/Stats endpoint should implode multi-valued metric parameters into a single string [[7de37d2]](http://github.com/elasticsearch/elasticsearch-php/commit/7de37d2)
+- (pr/194) Fix typo in 'metric' argument of Stats function in IndicesNamespace.php [[4e20088]](http://github.com/elasticsearch/elasticsearch-php/commit/4e20088)
+- Rework JSON Serializer to Throw Useful Exceptions [[850240a]](http://github.com/elasticsearch/elasticsearch-php/commit/850240a)
+
+## Release 1.3.3
+
+- Move from guzzle/http to guzzle/guzzle [[a273a95]](http://github.com/elasticsearch/elasticsearch-php/commit/a273a95)
+- Add `master_timeout` parameter to Get and Exists Template Endpoints [[e7d0d39]](http://github.com/elasticsearch/elasticsearch-php/commit/e7d0d39)
+- Add 'allow_no_indices' to Cluster\State Endpoint [[c5c38dc]](http://github.com/elasticsearch/elasticsearch-php/commit/c5c38dc)
+- Add 'ignore_unavailable' to parameter whitelist for Cluster\State Endpoint [[7157b72]](http://github.com/elasticsearch/elasticsearch-php/commit/7157b72)
+- Add 'expand_wildcards' to parameter whitelist for Cluster\State Endpoint [[1094691]](http://github.com/elasticsearch/elasticsearch-php/commit/1094691)
+- [DOCS] Add note about libcurl versions [[52c90b2]](http://github.com/elasticsearch/elasticsearch-php/commit/52c90b2)
+- Fix default connectionPool [[754c109]](http://github.com/elasticsearch/elasticsearch-php/commit/754c109)
+- Update security.asciidoc [[bd9a0a8]](http://github.com/elasticsearch/elasticsearch-php/commit/bd9a0a8)
+- [DOCS] Fix examples [[294fcb9]](http://github.com/elasticsearch/elasticsearch-php/commit/294fcb9)
+- [DOCS] Tweak language [[cf7391f]](http://github.com/elasticsearch/elasticsearch-php/commit/cf7391f)
+- Add Cat/Segments API [[0a887e9]](http://github.com/elasticsearch/elasticsearch-php/commit/0a887e9)
+- Proactively set content-type [[b28e534]](http://github.com/elasticsearch/elasticsearch-php/commit/b28e534)
+- [TEST] Update yaml runner with supported feature [[744b464]](http://github.com/elasticsearch/elasticsearch-php/commit/744b464)
+- Add documentation about security (Authentication and SSL) [[87f3fd9]](http://github.com/elasticsearch/elasticsearch-php/commit/87f3fd9)
+- CurlMultiConnection should verify SSL host and peer by default [[8c22a82]](http://github.com/elasticsearch/elasticsearch-php/commit/8c22a82)
+- Fix bug where CurlMultiConnection does not properly respect custom curlOpts [[0a064c7]](http://github.com/elasticsearch/elasticsearch-php/commit/0a064c7)
+- Add Authentication401Exception for failed HTTP Authentication [[65039e8]](http://github.com/elasticsearch/elasticsearch-php/commit/65039e8)
+- Extract HTTP BasicAuth from host details if present [[0b80bcf]](http://github.com/elasticsearch/elasticsearch-php/commit/0b80bcf)
+- GuzzleConnection should reuse AbstractConnection's $connectionParams [[49377f8]](http://github.com/elasticsearch/elasticsearch-php/commit/49377f8)
+- [TESTS] Update older unit tests to use \Pimple\Container [[06fb3f3]](http://github.com/elasticsearch/elasticsearch-php/commit/06fb3f3)
+- Bump Pimple version to 3.0 [[314112a]](http://github.com/elasticsearch/elasticsearch-php/commit/4b32231)
+
+
 ## Release 1.3.2
 
 - [DOCS] add details about getLastRequestInfo() [[314112a]](http://github.com/elasticsearch/elasticsearch-php/commit/314112a)

@@ -20,6 +20,9 @@ use GuzzleHttp\Ring\Client\Middleware;
 use GuzzleHttp\Ring\Core;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\IntrospectionProcessor;
 
 class ClientBuilder
 {

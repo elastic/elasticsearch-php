@@ -173,7 +173,6 @@ abstract class AbstractEndpoint
 
 
             return $result;
-            //var_dump($response);
         } elseif ($async === true || $async === 'lazy') {
             return $result;
         }

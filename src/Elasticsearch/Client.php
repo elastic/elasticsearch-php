@@ -75,8 +75,6 @@ class Client
      */
     public function __construct(Transport $transport, callable $endpoint)
     {
-        //$this->setParams($params);
-        //$this->setLogging();
         $this->transport = $transport;
         $this->endpoints = $endpoint;
         $this->indices   = new IndicesNamespace($transport, $endpoint);

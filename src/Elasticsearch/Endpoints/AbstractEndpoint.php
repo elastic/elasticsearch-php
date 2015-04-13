@@ -90,7 +90,7 @@ abstract class AbstractEndpoint
     public function setParams($params)
     {
         if (is_object($params) === true) {
-            $params = (array)$params;
+            $params = (array) $params;
         }
 
         $this->checkUserParams($params);

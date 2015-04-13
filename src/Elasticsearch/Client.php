@@ -1361,7 +1361,7 @@ class Client
     public function extractArgument(&$params, $arg)
     {
         if (is_object($params) === true) {
-            $params = (array)$params;
+            $params = (array) $params;
         }
 
         if (isset($params[$arg]) === true) {

@@ -137,7 +137,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
                 if (preg_match($pattern, $node[$schemaAddress], $match) === 1) {
                     $hosts[] = array(
                         'host' => $match[1],
-                        'port' => (int)$match[2],
+                        'port' => (int) $match[2],
                     );
                 }
             }

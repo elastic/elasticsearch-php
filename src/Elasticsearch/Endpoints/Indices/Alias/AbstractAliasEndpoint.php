@@ -1,10 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 6/13/13
- * Time: 8:56 PM
- */
-
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 

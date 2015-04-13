@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 6/14/13
- * Time: 11:13 AM
- */
 
 namespace Elasticsearch\Benchmarks;
 

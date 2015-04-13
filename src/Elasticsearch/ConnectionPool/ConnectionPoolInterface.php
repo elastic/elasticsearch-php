@@ -1,16 +1,18 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: tongz
- * Date: 2/13/15
- * Time: 12:06 PM
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Connections\ConnectionInterface;
 
+/**
+ * ConnectionPoolInterface
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\ConnectionPool
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
+ */
 interface ConnectionPoolInterface
 {
     /**

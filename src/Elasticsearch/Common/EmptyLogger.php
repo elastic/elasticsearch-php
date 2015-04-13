@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 11/11/13
- * Time: 3:32 PM
- */
 
 namespace Elasticsearch\Common;
 

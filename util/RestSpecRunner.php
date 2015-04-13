@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 3/5/14
- * Time: 10:41 AM
- */
 
 error_reporting(E_ALL | E_STRICT);
 

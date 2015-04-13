@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 09/25/2014
- * Time: 11:35::00 AM
- */
 
 namespace Elasticsearch\Endpoints\Indices;
 

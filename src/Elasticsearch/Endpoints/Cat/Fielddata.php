@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 5/12/14
- * Time: 10:40 AM
- */
 
 namespace Elasticsearch\Endpoints\Cat;
 

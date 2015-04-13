@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 6/20/13
- * Time: 9:15 AM
- */
 
 namespace Elasticsearch\Tests\Serializers;
 

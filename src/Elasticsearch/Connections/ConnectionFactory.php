@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 9/19/13
- * Time: 1:29 PM
- */
 
 namespace Elasticsearch\Connections;
 

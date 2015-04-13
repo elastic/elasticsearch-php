@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: {{ "now"|date("m/d/Y") }}
- * Time: {{ "now"|date("H:i:s a") }}
- */
 
 namespace Elasticsearch\Endpoints{% for class in namespace %}{{ loop.last ? ';' : '\\' ~ class|title  }}{%  endfor %}
 
@@ -16,7 +11,7 @@ use Elasticsearch\Common\Exceptions;
  *
  * @category Elasticsearch
  * @package Elasticsearch\Endpoints{% for class in namespace %}{{ loop.last ? '' : '\\' ~ class|title  }}{%  endfor %}
-
+ *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org

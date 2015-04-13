@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 6/10/13
- * Time: 3:58 PM
- */
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 

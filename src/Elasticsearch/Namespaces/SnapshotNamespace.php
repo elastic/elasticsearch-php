@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/20/14
- * Time: 4:11 PM
- */
 
 namespace Elasticsearch\Namespaces;
 

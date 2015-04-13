@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 9/19/13
- * Time: 3:53 PM
- */
 
 namespace Elasticsearch\Common\Exceptions\Curl;
 

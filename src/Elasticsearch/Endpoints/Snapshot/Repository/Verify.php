@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 10/08/2014
- * Time: 3:40:00 pm
- */
 
 namespace Elasticsearch\Endpoints\Snapshot\Repository;
 

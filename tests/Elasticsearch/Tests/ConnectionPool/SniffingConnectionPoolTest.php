@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 9/20/13
- * Time: 12:51 PM
- */
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\SniffingConnectionPool;

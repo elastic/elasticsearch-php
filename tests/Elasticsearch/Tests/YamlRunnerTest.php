@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 7/22/13
- * Time: 12:59 PM
- */
 
 namespace Elasticsearch\Tests;
 

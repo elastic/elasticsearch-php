@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/23/14
- * Time: 6:03 PM
- */
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 

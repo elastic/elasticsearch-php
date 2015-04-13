@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 5/31/13
- * Time: 9:49 AM
- */
 
 namespace Elasticsearch\Endpoints;
 

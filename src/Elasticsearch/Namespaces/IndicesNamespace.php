@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
 /**
  * Class IndicesNamespace

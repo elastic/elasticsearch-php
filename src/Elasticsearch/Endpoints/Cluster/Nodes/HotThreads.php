@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Hotthreads

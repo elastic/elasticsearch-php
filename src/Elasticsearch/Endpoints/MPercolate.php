@@ -2,8 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 

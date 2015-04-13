@@ -3,12 +3,6 @@
 namespace Elasticsearch\Tests;
 
 use Elasticsearch;
-
-use Monolog\Logger;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
-use Psr\Log\LogLevel;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Mockery as m;
 
 /**

@@ -21,9 +21,7 @@ use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
-
 use Psr\Log\LoggerInterface;
-use React\Promise\RejectedPromise;
 
 
 /**

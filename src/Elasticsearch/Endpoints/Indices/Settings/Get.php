@@ -3,7 +3,6 @@
 namespace Elasticsearch\Endpoints\Indices\Settings;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Get

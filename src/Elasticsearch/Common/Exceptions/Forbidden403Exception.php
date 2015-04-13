@@ -3,6 +3,7 @@
 namespace Elasticsearch\Common\Exceptions;
 
 /**
+ * Forbidden403Exception
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Common\Exceptions

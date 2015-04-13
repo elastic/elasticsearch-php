@@ -3,7 +3,7 @@
 namespace Elasticsearch\Common\Exceptions;
 
 /**
- * Generic Exception interface
+ * Missing404Exception
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Common\Exceptions

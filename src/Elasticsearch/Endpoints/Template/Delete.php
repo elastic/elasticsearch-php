@@ -22,7 +22,6 @@ use Elasticsearch\Common\Exceptions;
 
 class Delete extends AbstractEndpoint
 {
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string

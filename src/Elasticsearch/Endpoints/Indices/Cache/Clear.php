@@ -21,7 +21,6 @@ class Clear extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         $index = $this->index;
         $uri   = "/_cache/clear";
 

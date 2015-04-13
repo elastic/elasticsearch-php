@@ -16,7 +16,6 @@ use Elasticsearch\Common\Exceptions;
  */
 class TermVector extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -62,7 +61,6 @@ class TermVector extends AbstractEndpoint
         $uri   = "/$index/$type/$id/_termvector";
 
         return $uri;
-
     }
 
     /**

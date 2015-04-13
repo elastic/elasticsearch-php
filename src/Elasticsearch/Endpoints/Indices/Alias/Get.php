@@ -53,9 +53,9 @@ class Get extends AbstractEndpoint
 
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_alias/$name";
-        } else if (isset($index) === true) {
+        } elseif (isset($index) === true) {
             $uri = "/$index/_alias";
-        } else if (isset($name) === true) {
+        } elseif (isset($name) === true) {
             $uri = "/_alias/$name";
         }
 

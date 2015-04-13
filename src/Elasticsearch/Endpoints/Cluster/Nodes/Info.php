@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -22,7 +21,6 @@ use Elasticsearch\Common\Exceptions;
 
 class Info extends AbstractNodesEndpoint
 {
-
     // A comma-separated list of metrics you wish returned. Leave empty to return all.
     private $metric;
 

@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 abstract class AbstractTemplateEndpoint extends AbstractEndpoint

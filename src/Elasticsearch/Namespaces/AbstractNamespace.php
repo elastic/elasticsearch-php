@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Namespaces;
 
-
 use Elasticsearch\Transport;
 
 /**
@@ -61,5 +60,4 @@ abstract class AbstractNamespace
             return null;
         }
     }
-
 }

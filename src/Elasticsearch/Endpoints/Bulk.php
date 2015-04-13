@@ -18,7 +18,6 @@ use Elasticsearch\Transport;
  */
 class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
-
     /**
      * @param Transport           $transport
      * @param SerializerInterface $serializer
@@ -58,8 +57,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     protected function getURI()
     {
-       return $this->getOptionalURI('_bulk');
-
+        return $this->getOptionalURI('_bulk');
     }
 
     /**

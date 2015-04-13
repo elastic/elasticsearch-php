@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Transport;
 use Exception;
@@ -76,7 +75,6 @@ abstract class AbstractEndpoint
      */
     public function performRequest()
     {
-
         $promise =  $this->transport->performRequest(
             $this->getMethod(),
             $this->getURI(),
@@ -86,7 +84,6 @@ abstract class AbstractEndpoint
         );
 
         return $promise;
-
     }
 
     /**
@@ -172,11 +169,9 @@ abstract class AbstractEndpoint
      */
     public function resultOrFuture($result)
     {
-
         $response = null;
         $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
         if (is_null($async) || $async === false) {
-
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
@@ -212,7 +207,7 @@ abstract class AbstractEndpoint
         $uri[] = $endpoint;
         $uri =  array_filter($uri);
 
-       return '/' . implode('/', $uri);
+        return '/' . implode('/', $uri);
     }
 
 
@@ -221,7 +216,7 @@ abstract class AbstractEndpoint
      */
     private function getOptionalIndex()
     {
-        if (isset($this->index) === true){
+        if (isset($this->index) === true) {
             return $this->index;
         } else {
             return '_all';
@@ -234,7 +229,7 @@ abstract class AbstractEndpoint
      */
     private function getOptionalType()
     {
-        if (isset($this->type) === true){
+        if (isset($this->type) === true) {
             return $this->type;
         } else {
             return '';
@@ -273,7 +268,6 @@ abstract class AbstractEndpoint
      */
     private function extractOptions(&$params)
     {
-
         // Extract out client options, then start transforming
         if (isset($params['client']) === true) {
             $this->options['client'] = $params['client'];
@@ -308,17 +302,17 @@ abstract class AbstractEndpoint
     {
         foreach ($params as $key => &$value) {
             if (!($key === 'client' || $key == 'custom') && is_array($value) === true) {
-                if ($this->isNestedArray($value) !== true){
+                if ($this->isNestedArray($value) !== true) {
                     $value = implode(",", $value);
                 }
-
             }
         }
 
         return $params;
     }
 
-    private function isNestedArray($a) {
+    private function isNestedArray($a)
+    {
         foreach ($a as $v) {
             if (is_array($v)) {
                 return true;
@@ -326,5 +320,4 @@ abstract class AbstractEndpoint
         }
         return false;
     }
-
 }

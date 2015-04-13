@@ -20,8 +20,6 @@ use Elasticsearch\Connections\ConnectionInterface;
  */
 class RandomSelector implements SelectorInterface
 {
-
-
     /**
      * Select a random connection from the provided array
      *
@@ -32,8 +30,5 @@ class RandomSelector implements SelectorInterface
     public function select($connections)
     {
         return $connections[array_rand($connections)];
-
     }
-
-
 }//end class

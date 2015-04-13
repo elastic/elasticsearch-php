@@ -25,7 +25,6 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
 
     protected function classSetUp()
     {
-
         $this->client = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
 
         $this->setupClient = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
@@ -53,7 +52,6 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
         $this->largeDocument['body']['testField'] = str_repeat('a', 5000);
         $this->largeDocument['index']             = 'benchmarking_index';
         $this->largeDocument['type']              = 'test';
-
     }
 
     protected function classTearDown()
@@ -153,5 +151,4 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
 
         $responses[999]->wait();
     }
-
 }

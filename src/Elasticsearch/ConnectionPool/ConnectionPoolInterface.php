@@ -9,11 +9,10 @@
 
 namespace Elasticsearch\ConnectionPool;
 
-
 use Elasticsearch\Connections\ConnectionInterface;
 
-interface ConnectionPoolInterface {
-
+interface ConnectionPoolInterface
+{
     /**
      * @param bool $force
      *
@@ -25,5 +24,4 @@ interface ConnectionPoolInterface {
      * @return void
      */
     public function scheduleCheck();
-
 }

@@ -245,6 +245,4 @@ class SnapshotNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $endpoint->resultOrFuture($response);
     }
-
-
 }

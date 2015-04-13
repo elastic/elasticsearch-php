@@ -24,7 +24,6 @@ use Elasticsearch\Transport;
 
 class Msearch extends AbstractEndpoint
 {
-
     /**
      * @param Transport           $transport
      * @param SerializerInterface $serializer

@@ -16,7 +16,6 @@ use Elasticsearch\Common\Exceptions;
  */
 class MTermVectors extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -39,7 +38,6 @@ class MTermVectors extends AbstractEndpoint
     protected function getURI()
     {
         return $this->getOptionalURI('_mtermvectors');
-
     }
 
     /**

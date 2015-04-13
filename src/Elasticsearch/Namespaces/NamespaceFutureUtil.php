@@ -9,8 +9,6 @@
 
 namespace Elasticsearch\Namespaces;
 
-
-trait NamespaceFutureUtil {
-
-
+trait NamespaceFutureUtil
+{
 }

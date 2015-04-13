@@ -22,7 +22,6 @@ use Elasticsearch\Common\Exceptions;
 
 class Put extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *

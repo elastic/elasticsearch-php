@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\ConnectionPool;
 
-
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
@@ -40,7 +39,7 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
             /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
-               return $connection;
+                return $connection;
             }
 
             if ($this->readyToRevive($connection) === true) {

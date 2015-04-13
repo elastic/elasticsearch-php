@@ -22,7 +22,6 @@ use Elasticsearch\Common\Exceptions;
 
 class Get extends AbstractEndpoint
 {
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string

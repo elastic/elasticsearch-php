@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
@@ -23,8 +22,6 @@ use Elasticsearch\Common\Exceptions;
 
 class SearchShards extends AbstractEndpoint
 {
-
-
     /**
      * @return string
      */

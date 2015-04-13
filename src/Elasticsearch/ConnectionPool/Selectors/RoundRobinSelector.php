@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\ConnectionPool\Selectors;
 
-
 use Elasticsearch\Connections\ConnectionInterface;
 
 /**
@@ -21,7 +20,6 @@ use Elasticsearch\Connections\ConnectionInterface;
  */
 class RoundRobinSelector implements SelectorInterface
 {
-
     /**
      * @var int
      */
@@ -40,8 +38,5 @@ class RoundRobinSelector implements SelectorInterface
         $this->current += 1;
 
         return $connections[$this->current % count($connections)];
-
     }
-
-
 }//end class

@@ -9,12 +9,11 @@
 
 namespace Elasticsearch\Connections;
 
-
 use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
-interface ConnectionFactoryInterface {
-
+interface ConnectionFactoryInterface
+{
     /**
      * @param $handler
      * @param array $connectionParams
@@ -31,5 +30,4 @@ interface ConnectionFactoryInterface {
      * @return ConnectionInterface
      */
     public function create($hostDetails);
-
 }

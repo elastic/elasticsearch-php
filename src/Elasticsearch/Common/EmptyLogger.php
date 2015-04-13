@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Common;
 
-
 use Psr\Log\AbstractLogger;
 use Psr\Log\LoggerInterface;
 

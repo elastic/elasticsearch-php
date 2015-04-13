@@ -49,7 +49,6 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
 
     public function scheduleCheck()
     {
-
     }
 
     /**

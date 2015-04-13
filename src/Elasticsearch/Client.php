@@ -7,7 +7,6 @@
 
 namespace Elasticsearch;
 
-
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Endpoints;
@@ -86,11 +85,10 @@ class Client
         $this->transport = $transport;
         $this->endpoints = $endpoint;
         $this->indices   = new IndicesNamespace($transport, $endpoint);
-        $this->cluster   = new ClusterNamespace($transport, $endpoint);;
+        $this->cluster   = new ClusterNamespace($transport, $endpoint);
         $this->nodes     = new NodesNamespace($transport, $endpoint);
         $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
         $this->cat       = new CatNamespace($transport, $endpoint);
-
     }
 
 
@@ -100,7 +98,6 @@ class Client
      */
     public function info($params = [])
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -113,7 +110,6 @@ class Client
 
     public function ping($params = [])
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -123,7 +119,6 @@ class Client
         try {
             $response = $endpoint->setParams($params)->performRequest();
             $endpoint->resultOrFuture($response);
-
         } catch (Missing404Exception $exception) {
             return false;
         }
@@ -563,7 +558,6 @@ class Client
         $endpoint->setParams($params);
 
         return BooleanRequestWrapper::performRequest($endpoint);
-
     }
 
 
@@ -1390,6 +1384,4 @@ class Client
             return null;
         }
     }
-
-
 }

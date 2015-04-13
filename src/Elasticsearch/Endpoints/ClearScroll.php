@@ -20,7 +20,7 @@ use Elasticsearch\Common\Exceptions;
  * @link     http://elasticsearch.org
  */
 
-class Clearscroll extends AbstractEndpoint
+class ClearScroll extends AbstractEndpoint
 {
     // A comma-separated list of scroll IDs to clear
     private $scroll_id;

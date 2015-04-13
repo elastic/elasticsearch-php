@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\ConnectionPool;
 
-
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -55,8 +54,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
 
         return $this->nextConnection(true);
-
-
     }
 
     public function scheduleCheck()
@@ -152,7 +149,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
 
         return $hosts;
-
     }
 
     private function setConnectionPoolParams($connectionPoolParams)

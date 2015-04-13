@@ -125,7 +125,6 @@ class Connection implements ConnectionInterface
         $this->serializer       = $serializer;
 
         $this->handler = $this->wrapHandler($handler, $log, $trace);
-
     }
 
 
@@ -161,7 +160,6 @@ class Connection implements ConnectionInterface
         $future = $handler($request, $this, $transport, $options);
 
         return $future;
-
     }
 
     /** @return string */
@@ -177,14 +175,13 @@ class Connection implements ConnectionInterface
     }
 
 
-    private function wrapHandler (callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
+    private function wrapHandler(callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
     {
         return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler, $logger, $tracer) {
             // Send the request using the wrapped handler.
             $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
 
                 if (isset($response['error']) === true) {
-
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
                         $connection->markDead();
                         $transport->connectionPool->scheduleCheck();
@@ -218,14 +215,13 @@ class Connection implements ConnectionInterface
                     if ($response['status'] >= 400 && $response['status'] < 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
                         $this->process4xxError($request, $response, $ignore);
-                    } else if ($response['status'] >= 500) {
+                    } elseif ($response['status'] >= 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
                         $this->process5xxError($request, $response, $ignore);
                     }
 
                     // No error, deserialize
                     $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
-
                 }
                 $this->logRequestSuccess(
                     $request['http_method'],
@@ -254,7 +250,6 @@ class Connection implements ConnectionInterface
      */
     private function getURI($uri, $params)
     {
-
         if (isset($params) === true && !empty($params)) {
             $uri .= '?' . http_build_query($params);
         }
@@ -303,7 +298,6 @@ class Connection implements ConnectionInterface
                 'duration'  => $duration,
             )
         );
-
     }
 
 
@@ -321,7 +315,8 @@ class Connection implements ConnectionInterface
      *
      * @return void
      */
-    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, $exception) {
+    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, $exception)
+    {
         $this->log->debug('Request Body', array($body));
         $this->log->warning(
             'Request Failure:',
@@ -349,7 +344,6 @@ class Connection implements ConnectionInterface
                 'duration'  => $duration,
             )
         );
-
     }
 
 
@@ -368,7 +362,6 @@ class Connection implements ConnectionInterface
         try {
             $response = $this->performRequest('HEAD', '/', null, null, $options);
             $response = $response->wait();
-
         } catch (TransportException $exception) {
             $this->markDead();
             return false;
@@ -516,7 +509,6 @@ class Connection implements ConnectionInterface
         }
 
         return $curlCommand;
-
     }
 
 
@@ -528,7 +520,6 @@ class Connection implements ConnectionInterface
      */
     private function process4xxError($request, $response, $ignore)
     {
-
         $statusCode = $response['status'];
         $responseBody = $response['body'];
 
@@ -588,7 +579,7 @@ class Connection implements ConnectionInterface
         $exception = null;
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             $exception = new RoutingMissingException($responseBody, $statusCode);
-        } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/',$responseBody) === 1) {
+        } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
             $exception = new NoDocumentsToGetException($responseBody, $statusCode);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($responseBody, $statusCode);
@@ -608,8 +599,5 @@ class Connection implements ConnectionInterface
         );
 
         throw $exception;
-
-
     }
-
 }

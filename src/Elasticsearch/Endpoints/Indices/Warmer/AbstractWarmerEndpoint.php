@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 
-
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 

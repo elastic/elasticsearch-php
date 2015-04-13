@@ -16,7 +16,6 @@ use Elasticsearch\Common\Exceptions;
  */
 class Snapshot extends AbstractEndpoint
 {
-
     /**
      * @return string
      */

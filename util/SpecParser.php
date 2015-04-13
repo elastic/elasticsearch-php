@@ -13,7 +13,6 @@ if ($handle = opendir('../vendor/elasticsearch/elasticsearch_src/rest-api-spec/a
         if ($entry != "." && $entry != "..") {
             generateTemplate($entry, $template);
         }
-
     }
     closedir($handle);
 }
@@ -30,8 +29,8 @@ function processURLPaths($data)
         preg_match_all('/{(.*?)}/', $path, $params);
         $params = $params[1];
         $count = count($params);
-        $parsedPath = str_replace('}','',$path);
-        $parsedPath = str_replace('{','$',$parsedPath);
+        $parsedPath = str_replace('}', '', $path);
+        $parsedPath = str_replace('{', '$', $parsedPath);
 
         if (array_search('index', $params) !== false) {
             $containsIndex = true;
@@ -66,7 +65,7 @@ function processURLPaths($data)
     }
     */
 
-    usort($final, function($a, $b) {
+    usort($final, function ($a, $b) {
             if ($a['count'] == $b['count']) {
                 return 0;
             }
@@ -76,12 +75,13 @@ function processURLPaths($data)
     return $final;
 }
 
-function getDefaultPath($path) {
+function getDefaultPath($path)
+{
     if ($path['count'] === 0) {
         return $path['path'];
     } else {
-        $final = str_replace('}','',$path['path']);
-        $final = str_replace('{','$',$final);
+        $final = str_replace('}', '', $path['path']);
+        $final = str_replace('{', '$', $final);
         return $final;
     }
 }
@@ -153,7 +153,7 @@ function generateTemplate($path, $template)
     );
 
     if (strpos($namespace[count($namespace)-1], '_')) {
-        $temp = explode('_',$namespace[count($namespace)-1]);
+        $temp = explode('_', $namespace[count($namespace)-1]);
 
         if (array_search($temp[0], $underscoreNamespace) !== false && array_search($namespace[count($namespace)-1], $exceptions) === false) {
             $namespace[count($namespace)-1] = $temp[1];
@@ -161,7 +161,6 @@ function generateTemplate($path, $template)
         } else {
             $namespace[count($namespace)-1] = str_replace('_', '', $namespace[count($namespace)-1]);
         }
-
     }
 
 
@@ -178,9 +177,9 @@ function generateTemplate($path, $template)
 
     $ret = $template->render($renderVars);
 
-    $dir = './output/'.implode('/', array_map("ucfirst", array_splice($namespace,0,count($namespace)-1)));
+    $dir = './output/'.implode('/', array_map("ucfirst", array_splice($namespace, 0, count($namespace)-1)));
 
-    if (substr($dir,-1) !== '/') {
+    if (substr($dir, -1) !== '/') {
         $dir .= '/';
     }
     if (!file_exists($dir)) {
@@ -192,7 +191,8 @@ function generateTemplate($path, $template)
 
     echo $dir."\n\n";
     $path = $dir.$renderVars['className'].'.php';
-    echo $path."\n\n";;
+    echo $path."\n\n";
+    ;
 
     file_put_contents($path, $ret);
     echo $ret;

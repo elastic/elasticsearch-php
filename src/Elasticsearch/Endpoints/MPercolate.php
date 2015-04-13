@@ -18,7 +18,6 @@ use Elasticsearch\Transport;
  */
 class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
 {
-
     /**
      * @param Transport           $transport
      * @param SerializerInterface $serializer
@@ -59,7 +58,6 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     protected function getURI()
     {
         return $this->getOptionalURI('_mpercolate');
-
     }
 
     /**

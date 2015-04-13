@@ -139,6 +139,4 @@ class NodesNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $endpoint->resultOrFuture($response);
     }
-
-
 }

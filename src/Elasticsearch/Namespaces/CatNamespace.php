@@ -18,7 +18,6 @@ namespace Elasticsearch\Namespaces;
  */
 class CatNamespace extends AbstractNamespace
 {
-
     /**
      * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -369,5 +368,4 @@ class CatNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $response['data'];
     }
-
 }

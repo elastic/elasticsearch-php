@@ -30,7 +30,6 @@ class ConnectionFactory implements ConnectionFactoryInterface
         $this->logger           = $logger;
         $this->tracer           = $tracer;
         $this->serializer       = $serializer;
-
     }
     /**
      * @param $hostDetails

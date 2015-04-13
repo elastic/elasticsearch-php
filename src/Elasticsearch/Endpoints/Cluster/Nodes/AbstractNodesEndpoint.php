@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 

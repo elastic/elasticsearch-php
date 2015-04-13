@@ -17,7 +17,6 @@ namespace Elasticsearch\Serializers;
  */
 class EverythingToJSONSerializer implements SerializerInterface
 {
-
     /**
      * Serialize assoc array into JSON string
      *
@@ -47,6 +46,5 @@ class EverythingToJSONSerializer implements SerializerInterface
     public function deserialize($data, $headers)
     {
         return json_decode($data, true);
-
     }
 }

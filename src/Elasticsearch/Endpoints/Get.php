@@ -22,7 +22,6 @@ use Elasticsearch\Common\Exceptions;
 
 class Get extends AbstractEndpoint
 {
-
     /** @var bool  */
     private $returnOnlySource = false;
 

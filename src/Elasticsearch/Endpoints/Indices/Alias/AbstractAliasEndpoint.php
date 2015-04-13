@@ -8,7 +8,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
-
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
@@ -18,7 +17,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 abstract class AbstractAliasEndpoint extends AbstractEndpoint
 {
-
     /** @var null|string */
     protected $name = null;
 

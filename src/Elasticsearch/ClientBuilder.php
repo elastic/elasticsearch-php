@@ -2,7 +2,6 @@
 
 namespace Elasticsearch;
 
-
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -26,7 +25,6 @@ use Monolog\Processor\IntrospectionProcessor;
 
 class ClientBuilder
 {
-
     /** @var Transport */
     private $transport;
 
@@ -173,7 +171,7 @@ class ClientBuilder
         if (is_string($connectionPool)) {
             $this->connectionPool = $connectionPool;
             $this->connectionPoolArgs = $args;
-        } else if (is_object($connectionPool)) {
+        } elseif (is_object($connectionPool)) {
             $this->connectionPool = $connectionPool;
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object extending AbstractConnectionPool");
@@ -398,7 +396,6 @@ class ClientBuilder
         }
 
         return new Client($this->transport, $this->endpoint);
-
     }
 
 
@@ -446,7 +443,7 @@ class ClientBuilder
     {
         if (is_string($arg)) {
             $destination = new $arg;
-        } else if (is_object($arg)) {
+        } elseif (is_object($arg)) {
             $destination = $arg;
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object implementing $interface");
@@ -518,6 +515,4 @@ class ClientBuilder
         }
         return $host;
     }
-
-
 }

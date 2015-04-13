@@ -16,7 +16,6 @@ use Elasticsearch\Common\Exceptions;
  */
 class Query extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *

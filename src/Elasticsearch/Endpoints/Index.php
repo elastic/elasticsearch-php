@@ -53,7 +53,6 @@ class Index extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Index'
@@ -137,6 +136,5 @@ class Index extends AbstractEndpoint
             $this->params['op_type'] = 'create';
             return "";
         }
-
     }
 }

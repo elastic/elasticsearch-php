@@ -25,7 +25,6 @@ use Psr\Log\LoggerInterface;
  */
 class Transport
 {
-
     /**
      * @var AbstractConnectionPool
      */
@@ -58,7 +57,6 @@ class Transport
      */
     public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
-
         $this->log            = $log;
         $this->connectionPool = $connectionPool;
         $this->retries        = $retries;
@@ -67,7 +65,6 @@ class Transport
             $this->log->notice('Sniff on Start.');
             $this->connectionPool->scheduleCheck();
         }
-
     }
 
     /**
@@ -119,19 +116,18 @@ class Transport
 
         $future->promise()->then(
             //onSuccess
-            function($response) {
+            function ($response) {
                 $this->retryAttempts = 0;
                 // Note, this could be a 4xx or 5xx error
             },
             //onFailure
-            function($response) {
+            function ($response) {
                 //some kind of real faiure here, like a timeout
                 $this->connectionPool->scheduleCheck();
                 // log stuff
             });
 
         return $future;
-
     }
 
 
@@ -161,6 +157,4 @@ class Transport
     {
         return $this->lastConnection;
     }
-
-
 }

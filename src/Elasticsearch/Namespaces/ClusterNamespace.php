@@ -18,7 +18,6 @@ namespace Elasticsearch\Namespaces;
  */
 class ClusterNamespace extends AbstractNamespace
 {
-
     /**
      * $params['index']                      = (string) Limit the information returned to a specific index
      *        ['level']                      = (enum) Specify the level of detail for returned information
@@ -187,7 +186,6 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function pendingTasks($params = array())
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -197,5 +195,4 @@ class ClusterNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $endpoint->resultOrFuture($response);
     }
-
 }

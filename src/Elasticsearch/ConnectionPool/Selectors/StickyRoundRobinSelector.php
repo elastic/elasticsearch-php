@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\ConnectionPool\Selectors;
 
-
 use Elasticsearch\Connections\ConnectionInterface;
 
 /**
@@ -21,7 +20,6 @@ use Elasticsearch\Connections\ConnectionInterface;
  */
 class StickyRoundRobinSelector implements SelectorInterface
 {
-
     /**
      * @var int
      */
@@ -48,7 +46,5 @@ class StickyRoundRobinSelector implements SelectorInterface
         $this->current = $this->currentCounter % count($connections);
 
         return $connections[$this->current];
-
     }
-
 }

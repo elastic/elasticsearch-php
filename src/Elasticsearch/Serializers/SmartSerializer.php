@@ -20,8 +20,6 @@ use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
  */
 class SmartSerializer implements SerializerInterface
 {
-
-
     /**
      * Serialize assoc array into JSON string
      *
@@ -41,8 +39,6 @@ class SmartSerializer implements SerializerInterface
                 return $data;
             }
         }
-
-
     }
 
 
@@ -60,20 +56,15 @@ class SmartSerializer implements SerializerInterface
     {
         if (isset($headers['content_type']) === true) {
             if (strpos($headers['content_type'], 'json') !== false) {
-
                 return $this->decode($data);
-
             } else {
                 //Not json, return as string
                 return $data;
             }
-
         } else {
             //No content headers, assume json
             return $this->decode($data);
         }
-
-
     }
 
     /**

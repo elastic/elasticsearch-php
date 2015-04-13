@@ -21,8 +21,8 @@ use Mockery as m;
  */
 class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function tearDown() {
+    public function tearDown()
+    {
         m::close();
     }
 
@@ -51,7 +51,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $retConnection = $connectionPool->nextConnection();
 
         $this->assertEquals($mockConnection, $retConnection);
-
     }
 
     public function testAddOneHostAndTriggerSniff()
@@ -123,7 +122,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     {
         $connections = array();
 
-        foreach (range(1,10) as $index) {
+        foreach (range(1, 10) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(true)
@@ -149,14 +148,13 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $retConnection = $connectionPool->nextConnection();
 
         $this->assertEquals($connections[0], $retConnection);
-
     }
 
     public function testAddTenNodesTimeoutAllButLast()
     {
         $connections = array();
 
-        foreach (range(1,9) as $index) {
+        foreach (range(1, 9) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(false)
@@ -192,7 +190,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $retConnection = $connectionPool->nextConnection();
 
         $this->assertEquals($connections[9], $retConnection);
-
     }
 
 
@@ -203,7 +200,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     {
         $connections = array();
 
-        foreach (range(1,10) as $index) {
+        foreach (range(1, 10) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')
                               ->andReturn(false)
@@ -226,7 +223,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
-
     }
 
     public function testAddOneHostSniffTwo()
@@ -319,7 +315,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
         $this->assertEquals($mockConnection, $retConnection);
-
     }
 
 
@@ -329,7 +324,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connections = array();
 
-        foreach (range(1,10) as $index) {
+        foreach (range(1, 10) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')->andReturn(false)->getMock()
                               ->shouldReceive('isAlive')->andReturn(true)->getMock()
@@ -375,7 +370,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
         $this->assertEquals($newConnections[12], $retConnection);
-
     }
 
     /**
@@ -387,7 +381,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connections = array();
 
-        foreach (range(1,10) as $index) {
+        foreach (range(1, 10) as $index) {
             $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                               ->shouldReceive('ping')->andReturn(false)->getMock()
                               ->shouldReceive('isAlive')->andReturn(true)->getMock()
@@ -438,6 +432,5 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
         $this->assertEquals($newConnections[12], $retConnection);
-
     }
 }

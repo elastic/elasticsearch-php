@@ -7,7 +7,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -22,7 +21,6 @@ use Elasticsearch\Common\Exceptions;
 
 class HotThreads extends AbstractNodesEndpoint
 {
-
     /**
      * @return string
      */

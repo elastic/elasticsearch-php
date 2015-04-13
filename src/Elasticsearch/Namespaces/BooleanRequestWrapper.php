@@ -9,13 +9,13 @@
 
 namespace Elasticsearch\Namespaces;
 
-
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
-trait BooleanRequestWrapper {
+trait BooleanRequestWrapper
+{
     public static function performRequest(AbstractEndpoint $endpoint)
     {
         try {
@@ -31,7 +31,6 @@ trait BooleanRequestWrapper {
                 // async mode, can't easily resolve this...punt to user
                 return $response;
             }
-
         } catch (Missing404Exception $exception) {
             return false;
         } catch (RoutingMissingException $exception) {

@@ -33,6 +33,7 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
         }
 
         $this->nodeID = $nodeID;
+
         return $this;
     }
 }

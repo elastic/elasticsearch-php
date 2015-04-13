@@ -122,6 +122,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
 
         $this->nextSniff = time() + $this->sniffingInterval;
+
         return true;
     }
 

@@ -31,6 +31,7 @@ class ValidateQuery extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

@@ -31,6 +31,7 @@ class Put extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class Put extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Put Settings');
         }
+
         return $this->body;
     }
 

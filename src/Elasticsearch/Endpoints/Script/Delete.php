@@ -33,6 +33,7 @@ class Delete extends AbstractEndpoint
         }
 
         $this->lang = $lang;
+
         return $this;
     }
 

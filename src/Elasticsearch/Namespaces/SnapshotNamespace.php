@@ -37,6 +37,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -63,6 +64,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setBody($body)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -88,6 +90,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -112,6 +115,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -139,6 +143,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -163,6 +168,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -191,6 +197,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -215,6 +222,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -238,6 +246,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 }

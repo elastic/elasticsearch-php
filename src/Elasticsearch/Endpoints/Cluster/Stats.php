@@ -32,6 +32,7 @@ class Stats extends AbstractEndpoint
         }
 
         $this->nodeID = $node_id;
+
         return $this;
     }
 

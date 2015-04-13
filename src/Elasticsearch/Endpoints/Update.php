@@ -30,6 +30,7 @@ class Update extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

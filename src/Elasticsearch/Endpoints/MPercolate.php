@@ -42,6 +42,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
         }
 
         $this->body = $body;
+
         return $this;
     }
 

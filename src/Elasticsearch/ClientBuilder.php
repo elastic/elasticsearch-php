@@ -100,6 +100,7 @@ class ClientBuilder
         } else {
             throw new \RuntimeException('Elasticsearch-PHP requires cURL, or a custom HTTP handler.');
         }
+
         return $future ? Middleware::wrapFuture($default, $future) : $default;
     }
 
@@ -141,6 +142,7 @@ class ClientBuilder
         $processor = new IntrospectionProcessor();
         $log->pushHandler($handler);
         $log->pushProcessor($processor);
+
         return $log;
     }
 
@@ -155,6 +157,7 @@ class ClientBuilder
     public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
     {
         $this->connectionFactory = $connectionFactory;
+
         return $this;
     }
 
@@ -174,6 +177,7 @@ class ClientBuilder
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object extending AbstractConnectionPool");
         }
+
         return $this;
     }
 
@@ -184,6 +188,7 @@ class ClientBuilder
     public function setEndpoint($endpoint)
     {
         $this->endpoint = $endpoint;
+
         return $this;
     }
 
@@ -194,6 +199,7 @@ class ClientBuilder
     public function setTransport($transport)
     {
         $this->transport = $transport;
+
         return $this;
     }
 
@@ -204,6 +210,7 @@ class ClientBuilder
     public function setHandler($handler)
     {
         $this->handler = $handler;
+
         return $this;
     }
 
@@ -214,6 +221,7 @@ class ClientBuilder
     public function setLogger($logger)
     {
         $this->logger = $logger;
+
         return $this;
     }
 
@@ -224,6 +232,7 @@ class ClientBuilder
     public function setTracer($tracer)
     {
         $this->tracer = $tracer;
+
         return $this;
     }
 
@@ -235,6 +244,7 @@ class ClientBuilder
     public function setSerializer($serializer)
     {
         $this->parseStringOrObject($serializer, $this->serializer, 'SerializerInterface');
+
         return $this;
     }
 
@@ -245,6 +255,7 @@ class ClientBuilder
     public function setHosts($hosts)
     {
         $this->hosts = $hosts;
+
         return $this;
     }
 
@@ -255,6 +266,7 @@ class ClientBuilder
     public function setRetries($retries)
     {
         $this->retries = $retries;
+
         return $this;
     }
 
@@ -266,6 +278,7 @@ class ClientBuilder
     public function setSelector($selector)
     {
         $this->parseStringOrObject($selector, $this->selector, 'SelectorInterface');
+
         return $this;
     }
 
@@ -276,6 +289,7 @@ class ClientBuilder
     public function setSniffOnStart($sniffOnStart)
     {
         $this->sniffOnStart = $sniffOnStart;
+
         return $this;
     }
 
@@ -287,6 +301,7 @@ class ClientBuilder
     public function setSSLCert($cert, $password = null)
     {
         $this->sslCert = [$cert, $password];
+
         return $this;
     }
 
@@ -298,6 +313,7 @@ class ClientBuilder
     public function setSSLKey($key, $password = null)
     {
         $this->sslKey = [$key, $password];
+
         return $this;
     }
 
@@ -308,6 +324,7 @@ class ClientBuilder
     public function setSSLVerification($value = true)
     {
         $this->sslVerification = $value;
+
         return $this;
     }
 
@@ -511,6 +528,7 @@ class ClientBuilder
         if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
             $host = 'http://' . $host;
         }
+
         return $host;
     }
 }

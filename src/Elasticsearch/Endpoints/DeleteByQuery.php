@@ -30,6 +30,7 @@ class DeleteByQuery extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

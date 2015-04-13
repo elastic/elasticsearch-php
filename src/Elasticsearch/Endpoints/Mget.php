@@ -30,6 +30,7 @@ class Mget extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -82,6 +83,7 @@ class Mget extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for MGet');
         }
+
         return $this->body;
     }
 

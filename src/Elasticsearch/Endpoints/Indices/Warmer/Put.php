@@ -35,6 +35,7 @@ class Put extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -52,6 +53,7 @@ class Put extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
 
@@ -107,6 +109,7 @@ class Put extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Put Warmer');
         }
+
         return $this->body;
     }
 

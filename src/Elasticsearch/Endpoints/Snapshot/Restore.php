@@ -39,6 +39,7 @@ class Restore extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -56,6 +57,7 @@ class Restore extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -72,6 +74,7 @@ class Restore extends AbstractEndpoint
         }
 
         $this->snapshot = $snapshot;
+
         return $this;
     }
 

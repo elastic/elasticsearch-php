@@ -69,6 +69,7 @@ function processURLPaths($data)
             if ($a['count'] == $b['count']) {
                 return 0;
             }
+
             return ($a['count'] > $b['count']) ? -1 : 1;
         });
 
@@ -82,6 +83,7 @@ function getDefaultPath($path)
     } else {
         $final = str_replace('}', '', $path['path']);
         $final = str_replace('{', '$', $final);
+
         return $final;
     }
 }

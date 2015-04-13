@@ -36,6 +36,7 @@ class State extends AbstractEndpoint
         }
 
         $this->metric = $metric;
+
         return $this;
     }
 

@@ -32,6 +32,7 @@ class Get extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 

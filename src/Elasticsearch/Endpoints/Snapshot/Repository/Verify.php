@@ -33,6 +33,7 @@ class Verify extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 

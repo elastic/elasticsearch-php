@@ -32,6 +32,7 @@ class Get extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
 

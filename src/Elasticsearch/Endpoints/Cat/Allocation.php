@@ -32,6 +32,7 @@ class Allocation extends AbstractEndpoint
         }
 
         $this->node_id = $node_id;
+
         return $this;
     }
 

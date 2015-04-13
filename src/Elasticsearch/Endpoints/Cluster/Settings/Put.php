@@ -31,6 +31,7 @@ class Put extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

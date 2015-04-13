@@ -30,6 +30,7 @@ class Explain extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

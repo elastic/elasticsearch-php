@@ -38,6 +38,7 @@ class Stats extends AbstractNodesEndpoint
         }
 
         $this->metric = $metric;
+
         return $this;
     }
 
@@ -58,6 +59,7 @@ class Stats extends AbstractNodesEndpoint
         }
 
         $this->indexMetric = $indexMetric;
+
         return $this;
     }
 

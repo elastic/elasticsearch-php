@@ -30,6 +30,7 @@ class Search extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
 

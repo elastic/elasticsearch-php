@@ -31,6 +31,7 @@ class Fielddata extends AbstractEndpoint
         }
 
         $this->fields = $fields;
+
         return $this;
     }
 

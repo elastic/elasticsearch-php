@@ -32,6 +32,7 @@ class Put extends AbstractEndpoint
         }
 
         $this->lang = $lang;
+
         return $this;
     }
 
@@ -48,6 +49,7 @@ class Put extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
 

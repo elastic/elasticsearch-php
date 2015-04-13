@@ -134,6 +134,7 @@ class Transport
     {
         if ($this->retryAttempts < $this->retries) {
             $this->retryAttempts += 1;
+
             return true;
         }
 

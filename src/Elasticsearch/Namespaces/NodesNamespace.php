@@ -53,6 +53,7 @@ class NodesNamespace extends AbstractNamespace
                  ->setIndexMetric($index_metric)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -80,6 +81,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -107,6 +109,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -132,6 +135,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 }

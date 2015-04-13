@@ -42,6 +42,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -70,6 +71,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -101,6 +103,7 @@ class ClusterNamespace extends AbstractNamespace
                  ->setIndex($index)
                  ->setMetric($metric);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -124,6 +127,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -149,6 +153,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -167,6 +172,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Settings\Get');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -188,6 +194,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\PendingTasks');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 }

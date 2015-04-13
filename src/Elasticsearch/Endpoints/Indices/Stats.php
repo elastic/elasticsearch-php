@@ -36,6 +36,7 @@ class Stats extends AbstractEndpoint
         }
 
         $this->metric = $metric;
+
         return $this;
     }
 

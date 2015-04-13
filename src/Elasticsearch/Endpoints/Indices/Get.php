@@ -52,6 +52,7 @@ class Get extends AbstractEndpoint
         }
 
         $this->feature = $feature;
+
         return $this;
     }
 

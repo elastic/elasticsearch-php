@@ -32,6 +32,7 @@ class ClearScroll extends AbstractEndpoint
         }
 
         $this->scroll_id = $scroll_id;
+
         return $this;
     }
 

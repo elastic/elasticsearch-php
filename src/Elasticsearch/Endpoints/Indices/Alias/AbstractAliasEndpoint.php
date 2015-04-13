@@ -28,6 +28,7 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
             throw new InvalidArgumentException('Name must be a string');
         }
         $this->name = urlencode($name);
+
         return $this;
     }
 }

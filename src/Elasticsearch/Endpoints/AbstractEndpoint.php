@@ -97,6 +97,7 @@ abstract class AbstractEndpoint
         $params = $this->convertCustom($params);
         $this->extractOptions($params);
         $this->params = $this->convertArraysToStrings($params);
+
         return $this;
     }
 
@@ -118,6 +119,7 @@ abstract class AbstractEndpoint
         }
 
         $this->index = urlencode($index);
+
         return $this;
     }
 
@@ -139,6 +141,7 @@ abstract class AbstractEndpoint
         }
 
         $this->type = urlencode($type);
+
         return $this;
     }
 
@@ -155,6 +158,7 @@ abstract class AbstractEndpoint
         }
 
         $this->id = urlencode($docID);
+
         return $this;
     }
 
@@ -288,6 +292,7 @@ abstract class AbstractEndpoint
             }
             unset($params['custom']);
         }
+
         return $params;
     }
 
@@ -312,6 +317,7 @@ abstract class AbstractEndpoint
                 return true;
             }
         }
+
         return false;
     }
 }

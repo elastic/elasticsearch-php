@@ -185,6 +185,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         YamlRunnerTest::recursiveSort($files);
+
         return $files;
     }
 
@@ -195,6 +196,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 YamlRunnerTest::recursiveSort($value);
             }
         }
+
         return sort($array);
     }
 
@@ -547,6 +549,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                             if ($key == 'setup') {
                                 throw new SetupSkipException();
                             }
+
                             return;
                         }
                     } elseif (isset($settings['features']) === true) {
@@ -555,6 +558,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                         if (array_search($feature, $whitelist) === false) {
                             echo "Unsupported optional feature: $feature\n";
+
                             return;
                         }
                     }

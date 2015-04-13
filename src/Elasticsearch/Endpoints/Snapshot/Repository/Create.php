@@ -35,6 +35,7 @@ class Create extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -52,6 +53,7 @@ class Create extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -99,6 +101,7 @@ class Create extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Create Repository');
         }
+
         return $this->body;
     }
 

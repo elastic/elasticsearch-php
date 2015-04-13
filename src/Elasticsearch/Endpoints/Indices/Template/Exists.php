@@ -33,6 +33,7 @@ class Exists extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
 

@@ -32,6 +32,7 @@ class Aliases extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
 

@@ -30,6 +30,7 @@ class Percolate extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

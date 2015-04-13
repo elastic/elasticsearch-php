@@ -225,6 +225,7 @@ class Connection implements ConnectionInterface
                     $response['body'],
                     $response['transfer_stats']['total_time']
                 );
+
                 return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
 
             });
@@ -357,15 +358,18 @@ class Connection implements ConnectionInterface
             $response = $response->wait();
         } catch (TransportException $exception) {
             $this->markDead();
+
             return false;
         }
 
 
         if ($response['status'] === 200) {
             $this->markAlive();
+
             return true;
         } else {
             $this->markDead();
+
             return false;
         }
     }
@@ -381,6 +385,7 @@ class Connection implements ConnectionInterface
                 'never_retry' => true
             ]
         ];
+
         return $this->performRequest('GET', '/_nodes/_all/clear', null, null, $options);
     }
 

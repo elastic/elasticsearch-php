@@ -27,6 +27,7 @@ class Index extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -37,6 +38,7 @@ class Index extends AbstractEndpoint
     public function createIfAbsent()
     {
         $this->createIfAbsent = true;
+
         return $this;
     }
 
@@ -128,6 +130,7 @@ class Index extends AbstractEndpoint
             return '/_create';
         } else {
             $this->params['op_type'] = 'create';
+
             return "";
         }
     }

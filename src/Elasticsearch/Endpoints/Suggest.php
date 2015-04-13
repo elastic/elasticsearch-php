@@ -30,6 +30,7 @@ class Suggest extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class Suggest extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Suggest');
         }
+
         return $this->body;
     }
 

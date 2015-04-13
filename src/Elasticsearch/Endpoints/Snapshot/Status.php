@@ -36,6 +36,7 @@ class Status extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -52,6 +53,7 @@ class Status extends AbstractEndpoint
         }
 
         $this->snapshot = $snapshot;
+
         return $this;
     }
 

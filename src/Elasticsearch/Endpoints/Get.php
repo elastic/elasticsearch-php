@@ -29,6 +29,7 @@ class Get extends AbstractEndpoint
     public function returnOnlySource()
     {
         $this->returnOnlySource = true;
+
         return $this;
     }
 
@@ -38,6 +39,7 @@ class Get extends AbstractEndpoint
     public function checkOnlyExistance()
     {
         $this->checkOnlyExistance = true;
+
         return $this;
     }
 

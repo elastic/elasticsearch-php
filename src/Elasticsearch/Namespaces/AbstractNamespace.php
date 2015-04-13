@@ -50,6 +50,7 @@ abstract class AbstractNamespace
         if (isset($params[$arg]) === true) {
             $val = $params[$arg];
             unset($params[$arg]);
+
             return $val;
         } else {
             return null;

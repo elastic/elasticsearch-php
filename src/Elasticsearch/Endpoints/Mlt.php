@@ -30,6 +30,7 @@ class Mlt extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 

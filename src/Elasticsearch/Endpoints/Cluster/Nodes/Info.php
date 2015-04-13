@@ -34,6 +34,7 @@ class Info extends AbstractNodesEndpoint
         }
 
         $this->metric = $metric;
+
         return $this;
     }
 

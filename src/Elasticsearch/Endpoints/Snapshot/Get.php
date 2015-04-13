@@ -37,6 +37,7 @@ class Get extends AbstractEndpoint
         }
 
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -53,6 +54,7 @@ class Get extends AbstractEndpoint
         }
 
         $this->snapshot = $snapshot;
+
         return $this;
     }
 

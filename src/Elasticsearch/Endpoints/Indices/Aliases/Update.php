@@ -31,6 +31,7 @@ class Update extends AbstractEndpoint
 
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -69,6 +70,7 @@ class Update extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Update Aliases');
         }
+
         return $this->body;
     }
 

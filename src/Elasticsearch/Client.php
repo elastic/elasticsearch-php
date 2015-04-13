@@ -8,7 +8,6 @@ use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
-use Elasticsearch\Namespaces\NamespaceFutureUtil;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
@@ -25,8 +24,6 @@ use Elasticsearch\Namespaces\BooleanRequestWrapper;
  */
 class Client
 {
-    use NamespaceFutureUtil;
-
     /**
      * @var Transport
      */

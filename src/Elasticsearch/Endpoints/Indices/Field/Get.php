@@ -20,7 +20,6 @@ class Get extends AbstractEndpoint
     // A comma-separated list of fields
     private $field;
 
-
     /**
      * @param $field
      *
@@ -36,7 +35,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -67,7 +65,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -81,7 +78,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

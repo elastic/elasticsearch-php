@@ -42,7 +42,6 @@ class NodesNamespace extends AbstractNamespace
 
         $index_metric = $this->extractArgument($params, 'index_metric');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -100,7 +99,6 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -125,7 +123,6 @@ class NodesNamespace extends AbstractNamespace
     public function shutdown($params = array())
     {
         $nodeID = $this->extractArgument($params, 'node_id');
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

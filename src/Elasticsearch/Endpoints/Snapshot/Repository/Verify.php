@@ -20,7 +20,6 @@ class Verify extends AbstractEndpoint
     // A comma-separated list of repository names
     private $repository;
 
-
     /**
      * @param $repository
      *
@@ -36,7 +35,6 @@ class Verify extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -56,7 +54,6 @@ class Verify extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -67,7 +64,6 @@ class Verify extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

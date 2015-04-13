@@ -23,7 +23,6 @@ use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
 use Psr\Log\LoggerInterface;
 
-
 /**
  * Class AbstractConnection
  *
@@ -80,7 +79,6 @@ class Connection implements ConnectionInterface
 
     private $lastRequest = array();
 
-
     /**
      * Constructor
      *
@@ -119,7 +117,6 @@ class Connection implements ConnectionInterface
 
         $this->handler = $this->wrapHandler($handler, $log, $trace);
     }
-
 
     /**
      * @param $method
@@ -166,7 +163,6 @@ class Connection implements ConnectionInterface
     {
         return $this->lastRequest;
     }
-
 
     private function wrapHandler(callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
     {
@@ -234,8 +230,6 @@ class Connection implements ConnectionInterface
         };
     }
 
-
-
     /**
      * @param string $uri
      * @param array $params
@@ -294,7 +288,6 @@ class Connection implements ConnectionInterface
         );
     }
 
-
     /**
      * Log a a failed request
      *
@@ -340,7 +333,6 @@ class Connection implements ConnectionInterface
         );
     }
 
-
     /**
      * @return bool
      */
@@ -361,7 +353,6 @@ class Connection implements ConnectionInterface
 
             return false;
         }
-
 
         if ($response['status'] === 200) {
             $this->markAlive();
@@ -389,7 +380,6 @@ class Connection implements ConnectionInterface
         return $this->performRequest('GET', '/_nodes/_all/clear', null, null, $options);
     }
 
-
     /**
      * @return bool
      */
@@ -397,7 +387,6 @@ class Connection implements ConnectionInterface
     {
         return $this->isAlive;
     }
-
 
     public function markAlive()
     {
@@ -413,7 +402,6 @@ class Connection implements ConnectionInterface
         $this->lastPing = time();
     }
 
-
     /**
      * @return int
      */
@@ -421,7 +409,6 @@ class Connection implements ConnectionInterface
     {
         return $this->lastPing;
     }
-
 
     /**
      * @return int
@@ -431,7 +418,6 @@ class Connection implements ConnectionInterface
         return $this->failedPings;
     }
 
-
     /**
      * @return string
      */
@@ -439,7 +425,6 @@ class Connection implements ConnectionInterface
     {
         return $this->host;
     }
-
 
     /**
      * @param $curlErrorNumber
@@ -481,7 +466,6 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
-
     /**
      * Construct a string cURL command
      *
@@ -508,7 +492,6 @@ class Connection implements ConnectionInterface
 
         return $curlCommand;
     }
-
 
     /**
      * @param $request
@@ -553,7 +536,6 @@ class Connection implements ConnectionInterface
 
         throw $exception;
     }
-
 
     /**
      * @param $request

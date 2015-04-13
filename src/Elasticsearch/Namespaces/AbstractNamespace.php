@@ -21,7 +21,6 @@ abstract class AbstractNamespace
     /** @var  callback */
     protected $endpoints;
 
-
     /**
      * Abstract constructor
      *
@@ -33,7 +32,6 @@ abstract class AbstractNamespace
         $this->transport = $transport;
         $this->endpoints = $endpoints;
     }
-
 
     /**
      * @param array $params

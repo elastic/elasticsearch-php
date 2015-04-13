@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 /**
  * Class Hotthreads
  *
@@ -30,7 +29,6 @@ class HotThreads extends AbstractNodesEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -43,7 +41,6 @@ class HotThreads extends AbstractNodesEndpoint
             'type',
         );
     }
-
 
     /**
      * @return string

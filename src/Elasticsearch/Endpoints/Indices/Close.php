@@ -38,7 +38,6 @@ class Close extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -52,7 +51,6 @@ class Close extends AbstractEndpoint
             'expand_wildcards',
         );
     }
-
 
     /**
      * @return string

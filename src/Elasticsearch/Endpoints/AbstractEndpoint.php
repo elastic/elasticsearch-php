@@ -37,18 +37,15 @@ abstract class AbstractEndpoint
     /** @var array  */
     private $options = [];
 
-
     /**
      * @return string[]
      */
     abstract protected function getParamWhitelist();
 
-
     /**
      * @return string
      */
     abstract protected function getURI();
-
 
     /**
      * @return string
@@ -62,7 +59,6 @@ abstract class AbstractEndpoint
     {
         $this->transport = $transport;
     }
-
 
     /**
      * @throws \Exception
@@ -101,7 +97,6 @@ abstract class AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @param string $index
      *
@@ -123,7 +118,6 @@ abstract class AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @param string $type
      *
@@ -144,7 +138,6 @@ abstract class AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @param int|string $docID
@@ -175,13 +168,11 @@ abstract class AbstractEndpoint
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
 
-
             return $result;
         } elseif ($async === true || $async === 'lazy') {
             return $result;
         }
     }
-
 
     /**
      * @return array
@@ -190,7 +181,6 @@ abstract class AbstractEndpoint
     {
         return $this->body;
     }
-
 
     /**
      * @param string $endpoint
@@ -208,7 +198,6 @@ abstract class AbstractEndpoint
         return '/' . implode('/', $uri);
     }
 
-
     /**
      * @return string
      */
@@ -221,7 +210,6 @@ abstract class AbstractEndpoint
         }
     }
 
-
     /**
      * @return string
      */
@@ -233,8 +221,6 @@ abstract class AbstractEndpoint
             return '';
         }
     }
-
-
 
     /**
      * @param array $params
@@ -259,7 +245,6 @@ abstract class AbstractEndpoint
             }
         }
     }
-
 
     /**
      * @param $params       Note: this is passed by-reference!
@@ -295,7 +280,6 @@ abstract class AbstractEndpoint
 
         return $params;
     }
-
 
     private function convertArraysToStrings($params)
     {

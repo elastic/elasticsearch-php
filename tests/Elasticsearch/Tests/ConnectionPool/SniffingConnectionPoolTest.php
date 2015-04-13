@@ -112,7 +112,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mockNewConnection, $retConnection);
     }
 
-
     public function testAddTenNodesThenGetConnection()
     {
         $connections = array();
@@ -128,7 +127,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
             $connections[] = $mockConnection;
         }
-
 
         $selector = m::mock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
                     ->shouldReceive('select')
@@ -171,7 +169,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connections[] = $mockConnection;
 
-
         $selector = m::mock('\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector')
                     ->shouldReceive('select')
                     ->andReturnValues($connections)
@@ -186,7 +183,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($connections[9], $retConnection);
     }
-
 
     /**
      * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
@@ -311,7 +307,6 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $retConnection = $connectionPool->nextConnection();
         $this->assertEquals($mockConnection, $retConnection);
     }
-
 
     public function testTen_TimeoutNine_SniffTenth_AddTwoAlive()
     {

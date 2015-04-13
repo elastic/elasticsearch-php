@@ -23,10 +23,8 @@ class Get extends AbstractEndpoint
     {
         $uri   = "/_cluster/settings";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -39,7 +37,6 @@ class Get extends AbstractEndpoint
             'timeout',
         );
     }
-
 
     /**
      * @return string

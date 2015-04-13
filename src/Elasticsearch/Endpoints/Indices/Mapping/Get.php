@@ -36,7 +36,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -50,7 +49,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

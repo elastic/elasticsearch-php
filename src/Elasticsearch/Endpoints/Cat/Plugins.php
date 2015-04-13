@@ -23,10 +23,8 @@ class Plugins extends AbstractEndpoint
     {
         $uri   = "/_cat/plugins";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -41,7 +39,6 @@ class Plugins extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

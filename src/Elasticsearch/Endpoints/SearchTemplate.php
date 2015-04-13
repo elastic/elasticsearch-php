@@ -34,8 +34,6 @@ class SearchTemplate extends AbstractEndpoint
         return $this;
     }
 
-
-
     /**
      * @return string
      */
@@ -56,7 +54,6 @@ class SearchTemplate extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -64,7 +61,6 @@ class SearchTemplate extends AbstractEndpoint
     {
         return array();
     }
-
 
     /**
      * @return string

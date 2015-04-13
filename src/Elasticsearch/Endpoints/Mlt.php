@@ -28,13 +28,10 @@ class Mlt extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -69,7 +66,6 @@ class Mlt extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -97,7 +93,6 @@ class Mlt extends AbstractEndpoint
             'stop_words',
         );
     }
-
 
     /**
      * @return string

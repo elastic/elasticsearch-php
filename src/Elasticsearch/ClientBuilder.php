@@ -70,7 +70,6 @@ class ClientBuilder
     /** @var null|bool|string */
     private $sslVerification = null;
 
-
     /**
      * @return ClientBuilder
      */
@@ -78,7 +77,6 @@ class ClientBuilder
     {
         return new ClientBuilder();
     }
-
 
     /**
      * @param array $singleParams
@@ -145,10 +143,6 @@ class ClientBuilder
 
         return $log;
     }
-
-
-
-
 
     /**
      * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
@@ -328,9 +322,6 @@ class ClientBuilder
         return $this;
     }
 
-
-
-
     /**
      * @return Client
      */
@@ -368,8 +359,6 @@ class ClientBuilder
             $this->handler = $sslHandler($this->handler, $sslOptions);
         }
 
-
-
         if (is_null($this->serializer)) {
             $this->serializer = new SmartSerializer();
         } elseif (is_string($this->serializer)) {
@@ -385,16 +374,13 @@ class ClientBuilder
             $this->hosts = $this->getDefaultHost();
         }
 
-
         if (is_null($this->selector)) {
             $this->selector = new Selectors\RoundRobinSelector();
         } elseif (is_string($this->selector)) {
             $this->selector = new $this->selector;
         }
 
-
         $this->buildTransport();
-
 
         if (is_null($this->endpoint)) {
             $transport = $this->transport;
@@ -413,7 +399,6 @@ class ClientBuilder
         return new Client($this->transport, $this->endpoint);
     }
 
-
     private function buildLoggers()
     {
         if (is_null($this->logger)) {
@@ -424,7 +409,6 @@ class ClientBuilder
             $this->tracer = new NullLogger();
         }
     }
-
 
     private function buildTransport()
     {
@@ -453,7 +437,6 @@ class ClientBuilder
         }
     }
 
-
     private function parseStringOrObject($arg, &$destination, $interface)
     {
         if (is_string($arg)) {
@@ -472,7 +455,6 @@ class ClientBuilder
     {
         return ['localhost:9200'];
     }
-
 
     /**
      * @param array $hosts
@@ -516,7 +498,6 @@ class ClientBuilder
 
         return $parts;
     }
-
 
     /**
      * @param string $host

@@ -29,13 +29,10 @@ class Create extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -58,7 +55,6 @@ class Create extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -69,7 +65,6 @@ class Create extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return string

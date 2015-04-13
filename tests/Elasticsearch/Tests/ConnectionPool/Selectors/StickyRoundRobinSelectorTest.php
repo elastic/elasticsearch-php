@@ -22,7 +22,6 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-
     public function testTenConnections()
     {
         $roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
@@ -34,7 +33,6 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
         foreach (range(0, 9) as $index) {
             $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection');
         }
-
 
         foreach (range(0, 15) as $index) {
             $retConnection = $roundRobin->select($mockConnections);
@@ -57,7 +55,6 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
         foreach (range(0, 8) as $index) {
             $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection');
         }
-
 
         foreach (range(0, 15) as $index) {
             $retConnection = $roundRobin->select($mockConnections);

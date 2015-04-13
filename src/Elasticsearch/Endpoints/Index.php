@@ -25,12 +25,10 @@ class Index extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
 
     /**
      * @return $this
@@ -41,7 +39,6 @@ class Index extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -109,7 +106,6 @@ class Index extends AbstractEndpoint
             return 'POST';
         }
     }
-
 
     /**
      * @return array

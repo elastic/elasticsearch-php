@@ -20,7 +20,6 @@ class Get extends AbstractEndpoint
     // The name of the template
     private $name;
 
-
     /**
      * @param $name
      *
@@ -36,7 +35,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -54,7 +52,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -66,7 +63,6 @@ class Get extends AbstractEndpoint
             'master_timeout'
         );
     }
-
 
     /**
      * @return string

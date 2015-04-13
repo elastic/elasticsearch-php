@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-
 /**
  * Class Search
  *
@@ -35,7 +34,6 @@ class SearchShards extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -50,7 +48,6 @@ class SearchShards extends AbstractEndpoint
             'expand_wildcards'
         );
     }
-
 
     /**
      * @return string

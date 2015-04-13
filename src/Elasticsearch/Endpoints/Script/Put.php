@@ -36,7 +36,6 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @param array $body
      *
@@ -52,7 +51,6 @@ class Put extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -77,7 +75,6 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -89,7 +86,6 @@ class Put extends AbstractEndpoint
             'op_type'
         );
     }
-
 
     /**
      * @return string

@@ -29,13 +29,10 @@ class Put extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -44,10 +41,8 @@ class Put extends AbstractEndpoint
     {
         $uri   = "/_cluster/settings";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -58,7 +53,6 @@ class Put extends AbstractEndpoint
             'flat_settings',
         );
     }
-
 
     /**
      * @return string

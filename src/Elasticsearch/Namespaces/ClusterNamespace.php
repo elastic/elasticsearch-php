@@ -32,8 +32,6 @@ class ClusterNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -45,7 +43,6 @@ class ClusterNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
@@ -60,8 +57,6 @@ class ClusterNamespace extends AbstractNamespace
     public function reroute($params = array())
     {
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -131,7 +126,6 @@ class ClusterNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['body'] = ()
      *
@@ -142,8 +136,6 @@ class ClusterNamespace extends AbstractNamespace
     public function putSettings($params = array())
     {
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -156,7 +148,6 @@ class ClusterNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * @param array $params
@@ -175,7 +166,6 @@ class ClusterNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)

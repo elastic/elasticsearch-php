@@ -21,7 +21,6 @@ class Scroll extends AbstractEndpoint
 
     private $clear = false;
 
-
     /**
      * @param array $body
      *
@@ -34,12 +33,10 @@ class Scroll extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
 
     public function setClearScroll($clear)
     {
@@ -47,7 +44,6 @@ class Scroll extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @param $scroll_id
@@ -65,7 +61,6 @@ class Scroll extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -81,7 +76,6 @@ class Scroll extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -92,7 +86,6 @@ class Scroll extends AbstractEndpoint
             'scroll_id',
         );
     }
-
 
     /**
      * @return string

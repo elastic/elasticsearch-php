@@ -29,13 +29,10 @@ class Update extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -44,10 +41,8 @@ class Update extends AbstractEndpoint
     {
         $uri   = "/_aliases";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -59,7 +54,6 @@ class Update extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return array
@@ -73,7 +67,6 @@ class Update extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

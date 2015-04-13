@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 /**
  * Class Shutdown
  *
@@ -30,7 +29,6 @@ class Shutdown extends AbstractNodesEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -41,7 +39,6 @@ class Shutdown extends AbstractNodesEndpoint
             'exit',
         );
     }
-
 
     /**
      * @return string

@@ -34,8 +34,6 @@ class Search extends AbstractEndpoint
         return $this;
     }
 
-
-
     /**
      * @return string
      */
@@ -55,7 +53,6 @@ class Search extends AbstractEndpoint
 
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -96,7 +93,6 @@ class Search extends AbstractEndpoint
             'version',
         );
     }
-
 
     /**
      * @return string

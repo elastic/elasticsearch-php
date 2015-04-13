@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 /**
  * Class Info
  *
@@ -38,7 +37,6 @@ class Info extends AbstractNodesEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -59,7 +57,6 @@ class Info extends AbstractNodesEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -70,7 +67,6 @@ class Info extends AbstractNodesEndpoint
             'human',
         );
     }
-
 
     /**
      * @return string

@@ -23,10 +23,8 @@ class Nodes extends AbstractEndpoint
     {
         $uri   = "/_cat/nodes";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -41,7 +39,6 @@ class Nodes extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

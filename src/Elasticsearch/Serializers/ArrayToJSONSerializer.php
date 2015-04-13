@@ -34,7 +34,6 @@ class ArrayToJSONSerializer implements SerializerInterface
         }
     }
 
-
     /**
      * Deserialize JSON into an assoc array
      *

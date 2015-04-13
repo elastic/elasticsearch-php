@@ -17,7 +17,6 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
     }
 
-
     /**
      * @param bool $force
      *

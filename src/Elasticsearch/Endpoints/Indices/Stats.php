@@ -19,7 +19,6 @@ class Stats extends AbstractEndpoint
     // Limit the information returned the specific metrics.
     private $metric;
 
-
     /**
      * @param $metric
      *
@@ -39,7 +38,6 @@ class Stats extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @return string
@@ -61,7 +59,6 @@ class Stats extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -78,7 +75,6 @@ class Stats extends AbstractEndpoint
             'metric'
         );
     }
-
 
     /**
      * @return string

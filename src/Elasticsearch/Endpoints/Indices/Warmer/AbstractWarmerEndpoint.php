@@ -10,7 +10,6 @@ abstract class AbstractWarmerEndpoint extends AbstractEndpoint
     /** @var  string */
     protected $name;
 
-
     /**
      * @param $name
      *
@@ -22,7 +21,6 @@ abstract class AbstractWarmerEndpoint extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @return string

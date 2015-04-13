@@ -27,7 +27,6 @@ class TermVector extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string

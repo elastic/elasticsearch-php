@@ -28,13 +28,10 @@ class Count extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -56,7 +53,6 @@ class Count extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -72,7 +68,6 @@ class Count extends AbstractEndpoint
             'source',
         );
     }
-
 
     /**
      * @return string

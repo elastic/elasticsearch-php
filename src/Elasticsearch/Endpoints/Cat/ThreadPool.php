@@ -26,7 +26,6 @@ class ThreadPool extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -41,7 +40,6 @@ class ThreadPool extends AbstractEndpoint
             'full_id',
         );
     }
-
 
     /**
      * @return string

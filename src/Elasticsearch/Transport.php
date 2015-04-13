@@ -24,7 +24,6 @@ class Transport
      */
     public $connectionPool;
 
-
     /**
      * @var LoggerInterface
      */
@@ -38,7 +37,6 @@ class Transport
 
     /** @var int  */
     public $retries;
-
 
     /**
      * Transport class is responsible for dispatching requests to the
@@ -72,7 +70,6 @@ class Transport
     {
         return $this->connectionPool->nextConnection();
     }
-
 
     /**
      * Perform a request to the Cluster
@@ -124,7 +121,6 @@ class Transport
         return $future;
     }
 
-
     /**
      * @param $request
      *
@@ -140,7 +136,6 @@ class Transport
 
         return false;
     }
-
 
     /**
      * Returns the last used connection so that it may be inspected.  Mainly

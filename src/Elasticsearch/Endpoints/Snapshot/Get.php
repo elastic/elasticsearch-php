@@ -20,10 +20,8 @@ class Get extends AbstractEndpoint
     // A comma-separated list of repository names
     private $repository;
 
-
     // A comma-separated list of snapshot names
     private $snapshot;
-
 
     /**
      * @param $repository
@@ -41,7 +39,6 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @param $snapshot
      *
@@ -57,7 +54,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -86,7 +82,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -96,7 +91,6 @@ class Get extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return string

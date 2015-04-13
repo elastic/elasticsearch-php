@@ -19,7 +19,6 @@ class Get extends AbstractEndpoint
     // The name of the settings that should be included
     private $name;
 
-
     /**
      * @param $name
      *
@@ -35,7 +34,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @return string
@@ -57,7 +55,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -71,7 +68,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

@@ -19,7 +19,6 @@ class Get extends AbstractEndpoint
     // A comma-separated list of repository names
     private $repository;
 
-
     /**
      * @param $repository
      *
@@ -36,7 +35,6 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -52,7 +50,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -63,7 +60,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

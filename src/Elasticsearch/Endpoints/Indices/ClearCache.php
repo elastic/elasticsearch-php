@@ -31,7 +31,6 @@ class ClearCache extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -53,7 +52,6 @@ class ClearCache extends AbstractEndpoint
             'recycler',
         );
     }
-
 
     /**
      * @return string

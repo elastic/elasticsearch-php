@@ -13,7 +13,6 @@ class SequentialIndexingEvent extends AthleticEvent
     /** @var  Client */
     private $client;
 
-
     private $document;
     private $largeDocument;
     private $mediumDocument;
@@ -54,7 +53,6 @@ class SequentialIndexingEvent extends AthleticEvent
         $indexParams['index']  = 'benchmarking_index';
         $this->setupClient->indices()->delete($indexParams);
     }
-
 
     /**
      * @iterations 1000
@@ -112,7 +110,6 @@ class SequentialIndexingEvent extends AthleticEvent
         $response = $this->client->index($asyncDoc);
         $response = $response['body']['created'];
     }
-
 
     /**
      * @iterations 1000

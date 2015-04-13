@@ -23,10 +23,8 @@ class Help extends AbstractEndpoint
     {
         $uri   = "/_cat";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -37,7 +35,6 @@ class Help extends AbstractEndpoint
             'help',
         );
     }
-
 
     /**
      * @return string

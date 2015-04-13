@@ -23,7 +23,6 @@ class Query extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;

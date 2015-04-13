@@ -29,13 +29,10 @@ class Reroute extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -44,10 +41,8 @@ class Reroute extends AbstractEndpoint
     {
         $uri   = "/_cluster/reroute";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -63,7 +58,6 @@ class Reroute extends AbstractEndpoint
             'metric'
         );
     }
-
 
     /**
      * @return string

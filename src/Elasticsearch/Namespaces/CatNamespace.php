@@ -353,7 +353,6 @@ class CatNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node

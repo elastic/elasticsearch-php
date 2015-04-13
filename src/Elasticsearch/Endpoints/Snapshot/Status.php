@@ -23,7 +23,6 @@ class Status extends AbstractEndpoint
     // A comma-separated list of snapshot names
     private $snapshot;
 
-
     /**
      * @param $repository
      *
@@ -40,7 +39,6 @@ class Status extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @param $snapshot
      *
@@ -56,7 +54,6 @@ class Status extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -83,7 +80,6 @@ class Status extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -93,7 +89,6 @@ class Status extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return string

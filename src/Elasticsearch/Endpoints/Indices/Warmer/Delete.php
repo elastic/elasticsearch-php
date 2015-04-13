@@ -20,7 +20,6 @@ class Delete extends AbstractEndpoint
     // A comma-separated list of warmer names to delete (supports wildcards); use `_all` to delete all warmers in the specified indices. You must specify a name either in the uri or in the parameters.
     private $name;
 
-
     /**
      * @param $name
      *
@@ -36,7 +35,6 @@ class Delete extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -65,7 +63,6 @@ class Delete extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -76,7 +73,6 @@ class Delete extends AbstractEndpoint
             'name',
         );
     }
-
 
     /**
      * @return string

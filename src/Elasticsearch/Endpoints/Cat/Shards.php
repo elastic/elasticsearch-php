@@ -31,7 +31,6 @@ class Shards extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -45,7 +44,6 @@ class Shards extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

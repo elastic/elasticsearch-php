@@ -18,7 +18,6 @@ class Fielddata extends AbstractEndpoint
 {
     private $fields;
 
-
     /**
      * @param $fields
      *
@@ -35,7 +34,6 @@ class Fielddata extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -51,7 +49,6 @@ class Fielddata extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -65,7 +62,6 @@ class Fielddata extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

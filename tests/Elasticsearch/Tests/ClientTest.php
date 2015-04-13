@@ -32,7 +32,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->info();
     }
 
-
     /**
      * @expectedException Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
      */
@@ -46,7 +45,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
     }
 
-
     /**
      * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
@@ -55,7 +53,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80'])->build();
         $response = $client->info();
     }
-
 
     /**
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
@@ -74,11 +71,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
     }
 
-
     public function testCustomQueryParams()
     {
         $params = array();
-
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 

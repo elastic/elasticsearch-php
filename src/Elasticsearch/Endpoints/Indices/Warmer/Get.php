@@ -20,7 +20,6 @@ class Get extends AbstractEndpoint
     // The name of the warmer (supports wildcards); leave empty to get all warmers
     private $name;
 
-
     /**
      * @param $name
      *
@@ -36,7 +35,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -64,7 +62,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -77,7 +74,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

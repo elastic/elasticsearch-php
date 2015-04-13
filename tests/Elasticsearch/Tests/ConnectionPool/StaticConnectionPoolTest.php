@@ -51,7 +51,6 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mockConnection, $retConnection);
     }
 
-
     public function testAddMultipleHostsThenGetFirst()
     {
         $connections = array();
@@ -83,7 +82,6 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($connections[0], $retConnection);
     }
-
 
     /**
      * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
@@ -119,7 +117,6 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connectionPool->nextConnection();
     }
-
 
     public function testAllExceptLastHostFailPingRevivesInSkip()
     {

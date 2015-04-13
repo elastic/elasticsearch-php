@@ -28,13 +28,10 @@ class Mget extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -56,7 +53,6 @@ class Mget extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -73,7 +69,6 @@ class Mget extends AbstractEndpoint
         );
     }
 
-
     /**
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -86,7 +81,6 @@ class Mget extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

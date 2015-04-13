@@ -19,7 +19,6 @@ class State extends AbstractEndpoint
     // Limit the information returned to the specified metrics
     private $metric;
 
-
     /**
      * @param $metric
      *
@@ -40,7 +39,6 @@ class State extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -59,7 +57,6 @@ class State extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -75,7 +72,6 @@ class State extends AbstractEndpoint
             'allow_no_indices'
         );
     }
-
 
     /**
      * @return string

@@ -19,7 +19,6 @@ class Aliases extends AbstractEndpoint
     // A comma-separated list of alias names to return
     private $name;
 
-
     /**
      * @param $name
      *
@@ -36,7 +35,6 @@ class Aliases extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -52,7 +50,6 @@ class Aliases extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -66,7 +63,6 @@ class Aliases extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

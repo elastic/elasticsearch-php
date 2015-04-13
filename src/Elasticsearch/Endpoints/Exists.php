@@ -49,7 +49,6 @@ class Exists extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -63,7 +62,6 @@ class Exists extends AbstractEndpoint
             'routing',
         );
     }
-
 
     /**
      * @return string

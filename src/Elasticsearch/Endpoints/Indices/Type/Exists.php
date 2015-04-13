@@ -44,7 +44,6 @@ class Exists extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -57,7 +56,6 @@ class Exists extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

@@ -18,7 +18,6 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
         $this->scheduleCheck();
     }
 
-
     /**
      * @param bool $force
      *

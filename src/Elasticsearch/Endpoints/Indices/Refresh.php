@@ -31,7 +31,6 @@ class Refresh extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -45,7 +44,6 @@ class Refresh extends AbstractEndpoint
             'operation_threading',
         );
     }
-
 
     /**
      * @return string

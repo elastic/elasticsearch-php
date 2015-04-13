@@ -26,7 +26,6 @@ class PendingTasks extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -37,7 +36,6 @@ class PendingTasks extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return string

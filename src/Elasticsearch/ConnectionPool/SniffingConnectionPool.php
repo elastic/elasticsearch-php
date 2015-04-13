@@ -24,7 +24,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         $this->nextSniff = time() + $this->sniffingInterval;
     }
 
-
     /**
      * @param bool $force
      *
@@ -55,7 +54,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
     {
         $this->nextSniff = -1;
     }
-
 
     /**
      * @param bool $force
@@ -92,7 +90,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
     }
 
-
     /**
      * @param Connection $connection
      * @return bool
@@ -125,7 +122,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
 
         return true;
     }
-
 
     private function parseClusterState($transportSchema, $nodeInfo)
     {

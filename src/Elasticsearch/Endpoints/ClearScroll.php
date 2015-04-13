@@ -19,7 +19,6 @@ class ClearScroll extends AbstractEndpoint
     // A comma-separated list of scroll IDs to clear
     private $scroll_id;
 
-
     /**
      * @param $scroll_id
      *
@@ -35,7 +34,6 @@ class ClearScroll extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -58,7 +56,6 @@ class ClearScroll extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -67,7 +64,6 @@ class ClearScroll extends AbstractEndpoint
         return array(
         );
     }
-
 
     /**
      * @return string

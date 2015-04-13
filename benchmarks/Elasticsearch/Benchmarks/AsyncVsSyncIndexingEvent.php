@@ -13,7 +13,6 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
     /** @var  Client */
     private $client;
 
-
     private $document;
     private $largeDocument;
     private $mediumDocument;
@@ -54,7 +53,6 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
         $indexParams['index']  = 'benchmarking_index';
         $this->setupClient->indices()->delete($indexParams);
     }
-
 
     /**
      * @iterations 10
@@ -128,7 +126,6 @@ class AsyncVsSyncIndexingEvent extends AthleticEvent
 
         $responses[999]->wait();
     }
-
 
     /**
      * @iterations 10

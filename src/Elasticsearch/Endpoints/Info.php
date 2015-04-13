@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-
 /**
  * Class Info
  *
@@ -22,10 +21,8 @@ class Info extends AbstractEndpoint
     {
         $uri   = "/";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -35,7 +32,6 @@ class Info extends AbstractEndpoint
         return array(
         );
     }
-
 
     /**
      * @return string

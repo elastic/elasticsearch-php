@@ -28,7 +28,6 @@ class Msearch extends AbstractEndpoint
         parent::__construct($transport);
     }
 
-
     /**
      * @param array|string $body
      *
@@ -54,8 +53,6 @@ class Msearch extends AbstractEndpoint
         return $this;
     }
 
-
-
     /**
      * @return string
      */
@@ -76,7 +73,6 @@ class Msearch extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -86,7 +82,6 @@ class Msearch extends AbstractEndpoint
             'search_type',
         );
     }
-
 
     /**
      * @return array
@@ -100,7 +95,6 @@ class Msearch extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

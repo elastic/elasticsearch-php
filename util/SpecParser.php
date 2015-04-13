@@ -17,7 +17,6 @@ if ($handle = opendir('../vendor/elasticsearch/elasticsearch_src/rest-api-spec/a
     closedir($handle);
 }
 
-
 function processURLPaths($data)
 {
     $final = array();
@@ -164,8 +163,6 @@ function generateTemplate($path, $template)
             $namespace[count($namespace)-1] = str_replace('_', '', $namespace[count($namespace)-1]);
         }
     }
-
-
 
     $data['url']['processed'] = processURLPaths($data);
     $data['url']['default'] = getDefaultPath($data['url']['processed'][count($data['url']['processed'])-1]);

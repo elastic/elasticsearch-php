@@ -29,7 +29,6 @@ class EverythingToJSONSerializer implements SerializerInterface
         }
     }
 
-
     /**
      * Deserialize JSON into an assoc array
      *

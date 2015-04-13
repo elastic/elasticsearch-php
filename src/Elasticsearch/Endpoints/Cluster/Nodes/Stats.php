@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Nodes;
 
-
 /**
  * Class Stats
  *
@@ -17,7 +16,6 @@ class Stats extends AbstractNodesEndpoint
 {
     // Limit the information returned to the specified metrics
     private $metric;
-
 
     // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices` (or `all`) metric isn&#039;t specified.
     private $indexMetric;
@@ -42,7 +40,6 @@ class Stats extends AbstractNodesEndpoint
         return $this;
     }
 
-
     /**
      * @param $indexMetric
      *
@@ -62,7 +59,6 @@ class Stats extends AbstractNodesEndpoint
 
         return $this;
     }
-
 
     /**
      * @return string
@@ -89,7 +85,6 @@ class Stats extends AbstractNodesEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -105,7 +100,6 @@ class Stats extends AbstractNodesEndpoint
             'types',
         );
     }
-
 
     /**
      * @return string

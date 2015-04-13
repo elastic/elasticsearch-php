@@ -41,7 +41,6 @@ class SnapshotNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['timeout'] = (time) Explicit operation timeout
@@ -68,7 +67,6 @@ class SnapshotNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
@@ -94,7 +92,6 @@ class SnapshotNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['timeout'] = (time) Explicit operation timeout
@@ -118,7 +115,6 @@ class SnapshotNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -147,7 +143,6 @@ class SnapshotNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['timeout'] = (time) Explicit operation timeout
@@ -171,7 +166,6 @@ class SnapshotNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node

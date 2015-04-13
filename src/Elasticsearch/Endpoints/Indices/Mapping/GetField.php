@@ -21,7 +21,6 @@ class GetField extends AbstractEndpoint
     /** @var  string */
     private $field;
 
-
     /**
      * @param string|array $field
      *
@@ -41,7 +40,6 @@ class GetField extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException

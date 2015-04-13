@@ -14,7 +14,6 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
     /** @var null|string */
     protected $name = null;
 
-
     /**
      * @param $name
      *

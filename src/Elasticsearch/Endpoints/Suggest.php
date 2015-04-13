@@ -28,13 +28,10 @@ class Suggest extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -51,7 +48,6 @@ class Suggest extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -67,7 +63,6 @@ class Suggest extends AbstractEndpoint
         );
     }
 
-
     /**
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -80,7 +75,6 @@ class Suggest extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

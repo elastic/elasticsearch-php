@@ -19,7 +19,6 @@ class Allocation extends AbstractEndpoint
     // A comma-separated list of node IDs or names to limit the returned information
     private $node_id;
 
-
     /**
      * @param $node_id
      *
@@ -36,7 +35,6 @@ class Allocation extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -52,7 +50,6 @@ class Allocation extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -67,7 +64,6 @@ class Allocation extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

@@ -30,7 +30,6 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
      */
     protected $selector;
 
-
     /** @var \Elasticsearch\Connections\ConnectionFactory  */
     protected $connectionFactory;
 
@@ -54,7 +53,6 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
         $this->connectionPoolParams = $connectionPoolParams;
         $this->connectionFactory    = $factory;
     }
-
 
     /**
      * @param bool $force

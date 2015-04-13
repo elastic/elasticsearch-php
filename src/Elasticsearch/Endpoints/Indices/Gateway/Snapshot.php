@@ -18,7 +18,6 @@ class Snapshot extends AbstractEndpoint
         $index = $this->index;
         $uri   = "/_gateway/snapshot";
 
-
         if (isset($index) === true) {
             $uri = "/$index/_gateway/snapshot";
         }

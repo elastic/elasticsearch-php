@@ -49,7 +49,6 @@ class Delete extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -66,7 +65,6 @@ class Delete extends AbstractEndpoint
             'version_type',
         );
     }
-
 
     /**
      * @return string

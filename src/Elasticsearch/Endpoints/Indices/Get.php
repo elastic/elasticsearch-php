@@ -56,7 +56,6 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-
     /**
      * @return string[]
      */
@@ -69,7 +68,6 @@ class Get extends AbstractEndpoint
             'expand_wildcards',
         );
     }
-
 
     /**
      * @return string

@@ -20,7 +20,6 @@ class Delete extends AbstractEndpoint
     // A comma-separated list of repository names
     private $repository;
 
-
     /**
      * @param $repository
      *
@@ -36,7 +35,6 @@ class Delete extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -59,7 +57,6 @@ class Delete extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -70,7 +67,6 @@ class Delete extends AbstractEndpoint
             'timeout',
         );
     }
-
 
     /**
      * @return string

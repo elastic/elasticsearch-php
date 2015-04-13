@@ -23,10 +23,8 @@ class Health extends AbstractEndpoint
     {
         $uri   = "/_cat/health";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -42,7 +40,6 @@ class Health extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

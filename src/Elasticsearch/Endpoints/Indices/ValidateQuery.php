@@ -29,13 +29,10 @@ class ValidateQuery extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -55,7 +52,6 @@ class ValidateQuery extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -71,7 +67,6 @@ class ValidateQuery extends AbstractEndpoint
             'q',
         );
     }
-
 
     /**
      * @return string

@@ -28,13 +28,10 @@ class Explain extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -69,7 +66,6 @@ class Explain extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -93,7 +89,6 @@ class Explain extends AbstractEndpoint
             '_source_include',
         );
     }
-
 
     /**
      * @return string

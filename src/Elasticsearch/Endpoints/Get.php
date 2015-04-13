@@ -22,7 +22,6 @@ class Get extends AbstractEndpoint
     /** @var bool  */
     private $checkOnlyExistance = false;
 
-
     /**
      * @return $this
      */
@@ -42,7 +41,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -81,7 +79,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -101,7 +98,6 @@ class Get extends AbstractEndpoint
             'version_type',
         );
     }
-
 
     /**
      * @return string

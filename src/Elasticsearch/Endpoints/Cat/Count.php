@@ -31,7 +31,6 @@ class Count extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -45,7 +44,6 @@ class Count extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

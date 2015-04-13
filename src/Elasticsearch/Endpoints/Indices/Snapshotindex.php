@@ -31,7 +31,6 @@ class Snapshotindex extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -43,7 +42,6 @@ class Snapshotindex extends AbstractEndpoint
             'expand_wildcards',
         );
     }
-
 
     /**
      * @return string

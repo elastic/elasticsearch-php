@@ -20,7 +20,6 @@ class Create extends AbstractEndpoint
     // A repository name
     private $repository;
 
-
     /**
      * @param array $body
      *
@@ -33,13 +32,10 @@ class Create extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @param $repository
@@ -56,7 +52,6 @@ class Create extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -79,7 +74,6 @@ class Create extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -90,7 +84,6 @@ class Create extends AbstractEndpoint
             'timeout',
         );
     }
-
 
     /**
      * @return array
@@ -104,7 +97,6 @@ class Create extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

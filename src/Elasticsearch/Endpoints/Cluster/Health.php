@@ -31,7 +31,6 @@ class Health extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -48,7 +47,6 @@ class Health extends AbstractEndpoint
             'wait_for_status',
         );
     }
-
 
     /**
      * @return string

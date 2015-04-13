@@ -20,7 +20,6 @@ class RoundRobinSelector implements SelectorInterface
      */
     private $current = 0;
 
-
     /**
      * Select the next connectioion in the sequence
      *

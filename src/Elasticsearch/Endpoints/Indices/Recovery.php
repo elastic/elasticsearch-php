@@ -31,7 +31,6 @@ class Recovery extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -43,7 +42,6 @@ class Recovery extends AbstractEndpoint
             'human'
         );
     }
-
 
     /**
      * @return string

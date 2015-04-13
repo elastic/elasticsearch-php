@@ -20,7 +20,6 @@ class Delete extends AbstractEndpoint
     /** @var  String */
     private $lang;
 
-
     /**
      * @param $lang
      *
@@ -36,7 +35,6 @@ class Delete extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -61,7 +59,6 @@ class Delete extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -72,7 +69,6 @@ class Delete extends AbstractEndpoint
             'version_type'
         );
     }
-
 
     /**
      * @return string

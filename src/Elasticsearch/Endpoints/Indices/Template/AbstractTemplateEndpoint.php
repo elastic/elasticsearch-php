@@ -9,7 +9,6 @@ abstract class AbstractTemplateEndpoint extends AbstractEndpoint
     /** @var  string */
     protected $name;
 
-
     /**
      * @param $name
      *

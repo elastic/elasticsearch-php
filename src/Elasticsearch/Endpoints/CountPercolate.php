@@ -28,12 +28,10 @@ class CountPercolate extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -65,7 +63,6 @@ class CountPercolate extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -83,7 +80,6 @@ class CountPercolate extends AbstractEndpoint
             'version_type'
         );
     }
-
 
     /**
      * @return string

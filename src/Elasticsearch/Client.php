@@ -10,7 +10,6 @@ use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
-
 /**
  * Class Client
  *
@@ -60,7 +59,6 @@ class Client
     /** @var  callback */
     protected $endpoints;
 
-
     /**
      * Client constructor
      *
@@ -79,7 +77,6 @@ class Client
         $this->cat       = new CatNamespace($transport, $endpoint);
     }
 
-
     /**
      * @param $params
      * @return array
@@ -95,7 +92,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     public function ping($params = [])
     {
@@ -114,7 +110,6 @@ class Client
 
         return true;
     }
-
 
     /**
      * $params['id']              = (string) The document ID (Required)
@@ -139,13 +134,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -160,7 +151,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']             = (string) The document ID (Required)
@@ -181,13 +171,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -203,7 +189,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']           = (string) The document ID (Required)
@@ -225,13 +210,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -246,7 +227,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      *
@@ -263,13 +243,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -284,7 +260,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
@@ -306,13 +281,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -369,7 +340,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']        = (string) The name of the index with a registered percolator query (Required)
      *        ['type']         = (string) The document type (Required)
@@ -387,8 +357,6 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -403,7 +371,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (string) Default index for items which don't provide one
@@ -422,7 +389,6 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -436,7 +402,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one
@@ -478,7 +443,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']            = (string) Default index for items which don't provide one
      *        ['type']             = (string) Default document type for items which don't provide one
@@ -518,7 +482,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['id']         = (string) The document ID (Required)
      *        ['index']      = (string) The name of the index (Required)
@@ -537,9 +500,7 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
@@ -558,7 +519,6 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint);
     }
-
 
     /**
      * $params['id']                     = (string) The document ID (Required)
@@ -593,16 +553,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -618,7 +573,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']           = (string) The name of the index
@@ -642,13 +596,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -664,7 +614,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']       = (list) A comma-separated list of index names to use as default
      *        ['type']        = (list) A comma-separated list of document types to use as default
@@ -679,13 +628,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -700,7 +645,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -727,16 +671,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -754,7 +693,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']       = (string) Default index for items which don't provide one
      *        ['type']        = (string) Default document type for items which don't provide one
@@ -771,13 +709,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -792,7 +726,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -820,16 +753,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -845,7 +773,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
@@ -863,10 +790,7 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -880,7 +804,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']                       = (string) The document ID (Required)
@@ -911,16 +834,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -936,7 +854,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1015,7 +932,6 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -1028,7 +944,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1058,7 +973,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
      *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
@@ -1086,7 +1000,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
@@ -1117,7 +1030,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['id']                = (string) Document ID (Required)
      *        ['index']             = (string) The name of the index (Required)
@@ -1146,16 +1058,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1171,7 +1078,6 @@ class Client
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']   = (string) The script ID (Required)
@@ -1324,8 +1230,6 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
-
-
     /**
      * Operate on the Indices Namespace of commands
      *
@@ -1335,7 +1239,6 @@ class Client
     {
         return $this->indices;
     }
-
 
     /**
      * Operate on the Cluster namespace of commands
@@ -1347,7 +1250,6 @@ class Client
         return $this->cluster;
     }
 
-
     /**
      * Operate on the Nodes namespace of commands
      *
@@ -1357,7 +1259,6 @@ class Client
     {
         return $this->nodes;
     }
-
 
     /**
      * Operate on the Snapshot namespace of commands
@@ -1369,7 +1270,6 @@ class Client
         return $this->snapshot;
     }
 
-
     /**
      * Operate on the Cat namespace of commands
      *
@@ -1379,8 +1279,6 @@ class Client
     {
         return $this->cat;
     }
-
-
 
     /**
      * @param array $params

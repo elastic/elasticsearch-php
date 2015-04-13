@@ -20,7 +20,6 @@ class Put extends AbstractEndpoint
     // The name of the template
     private $name;
 
-
     /**
      * @param array $body
      *
@@ -33,13 +32,10 @@ class Put extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @param $name
@@ -56,7 +52,6 @@ class Put extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -79,7 +74,6 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -94,7 +88,6 @@ class Put extends AbstractEndpoint
         );
     }
 
-
     /**
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -107,7 +100,6 @@ class Put extends AbstractEndpoint
 
         return $this->body;
     }
-
 
     /**
      * @return string

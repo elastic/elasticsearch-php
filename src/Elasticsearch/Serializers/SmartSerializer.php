@@ -36,7 +36,6 @@ class SmartSerializer implements SerializerInterface
         }
     }
 
-
     /**
      * Deserialize by introspecting content_type. Tries to deserialize JSON,
      * otherwise returns string

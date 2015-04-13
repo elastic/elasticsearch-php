@@ -23,10 +23,8 @@ class PendingTasks extends AbstractEndpoint
     {
         $uri   = "/_cat/pending_tasks";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -41,7 +39,6 @@ class PendingTasks extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

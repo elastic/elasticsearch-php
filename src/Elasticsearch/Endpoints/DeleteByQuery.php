@@ -28,13 +28,10 @@ class DeleteByQuery extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
 
         return $this;
     }
-
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -60,7 +57,6 @@ class DeleteByQuery extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -81,7 +77,6 @@ class DeleteByQuery extends AbstractEndpoint
             'timeout',
         );
     }
-
 
     /**
      * @return string

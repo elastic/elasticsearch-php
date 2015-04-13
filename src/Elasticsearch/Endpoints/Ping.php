@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-
 /**
  * Class Ping
  *
@@ -22,10 +21,8 @@ class Ping extends AbstractEndpoint
     {
         $uri   = "/";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -35,7 +32,6 @@ class Ping extends AbstractEndpoint
         return array(
         );
     }
-
 
     /**
      * @return string

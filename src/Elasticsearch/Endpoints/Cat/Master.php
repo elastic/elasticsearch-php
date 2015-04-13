@@ -23,10 +23,8 @@ class Master extends AbstractEndpoint
     {
         $uri   = "/_cat/master";
 
-
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -41,7 +39,6 @@ class Master extends AbstractEndpoint
             'v',
         );
     }
-
 
     /**
      * @return string

@@ -31,7 +31,6 @@ class Status extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -47,7 +46,6 @@ class Status extends AbstractEndpoint
             'snapshot',
         );
     }
-
 
     /**
      * @return string

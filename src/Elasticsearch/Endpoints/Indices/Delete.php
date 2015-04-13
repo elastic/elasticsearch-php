@@ -31,7 +31,6 @@ class Delete extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -42,7 +41,6 @@ class Delete extends AbstractEndpoint
             'master_timeout',
         );
     }
-
 
     /**
      * @return string

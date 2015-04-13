@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Namespaces;
 
-
 /**
  * Class IndicesNamespace
  *
@@ -28,7 +27,6 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -39,7 +37,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return BooleanRequestWrapper::performRequest($endpoint);
     }
-
 
     /**
      * $params['index'] = (list) A comma-separated list of indices to check (Required)
@@ -72,7 +69,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['operation_threading'] = () TODO: ?
@@ -88,8 +84,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -101,7 +95,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['name']    = (string) The name of the template (Required)
@@ -115,8 +108,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $name = $this->extractArgument($params, 'name');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -128,7 +119,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index'] = (list) A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices (Required)
@@ -143,13 +133,9 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -165,7 +151,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']   = (list) A comma-separated list of indices to delete; use `_all` or empty string to delete all indices
      *        ['timeout'] = (time) Explicit operation timeout
@@ -178,8 +163,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -191,7 +174,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['fields']         = (boolean) A comma-separated list of fields for `fielddata` metric (supports wildcards)
@@ -239,7 +221,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['body']  = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
@@ -252,10 +233,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -269,7 +247,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
@@ -285,8 +262,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -298,7 +273,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
@@ -312,10 +286,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -348,7 +319,6 @@ class IndicesNamespace extends AbstractNamespace
 
         $field = $this->extractArgument($params, 'field');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -363,7 +333,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
@@ -382,8 +351,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -395,7 +362,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
@@ -411,8 +377,6 @@ class IndicesNamespace extends AbstractNamespace
     public function refresh($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -452,7 +416,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
      *        ['type']               = (list) A comma-separated list of document types to check (Required)
@@ -473,7 +436,6 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -485,7 +447,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return BooleanRequestWrapper::performRequest($endpoint);
     }
-
 
     /**
      * $params['index']   = (string) The name of the index with an alias
@@ -501,13 +462,9 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -523,7 +480,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index'] = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices (Required)
      *        ['name']  = (string) The name of the warmer (supports wildcards); leave empty to get all warmers
@@ -537,13 +493,9 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -559,7 +511,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index'] = (list) A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices (Required)
      *        ['name']  = (string) The name of the warmer (Required)
@@ -574,16 +525,11 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -600,7 +546,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['name']    = (string) The name of the template (Required)
      *        ['order']   = (number) The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
@@ -616,10 +561,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $name = $this->extractArgument($params, 'name');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -633,7 +575,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']               = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
@@ -652,13 +593,9 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -674,7 +611,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['name']           = (list) A comma-separated list of alias names to return (Required)
      *        ['index']          = (list) A comma-separated list of index names to filter aliases
@@ -689,10 +625,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -706,7 +639,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']            = (list) A comma-separated list of index names; use `_all` to perform the operation on all indices (Required)
@@ -723,12 +655,9 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -744,7 +673,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` for all indices (Required)
      *        ['type']  = (string) The name of the document type to delete (Required)
@@ -757,10 +685,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -775,7 +700,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['name'] = (string) The name of the template (Required)
      *
@@ -786,8 +710,6 @@ class IndicesNamespace extends AbstractNamespace
     public function getTemplate($params)
     {
         $name = $this->extractArgument($params, 'name');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -800,7 +722,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['name'] = (string) The name of the template (Required)
@@ -827,7 +748,6 @@ class IndicesNamespace extends AbstractNamespace
         return BooleanRequestWrapper::performRequest($endpoint);
     }
 
-
     /**
      * $params['index']   = (string) The name of the index (Required)
      *        ['timeout'] = (time) Explicit operation timeout
@@ -841,10 +761,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -858,7 +775,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
@@ -880,8 +796,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -893,7 +807,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']   = (string) The name of the index with an alias (Required)
@@ -908,10 +821,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -926,7 +836,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']   = (string) The name of the index (Required)
      *        ['timeout'] = (time) Explicit operation timeout
@@ -939,8 +848,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -952,7 +859,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index to scope the operation
@@ -973,10 +879,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -990,7 +893,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (list) A comma-separated list of index name to limit the operation
@@ -1015,8 +917,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -1028,7 +928,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']   = (list) A comma-separated list of index names to filter aliases
@@ -1043,10 +942,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1061,7 +957,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['timeout'] = (time) Explicit timestamp for the document
@@ -1074,9 +969,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1090,7 +983,6 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['name']               = (list) A comma-separated list of alias names to return (Required)
@@ -1106,7 +998,6 @@ class IndicesNamespace extends AbstractNamespace
     public function existsAlias($params)
     {
         $index = $this->extractArgument($params, 'index');
-
 
         $name = $this->extractArgument($params, 'name');
 
@@ -1125,7 +1016,6 @@ class IndicesNamespace extends AbstractNamespace
         return BooleanRequestWrapper::performRequest($endpoint);
     }
 
-
     /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
@@ -1141,8 +1031,6 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -1155,7 +1043,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *
@@ -1167,10 +1054,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $name = $this->extractArgument($params, 'name');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1185,7 +1069,6 @@ class IndicesNamespace extends AbstractNamespace
         return $endpoint->resultOrFuture($response);
     }
 
-
     /**
      * $params['index']   = (string) The name of the index (Required)
      *        ['timeout'] = (time) Explicit operation timeout
@@ -1197,8 +1080,6 @@ class IndicesNamespace extends AbstractNamespace
     public function close($params)
     {
         $index = $this->extractArgument($params, 'index');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

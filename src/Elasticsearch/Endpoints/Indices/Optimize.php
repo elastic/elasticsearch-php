@@ -31,7 +31,6 @@ class Optimize extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -48,7 +47,6 @@ class Optimize extends AbstractEndpoint
             'wait_for_merge',
         );
     }
-
 
     /**
      * @return string

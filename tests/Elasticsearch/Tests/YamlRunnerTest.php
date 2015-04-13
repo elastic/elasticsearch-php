@@ -38,7 +38,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var  string */
     public static $esVersion;
 
-
     /**
      * @return mixed
      */
@@ -51,7 +50,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             exit;
         }
     }
-
 
     public static function setUpBeforeClass()
     {
@@ -165,7 +163,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         curl_close($ch);
     }
 
-
     public static function provider()
     {
         $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/test/';
@@ -199,7 +196,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         return sort($array);
     }
-
 
     /**
      * @dataProvider provider
@@ -266,7 +262,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
-
 
     /**
      * @dataProvider provider
@@ -360,7 +355,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-
         return $values;
     }
 
@@ -393,9 +387,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n         |$method\n";
                     ob_flush();
 
-
                     $hash = $this->replaceWithStash($hash, $stash);
-
 
                     try {
                         echo "         |".json_encode($hash)."\n";
@@ -633,7 +625,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         return $context;
     }
-
 
     /**
      * Really ugly hack until upstream Yaml date parsing is fixed

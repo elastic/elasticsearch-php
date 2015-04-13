@@ -21,7 +21,6 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
         parent::__construct($transport);
     }
 
-
     /**
      * @param string|array $body
      *

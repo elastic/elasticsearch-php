@@ -42,7 +42,6 @@ class RoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-
     /**
      * Add Ten connections, select five, remove thre, test another 10 to check
      * that the round-robining works after removing connections

@@ -19,7 +19,6 @@ class Get extends AbstractEndpoint
     // A comma-separated list of alias names to return
     private $name;
 
-
     /**
      * @param $name
      *
@@ -35,7 +34,6 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 
     /**
      * @return string
@@ -57,7 +55,6 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -70,7 +67,6 @@ class Get extends AbstractEndpoint
             'local',
         );
     }
-
 
     /**
      * @return string

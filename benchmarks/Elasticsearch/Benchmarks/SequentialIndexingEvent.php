@@ -2,7 +2,7 @@
 
 namespace Elasticsearch\Benchmarks;
 
-use \Athletic\AthleticEvent;
+use Athletic\AthleticEvent;
 use Elasticsearch\Client;
 
 class SequentialIndexingEvent extends AthleticEvent

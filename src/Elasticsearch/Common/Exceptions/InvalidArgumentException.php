@@ -4,7 +4,7 @@ namespace Elasticsearch\Common\Exceptions;
 
 /**
  * InvalidArgumentException
- * 
+ *
  * Denote invalid or incorrect argument values
  *
  * @category Elasticsearch

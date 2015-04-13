@@ -127,8 +127,6 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

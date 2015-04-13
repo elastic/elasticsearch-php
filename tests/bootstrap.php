@@ -13,4 +13,4 @@ if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
 }
 
 // Include the composer autoloader
-$autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
+$autoloader = require_once dirname(__DIR__) . '/vendor/autoload.php';

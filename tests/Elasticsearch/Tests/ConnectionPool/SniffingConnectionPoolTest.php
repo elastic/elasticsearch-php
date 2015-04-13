@@ -50,7 +50,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddOneHostAndTriggerSniff()
     {
-        $clusterState= json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"Bl2ihSr7TcuUHxhu1GA_YQ":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}}}', true);
+        $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"Bl2ihSr7TcuUHxhu1GA_YQ":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}}}', true);
 
         $mockConnection = m::mock('\Elasticsearch\Connections\Connection')
                           ->shouldReceive('ping')->andReturn(true)->getMock()

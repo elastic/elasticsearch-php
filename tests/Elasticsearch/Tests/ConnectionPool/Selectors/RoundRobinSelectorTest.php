@@ -40,7 +40,7 @@ class RoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
             $nextIndex = ($index % 10) + 1;
             $this->assertEquals($mockConnections[$nextIndex], $retConnection);
         }
-    }//end testTenConnections()
+    }
 
 
     /**
@@ -79,5 +79,5 @@ class RoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
             $nextIndex = ($index % (count($mockConnections)-1)) + 1;
             $this->assertEquals($mockConnections[$nextIndex], $retConnection);
         }
-    }//end testAddTenConnectionsestFiveTRemoveThree()
-}//end class
+    }
+}

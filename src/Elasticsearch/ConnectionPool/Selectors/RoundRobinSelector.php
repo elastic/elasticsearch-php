@@ -39,4 +39,4 @@ class RoundRobinSelector implements SelectorInterface
 
         return $connections[$this->current % count($connections)];
     }
-}//end class
+}

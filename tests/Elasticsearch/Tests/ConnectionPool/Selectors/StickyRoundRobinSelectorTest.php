@@ -70,4 +70,4 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($mockConnections[1], $retConnection);
         }
     }
-}//end class
+}

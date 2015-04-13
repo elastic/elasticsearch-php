@@ -31,4 +31,4 @@ class RandomSelector implements SelectorInterface
     {
         return $connections[array_rand($connections)];
     }
-}//end class
+}

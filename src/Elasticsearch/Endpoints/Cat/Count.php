@@ -8,12 +8,11 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Count
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Cat
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Count extends AbstractEndpoint
 {
     /**

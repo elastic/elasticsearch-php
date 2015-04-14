@@ -9,12 +9,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Put
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Alias
+ * @package  Elasticsearch\Endpoints\Indices\Alias
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Put extends AbstractEndpoint
 {
     // The name of the alias to be created or updated

@@ -21,11 +21,11 @@ class RoundRobinSelector implements SelectorInterface
     private $current = 0;
 
     /**
-     * Select the next connectioion in the sequence
+     * Select the next connection in the sequence
      *
-     * @param array $connections Array of connections to choose from
+     * @param  ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      *
-     * @return ConnectionInterface
+     * @return \Elasticsearch\Connections\ConnectionInterface
      */
     public function select($connections)
     {

@@ -6,7 +6,12 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Clear
- * @package Elasticsearch\Endpoints\Indices\Cache
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Cache
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Clear extends AbstractEndpoint
 {

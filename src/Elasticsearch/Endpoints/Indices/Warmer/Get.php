@@ -9,12 +9,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Get
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Warmer
+ * @package  Elasticsearch\Endpoints\Indices\Warmer
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Get extends AbstractEndpoint
 {
     // The name of the warmer (supports wildcards); leave empty to get all warmers

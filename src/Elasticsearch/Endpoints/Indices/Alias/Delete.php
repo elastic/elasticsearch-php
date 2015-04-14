@@ -14,7 +14,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Delete extends AbstractEndpoint
 {
     // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.

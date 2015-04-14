@@ -9,12 +9,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Exists
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Type
+ * @package  Elasticsearch\Endpoints\Indices\Type
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Exists extends AbstractEndpoint
 {
     /**

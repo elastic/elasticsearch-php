@@ -27,7 +27,7 @@ class Client
     public $transport;
 
     /**
-     * @var \Pimple\Container
+     * @var array
      */
     protected $params;
 
@@ -64,7 +64,6 @@ class Client
      *
      * @param Transport $transport
      * @param callable $endpoint
-     * @param callable $endpoint
      */
     public function __construct(Transport $transport, callable $endpoint)
     {
@@ -93,6 +92,11 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
+    /**
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
     public function ping($params = [])
     {
         /** @var callback $endpointBuilder */

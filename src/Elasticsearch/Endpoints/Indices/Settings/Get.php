@@ -8,12 +8,11 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Get
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Settings
+ * @package  Elasticsearch\Endpoints\Indices\Settings
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Get extends AbstractEndpoint
 {
     // The name of the settings that should be included

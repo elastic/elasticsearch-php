@@ -8,12 +8,11 @@ use Elasticsearch\Common\Exceptions;
  * Class CountPercolate
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class CountPercolate extends AbstractEndpoint
 {
     /**

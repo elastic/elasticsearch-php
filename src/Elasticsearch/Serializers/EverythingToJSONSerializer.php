@@ -4,8 +4,9 @@ namespace Elasticsearch\Serializers;
 
 /**
  * Class EverythingToJSONSerializer
+ *
  * @category Elasticsearch
- * @package Elasticsearch\Serializers
+ * @package  Elasticsearch\Serializers
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org

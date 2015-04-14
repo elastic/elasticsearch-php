@@ -6,7 +6,12 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Snapshot
- * @package Elasticsearch\Endpoints\Indices\Gateway
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Gateway
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Snapshot extends AbstractEndpoint
 {

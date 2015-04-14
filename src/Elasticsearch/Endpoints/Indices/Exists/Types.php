@@ -7,7 +7,12 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Types
- * @package Elasticsearch\Endpoints\Indices\Exists
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Exists
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Types extends AbstractEndpoint
 {

@@ -9,9 +9,19 @@ use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
+    /**
+     * @var int
+     */
     private $pingTimeout    = 60;
+
+    /**
+     * @var int
+     */
     private $maxPingTimeout = 3600;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
     {
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);

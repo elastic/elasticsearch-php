@@ -6,12 +6,11 @@ namespace Elasticsearch\Endpoints\Cluster\Nodes;
  * Class Info
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Cluster\Nodes
+ * @package  Elasticsearch\Endpoints\Cluster\Nodes
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Info extends AbstractNodesEndpoint
 {
     // A comma-separated list of metrics you wish returned. Leave empty to return all.

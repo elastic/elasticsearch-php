@@ -7,8 +7,25 @@ use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
+/**
+ * Trait AbstractNamespace
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Namespaces
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
+ */
 trait BooleanRequestWrapper
 {
+    /**
+     * Perform Request
+     *
+     * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
+     *
+     * @throws Missing404Exception
+     * @throws RoutingMissingException
+     */
     public static function performRequest(AbstractEndpoint $endpoint)
     {
         try {

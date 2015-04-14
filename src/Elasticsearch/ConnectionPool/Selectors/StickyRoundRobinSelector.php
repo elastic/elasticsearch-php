@@ -20,13 +20,15 @@ class StickyRoundRobinSelector implements SelectorInterface
      */
     private $current = 0;
 
-    /** @var int  */
+    /**
+     * @var int
+     */
     private $currentCounter = 0;
 
     /**
      * Use current connection unless it is dead, otherwise round-robin
      *
-     * @param array $connections Array of connections to choose from
+     * @param ConnectionInterface[] $connections Array of connections to choose from
      *
      * @return ConnectionInterface
      */

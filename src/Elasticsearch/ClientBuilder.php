@@ -364,11 +364,7 @@ class ClientBuilder
         }
 
         if (is_null($this->connectionFactory)) {
-            $connectionParams = [
-                'client' => [
-                    'save_to' => fopen('php://temp/maxmemory:20971520', 'w+')
-                ]
-            ];
+            $connectionParams = [];
             $this->connectionFactory = new ConnectionFactory($this->handler, $connectionParams, $this->serializer, $this->logger, $this->tracer);
         }
 

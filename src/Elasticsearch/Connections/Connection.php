@@ -156,9 +156,6 @@ class Connection implements ConnectionInterface
         ];
         $request = array_merge_recursive($request, $this->connectionParams, $options);
 
-        // make sure we start at the beginning of the stream, so it stays a moderate size
-        // better strategy to let grow and rewind/reset periodically?  need to bench
-        rewind($this->connectionParams['client']['save_to']);
 
         $handler = $this->handler;
         $future = $handler($request, $this, $transport, $options);
@@ -216,8 +213,7 @@ class Connection implements ConnectionInterface
                 } else {
                     $connection->markAlive();
 
-                    rewind($response['body']);
-                    $response['body'] = stream_get_contents($response['body'], $response['headers']['Content-Length'][0]);
+                    $response['body'] = stream_get_contents($response['body']);
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];

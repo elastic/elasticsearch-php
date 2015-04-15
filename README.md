@@ -52,11 +52,11 @@ Try it in your project today!
 
 
 ```json
-    {
-        "require": {
-            "elasticsearch/elasticsearch": "~2.0"
-        }
-    }
+{
+    "require": {
+       "elasticsearch/elasticsearch": "~2.0@beta"
+   }
+}
 ```
 
 Documentation

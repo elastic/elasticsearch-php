@@ -23,5 +23,3 @@ echo "Starting Elasticsearch v${ES_VERSION}"
     -Des.discovery.zen.ping_timeout=1
 
 sleep 3
-
-phpunit --coverage-clover build/logs/clover.xml --exclude-group ignore

@@ -25,9 +25,11 @@ env:
 before_script:
   - composer install
   - mkdir -p build/logs
+  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
 
 script:
   - ./run_travis_test.sh
+  - phpunit $PHPUNIT_FLAGS --exclude-group ignore
 
 after_script:
   - php vendor/bin/coveralls -v

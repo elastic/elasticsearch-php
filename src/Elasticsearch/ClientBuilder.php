@@ -95,7 +95,7 @@ class ClientBuilder
         $future = null;
         if (extension_loaded('curl')) {
             $config = array_merge([ 'mh' => curl_multi_init() ], $multiParams);
-            if (function_exists('curl_multi_init')) {
+            if (function_exists('curl_reset')) {
                 $default = new CurlHandler($singleParams);
                 $future = new CurlMultiHandler($config);
             } else {
@@ -127,7 +127,7 @@ class ClientBuilder
      */
     public static function singleHandler()
     {
-        if (function_exists('curl_multi_init')) {
+        if (function_exists('curl_reset')) {
             return new CurlHandler();
         } else {
             throw new \RuntimeException('CurlSingle handler requires cURL.');

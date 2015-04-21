@@ -347,7 +347,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
 
                     } catch (Conflict409Exception $exception) {
@@ -356,7 +356,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     } catch (Forbidden403Exception $exception) {
                         if ($expectedError === 'forbidden') {
@@ -364,7 +364,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     } catch (BadRequest400Exception $exception){
                         if ($expectedError === 'request') {
@@ -374,7 +374,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     } catch (ServerErrorResponseException $exception){
                         if ($expectedError === 'request') {
@@ -384,7 +384,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception){
                         if ($expectedError === 'param') {
@@ -394,7 +394,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     } catch (\Exception $exception) {
                         if ($expectedError === null) {
@@ -404,7 +404,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = array();
+                        $response = json_decode($exception->getMessage(),true);
 
                     }
 

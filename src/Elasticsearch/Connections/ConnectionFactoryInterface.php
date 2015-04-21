@@ -1,20 +1,21 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: tongz
- * Date: 2/12/15
- * Time: 3:56 PM
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Elasticsearch\Connections;
-
 
 use Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
-interface ConnectionFactoryInterface {
-
+/**
+ * Class AbstractConnection
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Connections
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
+ */
+interface ConnectionFactoryInterface
+{
     /**
      * @param $handler
      * @param array $connectionParams
@@ -22,7 +23,7 @@ interface ConnectionFactoryInterface {
      * @param LoggerInterface $logger
      * @param LoggerInterface $tracer
      */
-    public function __construct($handler, array $connectionParams,
+    public function __construct(callable $handler, array $connectionParams,
                                 SerializerInterface $serializer, LoggerInterface $logger, LoggerInterface $tracer);
 
     /**
@@ -31,5 +32,4 @@ interface ConnectionFactoryInterface {
      * @return ConnectionInterface
      */
     public function create($hostDetails);
-
 }

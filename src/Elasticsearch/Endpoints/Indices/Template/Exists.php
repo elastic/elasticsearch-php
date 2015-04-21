@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 01/20/2014
- * Time: 14:34:49 pm
- */
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
@@ -14,17 +9,15 @@ use Elasticsearch\Common\Exceptions;
  * Class Exists
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Template
+ * @package  Elasticsearch\Endpoints\Indices\Template
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Exists extends AbstractEndpoint
 {
     // The name of the template
     private $name;
-
 
     /**
      * @param $name
@@ -38,9 +31,9 @@ class Exists extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -63,7 +56,6 @@ class Exists extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -74,7 +66,6 @@ class Exists extends AbstractEndpoint
             'master_timeout'
         );
     }
-
 
     /**
      * @return string

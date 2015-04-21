@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/20/14
- * Time: 4:11 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -42,9 +37,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -68,9 +63,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setBody($body)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -93,9 +88,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -117,9 +112,9 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -132,8 +127,6 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -144,9 +137,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -168,9 +161,9 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -196,6 +189,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -220,6 +214,7 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -243,8 +238,7 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
-
 }

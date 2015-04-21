@@ -1,12 +1,6 @@
 <?php
-/**
- * User: zach
- * Date: 9/18/13
- * Time: 7:36 PM
- */
 
 namespace Elasticsearch\ConnectionPool;
-
 
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
@@ -29,7 +23,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         $this->setConnectionPoolParams($connectionPoolParams);
         $this->nextSniff = time() + $this->sniffingInterval;
     }
-
 
     /**
      * @param bool $force
@@ -55,15 +48,12 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
 
         return $this->nextConnection(true);
-
-
     }
 
     public function scheduleCheck()
     {
         $this->nextSniff = -1;
     }
-
 
     /**
      * @param bool $force
@@ -100,7 +90,6 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
     }
 
-
     /**
      * @param Connection $connection
      * @return bool
@@ -130,9 +119,9 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         }
 
         $this->nextSniff = time() + $this->sniffingInterval;
+
         return true;
     }
-
 
     private function parseClusterState($transportSchema, $nodeInfo)
     {
@@ -145,14 +134,13 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
                 if (preg_match($pattern, $node[$schemaAddress], $match) === 1) {
                     $hosts[] = array(
                         'host' => $match[1],
-                        'port' => (int)$match[2],
+                        'port' => (int) $match[2],
                     );
                 }
             }
         }
 
         return $hosts;
-
     }
 
     private function setConnectionPoolParams($connectionPoolParams)

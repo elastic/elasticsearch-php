@@ -1,12 +1,6 @@
 <?php
-/**
- * User: zach
- * Date: 9/18/13
- * Time: 7:36 PM
- */
 
 namespace Elasticsearch\ConnectionPool;
-
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -15,15 +9,24 @@ use Elasticsearch\Connections\ConnectionFactory;
 
 class StaticConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
+    /**
+     * @var int
+     */
     private $pingTimeout    = 60;
+
+    /**
+     * @var int
+     */
     private $maxPingTimeout = 3600;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
     {
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
         $this->scheduleCheck();
     }
-
 
     /**
      * @param bool $force
@@ -40,7 +43,7 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
             /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
-               return $connection;
+                return $connection;
             }
 
             if ($this->readyToRevive($connection) === true) {

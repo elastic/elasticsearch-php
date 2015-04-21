@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 3/5/14
- * Time: 10:41 AM
- */
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -22,16 +17,12 @@ echo "Base directory: ". dirname(__DIR__)."\n";
 // Include the composer autoloader
 $autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-
 $gitWrapper = new \GitWrapper\GitWrapper();
 echo "Git cwd: ".dirname(__DIR__) . "/util/elasticsearch\n";
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
-
-
 echo "Update elasticsearch submodule\n";
 $git->fetchAll(array('verbose' => true));
-
 
 $hash = $_SERVER['TEST_BUILD_REF'];
 echo "Checkout yaml tests (hash: $hash)\n";

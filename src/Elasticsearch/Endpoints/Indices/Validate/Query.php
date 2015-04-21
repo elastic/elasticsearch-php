@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
- */
 
 namespace Elasticsearch\Endpoints\Indices\Validate;
 
@@ -12,11 +7,15 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Query
- * @package Elasticsearch\Endpoints\Indices\Validate
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Validate
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Query extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -29,8 +28,8 @@ class Query extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
+
         return $this;
     }
 

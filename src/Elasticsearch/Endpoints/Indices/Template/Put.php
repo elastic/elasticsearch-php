@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 01/20/2014
- * Time: 14:34:49 pm
- */
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
@@ -14,17 +9,15 @@ use Elasticsearch\Common\Exceptions;
  * Class Put
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Template
+ * @package  Elasticsearch\Endpoints\Indices\Template
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Put extends AbstractEndpoint
 {
     // The name of the template
     private $name;
-
 
     /**
      * @param array $body
@@ -38,12 +31,10 @@ class Put extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
+
         return $this;
     }
-
-
 
     /**
      * @param $name
@@ -57,9 +48,9 @@ class Put extends AbstractEndpoint
         }
 
         $this->name = $name;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -82,7 +73,6 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -97,7 +87,6 @@ class Put extends AbstractEndpoint
         );
     }
 
-
     /**
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -107,9 +96,9 @@ class Put extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Put Template');
         }
+
         return $this->body;
     }
-
 
     /**
      * @return string

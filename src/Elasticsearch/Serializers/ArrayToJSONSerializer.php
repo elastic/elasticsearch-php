@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 5/1/13
- * Time: 10:00 PM
- */
 
 namespace Elasticsearch\Serializers;
 
@@ -18,8 +13,6 @@ namespace Elasticsearch\Serializers;
  */
 class ArrayToJSONSerializer implements SerializerInterface
 {
-
-
     /**
      * Serialize assoc array into JSON string
      *
@@ -39,10 +32,7 @@ class ArrayToJSONSerializer implements SerializerInterface
                 return $data;
             }
         }
-
-
     }
-
 
     /**
      * Deserialize JSON into an assoc array
@@ -55,6 +45,5 @@ class ArrayToJSONSerializer implements SerializerInterface
     public function deserialize($data, $headers)
     {
         return json_decode($data, true);
-
     }
 }

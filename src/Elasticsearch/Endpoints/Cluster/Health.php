@@ -1,25 +1,18 @@
 <?php
-/**
- * User: zach
- * Date: 01/20/2014
- * Time: 14:34:49 pm
- */
 
 namespace Elasticsearch\Endpoints\Cluster;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Health
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Cluster
+ * @package  Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Health extends AbstractEndpoint
 {
     /**
@@ -37,7 +30,6 @@ class Health extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -54,7 +46,6 @@ class Health extends AbstractEndpoint
             'wait_for_status',
         );
     }
-
 
     /**
      * @return string

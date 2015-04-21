@@ -1,18 +1,17 @@
 <?php
-/**
- * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
- */
 
 namespace Elasticsearch\Endpoints\Indices\Cache;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Clear
- * @package Elasticsearch\Endpoints\Indices\Cache
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Cache
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Clear extends AbstractEndpoint
 {
@@ -21,13 +20,13 @@ class Clear extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         $index = $this->index;
         $uri   = "/_cache/clear";
 
         if (isset($index) === true) {
             $uri = "/$index/_cache/clear";
         }
+
         return $uri;
     }
 

@@ -1,25 +1,18 @@
 <?php
-/**
- * User: zach
- * Date: 3/24/14
- * Time: 4:59 PM
- */
 
 namespace Elasticsearch\Endpoints\Indices;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Recovery
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Recovery extends AbstractEndpoint
 {
     /**
@@ -37,7 +30,6 @@ class Recovery extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -49,7 +41,6 @@ class Recovery extends AbstractEndpoint
             'human'
         );
     }
-
 
     /**
      * @return string

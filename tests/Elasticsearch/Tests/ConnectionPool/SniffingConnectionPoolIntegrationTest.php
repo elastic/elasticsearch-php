@@ -13,14 +13,13 @@ use Elasticsearch\ClientBuilder;
  */
 class SniffingConnectionPoolIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSniff() {
-
+    public function testSniff()
+    {
         $client = ClientBuilder::create()
             ->setHosts([$_SERVER['ES_TEST_HOST']])
             ->setConnectionPool('\Elasticsearch\ConnectionPool\SniffingConnectionPool', ['sniffingInterval' => -10])
             ->build();
 
         $client->ping();
-
     }
 }

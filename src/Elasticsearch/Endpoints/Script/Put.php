@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 7/23/14
- * Time: 2:25 PM
- */
 
 namespace Elasticsearch\Endpoints\Script;
 
@@ -14,12 +9,11 @@ use Elasticsearch\Common\Exceptions;
  * Class Put
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Script
+ * @package  Elasticsearch\Endpoints\Script
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Put extends AbstractEndpoint
 {
     /** @var  String */
@@ -37,9 +31,9 @@ class Put extends AbstractEndpoint
         }
 
         $this->lang = $lang;
+
         return $this;
     }
-
 
     /**
      * @param array $body
@@ -53,9 +47,9 @@ class Put extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -80,7 +74,6 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -92,7 +85,6 @@ class Put extends AbstractEndpoint
             'op_type'
         );
     }
-
 
     /**
      * @return string

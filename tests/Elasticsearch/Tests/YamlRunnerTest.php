@@ -1,20 +1,12 @@
 <?php
-/**
- * User: zach
- * Date: 7/22/13
- * Time: 12:59 PM
- */
 
 namespace Elasticsearch\Tests;
+
 use Elasticsearch;
-use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\ClientErrorResponseException;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use FilesystemIterator;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
@@ -44,8 +36,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private $client;
 
     /** @var  string */
-    static $esVersion;
-
+    public static $esVersion;
 
     /**
      * @return mixed
@@ -59,7 +50,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             exit;
         }
     }
-
 
     public static function setUpBeforeClass()
     {
@@ -90,7 +80,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         //$params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
 
         $this->client = Elasticsearch\ClientBuilder::create()->setHosts($params['hosts'])->build();
-
     }
 
     private function clearCluster()
@@ -134,7 +123,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function assertRegex($pattern, $actual) {
+    private function assertRegex($pattern, $actual)
+    {
         $pattern = trim($pattern);
 
         // PHP doesn't like unescaped forward slashes
@@ -146,7 +136,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         ob_flush();
         $result = preg_match($pattern, $actual, $matches);
         $this->assertEquals(1, $result);
-
     }
 
     private function waitForYellow()
@@ -174,7 +163,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         curl_close($ch);
     }
 
-
     public static function provider()
     {
         $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/test/';
@@ -185,8 +173,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             RecursiveIteratorIterator::SELF_FIRST
         );
 
-        foreach($objects as $object) {
-
+        foreach ($objects as $object) {
             /** @var FilesystemIterator $object */
             if ($object->isFile() === true && $object->getFilename() !== 'README.asciidoc' && $object->getFilename() !== 'TODO.txt') {
                 $path = $object->getPathInfo()->getRealPath()."/".$object->getBasename();
@@ -195,17 +182,20 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         YamlRunnerTest::recursiveSort($files);
-        return $files;
 
+        return $files;
     }
 
-    private static function recursiveSort(&$array) {
+    private static function recursiveSort(&$array)
+    {
         foreach ($array as &$value) {
-            if (is_array($value)) YamlRunnerTest::recursiveSort($value);
+            if (is_array($value)) {
+                YamlRunnerTest::recursiveSort($value);
+            }
         }
+
         return sort($array);
     }
-
 
     /**
      * @dataProvider provider
@@ -249,7 +239,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } else {
                         $yamlDocs[] = $tDoc;
                     }
-
                 } catch (ParseException $e) {
                     printf("Unable to parse the YAML string: %s", $e->getMessage());
                 }
@@ -268,17 +257,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } catch (SetupSkipException $e) {
                         break;  //exit this test since we skipped in the setup
                     }
-
                 }
                 $this->executeTestCase($doc['values'], $testFile, false);
-
             }
-
         }
-
-
     }
-
 
     /**
      * @dataProvider provider
@@ -322,7 +305,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } else {
                         $yamlDocs[] = $tDoc;
                     }
-
                 } catch (ParseException $e) {
                     printf("Unable to parse the YAML string: %s", $e->getMessage());
                 }
@@ -346,10 +328,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } catch (SetupSkipException $e) {
                         break;  //exit this test since we skipped in the setup
                     }
-
                 }
                 $this->executeTestCase($doc['values'], $testFile, true);
-
             }
         }
     }
@@ -361,7 +341,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         if (is_array($values) === true) {
-            array_walk_recursive($values, function(&$item, $key) use ($stash) {
+            array_walk_recursive($values, function (&$item, $key) use ($stash) {
                 if (is_string($item) === true || is_numeric($item) === true) {
                     if (array_key_exists($item, $stash) == true) {
                         $item = $stash[$item];
@@ -375,7 +355,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-
         return $values;
     }
 
@@ -387,14 +366,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $key = key($test);
 
         foreach ($test[$key] as $operators) {
-
-
             foreach ($operators as $operator => $settings) {
                 echo "      > $operator: ";
                 ob_flush();
                 if ($operator === 'do') {
                     if (key($settings) === 'catch') {
-
                         $catch = $this->getValue($settings, 'catch');
                         $expectedError = str_replace("/", "", $catch);
                         next($settings);
@@ -411,9 +387,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n         |$method\n";
                     ob_flush();
 
-
                     $hash = $this->replaceWithStash($hash, $stash);
-
 
                     try {
                         echo "         |".json_encode($hash)."\n";
@@ -426,32 +400,28 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         if (isset($expectedError) === true) {
                             $this->fail("Expected Exception not thrown: $expectedError");
                         }
-                    } catch (Missing404Exception $exception){
+                    } catch (Missing404Exception $exception) {
                         if ($expectedError === 'missing') {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
-
+                        $response = json_decode($exception->getMessage(), true);
                     } catch (Conflict409Exception $exception) {
                         if ($expectedError === 'conflict') {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
+                        $response = json_decode($exception->getMessage(), true);
                     } catch (Forbidden403Exception $exception) {
                         if ($expectedError === 'forbidden') {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
-                    } catch (BadRequest400Exception $exception){
+                        $response = json_decode($exception->getMessage(), true);
+                    } catch (BadRequest400Exception $exception) {
                         if ($expectedError === 'request') {
                             $this->assertTrue(true);
                         } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
@@ -459,9 +429,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
-                    } catch (ServerErrorResponseException $exception){
+                        $response = json_decode($exception->getMessage(), true);
+                    } catch (ServerErrorResponseException $exception) {
                         if ($expectedError === 'request') {
                             $this->assertTrue(true);
                         } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
@@ -469,9 +438,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
-                    } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception){
+                        $response = json_decode($exception->getMessage(), true);
+                    } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception) {
                         if ($expectedError === 'param') {
                             $this->assertTrue(true);
                         } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
@@ -479,8 +447,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
+                        $response = json_decode($exception->getMessage(), true);
                     } catch (\Exception $exception) {
                         if ($expectedError === null) {
                             $this->fail($exception->getMessage());
@@ -489,20 +456,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         } else {
                             $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(),true);
-
+                        $response = json_decode($exception->getMessage(), true);
                     }
-
-                } elseif($operator === 'match') {
-
+                } elseif ($operator === 'match') {
                     $expected = $this->getValue($settings, key($settings));
                     if (key($settings) === '') {
                         $actual = $response;
-                    } else if (key($settings) === '$body') {
+                    } elseif (key($settings) === '$body') {
                         $actual = $response;
                     } else {
                         $actual   = $this->getNestedVar($response, key($settings));
-
                     }
 
                     $expected = $this->replaceWithStash($expected, $stash);
@@ -527,12 +490,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     //$this->assertSame()
 
                     echo "\n";
-
                 } elseif ($operator === "is_true") {
                     if (empty($settings) === true) {
                         $response = $this->replaceWithStash($response, $stash);
                         $this->assertTruthy($response);
-
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
                         $actual = $this->replaceWithStash($actual, $stash);
@@ -540,7 +501,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     }
 
                     echo "\n";
-
                 } elseif ($operator === "is_false") {
                     if (empty($settings) === true) {
                         $response = $this->replaceWithStash($response, $stash);
@@ -552,23 +512,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     }
 
                     echo "\n";
-
                 } elseif ($operator === 'set') {
                     $stashKey = $this->getValue($settings, key($settings));
                     $stash["$$stashKey"] = $this->getNestedVar($response, key($settings));
 
                     echo "\n";
-
                 } elseif ($operator === "length") {
                     $expectedCount = $this->getValue($settings, key($settings));
                     $this->assertCount($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
-
                 } elseif ($operator === "lt") {
                     $expectedCount = $this->getValue($settings, key($settings));
                     $this->assertLessThan($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
-
                 } elseif ($operator === "gt") {
                     $expectedCount = $this->getValue($settings, key($settings));
                     $this->assertGreaterThan($expectedCount, $this->getNestedVar($response, key($settings)));
@@ -585,18 +541,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                             if ($key == 'setup') {
                                 throw new SetupSkipException();
                             }
+
                             return;
                         }
-                    } else if (isset($settings['features']) === true) {
+                    } elseif (isset($settings['features']) === true) {
                         $feature = $settings['features'];
                         $whitelist = array();
 
                         if (array_search($feature, $whitelist) === false) {
                             echo "Unsupported optional feature: $feature\n";
+
                             return;
                         }
                     }
-
                 }
                 ob_flush();
             }
@@ -638,21 +595,24 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         return $ret;
     }
 
-    private function getValue($a, $key) {
+    private function getValue($a, $key)
+    {
         if (is_array($a)) {
             return $a[$key];
-        } elseif(is_object($a)) {
+        } elseif (is_object($a)) {
             return $a->$key;
         } else {
             die('non-array, non-object in getValue()');
         }
     }
 
-    private function snakeToCamel($val) {
+    private function snakeToCamel($val)
+    {
         return str_replace(' ', '', lcfirst(ucwords(str_replace('_', ' ', $val))));
     }
 
-    private function getNestedVar(&$context, $name) {
+    private function getNestedVar(&$context, $name)
+    {
         $pieces = preg_split('/(?<!\\\\)\./', $name);
         foreach ($pieces as $piece) {
             $piece = str_replace('\.', '.', $piece);
@@ -662,9 +622,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
             $context = &$context[$piece];
         }
+
         return $context;
     }
-
 
     /**
      * Really ugly hack until upstream Yaml date parsing is fixed
@@ -685,10 +645,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         return $document;
-
     }
 
-    private function checkForEmptyProperty($file, $document) {
+    private function checkForEmptyProperty($file, $document)
+    {
         $pattern = "/{.*?('').*?:.*?{/";
 
         $document = preg_replace($pattern, '{ $body: {', $document);
@@ -696,7 +656,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         return $document;
     }
 
-    private function checkForRegex($value) {
+    private function checkForRegex($value)
+    {
         if (is_string($value) !== true) {
             return false;
         }
@@ -728,7 +689,8 @@ EOF;
     }
 
     private function skipTest($path)
-    {//all_path_options
+    {
+        //all_path_options
         $skipList = array(
             'indices.delete_mapping/all_path_options.yaml',
             'indices.exists_type/10_basic.yaml',
@@ -746,7 +708,6 @@ EOF;
 
         //TODO make this more generic
         if (version_compare(YamlRunnerTest::$esVersion, "1.4.0", "<")) {
-
             // Breaking changes in null alias
             $skipList = array(
                 'indices.delete_alias/all_path_options.yaml',
@@ -762,7 +723,6 @@ EOF;
 
         return false;
     }
-
 }
 
 class SetupSkipException extends \Exception

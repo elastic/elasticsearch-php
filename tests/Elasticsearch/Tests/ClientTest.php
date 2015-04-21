@@ -1,13 +1,8 @@
 <?php
 
 namespace Elasticsearch\Tests;
-use Elasticsearch;
 
-use Monolog\Logger;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
-use Psr\Log\LogLevel;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Elasticsearch;
 use Mockery as m;
 
 /**
@@ -35,9 +30,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->info();
         $client->info();
         $client->info();
-
     }
-
 
     /**
      * @expectedException Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
@@ -50,9 +43,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
-
     }
-
 
     /**
      * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
@@ -61,9 +52,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80'])->build();
         $response = $client->info();
-
     }
-
 
     /**
      * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
@@ -71,7 +60,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructorIllegalPort()
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['localhost:abc'])->build();
-
     }
 
     /**
@@ -81,13 +69,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['127.0.0.1:80'])->setRetries(0)->build();
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
-
     }
 
-
-    public function testCustomQueryParams() {
+    public function testCustomQueryParams()
+    {
         $params = array();
-
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 

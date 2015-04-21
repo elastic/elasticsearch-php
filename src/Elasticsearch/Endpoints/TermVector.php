@@ -1,22 +1,20 @@
 <?php
-/**
- * User: zach
- * Date: 05/31/2013
- * Time: 16:47:11 pm
- */
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class TermVector
- * @package Elasticsearch\Endpoints
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class TermVector extends AbstractEndpoint
 {
-
     /**
      * @param array $body
      *
@@ -30,9 +28,9 @@ class TermVector extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -62,7 +60,6 @@ class TermVector extends AbstractEndpoint
         $uri   = "/$index/$type/$id/_termvector";
 
         return $uri;
-
     }
 
     /**

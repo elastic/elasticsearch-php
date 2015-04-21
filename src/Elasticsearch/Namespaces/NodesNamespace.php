@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/20/14
- * Time: 3:21 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -47,7 +42,6 @@ class NodesNamespace extends AbstractNamespace
 
         $index_metric = $this->extractArgument($params, 'index_metric');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -58,6 +52,7 @@ class NodesNamespace extends AbstractNamespace
                  ->setIndexMetric($index_metric)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -85,6 +80,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -103,7 +99,6 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -112,6 +107,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -128,7 +124,6 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -137,8 +132,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
-
 }

@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 5/9/13
- * Time: 5:13 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -18,7 +13,6 @@ namespace Elasticsearch\Namespaces;
  */
 class CatNamespace extends AbstractNamespace
 {
-
     /**
      * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -42,6 +36,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setName($name);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -69,6 +64,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -95,6 +91,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -119,6 +116,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\Health');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -138,6 +136,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\Help');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -166,6 +165,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -189,6 +189,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\Master');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -212,6 +213,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\Nodes');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -235,6 +237,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\PendingTasks');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -262,6 +265,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -288,6 +292,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -315,6 +320,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -343,9 +349,9 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setFields($fields);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
@@ -367,7 +373,7 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\Plugins');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $response['data'];
     }
-
 }

@@ -1,13 +1,7 @@
 <?php
-/**
- * User: zach
- * Date: 5/1/13
- * Time: 9:51 PM
- */
 
 namespace Elasticsearch;
 
-use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\Connections\Connection;
@@ -25,12 +19,10 @@ use Psr\Log\LoggerInterface;
  */
 class Transport
 {
-
     /**
      * @var AbstractConnectionPool
      */
     public $connectionPool;
-
 
     /**
      * @var LoggerInterface
@@ -46,7 +38,6 @@ class Transport
     /** @var int  */
     public $retries;
 
-
     /**
      * Transport class is responsible for dispatching requests to the
      * underlying cluster connections
@@ -58,7 +49,6 @@ class Transport
      */
     public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
-
         $this->log            = $log;
         $this->connectionPool = $connectionPool;
         $this->retries        = $retries;
@@ -67,7 +57,6 @@ class Transport
             $this->log->notice('Sniff on Start.');
             $this->connectionPool->scheduleCheck();
         }
-
     }
 
     /**
@@ -81,7 +70,6 @@ class Transport
     {
         return $this->connectionPool->nextConnection();
     }
-
 
     /**
      * Perform a request to the Cluster
@@ -119,21 +107,19 @@ class Transport
 
         $future->promise()->then(
             //onSuccess
-            function($response) {
+            function ($response) {
                 $this->retryAttempts = 0;
                 // Note, this could be a 4xx or 5xx error
             },
             //onFailure
-            function($response) {
+            function ($response) {
                 //some kind of real faiure here, like a timeout
                 $this->connectionPool->scheduleCheck();
                 // log stuff
             });
 
         return $future;
-
     }
-
 
     /**
      * @param $request
@@ -144,12 +130,12 @@ class Transport
     {
         if ($this->retryAttempts < $this->retries) {
             $this->retryAttempts += 1;
+
             return true;
         }
 
         return false;
     }
-
 
     /**
      * Returns the last used connection so that it may be inspected.  Mainly
@@ -161,6 +147,4 @@ class Transport
     {
         return $this->lastConnection;
     }
-
-
 }

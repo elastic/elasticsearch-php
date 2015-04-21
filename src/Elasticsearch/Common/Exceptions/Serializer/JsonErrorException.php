@@ -7,14 +7,22 @@ use Elasticsearch\Common\Exceptions\ElasticsearchException;
 /**
  * Class JsonErrorException
  *
- * @author Bez Hermoso <bezalelhermoso@gmail.com>
+ * @category Elasticsearch
+ * @package  Elasticsearch\Common\Exceptions\Curl
+ * @author   Bez Hermoso <bezalelhermoso@gmail.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
 class JsonErrorException extends \Exception implements ElasticsearchException
 {
+    /**
+     * @var mixed
+     */
     private $input;
 
+    /**
+     * @var mixed
+     */
     private $result;
 
     private static $messages = array(

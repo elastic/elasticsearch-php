@@ -1,12 +1,6 @@
 <?php
-/**
- * User: zach
- * Date: 5/31/13
- * Time: 9:49 AM
- */
 
 namespace Elasticsearch\Endpoints;
-
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
 use Elasticsearch\Transport;
@@ -15,7 +9,12 @@ use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 /**
  * Class AbstractEndpoint
- * @package Elasticsearch\Endpoints
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 abstract class AbstractEndpoint
 {
@@ -43,18 +42,15 @@ abstract class AbstractEndpoint
     /** @var array  */
     private $options = [];
 
-
     /**
      * @return string[]
      */
     abstract protected function getParamWhitelist();
 
-
     /**
      * @return string
      */
     abstract protected function getURI();
-
 
     /**
      * @return string
@@ -69,14 +65,12 @@ abstract class AbstractEndpoint
         $this->transport = $transport;
     }
 
-
     /**
      * @throws \Exception
      * @return array
      */
     public function performRequest()
     {
-
         $promise =  $this->transport->performRequest(
             $this->getMethod(),
             $this->getURI(),
@@ -86,7 +80,6 @@ abstract class AbstractEndpoint
         );
 
         return $promise;
-
     }
 
     /**
@@ -98,16 +91,16 @@ abstract class AbstractEndpoint
     public function setParams($params)
     {
         if (is_object($params) === true) {
-            $params = (array)$params;
+            $params = (array) $params;
         }
 
         $this->checkUserParams($params);
         $params = $this->convertCustom($params);
         $this->extractOptions($params);
         $this->params = $this->convertArraysToStrings($params);
+
         return $this;
     }
-
 
     /**
      * @param string $index
@@ -126,9 +119,9 @@ abstract class AbstractEndpoint
         }
 
         $this->index = urlencode($index);
+
         return $this;
     }
-
 
     /**
      * @param string $type
@@ -147,9 +140,9 @@ abstract class AbstractEndpoint
         }
 
         $this->type = urlencode($type);
+
         return $this;
     }
-
 
     /**
      * @param int|string $docID
@@ -163,6 +156,7 @@ abstract class AbstractEndpoint
         }
 
         $this->id = urlencode($docID);
+
         return $this;
     }
 
@@ -172,23 +166,18 @@ abstract class AbstractEndpoint
      */
     public function resultOrFuture($result)
     {
-
         $response = null;
         $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
         if (is_null($async) || $async === false) {
-
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
 
-
             return $result;
-            //var_dump($response);
         } elseif ($async === true || $async === 'lazy') {
             return $result;
         }
     }
-
 
     /**
      * @return array
@@ -197,7 +186,6 @@ abstract class AbstractEndpoint
     {
         return $this->body;
     }
-
 
     /**
      * @param string $endpoint
@@ -212,36 +200,32 @@ abstract class AbstractEndpoint
         $uri[] = $endpoint;
         $uri =  array_filter($uri);
 
-       return '/' . implode('/', $uri);
+        return '/' . implode('/', $uri);
     }
-
 
     /**
      * @return string
      */
     private function getOptionalIndex()
     {
-        if (isset($this->index) === true){
+        if (isset($this->index) === true) {
             return $this->index;
         } else {
             return '_all';
         }
     }
 
-
     /**
      * @return string
      */
     private function getOptionalType()
     {
-        if (isset($this->type) === true){
+        if (isset($this->type) === true) {
             return $this->type;
         } else {
             return '';
         }
     }
-
-
 
     /**
      * @param array $params
@@ -267,13 +251,11 @@ abstract class AbstractEndpoint
         }
     }
 
-
     /**
      * @param $params       Note: this is passed by-reference!
      */
     private function extractOptions(&$params)
     {
-
         // Extract out client options, then start transforming
         if (isset($params['client']) === true) {
             $this->options['client'] = $params['client'];
@@ -300,31 +282,31 @@ abstract class AbstractEndpoint
             }
             unset($params['custom']);
         }
+
         return $params;
     }
-
 
     private function convertArraysToStrings($params)
     {
         foreach ($params as $key => &$value) {
             if (!($key === 'client' || $key == 'custom') && is_array($value) === true) {
-                if ($this->isNestedArray($value) !== true){
+                if ($this->isNestedArray($value) !== true) {
                     $value = implode(",", $value);
                 }
-
             }
         }
 
         return $params;
     }
 
-    private function isNestedArray($a) {
+    private function isNestedArray($a)
+    {
         foreach ($a as $v) {
             if (is_array($v)) {
                 return true;
             }
         }
+
         return false;
     }
-
 }

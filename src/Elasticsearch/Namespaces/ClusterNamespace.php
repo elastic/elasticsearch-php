@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 5/9/13
- * Time: 5:13 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -18,7 +13,6 @@ namespace Elasticsearch\Namespaces;
  */
 class ClusterNamespace extends AbstractNamespace
 {
-
     /**
      * $params['index']                      = (string) Limit the information returned to a specific index
      *        ['level']                      = (enum) Specify the level of detail for returned information
@@ -38,8 +32,6 @@ class ClusterNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -48,9 +40,9 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
@@ -66,8 +58,6 @@ class ClusterNamespace extends AbstractNamespace
     {
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -76,6 +66,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -107,6 +98,7 @@ class ClusterNamespace extends AbstractNamespace
                  ->setIndex($index)
                  ->setMetric($metric);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -130,9 +122,9 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setNodeID($nodeID)
                  ->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['body'] = ()
@@ -145,8 +137,6 @@ class ClusterNamespace extends AbstractNamespace
     {
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -155,9 +145,9 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * @param array $params
@@ -173,9 +163,9 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Settings\Get');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
@@ -187,7 +177,6 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function pendingTasks($params = array())
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -195,7 +184,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\PendingTasks');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 }

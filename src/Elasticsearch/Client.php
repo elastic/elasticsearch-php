@@ -1,24 +1,14 @@
 <?php
-/**
- * User: zach
- * Date: 5/1/13
- * Time: 11:41 AM
- */
 
 namespace Elasticsearch;
 
-
-use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
-use Elasticsearch\Namespaces\NamespaceFutureUtil;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
-
 
 /**
  * Class Client
@@ -31,15 +21,13 @@ use Elasticsearch\Namespaces\BooleanRequestWrapper;
  */
 class Client
 {
-    use NamespaceFutureUtil;
-
     /**
      * @var Transport
      */
     public $transport;
 
     /**
-     * @var \Pimple\Container
+     * @var array
      */
     protected $params;
 
@@ -71,28 +59,22 @@ class Client
     /** @var  callback */
     protected $endpoints;
 
-
     /**
      * Client constructor
      *
      * @param Transport $transport
      * @param callable $endpoint
-     * @param callable $endpoint
      */
     public function __construct(Transport $transport, callable $endpoint)
     {
-        //$this->setParams($params);
-        //$this->setLogging();
         $this->transport = $transport;
         $this->endpoints = $endpoint;
         $this->indices   = new IndicesNamespace($transport, $endpoint);
-        $this->cluster   = new ClusterNamespace($transport, $endpoint);;
+        $this->cluster   = new ClusterNamespace($transport, $endpoint);
         $this->nodes     = new NodesNamespace($transport, $endpoint);
         $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
         $this->cat       = new CatNamespace($transport, $endpoint);
-
     }
-
 
     /**
      * @param $params
@@ -100,20 +82,23 @@ class Client
      */
     public function info($params = [])
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
         $response = $endpoint->setParams($params)->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
-
+    /**
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
     public function ping($params = [])
     {
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -123,14 +108,12 @@ class Client
         try {
             $response = $endpoint->setParams($params)->performRequest();
             $endpoint->resultOrFuture($response);
-
         } catch (Missing404Exception $exception) {
             return false;
         }
 
         return true;
     }
-
 
     /**
      * $params['id']              = (string) The document ID (Required)
@@ -155,13 +138,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -173,9 +152,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']             = (string) The document ID (Required)
@@ -196,13 +175,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -215,9 +190,9 @@ class Client
                  ->returnOnlySource();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']           = (string) The document ID (Required)
@@ -239,13 +214,9 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -257,9 +228,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      *
@@ -276,13 +247,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -294,9 +261,9 @@ class Client
                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
@@ -318,13 +285,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -336,6 +299,7 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -376,9 +340,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index with a registered percolator query (Required)
@@ -397,8 +361,6 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -410,9 +372,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']              = (string) Default index for items which don't provide one
@@ -431,7 +393,6 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -442,9 +403,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one
@@ -482,9 +443,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one
@@ -521,9 +482,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']         = (string) The document ID (Required)
@@ -543,9 +504,7 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
@@ -563,9 +522,7 @@ class Client
         $endpoint->setParams($params);
 
         return BooleanRequestWrapper::performRequest($endpoint);
-
     }
-
 
     /**
      * $params['id']                     = (string) The document ID (Required)
@@ -600,16 +557,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -622,9 +574,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']           = (string) The name of the index
@@ -648,13 +600,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -666,9 +614,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']       = (list) A comma-separated list of index names to use as default
@@ -684,13 +632,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -702,9 +646,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -731,16 +675,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -754,9 +693,9 @@ class Client
                  ->createIfAbsent();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']       = (string) Default index for items which don't provide one
@@ -774,13 +713,9 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -792,9 +727,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -822,16 +757,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -844,9 +774,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
@@ -864,10 +794,7 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -878,9 +805,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']                       = (string) The document ID (Required)
@@ -911,16 +838,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -933,9 +855,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1014,7 +936,6 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
@@ -1024,9 +945,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1052,9 +973,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
@@ -1080,9 +1001,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
@@ -1109,9 +1030,9 @@ class Client
                  ->setClearScroll(true);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']                = (string) Document ID (Required)
@@ -1141,16 +1062,11 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
-
-
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1163,9 +1079,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
 
     /**
      * $params['id']   = (string) The script ID (Required)
@@ -1189,6 +1105,7 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1214,6 +1131,7 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1241,6 +1159,7 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1263,6 +1182,7 @@ class Client
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1285,6 +1205,7 @@ class Client
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1309,10 +1230,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
-
-
 
     /**
      * Operate on the Indices Namespace of commands
@@ -1324,7 +1244,6 @@ class Client
         return $this->indices;
     }
 
-
     /**
      * Operate on the Cluster namespace of commands
      *
@@ -1334,7 +1253,6 @@ class Client
     {
         return $this->cluster;
     }
-
 
     /**
      * Operate on the Nodes namespace of commands
@@ -1346,7 +1264,6 @@ class Client
         return $this->nodes;
     }
 
-
     /**
      * Operate on the Snapshot namespace of commands
      *
@@ -1356,7 +1273,6 @@ class Client
     {
         return $this->snapshot;
     }
-
 
     /**
      * Operate on the Cat namespace of commands
@@ -1368,8 +1284,6 @@ class Client
         return $this->cat;
     }
 
-
-
     /**
      * @param array $params
      * @param string $arg
@@ -1379,17 +1293,16 @@ class Client
     public function extractArgument(&$params, $arg)
     {
         if (is_object($params) === true) {
-            $params = (array)$params;
+            $params = (array) $params;
         }
 
         if (isset($params[$arg]) === true) {
             $val = $params[$arg];
             unset($params[$arg]);
+
             return $val;
         } else {
             return null;
         }
     }
-
-
 }

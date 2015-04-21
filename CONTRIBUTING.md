@@ -34,13 +34,16 @@ The process for contributing to any of the Elasticsearch repositories is similar
         $> php phpunit.phar --bootstrap tests/bootstrap.php --no-configuration \
             --coverage-clover build/logs/clover.xml --exclude-group ignore tests
 
-4. Rebase your changes
+5. Ensure your changes follow the [PSR-2 Coding Style Guide](http://www.php-fig.org/psr/psr-2/). You can run tools such as [PHP-CS-Fixer](http://cs.sensiolabs.org/) or [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) to enforce PSR-2 automatically.
+
+6. Rebase your changes
 
     Update your local repository with the most recent code from the main elasticsearch-php repository, and rebase your branch on top of the latest master branch. We prefer your changes to be squashed into a single commit.
 
-5. Submit a pull request
+7. Submit a pull request
 
     Push your local changes to your forked copy of the repository and submit a pull request. In the pull request, describe what your changes do and mention the number of the issue where discussion has taken place, eg “Closes #123″.  Please consider adding or modifying tests related to your changes.
+
 
 Then sit back and wait. There will probably be discussion about the pull request and, if any changes are needed, we would love to work with you to get your pull request merged into elasticsearch-php.
 

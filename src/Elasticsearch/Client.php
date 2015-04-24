@@ -1235,6 +1235,34 @@ class Client
     }
 
     /**
+     * $params['index']              = (list) A comma-separated list of indices to restrict the results
+     *        ['fields']             = (list) A comma-separated list of fields for to get field statistics for (min value, max value, and more)
+     *        ['level']              = (enum) Defines if field stats should be returned on a per index level or on a cluster wide level
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function fieldStats($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
+        $endpoint = $endpointBuilder('FieldStats');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * Operate on the Indices Namespace of commands
      *
      * @return IndicesNamespace

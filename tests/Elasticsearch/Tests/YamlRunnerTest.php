@@ -62,6 +62,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
+        ob_implicit_flush();
         $host = YamlRunnerTest::getHostEnvVar();
         $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -493,6 +494,21 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $version = $settings['version'];
                         $version = str_replace(" ", "", $version);
                         $version = explode("-", $version);
+
+                        if (isset($version[0]) && $version[0] == 'all') {
+                            echo "Skipping: all\n";
+                            ob_flush();
+                            if ($key == 'setup') {
+                                throw new SetupSkipException();
+                            }
+                            return;
+                        }
+                        if (!isset($version[0])) {
+                            $version[0] = ~PHP_INT_MAX;
+                        }
+                        if (!isset($version[1])) {
+                            $version[1] = PHP_INT_MAX;
+                        }
                         if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
                             && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
                             echo "Skipping: ".$settings['reason']."\n";

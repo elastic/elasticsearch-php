@@ -138,7 +138,7 @@ $client->indices()->create($params);
 ----
 <1> The top level `settings` contains config about the index (# of shards, etc) as well as analyzers
 <2> `analysis` is nested inside of `settings`, and contains tokenizers, filters, char filters and analyzers
-<3> `mappings` is another element nested inside of `settings`, and contains the mappings for various types
+<3> `mappings` is another top level element nested inside of `body`, and contains the mappings for various types
 <4> The `_default_` type is a dynamic template that is applied to all fields that don't have an explicit mapping
 <5> The `my_type` type is an example of a user-defined type that holds a single field, `my_field`
 

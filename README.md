@@ -67,29 +67,19 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file (change version to suit your version of Elasticsearch):
-
-    ```json
-        {
-            "require": {
-                "elasticsearch/elasticsearch": "~1.0"
-            }
-        }
-    ```
-
-2. Download and install Composer:
+1. Download and install Composer:
 
     ```bash
         curl -s http://getcomposer.org/installer | php
     ```
 
-3. Install your dependencies:
+2. Install last stable version:
 
     ```bash
-        php composer.phar install --no-dev
+        php composer.phar require elasticsearch/elasticsearch
     ```
 
-4. Require Composer's autoloader
+3. Require Composer's autoloader
 
     Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
 

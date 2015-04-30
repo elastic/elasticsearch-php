@@ -58,7 +58,15 @@ class SearchTemplate extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return array(
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
+            'preference',
+            'routing',
+            'scroll',
+            'search_type'
+        );
     }
 
     /**

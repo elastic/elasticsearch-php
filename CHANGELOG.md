@@ -1,3 +1,30 @@
+## Release 2.0.0-beta3
+
+-  (HEAD, origin/2.0, 2.0) Add missing whitelist parameters to SearchTemplate endpoint [[74a7ca5]](http://github.com/elasticsearch/elasticsearch-php/commit/74a7ca5)
+-  [TEST] Update version parsing to handle new format [[b86fca5]](http://github.com/elasticsearch/elasticsearch-php/commit/b86fca5)
+-  Add FieldStats endpoint [[4935fd9]](http://github.com/elasticsearch/elasticsearch-php/commit/4935fd9)
+-  Merge pull request #217 from simplechris/patch-4 [[5a92117]](http://github.com/elasticsearch/elasticsearch-php/commit/5a92117)
+-  Add PSR-2 check to the contributing guidelines [[2ad3609]](http://github.com/elasticsearch/elasticsearch-php/commit/2ad3609)
+-  Add .php_cs file [[17d0eac]](http://github.com/elasticsearch/elasticsearch-php/commit/17d0eac)
+-  Add missing docblocks [[7305d45]](http://github.com/elasticsearch/elasticsearch-php/commit/7305d45)
+-  Misc cleanup [[35cb77e]](http://github.com/elasticsearch/elasticsearch-php/commit/35cb77e)
+-  Normalize blank lines between methods [[0f2cdae]](http://github.com/elasticsearch/elasticsearch-php/commit/0f2cdae)
+-  Add blank line before 'return' statements to aid readability [[fabd2cc]](http://github.com/elasticsearch/elasticsearch-php/commit/fabd2cc)
+-  Normalize spacing after explicit type casting [[057b1cd]](http://github.com/elasticsearch/elasticsearch-php/commit/057b1cd)
+-  Remove unused 'use' statements [[f6b2882]](http://github.com/elasticsearch/elasticsearch-php/commit/f6b2882)
+-  Normalize Elasticsearch\Common\Exception docblocks [[0a3a7ec]](http://github.com/elasticsearch/elasticsearch-php/commit/0a3a7ec)
+-  Remove NamespaceFutureUtil trait [[9a75582]](http://github.com/elasticsearch/elasticsearch-php/commit/9a75582)
+-  Remove commented-out debugging [[21c2278]](http://github.com/elasticsearch/elasticsearch-php/commit/21c2278)
+-  Normalize docblocks [[eaf18e2]](http://github.com/elasticsearch/elasticsearch-php/commit/eaf18e2)
+-  Remove redundant comments [[5c304a2]](http://github.com/elasticsearch/elasticsearch-php/commit/5c304a2)
+-  Use PSR-2 coding standard [[ad3db43]](http://github.com/elasticsearch/elasticsearch-php/commit/ad3db43)
+-  [TEST] Populate response body with exception message so that it can be verified [[65f1676]](http://github.com/elasticsearch/elasticsearch-php/commit/65f1676)
+-  Merge pull request #220 from simplechris/fix/client-builder-handler-selection [[563124d]](http://github.com/elasticsearch/elasticsearch-php/commit/563124d)
+-  ClientBuilder fixes for PHP 5.4 [[25eaa71]](http://github.com/elasticsearch/elasticsearch-php/commit/25eaa71)
+-  Remove save_to streaming functionality - not needed with curl handlers [[f32e038]](http://github.com/elasticsearch/elasticsearch-php/commit/f32e038)
+-  Merge pull request #216 from simplechris/patch-2 [[6cbe2fe]](http://github.com/elasticsearch/elasticsearch-php/commit/6cbe2fe)
+-  Add missing use statements [[58527d5]](http://github.com/elasticsearch/elasticsearch-php/commit/58527d5)
+
 ## Release 2.0.0-beta2
 
 - `curl_reset` was added in 5.5, use `curl_multi_init` to check for curl instead [[b722802]](http://github.com/elasticsearch/elasticsearch-php/commit/b722802)

@@ -199,7 +199,9 @@ class Connection implements ConnectionInterface
                 } else {
                     $connection->markAlive();
 
-                    $response['body'] = stream_get_contents($response['body']);
+                    if (isset($response['body']) === true) {
+                        $response['body'] = stream_get_contents($response['body']);
+                    }
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {
                         $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];

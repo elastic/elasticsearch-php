@@ -199,7 +199,7 @@ class Connection implements ConnectionInterface
                 } else {
                     $connection->markAlive();
 
-                    if ($response['body']) {
+                    if (isset($response['body']) === true) {
                         $response['body'] = stream_get_contents($response['body']);
                     }
 

@@ -339,7 +339,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function replaceWithStash($values, $stash)
+    static function replaceWithStash($values, $stash)
     {
         if (count($stash) === 0) {
             return $values;
@@ -357,7 +357,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     // Have to make sure we don't convert empty objects ( {} ) into arrays
                     if (count($tItem) > 0) {
-                        $item = $this->replaceWithStash($item, $stash);
+                        $item = YamlRunnerTest::replaceWithStash($item, $stash);
                     }
                 }
 
@@ -368,7 +368,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
         } elseif (is_object($values) === true) {
             $values = json_decode(json_encode($values), true);
-            $values = $this->replaceWithStash($values, $stash);
+            $values = YamlRunnerTest::replaceWithStash($values, $stash);
         }
 
         return $values;
@@ -403,7 +403,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n         |$method\n";
                     ob_flush();
 
-                    $hash = $this->replaceWithStash($hash, $stash);
+
+                    $hash = YamlRunnerTest::replaceWithStash($hash, $stash);
+
 
                     try {
                         echo "         |".json_encode($hash)."\n";
@@ -485,8 +487,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $actual   = $this->getNestedVar($response, key($settings));
                     }
 
-                    $expected = $this->replaceWithStash($expected, $stash);
-                    $actual = $this->replaceWithStash($actual, $stash);
+                    $expected = YamlRunnerTest::replaceWithStash($expected, $stash);
+                    $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
                     if ($actual != $expected) {
                         //Holy janky batman
                         if (is_array($actual) && count($actual) == 0) {
@@ -509,22 +511,22 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo "\n";
                 } elseif ($operator === "is_true") {
                     if (empty($settings) === true) {
-                        $response = $this->replaceWithStash($response, $stash);
+                        $response = YamlRunnerTest::replaceWithStash($response, $stash);
                         $this->assertTruthy($response);
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
-                        $actual = $this->replaceWithStash($actual, $stash);
+                        $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
                         $this->assertTruthy($actual);
                     }
 
                     echo "\n";
                 } elseif ($operator === "is_false") {
                     if (empty($settings) === true) {
-                        $response = $this->replaceWithStash($response, $stash);
+                        $response = YamlRunnerTest::replaceWithStash($response, $stash);
                         $this->assertFalsey($response);
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
-                        $actual = $this->replaceWithStash($actual, $stash);
+                        $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
                         $this->assertFalsey($actual);
                     }
 

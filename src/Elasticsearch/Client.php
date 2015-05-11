@@ -918,6 +918,64 @@ class Client
     }
 
     /**
+     * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+     *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     *        ['analyzer']                 = (string) The analyzer to use for the query string
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR)
+     *        ['df']                       = (string) The field to use as default where no field prefix is given in the query string
+     *        ['explain']                  = (boolean) Specify whether to return detailed information about score computation as part of a hit
+     *        ['fields']                   = (list) A comma-separated list of fields to return as part of a hit
+     *        ['from']                     = (number) Starting offset (default: 0)
+     *        ['ignore_indices']           = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     *        ['indices_boost']            = (list) Comma-separated list of index boosts
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['q']                        = (string) Query in the Lucene query string syntax
+     *        ['routing']                  = (list) A comma-separated list of specific routing values
+     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['search_type']              = (enum) Search operation type
+     *        ['size']                     = (number) Number of hits to return (default: 10)
+     *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
+     *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of using request body)
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
+     *        ['suggest_field']            = (string) Specify which field to use for suggestions
+     *        ['suggest_mode']             = (enum) Specify suggest mode
+     *        ['suggest_size']             = (number) How many suggestions to return in response
+     *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
+     *        ['timeout']                  = (time) Explicit operation timeout
+     *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
+     *        ['body']                     = (array|string) The search definition using the Query DSL
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function searchExists($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $type = $this->extractArgument($params, 'type');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\SearchExists $endpoint */
+        $endpoint = $endpointBuilder('SearchExists');
+        $endpoint->setIndex($index)
+                 ->setType($type)
+                 ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      *        ['type']               = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)

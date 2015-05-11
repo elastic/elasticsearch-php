@@ -282,6 +282,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     if (array_key_exists($item, $stash) == true) {
                         $item = $stash[$item];
                     }
+                } elseif (is_object($item) === true) {
+
+                    $tItem = json_decode(json_encode($item), true);
+
+                    // Have to make sure we don't convert empty objects ( {} ) into arrays
+                    if (count($tItem) > 0) {
+                        $item = $this->replaceWithStash($item, $stash);
+                    }
                 }
 
             });
@@ -289,6 +297,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             if (array_key_exists($values, $stash) == true) {
                 $values = $stash[$values];
             }
+        } elseif (is_object($values) === true) {
+            $values = json_decode(json_encode($values), true);
+            $values = $this->replaceWithStash($values, $stash);
         }
 
 
@@ -333,6 +344,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                     try {
                         echo "         |".json_encode($hash)."\n";
+                        ob_flush();
                         $response = $this->callMethod($method, $hash);
                         echo "         |".json_encode($response)."\n";
                         ob_flush();
@@ -471,9 +483,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                 } elseif ($operator === 'set') {
                     $stashKey = $this->getValue($settings, key($settings));
+                    echo " $stashKey\n";
                     $stash["$$stashKey"] = $this->getNestedVar($response, key($settings));
-
+                    echo "Stash updated.  Total stash now: \n";
+                    print_r($stash);
                     echo "\n";
+                    ob_flush();
 
                 } elseif ($operator === "length") {
                     $expectedCount = $this->getValue($settings, key($settings));

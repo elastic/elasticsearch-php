@@ -53,7 +53,12 @@ class Query extends AbstractEndpoint
             'operation_threading',
             'source',
             'q',
-            'df'
+            'df',
+            'default_operator',
+            'analyzer',
+            'analyze_wildcard',
+            'lenient',
+            'lowercase_expanded_terms'
         );
     }
 

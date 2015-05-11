@@ -9,6 +9,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use Psr\Log\LogLevel;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Mockery as m;
+use TestNamespace\TestNamespace;
 
 /**
  * Class ClientTest
@@ -362,5 +363,24 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'custom' => array('customToken' => 'abc', 'otherToken' => 123)
         );
         $exists = $client->exists($getParams);
+    }
+
+
+    public function testUserNamespace() {
+        $namespace = new TestNamespace();
+
+        $params = array();
+        $params['customNamespaces']['test'] = $namespace;
+        $client = new Elasticsearch\Client($params);
+
+        $this->assertEquals($client->test()->echoString(), "abc");
+    }
+}
+
+namespace TestNamespace;
+
+class TestNamespace {
+    public function echoString() {
+        return "abc";
     }
 }

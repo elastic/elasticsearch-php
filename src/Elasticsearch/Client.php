@@ -70,6 +70,9 @@ class Client
      */
     protected $cat;
 
+
+    protected $customNamespaces = array();
+
     /** @var  callback */
     protected $dicEndpoints;
 
@@ -83,13 +86,14 @@ class Client
     {
         $this->setParams($params);
         $this->setLogging();
-        $this->transport    = $this->params['transport'];
-        $this->indices      = $this->params['indicesNamespace'];
-        $this->cluster      = $this->params['clusterNamespace'];
-        $this->nodes        = $this->params['nodesNamespace'];
-        $this->snapshot     = $this->params['snapshotNamespace'];
-        $this->cat          = $this->params['catNamespace'];
-        $this->dicEndpoints = $this->params['endpoint'];
+        $this->transport      = $this->params['transport'];
+        $this->indices        = $this->params['indicesNamespace'];
+        $this->cluster        = $this->params['clusterNamespace'];
+        $this->nodes          = $this->params['nodesNamespace'];
+        $this->snapshot       = $this->params['snapshotNamespace'];
+        $this->cat            = $this->params['catNamespace'];
+        $this->customNamespaces = $this->params['customNamespaces'];
+        $this->dicEndpoints   = $this->params['endpoint'];
     }
 
 
@@ -1413,6 +1417,20 @@ class Client
         return $this->cat;
     }
 
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws Common\Exceptions\RuntimeException
+     */
+    public function __call($name, $arguments)
+    {
+        if (isset($this->customNamespaces[$name]) === true) {
+            return $this->customNamespaces[$name];
+        }
+        throw new Exceptions\RuntimeException("User-defined namespace '$name' could not be found.'");
+    }
 
     /**
      * Sets up the DIC parameter object

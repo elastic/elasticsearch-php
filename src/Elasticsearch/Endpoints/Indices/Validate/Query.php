@@ -51,7 +51,8 @@ class Query extends AbstractEndpoint
             'ignore_indices',
             'operation_threading',
             'source',
-            'q'
+            'q',
+            'df'
         );
     }
 

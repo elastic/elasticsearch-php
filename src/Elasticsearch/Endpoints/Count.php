@@ -75,6 +75,7 @@ class Count extends AbstractEndpoint
             'preference',
             'routing',
             'source',
+            'q'
         );
     }
 

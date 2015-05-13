@@ -20,6 +20,17 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
  */
 class IndicesNamespace extends AbstractNamespace
 {
+
+    /**
+     * @return callable
+     */
+    public static function build() {
+        return function ($dicParams) {
+            return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
+
     /**
      * $params['index'] = (list) A comma-separated list of indices to check (Required)
      *

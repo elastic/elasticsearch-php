@@ -18,6 +18,16 @@ namespace Elasticsearch\Namespaces;
  */
 class SnapshotNamespace extends AbstractNamespace
 {
+
+    /**
+     * @return callable
+     */
+    public static function build() {
+        return function ($dicParams) {
+            return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning

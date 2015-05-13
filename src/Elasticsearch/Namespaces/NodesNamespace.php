@@ -18,6 +18,16 @@ namespace Elasticsearch\Namespaces;
  */
 class NodesNamespace extends AbstractNamespace
 {
+
+    /**
+     * @return callable
+     */
+    public static function build() {
+        return function ($dicParams) {
+            return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
     /**
      * $params['fields']        = (list) A comma-separated list of fields for `fielddata` metric (supports wildcards)
      *        ['metric_family'] = (enum) Limit the information returned to a certain metric family

@@ -20,6 +20,15 @@ class CatNamespace extends AbstractNamespace
 {
 
     /**
+     * @return callable
+     */
+    public static function build() {
+        return function ($dicParams) {
+            return new CatNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
+    /**
      * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display

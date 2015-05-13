@@ -127,9 +127,22 @@ class DICBuilder
         $this->dic = new Pimple();
 
         $this->setDICParams($params);
-        $this->setNonSharedDICObjects();
-        $this->setSharedDICObjects($hosts);
-        $this->setEndpointDICObjects();
+        $this->setConnectionObj();
+        $this->setConnectionFactoryObj();
+        $this->setSelectorObj();
+        $this->setSerializerObj();
+        $this->setConnectionPoolObj();
+
+        $this->setTransportObj($hosts);
+
+
+        $this->setSharedConnectionParamsObj();
+        $this->setCurlMultihandle();
+        $this->setGuzzleClient();
+        $this->setEndpoint();
+
+        $this->setNamespaces();
+
 
     }
 
@@ -148,45 +161,6 @@ class DICBuilder
         foreach ($params as $key => $value) {
             $this->dic[$key] = $value;
         }
-    }
-
-
-    /**
-     * NonShared DIC objects return a new obj each time
-     * they are accessed
-     */
-    private function setNonSharedDICObjects()
-    {
-        $this->setConnectionObj();
-        $this->setConnectionFactoryObj();
-        $this->setSelectorObj();
-        $this->setSerializerObj();
-        $this->setConnectionPoolObj();
-    }
-
-
-    /**
-     * Shared DIC objects reuse the same obj each time
-     * they are accessed
-     *
-     * @param array $hosts Array of hosts
-     */
-    private function setSharedDICObjects($hosts)
-    {
-        $this->setTransportObj($hosts);
-        $this->setClusterNamespaceObj();
-        $this->setIndicesNamespaceObj();
-        $this->setNodesNamespaceObj();
-        $this->setCatNamespaceObj();
-        $this->setSnapshotNamespaceObj();
-        $this->setSharedConnectionParamsObj();
-        $this->setCurlMultihandle();
-        $this->setGuzzleClient();
-    }
-
-    private function setEndpointDICObjects()
-    {
-        $this->setEndpoint();
     }
 
 
@@ -251,47 +225,19 @@ class DICBuilder
     }
 
 
-    private function setClusterNamespaceObj()
+    private function setNamespaces()
     {
-        $this->dic['clusterNamespace'] = function ($dicParams) {
-            /** @var Pimple $dicParams */
-            return new ClusterNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
+        $this->dic['clusterNamespace'] = ClusterNamespace::build();
+        $this->dic['indicesNamespace'] = IndicesNamespace::build();
+        $this->dic['nodesNamespace'] = NodesNamespace::build();
+        $this->dic['snapshotNamespace'] = SnapshotNamespace::build();
+        $this->dic['catNamespace'] = CatNamespace::build();
+
+        foreach ($this->dic['customNamespaces'] as $name => $ns) {
+            $this->dic[$name] = $ns::build();
+        }
     }
 
-
-    private function setIndicesNamespaceObj()
-    {
-        $this->dic['indicesNamespace'] = function ($dicParams) {
-            /** @var Pimple $dicParams */
-            return new IndicesNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
-
-    private function setNodesNamespaceObj()
-    {
-        $this->dic['nodesNamespace'] = function ($dicParams) {
-            /** @var Pimple $dicParams */
-            return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
-
-
-    private function setSnapshotNamespaceObj()
-    {
-        $this->dic['snapshotNamespace'] = function ($dicParams) {
-            /** @var Pimple $dicParams */
-            return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
-
-    private function setCatNamespaceObj()
-    {
-        $this->dic['catNamespace'] = function ($dicParams) {
-            /** @var Pimple $dicParams */
-            return new CatNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
 
 
     private function setSharedConnectionParamsObj()

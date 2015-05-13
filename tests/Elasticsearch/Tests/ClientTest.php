@@ -367,10 +367,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 
     public function testUserNamespace() {
-        $namespace = new TestNamespace();
-
         $params = array();
-        $params['customNamespaces']['test'] = $namespace;
+        $params['customNamespaces'] = array('test' => 'TestNamespace\TestNamespace');
         $client = new Elasticsearch\Client($params);
 
         $this->assertEquals($client->test()->echoString(), "abc");
@@ -379,7 +377,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 namespace TestNamespace;
 
-class TestNamespace {
+use Elasticsearch\Namespaces\AbstractNamespace;
+
+class TestNamespace extends AbstractNamespace {
+
+    public static function build() {
+        return function ($dicParams) {
+            return new TestNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
     public function echoString() {
         return "abc";
     }

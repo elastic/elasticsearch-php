@@ -92,7 +92,11 @@ class Client
         $this->nodes          = $this->params['nodesNamespace'];
         $this->snapshot       = $this->params['snapshotNamespace'];
         $this->cat            = $this->params['catNamespace'];
-        $this->customNamespaces = $this->params['customNamespaces'];
+
+        foreach ($this->params['customNamespaces'] as $name => $ns) {
+            $this->customNamespaces[$name] = $this->params[$name];
+        }
+
         $this->dicEndpoints   = $this->params['endpoint'];
     }
 

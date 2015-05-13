@@ -20,6 +20,15 @@ class ClusterNamespace extends AbstractNamespace
 {
 
     /**
+     * @return callable
+     */
+    public static function build() {
+        return function ($dicParams) {
+            return new ClusterNamespace($dicParams['transport'], $dicParams['endpoint']);
+        };
+    }
+
+    /**
      * $params['index']                      = (string) Limit the information returned to a specific index
      *        ['level']                      = (enum) Specify the level of detail for returned information
      *        ['local']                      = (boolean) Return local information, do not retrieve the state from master node (default: false)

@@ -93,9 +93,12 @@ class Client
         $this->snapshot       = $this->params['snapshotNamespace'];
         $this->cat            = $this->params['catNamespace'];
 
-        foreach ($this->params['customNamespaces'] as $name => $ns) {
-            $this->customNamespaces[$name] = $this->params[$name];
+        if (isset($this->params['customNamespaces']) === true) {
+            foreach ($this->params['customNamespaces'] as $name => $ns) {
+                $this->customNamespaces[$name] = $this->params[$name];
+            }
         }
+
 
         $this->dicEndpoints   = $this->params['endpoint'];
     }

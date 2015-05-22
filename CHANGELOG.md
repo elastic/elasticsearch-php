@@ -1,3 +1,12 @@
+## Release 2.0.0-beta4
+- [DOCS] Fix bulk example [[fce4848]](http://github.com/elasticsearch/elasticsearch-php/commit/fce4848)
+- Add Indices/Seal endpoint [[a08252c]](http://github.com/elasticsearch/elasticsearch-php/commit/a08252c)
+- [TEST] Fix YamlRunner to correctly stash values in object hierarchies [[2916727]](http://github.com/elasticsearch/elasticsearch-php/commit/2916727)
+- Add SearchExists Endpoint [[a47eb67]](http://github.com/elasticsearch/elasticsearch-php/commit/a47eb67)
+- Add more missing query-string parameters [[03bdb78]](http://github.com/elasticsearch/elasticsearch-php/commit/03bdb78)
+- Add missing query-string parameters [[6efdedd]](http://github.com/elasticsearch/elasticsearch-php/commit/6efdedd)
+- (pr/232) fix Warning for empty body when HEAD request - check if index exists [[e6fa2da]](http://github.com/elasticsearch/elasticsearch-php/commit/e6fa2da)
+
 ## Release 2.0.0-beta3
 
 -  (HEAD, origin/2.0, 2.0) Add missing whitelist parameters to SearchTemplate endpoint [[74a7ca5]](http://github.com/elasticsearch/elasticsearch-php/commit/74a7ca5)

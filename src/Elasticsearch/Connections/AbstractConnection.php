@@ -47,7 +47,7 @@ abstract class AbstractConnection implements ConnectionInterface
     /**
      * @var array
      */
-    protected $connectionParams;
+    protected $connectionParams = array();
 
     /** @var bool  */
     protected $isAlive = false;
@@ -112,7 +112,10 @@ abstract class AbstractConnection implements ConnectionInterface
         $this->host             = $host;
         $this->log              = $log;
         $this->trace            = $trace;
-        $this->connectionParams = $connectionParams;
+        if (isset($connectionParams) === true) {
+            $this->connectionParams = $connectionParams;
+        }
+
 
     }
 

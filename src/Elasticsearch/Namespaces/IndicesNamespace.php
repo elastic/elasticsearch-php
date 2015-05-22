@@ -1092,4 +1092,27 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * $params['index']   = (string) The name of the index
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function seal($params)
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Seal $endpoint */
+        $endpoint = $endpointBuilder('Indices\Seal');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
 }

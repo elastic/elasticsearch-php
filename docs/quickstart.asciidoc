@@ -96,6 +96,7 @@ Due to the dynamic nature of elasticsearch, the first document we added automati
 
 [source,php]
 ----------------------------
+$deleteParams = array();
 $deleteParams['index'] = 'my_index';
 $client->indices()->delete($deleteParams);
 ----------------------------

@@ -77,11 +77,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
         }
     ```
 
-2. Download and install Composer:
-
-    ```bash
-        curl -s http://getcomposer.org/installer | php
-    ```
+2. Download and install Composer for [Linux/Unix/OSX](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) or [Windows](https://getcomposer.org/doc/00-intro.md#installation-windows).
 
 3. Install your dependencies:
 

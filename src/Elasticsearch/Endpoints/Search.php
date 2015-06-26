@@ -90,6 +90,8 @@ class Search extends AbstractEndpoint
             'suggest_text',
             'timeout',
             'version',
+            'fielddata_fields',
+            'filter_path'
         );
     }
 

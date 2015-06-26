@@ -501,9 +501,9 @@ class Client
     /**
      * Redirect to termvector, this is just a naming difference depending on version
      */
-    public function termvectors($params = array())
+    public function termvector($params = array())
     {
-        return $this->termvector($params);
+        return $this->termvectors($params);
     }
 
 

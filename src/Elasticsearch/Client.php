@@ -498,6 +498,14 @@ class Client
         return $response['data'];
     }
 
+    /**
+     * Redirect to termvector, this is just a naming difference depending on version
+     */
+    public function termvectors($params = array())
+    {
+        return $this->termvector($params);
+    }
+
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one

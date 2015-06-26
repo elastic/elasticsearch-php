@@ -60,7 +60,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public static function setUpBeforeClass()
+    public static function saveESVersion()
     {
         ob_implicit_flush();
         $host = YamlRunnerTest::getHostEnvVar();
@@ -174,8 +174,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     public static function provider()
     {
+        YamlRunnerTest::saveESVersion();
 
-        if (version_compare(YamlRunnerTest::$esVersion, "2.0") >= 0) {
+        if (version_compare(YamlRunnerTest::$esVersion, "2.0.0", "<")) {
             $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/test/';
         } else {
             $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test';

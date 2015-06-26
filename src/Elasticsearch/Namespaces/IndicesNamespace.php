@@ -364,6 +364,36 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['force']              = (boolean) TODO: ?
+     *        ['full']               = (boolean) TODO: ?
+     *        ['refresh']            = (boolean) Refresh the index after performing the operation
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function flushSynced($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
+        $endpoint = $endpointBuilder('Indices\Flush');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $endpoint->setSynced(true);
+        $response = $endpoint->performRequest();
+        return $endpoint->resultOrFuture($response);
+    }
+
+
+    /**
      * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *        ['operation_threading'] = () TODO: ?
      *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)

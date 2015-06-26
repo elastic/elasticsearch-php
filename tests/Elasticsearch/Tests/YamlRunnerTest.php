@@ -106,18 +106,18 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $this->waitForYellow();
     }
 
-    private function assertTruthy($value)
+    private function assertTruthy($value, $settings)
     {
-        echo "\n         |assertTruthy: ".json_encode($value)."\n";
+        echo "\n         |assertTruthy($settings): ".json_encode($value)."\n";
         ob_flush();
         if (isset($value) === false || $value === 0 || $value === false || $value === null || $value === '') {
             $this->fail("Value is not truthy: ".print_r($value, true));
         }
     }
 
-    private function assertFalsey($value)
+    private function assertFalsey($value, $settings)
     {
-        echo "\n         |assertFalsey: ".json_encode($value)."\n";
+        echo "\n         |assertFalsey($settings): ".json_encode($value)."\n";
         ob_flush();
         if (!(isset($value) === false || $value === 0 || $value === false || $value === null || $value === '')) {
             $this->fail("Value is not falsey: ".print_r($value, true));
@@ -365,6 +365,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         } elseif (is_string($values) || is_numeric($values)) {
             if (array_key_exists($values, $stash) == true) {
                 $values = $stash[$values];
+            } else {
+                // Couldn't find the entire value, try a substring replace
+                foreach ($stash as $k => $v) {
+                    $values = str_replace($k, $v, $values);
+                }
             }
         } elseif (is_object($values) === true) {
             $values = json_decode(json_encode($values), true);
@@ -512,22 +517,27 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 } elseif ($operator === "is_true") {
                     if (empty($settings) === true) {
                         $response = YamlRunnerTest::replaceWithStash($response, $stash);
-                        $this->assertTruthy($response);
+                        $this->assertTruthy($response, $settings);
+
                     } else {
+                        $settings = YamlRunnerTest::replaceWithStash($settings, $stash);
+                        echo "settings after replace: ";
+                        print_r($settings);
+                        echo "\n";
                         $actual = $this->getNestedVar($response, $settings);
                         $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
-                        $this->assertTruthy($actual);
+                        $this->assertTruthy($actual, $settings);
                     }
 
                     echo "\n";
                 } elseif ($operator === "is_false") {
                     if (empty($settings) === true) {
                         $response = YamlRunnerTest::replaceWithStash($response, $stash);
-                        $this->assertFalsey($response);
+                        $this->assertFalsey($response, $settings);
                     } else {
                         $actual = $this->getNestedVar($response, $settings);
                         $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
-                        $this->assertFalsey($actual);
+                        $this->assertFalsey($actual, $settings);
                     }
 
                     echo "\n";

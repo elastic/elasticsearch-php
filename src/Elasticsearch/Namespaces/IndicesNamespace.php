@@ -1173,4 +1173,32 @@ class IndicesNamespace extends AbstractNamespace
         $response = $endpoint->performRequest();
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+     *        ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
+     *        ['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
+     *        ['refresh']            = (boolean) Refresh the index after performing the operation
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function getUpgrade($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Upgrade\Get $endpoint */
+        $endpoint = $endpointBuilder('Indices\Upgrade\Get');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $endpoint->resultOrFuture($response);
+    }
 }

@@ -24,11 +24,13 @@ The master branch will always track Elasticsearch master, but it is not recommen
 
 === Composer Installation
 
-* Install the client with composer.  The first command download the `composer.phar` PHP package, and the second command invokes the installation.  Composer will automatically download any required dependencies, store them in a /vendor/ directory and build an autoloader.:
+* Install the client with composer.  Download and install Composer for [Linux/Unix/OSX](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) or [Windows](https://getcomposer.org/doc/00-intro.md#installation-windows).  Then
+execute the following command.  Composer will automatically download any required dependencies, store them in a
+`/vendor/` directory and build an autoloader:
+
 +
 [source,shell]
 --------------------------
-curl -s http://getcomposer.org/installer | php
 php composer.phar require elasticsearch/elasticsearch
 --------------------------
 

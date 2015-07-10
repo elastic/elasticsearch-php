@@ -24,23 +24,12 @@ The master branch will always track Elasticsearch master, but it is not recommen
 
 === Composer Installation
 
-* Include elasticsearch-php in your `composer.json` file.  If you are starting a new project, simply paste the following JSON snippet into a new file called `composer.json`.  If you have an existing project, include this requirement under the rest of requirements already present:
-+
-[source,json]
---------------------------
-{
-    "require": {
-        "elasticsearch/elasticsearch": "~1.0"
-    }
-}
---------------------------
-
 * Install the client with composer.  The first command download the `composer.phar` PHP package, and the second command invokes the installation.  Composer will automatically download any required dependencies, store them in a /vendor/ directory and build an autoloader.:
 +
 [source,shell]
 --------------------------
 curl -s http://getcomposer.org/installer | php
-php composer.phar install --no-dev
+php composer.phar require elasticsearch/elasticsearch
 --------------------------
 
 * Finally, include the generated autoloader in your main project.  If your project is already based on Composer, the autoloader is likely already included somewhere and you don't need to add it again.  Finally, instantiate a new client:

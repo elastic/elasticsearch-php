@@ -33,10 +33,6 @@ class Info extends AbstractNodesEndpoint
      */
     public function setMetric($metric)
     {
-        if (isset($metric) !== true) {
-            return $this;
-        }
-
         if (is_array($metric) === true) {
             $metric = implode(",", $metric);
         }

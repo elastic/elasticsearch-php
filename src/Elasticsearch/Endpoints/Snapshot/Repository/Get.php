@@ -33,10 +33,6 @@ class Get extends AbstractEndpoint
      */
     public function setRepository($repository)
     {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
         $this->repository = $repository;
         return $this;
     }

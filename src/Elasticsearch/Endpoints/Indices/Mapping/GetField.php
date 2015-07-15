@@ -34,10 +34,6 @@ class GetField extends AbstractEndpoint
      * @return $this
      */
     public function setField($field) {
-        if (isset($field) !== true) {
-            return $this;
-        }
-
         if (is_array($field) === true) {
             $field = implode(",", $field);
         }

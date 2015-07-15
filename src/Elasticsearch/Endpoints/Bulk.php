@@ -37,9 +37,6 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
 
         if (is_array($body) === true) {
             $bulkBody = "";

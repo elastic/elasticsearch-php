@@ -33,10 +33,6 @@ class Exists extends AbstractEndpoint
      */
     public function setName($name)
     {
-        if (isset($name) !== true) {
-            return $this;
-        }
-
         $this->name = $name;
         return $this;
     }

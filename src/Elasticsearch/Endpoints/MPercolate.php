@@ -32,14 +32,11 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
 
     /**
      * @param string|array $body
-     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
 
         if (is_array($body) === true) {
             $bulkBody = "";

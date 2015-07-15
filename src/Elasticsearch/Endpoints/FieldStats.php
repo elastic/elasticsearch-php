@@ -24,10 +24,6 @@ class FieldStats extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
         $this->body = $body;
         return $this;
     }

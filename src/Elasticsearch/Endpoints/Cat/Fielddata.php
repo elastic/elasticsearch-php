@@ -32,10 +32,6 @@ class Fielddata extends AbstractEndpoint
      */
     public function setFields($fields)
     {
-        if (isset($fields) !== true) {
-            return $this;
-        }
-
         $this->fields = $fields;
         return $this;
     }

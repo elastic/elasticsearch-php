@@ -33,10 +33,6 @@ class Get extends AbstractEndpoint
      */
     public function setField($field)
     {
-        if (isset($field) !== true) {
-            return $this;
-        }
-
         $this->field = $field;
         return $this;
     }

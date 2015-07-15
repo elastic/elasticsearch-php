@@ -30,11 +30,6 @@ class DeleteByQuery extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-
         $this->body = $body;
         return $this;
     }
@@ -56,10 +51,8 @@ class DeleteByQuery extends AbstractEndpoint
         $type = $this->type;
         $uri   = "/$index/_query";
 
-        if (isset($index) === true && isset($type) === true) {
+        if (isset($type) === true) {
             $uri = "/$index/$type/_query";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_query";
         }
 
         return $uri;

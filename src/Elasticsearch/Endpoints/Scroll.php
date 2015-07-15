@@ -36,11 +36,6 @@ class Scroll extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-
         $this->body = $body;
         return $this;
     }
@@ -60,10 +55,6 @@ class Scroll extends AbstractEndpoint
      */
     public function setScrollId($scroll_id)
     {
-        if (isset($scroll_id) !== true) {
-            return $this;
-        }
-
         $this->scroll_id = $scroll_id;
         return $this;
     }

@@ -38,7 +38,7 @@ The master branch will always track Elasticsearch master, but it is not recommen
 --------------------------
 {
     "require": {
-        "elasticsearch/elasticsearch": "~2.0"
+        "elasticsearch/elasticsearch": "~2.0@beta"
     }
 }
 --------------------------

@@ -1331,6 +1331,30 @@ class Client
     }
 
     /**
+     * $params['id']                 = (string) ID of the template to render
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function renderSearchTemplate($params = array())
+    {
+        $body = $this->extractArgument($params, 'body');
+        $id   = $this->extractArgument($params, 'id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */
+        $endpoint = $endpointBuilder('RenderSearchTemplate');
+        $endpoint->setBody($body)
+            ->setID($id);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * Operate on the Indices Namespace of commands
      *
      * @return IndicesNamespace

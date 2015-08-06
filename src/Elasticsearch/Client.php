@@ -797,6 +797,7 @@ class Client
      *        ['refresh']     = (boolean) Refresh the index after performing the operation
      *        ['replication'] = (enum) Explicitly set the replication type
      *        ['body']        = (string) Default document type for items which don't provide one
+     *        ['fields']      = (list) Default comma-separated list of fields to return in the response for updates
      *
      * @param $params array Associative array of parameters
      *

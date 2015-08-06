@@ -58,7 +58,8 @@ class FieldStats extends AbstractEndpoint
             'level',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'fields'
         );
     }
 

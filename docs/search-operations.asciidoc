@@ -215,7 +215,7 @@ $params['body'] = array(
     'query' => array(
         'function_score' => array(
             'functions' => array(
-                array("random_score" => new \stdClass())
+                array("random_score" => (object) array())
             ),
             'query' => array('match_all' => array())
         )

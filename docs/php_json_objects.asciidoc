@@ -44,15 +44,15 @@ $params['body'] = array(
     ),
     'highlight' => array(
         'fields' => array(
-            'content' => new \stdClass() <1>
+            'content' => (object) array() <1>
         )
     )
 );
 $results = $client->search($params);
 ----
-<1> We use the generic PHP stdClass object to represent an empty object.  The JSON will now encode correctly.
+<1> We cast an empty array to an object to represent an empty object.  The JSON will now encode correctly.
 
-By using an explicit stdClass object, we can force the `json_encode` parser to correctly output an empty object, instead
+By using an empty array cast to an object, we can force the `json_encode` parser to correctly output an empty object, instead
 of an empty array.  Sadly, this verbose solution is the only way to acomplish the goal in PHP...there is no "short"
 version of an empty object.
 
@@ -148,7 +148,7 @@ $params['body'] = array(
         'function_score' => array(
             'functions' => array(  <1>
                 array(  <2>
-                    'random_score' => new \stdClass() <3>
+                    'random_score' => (object) array() <3>
                 )
             )
         )

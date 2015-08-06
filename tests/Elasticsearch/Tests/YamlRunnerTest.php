@@ -347,7 +347,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         if (is_array($values) === true) {
             array_walk_recursive($values, function (&$item, $key) use ($stash) {
-                if (is_string($item) === true || is_numeric($item) === true) {
+                if (is_string($item) === true) {
                     if (array_key_exists($item, $stash) == true) {
                         $item = $stash[$item];
                     }

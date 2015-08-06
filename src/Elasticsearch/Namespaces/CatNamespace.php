@@ -367,13 +367,38 @@ class CatNamespace extends AbstractNamespace
     public function plugins($params = array())
     {
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cat\Plugins $endpoint */
         $endpoint = $endpointBuilder('Cat\Plugins');
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function segments($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Segments $endpoint */
+        $endpoint = $endpointBuilder('Cat\Segments');
+        $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
     }
 }

@@ -1409,6 +1409,7 @@ class Client
 
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
+     *        ['body']               = (array) Field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds
      *        ['fields']             = (list) A comma-separated list of fields for to get field statistics for (min value, max value, and more)
      *        ['level']              = (enum) Defines if field stats should be returned on a per index level or on a cluster wide level
      *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -1422,13 +1423,15 @@ class Client
     public function fieldStats($params = array())
     {
         $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->dicEndpoints;
 
         /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
         $endpoint = $endpointBuilder('FieldStats');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+            ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
         return $response['data'];

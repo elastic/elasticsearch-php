@@ -1307,13 +1307,15 @@ class Client
     public function fieldStats($params = array())
     {
         $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
         $endpoint = $endpointBuilder('FieldStats');
-        $endpoint->setIndex($index);
+        $endpoint->setIndex($index)
+            ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 

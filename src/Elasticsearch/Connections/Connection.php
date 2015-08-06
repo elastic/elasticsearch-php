@@ -562,7 +562,7 @@ class Connection implements ConnectionInterface
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
-            $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode);
+            $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         }

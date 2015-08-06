@@ -68,6 +68,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
             'refresh',
             'replication',
             'type',
+            'fields'
         );
     }
 

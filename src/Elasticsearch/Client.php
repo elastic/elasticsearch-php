@@ -448,6 +448,14 @@ class Client
     }
 
     /**
+     * Redirect to termvector, this is just a naming difference depending on version
+     */
+    public function termvectors($params = array())
+    {
+        return $this->termvector($params);
+    }
+
+    /**
      * $params['index']            = (string) Default index for items which don't provide one
      *        ['type']             = (string) Default document type for items which don't provide one
      *        ['ids']              = (list) A comma-separated list of documents ids. You must define ids as parameter or set \"ids\" or \"docs\" in the request body

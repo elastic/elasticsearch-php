@@ -549,24 +549,22 @@ class Connection implements ConnectionInterface
     {
         $statusCode = $response['status'];
         $responseBody = $response['body'];
-        $exceptionText = $response['error'];
+        $exception = $this->tryDeserializeError($response);
 
-        $exceptionText = "$statusCode Server Exception: $exceptionText\n$responseBody";
+        $exceptionText = "[$statusCode Server Exception] ".$exception->getMessage();
         $this->log->error($exceptionText);
+        $this->log->error($exception->getTraceAsString());
 
         if (array_search($statusCode, $ignore) !== false) {
             return;
         }
 
-        $exception = null;
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            $exception = new RoutingMissingException($responseBody, $statusCode);
+            $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
-            $exception = new NoDocumentsToGetException($responseBody, $statusCode);
+            $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            $exception = new NoShardAvailableException($responseBody, $statusCode);
-        } else {
-            $exception = new ServerErrorResponseException($responseBody, $statusCode);
+            $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         }
 
         $this->logRequestFail(
@@ -581,5 +579,34 @@ class Connection implements ConnectionInterface
         );
 
         throw $exception;
+    }
+
+    private function tryDeserializeError($response) {
+        $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
+        if (is_array($error) === true) {
+            // 2.0 structured exceptions
+            if (isset($error['error']['reason']) === true) {
+                $original = new ServerErrorResponseException($response['body'], $response['status']);
+
+                $cause = $error['error']['reason'];
+                $type = $error['error']['type'];
+
+                return new ServerErrorResponseException("$type: $cause", $response['status'], $original);
+
+            } elseif (isset($error['error']) === true) {
+                // <2.0 semi-structured exceptions
+                $original = new ServerErrorResponseException($response['body'], $response['status']);
+
+                return new ServerErrorResponseException($error['error'], $response['status'], $original);
+            }
+
+            // <2.0 "i just blew up" nonstructured exception
+            // $error is an array but we don't know the format, reuse the response body instead
+            return new ServerErrorResponseException($response['body'], $response['status']);
+
+        }
+
+        // <2.0 "i just blew up" nonstructured exception
+        return new ServerErrorResponseException($error, $response['status']);
     }
 }

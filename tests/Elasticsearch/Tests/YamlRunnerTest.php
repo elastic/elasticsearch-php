@@ -176,14 +176,15 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         YamlRunnerTest::saveESVersion();
 
-        if (version_compare(YamlRunnerTest::$esVersion, "2.0.0", "<")) {
-            $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/test/';
-        } else {
+
+        // Dirty workaround for the path change in Core
+        $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/test/';
+        if (file_exists($path) !== true) {
             $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test';
         }
 
-
         $files = array();
+
         $objects = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($path),
             RecursiveIteratorIterator::SELF_FIRST

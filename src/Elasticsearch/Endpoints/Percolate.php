@@ -83,6 +83,7 @@ class Percolate extends AbstractEndpoint
             'expand_wildcards',
             'percolate_index',
             'percolate_type',
+            'percolate_format',
             'version',
             'version_type',
         );

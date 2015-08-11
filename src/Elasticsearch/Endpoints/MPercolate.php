@@ -71,6 +71,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'percolate_format'
         );
     }
 

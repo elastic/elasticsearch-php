@@ -83,6 +83,8 @@ class Search extends AbstractEndpoint
             'lowercase_expanded_terms',
             'preference',
             'q',
+            'query_cache',
+            'request_cache',
             'routing',
             'scroll',
             'search_type',

@@ -311,6 +311,7 @@ abstract class AbstractConnection implements ConnectionInterface
      * @param $message
      *
      * @throws \Elasticsearch\Common\Exceptions\TransportException
+     * @throws \Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException
      * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException
      * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
      */

@@ -38,11 +38,6 @@ class Restore extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-
         $this->body = $body;
         return $this;
     }
@@ -56,10 +51,6 @@ class Restore extends AbstractEndpoint
      */
     public function setRepository($repository)
     {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
         $this->repository = $repository;
         return $this;
     }
@@ -72,10 +63,6 @@ class Restore extends AbstractEndpoint
      */
     public function setSnapshot($snapshot)
     {
-        if (isset($snapshot) !== true) {
-            return $this;
-        }
-
         $this->snapshot = $snapshot;
         return $this;
     }

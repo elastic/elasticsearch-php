@@ -33,10 +33,6 @@ class Delete extends AbstractEndpoint
      */
     public function setLang($lang)
     {
-        if (isset($lang) !== true) {
-            return $this;
-        }
-
         $this->lang = $lang;
         return $this;
     }

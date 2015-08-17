@@ -26,10 +26,6 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
      */
     public function setNodeID($nodeID)
     {
-        if (isset($nodeID) !== true) {
-            return $this;
-        }
-
         if (!(is_array($nodeID) === true || is_string($nodeID) === true)) {
             throw new InvalidArgumentException("invalid node_id");
         }

@@ -34,11 +34,6 @@ class Create extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-
         $this->body = $body;
         return $this;
     }
@@ -52,10 +47,6 @@ class Create extends AbstractEndpoint
      */
     public function setRepository($repository)
     {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
         $this->repository = $repository;
         return $this;
     }

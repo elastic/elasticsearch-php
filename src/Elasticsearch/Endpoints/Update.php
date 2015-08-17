@@ -30,11 +30,6 @@ class Update extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-
         $this->body = $body;
         return $this;
     }
@@ -66,10 +61,6 @@ class Update extends AbstractEndpoint
         $index = $this->index;
         $type = $this->type;
         $uri   = "/$index/$type/$id/_update";
-
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id/_update";
-        }
 
         return $uri;
     }

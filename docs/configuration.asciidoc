@@ -129,14 +129,15 @@ $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +
 
-Not all parameters are strings.  For example, we can change the logging level of the client:
+Not all parameters are strings. 
+For example, we can change the logging level of the client using Monolog int levels:
 
 [source,php]
 ----
 $params = array();
 $params['logging']  = true;
 $params['logPath']  = '/var/logs/elasticsearch/elasticsearch.log';
-$params['logLevel'] = Psr\Log\LogLevel::INFO;
+$params['logLevel'] = Monolog\Logger::INFO;
 $client = new Elasticsearch\Client($params);
 ----
 {zwsp} +

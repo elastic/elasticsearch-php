@@ -92,7 +92,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $this->yaml = new Parser();
         $uri = parse_url($host = YamlRunnerTest::getHostEnvVar());
 
-        $params['hosts'] = [$uri['host'].':'.$uri['port']];
+        $params['hosts'] = array($uri['host'].':'.$uri['port']);
         $params['connectionParams']['timeout'] = 10000;
         $params['logging'] = true;
         $params['logLevel'] = \Psr\Log\LogLevel::DEBUG;
@@ -192,11 +192,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         if (file_exists($path) !== true) {
             $path = dirname(__FILE__).'/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test';
         }
-        var_dump(file_exists($path));
-        var_dump($path);
-        die;
 
-        $files = [];
+        $files = array();
 
         $objects = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($path),
@@ -208,7 +205,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             /** @var FilesystemIterator $object */
             if ($object->isFile() === true && $object->getFilename() !== 'README.asciidoc' && $object->getFilename() !== 'TODO.txt') {
                 $path = $object->getPathInfo()->getRealPath()."/".$object->getBasename();
-                $files[] = [$path];
+                $files[] = array($path);
             }
         }
 
@@ -247,11 +244,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $fileData = file_get_contents($testFile);
             $documents = array_filter(explode("---", $fileData));
 
-            $yamlDocs = [];
+            $yamlDocs = array();
             $setup = null;
             foreach ($documents as $document) {
                 try {
-                    $tDoc = [];
+                    $tDoc = array();
                     $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
                     $tDoc['document'] = $this->checkForEmptyProperty($testFile, $tDoc['document']);
                     $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, false, true);
@@ -339,8 +336,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function executeTestCase($test, $testFile)
     {
-        $stash = [];
-        $response = [];
+        $stash = array();
+        $response = array();
         reset($test);
         $key = key($test);
 
@@ -570,7 +567,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                     } else if (isset($settings['features']) === true) {
                         $feature = $settings['features'];
-                        $whitelist = ['gtelte'];
+                        $whitelist = array('gtelte');
 
                         if (array_search($feature, $whitelist) === false) {
                             echo "Unsupported optional feature: $feature\n";
@@ -586,7 +583,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     private function callMethod($method, $hash)
     {
-        $ret = [];
+        $ret = array();
 
         $methodParts = explode(".", $method);
 
@@ -694,14 +691,14 @@ EOF;
 
     private function skipTest($path)
     {//all_path_options
-        $skipList = [
+        $skipList = array(
             'indices.delete_mapping/all_path_options.yaml',
             'indices.exists_type/10_basic.yaml',
             'indices.get_mapping/10_basic.yaml',
             'indices.create/10_basic.yaml',
             'indices.get_alias/10_basic.yaml',
             'cat.allocation/10_basic.yaml'      //regex breaks PHP
-        ];
+        );
 
         foreach ($skipList as $skip) {
             if (strpos($path, $skip) !== false) {
@@ -713,10 +710,10 @@ EOF;
         if (version_compare(YamlRunnerTest::$esVersion, "1.4.0", "<")) {
 
             // Breaking changes in null alias
-            $skipList = [
+            $skipList = array(
                 'indices.delete_alias/all_path_options.yaml',
                 'indices.put_alias/all_path_options.yaml'
-            ];
+            );
 
             foreach ($skipList as $skip) {
                 if (strpos($path, $skip) !== false) {

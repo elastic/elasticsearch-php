@@ -3,13 +3,10 @@
 namespace Elasticsearch\Tests;
 use Elasticsearch;
 
-use Monolog\Logger;
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use Psr\Log\LogLevel;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Mockery as m;
-use TestNamespace\TestNamespace;
 
 /**
  * Class ClientTest
@@ -49,7 +46,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $params = array('hosts' => array (
             '127.0.0.1:1',
-            $_SERVER['ES_TEST_HOST'],
+            YamlRunnerTest::getHostEnvVar()
         ));
         $client = new Elasticsearch\Client($params);
 
@@ -68,7 +65,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $params = array('hosts' => array (
             '127.0.0.1:1',
-            $_SERVER['ES_TEST_HOST'],
+            YamlRunnerTest::getHostEnvVar()
         ));
         $params['retries'] = 0;
         $client = new Elasticsearch\Client($params);
@@ -114,7 +111,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $params = array(
             'retries' => 0,
-            'hosts' => array('localhost:8000')
+            'hosts' => array('localhost:8001')
         );
         $client = new Elasticsearch\Client($params);
         $client->exists(array("index" => 'test', 'type' => 'test', 'id' => 'test'));
@@ -257,7 +254,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $params['logPath'] = "$path/elasticsearch.log";
         $params['logLevel'] = LogLevel::INFO;
 
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(YamlRunnerTest::getHostEnvVar());
 
         $client = new Elasticsearch\Client($params);
 
@@ -286,7 +283,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $params['logPath'] = "$path/elasticsearch.log";
         $params['logLevel'] = LogLevel::INFO;
 
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(YamlRunnerTest::getHostEnvVar());
 
         $client = new Elasticsearch\Client($params);
 
@@ -311,7 +308,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $params = array();
         $params['logging'] = false;
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(YamlRunnerTest::getHostEnvVar());
         $client = new Elasticsearch\Client($params);
 
         try {
@@ -329,7 +326,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $params = array();
         $params['connectionParams']['timeout'] = 5000;
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(YamlRunnerTest::getHostEnvVar());
         $client = new Elasticsearch\Client($params);
 
         try {
@@ -360,7 +357,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCustomQueryParams() {
         $params = array();
 
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(YamlRunnerTest::getHostEnvVar());
         $client = new Elasticsearch\Client($params);
 
         $getParams = array(

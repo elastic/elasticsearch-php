@@ -17,7 +17,7 @@ class SniffingConnectionPoolIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testSniff() {
         $params['connectionPoolClass'] = '\Elasticsearch\ConnectionPool\SniffingConnectionPool';
         $params['connectionPoolParams']['sniffingInterval'] = -10;
-        $params['hosts'] = array ($_SERVER['ES_TEST_HOST']);
+        $params['hosts'] = array(\Elasticsearch\Tests\YamlRunnerTest::getHostEnvVar());
 
         $client = new \Elasticsearch\Client($params);
 

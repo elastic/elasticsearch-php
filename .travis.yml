@@ -1,7 +1,6 @@
 language: php
 
-services:
-  - elasticsearch
+sudo: false
 
 php:
   - 7.0
@@ -18,7 +17,11 @@ matrix:
     - php: hhvm
   include:
     - php: 5.6
-      env: ES_VERSION="1.4.4"
+      env: ES_VERSION="1.6.2"
+    - php: 5.6
+      env: ES_VERSION="1.5.2"
+    - php: 5.6
+      env: ES_VERSION="1.4.5"
     - php: 5.6
       env: ES_VERSION="1.3.9"
     - php: 5.6
@@ -30,17 +33,19 @@ matrix:
 
 env:
   global:
-    - ES_VERSION="1.5.1"
+    - ES_VERSION="1.7.1"
     - ES_TEST_HOST=http://localhost:9200
 
 before_install:
-  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb
+  - curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.zip
+  - unzip elasticsearch-$ES_VERSION.zip
+  - elasticsearch-$VERSION/bin/elasticsearch
+  - sleep 3 # wait till Elastic completely starts
 
 install:
   - composer install --prefer-source
 
 before_script:
-  - sleep 3 # wait till Elastic completely starts
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
 
 script:

@@ -34,10 +34,7 @@ env:
     - ES_TEST_HOST=http://localhost:9200
 
 before_install:
-  - curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.zip
-  - unzip elasticsearch-$ES_VERSION.zip
-  - elasticsearch-$ES_VERSION/bin/elasticsearch
-  - sleep 3 # wait till Elastic completely starts
+  - ./travis/download_run_es.sh
 
 install:
   - composer install --prefer-source

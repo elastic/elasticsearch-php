@@ -1,21 +1,50 @@
 language: php
+
+services:
+  - elasticsearch
+
 php:
-  - "5.5"
-  - "5.4"
-  - "5.3"
+  - 7.0
+  - 5.6
+  - 5.5
+  - 5.4
+  - 5.3
+  - hhvm
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: 7.0
+    - php: hhvm
+  include:
+    - php: 5.6
+      env: ES_VERSION="1.4.4"
+    - php: 5.6
+      env: ES_VERSION="1.3.9"
+    - php: 5.6
+      env: ES_VERSION="1.2.4"
+    - php: 5.6
+      env: ES_VERSION="1.1.2"
+    - php: 5.6
+      env: ES_VERSION="1.0.3"
+
 env:
-  - ES_VERSION=0.90.0 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.1 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.2 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.3 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.4 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.5 ES_TEST_HOST=http://localhost:9200
+  global:
+    - ES_VERSION="1.5.1"
+    - ES_TEST_HOST=http://localhost:9200
+
+before_install:
+  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb
+
+install:
+  - composer install
 
 before_script:
-  - composer install --dev
-  - mkdir -p build/logs
+  - sleep 3 # wait till Elastic completely starts
+  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
 
-script: ./run_travis_test.sh
+script:
+  - phpunit $PHPUNIT_FLAGS --exclude-group ignore
 
 after_script:
- - php vendor/bin/coveralls -v
+  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then php vendor/bin/coveralls; fi

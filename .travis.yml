@@ -37,14 +37,14 @@ before_install:
   - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$ES_VERSION.deb && sudo dpkg -i --force-confnew elasticsearch-$ES_VERSION.deb
 
 install:
-  - composer install
+  - composer install --prefer-source
 
 before_script:
   - sleep 3 # wait till Elastic completely starts
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
 
 script:
-  - phpunit $PHPUNIT_FLAGS --exclude-group ignore
+  - phpunit $PHPUNIT_FLAGS
 
 after_script:
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then php vendor/bin/coveralls; fi

@@ -57,9 +57,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             if ($env = getenv('ES_TEST_HOST')) {
                 self::$host = $env;
                 echo "Test Host: ".self::$host."\n";
-            } elseif (isset($_SERVER['ES_TEST_HOST'])) { // BC
-                self::$host = $_SERVER['ES_TEST_HOST'];
-                echo "Test Host: ".self::$host."\n";
             } else {
                 echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
                 exit;
@@ -228,7 +225,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      */
     public function testYaml()
     {
-        $this->markTestSkipped('This test actually test Elastica, not this package.');
         //* @runInSeparateProcess
 
         $files = func_get_args();

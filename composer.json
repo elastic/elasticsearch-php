@@ -18,7 +18,7 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "3.7.*",
+    "phpunit/phpunit": "~4.7",
     "mockery/mockery": "0.9.4",
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.3 as 2.4.2",

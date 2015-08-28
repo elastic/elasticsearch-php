@@ -1,26 +1,19 @@
 <?php
-/**
- * User: zach
- * Date: 3/24/14
- * Time: 5:09 PM
- */
 
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class SearchTemplate
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class SearchTemplate extends AbstractEndpoint
 {
     /**
@@ -36,10 +29,9 @@ class SearchTemplate extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
-
-
 
     /**
      * @return string
@@ -61,7 +53,6 @@ class SearchTemplate extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -77,7 +68,6 @@ class SearchTemplate extends AbstractEndpoint
             'search_type'
         );
     }
-
 
     /**
      * @return string

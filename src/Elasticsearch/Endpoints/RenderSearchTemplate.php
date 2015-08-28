@@ -33,8 +33,6 @@ class RenderSearchTemplate extends AbstractEndpoint
         return $this;
     }
 
-
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
@@ -52,7 +50,6 @@ class RenderSearchTemplate extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
@@ -60,7 +57,6 @@ class RenderSearchTemplate extends AbstractEndpoint
     {
         return array();
     }
-
 
     /**
      * @return array
@@ -70,7 +66,6 @@ class RenderSearchTemplate extends AbstractEndpoint
     {
         return $this->body;
     }
-
 
     /**
      * @return string

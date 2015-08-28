@@ -1,39 +1,43 @@
 <?php
-/**
- * User: zach
- * Date: 11/21/13
- * Time: 3:43 PM
- */
 
 namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\AbstractConnection;
+use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 
-class StaticNoPingConnectionPool extends AbstractConnectionPool
+class StaticNoPingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
+    /**
+     * @var int
+     */
     private $pingTimeout    = 60;
+
+    /**
+     * @var int
+     */
     private $maxPingTimeout = 3600;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
     {
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
     }
 
-
     /**
      * @param bool $force
      *
-     * @return AbstractConnection
+     * @return Connection
      * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {
         $total = count($this->connections);
         while ($total--) {
-            /** @var AbstractConnection $connection */
+            /** @var Connection $connection */
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
                 return $connection;
@@ -49,15 +53,14 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool
 
     public function scheduleCheck()
     {
-
     }
 
     /**
-     * @param AbstractConnection $connection
+     * @param \Elasticsearch\Connections\Connection $connection
      *
      * @return bool
      */
-    private function readyToRevive(AbstractConnection $connection)
+    private function readyToRevive(Connection $connection)
     {
         $timeout = min(
             $this->pingTimeout * pow(2, $connection->getPingFailures()),

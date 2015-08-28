@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/20/14
- * Time: 4:11 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -18,16 +13,6 @@ namespace Elasticsearch\Namespaces;
  */
 class SnapshotNamespace extends AbstractNamespace
 {
-
-    /**
-     * @return callable
-     */
-    public static function build() {
-        return function ($dicParams) {
-            return new SnapshotNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
-
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
@@ -43,7 +28,7 @@ class SnapshotNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Create $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Create');
@@ -52,9 +37,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -70,7 +55,7 @@ class SnapshotNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Create $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Create');
@@ -78,9 +63,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setBody($body)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -95,7 +80,7 @@ class SnapshotNamespace extends AbstractNamespace
         $snapshot = $this->extractArgument($params, 'snapshot');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Delete $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Delete');
@@ -103,9 +88,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -120,16 +105,16 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Delete $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Delete');
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -142,11 +127,9 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
-        
-
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Get');
@@ -154,9 +137,9 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -171,16 +154,16 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Get $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Get');
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -197,7 +180,7 @@ class SnapshotNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Restore $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Restore');
@@ -206,7 +189,8 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setParams($params)
                  ->setBody($body);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -222,7 +206,7 @@ class SnapshotNamespace extends AbstractNamespace
         $snapshot = $this->extractArgument($params, 'snapshot');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Status $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Status');
@@ -230,7 +214,8 @@ class SnapshotNamespace extends AbstractNamespace
                  ->setSnapshot($snapshot)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -246,15 +231,14 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Verify');
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
-
-
 }

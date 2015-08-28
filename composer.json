@@ -10,22 +10,21 @@
     }
   ],
   "require": {
-    "php": ">=5.3.9",
-    "monolog/monolog": "~1.11",
-    "pimple/pimple": "~3.0",
-    "guzzle/guzzle": "~3.0",
+    "php": ">=5.4",
     "psr/log": "~1.0",
-    "ext-curl": "*"
+    "guzzlehttp/ringphp" : "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*",
-    "mockery/mockery": "0.9.4",
+    "mockery/mockery": "dev-master@dev",
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.3 as 2.4.2",
-    "satooshi/php-coveralls": "dev-master",
-    "mikey179/vfsStream": "~1.2",
     "twig/twig": "1.*",
     "cpliakas/git-wrapper": "~1.0"
+  },
+  "suggest": {
+    "ext-curl": "*",
+    "monolog/monolog": "Allows for client-level logging and tracing"
   },
   "autoload": {
     "psr-4": {

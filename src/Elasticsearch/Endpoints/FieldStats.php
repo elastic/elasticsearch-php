@@ -29,9 +29,9 @@ class FieldStats extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
-
 
     /**
      * @return string
@@ -59,6 +59,7 @@ class FieldStats extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'fields'
         );
     }
 

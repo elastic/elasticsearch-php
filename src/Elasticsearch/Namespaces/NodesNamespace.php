@@ -1,9 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 1/20/14
- * Time: 3:21 PM
- */
 
 namespace Elasticsearch\Namespaces;
 
@@ -18,16 +13,6 @@ namespace Elasticsearch\Namespaces;
  */
 class NodesNamespace extends AbstractNamespace
 {
-
-    /**
-     * @return callable
-     */
-    public static function build() {
-        return function ($dicParams) {
-            return new NodesNamespace($dicParams['transport'], $dicParams['endpoint']);
-        };
-    }
-
     /**
      * $params['fields']        = (list) A comma-separated list of fields for `fielddata` metric (supports wildcards)
      *        ['metric_family'] = (enum) Limit the information returned to a certain metric family
@@ -57,9 +42,8 @@ class NodesNamespace extends AbstractNamespace
 
         $index_metric = $this->extractArgument($params, 'index_metric');
 
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Stats $endpoint */
         $endpoint = $endpointBuilder('Cluster\Nodes\Stats');
@@ -68,7 +52,8 @@ class NodesNamespace extends AbstractNamespace
                  ->setIndexMetric($index_metric)
                  ->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -88,14 +73,15 @@ class NodesNamespace extends AbstractNamespace
         $metric = $this->extractArgument($params, 'metric');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Info $endpoint */
         $endpoint = $endpointBuilder('Cluster\Nodes\Info');
         $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -113,16 +99,16 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\HotThreads $endpoint */
         $endpoint = $endpointBuilder('Cluster\Nodes\HotThreads');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -138,17 +124,15 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Shutdown $endpoint */
         $endpoint = $endpointBuilder('Cluster\Nodes\Shutdown');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
-
-
 }

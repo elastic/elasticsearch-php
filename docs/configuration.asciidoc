@@ -1,209 +1,316 @@
 
 == Configuration
 
-Almost every aspect of the client is configurable.  The client is built around http://pimple.sensiolabs.org[Pimple] a light-weight dependency injection container.  Most users will only need to configure a few parameters to suit their needs.
+Almost every aspect of the client is configurable.  Most users will only need to configure a few parameters to suit
+their needs, but it is possible to completely replace much of the internals if required.
 
-However, since the container also controls all object instantiation, it is possible for users to completely change the internal components used by the client.  A user could, for example, write a custom ConnectionPool class and use that instead of the default connection pools that ship with the client
+Custom configuration is accomplished before the client is instantiated, through the ClientBuilder helper object.
+We'll walk through all the configuration options and show sample code to replace the various components.
 
 === Host Configuration
 
-A common operation will be telling the client what nodes are in your cluster.  By default, the client will connect to 'localhost:9200', which obviously doesn't work in many production environments.
+The most common configuration is telling the client about your cluster: how many nodes, their addresses and ports.  If
+not hosts are specified, the client will attempt to connect to `localhost:9200`.
 
-All configurations (both simple parameters and more advanced component-replacement) are injected into the constructor of the client.  
-
-The client accepts an array of hosts that you would like to connect to.  Each value in the array must be a string (either with or without the port number).  SSL can be enabled by prefixing the host with 'https':
-
-[source,php]
-----
-$params = array();
-$params['hosts'] = array (
-    '192.168.1.1:9200',                 // IP + Port
-    '192.168.1.2',                      // Just IP
-    'mydomain.server.com:9201',         // Domain + Port
-    'mydomain2.server.com',             // Just Domain
-    'https://localhost',                // SSL to localhost
-    'https://192.168.1.3:9200',         // SSL to IP + Port
-    'http://user:pass@localhost:9200',  // HTTP Basic Auth
-    'https://user:pass@localhost:9200',  // SSL + HTTP Basic Auth
-);
-
-$client = new Elasticsearch\Client($params);
-----
-
-This associative array holds all custom configurations that you may want to set.  Often, you'll only need to configure the hosts, but if you need more advanced behavior, read on.
-
-=== Ignoring exceptions
-The library attempts to throw exceptions for common problems.  These exceptions
-match the HTTP response code provided by Elasticsearch.  For example, attempting to
-GET a nonexistent document will throw a `MissingDocument404Exception`.
-
-Exceptions are a useful and consistent way to deal with problems like missing
-documents, syntax errors, version conflicts, etc.  But sometimes you want
-to deal with the response body rather than catch exceptions (often useful
-in test suites).
-
-If you need that behavior, you can configure an `ignore` parameter.  The
-following setting will ignore the `MissingDocument404Exception` exception and
-instead return the JSON provided by Elasticsearch:
+This behavior can be changed by using the `setHosts()` method on `ClientBuilder`.  The method accepts an array of values,
+each entry corresponding to one node in your cluster.  The format of the host can vary, depending on your needs (ip vs
+hostname, port, ssl, etc)
 
 [source,php]
 ----
-$client = new Client();
-
-$params = array(
-    'index'  => 'test_missing',
-    'type'   => 'test',
-    'id'     => 1,
-    'ignore' => 404 <1>
-);
-echo $client->get($params);
-
-> {"_index":"test_missing","_type":"test","_id":"1","found":false}
-
-
-$params = array(
-    'index'  => 'test_missing',
-    'type'   => 'test',
-    'ignore' => [400, 404] <2>
-);
-echo $client->get($params);
-
-> No handler found for uri [/test_missing/test/] and method [GET]
-
+$hosts = [
+    '192.168.1.1:9200',         // IP + Port
+    '192.168.1.2',              // Just IP
+    'mydomain.server.com:9201', // Domain + Port
+    'mydomain2.server.com',     // Just Domain
+    'https://localhost',        // SSL to localhost
+    'https://192.168.1.3:9200'  // SSL to IP + Port
+];
+$client = ClientBuilder::create()           // Instantiate a new ClientBuilder
+                    ->setHosts($hosts)      // Set the hosts
+                    ->build();              // Build the client object
 ----
-<1> This will ignore just the 404 missing exception
-<2> `ignore` also accepts an array of exceptions to ignore. In this example,
-the `BadRequest400Exception` is being ignored
 
-It should be noted that the response is simply a string, which may or may not
-be encoded as JSON.  In the first example, the response body was a complete
-JSON object which could be decoded.  In the second example, it was simply a string.
-
-Since the client has no way of knowing what the exception response will contain,
-no attempts to decode it are taken.
-
-=== Providing custom query parameters
-
-Sometimes you need to provide custom query params, such as authentication tokens for a third-party plugin or proxy.
-All query parameters are white-listed in Elasticsearch-php, which is to protect you from specifying a param which is
-not accepted by Elasticsearch.
-
-If you need custom parameters, you need to bypass this whitelisting mechanism.  To do so, add them to the `custom`
-parameter as an array of values:
+Notice that the `ClientBuilder` object allows chaining method calls for brevity.  It is also possible to call the methods
+individually:
 
 [source,php]
 ----
-$getParams = array(
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
-    'parent' => 'abc',  // white-listed
-    'custom' => array('customToken' => 'abc', 'otherToken' => 123) // user-defined, not white listed, not checked
-);
-$exists = $client->exists($getParams);
+$hosts = [
+    '192.168.1.1:9200',         // IP + Port
+    '192.168.1.2',              // Just IP
+    'mydomain.server.com:9201', // Domain + Port
+    'mydomain2.server.com',     // Just Domain
+    'https://localhost',        // SSL to localhost
+    'https://192.168.1.3:9200'  // SSL to IP + Port
+];
+$clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
+$clientBuilder->setHosts($hosts);           // Set the hosts
+$client = $clientBuilder->build();          // Build the client object
 ----
 
-=== Configuring the Logger
-By default, logging in the client is disabled for performance reasons.  If you wish to enable logging, simply set the `logging` parameter to true:
+=== Authorization and Encryption
+
+For details about HTTP Authorization and SSL encryption, please see link:_security.html[Authorization and SSL].
+
+=== Set retries
+
+By default, the client will retry `n` times, where `n = number of nodes` in your cluster.  If you would like to disable
+retries, or change the number, you can do so with the `setRetries()` method:
 
 [source,php]
 ----
-$params = array();
-$params['logging'] = true;
-$client = new Elasticsearch\Client($params);
+
+$client = ClientBuilder::create()
+                    ->setRetries(2)
+                    ->build();
 ----
-{zwsp} +
 
-This will enable logging to a file called `elasticsearch.log` inside your project directory.  The default logging level is `WARN`.  This is a logging level
-that only describes important events that should probably require action from you.
+[[enabling_logger]]
+=== Enabling the Logger
+Elasticsearch-PHP supports logging, but it is not enabled by default for performance reasons.  If you wish to enable logging,
+you need to select a logging implementation, install it, then enable the logger in the Client.  The recommended logger
+is https://github.com/Seldaek/monolog[Monolog], but any logger that implements the `PSR/Log` interface will work.
 
-Often, you'll want to change the logging location or set the logs file permissions to group writeable. To change these things, simply do the following:
+You might have noticed that Monolog was suggested during installation.  To begin using Monolog, add it to your `composer.json`:
+
+[source,json]
+----------------------------
+{
+    "require": {
+        ...
+        "elasticsearch/elasticsearch" : "~2.0",
+        "monolog/monolog": "~1.0"
+    }
+}
+----------------------------
+
+And then update your composer installation:
+
+[source,shell]
+----------------------------
+php composer.phar update
+----------------------------
+
+Once Monolog (or another logger) is installed, you need to create a log object and inject it into the client.  The
+`ClientBuilder` object has a helper static function that will generate a common Monolog-based logger for you.  All you need
+to do is provide the path to your desired logging location:
 
 [source,php]
 ----
-$params = array();
-$params['logging'] = true;
-$params['logPath'] = '/var/logs/elasticsearch/elasticsearch.log';
-$params['logPermission'] = 0664;
-$client = new Elasticsearch\Client($params);
-----
-{zwsp} +
+$logger = ClientBuilder::defaultLogger('path/to/your.log');
 
-Not all parameters are strings.  For example, we can change the logging level of the client:
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
+            ->setLogger($logger)        // Set the logger with a default logger
+            ->build();                  // Build the client object
+----
+
+You can also specify the severity of log messages that you wish to log:
 
 [source,php]
 ----
-$params = array();
-$params['logging']  = true;
-$params['logPath']  = '/var/logs/elasticsearch/elasticsearch.log';
-$params['logLevel'] = Psr\Log\LogLevel::INFO;
-$client = new Elasticsearch\Client($params);
-----
-{zwsp} +
+// set severity with second parameter
+$logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);
 
-By default, the client uses a file-based logger provided by the https://github.com/Seldaek/monolog[Monolog] framework.  Monolog provides a variety of loggers.  For example, we can instruct the client to log to SysLog instead of a file:
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
+            ->setLogger($logger)        // Set the logger with a default logger
+            ->build();                  // Build the client object
+----
+
+The `defaultLogger()` method is just a helper, you are not required to use it.  You can create your own logger and inject
+that instead:
+
 
 [source,php]
 ----
 use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-// Build a Monolog logger that uses the SyslogHandler
-$logger    = new Logger('log');
-$handler   = new SyslogHandler('my_user');
-$processor = new IntrospectionProcessor();
+$logger = new Logger('name');
+$logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
 
-$logger->pushHandler($handler);
-$logger->pushProcessor($processor);
-
-// Over-ride the client's logger object with your own
-$params['logging']   = true;
-$params['logObject'] = $logger;
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
+            ->setLogger($logger)        // Set your custom logger
+            ->build();                  // Build the client object
 ----
-{zwsp} +
 
-The client uses the generic https://github.com/php-fig/log[PSR\Log interface], which means that any PSR\Log compatible loggers will work just fine in the client.
 
-Replacing the logger with another PSR\Log compatible logger is similar to the previous example of configuring a Monolog logger:
+=== Configure the HTTP Handler
+
+Elasticsearch-PHP uses an interchangeable HTTP transport layer called https://github.com/guzzle/RingPHP/[RingPHP].  This
+allows the client to construct a generic HTTP request, then pass it to the transport layer to execute.  The actual execution
+details are hidden from the client and modular, so that you can choose from several HTTP handlers depending on your needs.
+
+The default handler that the client uses is a combination handler.  When executing in synchronous mode, the handler
+uses `CurlHandler`, which executes single curl calls.  These are very fast for single requests.  When asynchronous (future)
+mode is enabled, the handler switches to `CurlMultiHandler`, which uses the curl_multi interface.  This involves a bit
+more overhead, but allows batches of HTTP requests to be processed in parallel.
+
+You can configure the HTTP handler with one of several helper functions, or provide your own custom handler:
 
 [source,php]
 ----
-use Monolog\Logger;
+$defaultHandler = ClientBuilder::defaultHandler();
+$singleHandler  = ClientBuilder::singleHandler();
+$multiHandler   = ClientBuilder::multiHandler();
+$customHandler  = new MyCustomHandler();
 
-$logger = new MySpecialPSRLogger();
-
-
-$params['logging'] = true;
-$params['logObject'] = $logger;
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+            ->setHandler($defaultHandler)
+            ->build();
 ----
-{zwsp} +
+
+For details on creating your own custom Ring handler, please see the http://guzzle.readthedocs.org/en/latest/handlers.html[RingPHP Documentation]
+
+The default handler is recommended in almost all cases.  This allows fast synchronous execution, while retaining flexibility
+to invoke parallel batches with async future mode.  You may consider using just the `singleHandler` if you know you will
+never need async capabilities, since it will save a small amount of overhead by reducing indirection.
 
 
-=== Full list of configurations
+=== Setting the Connection Pool
 
-.Default Configurations
+The client maintains a pool of connections, with each connection representing a node in your cluster.  There are several
+connection pool implementations available, and each has slightly different behavior (pinging vs no pinging, etc).
+Connection pools are configured via the `setConnectionPool()` method:
+
 [source,php]
 ----
-$paramDefaults = array(
-    'connectionClass'       => '\Elasticsearch\Connections\GuzzleConnection',
-    'connectionFactoryClass'=> '\Elasticsearch\Connections\ConnectionFactory',
-    'connectionPoolClass'   => '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool',
-    'selectorClass'         => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
-    'serializerClass'       => '\Elasticsearch\Serializers\SmartSerializer',
-    'sniffOnStart'          => false,
-    'connectionParams'      => array(),
-    'logging'               => false,
-    'logObject'             => null,
-    'logPath'               => 'elasticsearch.log',
-    'logLevel'              => Log\LogLevel::WARNING,
-    'traceObject'           => null,
-    'tracePath'             => 'elasticsearch.log',
-    'traceLevel'            => Log\LogLevel::WARNING,
-    'guzzleOptions'         => array(),
-    'connectionPoolParams'  => array(
-        'randomizeHosts' => true
-    ),
-    'retries'               => null
+$connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+$client = ClientBuilder::create()
+            ->setConnectionPool($connectionPool)
+            ->build();
+----
+
+For more details, please see the dedicated page on link:_connection_pool.html[configuring connection pools].
+
+=== Setting the Connection Selector
+
+The connection pool manages the connections to your cluster, but the Selector is the logic that decides which connection
+should be used for the next API request.  There are several selectors that you can choose from.  Selectors can be changed
+via the `setSelector()` method:
+
+[source,php]
+----
+$selector = '\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector';
+$client = ClientBuilder::create()
+            ->setSelector($selector)
+            ->build();
+----
+
+For more details, please see the dedicated page on link:_selectors.html[configuring selectors].
+
+
+=== Setting the Serializer
+
+Requests are given to the client in the form of associative arrays, but Elasticsearch expects JSON.  The Serializer's
+job is to serialize PHP objects into JSON.  It also de-serializes JSON back into PHP arrays.  This seems trivial, but
+there are a few edgecases which make it useful for the serializer to remain modular.
+
+The majority of people will never need to change the default serializer (`SmartSerializer`), but if you need to,
+it can be done via the `setSerializer()` method:
+
+[source,php]
+----
+$serializer = '\Elasticsearch\Serializers\SmartSerializer';
+$client = ClientBuilder::create()
+            ->setSerializer($serializer)
+            ->build();
+----
+
+For more details, please see the dedicated page on link:_serializers.html[configuring serializers].
+
+
+=== Setting a custom ConnectionFactory
+
+The ConnectionFactory instantiates new Connection objects when requested by the ConnectionPool.  A single Connection
+represents a single node.  Since the client hands actual networking work over to RingPHP, the Connection's main job is
+book-keeping:  Is this node alive?  Did it fail a ping request?  What is the host and port?
+
+There is little reason to provide your own ConnectionFactory, but if you need to do so, you need to supply an intact
+ConnectionFactory object to the `setConnectionFactory()` method.  The object should implement the `ConnectionFactoryInterface`
+interface.
+
+[source,php]
+----
+
+class MyConnectionFactory implements ConnectionFactoryInterface
+{
+
+    public function __construct($handler, array $connectionParams,
+                                SerializerInterface $serializer,
+                                LoggerInterface $logger,
+                                LoggerInterface $tracer)
+    {
+       // Code here
+    }
+
+
+    /**
+     * @param $hostDetails
+     *
+     * @return ConnectionInterface
+     */
+    public function create($hostDetails)
+    {
+        // Code here...must return a Connection object
+    }
+}
+
+
+$connectionFactory = new MyConnectionFactory(
+    $handler,
+    $connectionParams,
+    $serializer,
+    $logger,
+    $tracer
 );
+
+$client = ClientBuilder::create()
+            ->setConnectionFactory($connectionFactory);
+            ->build();
 ----
+
+As you can see, if you decide to inject your own ConnectionFactory, you take over the responsibiltiy of wiring it correctly.
+The ConnectionFactory requires a working HTTP handler, serializer, logger and tracer.
+
+
+=== Set the Endpoint closure
+
+The client uses an Endpoint closure to dispatch API requests to the correct Endpoint object.  A namespace object will
+construct a new Endpoint via this closure, which means this is a handy location if you wish to extend the available set
+of API endpoints available
+
+For example, we could add a new endpoint like so:
+
+[source,php]
+----
+
+$transport = $this->transport;
+$serializer = $this->serializer;
+
+$newEndpoint = function ($class) use ($transport, $serializer) {
+    if ($class == 'SuperSearch') {
+        return new MyProject\SuperSearch($transport);
+    } else {
+        // Default handler
+        $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
+        if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
+            return new $fullPath($transport, $serializer);
+        } else {
+            return new $fullPath($transport);
+        }
+    }
+};
+
+$client = ClientBuilder::create()
+            ->setEndpoint($newEndpoint)
+            ->build();
+----
+
+Obviously, by doing this you take responsibility that all existing endpoints still function correctly.  And you also
+assume the responsibility of correctly wiring the Transport and Serializer into each endpoint.
+
+
+
+
+

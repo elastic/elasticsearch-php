@@ -15,6 +15,7 @@ Features
  - Load balancing (with pluggable selection strategy) across all available nodes. Defaults to round-robin
  - Pluggable connection pools to offer different connection strategies
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
+ - Option to use asyncronous future, which enables parallel execution of curl requests to multiple nodes
 
 Version Matrix
 --------------
@@ -22,60 +23,46 @@ Version Matrix
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
 | >= 2.0 (unreleased)   | Master                   |
-| >= 1.0, < 2.0         | 1.0                      |
+| >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
 Since there are breaking changes in Elasticsearch 1.0 (and 2.0 when it is released), you need to match your version of Elasticsearch to the appropriate version of this library.
 
- - If you are using Elasticsearch 1.0+, you must install the `1.0` Elasticsearch-PHP branch.
+ - If you are using Elasticsearch 1.0+, you must install the `1.0` or `2.0` Elasticsearch-PHP branch.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.
 
-v2.0 Beta
---------------
-
-Did you know there is a brand new version of Elasticsearch-PHP in beta right now?  If you are currently using ES-PHP, you should
-try it out and [send feedback](https://github.com/elastic/elasticsearch-php/issues/193)!  If you are new to Elasticsearch-PHP,
-you should start your project with v2.0, since that is the direction that the codebase is moving in.
-
-v2.0 features:
-
-- New HTTP core based on [RingPHP](https://github.com/guzzle/RingPHP), the internal HTTP core that powers [Guzzle5](https://github.com/guzzle/guzzle)
-- Because of RingPHP, we can now expose an optional asynchronous mode (based on futures) which allows parallel execution of curl requests,
-for much better throughput
-- Fewer dependencies, making for a smaller distribution and fewer conflicts
-- Simplification of the architecture, making the entire codebase smaller and more pluggable with less overhead
-
-[Check out the documentation here](http://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/index.html).  [Breaking changes here](http://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_breaking_changes_from_1_x.html).
-
-Try it in your project today!
-
-
-```json
-{
-    "require": {
-       "elasticsearch/elasticsearch": "~2.0@beta"
-   }
-}
-```
-
 Documentation
 --------------
-[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/2.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
 Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Download and install Composer for [Linux/Unix/OSX](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) or [Windows](https://getcomposer.org/doc/00-intro.md#installation-windows).
+1. Add ``elasticsearch/elasticsearch`` as a dependency in your project's ``composer.json`` file (change version to suit your version of Elasticsearch):
 
-2. Install last stable version:
-
-    ```bash
-        php composer.phar require elasticsearch/elasticsearch
+    ```json
+        {
+            "require": {
+                "elasticsearch/elasticsearch": "~2.0"
+            }
+        }
     ```
 
-3. Require Composer's autoloader
+2. Download and install Composer:
+
+    ```bash
+        curl -s http://getcomposer.org/installer | php
+    ```
+
+3. Install your dependencies:
+
+    ```bash
+        php composer.phar install --no-dev
+    ```
+
+4. Require Composer's autoloader
 
     Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
 
@@ -83,7 +70,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
         <?php
         require 'vendor/autoload.php';
 
-        $client = new Elasticsearch\Client();
+        $client = ClientBuilder::create()->build();
     ```
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
@@ -91,99 +78,228 @@ You'll notice that the installation command specified `--no-dev`.  This prevents
 
 PHP Version Requirement
 ----
-The minimum version of PHP that this library supports is 5.3.9.  For a longer explanation as to why this is the case, see [Minimum PHP Version Requirement Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/_php_version_requirement.html).
+Version 2.0 of this library requires at least PHP version 5.4.0 to function.  If you are on an older version of PHP, it is recommended
+that you upgrade, as PHP 5.3 is official EOL.  Elasticsearch-PHP v0.4.x and v1.x are compatible with PHP 5.3.9+, but will
+eventually stop being supported.
 
-Index a document
------
+| PHP Version | Elasticsearch-PHP Branch |
+| ----------- | ------------------------ |
+| >= 5.4.0    | 2.0                      |
+| >= 5.3.9    | 0.4, 1.0                 |
+
+Quickstart
+----
+
+
+### Index a document
 
 In elasticsearch-php, almost everything is configured by associative arrays.  The REST endpoint, document and optional parameters - everything is an associative array.
 
-To index a document, we simply specify a `body` that contains the document that we wish to index.  Each field in the document is represented by a different key/value pair in the associative array.
-
-The index, type and ID are also specified in the parameters assoc. array:
-
-```php
-    $params = array();
-    $params['body']  = array('testField' => 'abc');
-    $params['index'] = 'my_index';
-    $params['type']  = 'my_type';
-    $params['id']    = 'my_id';
-    $ret = $client->index($params);
-```
-
-Get a document
------
-
-Let's get the document that we just indexed:
+To index a document, we need to specify four pieces of information: index, type, id and a document body. This is done by
+constructing an associative array of key:value pairs.  The request body is itself an associative array with key:value pairs
+corresponding to the data in your document:
 
 ```php
-    $getParams = array();
-    $getParams['index'] = 'my_index';
-    $getParams['type']  = 'my_type';
-    $getParams['id']    = 'my_id';
-    $retDoc = $client->get($getParams);
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'id' => 'my_id',
+    'body' => ['testField' => 'abc']
+];
+
+$response = $client->index($params);
+print_r($response);
 ```
 
-Search for a document
------
-
-Searching is a hallmark of elasticsearch (no surprise there!), so let's perform a basic search.  We are going to use the Match query as a demonstration:
+The response that you get back indicates the document was created in the index that you specified.  The response is an
+associative array containing a decoded version of the JSON that Elasticsearch returns:
 
 ```php
-    $searchParams['index'] = 'my_index';
-    $searchParams['type']  = 'my_type';
-    $searchParams['body']['query']['match']['testField'] = 'abc';
-    $queryResponse = $client->search($searchParams);
+Array
+(
+    [_index] => my_index
+    [_type] => my_type
+    [_id] => my_id
+    [_version] => 1
+    [created] => 1
+)
 
-    echo $queryResponse['hits']['hits'][0]['_id']; // Outputs 'abc'
 ```
 
-Update a document
------
-Let's update a document we have indexed:
+### Get a document
+
+Let's get the document that we just indexed.  This will simply return the document:
 
 ```php
-    $updateParams['index']          = 'my_index';
-    $updateParams['type']           = 'my_type';
-    $updateParams['id']             = 'my_id';
-    $updateParams['body']['doc']    = array('my_key' => 'new_value');
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'id' => 'my_id'
+];
 
-    $retUpdate = $client->update($updateParams);
+$response = $client->get($params);
+print_r($response);
 ```
 
-Delete a document
------
+The response contains some metadata (index, type, etc) as well as a `_source` field...this is the original document
+that you sent to Elasticsearch.
+
+```php
+Array
+(
+    [_index] => my_index
+    [_type] => my_type
+    [_id] => my_id
+    [_version] => 1
+    [found] => 1
+    [_source] => Array
+        (
+            [testField] => abc
+        )
+
+)
+```
+
+### Search for a document
+
+Searching is a hallmark of elasticsearch, so let's perform a search.  We are going to use the Match query as a demonstration:
+
+```php
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'body' => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
+
+$response = $client->search($params);
+print_r($response);
+```
+
+The response is a little different from the previous responses.  We see some metadata (`took`, `timed_out`, etc) and
+an array named `hits`.  This represents your search results.  Inside of `hits` is another array named `hits`, which contains
+individual search results:
+
+```php
+Array
+(
+    [took] => 1
+    [timed_out] =>
+    [_shards] => Array
+        (
+            [total] => 5
+            [successful] => 5
+            [failed] => 0
+        )
+
+    [hits] => Array
+        (
+            [total] => 1
+            [max_score] => 0.30685282
+            [hits] => Array
+                (
+                    [0] => Array
+                        (
+                            [_index] => my_index
+                            [_type] => my_type
+                            [_id] => my_id
+                            [_score] => 0.30685282
+                            [_source] => Array
+                                (
+                                    [testField] => abc
+                                )
+                        )
+                )
+        )
+)
+```
+
+### Delete a document
 
 Alright, let's go ahead and delete the document that we added previously:
 
 ```php
-    $deleteParams = array();
-    $deleteParams['index'] = 'my_index';
-    $deleteParams['type'] = 'my_type';
-    $deleteParams['id'] = 'my_id';
-    $retDelete = $client->delete($deleteParams);
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'id' => 'my_id'
+];
+
+$response = $client->delete($params);
+print_r($response);
 ```
 
-Delete an index
------
+You'll notice this is identical syntax to the `get` syntax.  The only difference is the operation: `delete` instead of
+`get`.  The response will confirm the document was deleted:
+
+```php
+Array
+(
+    [found] => 1
+    [_index] => my_index
+    [_type] => my_type
+    [_id] => my_id
+    [_version] => 2
+)
+```
+
+
+### Delete an index
 
 Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
 
 ```php
-    $deleteParams['index'] = 'my_index';
-    $client->indices()->delete($deleteParams);
+$deleteParams = [
+    'index' => 'my_index'
+];
+$response = $client->indices()->delete($deleteParams);
+print_r($response);
 ```
 
-Create an index
------
+The response:
 
-Ok, now that we are starting fresh, let's add a new index with some custom settings:
+
 ```php
-    $indexParams['index'] = 'my_index';
-    $indexParams['body']['settings']['number_of_shards'] = 2;
-    $indexParams['body']['settings']['number_of_replicas'] = 0;
-    $client->indices()->create($indexParams);
+Array
+(
+    [acknowledged] => 1
+)
 ```
+
+### Create an index
+
+Now that we are starting fresh (no data or index), let's add a new index with some custom settings:
+
+```php
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'settings' => [
+            'number_of_shards' => 2,
+            'number_of_replicas' => 0
+        ]
+    ]
+];
+
+$response = $client->indices()->create($params);
+print_r($response);
+```
+
+Elasticsearch will now create that index with your chosen settings, and return an acknowledgement:
+
+```php
+Array
+(
+    [acknowledged] => 1
+)
+```
+
+
 
 Wrap up
 =======

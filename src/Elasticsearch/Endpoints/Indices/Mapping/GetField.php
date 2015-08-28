@@ -1,10 +1,4 @@
 <?php
-/**
- * User: zach
- * Date: 11/4/13
- * Time: 9:11 AM
- */
-
 
 namespace Elasticsearch\Endpoints\Indices\Mapping;
 
@@ -13,27 +7,25 @@ use Elasticsearch\Common\Exceptions;
 
 /**
  * Class GetField
- * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Mapping
  *
- * @package  Elasticsearch
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints\Indices\Mapping
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class GetField extends AbstractEndpoint
 {
     /** @var  string */
     private $field;
-
 
     /**
      * @param string|array $field
      *
      * @return $this
      */
-    public function setField($field) {
+    public function setField($field)
+    {
         if (isset($field) !== true) {
             return $this;
         }
@@ -43,9 +35,9 @@ class GetField extends AbstractEndpoint
         }
 
         $this->field = $field;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException

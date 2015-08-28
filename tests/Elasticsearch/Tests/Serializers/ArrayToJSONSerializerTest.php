@@ -1,14 +1,10 @@
 <?php
-/**
- * User: zach
- * Date: 6/20/13
- * Time: 9:07 AM
- */
 
 namespace Elasticsearch\Tests\Serializers;
 
 use Elasticsearch\Serializers\ArrayToJSONSerializer;
 use PHPUnit_Framework_TestCase;
+use Mockery as m;
 
 /**
  * Class ArrayToJSONSerializerTest
@@ -16,6 +12,11 @@ use PHPUnit_Framework_TestCase;
  */
 class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
+
     public function testSerializeArray()
     {
         $serializer = new ArrayToJSONSerializer();

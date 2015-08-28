@@ -32,6 +32,20 @@ it is returned as a string.
 This functionality is required to cooperate with endpoints such as the `Cat`
 endpoints, which return tabular text instead of JSON.
 
+==== Selecting the SmartSerializer
+
+The SmartSerializer is selected by default, but if you wish to manually configure it for explicitness, you can
+do so by using the `setSerializer()` method on the ClientBuilder object:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setSerializer('\Elasticsearch\Serializers\SmartSerializer');
+            ->build();
+----
+
+Note that the serializer is configured by specifying a namespace path to the serializer.
+
 === ArrayToJSONSerializer
 ==== Serialize()
 The `ArrayToJSONSerializer` inspects the data to be encoded.  If the request body
@@ -48,6 +62,19 @@ bodies.
 When decoding the response body, everything is decoded to JSON from JSON.  If
 the data is not valid JSON, `null` will be returned.
 
+==== Selecting the ArrayToJSONSerializer
+
+You can select  `ArrayToJSONSerializer` by using the `setSerializer()` method on the ClientBuilder object:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setSerializer('\Elasticsearch\Serializers\ArrayToJSONSerializer');
+            ->build();
+----
+
+Note that the serializer is configured by specifying a namespace path to the serializer.
+
 === EverythingToJSONSerializer
 ==== Serialize()
 The `EverythingToJSONSerializer` tries to convert everything to JSON.
@@ -63,10 +90,22 @@ If the data was not an array and/or not convertible to JSON, the method returns
 When decoding the response body, everything is decoded to JSON from JSON.  If
 the data is not valid JSON, `null` will be returned.
 
+==== Selecting the EverythingToJSONSerializer
+
+You can select  `EverythingToJSONSerializer` by using the `setSerializer()` method on the ClientBuilder object:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setSerializer('\Elasticsearch\Serializers\EverythingToJSONSerializer');
+            ->build();
+----
+
+Note that the serializer is configured by specifying a namespace path to the serializer.
 
 === Implementing your own Serializer
-If you want to use your own custom serializer, you need to implement the
-`SerializerInterface` interface:
+If you want to use your own custom serializer, you need to implement the `SerializerInterface` interface.  Please
+keep in mind that the client uses a single Serializer object for all endpoints and all connections.
 
 
 [source,php]
@@ -102,11 +141,27 @@ class MyCustomSerializer implements SerializerInterface
 ----
 {zwsp} +
 
-To use it, you simply provide the class path in the configuration parameters:
+To then use your custom serializer, you can specify the namespace path in the `setSerializer()` method of the ClientBuilder
+object:
 
 [source,php]
 ----
-$params['serializerClass'] = '\MyProject\Serializers\MyCustomSerializer';
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+            ->setSerializer('\MyProject\Serializers\MyCustomSerializer');
+            ->build();
 ----
-{zwsp} +
+
+Alternatively, if your serializer has a constructor or further initialization that should occur before given to the
+client, you can instantiate an object and provide that instead:
+
+[source,php]
+----
+$mySerializer = new MyCustomSerializer($a, $b, $c);
+$mySerializer->setFoo("bar");
+
+$client = ClientBuilder::create()
+            ->setSerializer($mySerializer);
+            ->build();
+----
+
+

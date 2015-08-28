@@ -1,205 +1,115 @@
 
 == Security
 
+The Elasticsearch-PHP client supports two security features: HTTP Authentication and SSL encryption.
+
 === HTTP Authentication
 
-If your Elasticsearch server is protected by HTTP Authentication, you need to provide the credentials to ES-PHP so that requests can be authenticated server-side.  There are two ways to enable HTTP Authentication: inline with the host, or via `auth` parameters:
+If your Elasticsearch server is protected by HTTP Authentication, you need to provide the credentials to ES-PHP so
+that requests can be authenticated server-side.  Authentication credentials are provided as part of the host array
+when instantiating the client:
 
 [source,php]
-.Inline Authentication
 ----
-$params = array();
-$params['hosts'] = array (
-    'http://user:pass@localhost:9200',  // HTTP Basic Auth
-);
+$hosts = [
+    'http://user:pass@localhost:9200',       // HTTP Basic Authentication
+    'http://user2:pass2@other-host.com:9200' // Different credentials on different host
+];
 
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+                    ->setHosts($hosts)
+                    ->build();
 ----
 
-Only HTTP Basic Auth is supported via the inline syntax.  Inline syntax allows different credentials for each host.
-Alternatively, you can use the `auth` connection parameter:
+Credentials are provided per-host, which allows each host to have their own set of credentials.  All requests sent to the
+cluster will use the appropriate credentials depending on the node being talked to.
 
-[source,php]
-.Auth Connection Parameter
-----
-$params = array();
-$params['connectionParams']['auth'] = array(
-    'user',
-    'pass',
-    'Basic' <1>
-);
-$client = new Elasticsearch\Client($params);
-----
-<1> Accepts four different options: `Basic`, `Digests`, `NTLM`, `Any`
+=== SSL Encryption
 
-The `auth` syntax allows all four types of HTTP authentication, although `Basic` is the most often used variety.  Unlike the inline syntax,
-the `auth` syntax applies to all connections.  This is useful if all servers share the same authentication credentials
-
-After being initialized with authentication credentials, all outgoing requests will automatically include the appropriate HTTP auth headers.  Authentication setup is identical regardless of the ConnectionClass you are using (e.g. GuzzleConnection or CurlMultiConnection)
-
-=== SSL Configuration
-
-Configuring SSL is a little more complex.  First you need to identify if your certificate has been signed by a public Certificate Authority (CA), or if it is a self-signed certificate.  Then you need to identify which ConnectionClass you are using, since they have slightly different syntax to enable SSL.
+Configuring SSL is a little more complex.  You need to identify if your certificate has been signed by a public
+Certificate Authority (CA), or if it is a self-signed certificate.
 
 [NOTE]
 .A note on libcurl version
 =================
-If you believe the client is configured to correctly use SSL, but it simply is not working, check your libcurl version.  On certain platforms, various features may or may not be available depending on version number of libcurl.  For example, the `--cacert` option was not added to the OSX version of libcurl until version 7.37.1.  The `--cacert` option is equivalent to PHP's `CURLOPT_CAINFO` constant, meaning that custom certificate paths will not work on lower versions.
+If you believe the client is configured to correctly use SSL, but it simply is not working, check your libcurl
+version.  On certain platforms, various features may or may not be available depending on version number of libcurl.
+For example, the `--cacert` option was not added to the OSX version of libcurl until version 7.37.1.  The `--cacert`
+option is equivalent to PHP's `CURLOPT_CAINFO` constant, meaning that custom certificate paths will not work on lower
+versions.
 
 If you are encountering problems, update your libcurl version and/or check the http://curl.haxx.se/changes.html[curl changelog].
 =================
 
+==== Public CA Certificates
 
-==== GuzzleConnection + Public CA Cert
-
-If your certificate has been signed by a public Certificate Authority and your server has up-to-date root certificates, you only need to use `https` in the host path.  Guzzle will automatically verify SSL certificates:
+If your certificate has been signed by a public Certificate Authority and your server has up-to-date root certificates,
+you only need to use `https` in the host path.  The client will automatically verify SSL certificates:
 
 [source,php]
 ----
-$params = array();
-$params['hosts'] = array (
+$hosts = [
     'https://localhost:9200' <1>
-);
+];
 
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+                    ->setHosts($hosts)
+                    ->build();
 ----
 <1> Note that `https` is used, not `http`
 
 
-If your server has out-dated root certificates, you may need to use a certificate bundle.  For PHP clients, the best way is to use https://github.com/Kdyby/CurlCaBundle[Kdyby/CurlCaBundle].  Once installed, you would use inject it into the client:
-
-[source,php]
-----
-$params = array();
-$params['hosts'] = array (
-    'https://localhost:9200'
-);
-
-$params['guzzleOptions'] = array(
-    \Guzzle\Http\Client::SSL_CERT_AUTHORITY => 'system', <1>
-    \Guzzle\Http\Client::CURL_OPTIONS => [
-        CURLOPT_SSL_VERIFYPEER => true, <2>
-        CURLOPT_SSL_VERIFYHOST => 2, <3>
-        CURLOPT_CAINFO => \Kdyby\CurlCaBundle\CertificateHelper::getCaInfoFile() <4>
-    ]
-);
-$client = new Elasticsearch\Client($params);
-----
-<1> Tell Guzzle that we are providing our own root certificates
-<2> Verify that the certificate has been signed by a CA and can be trusted
-<3> Verify that the host you are talking to is the host in the certificate. Note that cURL needs the value of `2`, not `true` or `1` (due to an internal cURL depreciation)
-<4> Tell cURL where the certificate bundle is located
-
-Note: Guzzle's `CURL_OPTIONS` parameter will accept any PHP http://php.net/manual/en/function.curl-setopt.php[curl_opt] constant for configuring.
-
-==== GuzzleConnection + Self-Signed Certificate
-
-Self-signed certificates are certs that have not been signed by a public CA.  They are signed by your own organization.  Self-signed certificates are often used for internal purposes, when you can securely spread the root certificate yourself.  It should not be used when being exposed to public consumers, since this leaves the client vulnerable to man-in-the-middle attacks.
-
-If you are using a self-signed certificate, you need to provide the certificate to the client:
-
-[source,php]
-----
-$params = array();
-$params['hosts'] = array (
-    'https://localhost:9200'
-);
-
-$params['guzzleOptions'] = array(
-    \Guzzle\Http\Client::SSL_CERT_AUTHORITY => 'system',
-    \Guzzle\Http\Client::CURL_OPTIONS => [
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_CAINFO => 'cacert.pem', <1>
-        CURLOPT_SSLCERTTYPE => 'PEM', <2>
-    ]
-);
-$client = new Elasticsearch\Client($params);
-----
-<1> CAInfo is used to specify the path to the self-signed certificate
-<2> Finally, the certificate type is specified.  PEM is default, so you can omit this if you are using .pem certs
-
-==== CurlMultiConnection + Public CA Cert
-
-Similar to Guzzle, CurlMultiConnection will work seamlessly with publicly signed certs.  You just need to specify the ConnectionClass and use `https` in the URI:
+If your server has out-dated root certificates, you may need to use a certificate bundle.  For PHP clients, the best
+way is to use https://github.com/Kdyby/CurlCaBundle[Kdyby/CurlCaBundle].  Once installed, you need to tell the client to
+use your certificates instead of the system-wide bundle.  To do this, specify the path to verify:
 
 
 [source,php]
 ----
-$params = array();
-$params['connectionClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
+$hosts = ['https://localhost:9200'];
+$caBundle = \Kdyby\CurlCaBundle\CertificateHelper::getCaInfoFile();
 
-$params['hosts'] = array (
-    'https://localhost:9200' <1>
-);
-
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+                    ->setHosts($hosts)
+                    ->setSSLVerification($caBundle)
+                    ->build();
 ----
-<1> Note that `https` is used, not `http`
 
-If your server does not have up-to-date root certificates, you can also use https://github.com/Kdyby/CurlCaBundle[Kdyby/CurlCaBundle] with
-CurlMultiConnection:
+==== Self-signed Certificates
+
+Self-signed certificates are certs that have not been signed by a public CA.  They are signed by your own organization.
+Self-signed certificates are often used for internal purposes, when you can securely spread the root certificate
+yourself.  It should not be used when being exposed to public consumers, since this leaves the client vulnerable to
+man-in-the-middle attacks.
+
+If you are using a self-signed certificate, you need to provide the certificate to the client.  This is the same syntax
+as specifying a new root bundle, but instead you point to your certificate:
 
 [source,php]
 ----
-$params = array();
-$params['connectionClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
+$hosts = ['https://localhost:9200'];
+$myCert = 'path/to/cacert.pem';
 
-$params['hosts'] = array (
-    'https://localhost:9200'
-);
-
-$params['connectionParams']['curlOpts'] = array(
-    CURLOPT_CAINFO => \Kdyby\CurlCaBundle\CertificateHelper::getCaInfoFile()
-);
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+                    ->setHosts($hosts)
+                    ->setSSLVerification($myCert)
+                    ->build();
 ----
 
-Note that the syntax for specifying curl options is different from Guzzle.
-
-==== CurlMultiConnection + Self-Signed Certificates
-
-To use self-signed certificates, you need to provide the certificate, just like Guzzle, albeit with slightly different syntax:
-
-[source,php]
-----
-$params = array();
-$params['connectionClass'] = '\Elasticsearch\Connections\CurlMultiConnection';
-
-$params['hosts'] = array (
-    'https://localhost:9200'
-);
-
-$params['connectionParams']['curlOpts'] = array(
-    CURLOPT_SSL_VERIFYPEER => true,
-    CURLOPT_SSL_VERIFYHOST => 2,
-    CURLOPT_CAINFO => 'cacert.pem',
-    CURLOPT_SSLCERTTYPE => 'PEM'
-);
-$client = new Elasticsearch\Client($params);
-----
 
 === Using Authentication with SSL
 
-It is possible to use HTTP authentication with SSL.  Simply specify `https` in the URI, configure SSL settings as required and provide authentication credentials.  For example, this snippet will authenticate using Basic HTTP auth and a self-signed certificate:
+It is possible to use HTTP authentication with SSL.  Simply specify `https` in the URI, configure SSL settings as
+required and provide authentication credentials.  For example, this snippet will authenticate using Basic HTTP auth
+and a self-signed certificate:
 
 [source,php]
 ----
-$params = array();
-$params['hosts'] = array (
-    'https://localhost:9200'
-);
+$hosts = ['https://user:pass@localhost:9200'];
+$myCert = 'path/to/cacert.pem';
 
-$params['connectionParams']['auth'] = array('user', 'pass', 'Basic');
-
-$params['guzzleOptions'] = array(
-    \Guzzle\Http\Client::SSL_CERT_AUTHORITY => 'system',
-    \Guzzle\Http\Client::CURL_OPTIONS => [
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_CAINFO => 'cacert.pem',
-        CURLOPT_SSLCERTTYPE => 'PEM',
-    ]
-);
-$client = new Elasticsearch\Client($params);
+$client = ClientBuilder::create()
+                    ->setHosts($hosts)
+                    ->setSSLVerification($myCert)
+                    ->build();
 ----

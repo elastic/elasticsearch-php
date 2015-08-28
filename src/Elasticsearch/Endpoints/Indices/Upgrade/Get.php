@@ -11,7 +11,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Post
  *
  * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Indices

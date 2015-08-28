@@ -1,27 +1,14 @@
 <?php
-/**
- * User: zach
- * Date: 5/1/13
- * Time: 11:41 AM
- */
 
 namespace Elasticsearch;
 
-use Elasticsearch\Common\DICBuilder;
-use Elasticsearch\Common\EmptyLogger;
-use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Common\Exceptions\UnexpectedValueException;
-use Elasticsearch\Endpoints;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Monolog\Processor\IntrospectionProcessor;
+use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
 /**
  * Class Client
@@ -34,14 +21,13 @@ use Monolog\Processor\IntrospectionProcessor;
  */
 class Client
 {
-
     /**
      * @var Transport
      */
     public $transport;
 
     /**
-     * @var \Pimple\Container
+     * @var array
      */
     protected $params;
 
@@ -70,80 +56,64 @@ class Client
      */
     protected $cat;
 
-
-    protected $customNamespaces = array();
-
     /** @var  callback */
-    protected $dicEndpoints;
-
+    protected $endpoints;
 
     /**
      * Client constructor
      *
-     * @param array $params Array of injectable parameters
+     * @param Transport $transport
+     * @param callable $endpoint
      */
-    public function __construct($params = array())
+    public function __construct(Transport $transport, callable $endpoint)
     {
-        $this->setParams($params);
-        $this->setLogging();
-        $this->transport      = $this->params['transport'];
-        $this->indices        = $this->params['indicesNamespace'];
-        $this->cluster        = $this->params['clusterNamespace'];
-        $this->nodes          = $this->params['nodesNamespace'];
-        $this->snapshot       = $this->params['snapshotNamespace'];
-        $this->cat            = $this->params['catNamespace'];
-
-        if (isset($this->params['customNamespaces']) === true) {
-            foreach ($this->params['customNamespaces'] as $name => $ns) {
-                $this->customNamespaces[$name] = $this->params[$name];
-            }
-        }
-
-
-        $this->dicEndpoints   = $this->params['endpoint'];
+        $this->transport = $transport;
+        $this->endpoints = $endpoint;
+        $this->indices   = new IndicesNamespace($transport, $endpoint);
+        $this->cluster   = new ClusterNamespace($transport, $endpoint);
+        $this->nodes     = new NodesNamespace($transport, $endpoint);
+        $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
+        $this->cat       = new CatNamespace($transport, $endpoint);
     }
 
-
     /**
-     *
-     *
+     * @param $params
      * @return array
      */
-    public function info()
+    public function info($params = [])
     {
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
-        $response = $endpoint->performRequest();
-        return $response['data'];
+        $response = $endpoint->setParams($params)->performRequest();
+
+        return $endpoint->resultOrFuture($response);
     }
 
-
-    public function ping()
+    /**
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function ping($params = [])
     {
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Ping $endpoint */
         $endpoint = $endpointBuilder('Ping');
 
         try {
-            $response = $endpoint->performRequest();
+            $response = $endpoint->setParams($params)->performRequest();
+            $endpoint->resultOrFuture($response);
         } catch (Missing404Exception $exception) {
             return false;
         }
 
-        if (isset($response['status']) === true && $response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
-
 
     /**
      * $params['id']              = (string) The document ID (Required)
@@ -168,16 +138,12 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Get $endpoint */
         $endpoint = $endpointBuilder('Get');
@@ -186,9 +152,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']             = (string) The document ID (Required)
@@ -209,16 +175,12 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Get $endpoint */
         $endpoint = $endpointBuilder('Get');
@@ -228,9 +190,9 @@ class Client
                  ->returnOnlySource();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']           = (string) The document ID (Required)
@@ -252,16 +214,12 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Delete $endpoint */
         $endpoint = $endpointBuilder('Delete');
@@ -270,9 +228,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      *
@@ -289,16 +247,12 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
 
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
         $endpoint = $endpointBuilder('DeleteByQuery');
@@ -307,9 +261,9 @@ class Client
                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
@@ -331,16 +285,12 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
 
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Count $endpoint */
         $endpoint = $endpointBuilder('Count');
@@ -349,7 +299,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -379,7 +330,7 @@ class Client
         $body  = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\CountPercolate $endpoint */
         $endpoint = $endpointBuilder('CountPercolate');
@@ -389,9 +340,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']        = (string) The name of the index with a registered percolator query (Required)
@@ -410,10 +361,8 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Percolate $endpoint */
         $endpoint = $endpointBuilder('Percolate');
@@ -423,9 +372,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']              = (string) Default index for items which don't provide one
@@ -444,9 +393,8 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\MPercolate $endpoint */
         $endpoint = $endpointBuilder('MPercolate');
@@ -455,9 +403,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one
@@ -477,7 +425,7 @@ class Client
      *
      * @return array
      */
-    public function termvectors($params = array())
+    public function termvector($params = array())
     {
         $index = $this->extractArgument($params, 'index');
         $type  = $this->extractArgument($params, 'type');
@@ -485,27 +433,27 @@ class Client
         $body  = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\TermVectors $endpoint */
-        $endpoint = $endpointBuilder('TermVectors');
+        /** @var \Elasticsearch\Endpoints\TermVector $endpoint */
+        $endpoint = $endpointBuilder('TermVector');
         $endpoint->setIndex($index)
                  ->setType($type)
                  ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
      * Redirect to termvector, this is just a naming difference depending on version
      */
-    public function termvector($params = array())
+    public function termvectors($params = array())
     {
-        return $this->termvectors($params);
+        return $this->termvector($params);
     }
-
 
     /**
      * $params['index']            = (string) Default index for items which don't provide one
@@ -533,7 +481,7 @@ class Client
         $body  = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\MTermVectors $endpoint */
         $endpoint = $endpointBuilder('MTermVectors');
@@ -542,9 +490,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']         = (string) The document ID (Required)
@@ -564,16 +512,15 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
+        //manually make this verbose so we can check status code
+        $params['client']['verbose'] = true;
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Exists $endpoint */
         $endpoint = $endpointBuilder('Exists');
@@ -582,22 +529,8 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
 
-        try {
-            $response = $endpoint->performRequest();
-        } catch (Missing404Exception $exception) {
-            return false;
-        } catch (RoutingMissingException $exception) {
-            return false;
-        }
-
-
-        if ($response['status'] === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return BooleanRequestWrapper::performRequest($endpoint);
     }
-
 
     /**
      * $params['id']                     = (string) The document ID (Required)
@@ -632,19 +565,14 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Mlt $endpoint */
         $endpoint = $endpointBuilder('Mlt');
@@ -654,9 +582,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']           = (string) The name of the index
@@ -680,16 +608,12 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
 
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Mget $endpoint */
         $endpoint = $endpointBuilder('Mget');
@@ -698,9 +622,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']       = (list) A comma-separated list of index names to use as default
@@ -716,16 +640,12 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
 
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Msearch $endpoint */
         $endpoint = $endpointBuilder('Msearch');
@@ -734,9 +654,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -763,19 +683,14 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Index $endpoint */
         $endpoint = $endpointBuilder('Index');
@@ -786,9 +701,9 @@ class Client
                  ->createIfAbsent();
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']       = (string) Default index for items which don't provide one
@@ -807,16 +722,12 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $type = $this->extractArgument($params, 'type');
-
 
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Bulk $endpoint */
         $endpoint = $endpointBuilder('Bulk');
@@ -825,9 +736,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']        = (string) The name of the index (Required)
@@ -855,19 +766,14 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Index $endpoint */
         $endpoint = $endpointBuilder('Index');
@@ -877,9 +783,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
@@ -897,13 +803,10 @@ class Client
     {
         $index = $this->extractArgument($params, 'index');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Suggest $endpoint */
         $endpoint = $endpointBuilder('Suggest');
@@ -911,9 +814,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']                       = (string) The document ID (Required)
@@ -944,19 +847,14 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Explain $endpoint */
         $endpoint = $endpointBuilder('Explain');
@@ -966,9 +864,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1011,17 +909,11 @@ class Client
     public function search($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-
-
         $type = $this->extractArgument($params, 'type');
-
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('Search');
@@ -1030,7 +922,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1078,16 +971,17 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\SearchExists $endpoint */
         $endpoint = $endpointBuilder('SearchExists');
         $endpoint->setIndex($index)
-            ->setType($type)
-            ->setBody($body);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1109,9 +1003,8 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\SearchShards $endpoint */
         $endpoint = $endpointBuilder('SearchShards');
@@ -1119,9 +1012,9 @@ class Client
                  ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1138,7 +1031,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('SearchTemplate');
@@ -1147,9 +1040,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
@@ -1167,7 +1060,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
@@ -1175,9 +1068,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
@@ -1195,7 +1088,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
@@ -1204,9 +1097,9 @@ class Client
                  ->setClearScroll(true);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']                = (string) Document ID (Required)
@@ -1236,19 +1129,14 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-
         $index = $this->extractArgument($params, 'index');
-
 
         $type = $this->extractArgument($params, 'type');
 
-
         $body = $this->extractArgument($params, 'body');
 
-
-
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Update $endpoint */
         $endpoint = $endpointBuilder('Update');
@@ -1258,9 +1146,9 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']   = (string) The script ID (Required)
@@ -1276,7 +1164,7 @@ class Client
         $lang = $this->extractArgument($params, 'lang');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Get $endpoint */
         $endpoint = $endpointBuilder('Script\Get');
@@ -1284,7 +1172,8 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1301,7 +1190,7 @@ class Client
         $lang = $this->extractArgument($params, 'lang');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Delete $endpoint */
         $endpoint = $endpointBuilder('Script\Delete');
@@ -1309,7 +1198,8 @@ class Client
                  ->setLang($lang);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1327,7 +1217,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Put $endpoint */
         $endpoint = $endpointBuilder('Script\Put');
@@ -1336,7 +1226,8 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1351,14 +1242,15 @@ class Client
         $id = $this->extractArgument($params, 'id');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Template\Get $endpoint */
         $endpoint = $endpointBuilder('Template\Get');
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1373,14 +1265,15 @@ class Client
         $id = $this->extractArgument($params, 'id');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Template\Delete $endpoint */
         $endpoint = $endpointBuilder('Template\Delete');
         $endpoint->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
@@ -1396,7 +1289,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Template\Put $endpoint */
         $endpoint = $endpointBuilder('Template\Put');
@@ -1404,12 +1297,12 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+
+        return $endpoint->resultOrFuture($response);
     }
 
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
-     *        ['body']               = (array) Field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds
      *        ['fields']             = (list) A comma-separated list of fields for to get field statistics for (min value, max value, and more)
      *        ['level']              = (enum) Defines if field stats should be returned on a per index level or on a cluster wide level
      *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -1426,7 +1319,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
         $endpoint = $endpointBuilder('FieldStats');
@@ -1434,9 +1327,9 @@ class Client
             ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
-    }
 
+        return $endpoint->resultOrFuture($response);
+    }
 
     /**
      * $params['id']                 = (string) ID of the template to render
@@ -1451,7 +1344,7 @@ class Client
         $id   = $this->extractArgument($params, 'id');
 
         /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->dicEndpoints;
+        $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */
         $endpoint = $endpointBuilder('RenderSearchTemplate');
@@ -1459,10 +1352,8 @@ class Client
             ->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
-        return $response['data'];
+        return $endpoint->resultOrFuture($response);
     }
-
-
 
     /**
      * Operate on the Indices Namespace of commands
@@ -1474,7 +1365,6 @@ class Client
         return $this->indices;
     }
 
-
     /**
      * Operate on the Cluster namespace of commands
      *
@@ -1484,7 +1374,6 @@ class Client
     {
         return $this->cluster;
     }
-
 
     /**
      * Operate on the Nodes namespace of commands
@@ -1496,7 +1385,6 @@ class Client
         return $this->nodes;
     }
 
-
     /**
      * Operate on the Snapshot namespace of commands
      *
@@ -1506,7 +1394,6 @@ class Client
     {
         return $this->snapshot;
     }
-
 
     /**
      * Operate on the Cat namespace of commands
@@ -1518,184 +1405,6 @@ class Client
         return $this->cat;
     }
 
-
-    /**
-     * @param $name
-     * @param $arguments
-     * @return mixed
-     * @throws Common\Exceptions\RuntimeException
-     */
-    public function __call($name, $arguments)
-    {
-        if (isset($this->customNamespaces[$name]) === true) {
-            return $this->customNamespaces[$name];
-        }
-        throw new Exceptions\RuntimeException("User-defined namespace '$name' could not be found.'");
-    }
-
-    /**
-     * Sets up the DIC parameter object
-     *
-     * Merges user-specified parameters into the default list, then
-     * builds a DIC to house all the information
-     *
-     * @param array $params Array of user settings
-     *
-     * @internal param array $hosts Array of hosts
-     * @return void
-     */
-    private function setParams($params)
-    {
-
-        if (isset($params['hosts']) === true) {
-            $hosts = $this->buildHostsFromSeed($params['hosts']);
-            unset($params['hosts']);
-        } else {
-            $hosts = $this->getDefaultHost();
-        }
-
-        if (isset($params['dic']) !== true) {
-            $dicBuilder =  new DICBuilder($hosts, $params);
-        } else {
-            $dicBuilder = $params['dic']($hosts, $params);
-            unset($params['dic']);
-        }
-
-        /** @var DICBuilder $dicBuilder */
-
-        $this->params = $dicBuilder->getDIC();
-
-    }
-
-
-    /**
-     * Sets up the logging object
-     * If a user-defined logger is not available, builds a default file logger
-     *
-     * @return void
-     */
-    private function setLogging()
-    {
-        if ($this->params['logging'] !== true) {
-            $this->setEmptyLogger();
-            return;
-        }
-
-        if ($this->params['logObject'] === null) {
-           $this->setDefaultLogger();
-        }
-
-        if ($this->params['traceObject'] === null) {
-            $this->setDefaultTracer();
-        }
-
-    }
-
-    private function setEmptyLogger()
-    {
-        $this->params['logObject'] = new EmptyLogger();
-        $this->params['traceObject'] = new EmptyLogger();
-    }
-
-    private function setDefaultLogger()
-    {
-        $log       = new Logger('log');
-        $handler   = new StreamHandler(
-            $this->params['logPath'],
-            $this->params['logLevel'],
-            $this->params['logBubble'],
-            $this->params['logPermission']
-        );
-        $processor = new IntrospectionProcessor();
-
-        $log->pushHandler($handler);
-        $log->pushProcessor($processor);
-
-        $this->params['logObject'] = $log;
-    }
-
-    private function setDefaultTracer()
-    {
-        $trace        = new Logger('trace');
-        $traceHandler = new StreamHandler(
-            $this->params['tracePath'],
-            $this->params['traceLevel'],
-            $this->params['traceBubble'],
-            $this->params['tracePermission']
-        );
-
-        $trace->pushHandler($traceHandler);
-
-        $this->params['traceObject'] = $trace;
-    }
-
-
-    /**
-     * @return array
-     */
-    private function getDefaultHost()
-    {
-        return array(array('host' => 'localhost', 'port' => 9200));
-    }
-
-
-    /**
-     * @param array $hosts
-     *
-     * @return array
-     * @throws Common\Exceptions\InvalidArgumentException
-     */
-    private function buildHostsFromSeed($hosts)
-    {
-        if (is_array($hosts) === false) {
-            throw new Exceptions\InvalidArgumentException('Hosts parameter must be an array of strings');
-        }
-
-        $finalHosts = array();
-        foreach ($hosts as $host) {
-            $host = $this->prependMissingScheme($host);
-            $finalHosts[] = $this->extractURIParts($host);
-        }
-
-        return $finalHosts;
-    }
-
-
-    /**
-     * @param array $host
-     *
-     * @return array
-     * @throws Common\Exceptions\InvalidArgumentException
-     */
-    private function extractURIParts($host)
-    {
-
-        $parts = parse_url($host);
-
-        if ($parts === false) {
-            throw new Exceptions\InvalidArgumentException("Could not parse URI");
-        }
-
-        if (isset($parts['port']) !== true) {
-            $parts['port'] = 9200;
-        }
-
-        return $parts;
-    }
-
-
-    /**
-     * @param string $host
-     *
-     * @return string
-     */
-    private function prependMissingScheme($host) {
-        if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-            $host = 'http://' . $host;
-        }
-        return $host;
-    }
-
     /**
      * @param array $params
      * @param string $arg
@@ -1705,17 +1414,16 @@ class Client
     public function extractArgument(&$params, $arg)
     {
         if (is_object($params) === true) {
-            $params = (array)$params;
+            $params = (array) $params;
         }
 
         if (isset($params[$arg]) === true) {
             $val = $params[$arg];
             unset($params[$arg]);
+
             return $val;
         } else {
             return null;
         }
     }
-
-
 }

@@ -1,18 +1,17 @@
 <?php
-/**
- * User: zach
- * Date: 06/04/2013
- * Time: 13:33:19 pm
- */
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Index
- * @package Elasticsearch\Endpoints
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
  */
 class Index extends AbstractEndpoint
 {
@@ -31,11 +30,10 @@ class Index extends AbstractEndpoint
             return $this;
         }
 
-
         $this->body = $body;
+
         return $this;
     }
-
 
     /**
      * @return $this
@@ -43,9 +41,9 @@ class Index extends AbstractEndpoint
     public function createIfAbsent()
     {
         $this->createIfAbsent = true;
+
         return $this;
     }
-
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -53,7 +51,6 @@ class Index extends AbstractEndpoint
      */
     protected function getURI()
     {
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Index'
@@ -115,7 +112,6 @@ class Index extends AbstractEndpoint
         }
     }
 
-
     /**
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -135,8 +131,8 @@ class Index extends AbstractEndpoint
             return '/_create';
         } else {
             $this->params['op_type'] = 'create';
+
             return "";
         }
-
     }
 }

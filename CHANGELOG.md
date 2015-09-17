@@ -1,3 +1,7 @@
+## Release 1.4.1
+- Throw exception if curl or curl_multi_exec() a12839c not available [[a12839c]](http://github.com/elasticsearch/elasticsearch-php/commit/660d59a)
+- Redact basic auth credentials from log when using CurlMultiConnection [[56b4a3a]](http://github.com/elasticsearch/elasticsearch-php/commit/56b4a3a)
+
 ## Release 1.4.0
 - Add request_cache param for version 2.0 [[660d59a]](http://github.com/elasticsearch/elasticsearch-php/commit/660d59a)
 - Update Search.php [[46d596b]](http://github.com/elasticsearch/elasticsearch-php/commit/46d596b)

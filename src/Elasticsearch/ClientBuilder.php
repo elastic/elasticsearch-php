@@ -3,6 +3,7 @@
 namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
@@ -85,6 +86,39 @@ class ClientBuilder
     public static function create()
     {
         return new static();
+    }
+
+    /**
+     * Build a new client from the provided config.  Hash keys
+     * should correspond to the method name e.g. ['connectionPool']
+     * corresponds to setConnectionPool().
+     *
+     * Missing keys will use the default for that setting if applicable
+     *
+     * Unknown keys will throw an exception by default, but this can be silenced
+     * by setting `quiet` to true
+     *
+     * @param array $config hash of settings
+     * @param bool $quiet False if unknown settings throw exception, true to silently
+     *                    ignore unknown settings
+     * @throws Common\Exceptions\RuntimeException
+     * @return \Elasticsearch\Client
+     */
+    public static function fromConfig($config, $quiet = false) {
+        $builder = new ClientBuilder();
+        foreach ($config as $key => $value) {
+            $method = "set$key";
+            if (method_exists($builder, $method)) {
+                $builder->$method($value);
+                unset($config[$key]);
+            }
+        }
+
+        if ($quiet === false && count($config) > 0) {
+            $unknown = implode(array_keys($config));
+            throw new RuntimeException("Unknown parameters provided: $unknown");
+        }
+        return $builder->build();
     }
 
     /**

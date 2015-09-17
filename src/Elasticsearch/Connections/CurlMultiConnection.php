@@ -153,7 +153,12 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
         // Add in our custom per-request curl opts after everything is generated
         $opts = $perRequestCurlOpts + $opts;    // Left-hand takes precedence over right-hand
 
-        $this->log->debug("Curl Options:", $opts);
+        $logOpts = $opts;
+        if (isset($logOpts[CURLOPT_USERPWD])) {
+            $logOpts[CURLOPT_USERPWD] = "xxxxx:xxxxx";
+        }
+        $this->log->debug("Curl Options:", $logOpts);
+        unset($logOpts);
 
         $this->lastRequest = array('request' =>
                                    array(

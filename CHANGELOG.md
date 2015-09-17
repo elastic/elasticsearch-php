@@ -1,3 +1,10 @@
+## Release 2.0.1
+- Add ClientBuilder::FromConfig to allow easier automated building of Client [[a07486d]](http://github.com/elasticsearch/elasticsearch-php/commit/a07486d)
+
+## Release 2.0.0
+- Added helper iterators for scrolled search [[24598e7]](http://github.com/elasticsearch/elasticsearch-php/commit/24598e7)
+- comoposer command error [[8ed2885]](http://github.com/elasticsearch/elasticsearch-php/commit/8ed2885)
+
 ## Release 2.0.0-beta5
 - [TESTS] Fix mistake due to poor cherry-picking skills :) [[1bae4ed]](http://github.com/elasticsearch/elasticsearch-php/commit/1bae4ed)
 - Add Indices/ShardStores endpoint [[aa0f13f]](http://github.com/elasticsearch/elasticsearch-php/commit/aa0f13f)

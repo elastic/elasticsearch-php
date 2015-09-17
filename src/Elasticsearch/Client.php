@@ -81,9 +81,14 @@ class Client
      * Client constructor
      *
      * @param array $params Array of injectable parameters
+     * @throws Common\Exceptions\RuntimeException
      */
     public function __construct($params = array())
     {
+        if (!extension_loaded('curl') || !function_exists('curl_multi_exec')) {
+            throw new Exceptions\RuntimeException("curl_multi_exec() function is required for the client.");
+        }
+
         $this->setParams($params);
         $this->setLogging();
         $this->transport      = $this->params['transport'];

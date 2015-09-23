@@ -100,12 +100,12 @@ class Connection implements ConnectionInterface
             $this->transportSchema = $hostDetails['scheme'];
         }
 
-        $auth = '';
         if (isset($hostDetails['user']) && isset($hostDetails['pass'])) {
-            $auth = $hostDetails['user'].':'.$hostDetails['pass'].'@';
+            $connectionParams['client']['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+            $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
 
-        $host = $auth.$hostDetails['host'].':'.$hostDetails['port'];
+        $host = $hostDetails['host'].':'.$hostDetails['port'];
         if (isset($hostDetails['path']) === true) {
             $host .= $hostDetails['path'];
         }

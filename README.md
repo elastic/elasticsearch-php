@@ -72,9 +72,9 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 
         $client = ClientBuilder::create()->build();
     ```
-    
-*OPTIONALLY set the hosts on the `create` instead of using the default of `localhost`*
-    
+
+    OPTIONALLY set the hosts on the `create` instead of using the default of `localhost`
+
     ```php
         $client = ClientBuilder::create()
              ->setHosts(
@@ -84,6 +84,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
              )
              ->build();
     ```
+
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
 You'll notice that the installation command specified `--no-dev`.  This prevents Composer from installing the various testing and development dependencies.  For average users, there is no need to install the test suite (which also includes the complete source code of Elasticsearch).  If you wish to contribute to development, just omit the `--no-dev` flag to be able to run tests.

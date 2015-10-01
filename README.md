@@ -71,6 +71,16 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
         require 'vendor/autoload.php';
 
         $client = ClientBuilder::create()->build();
+        
+        // OPTIONALLY set the hosts on the 'create'
+        // defaults to localhost
+        // $client = ClientBuilder::create()
+        //      ->setHosts(
+        //        [
+        //          'your-elastic-host.com'
+        //        ]
+        //      )
+        //      ->build();
     ```
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 

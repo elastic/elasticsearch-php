@@ -136,7 +136,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
+     * @param ConnectionFactoryInterface $connectionFactory
      * @return $this
      */
     public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
@@ -200,10 +200,10 @@ class ClientBuilder
     }
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
      * @return $this
      */
-    public function setLogger(\Psr\Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
@@ -211,10 +211,10 @@ class ClientBuilder
     }
 
     /**
-     * @param \Psr\Log\LoggerInterface $tracer
+     * @param LoggerInterface $tracer
      * @return $this
      */
-    public function setTracer(\Psr\Log\LoggerInterface $tracer)
+    public function setTracer(LoggerInterface $tracer)
     {
         $this->tracer = $tracer;
 

@@ -105,7 +105,10 @@ class Connection implements ConnectionInterface
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
 
-        $host = $hostDetails['host'].':'.$hostDetails['port'];
+        $host = $hostDetails['host'];
+        if (!$this->isStandardPort($hostDetails['scheme'], $hostDetails['port'])) {
+            $host .= ':' . $hostDetails['port'];
+        }
         if (isset($hostDetails['path']) === true) {
             $host .= $hostDetails['path'];
         }
@@ -466,6 +469,12 @@ class Connection implements ConnectionInterface
         );
 
         throw $exception;
+    }
+
+    private function isStandardPort($scheme, $port)
+    {
+        return ('https' === strtolower($scheme) && 443 === $port)
+            || ('http' === strtolower($scheme) && 80 === $port);
     }
 
     /**

@@ -1562,7 +1562,7 @@ class Client
         if (isset($params['dic']) !== true) {
             $dicBuilder =  new DICBuilder($hosts, $params);
         } else {
-            $dicBuilder = $params['dic']($hosts, $params);
+            $dicBuilder = new $params['dic']($hosts, $params);
             unset($params['dic']);
         }
 

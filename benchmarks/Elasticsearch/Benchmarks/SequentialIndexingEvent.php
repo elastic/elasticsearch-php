@@ -3,7 +3,7 @@
 namespace Elasticsearch\Benchmarks;
 
 use Athletic\AthleticEvent;
-use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 
 class SequentialIndexingEvent extends AthleticEvent
 {
@@ -19,9 +19,9 @@ class SequentialIndexingEvent extends AthleticEvent
 
     protected function classSetUp()
     {
-        $this->client = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
+        $this->client = $client = ClientBuilder::create()->setHosts(['127.0.0.1:9200'])->build();
 
-        $this->setupClient = $client = Client::newBuilder()->setHosts(['127.0.0.1:9200'])->build();
+        $this->setupClient = $client = ClientBuilder::create()->setHosts(['127.0.0.1:9200'])->build();
         $indexParams['index']  = 'benchmarking_index';
         $indexParams['body']['test']['_all']['enabled'] = false;
         $indexParams['body']['test']['properties']['testField'] = array(

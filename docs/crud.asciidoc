@@ -93,16 +93,16 @@ to batch up the requests and periodically send them:
 .Bulk indexing with batches
 [source,php]
 ----
-$params = [];
+$params = ['body' => []];
 
-for ($i = 0; $i <= 100000; $i++) {
-    $params['body'][] = array(
-        'index' => array(
+for ($i = 1; $i <= 1234567; $i++) {
+    $params['body'][] = [
+        'index' => [
             '_index' => 'my_index',
             '_type' => 'my_type',
             '_id' => $i
-        )
-    );
+        ]
+    ];
 
     $params['body'][] = [
         'my_field' => 'my_value',
@@ -110,15 +110,20 @@ for ($i = 0; $i <= 100000; $i++) {
     ];
 
     // Every 1000 documents stop and send the bulk request
-    if ($i % 1000) {
+    if ($i % 1000 == 0) {
         $responses = $client->bulk($params);
 
         // erase the old bulk request
-        $params = [];
+        $params = ['body' => []];
 
         // unset the bulk response when you are done to save memory
         unset($responses);
     }
+}
+
+// Send the last batch if it exists
+if (!empty($params['body'])) {
+    $responses = $client->bulk($params);
 }
 ----
 

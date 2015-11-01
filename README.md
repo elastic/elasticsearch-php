@@ -315,7 +315,7 @@ Available Licenses
 -------
 
 Starting with version 1.3.1, Elasticsearch-PHP is available under two licenses: Apache v2.0 and LGPL v2.1.  Versions
-prior to 1.3.1 are still licensed with only Apache v2.0
+prior to 1.3.1 are still licensed with only Apache v2.0.
 
 The user may choose which license they wish to use.  Since there is no discriminating executable or distribution bundle
 to differentiate licensing, the user should document their license choice externally, in case the library is re-distributed.

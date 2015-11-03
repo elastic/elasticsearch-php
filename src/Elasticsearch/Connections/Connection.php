@@ -167,8 +167,14 @@ class Connection implements ConnectionInterface
     private function wrapHandler(callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
     {
         return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler, $logger, $tracer) {
+
+            $this->lastRequest = [];
+            $this->lastRequest['request'] = $request;
+
             // Send the request using the wrapped handler.
             $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
+
+                $this->lastRequest['response'] = $response;
 
                 if (isset($response['error']) === true) {
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
@@ -201,6 +207,7 @@ class Connection implements ConnectionInterface
 
                     if (isset($response['body']) === true) {
                         $response['body'] = stream_get_contents($response['body']);
+                        $this->lastRequest['response']['body'] = $response['body'];
                     }
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {

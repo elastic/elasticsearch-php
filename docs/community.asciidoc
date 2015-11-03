@@ -1,8 +1,9 @@
 
 == Community DSLs
 
-=== https://github.com/ongr-io/ElasticsearchDSL[ElasticsearchDSL]
+=== ElasticsearchDSL
 
+https://github.com/ongr-io/ElasticsearchDSL[Link: ElasticsearchDSL]
 [quote, ElasticsearchDSL]
 __________________________
 Introducing Elasticsearch DSL library to provide objective query builder for Elasticsearch bundle and elasticsearch-php client. You can easily build any Elasticsearch query and transform it to an array.
@@ -13,7 +14,9 @@ __________________________
 
 === Symfony
 
-==== https://github.com/ongr-io/ElasticsearchBundle[ONGR Elasticsearch Bundle]
+==== ONGR Elasticsearch Bundle
+
+https://github.com/ongr-io/ElasticsearchBundle[Link: ONGR Elasticsearch Bundle]
 
 [quote, ONGR Elasticsearch Bundle]
 __________________________
@@ -36,7 +39,9 @@ __________________________
 
 === Drupal
 
-==== https://www.drupal.org/project/elasticsearch_connector[Elasticsearch Connector]
+==== Elasticsearch Connector
+
+https://www.drupal.org/project/elasticsearch_connector[Link: Elasticsearch Connector]
 
 [quote, Elasticsearch Connector]
 __________________________
@@ -45,7 +50,9 @@ __________________________
 
 === Laravel
 
-==== https://github.com/shift31/laravel-elasticsearch[shift31/Laravel-Elasticsearch]
+==== shift31/Laravel-Elasticsearch
+
+https://github.com/shift31/laravel-elasticsearch[Link: shift31/Laravel-Elasticsearch]
 
 [quote, Laravel-Elasticsearch]
 __________________________
@@ -53,7 +60,9 @@ This is a Laravel (4+) Service Provider for the official Elasticsearch low-level
 __________________________
 
 
-==== https://github.com/cviebrock/laravel-elasticsearch[cviebrock/Laravel-Elasticsearch]
+==== cviebrock/Laravel-Elasticsearch
+
+https://github.com/cviebrock/laravel-elasticsearch[Link: cviebrock/Laravel-Elasticsearch]
 
 [quote, Laravel-Elasticsearch]
 __________________________

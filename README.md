@@ -251,7 +251,7 @@ Array
 
 ### Delete an index
 
-Due to the dynamic nature of elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
+Due to the dynamic nature of Elasticsearch, the first document we added automatically built an index with some default settings.  Let's delete that index because we want to specify our own settings later:
 
 ```php
 $deleteParams = [

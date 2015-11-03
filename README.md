@@ -162,7 +162,7 @@ Array
 
 ### Search for a document
 
-Searching is a hallmark of elasticsearch, so let's perform a search.  We are going to use the Match query as a demonstration:
+Searching is a hallmark of Elasticsearch, so let's perform a search.  We are going to use the Match query as a demonstration:
 
 ```php
 $params = [

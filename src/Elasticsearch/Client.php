@@ -213,7 +213,9 @@ class Client
     public function delete($params)
     {
         $id = $this->extractArgument($params, 'id');
-
+        if(!$id){
+            return false;
+        }
         $index = $this->extractArgument($params, 'index');
 
         $type = $this->extractArgument($params, 'type');

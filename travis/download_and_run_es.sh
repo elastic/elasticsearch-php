@@ -12,11 +12,11 @@ if [ ! -d $ES_DIR ]; then
     echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT"
     ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/$ES_VERSION/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip"
     curl -L -O $ES_URL
-    unzip "elasticsearch-latest-SNAPSHOT.zip" -d "${ES_DIR}"
+    unzip "elasticsearch-latest-SNAPSHOT.zip"
 fi;
 
 echo "Starting Elasticsearch v${ES_VERSION}"
-./${ES_DIR}/bin/elasticsearch \
+./*/bin/elasticsearch \
     -Des.network.host=localhost \
     -Des.discovery.zen.ping.multicast.enabled=false \
     -Des.discovery.zen.ping_timeout=1s \

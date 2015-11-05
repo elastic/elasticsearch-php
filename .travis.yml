@@ -29,8 +29,8 @@ env:
     - ES_TEST_HOST=http://localhost:9200
 
 before_install:
-  - ./travis/download_run_es.sh
-  - php ./util/RestSpecRunner.php
+  - ./travis/download_and_run_es.sh
+  - php util/RestSpecRunner.php
 
 install:
   - composer install --prefer-source

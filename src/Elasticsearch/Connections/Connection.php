@@ -19,8 +19,6 @@ use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
-use GuzzleHttp\Ring\Exception\ConnectException;
-use GuzzleHttp\Ring\Exception\RingException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -601,10 +599,18 @@ class Connection implements ConnectionInterface
         if (is_array($error) === true) {
             // 2.0 structured exceptions
             if (isset($error['error']['reason']) === true) {
-                $original = new $errorClass($response['body'], $response['status']);
 
-                $cause = $error['error']['reason'];
-                $type = $error['error']['type'];
+                // Try to use root cause first (only grabs the first root cause)
+                $root = $error['error']['root_cause'];
+                if (isset($root) && isset($root[0])) {
+                    $cause = $root[0]['reason'];
+                    $type = $root[0]['type'];
+                } else {
+                    $cause = $error['error']['reason'];
+                    $type = $error['error']['type'];
+                }
+
+                $original = new $errorClass($response['body'], $response['status']);
 
                 return new $errorClass("$type: $cause", $response['status'], $original);
 

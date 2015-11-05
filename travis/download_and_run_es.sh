@@ -13,6 +13,7 @@ if [ ! -d $ES_DIR ]; then
     ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/$ES_VERSION/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip"
     curl -L -O $ES_URL
     unzip "elasticsearch-latest-SNAPSHOT.zip"
+    echo 'repositories.url.allowed_urls: ["http://*"]' >> ./*/config/elasticsearch.yml
 fi;
 
 echo "Starting Elasticsearch v${ES_VERSION}"

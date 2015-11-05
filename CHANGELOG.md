@@ -1,3 +1,17 @@
+## Release 2.0.3
+- Prefer root_cause reason over the main reason if available [[aa2e313]](http://github.com/elasticsearch/elasticsearch-php/commit/aa2e313)
+- Validate that index/type/id are non-null, non-empty when deleting [[8072aee]](http://github.com/elasticsearch/elasticsearch-php/commit/8072aee)
+- Attempt to decode 400-level exceptions too [[9ab8904]](http://github.com/elasticsearch/elasticsearch-php/commit/9ab8904)
+- [Docs] Header links are hard to see, make dedicated link [[7919ead]](http://github.com/elasticsearch/elasticsearch-php/commit/7919ead)
+- Merge pull request #317 from ssm2003/patch-3 [[4147f16]](http://github.com/elasticsearch/elasticsearch-php/commit/4147f16)
+- Merge pull request #316 from ssm2003/patch-2 [[d2b7552]](http://github.com/elasticsearch/elasticsearch-php/commit/d2b7552)
+- Merge pull request #315 from ssm2003/patch-1 [[ad5f113]](http://github.com/elasticsearch/elasticsearch-php/commit/ad5f113)
+- Populate lastRequestInfo with request/response [[68bfd10]](http://github.com/elasticsearch/elasticsearch-php/commit/68bfd10)
+- [Docs] Add community integration page [[bcffa45]](http://github.com/elasticsearch/elasticsearch-php/commit/bcffa45)
+- Merge pull request #313 from machour/patch-1 [[31137b3]](http://github.com/elasticsearch/elasticsearch-php/commit/31137b3)
+- Fixed the bulk indexed with batches example [[80b7bdc]](http://github.com/elasticsearch/elasticsearch-php/commit/80b7bdc)
+
+
 ## Release 2.0.2
 - Use curl opts for auth instead of inline syntax [[4b01af8]](http://github.com/elasticsearch/elasticsearch-php/commit/4b01af8)
 

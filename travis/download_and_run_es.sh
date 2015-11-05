@@ -14,7 +14,7 @@ curl -L -O $ES_URL
 unzip "elasticsearch-latest-SNAPSHOT.zip"
 
 echo "Adding repo to config..."
-echo 'repositories.url.allowed_urls: ["http://*"]' >> elasticsearch-*/config/elasticsearch.yml
+find . -name "elasticsearch.yml" | while read TXT ; do echo 'repositories.url.allowed_urls: ["http://*"]' >> $TXT ; done
 
 
 echo "Starting Elasticsearch v${ES_VERSION}"

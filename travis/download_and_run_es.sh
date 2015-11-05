@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/sh
 if [ -z $ES_VERSION ]; then
     echo "No ES_VERSION specified";
     exit 1;
@@ -12,7 +11,7 @@ killall java 2>/dev/null
 if [ ! -d $ES_DIR ]; then
     echo "Downloading Elasticsearch v${ES_VERSION}"
     ES_URL="https://download.elasticsearch.org/elasticsearch/elasticsearch/${ES_DIR}.zip"
-    curl -O $ES_URL
+    curl -L -O $ES_URL
     unzip "${ES_DIR}.zip"
 fi;
 
@@ -23,5 +22,3 @@ echo "Starting Elasticsearch v${ES_VERSION}"
     -Des.discovery.zen.ping_timeout=1
 
 sleep 3
-
-phpunit --bootstrap tests/bootstrap.php --no-configuration --coverage-clover build/logs/clover.xml --exclude-group ignore tests

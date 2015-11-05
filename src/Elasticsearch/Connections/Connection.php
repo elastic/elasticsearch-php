@@ -436,12 +436,10 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param $curlErrorNumber
-     * @param $message
+     * @param $request
+     * @param $response
+     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\TransportException
      *
-     * @throws \Elasticsearch\Common\Exceptions\TransportException
-     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException
-     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost
      */
     protected function throwCurlException($request, $response)
     {
@@ -513,11 +511,13 @@ class Connection implements ConnectionInterface
         $statusCode = $response['status'];
         $responseBody = $response['body'];
 
+        /** @var \Exception $exception */
+        $exception = $this->tryDeserialize400Error($response);
+
         if (array_search($response['status'], $ignore) !== false) {
             return;
         }
 
-        $exception = null;
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
@@ -528,8 +528,6 @@ class Connection implements ConnectionInterface
             $exception = new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
             $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
-        } elseif ($statusCode === 400) {
-            $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
 
         $this->logRequestFail(
@@ -556,7 +554,9 @@ class Connection implements ConnectionInterface
     {
         $statusCode = $response['status'];
         $responseBody = $response['body'];
-        $exception = $this->tryDeserializeError($response);
+
+        /** @var \Exception $exception */
+        $exception = $this->tryDeserialize500Error($response);
 
         $exceptionText = "[$statusCode Server Exception] ".$exception->getMessage();
         $this->log->error($exceptionText);
@@ -588,32 +588,40 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
-    private function tryDeserializeError($response) {
+    private function tryDeserialize400Error($response) {
+        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
+    }
+
+    private function tryDeserialize500Error($response) {
+        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
+    }
+
+    private function tryDeserializeError($response, $errorClass) {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
             // 2.0 structured exceptions
             if (isset($error['error']['reason']) === true) {
-                $original = new ServerErrorResponseException($response['body'], $response['status']);
+                $original = new $errorClass($response['body'], $response['status']);
 
                 $cause = $error['error']['reason'];
                 $type = $error['error']['type'];
 
-                return new ServerErrorResponseException("$type: $cause", $response['status'], $original);
+                return new $errorClass("$type: $cause", $response['status'], $original);
 
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
-                $original = new ServerErrorResponseException($response['body'], $response['status']);
+                $original = new $errorClass($response['body'], $response['status']);
 
-                return new ServerErrorResponseException($error['error'], $response['status'], $original);
+                return new $errorClass($error['error'], $response['status'], $original);
             }
 
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
-            return new ServerErrorResponseException($response['body'], $response['status']);
+            return new $errorClass($response['body'], $response['status']);
 
         }
 
         // <2.0 "i just blew up" nonstructured exception
-        return new ServerErrorResponseException($error, $response['status']);
+        return new $errorClass($error, $response['status']);
     }
 }

@@ -31,6 +31,7 @@ env:
 before_install:
   - ./travis/download_and_run_es.sh
   - php util/RestSpecRunner.php
+  - php util/EnsureClusterAlive.php
 
 install:
   - composer install --prefer-source

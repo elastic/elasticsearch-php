@@ -62,7 +62,7 @@ $response = $client->index($params);
 
 === Bulk Indexing
 
-Elasticsearch also supports bulk indexing of documents.  The bulk API expexts JSON action/metadata pairs, separated by
+Elasticsearch also supports bulk indexing of documents.  The bulk API expects JSON action/metadata pairs, separated by
 newlines.  When constructing your documents in PHP, the process is similar.  You first create an action array object
 (e.g. `index` object), then you create a document body object.  This process repeats for all your documents.
 

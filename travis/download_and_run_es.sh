@@ -10,9 +10,9 @@ killall java 2>/dev/null
 
 if [ ! -d $ES_DIR ]; then
     echo "Downloading Elasticsearch v${ES_VERSION}"
-    ES_URL="https://download.elasticsearch.org/elasticsearch/elasticsearch/${ES_DIR}.zip"
+    ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/$ES_VERSION/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip"
     curl -L -O $ES_URL
-    unzip "${ES_DIR}.zip"
+    unzip "elasticsearch-latest-SNAPSHOT.zip"
 fi;
 
 echo "Starting Elasticsearch v${ES_VERSION}"

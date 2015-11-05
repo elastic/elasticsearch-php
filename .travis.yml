@@ -30,14 +30,14 @@ env:
 
 before_install:
   - ./travis/download_and_run_es.sh
-  - php util/RestSpecRunner.php
-  - php util/EnsureClusterAlive.php
 
 install:
   - composer install --prefer-source
 
 before_script:
   - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
+  - php util/RestSpecRunner.php
+  - php util/EnsureClusterAlive.php
 
 script:
   - phpunit $PHPUNIT_FLAGS

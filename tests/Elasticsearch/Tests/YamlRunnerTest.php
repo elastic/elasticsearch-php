@@ -7,6 +7,7 @@ use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use FilesystemIterator;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
@@ -449,6 +450,15 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $response = json_decode($exception->getMessage(), true);
                     } catch (Forbidden403Exception $exception) {
                         if ($expectedError === 'forbidden') {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = json_decode($exception->getMessage(), true);
+                    } catch (RequestTimeout408Exception $exception) {
+                        if ($expectedError === 'request_timeout') {
+                            $this->assertTrue(true);
+                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
                             $this->assertTrue(true);
                         } else {
                             $this->fail($exception->getMessage());

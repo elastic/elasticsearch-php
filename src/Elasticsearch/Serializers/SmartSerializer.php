@@ -71,6 +71,10 @@ class SmartSerializer implements SerializerInterface
      */
     private function decode($data)
     {
+        if ($data === null || strlen($data) === 0) {
+            return "";
+        }
+
         $result = @json_decode($data, true);
 
         // Throw exception only if E_NOTICE is on to maintain backwards-compatibility on systems that silently ignore E_NOTICEs.

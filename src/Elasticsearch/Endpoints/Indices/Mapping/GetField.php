@@ -63,7 +63,6 @@ class GetField extends AbstractEndpoint
         return array(
             'include_defaults',
             'ignore_unavailable',
-            'fields',
             'allow_no_indices',
             'expand_wildcards',
             'local'

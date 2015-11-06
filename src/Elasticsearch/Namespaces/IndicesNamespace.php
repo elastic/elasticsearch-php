@@ -314,10 +314,13 @@ class IndicesNamespace extends AbstractNamespace
     public function getFieldMapping($params = array())
     {
         $index = $this->extractArgument($params, 'index');
-
         $type = $this->extractArgument($params, 'type');
-
         $fields = $this->extractArgument($params, 'fields');
+
+        if (!isset($fields)) {
+            $fields = $this->extractArgument($params, 'field');
+        }
+
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

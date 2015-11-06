@@ -107,13 +107,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $response = curl_exec($ch);
         curl_close($ch);
 
-        $ch = curl_init($host."/_snapshot/*");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
+        // TODO ewwww...
+        shell_exec('rm -rf /tmp/test_repo_create_1_loc');
+        shell_exec('rm -rf /tmp/test_repo_restore_1_loc');
 
         $this->waitForYellow();
     }
@@ -605,8 +601,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         if ($passed === false) {
             if (YamlRunnerTest::checkExceptionRegex($expectedError, $exception)) {
                 $passed = true;
-            } elseif (YamlRunnerTest::checkExceptionRegex($expectedError, $exception->getPrevious())) { // try second level
-                $passed = true;
+            } elseif ($exception->getPrevious() !== null) { // try second level
+                if (YamlRunnerTest::checkExceptionRegex($expectedError, $exception->getPrevious())) {
+                    $passed = true;
+                }
             }
         }
 
@@ -615,7 +613,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             return json_decode($exception->getMessage(), true);
         }
 
-        $this->fail("Tried to match exception, failed.  Exception: ".$exception->getMessage());
+        //$this->fail("Tried to match exception, failed.  Exception: ".$exception->getMessage());
+        throw $exception;
     }
 
 
@@ -644,8 +643,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         if (count($methodParts) > 1) {
-            $methodParts[1] = $this->snakeToCamel($methodParts[1]);
-            $ret = $this->client->$methodParts[0]()->$methodParts[1]($hash);
+            $methodName = $methodParts[0];
+            $methodArgs = $this->snakeToCamel($methodParts[1]);
+            $ret = $this->client->$methodName()->$methodArgs($hash);
         } else {
             $method = $this->snakeToCamel($method);
             $ret = $this->client->$method($hash);

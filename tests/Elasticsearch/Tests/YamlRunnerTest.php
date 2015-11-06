@@ -38,6 +38,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var  string */
     public static $esVersion;
 
+    private static $testCounter = 0;
+
     /**
      * @return mixed
      */
@@ -213,8 +215,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $files = func_get_args();
 
         foreach ($files as $testFile) {
-            echo "$testFile\n";
+            $counter = YamlRunnerTest::$testCounter;
+
+            echo "--------------------------------------------------------------------------\n";
+            echo "#$counter : $testFile\n";
             ob_flush();
+            YamlRunnerTest::$testCounter += 1;
 
             if ($this->skipTest($testFile) === true) {
                 $this->markTestSkipped('Skipped due to skip-list');
@@ -264,6 +270,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     }
                 }
                 $this->executeTestCase($doc['values'], $testFile, false);
+
+                echo "Success\n\n";
+                ob_flush();
             }
         }
     }

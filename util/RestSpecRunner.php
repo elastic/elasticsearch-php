@@ -27,6 +27,3 @@ $git->fetchAll(array('verbose' => true));
 $hash = $_SERVER['TEST_BUILD_REF'];
 echo "Checkout yaml tests (hash: $hash)\n";
 $git->checkout($hash, array('force' => true, 'quiet' => true));
-
-ob_flush();
-ob_end_flush();

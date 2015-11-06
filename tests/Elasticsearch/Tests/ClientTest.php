@@ -54,7 +54,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'localhost:9200'
             ],
             'retries' => 2,
-            'handler' => ClientBuilder::singleHandler()
+            'handler' => ClientBuilder::multiHandler()
         ];
         $client = ClientBuilder::fromConfig($params);
     }

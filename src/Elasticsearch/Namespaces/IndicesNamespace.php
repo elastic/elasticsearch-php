@@ -317,7 +317,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $type = $this->extractArgument($params, 'type');
 
-        $field = $this->extractArgument($params, 'field');
+        $fields = $this->extractArgument($params, 'fields');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -326,7 +326,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Mapping\GetField');
         $endpoint->setIndex($index)
                  ->setType($type)
-                 ->setField($field);
+                 ->setFields($fields);
 
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

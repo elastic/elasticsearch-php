@@ -13,6 +13,7 @@ use FilesystemIterator;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionClass;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
@@ -434,72 +435,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         if (isset($expectedError) === true) {
                             $this->fail("Expected Exception not thrown: $expectedError");
                         }
-                    } catch (Missing404Exception $exception) {
-                        if ($expectedError === 'missing') {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (Conflict409Exception $exception) {
-                        if ($expectedError === 'conflict') {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (Forbidden403Exception $exception) {
-                        if ($expectedError === 'forbidden') {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (RequestTimeout408Exception $exception) {
-                        if ($expectedError === 'request_timeout') {
-                            $this->assertTrue(true);
-                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (BadRequest400Exception $exception) {
-                        if ($expectedError === 'request') {
-                            $this->assertTrue(true);
-                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (ServerErrorResponseException $exception) {
-                        if ($expectedError === 'request') {
-                            $this->assertTrue(true);
-                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
-                    } catch (Elasticsearch\Common\Exceptions\RuntimeException $exception) {
-                        if ($expectedError === 'param') {
-                            $this->assertTrue(true);
-                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
-                        }
-                        $response = json_decode($exception->getMessage(), true);
                     } catch (\Exception $exception) {
                         if ($expectedError === null) {
                             $this->fail($exception->getMessage());
-                        } elseif (preg_match("/$expectedError/", $exception->getMessage()) === 1) {
-                            $this->assertTrue(true);
-                        } else {
-                            $this->fail($exception->getMessage());
                         }
-                        $response = json_decode($exception->getMessage(), true);
+
+                        $response = $this->handleCaughtException($exception, $expectedError);
                     }
                 } elseif ($operator === 'match') {
                     $expected = $this->getValue($settings, key($settings));
@@ -625,6 +566,53 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 ob_flush();
             }
         }
+    }
+
+    private function handleCaughtException(\Exception $exception, $expectedError) {
+        $reflect = new ReflectionClass($exception);
+        $caught = $reflect->getShortName();
+        $passed = false;
+
+
+        if ($caught === 'Missing404Exception' && $expectedError === 'missing') {
+            $passed = true;
+        } elseif ($caught === 'Conflict409Exception' && $expectedError === 'conflict') {
+            $passed = true;
+        } elseif ($caught === 'Missing404Exception' && $expectedError === 'missing') {
+            $passed = true;
+        } elseif ($caught === 'Forbidden403Exception' && $expectedError === 'forbidden') {
+            $passed = true;
+        } elseif ($caught === 'RequestTimeout408Exception' && $expectedError === 'request_timeout') {
+            $passed = true;
+        } elseif ($caught === 'BadRequest400Exception' && $expectedError === 'request') {
+            $passed = true;
+        } elseif ($caught === 'ServerErrorResponseException' && $expectedError === 'request') {
+            $passed = true;
+        } elseif ($caught === 'RuntimeException' && $expectedError === 'param') {
+            $passed = true;
+        } elseif ($caught === 'Missing404Exception' && $expectedError === 'missing') {
+            $passed = true;
+        }
+
+        if ($passed === false) {
+            if (YamlRunnerTest::checkExceptionRegex($expectedError, $exception)) {
+                $passed = true;
+            } elseif (YamlRunnerTest::checkExceptionRegex($expectedError, $exception->getPrevious())) { // try second level
+                $passed = true;
+            }
+        }
+
+        if ($passed === true) {
+            $this->assertTrue(true);
+            return json_decode($exception->getMessage(), true);
+        }
+
+        $this->fail("Tried to match exception, failed.  Exception: ".$exception->getMessage());
+    }
+
+
+    private static function checkExceptionRegex($expectedError, \Exception $exception) {
+        return isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1;
     }
 
     private function callMethod($method, $hash, $future)

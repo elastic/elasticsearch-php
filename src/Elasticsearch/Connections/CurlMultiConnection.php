@@ -208,7 +208,7 @@ class CurlMultiConnection extends AbstractConnection implements ConnectionInterf
                 $response['error']        = curl_error($transfer['handle']);
                 $response['requestInfo']  = curl_getinfo($transfer['handle']);
                 curl_multi_remove_handle($this->multiHandle, $transfer['handle']);
-
+                curl_close($transfer['handle']);  // Bug fix for PHP, remove handle is not enough to free resources
             }
         } while ($running === 1);
 

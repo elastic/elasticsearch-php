@@ -1,5 +1,9 @@
 language: php
 
+branches:
+  except:
+    - 0.4
+
 sudo: false
 
 php:

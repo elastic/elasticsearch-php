@@ -17,24 +17,24 @@ use Elasticsearch\Common\Exceptions;
 class GetField extends AbstractEndpoint
 {
     /** @var  string */
-    private $field;
+    private $fields;
 
     /**
-     * @param string|array $field
+     * @param string|array $fields
      *
      * @return $this
      */
-    public function setField($field)
+    public function setFields($fields)
     {
-        if (isset($field) !== true) {
+        if (isset($fields) !== true) {
             return $this;
         }
 
-        if (is_array($field) === true) {
-            $field = implode(",", $field);
+        if (is_array($fields) === true) {
+            $fields = implode(",", $fields);
         }
 
-        $this->field = $field;
+        $this->fields = $fields;
 
         return $this;
     }
@@ -45,14 +45,14 @@ class GetField extends AbstractEndpoint
      */
     protected function getURI()
     {
-        if (isset($this->field) !== true) {
+        if (isset($this->fields) !== true) {
             throw new Exceptions\RuntimeException(
-                'field is required for Get Field Mapping'
+                'fields is required for Get Field Mapping'
             );
         }
         $uri = $this->getOptionalURI('_mapping/field');
 
-        return $uri.'/'.$this->field;
+        return $uri.'/'.$this->fields;
     }
 
     /**
@@ -61,7 +61,11 @@ class GetField extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'include_defaults'
+            'include_defaults',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
+            'local'
         );
     }
 

@@ -72,10 +72,10 @@ A simple example might look like this:
 [source,php]
 ----
 for($i = 0; $i < 100; $i++) {
-    $params['body'][] = array(
+    $params['body'][] = [
         'index' => 'my_index',
                     'type' => 'my_type',
-    );
+    ];
 
     $params['body'][] = [
         'my_field' => 'my_value',

@@ -1,6 +1,9 @@
 elasticsearch-php
 =================
 
+[![Build Status](https://img.shields.io/travis/elastic/elasticsearch-php.svg?style=flat-square)](https://travis-ci.org/elastic/elasticsearch-php)
+
+
 Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 
 To maintain consistency across all the low-level clients (Ruby, Python, etc), clients accept simple associative arrays as parameters.  All parameters, from the URI to the document body, are defined in the associative array.
@@ -22,12 +25,11 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 2.0 (unreleased)   | Master                   |
+| >= 2.0                | 1.0 or 2.                |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
-Since there are breaking changes in Elasticsearch 1.0 (and 2.0 when it is released), you need to match your version of Elasticsearch to the appropriate version of this library.
-
+ - If you are using Elasticsearch 2.0+, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using Elasticsearch 1.0+, you must install the `1.0` or `2.0` Elasticsearch-PHP branch.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.

@@ -1,21 +1,50 @@
 language: php
+
+branches:
+  except:
+    - 0.4
+
+sudo: false
+
 php:
-  - "5.5"
-  - "5.4"
-  - "5.3"
+  - 7.0
+  - 5.6
+  - 5.5
+  - 5.4
+  - hhvm
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.6
+      env: ES_VERSION="1.7" TEST_BUILD_REF="origin/1.7"
+    - php: 5.6
+      env: ES_VERSION="1.6" TEST_BUILD_REF="origin/1.6"
+    - php: 5.6
+      env: ES_VERSION="1.5" TEST_BUILD_REF="origin/1.5"
+  allow_failures:
+    - php: hhvm
+    - php: 7.0
+
 env:
-  - ES_VERSION=0.90.0 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.1 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.2 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.3 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.4 ES_TEST_HOST=http://localhost:9200
-  - ES_VERSION=0.90.5 ES_TEST_HOST=http://localhost:9200
+  global:
+    - ES_VERSION="2.0"
+    - TEST_BUILD_REF="origin/2.0"
+    - ES_TEST_HOST=http://localhost:9200
+
+before_install:
+  - ./travis/download_and_run_es.sh
+
+install:
+  - composer install --prefer-source
 
 before_script:
-  - composer install --dev
-  - mkdir -p build/logs
+  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
+  - php util/RestSpecRunner.php
+  - php util/EnsureClusterAlive.php
 
-script: ./run_travis_test.sh
+script:
+  - phpunit $PHPUNIT_FLAGS
 
 after_script:
- - php vendor/bin/coveralls -v
+  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then php vendor/bin/coveralls; fi

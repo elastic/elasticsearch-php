@@ -41,7 +41,7 @@ abstract class AbstractJsonSerializer implements SerializerInterface
      */
     protected static function jsonDecode($json)
     {
-        $result = json_decode($json, true);
+        $result = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 
         if (static::hasJsonError()) {
             throw new JsonDeserializationError(json_last_error(), $json, $result);

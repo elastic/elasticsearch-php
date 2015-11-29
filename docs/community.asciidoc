@@ -9,7 +9,7 @@ __________________________
 Introducing Elasticsearch DSL library to provide objective query builder for Elasticsearch bundle and elasticsearch-php client. You can easily build any Elasticsearch query and transform it to an array.
 __________________________
 
-=== 
+=== elasticsearcher
 
 https://github.com/madewithlove/elasticsearcher[Link: elasticsearcher]
 

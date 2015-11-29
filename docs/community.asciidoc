@@ -9,6 +9,14 @@ __________________________
 Introducing Elasticsearch DSL library to provide objective query builder for Elasticsearch bundle and elasticsearch-php client. You can easily build any Elasticsearch query and transform it to an array.
 __________________________
 
+=== elasticsearcher
+
+https://github.com/madewithlove/elasticsearcher[Link: elasticsearcher]
+
+[quote, elasticsearcher]
+__________________________
+This agnostic package is a lightweight wrapper on top of the Elasticsearch PHP client. Its main goal is to allow for easier structuring of queries and indices in your application. It does not want to hide or replace functionality of the Elasticsearch PHP client.
+__________________________
 
 == Community Integrations
 

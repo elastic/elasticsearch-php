@@ -62,12 +62,12 @@ if the operation results in a "hard" exception: connection refusal, connection t
 If you would like to disable retries, or change the number, you can do so with the `setRetries()` method:
 
 [source,php]
-----
+----------------------------
 
 $client = ClientBuilder::create()
                     ->setRetries(2)
                     ->build();
-----
+----------------------------
 
 When the client runs out of retries, it will throw the last exception that it received.  For example, if you have ten
 alive nodes, and `setRetries(5)`, the client will attempt to execute the command up to five times.  If all five nodes
@@ -87,13 +87,12 @@ $client = Elasticsearch\ClientBuilder::create()
 try {
     $client->search($searchParams);
 } catch (Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost $e) {
-
     $previous = $e->getPrevious();
     if ($previous instanceof 'Elasticsearch\Common\Exceptions\MaxRetriesException') {
         echo "Max retries!"
     }
 }
----
+----------------------------
 
 Alternatively, all "hard" curl exceptions (`CouldNotConnectToHost`, `CouldNotResolveHostException`, `OperationTimeoutException`)
 extend the more general `TransportException`.  So you could instead catch the general `TransportException` and then
@@ -109,13 +108,12 @@ $client = Elasticsearch\ClientBuilder::create()
 try {
     $client->search($searchParams);
 } catch (Elasticsearch\Common\Exceptions\TransportException $e) {
-
     $previous = $e->getPrevious();
     if ($previous instanceof 'Elasticsearch\Common\Exceptions\MaxRetriesException') {
         echo "Max retries!"
     }
 }
----
+----------------------------
 
 
 [[enabling_logger]]

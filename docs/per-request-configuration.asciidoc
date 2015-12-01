@@ -214,6 +214,39 @@ Array
 )
 ----
 
+=== Curl Timeouts
+
+It is possible to configure per-request curl timeouts via the `timeout` and `connect_timeout` parameters.  These
+control the client-side, curl timeouts.  The `connect_timeout` paramter controls how long curl should wait for the
+"connect" phase to finish, while the `timeout` parameter controls how long curl should wait for the entire request
+to finish.
+
+If either timeout expires, curl will close the connection and return an error.  Both parameters should be specified
+in seconds.
+
+Note: client-side timeouts *do not* mean that Elasticsearch aborts the request.  Elasticsearch will continue executing
+the request until it completes.  In the case of a slow query or bulk request, the operation will continue executing
+"in the background", unknown to your client.  If your client kills connections rapidly with a timeout, only to immediately
+execute another request, it is possible to swamp the server with many connections because there is no "back-pressure" on the
+client.  In these situations, you will see the appropriate threadpool queue growing in size, and may start receiving
+`EsRejectedExecutionException` exceptions from Elasticsearch when the queue finally reaches capacity.
+
+[source,php]
+----
+$client = ClientBuilder::create()->build();
+
+$params = [
+    'index' => 'test',
+    'type' => 'test',
+    'id' => 1,
+    'client' => [
+        'timeout' => 10,        // ten second timeout
+        'connect_timeout' => 10
+    ]
+];
+$response = $client->get($params);
+
+
 === Enabling Future Mode
 
 The client supports asynchronous, batch processing of requests.  This is enabled (if your HTTP handler supports it) on

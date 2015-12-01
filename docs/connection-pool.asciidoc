@@ -46,6 +46,25 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
+=== simpleConnectionPool
+
+The `SimpleConnectionPool` simply returns the next node as specified by the Selector; it does not perform track
+the "liveness" of nodes.  This pool will return nodes whether they are alive or dead.  It is just a simple pool of static
+hosts.
+
+The `SimpleConnectionPool` is not recommended for routine use, but it may be a useful debugging tool.
+
+To use the `SimpleConnectionPool`:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\SimpleConnectionPool')
+            ->build();
+----
+
+Note that the implementation is specified via a namespace path to the class.
+
 === sniffingConnectionPool
 
 Unlike the two previous static connection pools, this one is dynamic.  The user provides a seed list of hosts, which the

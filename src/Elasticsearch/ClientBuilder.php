@@ -180,9 +180,7 @@ class ClientBuilder
     {
         $log       = new Logger('log');
         $handler   = new StreamHandler($path, $level);
-        $processor = new IntrospectionProcessor();
         $log->pushHandler($handler);
-        $log->pushProcessor($processor);
 
         return $log;
     }

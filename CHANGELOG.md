@@ -1,3 +1,8 @@
+## Release 2.1.2
+
+- Remove IntrospectionProcessor from default to make logs less noisy [[0a80de4]](http://github.com/elasticsearch/elasticsearch-php/commit/0a80de4)
+- Remove redundant logging on failure [[f31a211]](http://github.com/elasticsearch/elasticsearch-php/commit/f31a211)
+
 ## Release 2.1.1
 
 - More robust error logging during connection failure / retries [[0069fd6]](http://github.com/elasticsearch/elasticsearch-php/commit/0069fd6)

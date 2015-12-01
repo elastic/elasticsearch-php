@@ -245,7 +245,7 @@ $params = [
     ]
 ];
 $response = $client->get($params);
-
+----
 
 === Enabling Future Mode
 

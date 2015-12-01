@@ -180,12 +180,31 @@ class Connection implements ConnectionInterface
 
                 if (isset($response['error']) === true) {
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
+
+                        $this->log->warning("Curl exception encountered.");
+
+                        $exception = $this->getCurlRetryException($request, $response);
+
+                        $this->logRequestFail(
+                            $request['http_method'],
+                            $response['effective_url'],
+                            $request['body'],
+                            $request['headers'],
+                            $response['status'],
+                            $response['body'],
+                            $response['transfer_stats']['total_time'],
+                            $exception
+                        );
+
+                        $node = $connection->getHost();
+                        $this->log->warning("Marking node $node dead.");
                         $connection->markDead();
                         $transport->connectionPool->scheduleCheck();
 
                         $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
                         $shouldRetry = $transport->shouldRetry($request);
 
+                        $this->log->warning("Retries left? ". ($shouldRetry) ? 'true' : 'false');
                         if ($shouldRetry && !$neverRetry) {
                             return $transport->performRequest(
                                 $request['http_method'],
@@ -196,7 +215,9 @@ class Connection implements ConnectionInterface
                             );
                         }
 
-                        $this->throwCurlRetryException($request, $response);
+                        $this->log->warning("Out of retries, throwing exception from $node");
+                        // Only throw if we run out of retries
+                        throw $exception;
                     } else {
                         // Something went seriously wrong, bail
                         $exception = new TransportException($response['error']->getMessage());
@@ -310,18 +331,18 @@ class Connection implements ConnectionInterface
     /**
      * Log a a failed request
      *
-     * @param string      $method
-     * @param string      $fullURI
-     * @param string      $body
-     * @param array       $headers
-     * @param string      $duration
+     * @param string $method
+     * @param string $fullURI
+     * @param string $body
+     * @param array $headers
      * @param null|string $statusCode
      * @param null|string $response
-     * @param null|string $exception
+     * @param string $duration
+     * @param \Exception|null $exception
      *
      * @return void
      */
-    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, $exception)
+    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, \Exception $exception)
     {
         $this->log->debug('Request Body', array($body));
         $this->log->warning(
@@ -332,7 +353,7 @@ class Connection implements ConnectionInterface
                 'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-                'error'     => $exception,
+                'error'     => $exception->getMessage(),
             )
         );
         $this->log->warning('Response', array($response));
@@ -448,10 +469,9 @@ class Connection implements ConnectionInterface
     /**
      * @param $request
      * @param $response
-     * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\TransportException
-     *
+     * @return \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\MaxRetriesException
      */
-    protected function throwCurlRetryException($request, $response)
+    protected function getCurlRetryException($request, $response)
     {
         $exception = null;
         $message = $response['error']->getMessage();
@@ -479,7 +499,7 @@ class Connection implements ConnectionInterface
             $exception
         );
 
-        throw $exception;
+        return $exception;
     }
 
     /**

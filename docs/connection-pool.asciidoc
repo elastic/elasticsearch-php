@@ -5,10 +5,22 @@ The connection pool is an object inside the client that is responsible for maint
 Theoretically, nodes are either dead or alive.
 
 However, in the real world, things are never so clear.  Nodes are sometimes in a gray-zone of _"probably dead but not
-confirmed"_, _"timed-out but unclear why"_ or _"recently dead but now alive"_.
+confirmed"_, _"timed-out but unclear why"_ or _"recently dead but now alive"_. The connection pool's job is to
+manage this set of unruly connections and try to provide the best behavior to the client.
 
-The connection pool's job is to manage this set of unruly connections and try to provide the best behavior to the
-client.  There are several connection pool implementations that you can choose from:
+If a connection pool is unable to find an alive node to query against, it will return a `NoNodesAvailableException`.
+This is distinct from an exception due to maximum retries.  For example, your cluster may have 10 nodes.  You execute
+a request and 9 out of the 10 nodes fail due to connection timeouts.  The tenth node succeeds and the query executes.
+The first nine nodes will be marked dead (depending on the connection pool being used) and their "dead" timers will begin
+ticking.
+
+When the next request is sent to the client, nodes 1-9 are still considered "dead", so they will be skipped.  The request
+is sent to the only known alive node (#10), and if this node fails, a `NoNodesAvailableException` is returned. You'll note
+this is much less than the `retries` value, because `retries` only applies to retries against alive nodes.  In this case,
+only one node is known to be alive, so `NoNodesAvailableException` is returned.
+
+
+There are several connection pool implementations that you can choose from:
 
 === staticNoPingConnectionPool (default)
 

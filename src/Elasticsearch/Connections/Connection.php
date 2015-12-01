@@ -9,6 +9,7 @@ use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
+use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
 use Elasticsearch\Common\Exceptions\NoShardAvailableException;
@@ -20,6 +21,8 @@ use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
+use GuzzleHttp\Ring\Exception\ConnectException;
+use GuzzleHttp\Ring\Exception\RingException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -193,10 +196,8 @@ class Connection implements ConnectionInterface
                             );
                         }
 
-                        // Due to the magic of futures, this will only be invoked if the final retry fails, since
-                        // successful resolutions will go down the alternate `else` path the second time through
-                        // the proxy
-                        $this->throwCurlException($request, $response);
+
+                        $this->throwCurlRetryException($request, $response);
                     } else {
                         // Something went seriously wrong, bail
                         throw new TransportException($response['error']->getMessage());
@@ -440,22 +441,21 @@ class Connection implements ConnectionInterface
      * @throws \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\TransportException
      *
      */
-    protected function throwCurlException($request, $response)
+    protected function throwCurlRetryException($request, $response)
     {
         $exception = null;
         $message = $response['error']->getMessage();
+        $exception = new MaxRetriesException($message);
         switch ($response['curl']['errno']) {
             case 6:
-                $exception = new CouldNotResolveHostException($message);
+                $exception = new CouldNotResolveHostException($message, null, $exception);
                 break;
             case 7:
-                $exception = new CouldNotConnectToHost($message);
+                $exception = new CouldNotConnectToHost($message, null, $exception);
                 break;
             case 28:
-                $exception = new OperationTimeoutException($message);
+                $exception = new OperationTimeoutException($message, null, $exception);
                 break;
-            default:
-                $exception = new TransportException($message);
         }
 
         $this->logRequestFail(

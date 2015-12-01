@@ -203,8 +203,9 @@ class Connection implements ConnectionInterface
 
                         $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
                         $shouldRetry = $transport->shouldRetry($request);
+                        $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
 
-                        $this->log->warning("Retries left? ". ($shouldRetry) ? 'true' : 'false');
+                        $this->log->warning("Retries left? $shouldRetryText");
                         if ($shouldRetry && !$neverRetry) {
                             return $transport->performRequest(
                                 $request['http_method'],
@@ -487,17 +488,6 @@ class Connection implements ConnectionInterface
                 $exception = new OperationTimeoutException($message, null, $exception);
                 break;
         }
-
-        $this->logRequestFail(
-            $request['http_method'],
-            $response['effective_url'],
-            $request['body'],
-            $request['headers'],
-            $response['status'],
-            $response['body'],
-            $response['transfer_stats']['total_time'],
-            $exception
-        );
 
         return $exception;
     }

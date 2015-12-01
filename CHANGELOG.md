@@ -1,3 +1,7 @@
+## Release 2.1.1
+
+- More robust error logging during connection failure / retries [[0069fd6]](http://github.com/elasticsearch/elasticsearch-php/commit/0069fd6)
+
 ## Release 2.1.0
 - Log failure when encountering non-retry hard curl exception [[8e7e03f]](http://github.com/elasticsearch/elasticsearch-php/commit/8e7e03f)
 - Embed a MaxRetriesException inside a TransportException when thrown due to retries [[deff12f]](http://github.com/elasticsearch/elasticsearch-php/commit/deff12f)

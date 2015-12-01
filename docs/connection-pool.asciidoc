@@ -18,13 +18,13 @@ is revived and put back into rotation.  Each additional failed request will caus
 
 A successful request will reset the "failed ping timeout" counter.
 
-If you wish to explicitly set the `staticNoPingConnectionPool` implementation, you may do so with the `setConnectionPool()`
+If you wish to explicitly set the `StaticNoPingConnectionPool` implementation, you may do so with the `setConnectionPool()`
 method of the ClientBuilder object:
 
 [source,php]
 ----
 $client = ClientBuilder::create()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool')
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool', [])
             ->build();
 ----
 
@@ -32,15 +32,15 @@ Note that the implementation is specified via a namespace path to the class.
 
 === staticConnectionPool
 
-Identical to the `staticNoPingConnectionPool`, except it pings nodes before they are used to determine if they are alive.
+Identical to the `StaticNoPingConnectionPool`, except it pings nodes before they are used to determine if they are alive.
 This may be useful for long-running scripts, but tends to be additional overhead that is unnecessary for average PHP scripts.
 
-To use the `staticConnectionPool`:
+To use the `StaticConnectionPool`:
 
 [source,php]
 ----
 $client = ClientBuilder::create()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool', [])
             ->build();
 ----
 
@@ -59,7 +59,7 @@ To use the `SimpleConnectionPool`:
 [source,php]
 ----
 $client = ClientBuilder::create()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\SimpleConnectionPool')
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\SimpleConnectionPool', [])
             ->build();
 ----
 
@@ -71,12 +71,12 @@ Unlike the two previous static connection pools, this one is dynamic.  The user 
 client uses to "sniff" and discover the rest of the cluster.  It achieves this through the Cluster State API.  As new
 nodes are added or removed from the cluster, the client will update it's pool of active connections.
 
-To use the `staticConnectionPool`:
+To use the `SniffingConnectionPool`:
 
 [source,php]
 ----
 $client = ClientBuilder::create()
-            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool')
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\SniffingConnectionPool', [])
             ->build();
 ----
 
@@ -119,7 +119,7 @@ You can then instantiate an instance of your ConnectionPool and inject it into t
 $myConnectionPool = new MyCustomConnectionPool();
 
 $client = ClientBuilder::create()
-            ->setConnectionPool($myConnectionPool)
+            ->setConnectionPool($myConnectionPool, [])
             ->build();
 ----
 
@@ -164,8 +164,8 @@ If your constructor matches AbstractConnectionPool, you may use either object in
 $myConnectionPool = new MyCustomConnectionPool();
 
 $client = ClientBuilder::create()
-            ->setConnectionPool($myConnectionPool)                                      // object injection
-            ->setConnectionPool('/MyProject/ConnectionPools/MyCustomConnectionPool')    // or namespace
+            ->setConnectionPool($myConnectionPool, [])                                      // object injection
+            ->setConnectionPool('/MyProject/ConnectionPools/MyCustomConnectionPool', [])    // or namespace
             ->build();
 ----
 

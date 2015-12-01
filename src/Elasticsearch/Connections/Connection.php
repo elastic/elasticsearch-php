@@ -196,11 +196,21 @@ class Connection implements ConnectionInterface
                             );
                         }
 
-
                         $this->throwCurlRetryException($request, $response);
                     } else {
                         // Something went seriously wrong, bail
-                        throw new TransportException($response['error']->getMessage());
+                        $exception = new TransportException($response['error']->getMessage());
+                        $this->logRequestFail(
+                            $request['http_method'],
+                            $response['effective_url'],
+                            $request['body'],
+                            $request['headers'],
+                            $response['status'],
+                            $response['body'],
+                            $response['transfer_stats']['total_time'],
+                            $exception
+                        );
+                        throw $exception;
                     }
                 } else {
                     $connection->markAlive();

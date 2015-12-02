@@ -275,6 +275,7 @@ class CatNamespace extends AbstractNamespace
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (bool) Return help information
      *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['bytes']          = (enum) The unit in which to display byte values
      *
      * @param $params array Associative array of parameters
      *

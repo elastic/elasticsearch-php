@@ -60,7 +60,9 @@ class ClientBuilder
     private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
 
     /** @var  array */
-    private $connectionPoolArgs = [];
+    private $connectionPoolArgs = [
+        'randomizeHosts' => true
+    ];
 
     /** @var array */
     private $hosts;

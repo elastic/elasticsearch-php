@@ -51,6 +51,7 @@ class Flush extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'wait_if_ongoing'
         );
     }
 

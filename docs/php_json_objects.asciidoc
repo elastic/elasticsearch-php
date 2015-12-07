@@ -53,7 +53,7 @@ $results = $client->search($params);
 <1> We use the generic PHP stdClass object to represent an empty object.  The JSON will now encode correctly.
 
 By using an explicit stdClass object, we can force the `json_encode` parser to correctly output an empty object, instead
-of an empty array.  Sadly, this verbose solution is the only way to acomplish the goal in PHP...there is no "short"
+of an empty array.  Sadly, this verbose solution is the only way to accomplish the goal in PHP...there is no "short"
 version of an empty object.
 
 === Arrays of Objects

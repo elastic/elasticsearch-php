@@ -107,7 +107,7 @@ class ClientBuilder
      * @return \Elasticsearch\Client
      */
     public static function fromConfig($config, $quiet = false) {
-        $builder = new ClientBuilder();
+        $builder = new self;
         foreach ($config as $key => $value) {
             $method = "set$key";
             if (method_exists($builder, $method)) {

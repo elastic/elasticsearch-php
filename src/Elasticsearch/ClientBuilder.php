@@ -204,7 +204,7 @@ class ClientBuilder
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setConnectionPool($connectionPool, array $args = null)
+    public function setConnectionPool($connectionPool, array $args = [])
     {
         if (is_string($connectionPool)) {
             $this->connectionPool = $connectionPool;

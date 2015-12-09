@@ -65,13 +65,6 @@ class SearchResponseIterator implements Iterator {
     }
 
     /**
-     * Destructor
-     */
-    public function __destruct() {
-        $this->clearScroll();
-    }
-
-    /**
      * Sets the time to live duration of a scroll window
      *
      * @param  string $time_to_live
@@ -88,7 +81,7 @@ class SearchResponseIterator implements Iterator {
      *
      * @return void
      */
-    private function clearScroll()
+    public function clearScroll()
     {
         if (!empty($this->scroll_id)) {
             $this->client->clearScroll(

@@ -152,10 +152,13 @@ class SearchHitIterator implements Iterator, \Countable {
 
             $this->count = 0;
 
+            $current_page = $this->search_responses->current();
+
             if (isset($current_page['hits']) && isset($current_page['hits']['total'])) {
                 $this->count = $current_page['hits']['total'];
             }
         }
+
         return $this->count;
     }
 }

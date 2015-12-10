@@ -49,8 +49,6 @@ class SearchHitIterator implements Iterator, \Countable {
     public function __construct(SearchResponseIterator $search_responses)
     {
         $this->search_responses = $search_responses;
-
-        $this->rewind();
     }
 
     /**
@@ -69,8 +67,6 @@ class SearchHitIterator implements Iterator, \Countable {
         if($this->search_responses->valid() && empty($current_page['hits']['hits'])) {
             $this->search_responses->next();
         }
-
-        $this->count = $current_page['hits']['total'];
 
         $this->readPageData();
     }
@@ -151,6 +147,15 @@ class SearchHitIterator implements Iterator, \Countable {
      */
     public function count()
     {
+        if ($this->count === null) {
+            $this->rewind();
+
+            $this->count = 0;
+
+            if (isset($current_page['hits']) && isset($current_page['hits']['total'])) {
+                $this->count = $current_page['hits']['total'];
+            }
+        }
         return $this->count;
     }
 }

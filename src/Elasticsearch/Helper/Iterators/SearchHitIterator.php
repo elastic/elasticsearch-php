@@ -14,7 +14,7 @@ use Iterator;
  * @link     http://elasticsearch.org
  * @see      Iterator
  */
-class SearchHitIterator implements Iterator {
+class SearchHitIterator implements Iterator, \Countable {
 
     /**
      * @var SearchResponseIterator
@@ -37,6 +37,11 @@ class SearchHitIterator implements Iterator {
     protected $current_hit_data;
 
     /**
+     * @var int
+     */
+    protected $count;
+
+    /**
      * Constructor
      *
      * @param SearchResponseIterator $search_responses
@@ -44,6 +49,8 @@ class SearchHitIterator implements Iterator {
     public function __construct(SearchResponseIterator $search_responses)
     {
         $this->search_responses = $search_responses;
+
+        $this->rewind();
     }
 
     /**
@@ -62,6 +69,8 @@ class SearchHitIterator implements Iterator {
         if($this->search_responses->valid() && empty($current_page['hits']['hits'])) {
             $this->search_responses->next();
         }
+
+        $this->count = $current_page['hits']['total'];
 
         $this->readPageData();
     }
@@ -135,5 +144,13 @@ class SearchHitIterator implements Iterator {
             $this->current_hit_data = null;
         }
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count()
+    {
+        return $this->count;
     }
 }

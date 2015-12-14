@@ -512,7 +512,7 @@ class Client
      *
      * @param $params array Associative array of parameters
      *
-     * @return array
+     * @return array | boolean
      */
     public function exists($params)
     {

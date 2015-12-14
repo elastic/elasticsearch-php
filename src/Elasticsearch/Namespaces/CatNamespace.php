@@ -228,7 +228,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function nodesAttrs($params = array())
+    public function nodeAttrs($params = array())
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

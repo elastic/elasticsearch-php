@@ -21,10 +21,10 @@ class ForceMerge extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/ForcedMerge";
+        $uri   = "/_forcemerge";
 
         if (isset($index) === true) {
-            $uri = "/$index/ForcedMerge";
+            $uri = "/$index/_forcemerge";
         }
 
         return $uri;

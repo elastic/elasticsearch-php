@@ -33,8 +33,6 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     public function setBody($body)
     {
-        $this->body = '';
-
         if (empty($body)) {
             return $this;
         }
@@ -43,6 +41,8 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
             foreach ($body as $item) {
                 $this->body .= $this->serializer->serialize($item) . "\n";
             }
+        } else {
+            $this->body = $body;
         }
 
         return $this;

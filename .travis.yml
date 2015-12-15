@@ -26,7 +26,6 @@ matrix:
       env: ES_VERSION="1.5" TEST_BUILD_REF="origin/1.5"
   allow_failures:
     - php: hhvm
-    - php: 7.0
 
 env:
   global:

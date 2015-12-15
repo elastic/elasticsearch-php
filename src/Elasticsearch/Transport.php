@@ -147,4 +147,12 @@ class Transport
     {
         return $this->lastConnection;
     }
+
+    /**
+     * Schedule a check on the connection pool, usually due to a timeout
+     * or other server error
+     */
+    public function scheduleCheck() {
+        $this->connectionPool->scheduleCheck();
+    }
 }

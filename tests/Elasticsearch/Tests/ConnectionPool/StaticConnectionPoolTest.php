@@ -44,7 +44,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
 
         $randomizeHosts = false;
-        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPool = new Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $retConnection = $connectionPool->nextConnection();
 
@@ -76,7 +76,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
 
         $randomizeHosts = false;
-        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPool = new Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $retConnection = $connectionPool->nextConnection();
 
@@ -113,7 +113,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
 
         $randomizeHosts = false;
-        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPool = new Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $connectionPool->nextConnection();
     }
@@ -158,7 +158,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
 
         $randomizeHosts = false;
-        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPool = new Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $ret = $connectionPool->nextConnection();
         $this->assertEquals($goodConnection, $ret);
@@ -204,9 +204,27 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionFactory = m::mock('\Elasticsearch\Connections\ConnectionFactory');
 
         $randomizeHosts = false;
-        $connectionPool = new \Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPool = new Elasticsearch\ConnectionPool\StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $ret = $connectionPool->nextConnection();
         $this->assertEquals($goodConnection, $ret);
+    }
+
+    public function testCustomConnectionPoolIT() {
+        $clientBuilder = \Elasticsearch\ClientBuilder::create();
+        $clientBuilder->setHosts(['localhost:1']);
+        $client = $clientBuilder
+            ->setRetries(0)
+            ->setConnectionPool('\Elasticsearch\ConnectionPool\StaticConnectionPool', [])
+            ->build();
+
+        try {
+            $client->search([]);
+            $this->fail("Should have thrown NoNodesAvailableException");
+        } catch (Elasticsearch\Common\Exceptions\NoNodesAvailableException $e) {
+            // All good
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

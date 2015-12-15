@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Shards
+ * Class Snapshots
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
@@ -13,20 +13,38 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Shards extends AbstractEndpoint
+class Snapshots extends AbstractEndpoint
 {
+    private $repository;
+
+    /**
+     * @param $fields
+     *
+     * @return $this
+     */
+    public function setRepository($repository)
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+
+        $this->repository = $repository;
+
+        return $this;
+    }
+
     /**
      * @return string
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $uri   = "/_cat/shards";
-
-        if (isset($index) === true) {
-            $uri = "/_cat/shards/$index";
+        if (isset($this->repository) !== true) {
+            throw new Exceptions\RuntimeException(
+                'repository is required for Cat Snapshots '
+            );
         }
-
+        $repository = $this->repository;
+        $uri   = "/_cat/snapshots/$repository/";
         return $uri;
     }
 
@@ -36,7 +54,6 @@ class Shards extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'bytes',
             'local',
             'master_timeout',
             'h',

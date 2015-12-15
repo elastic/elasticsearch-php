@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Flush
+ * Class ForceMerge
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -13,28 +13,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Flush extends AbstractEndpoint
+class ForceMerge extends AbstractEndpoint
 {
-    protected $synced = false;
-
-    public function setSynced($synced) {
-        $this->synced = $synced;
-    }
-
     /**
      * @return string
      */
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_flush";
+        $uri   = "/_forcemerge";
 
         if (isset($index) === true) {
-            $uri = "/$index/_flush";
-        }
-
-        if ($this->synced === true) {
-            $uri .= "/synced";
+            $uri = "/$index/_forcemerge";
         }
 
         return $uri;
@@ -46,12 +36,14 @@ class Flush extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'force',
-            'full',
+            'flush',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'wait_if_ongoing'
+            'max_num_segments',
+            'only_expunge_deletes',
+            'operation_threading',
+            'wait_for_merge',
         );
     }
 
@@ -60,6 +52,6 @@ class Flush extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

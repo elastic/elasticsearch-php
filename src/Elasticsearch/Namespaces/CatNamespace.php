@@ -228,6 +228,30 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
+    public function nodeAttrs($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\NodeAttrs $endpoint */
+        $endpoint = $endpointBuilder('Cat\NodeAttrs');
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
     public function pendingTasks($params = array())
     {
         /** @var callback $endpointBuilder */
@@ -280,6 +304,31 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
+    public function repositories($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Repositories $endpoint */
+        $endpoint = $endpointBuilder('Cat\Repositories');
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['bytes']          = (enum) The unit in which to display byte values
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
     public function shards($params = array())
     {
         $index = $this->extractArgument($params, 'index');
@@ -290,6 +339,35 @@ class CatNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Cat\Shards $endpoint */
         $endpoint = $endpointBuilder('Cat\Shards');
         $endpoint->setIndex($index);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['bytes']          = (enum) The unit in which to display byte values
+     *        ['repository']     = (string) Name of repository from which to fetch the snapshot information
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function snapshots($params = array())
+    {
+        $repository = $this->extractArgument($params, 'repository');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Snapshots $endpoint */
+        $endpoint = $endpointBuilder('Cat\Snapshots');
+        $endpoint->setRepository($repository);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 

@@ -60,7 +60,9 @@ class ClientBuilder
     private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
 
     /** @var  array */
-    private $connectionPoolArgs = [];
+    private $connectionPoolArgs = [
+        'randomizeHosts' => true
+    ];
 
     /** @var array */
     private $hosts;
@@ -105,7 +107,7 @@ class ClientBuilder
      * @return \Elasticsearch\Client
      */
     public static function fromConfig($config, $quiet = false) {
-        $builder = new ClientBuilder();
+        $builder = new self;
         foreach ($config as $key => $value) {
             $method = "set$key";
             if (method_exists($builder, $method)) {
@@ -202,7 +204,7 @@ class ClientBuilder
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setConnectionPool($connectionPool, array $args = null)
+    public function setConnectionPool($connectionPool, array $args = [])
     {
         if (is_string($connectionPool)) {
             $this->connectionPool = $connectionPool;

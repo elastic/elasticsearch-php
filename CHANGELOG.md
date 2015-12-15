@@ -1,3 +1,29 @@
+## Release 2.1.3
+- Fix bug where ping() and sniff() encounter NPE [[61ba0c5]](http://github.com/elasticsearch/elasticsearch-php/commit/61ba0c5)
+- Add Indices/ForceMerge endpoint  [[4934583]](http://github.com/elasticsearch/elasticsearch-php/commit/4934583) [[6d61880]](http://github.com/elasticsearch/elasticsearch-php/commit/6d61880) [[58e63d7]](http://github.com/elasticsearch/elasticsearch-php/commit/58e63d7) [[dcd8833]](http://github.com/elasticsearch/elasticsearch-php/commit/dcd8833)
+- Add Cat/Snapshots endpoint [[efa0e49]](http://github.com/elasticsearch/elasticsearch-php/commit/efa0e49)
+- Add Cat/Repositories endpoint [[0c32b20]](http://github.com/elasticsearch/elasticsearch-php/commit/0c32b20)
+- Add Cat/NodeAttrs endpoint [[724d64b]](http://github.com/elasticsearch/elasticsearch-php/commit/724d64b) [[4c3bde3]](http://github.com/elasticsearch/elasticsearch-php/commit/4c3bde3)
+- Implement \Countable interface for Scroll Helper. [[013a1c7]](http://github.com/elasticsearch/elasticsearch-php/commit/013a1c7) [[17a929f]](http://github.com/elasticsearch/elasticsearch-php/commit/17a929f) [[272429a]](http://github.com/elasticsearch/elasticsearch-php/commit/272429a) [[55f4c0c]](http://github.com/elasticsearch/elasticsearch-php/commit/55f4c0c)
+- Allows overwriting setters invoked from ClientBuilder::fromConfig method. [[08ac47c]](http://github.com/elasticsearch/elasticsearch-php/commit/08ac47c)
+- When using connectionPool setter through ClientBuilder::fromConfig() method, connectionPoolArgs were automatically set to null causing AbstractConnectionPool to throw exception on null parameter. [[0b25033]](http://github.com/elasticsearch/elasticsearch-php/commit/0b25033)
+- Ignore 404 for already cleared scroll_ids in SearchResponseIterator [[266aac4]](http://github.com/elasticsearch/elasticsearch-php/commit/266aac4)
+- Add 'wait_if_ongoing' to Indices/Flush whitelist [[7b9cf8c]](http://github.com/elasticsearch/elasticsearch-php/commit/7b9cf8c)
+- Set randomizeHosts = true by default [[dc91938]](http://github.com/elasticsearch/elasticsearch-php/commit/dc91938)
+- Update Cat/Shards whitelist [[fe1dbe8]](http://github.com/elasticsearch/elasticsearch-php/commit/fe1dbe8)
+
+### Documentation
+- PHPdoc fix: Exists endpoint returns bool or array [[d70acbf]](http://github.com/elasticsearch/elasticsearch-php/commit/d70acbf)
+- fixed wrong return param in phpdoc [[56a1107]](http://github.com/elasticsearch/elasticsearch-php/commit/56a1107)
+- Fix formatting [[c548337]](http://github.com/elasticsearch/elasticsearch-php/commit/c548337)
+- Update CatNamespace.php [[22cb3dc]](http://github.com/elasticsearch/elasticsearch-php/commit/22cb3dc)
+
+### Testing
+- [TEST] Update skiplist [[22e7cc5]](http://github.com/elasticsearch/elasticsearch-php/commit/22e7cc5)
+- [TRAVIS] Add node attribute for nodeattr tests [[0aa9638]](http://github.com/elasticsearch/elasticsearch-php/commit/0aa9638)
+- [TEST] cleanup cat repos [[bed0338]](http://github.com/elasticsearch/elasticsearch-php/commit/bed0338)
+- [Travis] update snapshot handling [[1e6fa0c]](http://github.com/elasticsearch/elasticsearch-php/commit/1e6fa0c)
+
 ## Release 2.1.2
 
 - Remove IntrospectionProcessor from default to make logs less noisy [[0a80de4]](http://github.com/elasticsearch/elasticsearch-php/commit/0a80de4)
@@ -52,7 +78,6 @@
 - travis: Rest-Spec should be obtained after install [[59546cf]](http://github.com/elasticsearch/elasticsearch-php/commit/59546cf)
 - [Tests] Delete unreliable, bad tests [[31eb9e0]](http://github.com/elasticsearch/elasticsearch-php/commit/31eb9e0)
 - travis: Add util script to ensure cluster is alive before proceeding [[563412a]](http://github.com/elasticsearch/elasticsearch-php/commit/563412a)
-
 - travis: Use bwc startup options [[a8e63a5]](http://github.com/elasticsearch/elasticsearch-php/commit/a8e63a5)
 - travis: better startup options for Elasticsearch [[d6624a2]](http://github.com/elasticsearch/elasticsearch-php/commit/d6624a2)
 - travis: Set executable flag on shell script [[4b9fbcd]](http://github.com/elasticsearch/elasticsearch-php/commit/4b9fbcd)

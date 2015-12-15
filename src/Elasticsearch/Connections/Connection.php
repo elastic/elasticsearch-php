@@ -199,21 +199,29 @@ class Connection implements ConnectionInterface
                         $node = $connection->getHost();
                         $this->log->warning("Marking node $node dead.");
                         $connection->markDead();
-                        $transport->connectionPool->scheduleCheck();
 
-                        $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
-                        $shouldRetry = $transport->shouldRetry($request);
-                        $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
+                        // If the transport has not been set, we are inside a Ping or Sniff,
+                        // so we don't want to retrigger retries anyway.
+                        //
+                        // TODO this could be handled better, but we are limited because connectionpools do not
+                        // have access to Transport.  Architecturally, all of this needs to be refactored
+                        if (isset($transport) === true) {
+                            $transport->connectionPool->scheduleCheck();
 
-                        $this->log->warning("Retries left? $shouldRetryText");
-                        if ($shouldRetry && !$neverRetry) {
-                            return $transport->performRequest(
-                                $request['http_method'],
-                                $request['uri'],
-                                [],
-                                $request['body'],
-                                $options
-                            );
+                            $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
+                            $shouldRetry = $transport->shouldRetry($request);
+                            $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
+
+                            $this->log->warning("Retries left? $shouldRetryText");
+                            if ($shouldRetry && !$neverRetry) {
+                                return $transport->performRequest(
+                                    $request['http_method'],
+                                    $request['uri'],
+                                    [],
+                                    $request['body'],
+                                    $options
+                                );
+                            }
                         }
 
                         $this->log->warning("Out of retries, throwing exception from $node");

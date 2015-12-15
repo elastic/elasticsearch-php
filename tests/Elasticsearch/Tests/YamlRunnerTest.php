@@ -110,6 +110,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         // TODO ewwww...
         shell_exec('rm -rf /tmp/test_repo_create_1_loc');
         shell_exec('rm -rf /tmp/test_repo_restore_1_loc');
+        shell_exec('rm -rf /tmp/test_cat_repo_1_loc');
+        shell_exec('rm -rf /tmp/test_cat_repo_2_loc');
+        shell_exec('rm -rf /tmp/test_cat_snapshots_1_loc');
 
         $this->waitForYellow();
     }

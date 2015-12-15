@@ -37,6 +37,7 @@ echo "Starting Elasticsearch v${ES_VERSION}"
     -Des.discovery.zen.ping.multicast.enabled=false \
     -Des.discovery.zen.ping_timeout=1s \
     -Des.http.port=9200 \
+    -Des.node.testattr=test \
     -d
 
 sleep 3

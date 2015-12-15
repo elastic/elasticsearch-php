@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class ForcedMerge
+ * Class ForceMerge
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -13,7 +13,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class ForcedMerge extends AbstractEndpoint
+class ForceMerge extends AbstractEndpoint
 {
     /**
      * @return string

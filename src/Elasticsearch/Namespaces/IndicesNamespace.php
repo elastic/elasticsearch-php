@@ -857,15 +857,15 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function forcedMerge($params = array())
+    public function forceMerge($params = array())
     {
         $index = $this->extractArgument($params, 'index');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\ForcedMerge $endpoint */
-        $endpoint = $endpointBuilder('Indices\ForcedMerge');
+        /** @var \Elasticsearch\Endpoints\Indices\ForceMerge $endpoint */
+        $endpoint = $endpointBuilder('Indices\ForceMerge');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

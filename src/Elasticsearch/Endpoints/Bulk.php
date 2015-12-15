@@ -27,25 +27,23 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
     }
 
     /**
-     * @param string|array $body
+     * @param string|array|\Traversable $body
      *
      * @return $this
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
+        if (empty($body)) {
             return $this;
         }
 
-        if (is_array($body) === true) {
-            $bulkBody = "";
+        if (is_array($body) === true || $body instanceof \Traversable) {
             foreach ($body as $item) {
-                $bulkBody .= $this->serializer->serialize($item)."\n";
+                $this->body .= $this->serializer->serialize($item) . "\n";
             }
-            $body = $bulkBody;
+        } else {
+            $this->body = $body;
         }
-
-        $this->body = $body;
 
         return $this;
     }

@@ -37,6 +37,14 @@ class Scroll extends AbstractEndpoint
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    protected function getBody()
+    {
+        return $this->scroll_id;
+    }
+
     public function setClearScroll($clear)
     {
         $this->clear = $clear;
@@ -67,10 +75,6 @@ class Scroll extends AbstractEndpoint
     {
         $scroll_id = $this->scroll_id;
         $uri   = "/_search/scroll";
-
-        if (isset($scroll_id) === true) {
-            $uri = "/_search/scroll/$scroll_id";
-        }
 
         return $uri;
     }

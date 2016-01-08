@@ -58,6 +58,7 @@ More information about http://getcomposer.org/[Composer can be found at their we
 [source,php]
 --------------------------
 require 'vendor/autoload.php';
+use Elasticsearch\ClientBuilder;
 
 $client = ClientBuilder::create()->build();
 --------------------------

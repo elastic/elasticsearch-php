@@ -53,6 +53,11 @@ class Connection implements ConnectionInterface
     protected $host;
 
     /**
+     * @var string || null
+     */
+    protected $path;
+
+    /**
      * @var LoggerInterface
      */
     protected $log;
@@ -108,10 +113,12 @@ class Connection implements ConnectionInterface
         }
 
         $host = $hostDetails['host'].':'.$hostDetails['port'];
+        $path = null;
         if (isset($hostDetails['path']) === true) {
-            $host .= $hostDetails['path'];
+            $path = $hostDetails['path'];
         }
         $this->host             = $host;
+        $this->path             = $path;
         $this->log              = $log;
         $this->trace            = $trace;
         $this->connectionParams = $connectionParams;
@@ -289,6 +296,10 @@ class Connection implements ConnectionInterface
     {
         if (isset($params) === true && !empty($params)) {
             $uri .= '?' . http_build_query($params);
+        }
+
+        if ($this->path !== null) {
+            $uri = $this->path . $uri;
         }
 
         return $uri;

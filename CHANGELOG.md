@@ -1,3 +1,12 @@
+## Release 2.1.4
+- Fix the host path handling [[15b5be3]](http://github.com/elasticsearch/elasticsearch-php/commit/15b5be3)
+- fix body setter in bulk endpoint [[fa283ea]](http://github.com/elasticsearch/elasticsearch-php/commit/fa283ea)
+- add support for generators and iterators in bulk endpoint [[b3d951e]](http://github.com/elasticsearch/elasticsearch-php/commit/b3d951e)
+
+### Testing
+- travis: drop PHP 7.0 from allowed failures, it passes well [[be5e710]](http://github.com/elasticsearch/elasticsearch-php/commit/be5e710)
+
+
 ## Release 2.1.3
 - Fix bug where ping() and sniff() encounter NPE [[61ba0c5]](http://github.com/elasticsearch/elasticsearch-php/commit/61ba0c5)
 - Add Indices/ForceMerge endpoint  [[4934583]](http://github.com/elasticsearch/elasticsearch-php/commit/4934583) [[6d61880]](http://github.com/elasticsearch/elasticsearch-php/commit/6d61880) [[58e63d7]](http://github.com/elasticsearch/elasticsearch-php/commit/58e63d7) [[dcd8833]](http://github.com/elasticsearch/elasticsearch-php/commit/dcd8833)

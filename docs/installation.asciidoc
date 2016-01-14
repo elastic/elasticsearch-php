@@ -59,7 +59,7 @@ More information about http://getcomposer.org/[Composer can be found at their we
 --------------------------
 require 'vendor/autoload.php';
 
-$client = ClientBuilder::create()->build();
+$client = Elasticsearch\ClientBuilder::create()->build();
 --------------------------
 +
 Client instantiation is performed with a static helper function `create()`.  This creates a ClientBuilder object,

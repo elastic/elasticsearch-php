@@ -30,7 +30,7 @@ php composer.phar install --no-dev
 ----------------------------
 require 'vendor/autoload.php';
 
-$client = ClientBuilder::create()->build();
+$client = Elasticsearch\ClientBuilder::create()->build();
 ----------------------------
 
 

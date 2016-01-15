@@ -37,15 +37,15 @@ $params = [
         'mappings' => [
             'my_type' => [
                 '_source' => [
-                    'enabled' => true,
-                    'properties' => [
-                        'first_name' => [
-                            'type' => 'string',
-                            'analyzer' => 'standard'
-                        ],
-                        'age' => [
-                            'type' => 'integer'
-                        ]
+                    'enabled' => true
+                ],
+                'properties' => [
+                    'first_name' => [
+                        'type' => 'string',
+                        'analyzer' => 'standard'
+                    ],
+                    'age' => [
+                        'type' => 'integer'
                     ]
                 ]
             ]

@@ -15,9 +15,6 @@ use Elasticsearch\Common\Exceptions;
  */
 class Scroll extends AbstractEndpoint
 {
-    // The scroll ID
-    private $scroll_id;
-
     private $clear = false;
 
     /**
@@ -35,6 +32,14 @@ class Scroll extends AbstractEndpoint
         $this->body = $body;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getBody()
+    {
+        return $this->body;
     }
 
     public function setClearScroll($clear)
@@ -55,7 +60,7 @@ class Scroll extends AbstractEndpoint
             return $this;
         }
 
-        $this->scroll_id = $scroll_id;
+        $this->body = $scroll_id;
 
         return $this;
     }
@@ -65,13 +70,7 @@ class Scroll extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $scroll_id = $this->scroll_id;
         $uri   = "/_search/scroll";
-
-        if (isset($scroll_id) === true) {
-            $uri = "/_search/scroll/$scroll_id";
-        }
-
         return $uri;
     }
 
@@ -82,7 +81,6 @@ class Scroll extends AbstractEndpoint
     {
         return array(
             'scroll',
-            'scroll_id',
         );
     }
 

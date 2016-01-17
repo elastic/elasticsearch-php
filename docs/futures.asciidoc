@@ -214,7 +214,7 @@ $futures['indexRequest'] = $client->index($params);       // Second request
 
 $params = [
     'index' => 'test',
-    'type' => 'test',,
+    'type' => 'test',
     'body' => [
         'query' => [
             'match' => [
@@ -239,7 +239,7 @@ $doc = $futures['getRequest']['_source'];
 === Caveats to Future mode
 
 There are a few caveats to using future mode.  The biggest is also the most obvious: you need to deal with resolving the
-future yourself.  This is usually trivia, but can sometimes introduce unexpected complications.
+future yourself.  This is usually trivial, but can sometimes introduce unexpected complications.
 
 For example, if you resolve manually using `wait()`, you may need to call `wait()` several times if there were retries.
 This is because each retry will introduce another layer of wrapped futures, and each needs to be resolved to get the

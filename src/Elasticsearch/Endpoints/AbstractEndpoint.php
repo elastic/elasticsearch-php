@@ -19,7 +19,7 @@ use GuzzleHttp\Ring\Future\FutureArrayInterface;
 abstract class AbstractEndpoint
 {
     /** @var array  */
-    protected $params = array();
+    protected $params = [];
 
     /** @var  string */
     protected $index = null;
@@ -90,7 +90,7 @@ abstract class AbstractEndpoint
      */
     public function setParams($params)
     {
-        if (is_object($params) === true) {
+        if (is_object($params)) {
             $params = (array) $params;
         }
 
@@ -113,9 +113,9 @@ abstract class AbstractEndpoint
             return $this;
         }
 
-        if (is_array($index) === true) {
+        if (is_array($index)) {
             $index = array_map('trim', $index);
-            $index = implode(",", $index);
+            $index = implode(',', $index);
         }
 
         $this->index = urlencode($index);
@@ -134,9 +134,9 @@ abstract class AbstractEndpoint
             return $this;
         }
 
-        if (is_array($type) === true) {
+        if (is_array($type)) {
             $type = array_map('trim', $type);
-            $type = implode(",", $type);
+            $type = implode(',', $type);
         }
 
         $this->type = urlencode($type);
@@ -166,7 +166,6 @@ abstract class AbstractEndpoint
      */
     public function resultOrFuture($result)
     {
-        $response = null;
         $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
         if (is_null($async) || $async === false) {
             do {
@@ -174,7 +173,9 @@ abstract class AbstractEndpoint
             } while ($result instanceof FutureArrayInterface);
 
             return $result;
-        } elseif ($async === true || $async === 'lazy') {
+        }
+
+        if ($async === true || $async === 'lazy') {
             return $result;
         }
     }
@@ -194,13 +195,13 @@ abstract class AbstractEndpoint
      */
     protected function getOptionalURI($endpoint)
     {
-        $uri = array();
-        $uri[] = $this->getOptionalIndex();
-        $uri[] = $this->getOptionalType();
-        $uri[] = $endpoint;
-        $uri =  array_filter($uri);
+        $uri = [
+            $this->getOptionalIndex(),
+            $this->getOptionalType(),
+            $endpoint
+        ];
 
-        return '/' . implode('/', $uri);
+        return '/' . implode('/', array_filter($uri));
     }
 
     /**
@@ -208,11 +209,7 @@ abstract class AbstractEndpoint
      */
     private function getOptionalIndex()
     {
-        if (isset($this->index) === true) {
-            return $this->index;
-        } else {
-            return '_all';
-        }
+        return isset($this->index) ? $this->index : '_all';
     }
 
     /**
@@ -220,11 +217,7 @@ abstract class AbstractEndpoint
      */
     private function getOptionalType()
     {
-        if (isset($this->type) === true) {
-            return $this->type;
-        } else {
-            return '';
-        }
+        return isset($this->type) ? $this->type : '';
     }
 
     /**
@@ -238,7 +231,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path'));
+        $whitelist = array_merge($this->getParamWhitelist(), ['client', 'custom', 'filter_path']);
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
@@ -262,10 +255,10 @@ abstract class AbstractEndpoint
             unset($params['client']);
         }
 
-        $ignore = isset($this->options['client']['ignore']) ? $this->options['client']['ignore'] : null;
-        if (isset($ignore) === true) {
+        if (isset($this->options['client']['ignore'])) {
+            $ignore = $this->options['client']['ignore'];
             if (is_string($ignore)) {
-                $this->options['client']['ignore'] = explode(",", $ignore);
+                $this->options['client']['ignore'] = explode(',', $ignore);
             } elseif (is_array($ignore)) {
                 $this->options['client']['ignore'] = $ignore;
             } else {
@@ -289,9 +282,9 @@ abstract class AbstractEndpoint
     private function convertArraysToStrings($params)
     {
         foreach ($params as $key => &$value) {
-            if (!($key === 'client' || $key == 'custom') && is_array($value) === true) {
+            if (!($key === 'client' || $key == 'custom') && is_array($value)) {
                 if ($this->isNestedArray($value) !== true) {
-                    $value = implode(",", $value);
+                    $value = implode(',', $value);
                 }
             }
         }

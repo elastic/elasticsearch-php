@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -25,11 +24,10 @@ class RenderSearchTemplate extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
+        if (isset($body)) {
+            $this->body = $body;
         }
 
-        $this->body = $body;
         return $this;
     }
 
@@ -41,13 +39,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     {
         $id = $this->id;
 
-        $uri   = "/_render/template";
-
-        if (isset($id) === true) {
-            $uri = "/_render/template/$id";
-        }
-
-        return $uri;
+        return isset($id) ? "/_render/template/$id" : '/_render/template';
     }
 
     /**
@@ -55,7 +47,7 @@ class RenderSearchTemplate extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return [];
     }
 
     /**

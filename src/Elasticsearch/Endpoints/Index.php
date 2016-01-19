@@ -26,11 +26,9 @@ class Index extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
+        if (isset($body)) {
+            $this->body = $body;
         }
-
-        $this->body = $body;
 
         return $this;
     }
@@ -68,11 +66,11 @@ class Index extends AbstractEndpoint
         $type  = $this->type;
         $uri   = "/$index/$type";
 
-        if (isset($id) === true) {
+        if (isset($id)) {
             $uri = "/$index/$type/$id";
         }
 
-        if ($this->createIfAbsent === true) {
+        if ($this->createIfAbsent) {
             $uri .= $this->addCreateFlag();
         }
 
@@ -84,7 +82,7 @@ class Index extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'consistency',
             'op_type',
             'parent',
@@ -97,7 +95,7 @@ class Index extends AbstractEndpoint
             'ttl',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**
@@ -105,11 +103,7 @@ class Index extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if (isset($this->id) === true) {
-            return 'PUT';
-        } else {
-            return 'POST';
-        }
+        return isset($this->id) ? 'PUT' : 'POST';
     }
 
     /**
@@ -118,21 +112,21 @@ class Index extends AbstractEndpoint
      */
     protected function getBody()
     {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Document body must be set for index request');
-        } else {
+        if (isset($this->body)) {
             return $this->body;
         }
+
+        throw new Exceptions\RuntimeException('Document body must be set for index request');
     }
 
     private function addCreateFlag()
     {
-        if (isset($this->id) === true) {
+        if (isset($this->id)) {
             return '/_create';
-        } else {
-            $this->params['op_type'] = 'create';
-
-            return "";
         }
+
+        $this->params['op_type'] = 'create';
+
+        return '';
     }
 }

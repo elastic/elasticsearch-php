@@ -17,16 +17,6 @@ use Elasticsearch\Transport;
 class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
     /**
-     * @param Transport           $transport
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-        parent::__construct($transport);
-    }
-
-    /**
      * @param string|array|\Traversable $body
      *
      * @return $this

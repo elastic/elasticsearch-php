@@ -431,11 +431,10 @@ class ClientBuilder
 
             $this->endpoint = function ($class) use ($transport, $serializer) {
                 $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
-                if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
-                    return new $fullPath($transport, $serializer);
-                } else {
-                    return new $fullPath($transport);
-                }
+                $endpoint = new $fullPath($transport);
+                $endpoint->setSerializer($serializer);
+
+                return $endpoint;
             };
         }
 

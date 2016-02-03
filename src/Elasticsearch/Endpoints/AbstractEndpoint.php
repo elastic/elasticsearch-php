@@ -3,6 +3,7 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
+use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use Exception;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
@@ -46,6 +47,9 @@ abstract class AbstractEndpoint
     /** @var RequestFactory A factory to create PSR7 Request from various implementation */
     private $requestFactory;
 
+    /** @var SerializerInterface $serializer Serializer used to encode the body */
+    protected $serializer;
+
     /**
      * @return string[]
      */
@@ -68,6 +72,11 @@ abstract class AbstractEndpoint
     {
         $this->transport = $transport;
         $this->requestFactory = $requestFactory;
+    }
+
+    public function setSerializer(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
     }
 
     /**
@@ -107,11 +116,21 @@ abstract class AbstractEndpoint
             $uri .= '?'.http_build_query($this->params);
         }
 
+        $body = $this->getBody();
+
+        if (null !== $body) {
+            if (null === $this->serializer) {
+                throw new \RuntimeException('No serializer found for serializing the body of the request, did you miss to set the serializer of this endpoint ?');
+            }
+
+            $body = $this->serializer->serialize($body);
+        }
+
         return $this->requestFactory->createRequest(
             $this->getMethod(),
             $uri,
             [],
-            $this->getBody()
+            $body
         );
     }
 

@@ -18,16 +18,6 @@ use Elasticsearch\Transport;
 class Msearch extends AbstractEndpoint
 {
     /**
-     * @param Transport           $transport
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-        parent::__construct($transport);
-    }
-
-    /**
      * @param array|string $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException

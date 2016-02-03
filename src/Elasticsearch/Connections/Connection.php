@@ -23,6 +23,7 @@ use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
+use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -155,6 +156,23 @@ class Connection implements ConnectionInterface
         $request = array_merge_recursive($request, $this->connectionParams, $options);
 
 
+        $handler = $this->handler;
+        $future = $handler($request, $this, $transport, $options);
+
+        return $future;
+    }
+
+    public function sendRequest(RequestInterface $request, $options = [], Transport $transport = null)
+    {
+        $request = [
+            'http_method' => $request->getMethod(),
+            'scheme'      => $this->transportSchema,
+            'uri'         => $request->getRequestTarget(),
+            'body'        => $request->getBody()->getContents(),
+            'headers'     => array_merge(['host' => $this->host], $request->getHeaders())
+        ];
+
+        $request = array_merge_recursive($request, $this->connectionParams, $options);
         $handler = $this->handler;
         $future = $handler($request, $this, $transport, $options);
 

@@ -268,6 +268,26 @@ class Connection implements ConnectionInterface
                     // No error, deserialize
                     $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
                 }
+                
+                if (isset($response['body']['items'])) {
+                    foreach ($response['body']['items'] as $item) {
+                        if ($item['index']['status'] >= 400 && $item['index']['status'] < 500) {
+                            $exception = new TransportException($item['index']['error']);
+                            $this->logRequestFail(
+                                $request['http_method'],
+                                $response['effective_url'],
+                                $request['body'],
+                                $request['headers'],
+                                $item['index']['status'],
+                                $response['body'],
+                                $response['transfer_stats']['total_time'],
+                                $exception
+                            );
+                            throw $exception;
+                        }
+                    }
+                }
+                
                 $this->logRequestSuccess(
                     $request['http_method'],
                     $response['effective_url'],

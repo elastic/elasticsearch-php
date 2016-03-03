@@ -890,6 +890,8 @@ class Client
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
      *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
+     *        ['query_cache']              = (boolean) Enable query cache for this request
+     *        ['request_cache']            = (boolean) Enable request cache for this request
      *        ['routing']                  = (list) A comma-separated list of specific routing values
      *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
      *        ['search_type']              = (enum) Search operation type

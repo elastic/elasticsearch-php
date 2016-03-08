@@ -404,7 +404,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         reset($test);
         $key = key($test);
 
-        foreach ($test[$key] as $operators) {
+        foreach ($test->$key as $operators) {
             foreach ($operators as $operator => $settings) {
                 echo "      > $operator: ";
                 ob_flush();
@@ -530,8 +530,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     $this->assertGreaterThan($expectedCount, $this->getNestedVar($response, key($settings)));
                     echo "\n";
                 } elseif ($operator === "skip") {
-                    if (isset($settings['version']) === true) {
-                        $version = $settings['version'];
+                    if (isset($settings->version) === true) {
+                        $version = $settings->version;
                         $version = str_replace(" ", "", $version);
                         $version = explode("-", $version);
 
@@ -551,7 +551,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         }
                         if (version_compare(YamlRunnerTest::$esVersion, $version[0]) >= 0
                             && version_compare($version[1], YamlRunnerTest::$esVersion) >= 0) {
-                            echo "Skipping: ".$settings['reason']."\n";
+                            echo "Skipping: ".$settings->reason."\n";
 
                             if ($key == 'setup') {
                                 throw new SetupSkipException();
@@ -559,8 +559,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
                             return;
                         }
-                    } elseif (isset($settings['features']) === true) {
-                        $feature = $settings['features'];
+                    } elseif (isset($settings->features) === true) {
+                        $feature = $settings->features;
                         $whitelist = array();
 
                         if (array_search($feature, $whitelist) === false) {

@@ -19,3 +19,6 @@ Thumbs.db
 
 #generator related
 generator/*
+
+# Elasticsearch related
+util/elasticsearch/

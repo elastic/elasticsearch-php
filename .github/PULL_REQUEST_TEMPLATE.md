@@ -1,4 +1,4 @@
-<--
+<!--
 
 Thanks for the Pull Request!  Before you submit the PR, please
 look over this checklist:

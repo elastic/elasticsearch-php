@@ -75,6 +75,7 @@ class Percolate extends AbstractEndpoint
             'percolate_type',
             'version',
             'version_type',
+            'percolate_format'
         );
     }
 

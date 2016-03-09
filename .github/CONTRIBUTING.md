@@ -31,8 +31,7 @@ The process for contributing to any of the Elasticsearch repositories is similar
     and data..._do not_ run the tests on a production cluster!**
 
         $> php util/RestSpecRunner.php
-        $> php phpunit.phar --bootstrap tests/bootstrap.php --no-configuration \
-            --coverage-clover build/logs/clover.xml --exclude-group ignore tests
+        $> php vendor/bin/phpunit
 
 5. Ensure your changes follow the [PSR-2 Coding Style Guide](http://www.php-fig.org/psr/psr-2/). You can run tools such as [PHP-CS-Fixer](http://cs.sensiolabs.org/) or [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) to enforce PSR-2 automatically.
 

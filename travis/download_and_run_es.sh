@@ -15,11 +15,11 @@ echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
 # Note: currently URLs are all the same format, but sometimes it changes
 # TODO automate this
 case $ES_VERSION in
+    '2.2') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/2.2/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
 	'2.1') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/2.1/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
   '2.0') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/2.0/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
   '1.7') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/1.7/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
   '1.6') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/1.6/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
-  '1.5') ES_URL="http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/1.5/nightly/JDK7/elasticsearch-latest-SNAPSHOT.zip" ;;
 esac
 
 curl -L -O $ES_URL

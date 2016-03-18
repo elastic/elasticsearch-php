@@ -1,3 +1,30 @@
+## Release 2.1.5
+- whitelist search per-request cache parameters [[8105a9e]](http://github.com/elasticsearch/elasticsearch-php/commit/8105a9e)
+- Add 'routing' parameter to Mget endpoint whitelist [[bb0a623]](http://github.com/elasticsearch/elasticsearch-php/commit/bb0a623)
+- Add 'percolate_format' parameter to Percolate endpoint whitelist [[65462ba]](http://github.com/elasticsearch/elasticsearch-php/commit/65462ba)
+- Remove $scroll_id variable entirely Set $body = $scroll_id in setScrollID() Return $body in getBody() [[05999d8]](http://github.com/elasticsearch/elasticsearch-php/commit/05999d8)
+- Add update_all_types support to create index call [[6dcf4c5]](http://github.com/elasticsearch/elasticsearch-php/commit/6dcf4c5)
+- Allow update_all_types as index setting [[4161290]](http://github.com/elasticsearch/elasticsearch-php/commit/4161290)
+- Use request body for scroll ID instead of URI param [[016c191]](http://github.com/elasticsearch/elasticsearch-php/commit/016c191)
+
+### Testing
+- Update snapshot download script for 2.2 [[350cd6e]](http://github.com/elasticsearch/elasticsearch-php/commit/350cd6e)
+- Update travis matrix [[04bcf81]](http://github.com/elasticsearch/elasticsearch-php/commit/04bcf81)
+- Invoke phpunit dependency instead of travis phpunit.phar [[f9e0d99]](http://github.com/elasticsearch/elasticsearch-php/commit/f9e0d99)
+- Do not track the util/elasticsearch directory [[25bd111]](http://github.com/elasticsearch/elasticsearch-php/commit/25bd111)
+
+### Documentation
+- Fix comment tag [[3b8e918]](http://github.com/elasticsearch/elasticsearch-php/commit/3b8e918)
+- Add .github templates [[104a7ea]](http://github.com/elasticsearch/elasticsearch-php/commit/104a7ea)
+- Minor fix to wrong documentation [[2863521]](http://github.com/elasticsearch/elasticsearch-php/commit/2863521)
+- Wrong syntax in bulk index example [[17eb43a]](http://github.com/elasticsearch/elasticsearch-php/commit/17eb43a)
+- Delete configuration.asciidoc~ [[3449d97]](http://github.com/elasticsearch/elasticsearch-php/commit/3449d97)
+- Syntax errors in Exception handling [[ba5b38b]](http://github.com/elasticsearch/elasticsearch-php/commit/ba5b38b)
+- Elasticsearch needed for autoload to find classes [[9410e14]](http://github.com/elasticsearch/elasticsearch-php/commit/9410e14)
+- Small doc fix in futures doc [[86e559a]](http://github.com/elasticsearch/elasticsearch-php/commit/86e559a)
+- Fix incorrect nesting of array [[3e041f3]](http://github.com/elasticsearch/elasticsearch-php/commit/3e041f3)
+
+
 ## Release 2.1.4
 - Fix the host path handling [[15b5be3]](http://github.com/elasticsearch/elasticsearch-php/commit/15b5be3)
 - fix body setter in bulk endpoint [[fa283ea]](http://github.com/elasticsearch/elasticsearch-php/commit/fa283ea)

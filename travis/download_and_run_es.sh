@@ -10,7 +10,7 @@ killall java 2>/dev/null
 
 echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
 
-ES_URL=$(curl -sS "https://esvm-props.kibana.rocks/builds" | jq -r ".branches.$ES_VERSION.zip")
+ES_URL=$(curl -sS "https://esvm-props.kibana.rocks/builds" | jq -r ".branches[\"$ES_VERSION\"].zip")
 
 curl -L -o elasticsearch-latest-SNAPSHOT.zip $ES_URL
 unzip "elasticsearch-latest-SNAPSHOT.zip"

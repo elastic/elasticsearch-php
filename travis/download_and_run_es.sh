@@ -19,15 +19,14 @@ echo "Adding repo to config..."
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'repositories.url.allowed_urls: ["http://*"]' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'path.repo: ["/tmp"]' >> $TXT ; done
 
-
-
 echo "Starting Elasticsearch v${ES_VERSION}"
+
 ./elasticsearch-*/bin/elasticsearch \
-    -Des.network.host=localhost \
-    -Des.discovery.zen.ping.multicast.enabled=false \
-    -Des.discovery.zen.ping_timeout=1s \
-    -Des.http.port=9200 \
-    -Des.node.testattr=test \
+    -E es.network.host=localhost \
+    -E es.discovery.zen.ping_timeout=1s \
+    -E es.http.port=9200 \
+    -E es.discovery.zen.minimum_master_nodes=1 \
     -d
+
 
 sleep 3

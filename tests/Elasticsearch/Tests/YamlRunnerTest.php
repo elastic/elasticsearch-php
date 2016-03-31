@@ -613,6 +613,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         if ($passed === true) {
             $this->assertTrue(true);
+            if ($exception->getPrevious() !== null) {
+                return json_decode($exception->getPrevious()->getMessage(), true);
+            }
             return json_decode($exception->getMessage(), true);
         }
 

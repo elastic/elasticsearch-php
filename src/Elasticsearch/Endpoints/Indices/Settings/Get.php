@@ -65,6 +65,7 @@ class Get extends AbstractEndpoint
             'expand_wildcards',
             'flat_settings',
             'local',
+            'include_defaults'
         );
     }
 

@@ -97,6 +97,7 @@ class Index extends AbstractEndpoint
             'ttl',
             'version',
             'version_type',
+            'pipeline'
         );
     }
 

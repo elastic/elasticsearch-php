@@ -8,6 +8,7 @@ use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
+use Elasticsearch\Namespaces\IngestNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
@@ -58,6 +59,11 @@ class Client
      */
     protected $cat;
 
+    /**
+     * @var IngestNamespace
+     */
+    protected $ingest;
+
     /** @var  callback */
     protected $endpoints;
 
@@ -76,6 +82,7 @@ class Client
         $this->nodes     = new NodesNamespace($transport, $endpoint);
         $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
         $this->cat       = new CatNamespace($transport, $endpoint);
+        $this->ingest    = new IngestNamespace($transport, $endpoint);
     }
 
     /**
@@ -1411,6 +1418,16 @@ class Client
     public function cat()
     {
         return $this->cat;
+    }
+
+    /**
+     * Operate on the Ingest namespace of commands
+     *
+     * @return IngestNamespace
+     */
+    public function ingest()
+    {
+        return $this->ingest;
     }
 
     /**

@@ -187,4 +187,27 @@ class ClusterNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * $params['include_yes_decisions'] = (bool) Return 'YES' decisions in explanation (default: false)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function allocationExplain($params = array())
+    {
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cluster\AllocationExplain $endpoint */
+        $endpoint = $endpointBuilder('Cluster\AllocationExplain');
+        $endpoint->setBody($body)
+                 ->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
 }

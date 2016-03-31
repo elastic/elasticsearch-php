@@ -742,7 +742,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private function getTimestampRegex()
     {
         return <<<EOF
-        ~
+        ~[^"]
         (?P<year>[0-9][0-9][0-9][0-9])
         -(?P<month>[0-9][0-9]?)
         -(?P<day>[0-9][0-9]?)
@@ -753,7 +753,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         (?:\.(?P<fraction>[0-9]*))?
         (?:[ \t]*(?P<tz>Z|(?P<tz_sign>[-+])(?P<tz_hour>[0-9][0-9]?)
         (?::(?P<tz_minute>[0-9][0-9]))?))?)?
-        ~x
+        [^"]~x
 EOF;
     }
 

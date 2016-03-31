@@ -138,7 +138,7 @@ class Connection implements ConnectionInterface
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null)
     {
-        if (isset($body) === true) {
+        if (isset($body)) {
             $body = $this->serializer->serialize($body);
         }
 
@@ -177,18 +177,19 @@ class Connection implements ConnectionInterface
     {
         return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler, $logger, $tracer) {
 
-            $this->lastRequest = [];
-            $this->lastRequest['request'] = $request;
+            $this->lastRequest = [
+                'request' => $request
+            ];
 
             // Send the request using the wrapped handler.
             $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
 
                 $this->lastRequest['response'] = $response;
 
-                if (isset($response['error']) === true) {
+                if (isset($response['error'])) {
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
 
-                        $this->log->warning("Curl exception encountered.");
+                        $this->log->warning('Curl exception encountered.');
 
                         $exception = $this->getCurlRetryException($request, $response);
 
@@ -212,7 +213,7 @@ class Connection implements ConnectionInterface
                         //
                         // TODO this could be handled better, but we are limited because connectionpools do not
                         // have access to Transport.  Architecturally, all of this needs to be refactored
-                        if (isset($transport) === true) {
+                        if (isset($transport)) {
                             $transport->connectionPool->scheduleCheck();
 
                             $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
@@ -323,13 +324,13 @@ class Connection implements ConnectionInterface
         $this->log->debug('Request Body', array($body));
         $this->log->info(
             'Request Success:',
-            array(
+            [
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
         $this->log->debug('Response', array($response));
 
@@ -338,13 +339,13 @@ class Connection implements ConnectionInterface
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
-            array(
+            [
                 'response'  => $response,
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
     }
 
@@ -367,29 +368,29 @@ class Connection implements ConnectionInterface
         $this->log->debug('Request Body', array($body));
         $this->log->warning(
             'Request Failure:',
-            array(
+            [
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
                 'error'     => $exception->getMessage(),
-            )
+            ]
         );
-        $this->log->warning('Response', array($response));
+        $this->log->warning('Response', [$response]);
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
-            array(
+            [
                 'response'  => $response,
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
     }
 
@@ -418,11 +419,11 @@ class Connection implements ConnectionInterface
             $this->markAlive();
 
             return true;
-        } else {
-            $this->markDead();
-
-            return false;
         }
+
+        $this->markDead();
+
+        return false;
     }
 
     /**
@@ -498,14 +499,11 @@ class Connection implements ConnectionInterface
         $exception = new MaxRetriesException($message);
         switch ($response['curl']['errno']) {
             case 6:
-                $exception = new CouldNotResolveHostException($message, null, $exception);
-                break;
+                return new CouldNotResolveHostException($message, null, $exception);
             case 7:
-                $exception = new CouldNotConnectToHost($message, null, $exception);
-                break;
+                return new CouldNotConnectToHost($message, null, $exception);
             case 28:
-                $exception = new OperationTimeoutException($message, null, $exception);
-                break;
+                return new OperationTimeoutException($message, null, $exception);
         }
 
         return $exception;
@@ -524,14 +522,12 @@ class Connection implements ConnectionInterface
     {
         if (strpos($uri, '?') === false) {
             $uri .= '?pretty=true';
-        } else {
-            str_replace('?', '?pretty=true', $uri);
         }
 
         $curlCommand = 'curl -X' . strtoupper($method);
         $curlCommand .= " '" . $uri . "'";
 
-        if (isset($body) === true && $body !== '') {
+        if (isset($body) && $body !== '') {
             $curlCommand .= " -d '" . $body . "'";
         }
 
@@ -638,9 +634,10 @@ class Connection implements ConnectionInterface
 
     private function tryDeserializeError($response, $errorClass) {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
-        if (is_array($error) === true) {
+
+        if (is_array($error)) {
             // 2.0 structured exceptions
-            if (isset($error['error']['reason']) === true) {
+            if (isset($error['error']['reason'])) {
 
                 // Try to use root cause first (only grabs the first root cause)
                 $root = $error['error']['root_cause'];
@@ -655,8 +652,9 @@ class Connection implements ConnectionInterface
                 $original = new $errorClass($response['body'], $response['status']);
 
                 return new $errorClass("$type: $cause", $response['status'], $original);
+            }
 
-            } elseif (isset($error['error']) === true) {
+            if (isset($error['error'])) {
                 // <2.0 semi-structured exceptions
                 $original = new $errorClass($response['body'], $response['status']);
 

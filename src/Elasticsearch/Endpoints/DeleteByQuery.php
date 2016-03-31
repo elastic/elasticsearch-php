@@ -23,11 +23,9 @@ class DeleteByQuery extends AbstractEndpoint
      */
     public function setBody($body)
     {
-        if (isset($body) !== true) {
-            return $this;
+        if (isset($body)) {
+            $this->body = $body;
         }
-
-        $this->body = $body;
 
         return $this;
     }
@@ -43,17 +41,11 @@ class DeleteByQuery extends AbstractEndpoint
                 'index is required for Deletebyquery'
             );
         }
+
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/_query";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_query";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_query";
-        }
-
-        return $uri;
+        return isset($type) ? "/$index/$type/_query" : "/$index/_query";
     }
 
     /**
@@ -61,7 +53,7 @@ class DeleteByQuery extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'analyzer',
             'consistency',
             'default_operator',
@@ -74,7 +66,7 @@ class DeleteByQuery extends AbstractEndpoint
             'routing',
             'source',
             'timeout',
-        );
+        ];
     }
 
     /**

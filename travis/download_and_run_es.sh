@@ -7,8 +7,6 @@ fi;
 
 killall java 2>/dev/null
 
-ulimit -l unlimited
-
 which java
 java -version
 
@@ -27,9 +25,7 @@ find . -name "elasticsearch.yml" | while read TXT ; do echo 'path.repo: ["/tmp"]
 echo "Starting Elasticsearch v${ES_VERSION}"
 
 ./elasticsearch-*/bin/elasticsearch \
-    -E es.network.host=localhost \
     -E es.discovery.zen.ping_timeout=1s \
-    -E es.http.port=9200 \
     -E es.discovery.zen.minimum_master_nodes=1 \
     -d
 

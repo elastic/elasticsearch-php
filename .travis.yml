@@ -1,5 +1,13 @@
 language: php
 
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
 branches:
   except:
     - 0.4

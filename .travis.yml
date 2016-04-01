@@ -21,6 +21,9 @@ php:
   - 5.4
   - hhvm
 
+matrix:
+  allow_failures:
+    - php: hhvm
 
 env:
   global:

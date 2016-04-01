@@ -12,6 +12,7 @@ use Elasticsearch\Namespaces\IngestNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
+use Elasticsearch\Namespaces\TasksNamespace;
 
 /**
  * Class Client
@@ -64,6 +65,11 @@ class Client
      */
     protected $ingest;
 
+    /**
+     * @var TasksNamespace
+     */
+    protected $tasks;
+
     /** @var  callback */
     protected $endpoints;
 
@@ -83,6 +89,7 @@ class Client
         $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
         $this->cat       = new CatNamespace($transport, $endpoint);
         $this->ingest    = new IngestNamespace($transport, $endpoint);
+        $this->tasks     = new TasksNamespace($transport, $endpoint);
     }
 
     /**
@@ -1428,6 +1435,16 @@ class Client
     public function ingest()
     {
         return $this->ingest;
+    }
+
+    /**
+     * Operate on the Tasks namespace of commands
+     *
+     * @return TasksNamespace
+     */
+    public function tasks()
+    {
+        return $this->tasks;
     }
 
     /**

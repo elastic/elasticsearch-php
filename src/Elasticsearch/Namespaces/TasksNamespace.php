@@ -1,0 +1,75 @@
+<?php
+
+namespace Elasticsearch\Namespaces;
+use Elasticsearch\Endpoints\Tasks\Cancel;
+use Elasticsearch\Endpoints\Tasks\Get;
+
+
+/**
+ * Class TasksNamespace
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Namespaces\TasksNamespace
+ * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elasticsearch.org
+ */
+class TasksNamespace extends AbstractNamespace
+{
+    /**
+     * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['actions'] = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+     *        ['parent_node'] = (string) Cancel tasks with specified parent node
+     *        ['parent_task'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+     *        ['detailed'] = (bool) Return detailed task information (default: false)
+     *        ['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
+     *        ['group_by'] = (enum) Group tasks by nodes or parent/child relationships
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function get($params = array())
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var Get $endpoint */
+        $endpoint = $endpointBuilder('Tasks\Get');
+        $endpoint->setTaskId($id)
+            ->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['actions'] = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+     *        ['parent_node'] = (string) Cancel tasks with specified parent node
+     *        ['parent_task'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function cancel($params = array())
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var Cancel $endpoint */
+        $endpoint = $endpointBuilder('Tasks\Cancel');
+        $endpoint->setTaskId($id)
+            ->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+
+}

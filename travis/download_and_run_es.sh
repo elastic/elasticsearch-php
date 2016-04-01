@@ -7,7 +7,10 @@ fi;
 
 killall java 2>/dev/null
 
+
+which java
 java -version
+
 
 echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
 

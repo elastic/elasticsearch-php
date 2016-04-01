@@ -7,6 +7,7 @@ fi;
 
 killall java 2>/dev/null
 
+sudo ulimit -l unlimited
 
 which java
 java -version

@@ -31,7 +31,6 @@ env:
 
 before_install:
   - sudo update-java-alternatives -s java-8-oracle
-  - sudo ulimit -l unlimited
   - ./travis/download_and_run_es.sh
 
 install:

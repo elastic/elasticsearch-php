@@ -40,7 +40,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var  string */
     public static $esVersion;
 
-    private static $testCounter = 0;
+    public static $testCounter = 0;
 
     /**
      * @return mixed
@@ -458,7 +458,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } elseif (key($settings) === '$body') {
                         $actual = $response;
                     } else {
-                        $actual   = $this->getNestedVar($response, key($settings));
+                        $path = YamlRunnerTest::replaceWithStash(key($settings), $stash);
+                        $actual = $this->getNestedVar($response, $path);
                     }
 
                     $expected = YamlRunnerTest::replaceWithStash($expected, $stash);
@@ -689,6 +690,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $piece = str_replace('\.', '.', $piece);
             if (!is_array($context) || !array_key_exists($piece, $context)) {
                 // error occurred
+                echo "Could not find nested property [$piece] in context: ".print_r($context, true);
+                echo "\nReturning null...";
                 return null;
             }
             $context = &$context[$piece];

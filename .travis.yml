@@ -3,11 +3,6 @@ language: php
 jdk:
   - oraclejdk8
 
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-
 branches:
   except:
     - 0.4
@@ -29,6 +24,7 @@ env:
     - ES_TEST_HOST=http://localhost:9200
 
 before_install:
+  - java install oraclejdk8
   - ./travis/download_and_run_es.sh
 
 install:

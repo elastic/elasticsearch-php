@@ -1,5 +1,8 @@
 language: php
 
+jdk:
+  - oraclejdk8
+
 branches:
   except:
     - 0.4

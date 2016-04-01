@@ -17,8 +17,13 @@ else
 fi
 
 echo "Switching to Oracle JDK8 ($ORACLEJDK8_UJA_ALIAS), JAVA_HOME will be set to $ORACLEJDK8_JAVA_HOME"
-update-java-alternatives --set "$ORACLEJDK8_UJA_ALIAS"
 export JAVA_HOME="$ORACLEJDK8_JAVA_HOME"
+
+java -version
+
+/usr/lib/jvm/java-8-oracle/jre/bin/java -version
+
+jdk_switcher use oraclejdk8
 
 java -version
 

@@ -251,6 +251,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 try {
                     $tDoc = array();
                     $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
+                    $tDoc['document'] = $this->checkForList($tDoc['document']);
                     $tDoc['document'] = $this->checkForEmptyProperty($testFile, $tDoc['document']);
                     $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, false, true);
 
@@ -320,6 +321,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 try {
                     $tDoc = array();
                     $tDoc['document'] = $this->checkForTimestamp($testFile, $document);
+                    $tDoc['document'] = $this->checkForList($tDoc['document']);
                     $tDoc['document'] = $this->checkForEmptyProperty($testFile, $tDoc['document']);
                     $tDoc['values'] = $this->yaml->parse($tDoc['document'], false, false, true);
 
@@ -714,6 +716,17 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         return $document;
+    }
+
+    /**
+     * Hack to rewrite the command `task.list` into `task.get`, since list is a reserved
+     * word in PHP. :/
+     *
+     * @param $file
+     * @return mixed
+     */
+    private function checkForList($document) {
+        return str_replace("tasks.list", "tasks.get", $document);
     }
 
     private function checkForEmptyProperty($file, $document)

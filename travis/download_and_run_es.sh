@@ -14,6 +14,7 @@ echo "Switching to Oracle JDK8 ($ORACLEJDK8_UJA_ALIAS), JAVA_HOME will be set to
 $UJA --set "$ORACLEJDK8_UJA_ALIAS"
 export JAVA_HOME="$ORACLEJDK8_JAVA_HOME"
 
+java -version
 
 echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
 

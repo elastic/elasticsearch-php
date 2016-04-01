@@ -7,6 +7,13 @@ fi;
 
 killall java 2>/dev/null
 
+ORACLEJDK8_UJA_ALIAS="java-8-oracle"
+ORACLEJDK8_JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+
+echo "Switching to Oracle JDK8 ($ORACLEJDK8_UJA_ALIAS), JAVA_HOME will be set to $ORACLEJDK8_JAVA_HOME"
+$UJA --set "$ORACLEJDK8_UJA_ALIAS"
+export JAVA_HOME="$ORACLEJDK8_JAVA_HOME"
+
 
 echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
 

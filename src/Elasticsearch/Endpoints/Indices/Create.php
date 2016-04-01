@@ -17,7 +17,7 @@ use Elasticsearch\Common\Exceptions;
 class Create extends AbstractEndpoint
 {
     /**
-     * @param array $body
+     * @param array|object $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
@@ -71,10 +71,11 @@ class Create extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if (isset($this->body['mappings']) === true) {
+        if (is_array($this->body) && isset($this->body['mappings']) === true) {
             return 'POST';
-        } else {
-            return 'PUT';
+        } elseif (is_object($this->body) && isset($this->body->mappings) === true) {
+            return 'POST';
         }
+        return 'PUT';
     }
 }

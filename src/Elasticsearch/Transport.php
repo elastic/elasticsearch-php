@@ -6,6 +6,8 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -117,6 +119,32 @@ class Transport
                 $this->connectionPool->scheduleCheck();
                 // log stuff
             });
+
+        return $future;
+    }
+
+    /**
+     * Send a PSR7 Request
+     *
+     * @param RequestInterface $request
+     * @param array            $options
+     *
+     * @return ResponseInterface
+     */
+    public function sendRequest(RequestInterface $request, array $options = [])
+    {
+        try {
+            $connection  = $this->getConnection();
+        } catch (Exceptions\NoNodesAvailableException $exception) {
+            $this->log->critical('No alive nodes found in cluster');
+            throw $exception;
+        }
+
+        $response             = array();
+        $caughtException      = null;
+        $this->lastConnection = $connection;
+
+        $future = $connection->sendRequest($request, $options, $this);
 
         return $future;
     }

@@ -3,9 +3,11 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
+use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use Exception;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use Http\Message\RequestFactory;
 
 /**
  * Class AbstractEndpoint
@@ -42,6 +44,12 @@ abstract class AbstractEndpoint
     /** @var array  */
     private $options = [];
 
+    /** @var RequestFactory A factory to create PSR7 Request from various implementation */
+    private $requestFactory;
+
+    /** @var SerializerInterface $serializer Serializer used to encode the body */
+    protected $serializer;
+
     /**
      * @return string[]
      */
@@ -60,14 +68,23 @@ abstract class AbstractEndpoint
     /**
      * @param Transport $transport
      */
-    public function __construct($transport)
+    public function __construct($transport, RequestFactory $requestFactory = null)
     {
         $this->transport = $transport;
+        $this->requestFactory = $requestFactory;
+    }
+
+    public function setSerializer(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
     }
 
     /**
      * @throws \Exception
      * @return array
+     *
+     * @deprecated Performing a request directly on an endpoint is deprecated since 2.2 and will be removed in 3.0,
+     *             you should instead use the createRequest method
      */
     public function performRequest()
     {
@@ -80,6 +97,41 @@ abstract class AbstractEndpoint
         );
 
         return $promise;
+    }
+
+    /**
+     * Create a PSR7 Request for this endpoint.
+     *
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function createRequest()
+    {
+        if (null === $this->requestFactory) {
+            throw new \RuntimeException('No factory found for creating the request');
+        }
+
+        $uri = $this->getURI();
+
+        if (!empty($this->params)) {
+            $uri .= '?'.http_build_query($this->params);
+        }
+
+        $body = $this->getBody();
+
+        if (null !== $body) {
+            if (null === $this->serializer) {
+                throw new \RuntimeException('No serializer found for serializing the body of the request, did you miss to set the serializer of this endpoint ?');
+            }
+
+            $body = $this->serializer->serialize($body);
+        }
+
+        return $this->requestFactory->createRequest(
+            $this->getMethod(),
+            $uri,
+            [],
+            $body
+        );
     }
 
     /**

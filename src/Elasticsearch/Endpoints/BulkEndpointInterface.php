@@ -16,11 +16,4 @@ use Elasticsearch\Transport;
  */
 interface BulkEndpointInterface
 {
-    /**
-     * Constructor
-     *
-     * @param Transport           $transport  Transport instance
-     * @param SerializerInterface $serializer A serializer
-     */
-    public function __construct(Transport $transport, SerializerInterface $serializer);
 }

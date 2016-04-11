@@ -31,8 +31,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/",
-      "Elasticsearch\\Benchmarks\\": "benchmarks/Elasticsearch/Benchmarks/"
+      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
     }
   },
   "repositories": [

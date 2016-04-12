@@ -36,3 +36,5 @@ include::php-version-requirement.asciidoc[]
 include::breaking-changes.asciidoc[]
 
 include::community.asciidoc[]
+
+include::build/classes.asciidoc[]

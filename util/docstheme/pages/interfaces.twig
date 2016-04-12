@@ -1,0 +1,23 @@
+{% extends "layout/base.twig" %}
+
+{% from "macros.twig" import class_item, replace_backslash, back_to_forward, sanitize %}
+
+{% block title %}
+[[{{ sanitize(replace_backslash("ElasticsearchPHP_Interfaces")) }}]]
+== {{ "Reference - Interfaces" }}
+{% endblock %}
+
+{% block content %}
+
+This is a complete list of available interfaces:
+
+{% for interface in classes if interface.interface %}
+* <<{{ replace_backslash(interface) }}, {{ interface }}>>
+{% else %}
+* There are no interfaces available.
+{% endfor %}
+{% for interface in classes if interface.interface %}
+include::{{ back_to_forward(interface) }}.asciidoc[]
+{% else %}
+{% endfor %}
+{% endblock %}

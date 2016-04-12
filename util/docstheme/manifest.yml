@@ -1,0 +1,9 @@
+name: asciidoc
+
+global:
+    "pages/namespaces.twig": "namespaces.asciidoc"
+    "pages/interfaces.twig": "interfaces.asciidoc"
+    "pages/classes.twig": "classes.asciidoc"
+
+class:
+    "pages/class.twig": "%s.asciidoc"

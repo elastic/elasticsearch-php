@@ -1,0 +1,138 @@
+{% macro class_item(class, short = false, indent = "") -%}
+{{ indent }}{{ _self.class_name(class, short) }}{% if class.shortdesc %} -- {{ class.shortdesc }}{% endif %}
+{%- endmacro -%}
+
+{% macro class_name(class, short = false, suffix = "") -%}
+{% spaceless -%}
+{% if class.projectclass or class.phpclass %}
+{% if class.projectclass %}
+<<{{_self.replace_backslash( (short ? class.shortname : class)~suffix) }},{{ class }}>>
+{% else %}
+http://php.net/class.{{ class }}[{{ short ? class.shortname : class }}{{ suffix }}]
+{% endif %})
+{% else %}
+`{{ class }}`
+{% endif %}
+{%- endspaceless %}
+{%- endmacro -%}
+
+{% macro class_type(class, sentence = false) -%}
+{% spaceless %}
+{% if class.interface %}
+{% if sentence %}an {% endif %}
+interface
+{%- else -%}
+{% if sentence %}{% if class.abstract %}an{% else %}a{% endif %} {% endif %}
+{% if class.abstract %}abstract {% endif %}
+class
+{%- endif -%}
+{% endspaceless %}
+{%- endmacro -%}
+
+{% macro hint(hint) -%}
+{% spaceless %}
+{% if hint.class -%}
+{{ _self.class_name(hint.name) }}
+{%- elseif hint.name -%}
+{{ hint.name }}
+{%- endif %}
+{% endspaceless %}
+{%- endmacro -%}
+
+{% macro markdown_path(path) -%}
+{% spaceless %}
+{{- path|replace({".html": ".md"}) -}}
+{% endspaceless %}
+{%- endmacro -%}
+
+{% macro replace_backslash(path) -%}
+    {% spaceless %}
+        {{- path|replace({"\\": "_"}) -}}
+    {% endspaceless %}
+{%- endmacro -%}
+
+{% macro back_to_forward(path) -%}
+    {% spaceless %}
+        {{- path|replace({"\\": "/"}) -}}
+    {% endspaceless %}
+{%- endmacro -%}
+
+{% macro sanitize(path) -%}
+    {% spaceless %}
+        {{- path|replace({"$": "", "::": "", "__": "-"}) -}}
+    {% endspaceless %}
+{%- endmacro -%}
+
+{% macro get_namespace(class) -%}
+    {% spaceless %}
+        {% if class.shortname == 'Client' %}
+            $client
+        {% else %}
+            $client->{{ class.shortname|lower|replace({"namespace": ""}) }}()
+        {% endif %}
+    {% endspaceless %}
+{%- endmacro -%}
+
+
+
+{% macro param_list(member) -%}
+    {% spaceless %}
+        {% for parameter in member.parameters %}${{ parameter.name }},{% endfor %}
+    {% endspaceless %}
+{%- endmacro -%}
+
+{% macro member_signature(type, member) -%}
+* It is a **{{ _self.member_visibility(member) }}{% if member.abstract is defined and member.abstract %} abstract{% endif %}** {{ type }}.
+{% if member.final %}
+* It is a **finalized** {{ type }}.
+{% endif %}
+{% if "property" == type %}
+{% if member.hint|length > 1 %}
+* It can be one of the following types:
+{%- for hint in member.hint %}
+
+    * {{ _self.hint(hint) }}
+{%- endfor -%}
+{%- elseif member.hint|length > 0 %}
+* It is a(n) {{ _self.hint(member.hint[0]) }} value.
+{%- else %}
+* Its type is not specified.
+{% endif %}
+{% elseif "method" == type %}
+{% if member.parameters %}
+* It accepts the following parameter(s):
+{% for parameter in member.parameters %}
+    * `${{ parameter.name }}`{% if parameter.hint %} ({% for hint in parameter.hint %}{{ _self.hint(hint) }}{% if not loop.last %}|{% endif %}{% endfor %}){% endif %}{% if parameter.shortdesc %} -- {{ parameter.shortdesc }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% if (member.hint|length > 1) or member.hintDesc %}
+{% if member.hintDesc %}
+* _Returns:_ {{ member.hintDesc }}
+{% else %}
+* It can return one of the following values:
+{% endif %}
+{% for hint in member.hint %}
+    * {{ _self.hint(hint) }}
+{% endfor -%}
+{% elseif member.hint|length > 0 %}
+* It returns a(n) {{ _self.hint(member.hint[0]) }} value.
+{% else %}
+* It does not return anything.
+{% endif %}
+{% if member.exceptions %}
+* It throws one of the following exceptions:
+{% for exception in member.exceptions %}
+    * {{ _self.class_name(exception[0]) }}{% if exception[1] is defined and exception[1] is not empty %} -- {{ exception[1] }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endif %}
+{%- endmacro -%}
+
+{% macro member_visibility(member) -%}
+{% spaceless %}
+{% if member.private %}private{% elseif member.protected %}protected{% else %}public{% endif %}
+{% if member.static %} static{% endif %}
+{% endspaceless %}
+{%- endmacro -%}

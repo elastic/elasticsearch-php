@@ -17,10 +17,10 @@
   "require-dev": {
     "phpunit/phpunit": "~4.7",
     "mockery/mockery": "0.9.4",
-    "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.3 as 2.4.2",
     "twig/twig": "1.*",
-    "cpliakas/git-wrapper": "~1.0"
+    "cpliakas/git-wrapper": "~1.0",
+    "sami/sami": "~3.2"
   },
   "suggest": {
     "ext-curl": "*",
@@ -33,8 +33,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/",
-      "Elasticsearch\\Benchmarks\\": "benchmarks/Elasticsearch/Benchmarks/"
+      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
     }
   },
   "repositories": [

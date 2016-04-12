@@ -1,0 +1,106 @@
+
+
+[[Elasticsearch_Namespaces_IngestNamespace]]
+=== Elasticsearch\Namespaces\IngestNamespace
+
+
+
+Class IngestNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_IngestNamespacedeletePipeline_deletePipeline,`deletePipeline()`>>
+* <<Elasticsearch_Namespaces_IngestNamespacegetPipeline_getPipeline,`getPipeline()`>>
+* <<Elasticsearch_Namespaces_IngestNamespaceputPipeline_putPipeline,`putPipeline()`>>
+* <<Elasticsearch_Namespaces_IngestNamespacesimulate_simulate,`simulate()`>>
+
+
+
+[[Elasticsearch_Namespaces_IngestNamespacedeletePipeline_deletePipeline]]
+.`deletePipeline()`
+****
+[source,php]
+----
+/*
+$params['master_timeout']             = (time) Explicit operation timeout for connection to master node
+       ['timeout']                    = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ingest()->deletePipeline($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IngestNamespacegetPipeline_getPipeline]]
+.`getPipeline()`
+****
+[source,php]
+----
+/*
+$params['master_timeout']             = (time) Explicit operation timeout for connection to master node
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ingest()->getPipeline($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IngestNamespaceputPipeline_putPipeline]]
+.`putPipeline()`
+****
+[source,php]
+----
+/*
+$params['master_timeout']             = (time) Explicit operation timeout for connection to master node
+       ['timeout']                    = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ingest()->putPipeline($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IngestNamespacesimulate_simulate]]
+.`simulate()`
+****
+[source,php]
+----
+/*
+$params['verbose'] = (bool) Verbose mode. Display data output for each processor in executed pipeline
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ingest()->simulate($params);
+----
+****
+
+

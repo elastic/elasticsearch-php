@@ -18,7 +18,8 @@
     "phpunit/phpunit": "~4.7",
     "mockery/mockery": "0.9.4",
     "symfony/yaml": "2.4.3 as 2.4.2",
-    "cpliakas/git-wrapper": "~1.0"
+    "cpliakas/git-wrapper": "~1.0",
+    "sami/sami": "~3.2"
   },
   "suggest": {
     "ext-curl": "*",

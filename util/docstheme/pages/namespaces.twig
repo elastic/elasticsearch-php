@@ -1,0 +1,23 @@
+{% extends "layout/base.twig" %}
+
+{% from "macros.twig" import markdown_path, replace_backslash, back_to_forward, sanitize %}
+
+{% block title %}
+[[{{ sanitize(replace_backslash("ElasticsearchPHP_Namespaces")) }}]]
+== {{ "Reference - Namespaces" }}
+{% endblock %}
+
+{% block content %}
+
+This is a complete list of available namespaces:
+
+{% for namespace in namespaces %}
+* <<{{ replace_backslash(namespace) }}, {{ namespace }}>>
+{% else %}
+* There are no namespaces available.
+{% endfor %}
+{% for namespace in namespaces %}
+include::{{ back_to_forward(namespace) }}.asciidoc[]
+{% else %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "layout/base.twig" %}
+
+{% from "macros.twig" import class_item, class_name, class_type, member_signature, replace_backslash, sanitize, param_list, get_namespace %}
+
+{% block title %}
+{% set title = class %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+{% if class.shortdesc %}
+
+{{ class.shortdesc|raw }}
+{% endif %}
+{% if class.longdesc %}
+
+*Description*
+
+
+{{ class.longdesc|raw }}
+{% endif %}
+
+{% if class.methods %}
+
+*Methods*
+
+The {{ class_type(class) }} defines the following methods:
+
+{% for method in class.methods %}
+{% if method.name != "__construct" %}
+* <<{{ sanitize(replace_backslash(method)~"_"~method.name) }},`{{ method.name }}()`>>
+{% endif %}
+{% endfor %}
+
+{% for method in class.methods %}
+{% if method.name != "__construct" %}
+
+
+{% if class.shortname != "ClientBuilder" %}
+[[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
+.`{{ method.name }}()`
+****
+[source,php]
+----
+/*
+{% if method.shortdesc %}
+{{ method.shortdesc|raw }}
+       ['body']  = (array) Request body
+{% endif %}
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = {{ get_namespace(class) }}->{{ method.name }}({{ param_list(method)|trim(',') }});
+----
+****
+{% else %}
+[[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
+.`{{ method.name }}()`
+****
+[source,php]
+----
+/*
+{% if method.shortdesc %}
+    {{ method.shortdesc|raw }}
+    ['body']  = (array) Request body
+{% endif %}
+*/
+
+----
+****
+{% endif %}
+{% endif %}
+
+{% endfor %}
+{% endif %}
+
+{% endblock %}
+

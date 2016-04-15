@@ -1,4 +1,4 @@
-
+[[php_json_objects]]
 == Dealing with JSON Arrays and Objects in PHP
 
 A common source of confusion with the client revolves around JSON arrays and objects, and how to specify them in PHP.

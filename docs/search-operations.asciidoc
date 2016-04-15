@@ -166,7 +166,7 @@ $results = $client->search($params);
 
 Notice that the `must` clause accepts an array of arrays.  This will be serialized into an array of JSON objects internally,
 so the final resulting output will be identical to the curl example.  For more details about arrays vs objects in PHP,
-see link:_php_json_objects.html[Dealing with JSON Arrays and Objects in PHP].
+see <<php_json_objects, Dealing with JSON Arrays and Objects in PHP>>.
 
 === A more complicated example
 

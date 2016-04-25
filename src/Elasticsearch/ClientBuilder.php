@@ -439,7 +439,17 @@ class ClientBuilder
             };
         }
 
-        return new Client($this->transport, $this->endpoint);
+        return $this->instantiate($this->transport, $this->endpoint);
+    }
+
+    /**
+     * @param Transport $transport
+     * @param callable $endpoint
+     * @return Client
+     */
+    protected function instantiate(Transport $transport, callable $endpoint)
+    {
+        return new Client($transport, $endpoint);
     }
 
     private function buildLoggers()

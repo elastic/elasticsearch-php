@@ -1,10 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+namespace Elasticsearch\Endpoints;
 
 /**
- * Class Analyze
+ * Class Reindex
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -20,7 +19,13 @@ class Reindex extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return array(
+            'refresh',
+            'timeout',
+            'consistency',
+            'wait_for_completion',
+            'requests_per_second',
+        );
     }
 
     /**

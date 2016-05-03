@@ -275,25 +275,6 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * @param $params array Associative array of parameters
-     * @return array
-     */
-    public function reindex($params)
-    {
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-        /** @var \Elasticsearch\Endpoints\Indices\Reindex $endpoint */
-        $endpoint = $endpointBuilder('Reindex');
-        $endpoint->setBody($body);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
      *        ['type']  = (list) A comma-separated list of document types
      *

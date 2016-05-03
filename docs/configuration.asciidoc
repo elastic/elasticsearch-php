@@ -10,7 +10,7 @@ We'll walk through all the configuration options and show sample code to replace
 === Host Configuration
 
 The most common configuration is telling the client about your cluster: how many nodes, their addresses and ports.  If
-not hosts are specified, the client will attempt to connect to `localhost:9200`.
+no hosts are specified, the client will attempt to connect to `localhost:9200`.
 
 This behavior can be changed by using the `setHosts()` method on `ClientBuilder`.  The method accepts an array of values,
 each entry corresponding to one node in your cluster.  The format of the host can vary, depending on your needs (ip vs

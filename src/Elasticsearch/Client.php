@@ -808,6 +808,33 @@ class Client
     }
 
     /**
+     * $params['refresh']             = (boolean) Should the effected indexes be refreshed?
+     *        ['timeout']             = (time) Time each individual bulk request should wait for shards that are unavailable
+     *        ['consistency']         = (enum) Explicit write consistency setting for the operation
+     *        ['wait_for_completion'] = (boolean) Should the request should block until the reindex is complete
+     *        ['requests_per_second'] = (float) The throttle for this request in sub-requests per second. 0 means set no throttle
+     *        ['body']                = (array) The search definition using the Query DSL and the prototype for the index request (Required)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function reindex($params)
+    {
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+        /** @var \Elasticsearch\Endpoints\Reindex $endpoint */
+        $endpoint = $endpointBuilder('Reindex');
+        $endpoint->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
      *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)

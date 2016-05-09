@@ -381,6 +381,7 @@ class CatNamespace extends AbstractNamespace
      *        ['help']           = (bool) Return help information
      *        ['v']              = (bool) Verbose mode. Display column headers
      *        ['full_id']        = (bool) Enables displaying the complete node ids
+     *        ['size']           = (enum) The multiplier in which to display values ([ "", "k", "m", "g", "t", "p" ])
      *
      * @param $params array Associative array of parameters
      *

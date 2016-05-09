@@ -90,8 +90,12 @@ eventually stop being supported.
 
 | PHP Version | Elasticsearch-PHP Branch |
 | ----------- | ------------------------ |
+| >= 5.6.0    | Dev-Master *             |
 | >= 5.4.0    | 2.0                      |
 | >= 5.3.9    | 0.4, 1.0                 |
+
+* Dev-Master only officially supports 5.6.0+, but currently runs fine on versions down to 5.4.0.  This is not, however,
+guaranteed to stay true in the future if 5.6+ features are required.
 
 Quickstart
 ----

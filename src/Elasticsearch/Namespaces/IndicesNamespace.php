@@ -121,37 +121,6 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices (Required)
-     *        ['name']  = (string) The name of the warmer (supports wildcards); leave empty to delete all warmers
-     *        ['type']  = (list) A comma-separated list of document types to register warmer for; use `_all` or empty string to perform the operation on all types
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function deleteWarmer($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $name = $this->extractArgument($params, 'name');
-
-        $type = $this->extractArgument($params, 'type');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Warmer\Delete $endpoint */
-        $endpoint = $endpointBuilder('Indices\Warmer\Delete');
-        $endpoint->setIndex($index)
-                 ->setName($name)
-                 ->setType($type);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index']   = (list) A comma-separated list of indices to delete; use `_all` or empty string to delete all indices
      *        ['timeout'] = (time) Explicit operation timeout
      *
@@ -196,7 +165,6 @@ class IndicesNamespace extends AbstractNamespace
      *        ['refresh']        = (boolean) Return information about refresh operations
      *        ['search']         = (boolean) Return information about search operations; use the `groups` parameter to include information for specific search groups
      *        ['store']          = (boolean) Return information about the size of the index
-     *        ['warmer']         = (boolean) Return information about warmers
      *
      * @param $params array Associative array of parameters
      *
@@ -506,72 +474,6 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Alias\Put');
         $endpoint->setIndex($index)
                  ->setName($name)
-                 ->setBody($body);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
-     * $params['index'] = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices (Required)
-     *        ['name']  = (string) The name of the warmer (supports wildcards); leave empty to get all warmers
-     *        ['type']  = (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function getWarmer($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $name = $this->extractArgument($params, 'name');
-
-        $type = $this->extractArgument($params, 'type');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Warmer\Get $endpoint */
-        $endpoint = $endpointBuilder('Indices\Warmer\Get');
-        $endpoint->setIndex($index)
-                 ->setName($name)
-                 ->setType($type);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
-     * $params['index'] = (list) A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices (Required)
-     *        ['name']  = (string) The name of the warmer (Required)
-     *        ['type']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
-     *        ['body']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function putWarmer($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $name = $this->extractArgument($params, 'name');
-
-        $type = $this->extractArgument($params, 'type');
-
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Warmer\Put $endpoint */
-        $endpoint = $endpointBuilder('Indices\Warmer\Put');
-        $endpoint->setIndex($index)
-                 ->setName($name)
-                 ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

@@ -341,6 +341,8 @@ class Client
      * @param $params array Associative array of parameters
      *
      * @return array
+     *
+     * @deprecated
      */
     public function countPercolate($params = array())
     {
@@ -373,6 +375,8 @@ class Client
      * @param $params array Associative array of parameters
      *
      * @return array
+     *
+     * @deprecated
      */
     public function percolate($params)
     {
@@ -406,6 +410,8 @@ class Client
      * @param $params array Associative array of parameters
      *
      * @return array
+     *
+     * @deprecated
      */
     public function mpercolate($params = array())
     {

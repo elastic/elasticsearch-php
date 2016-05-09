@@ -727,38 +727,6 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function optimize($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Optimize $endpoint */
-        $endpoint = $endpointBuilder('Indices\Optimize');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
-     * $params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
-     *        ['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
-     *        ['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
-     *        ['operation_threading']  = () TODO: ?
-     *        ['refresh']              = (boolean) Specify whether the index should be refreshed after performing the operation (default: true)
-     *        ['wait_for_merge']       = (boolean) Specify whether the request should block until the merge process is finished (default: true)
-     *        ['ignore_unavailable']   = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']     = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
     public function forceMerge($params = array())
     {
         $index = $this->extractArgument($params, 'index');

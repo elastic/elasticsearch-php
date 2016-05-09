@@ -479,4 +479,33 @@ class CatNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+     *        ['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['format']         = (string) a short version of the Accept header, e.g. json, yaml
+     *        ['actions']        = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
+     *        ['detailed']       = (boolean) Return detailed task information (default: false)
+     *        ['parent_node']    = (string) Return tasks with specified parent node.
+     *        ['parent_task']    = (number) Return tasks with specified parent task id. Set to -1 to return all.
+     *        ['h']              = (list) Comma-separated list of column names to display
+     *        ['help']           = (bool) Return help information
+     *        ['v']              = (bool) Verbose mode. Display column headers
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function tasks($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cat\Tasks $endpoint */
+        $endpoint = $endpointBuilder('Cat\Tasks');
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
 }

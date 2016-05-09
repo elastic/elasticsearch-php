@@ -32,6 +32,7 @@ The class defines the following methods:
 * <<Elasticsearch_Clientcreate_create,`create()`>>
 * <<Elasticsearch_Clientbulk_bulk,`bulk()`>>
 * <<Elasticsearch_Clientindex_index,`index()`>>
+* <<Elasticsearch_Clientreindex_reindex,`reindex()`>>
 * <<Elasticsearch_Clientsuggest_suggest,`suggest()`>>
 * <<Elasticsearch_Clientexplain_explain,`explain()`>>
 * <<Elasticsearch_Clientsearch_search,`search()`>>
@@ -619,6 +620,32 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->index($params);
+----
+****
+
+
+
+[[Elasticsearch_Clientreindex_reindex]]
+.`reindex()`
+****
+[source,php]
+----
+/*
+$params['refresh']             = (boolean) Should the effected indexes be refreshed?
+       ['timeout']             = (time) Time each individual bulk request should wait for shards that are unavailable
+       ['consistency']         = (enum) Explicit write consistency setting for the operation
+       ['wait_for_completion'] = (boolean) Should the request should block until the reindex is complete
+       ['requests_per_second'] = (float) The throttle for this request in sub-requests per second. 0 means set no throttle
+       ['body']                = (array) The search definition using the Query DSL and the prototype for the index request (Required)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->reindex($params);
 ----
 ****
 

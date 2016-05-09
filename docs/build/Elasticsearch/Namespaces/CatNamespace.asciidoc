@@ -30,6 +30,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_CatNamespacefielddata_fielddata,`fielddata()`>>
 * <<Elasticsearch_Namespaces_CatNamespaceplugins_plugins,`plugins()`>>
 * <<Elasticsearch_Namespaces_CatNamespacesegments_segments,`segments()`>>
+* <<Elasticsearch_Namespaces_CatNamespacetasks_tasks,`tasks()`>>
 
 
 
@@ -399,6 +400,7 @@ $params['local']          = (bool) Return local information, do not retrieve the
        ['help']           = (bool) Return help information
        ['v']              = (bool) Verbose mode. Display column headers
        ['full_id']        = (bool) Enables displaying the complete node ids
+       ['size']           = (enum) The multiplier in which to display values ([ "", "k", "m", "g", "t", "p" ])
        ['body']  = (array) Request body
 */
 
@@ -483,6 +485,30 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cat()->segments($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacetasks_tasks]]
+.`tasks()`
+****
+[source,php]
+----
+/*
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+       ['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+       ['format']         = (string) a short version of the Accept header, e.g. json, yaml
+       ['actions']        = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->tasks($params);
 ----
 ****
 

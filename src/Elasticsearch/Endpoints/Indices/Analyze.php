@@ -62,6 +62,10 @@ class Analyze extends AbstractEndpoint
             'text',
             'tokenizer',
             'format',
+            'char_filter',
+            'explain',
+            'attributes',
+            'format'
         );
     }
 

@@ -335,7 +335,7 @@ If no explicit choice is made, assumption is that redistribution obeys rules of 
 All contributions to the library are to be so that they can be licensed under both licenses.
 
 Apache v2.0 License:
->Copyright 2013-2014 Elasticsearch
+>Copyright 2013-2016 Elasticsearch
 >
 >Licensed under the Apache License, Version 2.0 (the "License");
 >you may not use this file except in compliance with the License.
@@ -350,7 +350,7 @@ Apache v2.0 License:
 >limitations under the License.
 
 LGPL v2.1 Notice:
->Copyright (C) 2013-2014 Elasticsearch
+>Copyright (C) 2013-2016 Elasticsearch
 >
 >This library is free software; you can redistribute it and/or
 >modify it under the terms of the GNU Lesser General Public

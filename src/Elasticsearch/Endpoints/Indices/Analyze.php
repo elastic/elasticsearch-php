@@ -56,7 +56,7 @@ class Analyze extends AbstractEndpoint
         return array(
             'analyzer',
             'field',
-            'filters',
+            'filter',
             'index',
             'prefer_local',
             'text',

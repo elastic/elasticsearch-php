@@ -684,7 +684,6 @@ class Client
      *        ['id']           = (string) Specific document ID (when the POST method is used)
      *        ['consistency']  = (enum) Explicit write consistency setting for the operation
      *        ['parent']       = (string) ID of the parent document
-     *        ['percolate']    = (string) Percolator queries to execute while indexing the document
      *        ['refresh']      = (boolean) Refresh the index after performing the operation
      *        ['replication']  = (enum) Specific replication type
      *        ['routing']      = (string) Specific routing value
@@ -767,7 +766,6 @@ class Client
      *        ['consistency']  = (enum) Explicit write consistency setting for the operation
      *        ['op_type']      = (enum) Explicit operation type
      *        ['parent']       = (string) ID of the parent document
-     *        ['percolate']    = (string) Percolator queries to execute while indexing the document
      *        ['refresh']      = (boolean) Refresh the index after performing the operation
      *        ['replication']  = (enum) Specific replication type
      *        ['routing']      = (string) Specific routing value
@@ -1100,7 +1098,6 @@ class Client
      *        ['fields']            = (list) A comma-separated list of fields to return in the response
      *        ['lang']              = (string) The script language (default: mvel)
      *        ['parent']            = (string) ID of the parent document
-     *        ['percolate']         = (string) Perform percolation during the operation; use specific registered query name, attribute, or wildcard
      *        ['refresh']           = (boolean) Refresh the index after performing the operation
      *        ['replication']       = (enum) Specific replication type
      *        ['retry_on_conflict'] = (number) Specify how many times should the operation be retried when a conflict occurs (default: 0)

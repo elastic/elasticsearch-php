@@ -9,7 +9,7 @@ namespace Elasticsearch\Endpoints;
  * @package  Elasticsearch\Endpoints\Indices
  * @author   Augustin Husson <husson.augustin@gmail.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elasticsearch.org
+ * @link     http://elastic.co
  */
 class Reindex extends AbstractEndpoint
 {

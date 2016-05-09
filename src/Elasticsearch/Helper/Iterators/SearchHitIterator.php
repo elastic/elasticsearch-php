@@ -11,7 +11,7 @@ use Iterator;
  * @package  Elasticsearch\Helper\Iterators
  * @author   Arturo Mejia <arturo.mejia@kreatetechnology.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elasticsearch.org
+ * @link     http://elastic.co
  * @see      Iterator
  */
 class SearchHitIterator implements Iterator, \Countable {

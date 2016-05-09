@@ -1441,7 +1441,8 @@ class Client
         }
     }
 
-    private function verifyNotNullOrEmpty($name, $var) {
+    private function verifyNotNullOrEmpty($name, $var)
+    {
         if ($var === null) {
             throw new InvalidArgumentException("$name cannot be null.");
         }

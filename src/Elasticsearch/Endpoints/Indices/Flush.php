@@ -17,7 +17,8 @@ class Flush extends AbstractEndpoint
 {
     protected $synced = false;
 
-    public function setSynced($synced) {
+    public function setSynced($synced)
+    {
         $this->synced = $synced;
     }
 

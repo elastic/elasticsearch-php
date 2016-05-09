@@ -15,7 +15,8 @@ use Iterator;
  * @link     http://elastic.co
  * @see      Iterator
  */
-class SearchResponseIterator implements Iterator {
+class SearchResponseIterator implements Iterator
+{
 
     /**
      * @var Client
@@ -67,7 +68,8 @@ class SearchResponseIterator implements Iterator {
     /**
      * Destructor
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->clearScroll();
     }
 

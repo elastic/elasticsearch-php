@@ -187,7 +187,6 @@ class Connection implements ConnectionInterface
 
                 if (isset($response['error']) === true) {
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
-
                         $this->log->warning("Curl exception encountered.");
 
                         $exception = $this->getCurlRetryException($request, $response);
@@ -566,7 +565,7 @@ class Connection implements ConnectionInterface
             $exception = new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
             $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
-        } elseif ($statusCode === 408 ) {
+        } elseif ($statusCode === 408) {
             $exception = new RequestTimeout408Exception($responseBody, $statusCode);
         }
 
@@ -628,15 +627,18 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
-    private function tryDeserialize400Error($response) {
+    private function tryDeserialize400Error($response)
+    {
         return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
     }
 
-    private function tryDeserialize500Error($response) {
+    private function tryDeserialize500Error($response)
+    {
         return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
     }
 
-    private function tryDeserializeError($response, $errorClass) {
+    private function tryDeserializeError($response, $errorClass)
+    {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
             // 2.0 structured exceptions
@@ -655,7 +657,6 @@ class Connection implements ConnectionInterface
                 $original = new $errorClass($response['body'], $response['status']);
 
                 return new $errorClass("$type: $cause", $response['status'], $original);
-
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
                 $original = new $errorClass($response['body'], $response['status']);
@@ -666,7 +667,6 @@ class Connection implements ConnectionInterface
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
             return new $errorClass($response['body'], $response['status']);
-
         }
 
         // <2.0 "i just blew up" nonstructured exception

@@ -1,6 +1,7 @@
 <?php
 
 namespace Elasticsearch\Namespaces;
+
 use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
 use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
 use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
@@ -114,5 +115,4 @@ class IngestNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
 }

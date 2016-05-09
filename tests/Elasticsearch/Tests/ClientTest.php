@@ -168,7 +168,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         try {
             $client->delete([
-                'index' => ['','',''],
+                'index' => ['', '', ''],
                 'type' => 'test',
                 'id' => 'test'
             ]);
@@ -180,7 +180,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         try {
             $client->delete([
                 'index' => 'test',
-                'type' => ['','',''],
+                'type' => ['', '', ''],
                 'id' => 'test'
             ]);
             $this->fail("InvalidArgumentException was not thrown");
@@ -266,6 +266,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             throw $e;
         }
     }
-
-
 }

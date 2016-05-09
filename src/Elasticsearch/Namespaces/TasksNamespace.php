@@ -1,9 +1,9 @@
 <?php
 
 namespace Elasticsearch\Namespaces;
+
 use Elasticsearch\Endpoints\Tasks\Cancel;
 use Elasticsearch\Endpoints\Tasks\Get;
-
 
 /**
  * Class TasksNamespace
@@ -70,6 +70,4 @@ class TasksNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
-
 }

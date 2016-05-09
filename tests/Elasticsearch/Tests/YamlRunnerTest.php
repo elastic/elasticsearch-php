@@ -359,7 +359,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    static function replaceWithStash($values, $stash)
+    public static function replaceWithStash($values, $stash)
     {
         if (count($stash) === 0) {
             return $values;
@@ -372,7 +372,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $item = $stash[$item];
                     }
                 } elseif (is_object($item) === true) {
-
                     $tItem = json_decode(json_encode($item), true);
 
                     // Have to make sure we don't convert empty objects ( {} ) into arrays
@@ -488,7 +487,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     if (empty($settings) === true) {
                         $response = YamlRunnerTest::replaceWithStash($response, $stash);
                         $this->assertTruthy($response, $settings);
-
                     } else {
                         $settings = YamlRunnerTest::replaceWithStash($settings, $stash);
                         echo "settings after replace: ";
@@ -519,7 +517,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     print_r($stash);
                     echo "\n";
                     ob_flush();
-
                 } elseif ($operator === "length") {
                     $expectedCount = $this->getValue($settings, key($settings));
                     $this->assertCount($expectedCount, $this->getNestedVar($response, key($settings)));
@@ -578,7 +575,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function handleCaughtException(\Exception $exception, $expectedError) {
+    private function handleCaughtException(\Exception $exception, $expectedError)
+    {
         $reflect = new ReflectionClass($exception);
         $caught = $reflect->getShortName();
         $passed = false;
@@ -627,7 +625,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    private static function checkExceptionRegex($expectedError, \Exception $exception) {
+    private static function checkExceptionRegex($expectedError, \Exception $exception)
+    {
         return isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1;
     }
 
@@ -728,7 +727,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      * @param $file
      * @return mixed
      */
-    private function checkForList($document) {
+    private function checkForList($document)
+    {
         return str_replace("tasks.list", "tasks.get", $document);
     }
 

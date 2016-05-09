@@ -15,12 +15,13 @@ use Mockery as m;
 class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function tearDown() {
+    public function tearDown()
+    {
         m::close();
     }
 
-    public function testWithNoResults() {
-
+    public function testWithNoResults()
+    {
         $search_params = array(
             'search_type' => 'scan',
             'scroll'      => '5m',
@@ -77,7 +78,7 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
 
-        foreach($responses as $i => $response) {
+        foreach ($responses as $i => $response) {
         }
 
         $this->assertEquals(0, $i);
@@ -178,10 +179,9 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
 
-        foreach($responses as $i => $response) {
+        foreach ($responses as $i => $response) {
         }
 
         $this->assertEquals(2, $i);
     }
-
 }

@@ -106,7 +106,8 @@ class ClientBuilder
      * @throws Common\Exceptions\RuntimeException
      * @return \Elasticsearch\Client
      */
-    public static function fromConfig($config, $quiet = false) {
+    public static function fromConfig($config, $quiet = false)
+    {
         $builder = new self;
         foreach ($config as $key => $value) {
             $method = "set$key";

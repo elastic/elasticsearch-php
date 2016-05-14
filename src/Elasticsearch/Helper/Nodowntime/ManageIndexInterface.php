@@ -46,7 +46,6 @@ interface ManageIndexInterface
      * @param bool $needToCreateIndexDest
      * @return void
      * @throws IndexNotFoundException
-     * @throws BadMethodCallException
      */
     public function reindex($alias, $needToCreateIndexDest = true);
 

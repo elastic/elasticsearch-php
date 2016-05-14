@@ -5,7 +5,7 @@ namespace Elasticsearch\Helper\Nodowntime\Exceptions;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
 
 /**
- * IndexNotFoundException
+ * IndexNotFoundException thrown when an index is not found
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Helper\Nodowntime\Exceptions

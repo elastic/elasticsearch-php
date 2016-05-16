@@ -42,14 +42,15 @@ class ManageIndex implements ManageIndexInterface
         }
 
         $params = array(
-            'index' => $index
+            'index' => $index,
+            'body' => array(
+                'aliases' => array(
+                    $alias => json_decode("{}")
+                )),
         );
 
         $this->client->indices()->create($params);
 
-        // i have tried to put directly the alias inside the parameters but i always have the error 'illegal_argument_exception: No alias is specified'. (Don't know why, i must have missed something)  So i put alias in the second step
-
-        $this->putAlias($alias, $index);
     }
 
     /**
@@ -630,12 +631,16 @@ class ManageIndex implements ManageIndexInterface
         $params = array(
             'body' => array(
                 "actions" => array(
-                    'remove' => array(
-                        'index' => $index_src,
-                        'alias' => $alias),
-                    'add' => array(
-                        'index' => $index_dest,
-                        'alias' => $alias),
+                    0 => array(
+                        'remove' => array(
+                            'index' => $index_src,
+                            'alias' => $alias),
+                    ),
+                    1 => array(
+                        'add' => array(
+                            'index' => $index_dest,
+                            'alias' => $alias),
+                    )
                 ),
             ),
         );

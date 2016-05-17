@@ -2,8 +2,10 @@
 
 
 namespace Elasticsearch\Helper\Nodowntime;
+
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadMethodCallException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Helper\Nodowntime\Exceptions\IndexNotFoundException;
 
 /**
@@ -17,6 +19,14 @@ use Elasticsearch\Helper\Nodowntime\Exceptions\IndexNotFoundException;
  */
 interface ManageIndexInterface
 {
+
+    /**
+     * You can pass an alias name or an index name here.
+     *
+     * @param string $index [REQUIRED]
+     * @return bool
+     */
+    public function existsIndex($index);
 
     /**
      * @param string $alias [REQUIRED]
@@ -36,6 +46,7 @@ interface ManageIndexInterface
      * @param string $alias_src [REQUIRED]
      * @param string $alias_dest [REQUIRED]
      * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      * @throws BadMethodCallException
      */
@@ -45,6 +56,7 @@ interface ManageIndexInterface
      * @param string $alias [REQUIRED]
      * @param bool $needToCreateIndexDest
      * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function reindex($alias, $needToCreateIndexDest = true);
@@ -68,7 +80,8 @@ interface ManageIndexInterface
      * @param array $settings [REQUIRED]
      * @param bool $needReindexation : The process of reindexation can be so long, instead of calling reindex method inside this method, you may want to call it in an asynchronous process.
      * But if you pass this parameters to false, don't forget to reindex. If you don't do it, you will not see your modification of the settings
-     * @return array
+     * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function updateSettings($alias, $settings, $needReindexation = true);
@@ -78,7 +91,8 @@ interface ManageIndexInterface
      * @param array $mapping [REQUIRED]
      * @param bool $needReindexation : The process of reindexation can be so long, instead of calling reindex method inside this method, you may want to call it in an asynchronous process.
      * But if you pass this parameters to false, don't forget to reindex. If you don't do it, you will not see your modification of the mappings
-     * @return array
+     * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function updateMapping($alias, $mapping, $needReindexation = true);
@@ -115,6 +129,26 @@ interface ManageIndexInterface
      * @return array
      */
     public function searchDocuments($alias, $query, $type = null, $size = 10, $from = 0);
+
+    /**
+     * @param string $index [REQUIRED]
+     * @param $id [REQUIRED]
+     * @param string $type [REQUIRED]
+     * @param array $body [REQUIRED]
+     * @return boolean
+     * @throws IndexNotFoundException
+     */
+    public function updateDocument($index, $id, $type, $body);
+
+    /**
+     * @param string $index [REQUIRED]
+     * @param $id [REQUIRED]
+     * @param string $type [REQUIRED]
+     * @param array $body [REQUIRED]
+     * @return boolean
+     * @throws IndexNotFoundException
+     */
+    public function addDocument($index, $id, $type, $body);
 
     /**
      * To use this method you need to install the plugin delete-by-query

@@ -5,6 +5,7 @@ namespace Elasticsearch\Helper\Nodowntime;
 
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadMethodCallException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Helper\Nodowntime\Exceptions\IndexNotFoundException;
 
 /**
@@ -27,6 +28,21 @@ class ManageIndex implements ManageIndexInterface
     protected static $INDEX_NAME_CONVENTION_1 = '_v1';
     protected static $INDEX_NAME_CONVENTION_2 = '_v2';
 
+    /**
+     * You can pass an alias name or an index name here.
+     *
+     * @param string $index [REQUIRED]
+     * @return bool
+     */
+    public function existsIndex($index)
+    {
+        $params = array(
+            'index' => $index,
+        );
+
+        return $this->client->indices()->exists($params);
+    }
+
 
     /**
      * @param string $alias [REQUIRED]
@@ -37,7 +53,7 @@ class ManageIndex implements ManageIndexInterface
     {
         $index = $alias . self::$INDEX_NAME_CONVENTION_1;
 
-        if ($this->existIndex($index)) {
+        if ($this->existsIndex($index)) {
             throw new BadMethodCallException('$index ' . $index . ' already exists. Cannot be created again');
         }
 
@@ -45,7 +61,7 @@ class ManageIndex implements ManageIndexInterface
             'index' => $index,
             'body' => array(
                 'aliases' => array(
-                    $alias => json_decode("{}")
+                    $alias => json_decode('{}')
                 )),
         );
 
@@ -64,7 +80,7 @@ class ManageIndex implements ManageIndexInterface
             'index' => $index
         );
 
-        if (!$this->existIndex($index)) {
+        if (!$this->existsIndex($index)) {
             throw new IndexNotFoundException('$index ' . $index . 'not found');
         }
 
@@ -75,6 +91,7 @@ class ManageIndex implements ManageIndexInterface
      * @param string $alias_src [REQUIRED]
      * @param string $alias_dest [REQUIRED]
      * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      * @throws BadMethodCallException
      */
@@ -94,8 +111,11 @@ class ManageIndex implements ManageIndexInterface
 
         $this->copyMappingAndSetting($index_src, $index_dest);
 
-        if ($this->countDocuments($index_src) > 0) { // currently, the reindex api doesn't work when there are no documents inside the index source
-            $this->copyDocuments($index_src, $index_dest);
+        // currently, the reindex api doesn't work when there are no documents inside the index source
+        //So if there are some documents to copy and if the reindex Api send an error, we throw a RuntimeException
+        if (($this->countDocuments($index_src) !== 0) && !$this->copyDocuments($index_src, $index_dest)) {
+            $this->deleteIndex($index_dest);
+            throw new RuntimeException('reindex failed');
         }
 
         $this->putAlias($alias_dest, $index_dest);
@@ -106,6 +126,7 @@ class ManageIndex implements ManageIndexInterface
      * @param string $alias [REQUIRED]
      * @param bool $needToCreateIndexDest
      * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function reindex($alias, $needToCreateIndexDest = true)
@@ -119,15 +140,18 @@ class ManageIndex implements ManageIndexInterface
 
 
         if ($needToCreateIndexDest) { // for example, if you have updated your settings/mappings, your index_dest is already created. So you don't need to create it again
-            if ($this->existIndex($index_dest)) {
+            if ($this->existsIndex($index_dest)) {
                 $this->deleteIndex($index_dest);
             }
 
             $this->copyMappingAndSetting($index_src, $index_dest);
         }
 
-        if ($this->countDocuments($index_src) > 0) { // currently, the reindex api doesn't work when there are no documents inside the index source
-            $this->copyDocuments($index_src, $index_dest);
+        // currently, the reindex api doesn't work when there are no documents inside the index source
+        //So if there are some documents to copy and if the reindex Api send an error, we throw a RuntimeException
+        if (($this->countDocuments($index_src) !== 0) && !$this->copyDocuments($index_src, $index_dest)) {
+            $this->deleteIndex($index_dest);
+            throw new RuntimeException('reindex failed');
         }
 
         $this->switchIndex($alias, $index_src, $index_dest);
@@ -174,7 +198,8 @@ class ManageIndex implements ManageIndexInterface
      * @param array $settings [REQUIRED]
      * @param bool $needReindexation : The process of reindexation can be so long, instead of calling reindex method inside this method, you may want to call it in an asynchronous process.
      * But if you pass this parameters to false, don't forget to reindex. If you don't do it, you will not see your modification of the settings
-     * @return array
+     * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function updateSettings($alias, $settings, $needReindexation = true)
@@ -185,7 +210,7 @@ class ManageIndex implements ManageIndexInterface
 
         $index_src = $this->findIndexByAlias($alias);
         $index_dest = $this->getIndexDest($alias, $index_src);
-        if ($this->existIndex($index_dest)) {
+        if ($this->existsIndex($index_dest)) {
             $this->deleteIndex($index_dest);
         }
 
@@ -193,12 +218,18 @@ class ManageIndex implements ManageIndexInterface
 
         $params = array(
             'index' => $index_dest,
-            'body' => array(
-                'settings' => $settings
-            ),
         );
 
-        if (count($mappings) > 0) {
+        if (is_array($settings) && count($settings) > 0) {
+            $params['body'] = array(
+                'settings' => $settings
+            );
+        }
+
+        if (is_array($mappings) && count($mappings) > 0) {
+            if ($params['body'] === null) {
+                $params['body'] = array();
+            }
             $params['body']['mappings'] = $mappings;
         }
 
@@ -214,7 +245,8 @@ class ManageIndex implements ManageIndexInterface
      * @param array $mapping [REQUIRED]
      * @param bool $needReindexation : The process of reindexation can be so long, instead of calling reindex method inside this method, you may want to call it in an asynchronous process.
      * But if you pass this parameters to false, don't forget to reindex. If you don't do it, you will not see your modification of the mappings
-     * @return array
+     * @return void
+     * @throws RuntimeException
      * @throws IndexNotFoundException
      */
     public function updateMapping($alias, $mapping, $needReindexation = true)
@@ -225,7 +257,7 @@ class ManageIndex implements ManageIndexInterface
 
         $index_src = $this->findIndexByAlias($alias);
         $index_dest = $this->getIndexDest($alias, $index_src);
-        if ($this->existIndex($index_dest)) {
+        if ($this->existsIndex($index_dest)) {
             $this->deleteIndex($index_dest);
         }
 
@@ -350,6 +382,38 @@ class ManageIndex implements ManageIndexInterface
     }
 
     /**
+     * @param string $index [REQUIRED] If the alias is associated to an unique index, you can pass an alias rather than an index
+     * @param $id [REQUIRED]
+     * @param string $type [REQUIRED]
+     * @param array $body [REQUIRED]
+     * @return boolean
+     * @throws IndexNotFoundException
+     */
+    public function updateDocument($index, $id, $type, $body)
+    {
+        if (!$this->existsIndex($index)) {
+            throw new IndexNotFoundException('$index ' . $index . ' not found');
+        }
+        return $this->indexDocument($index, $id, $body, $type) > 1;
+    }
+
+    /**
+     * @param string $index [REQUIRED] If the alias is associated to an unique index, you can pass an alias rather than an index
+     * @param $id [REQUIRED]
+     * @param string $type [REQUIRED]
+     * @param array $body [REQUIRED]
+     * @return boolean
+     * @throws IndexNotFoundException
+     */
+    public function addDocument($index, $id, $type, $body)
+    {
+        if (!$this->existsIndex($index)) {
+            throw new IndexNotFoundException('$index ' . $index . ' not found');
+        }
+        return $this->indexDocument($index, $id, $body, $type) === 1;
+    }
+
+    /**
      * To use this method you need to install the plugin delete-by-query
      * @see https://www.elastic.co/guide/en/elasticsearch/plugins/current/plugins-delete-by-query.html
      *
@@ -418,6 +482,28 @@ class ManageIndex implements ManageIndexInterface
 
     /**
      * @param string $index
+     * @param string|integer $id
+     * @param array $body
+     * @param string $type
+     * @return mixed
+     */
+    protected function indexDocument($index, $id, $body, $type)
+    {
+
+        $params = array(
+            'index' => $index,
+            'type' => $type,
+            'id' => $id,
+            'body' => $body
+        );
+
+        $response = $this->client->index($params);
+
+        return $response['_version'];
+    }
+
+    /**
+     * @param string $index
      */
     protected function openIndex($index)
     {
@@ -460,7 +546,7 @@ class ManageIndex implements ManageIndexInterface
             'index' => $index,
         );
 
-        return $this->client->count($params)["count"];
+        return $this->client->count($params)['count'];
     }
 
     /**
@@ -477,19 +563,6 @@ class ManageIndex implements ManageIndexInterface
     }
 
     /**
-     * @param string $index
-     * @return bool
-     */
-    protected function existIndex($index)
-    {
-        $params = array(
-            'index' => $index,
-        );
-
-        return $this->client->indices()->exists($params);
-    }
-
-    /**
      * @param $index_source
      * @param $index_dest
      */
@@ -499,14 +572,13 @@ class ManageIndex implements ManageIndexInterface
             'index' => $index_dest,
         );
 
-        $mapping_source = $this->getMappingByIndex($index_source);
-        $mapping = $mapping_source[$index_source]['mappings'];
+        $mapping_source = $this->getMappingByIndex($index_source)[$index_source]['mappings'];
 
         $setting_source = $this->getSettingsByIndex($index_source)[$index_source]['settings']['index'];
 
         $this->copySettings($params, $setting_source);
 
-        if (($mapping !== null) && (count($mapping) !== 0)) {
+        if (($mapping_source !== null) && (count($mapping_source) !== 0)) {
             $params['body'] = array(
                 'mappings' => $mapping_source[$index_source]['mappings']
             );
@@ -565,6 +637,7 @@ class ManageIndex implements ManageIndexInterface
     /**
      * @param string $index_src
      * @param string $index_dest
+     * @return boolean
      */
     protected function copyDocuments($index_src, $index_dest)
     {
@@ -579,7 +652,9 @@ class ManageIndex implements ManageIndexInterface
             )
         );
 
-        $this->client->reindex($params);
+        $response = $this->client->reindex($params);
+
+        return count($response['failures']) === 0;
     }
 
     /**
@@ -630,7 +705,7 @@ class ManageIndex implements ManageIndexInterface
 
         $params = array(
             'body' => array(
-                "actions" => array(
+                'actions' => array(
                     0 => array(
                         'remove' => array(
                             'index' => $index_src,

@@ -39,7 +39,7 @@ class FieldData extends AbstractEndpoint
     protected function getURI()
     {
         $fields = $this->fields;
-        $uri   = "/_cat/fielddata";
+        $uri = "/_cat/fielddata";
 
         if (isset($fields) === true) {
             $uri = "/_cat/fielddata/$fields";
@@ -53,7 +53,7 @@ class FieldData extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'bytes',
             'local',
             'master_timeout',
@@ -61,7 +61,7 @@ class FieldData extends AbstractEndpoint
             'help',
             'v',
             'fields',
-        );
+        ];
     }
 
     /**

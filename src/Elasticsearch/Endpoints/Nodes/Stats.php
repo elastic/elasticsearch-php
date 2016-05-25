@@ -67,7 +67,7 @@ class Stats extends AbstractNodesEndpoint
         $metric = $this->metric;
         $index_metric = $this->indexMetric;
         $node_id = $this->nodeID;
-        $uri   = "/_nodes/stats";
+        $uri = "/_nodes/stats";
 
         if (isset($node_id) === true && isset($metric) === true && isset($index_metric) === true) {
             $uri = "/_nodes/$node_id/stats/$metric/$index_metric";
@@ -89,7 +89,7 @@ class Stats extends AbstractNodesEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
@@ -98,7 +98,7 @@ class Stats extends AbstractNodesEndpoint
             'level',
             'types',
             'timeout',
-        );
+        ];
     }
 
     /**

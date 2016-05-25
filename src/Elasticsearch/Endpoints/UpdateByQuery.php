@@ -13,7 +13,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class UpdateByQuery extends AbstractEndpoint
 {
     /**
@@ -34,9 +33,9 @@ class UpdateByQuery extends AbstractEndpoint
             );
         }
         $this->body = $body;
+
         return $this;
     }
-
 
 
     /**
@@ -52,7 +51,7 @@ class UpdateByQuery extends AbstractEndpoint
         }
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/_update_by_query";
+        $uri = "/$index/_update_by_query";
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_update_by_query";
         }
@@ -69,7 +68,7 @@ class UpdateByQuery extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'analyzer',
             'analyze_wildcard',
             'default_operator',
@@ -110,7 +109,7 @@ class UpdateByQuery extends AbstractEndpoint
             'consistency',
             'scroll_size',
             'wait_for_completion',
-        );
+        ];
     }
 
 

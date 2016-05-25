@@ -20,7 +20,7 @@ class Health extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/health";
+        $uri = "/_cat/health";
 
         return $uri;
     }
@@ -30,14 +30,14 @@ class Health extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'ts',
             'v',
-        );
+        ];
     }
 
     /**

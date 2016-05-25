@@ -39,7 +39,7 @@ class MGet extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_mget";
+        $uri = "/_mget";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_mget";
@@ -57,7 +57,7 @@ class MGet extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'fields',
             'preference',
             'realtime',
@@ -65,7 +65,7 @@ class MGet extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
-        );
+        ];
     }
 
     /**

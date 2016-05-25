@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class FlushSynced
@@ -14,7 +14,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class FlushSynced extends AbstractEndpoint
 {
     /**
@@ -23,7 +22,7 @@ class FlushSynced extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_flush/synced";
+        $uri = "/_flush/synced";
         if (isset($index) === true) {
             $uri = "/$index/_flush/synced";
         }
@@ -37,11 +36,11 @@ class FlushSynced extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+        ];
     }
 
 

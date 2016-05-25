@@ -20,7 +20,7 @@ class Nodes extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/nodes";
+        $uri = "/_cat/nodes";
 
         return $uri;
     }
@@ -30,13 +30,13 @@ class Nodes extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

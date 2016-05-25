@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Validate;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Query
@@ -46,7 +46,7 @@ class Query extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'explain',
             'ignore_unavailable',
             'allow_no_indices',
@@ -60,7 +60,7 @@ class Query extends AbstractEndpoint
             'lenient',
             'lowercase_expanded_terms',
             'rewrite',
-        );
+        ];
     }
 
     /**

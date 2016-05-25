@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Close
@@ -28,7 +28,7 @@ class Close extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $uri   = "/$index/_close";
+        $uri = "/$index/_close";
 
         if (isset($index) === true) {
             $uri = "/$index/_close";
@@ -42,13 +42,13 @@ class Close extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+        ];
     }
 
     /**

@@ -55,9 +55,9 @@ class TermVector extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
-        $uri   = "/$index/$type/$id/_termvector";
+        $type = $this->type;
+        $id = $this->id;
+        $uri = "/$index/$type/$id/_termvector";
 
         return $uri;
     }
@@ -67,7 +67,7 @@ class TermVector extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'term_statistics',
             'field_statistics',
             'dfs',
@@ -81,7 +81,7 @@ class TermVector extends AbstractEndpoint
             'realtime',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**

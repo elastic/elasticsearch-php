@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
@@ -14,7 +14,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Delete extends AbstractEndpoint
 {
     // The name of the template
@@ -48,7 +47,7 @@ class Delete extends AbstractEndpoint
             );
         }
         $name = $this->name;
-        $uri   = "/_template/$name";
+        $uri = "/_template/$name";
 
         if (isset($name) === true) {
             $uri = "/_template/$name";
@@ -62,10 +61,10 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
-        );
+        ];
     }
 
     /**

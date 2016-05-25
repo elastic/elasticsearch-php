@@ -39,7 +39,7 @@ class Exists extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
+        $uri = "/$index/$type/$id";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id";
@@ -53,13 +53,13 @@ class Exists extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'parent',
             'preference',
             'realtime',
             'refresh',
             'routing',
-        );
+        ];
     }
 
     /**

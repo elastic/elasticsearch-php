@@ -13,7 +13,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class ThreadPool extends AbstractEndpoint
 {
     /**
@@ -21,7 +20,7 @@ class ThreadPool extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/thread_pool";
+        $uri = "/_cat/thread_pool";
 
         return $uri;
     }
@@ -31,14 +30,14 @@ class ThreadPool extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
             'full_id',
-        );
+        ];
     }
 
     /**

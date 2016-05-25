@@ -21,7 +21,7 @@ class ClearCache extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_cache/clear";
+        $uri = "/_cache/clear";
 
         if (isset($index) === true) {
             $uri = "/$index/_cache/clear";
@@ -35,7 +35,7 @@ class ClearCache extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'field_data',
             'fielddata',
             'fields',
@@ -46,7 +46,7 @@ class ClearCache extends AbstractEndpoint
             'index',
             'recycler',
             'request',
-        );
+        ];
     }
 
     /**

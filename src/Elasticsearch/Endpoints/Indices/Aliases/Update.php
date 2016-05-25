@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Aliases;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Update
@@ -38,7 +38,7 @@ class Update extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_aliases";
+        $uri = "/_aliases";
 
         return $uri;
     }
@@ -48,10 +48,10 @@ class Update extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
-        );
+        ];
     }
 
     /**

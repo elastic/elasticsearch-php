@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Script;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -51,9 +51,9 @@ class Get extends AbstractEndpoint
                 'id is required for put'
             );
         }
-        $id   = $this->id;
+        $id = $this->id;
         $lang = $this->lang;
-        $uri  = "/_scripts/$lang/$id";
+        $uri = "/_scripts/$lang/$id";
 
         return $uri;
     }
@@ -63,10 +63,10 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'version_type',
-            'version'
-        );
+            'version',
+        ];
     }
 
     /**

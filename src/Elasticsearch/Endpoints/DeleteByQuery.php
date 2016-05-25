@@ -45,7 +45,7 @@ class DeleteByQuery extends AbstractEndpoint
         }
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/_query";
+        $uri = "/$index/_query";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_query";
@@ -61,7 +61,7 @@ class DeleteByQuery extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'q',
             'size',
             'timeout',
@@ -69,7 +69,7 @@ class DeleteByQuery extends AbstractEndpoint
             'df',
             'analyzer',
             'default_operator',
-        );
+        ];
     }
 
     /**

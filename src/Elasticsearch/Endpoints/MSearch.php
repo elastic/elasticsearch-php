@@ -23,7 +23,7 @@ class MSearch extends AbstractEndpoint
     protected $serializer;
 
     /**
-     * @param Transport           $transport
+     * @param Transport $transport
      * @param SerializerInterface $serializer
      */
     public function __construct(Transport $transport, SerializerInterface $serializer)
@@ -47,7 +47,7 @@ class MSearch extends AbstractEndpoint
         if (is_array($body) === true) {
             $bulkBody = "";
             foreach ($body as $item) {
-                $bulkBody .= $this->serializer->serialize($item)."\n";
+                $bulkBody .= $this->serializer->serialize($item) . "\n";
             }
             $body = $bulkBody;
         }
@@ -64,7 +64,7 @@ class MSearch extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_msearch";
+        $uri = "/_msearch";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_msearch";
@@ -82,9 +82,9 @@ class MSearch extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'search_type',
-        );
+        ];
     }
 
     /**

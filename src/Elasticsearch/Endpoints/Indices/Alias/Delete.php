@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
@@ -53,7 +53,7 @@ class Delete extends AbstractEndpoint
         }
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/$index/_alias/$name";
+        $uri = "/$index/_alias/$name";
 
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_alias/$name";
@@ -67,10 +67,10 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
-        );
+        ];
     }
 
     /**

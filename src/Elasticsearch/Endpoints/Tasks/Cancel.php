@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Tasks;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Cancel
@@ -14,7 +14,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Cancel extends AbstractEndpoint
 {
     // Cancel the task with specified task id (node_id:task_number)
@@ -33,6 +32,7 @@ class Cancel extends AbstractEndpoint
         }
 
         $this->task_id = $task_id;
+
         return $this;
     }
 
@@ -43,7 +43,7 @@ class Cancel extends AbstractEndpoint
     protected function getURI()
     {
         $task_id = $this->task_id;
-        $uri   = "/_tasks/_cancel";
+        $uri = "/_tasks/_cancel";
         if (isset($task_id) === true) {
             $uri = "/_tasks/$task_id/_cancel";
         }
@@ -57,12 +57,12 @@ class Cancel extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'node_id',
             'actions',
             'parent_node',
             'parent_task',
-        );
+        ];
     }
 
 

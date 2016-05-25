@@ -17,7 +17,7 @@ use Elasticsearch\Transport;
 class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
     /**
-     * @param Transport           $transport
+     * @param Transport $transport
      * @param SerializerInterface $serializer
      */
     public function __construct(Transport $transport, SerializerInterface $serializer)
@@ -61,13 +61,13 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'consistency',
             'refresh',
             'replication',
             'type',
-            'fields'
-        );
+            'fields',
+        ];
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
@@ -72,7 +72,7 @@ class Delete extends AbstractEndpoint
         }
         $repository = $this->repository;
         $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot";
+        $uri = "/_snapshot/$repository/$snapshot";
 
         if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot";
@@ -86,9 +86,9 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
-        );
+        ];
     }
 
     /**

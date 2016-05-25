@@ -21,12 +21,12 @@ class Flush extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_flush";
+        $uri = "/_flush";
 
         if (isset($index) === true) {
             $uri = "/$index/_flush";
         }
-        
+
         return $uri;
     }
 
@@ -35,13 +35,13 @@ class Flush extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'force',
             'wait_if_ongoing',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+        ];
     }
 
     /**

@@ -18,7 +18,7 @@ class Info extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/";
+        $uri = "/";
 
         return $uri;
     }
@@ -28,8 +28,8 @@ class Info extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-        );
+        return [
+        ];
     }
 
     /**

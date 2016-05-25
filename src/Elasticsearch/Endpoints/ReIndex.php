@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,7 +13,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class ReIndex extends AbstractEndpoint
 {
     /**
@@ -35,9 +33,9 @@ class ReIndex extends AbstractEndpoint
             );
         }
         $this->body = $body;
+
         return $this;
     }
-
 
 
     /**
@@ -45,7 +43,7 @@ class ReIndex extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_reindex";
+        $uri = "/_reindex";
 
         return $uri;
     }
@@ -56,12 +54,12 @@ class ReIndex extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'refresh',
             'timeout',
             'consistency',
             'wait_for_completion',
-        );
+        ];
     }
 
 
@@ -74,6 +72,7 @@ class ReIndex extends AbstractEndpoint
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Put');
         }
+
         return $this->body;
     }
 

@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Exists
@@ -28,7 +28,7 @@ class Exists extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $uri   = "/$index";
+        $uri = "/$index";
 
         if (isset($index) === true) {
             $uri = "/$index";
@@ -42,12 +42,12 @@ class Exists extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'local',
-        );
+        ];
     }
 
     /**

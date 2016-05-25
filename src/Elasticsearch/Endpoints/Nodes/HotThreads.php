@@ -19,7 +19,7 @@ class HotThreads extends AbstractNodesEndpoint
     protected function getURI()
     {
         $node_id = $this->nodeID;
-        $uri   = "/_cluster/nodes/hotthreads";
+        $uri = "/_cluster/nodes/hotthreads";
 
         if (isset($node_id) === true) {
             $uri = "/_cluster/nodes/$node_id/hotthreads";
@@ -33,14 +33,14 @@ class HotThreads extends AbstractNodesEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'interval',
             'snapshots',
             'threads',
             'ignore_idle_threads',
             'type',
             'timeout',
-        );
+        ];
     }
 
     /**

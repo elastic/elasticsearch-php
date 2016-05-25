@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Analyze
@@ -39,7 +39,7 @@ class Analyze extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_analyze";
+        $uri = "/_analyze";
 
         if (isset($index) === true) {
             $uri = "/$index/_analyze";
@@ -53,7 +53,7 @@ class Analyze extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'analyzer',
             'char_filters',
             'char_filter',
@@ -67,7 +67,7 @@ class Analyze extends AbstractEndpoint
             'explain',
             'attributes',
             'format',
-        );
+        ];
     }
 
     /**

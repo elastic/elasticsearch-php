@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
@@ -53,7 +53,7 @@ class Delete extends AbstractEndpoint
         }
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/$index/_warmer/$name";
+        $uri = "/$index/_warmer/$name";
 
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_warmer/$name";
@@ -67,10 +67,10 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'name',
-        );
+        ];
     }
 
     /**

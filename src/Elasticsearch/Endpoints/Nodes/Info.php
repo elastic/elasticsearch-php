@@ -43,7 +43,7 @@ class Info extends AbstractNodesEndpoint
     {
         $node_id = $this->nodeID;
         $metric = $this->metric;
-        $uri   = "/_nodes";
+        $uri = "/_nodes";
 
         if (isset($node_id) === true && isset($metric) === true) {
             $uri = "/_nodes/$node_id/$metric";
@@ -61,11 +61,11 @@ class Info extends AbstractNodesEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'flat_settings',
             'human',
             'timeout',
-        );
+        ];
     }
 
     /**

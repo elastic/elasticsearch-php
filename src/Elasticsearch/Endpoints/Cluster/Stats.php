@@ -40,7 +40,7 @@ class Stats extends AbstractEndpoint
     protected function getURI()
     {
         $node_id = $this->nodeID;
-        $uri   = "/_cluster/stats";
+        $uri = "/_cluster/stats";
 
         if (isset($node_id) === true) {
             $uri = "/_cluster/stats/nodes/$node_id";
@@ -54,11 +54,11 @@ class Stats extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'flat_settings',
             'human',
             'timeout',
-        );
+        ];
     }
 
     /**

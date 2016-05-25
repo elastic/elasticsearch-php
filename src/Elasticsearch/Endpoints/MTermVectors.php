@@ -56,7 +56,9 @@ class MTermVectors extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
+            'realtime',
+            'version',
+            'version_type',
         );
     }
 

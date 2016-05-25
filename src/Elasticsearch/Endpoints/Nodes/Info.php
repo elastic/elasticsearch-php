@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace Elasticsearch\Endpoints\Nodes;
 
 /**
  * Class Info
@@ -64,6 +64,7 @@ class Info extends AbstractNodesEndpoint
         return array(
             'flat_settings',
             'human',
+            'timeout',
         );
     }
 

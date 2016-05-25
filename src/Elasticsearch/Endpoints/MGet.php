@@ -1,20 +1,19 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class ValidateQuery
+ * Class MGet
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class ValidateQuery extends AbstractEndpoint
+class MGet extends AbstractEndpoint
 {
     /**
      * @param array $body
@@ -40,12 +39,14 @@ class ValidateQuery extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_validate/query";
+        $uri   = "/_mget";
 
         if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_validate/query";
+            $uri = "/$index/$type/_mget";
         } elseif (isset($index) === true) {
-            $uri = "/$index/_validate/query";
+            $uri = "/$index/_mget";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_mget";
         }
 
         return $uri;
@@ -57,14 +58,27 @@ class ValidateQuery extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'explain',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
-            'operation_threading',
-            'source',
-            'q',
+            'fields',
+            'preference',
+            'realtime',
+            'refresh',
+            '_source',
+            '_source_exclude',
+            '_source_include',
         );
+    }
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for MGet');
+        }
+
+        return $this->body;
     }
 
     /**
@@ -72,6 +86,6 @@ class ValidateQuery extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

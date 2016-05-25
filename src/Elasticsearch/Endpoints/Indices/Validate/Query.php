@@ -48,16 +48,18 @@ class Query extends AbstractEndpoint
     {
         return array(
             'explain',
-            'ignore_indices',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'operation_threading',
-            'source',
             'q',
-            'df',
-            'default_operator',
             'analyzer',
             'analyze_wildcard',
+            'default_operator',
+            'df',
             'lenient',
-            'lowercase_expanded_terms'
+            'lowercase_expanded_terms',
+            'rewrite',
         );
     }
 

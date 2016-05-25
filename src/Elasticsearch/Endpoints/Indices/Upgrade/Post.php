@@ -46,11 +46,11 @@ class Post extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'wait_for_completion',
-            'only_ancient_segments',
-            'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'ignore_unavailable',
+            'wait_for_completion',
+            'only_ancient_segments',
         );
     }
 

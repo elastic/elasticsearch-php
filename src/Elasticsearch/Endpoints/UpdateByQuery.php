@@ -2,19 +2,19 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Search
+ * Class UpdateByQuery
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package Elasticsearch\Endpoints *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Search extends AbstractEndpoint
+
+class UpdateByQuery extends AbstractEndpoint
 {
     /**
      * @param array $body
@@ -28,30 +28,41 @@ class Search extends AbstractEndpoint
             return $this;
         }
 
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
         $this->body = $body;
-
         return $this;
     }
 
+
+
     /**
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
      * @return string
      */
     protected function getURI()
     {
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for UpdateByQuery'
+            );
+        }
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_search";
-
+        $uri   = "/$index/_update_by_query";
         if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_search";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_search";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_search";
+            $uri = "/$index/$type/_update_by_query";
+        }
+        if (isset($index) === true) {
+            $uri = "/$index/_update_by_query";
         }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -69,6 +80,7 @@ class Search extends AbstractEndpoint
             'from',
             'ignore_unavailable',
             'allow_no_indices',
+            'conflicts',
             'expand_wildcards',
             'lenient',
             'lowercase_expanded_terms',
@@ -77,6 +89,7 @@ class Search extends AbstractEndpoint
             'routing',
             'scroll',
             'search_type',
+            'search_timeout',
             'size',
             'sort',
             '_source',
@@ -91,15 +104,21 @@ class Search extends AbstractEndpoint
             'timeout',
             'track_scores',
             'version',
+            'version_type',
             'request_cache',
+            'refresh',
+            'consistency',
+            'scroll_size',
+            'wait_for_completion',
         );
     }
+
 
     /**
      * @return string
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

@@ -89,6 +89,7 @@ class Put extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'request_cache',
         );
     }
 

@@ -37,7 +37,6 @@ class Recovery extends AbstractEndpoint
     {
         return array(
             'bytes',
-            'local',
             'master_timeout',
             'h',
             'help',

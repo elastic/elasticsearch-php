@@ -1,52 +1,56 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Elasticsearch\Endpoints\Tasks;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Fielddata
+ * Class Show
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ * @package Elasticsearch\Endpoints\Tasks *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Fielddata extends AbstractEndpoint
+
+class Show extends AbstractEndpoint
 {
-    private $fields;
+    // Return the task with specified id (node_id:task_number)
+    private $task_id;
+
 
     /**
-     * @param $fields
+     * @param $task_id
      *
      * @return $this
      */
-    public function setFields($fields)
+    public function setTask_Id($task_id)
     {
-        if (isset($fields) !== true) {
+        if (isset($task_id) !== true) {
             return $this;
         }
 
-        $this->fields = $fields;
-
+        $this->task_id = $task_id;
         return $this;
     }
+
 
     /**
      * @return string
      */
     protected function getURI()
     {
-        $fields = $this->fields;
-        $uri   = "/_cat/fielddata";
-
-        if (isset($fields) === true) {
-            $uri = "/_cat/fielddata/$fields";
+        $task_id = $this->task_id;
+        $uri   = "/_tasks";
+        if (isset($task_id) === true) {
+            $uri = "/_tasks/$task_id";
         }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -54,13 +58,15 @@ class Fielddata extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'local',
-            'master_timeout',
-            'h',
-            'help',
-            'v',
+            'node_id',
+            'actions',
+            'detailed',
+            'parent_node',
+            'parent_task',
+            'wait_for_completion',
         );
     }
+
 
     /**
      * @return string

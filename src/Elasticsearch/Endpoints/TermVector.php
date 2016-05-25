@@ -70,6 +70,7 @@ class TermVector extends AbstractEndpoint
         return array(
             'term_statistics',
             'field_statistics',
+            'dfs',
             'fields',
             'offsets',
             'positions',
@@ -77,7 +78,9 @@ class TermVector extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
+            'realtime',
+            'version',
+            'version_type',
         );
     }
 

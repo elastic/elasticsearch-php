@@ -57,6 +57,7 @@ class Stats extends AbstractEndpoint
         return array(
             'flat_settings',
             'human',
+            'timeout',
         );
     }
 

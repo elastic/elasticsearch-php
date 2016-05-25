@@ -41,6 +41,7 @@ class Segments extends AbstractEndpoint
             'expand_wildcards',
             'human',
             'operation_threading',
+            'verbose',
         );
     }
 

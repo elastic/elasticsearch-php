@@ -39,16 +39,13 @@ class ClearCache extends AbstractEndpoint
             'field_data',
             'fielddata',
             'fields',
-            'filter',
-            'filter_cache',
-            'filter_keys',
-            'id',
-            'id_cache',
+            'query',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'index',
             'recycler',
+            'request',
         );
     }
 

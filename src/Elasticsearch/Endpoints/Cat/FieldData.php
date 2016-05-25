@@ -1,51 +1,48 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Cat;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class FieldData
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Template
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Get extends AbstractEndpoint
+class FieldData extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    private $fields;
 
     /**
-     * @param $name
+     * @param $fields
      *
      * @return $this
      */
-    public function setName($name)
+    public function setFields($fields)
     {
-        if (isset($name) !== true) {
+        if (isset($fields) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->fields = $fields;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri   = "/_template";
+        $fields = $this->fields;
+        $uri   = "/_cat/fielddata";
 
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        if (isset($fields) === true) {
+            $uri = "/_cat/fielddata/$fields";
         }
 
         return $uri;
@@ -57,9 +54,13 @@ class Get extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'flat_settings',
-            'master_timeout',
+            'bytes',
             'local',
+            'master_timeout',
+            'h',
+            'help',
+            'v',
+            'fields',
         );
     }
 

@@ -2,18 +2,20 @@
 
 namespace Elasticsearch\Endpoints;
 
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Mget
+ * Class ReIndex
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package Elasticsearch\Endpoints *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Mget extends AbstractEndpoint
+
+class ReIndex extends AbstractEndpoint
 {
     /**
      * @param array $body
@@ -27,30 +29,27 @@ class Mget extends AbstractEndpoint
             return $this;
         }
 
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
         $this->body = $body;
-
         return $this;
     }
+
+
 
     /**
      * @return string
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mget";
-
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mget";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_mget";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_mget";
-        }
+        $uri   = "/_reindex";
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -58,16 +57,13 @@ class Mget extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'fields',
-            'preference',
-            'realtime',
             'refresh',
-            '_source',
-            '_source_exclude',
-            '_source_include',
-            'routing'
+            'timeout',
+            'consistency',
+            'wait_for_completion',
         );
     }
+
 
     /**
      * @return array
@@ -76,11 +72,11 @@ class Mget extends AbstractEndpoint
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MGet');
+            throw new Exceptions\RuntimeException('Body is required for Put');
         }
-
         return $this->body;
     }
+
 
     /**
      * @return string

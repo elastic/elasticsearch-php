@@ -58,7 +58,6 @@ class Suggest extends AbstractEndpoint
             'expand_wildcards',
             'preference',
             'routing',
-            'source',
         );
     }
 

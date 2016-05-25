@@ -40,7 +40,7 @@ class DeleteByQuery extends AbstractEndpoint
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for Deletebyquery'
+                'index is required for DeleteByQuery'
             );
         }
         $index = $this->index;
@@ -62,18 +62,13 @@ class DeleteByQuery extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'analyzer',
-            'consistency',
-            'default_operator',
-            'df',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
-            'replication',
             'q',
-            'routing',
-            'source',
+            'size',
             'timeout',
+            'routing',
+            'df',
+            'analyzer',
+            'default_operator',
         );
     }
 

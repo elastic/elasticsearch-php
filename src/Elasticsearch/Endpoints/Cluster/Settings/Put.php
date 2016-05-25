@@ -50,6 +50,8 @@ class Put extends AbstractEndpoint
     {
         return array(
             'flat_settings',
+            'master_timeout',
+            'timeout',
         );
     }
 

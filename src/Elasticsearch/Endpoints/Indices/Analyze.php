@@ -55,12 +55,17 @@ class Analyze extends AbstractEndpoint
     {
         return array(
             'analyzer',
+            'char_filters',
+            'char_filter',
             'field',
             'filters',
+            'filter',
             'index',
             'prefer_local',
             'text',
             'tokenizer',
+            'explain',
+            'attributes',
             'format',
         );
     }

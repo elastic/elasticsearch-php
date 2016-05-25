@@ -44,7 +44,7 @@ class ShardStores extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'operation_threading'
+            'operation_threading',
         );
     }
 

@@ -7,7 +7,7 @@ use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 
 /**
- * Class Msearch
+ * Class MSearch
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -15,8 +15,13 @@ use Elasticsearch\Transport;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Msearch extends AbstractEndpoint
+class MSearch extends AbstractEndpoint
 {
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
     /**
      * @param Transport           $transport
      * @param SerializerInterface $serializer

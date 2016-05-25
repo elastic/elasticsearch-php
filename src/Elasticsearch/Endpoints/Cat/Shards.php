@@ -36,7 +36,6 @@ class Shards extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'bytes',
             'local',
             'master_timeout',
             'h',

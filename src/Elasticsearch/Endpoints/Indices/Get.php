@@ -65,7 +65,8 @@ class Get extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'human'
+            'flat_settings',
+            'human',
         );
     }
 

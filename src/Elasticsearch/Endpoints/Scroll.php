@@ -81,6 +81,7 @@ class Scroll extends AbstractEndpoint
     {
         return array(
             'scroll',
+            'scroll_id',
         );
     }
 

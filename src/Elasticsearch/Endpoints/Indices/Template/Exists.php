@@ -62,8 +62,8 @@ class Exists extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'master_timeout',
             'local',
-            'master_timeout'
         );
     }
 

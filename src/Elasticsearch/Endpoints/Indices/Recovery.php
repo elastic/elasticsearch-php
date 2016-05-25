@@ -38,7 +38,7 @@ class Recovery extends AbstractEndpoint
         return array(
             'detailed',
             'active_only',
-            'human'
+            'human',
         );
     }
 

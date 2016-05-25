@@ -80,10 +80,10 @@ class Put extends AbstractEndpoint
     {
         return array(
             'order',
+            'create',
             'timeout',
             'master_timeout',
             'flat_settings',
-            'create'
         );
     }
 

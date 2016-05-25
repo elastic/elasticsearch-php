@@ -64,7 +64,6 @@ class Count extends AbstractEndpoint
             'min_score',
             'preference',
             'routing',
-            'source',
             'q',
             'df',
             'default_operator',
@@ -72,7 +71,7 @@ class Count extends AbstractEndpoint
             'lowercase_expanded_terms',
             'analyze_wildcard',
             'lenient',
-            'lowercase_expanded_terms'
+            'lowercase_expanded_terms',
         );
     }
 

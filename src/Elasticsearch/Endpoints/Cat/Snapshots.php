@@ -3,6 +3,7 @@
 namespace Elasticsearch\Endpoints\Cat;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Snapshots
@@ -54,7 +55,7 @@ class Snapshots extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'local',
+            'ignore_unavailable',
             'master_timeout',
             'h',
             'help',

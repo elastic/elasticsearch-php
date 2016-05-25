@@ -76,7 +76,7 @@ class CountPercolate extends AbstractEndpoint
             'percolate_index',
             'percolate_type',
             'version',
-            'version_type'
+            'version_type',
         );
     }
 

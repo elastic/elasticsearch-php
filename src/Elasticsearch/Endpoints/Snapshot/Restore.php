@@ -89,7 +89,7 @@ class Restore extends AbstractEndpoint
         }
         $repository = $this->repository;
         $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot/_restore";
+        $uri = "/_snapshot/$repository/$snapshot/_restore";
 
         if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot/_restore";
@@ -103,10 +103,10 @@ class Restore extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'wait_for_completion',
-        );
+        ];
     }
 
     /**

@@ -65,7 +65,7 @@ class SearchTemplate extends AbstractEndpoint
             'preference',
             'routing',
             'scroll',
-            'search_type'
+            'search_type',
         );
     }
 

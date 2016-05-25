@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace Elasticsearch\Endpoints\Nodes;
 
 /**
  * Class Stats
@@ -97,6 +97,7 @@ class Stats extends AbstractNodesEndpoint
             'human',
             'level',
             'types',
+            'timeout',
         );
     }
 

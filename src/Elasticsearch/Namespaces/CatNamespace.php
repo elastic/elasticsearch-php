@@ -61,7 +61,7 @@ class CatNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Cat\Allocation $endpoint */
         $endpoint = $endpointBuilder('Cat\Allocation');
-        $endpoint->setNodeID($nodeID);
+        $endpoint->setNodeId($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -422,8 +422,8 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Fielddata $endpoint */
-        $endpoint = $endpointBuilder('Cat\Fielddata');
+        /** @var \Elasticsearch\Endpoints\Cat\FieldData $endpoint */
+        $endpoint = $endpointBuilder('Cat\FieldData');
         $endpoint->setFields($fields);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

@@ -233,8 +233,8 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */
-        $endpoint = $endpointBuilder('Snapshot\Repository\Verify');
+        /** @var \Elasticsearch\Endpoints\Snapshot\VerifyRepository $endpoint */
+        $endpoint = $endpointBuilder('Snapshot\VerifyRepository');
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();

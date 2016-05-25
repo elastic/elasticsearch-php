@@ -9,6 +9,7 @@ use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
+use Elasticsearch\Namespaces\TaskNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 
@@ -76,6 +77,7 @@ class Client
         $this->nodes     = new NodesNamespace($transport, $endpoint);
         $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
         $this->cat       = new CatNamespace($transport, $endpoint);
+        $this->tasks     = new TaskNamespace($transport, $endpoint);
     }
 
     /**
@@ -123,7 +125,6 @@ class Client
      * $params['id']              = (string) The document ID (Required)
      *        ['index']           = (string) The name of the index (Required)
      *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
-     *        ['ignore_missing']  = ??
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
      *        ['parent']          = (string) The ID of the parent document
      *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
@@ -133,6 +134,8 @@ class Client
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
+     *        ['version']         = (number) Explicit version number for concurrency control
+     *        ['version_type']    = (enum) Specific version type
      *
      * @param $params array Associative array of parameters
      *
@@ -539,60 +542,6 @@ class Client
     }
 
     /**
-     * $params['id']                     = (string) The document ID (Required)
-     *        ['index']                  = (string) The name of the index (Required)
-     *        ['type']                   = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
-     *        ['boost_terms']            = (number) The boost factor
-     *        ['max_doc_freq']           = (number) The word occurrence frequency as count: words with higher occurrence in the corpus will be ignored
-     *        ['max_query_terms']        = (number) The maximum query terms to be included in the generated query
-     *        ['max_word_len']           = (number) The minimum length of the word: longer words will be ignored
-     *        ['min_doc_freq']           = (number) The word occurrence frequency as count: words with lower occurrence in the corpus will be ignored
-     *        ['min_term_freq']          = (number) The term frequency as percent: terms with lower occurrence in the source document will be ignored
-     *        ['min_word_len']           = (number) The minimum length of the word: shorter words will be ignored
-     *        ['mlt_fields']             = (list) Specific fields to perform the query against
-     *        ['percent_terms_to_match'] = (number) How many terms have to match in order to consider the document a match (default: 0.3)
-     *        ['routing']                = (string) Specific routing value
-     *        ['search_from']            = (number) The offset from which to return results
-     *        ['search_indices']         = (list) A comma-separated list of indices to perform the query against (default: the index containing the document)
-     *        ['search_query_hint']      = (string) The search query hint
-     *        ['search_scroll']          = (string) A scroll search request definition
-     *        ['search_size']            = (number) The number of documents to return (default: 10)
-     *        ['search_source']          = (string) A specific search request definition (instead of using the request body)
-     *        ['search_type']            = (string) Specific search type (eg. `dfs_then_fetch`, `count`, etc)
-     *        ['search_types']           = (list) A comma-separated list of types to perform the query against (default: the same type as the document)
-     *        ['stop_words']             = (list) A list of stop words to be ignored
-     *        ['body']                   = (array) A specific search request definition
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function mlt($params)
-    {
-        $id = $this->extractArgument($params, 'id');
-
-        $index = $this->extractArgument($params, 'index');
-
-        $type = $this->extractArgument($params, 'type');
-
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Mlt $endpoint */
-        $endpoint = $endpointBuilder('Mlt');
-        $endpoint->setID($id)
-                 ->setIndex($index)
-                 ->setType($type)
-                 ->setBody($body);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index']           = (string) The name of the index
      *        ['type']            = (string) The type of the document
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
@@ -621,8 +570,8 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Mget $endpoint */
-        $endpoint = $endpointBuilder('Mget');
+        /** @var \Elasticsearch\Endpoints\MGet $endpoint */
+        $endpoint = $endpointBuilder('MGet');
         $endpoint->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -653,8 +602,8 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Msearch $endpoint */
-        $endpoint = $endpointBuilder('Msearch');
+        /** @var \Elasticsearch\Endpoints\MSearch $endpoint */
+        $endpoint = $endpointBuilder('MSearch');
         $endpoint->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
@@ -1041,7 +990,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Search $endpoint */
+        /** @var \Elasticsearch\Endpoints\SearchTemplate $endpoint */
         $endpoint = $endpointBuilder('SearchTemplate');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -1072,7 +1021,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
@@ -1100,7 +1049,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setBody($body)
                  ->setClearScroll(true);
         $endpoint->setParams($params);
@@ -1339,6 +1288,38 @@ class Client
         return $endpoint->resultOrFuture($response);
     }
 
+    public function reIndex($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\ReIndex $endpoint */
+        $endpoint = $endpointBuilder('Reindex');
+        $response = $endpoint->setParams($params)->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    public function updateByQuery($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+        $type = $this->extractArgument($params, 'type');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\UpdateByQuery $endpoint */
+        $endpoint = $endpointBuilder('UpdateByQuery');
+        $endpoint->setIndex($index)
+            ->setType($type)
+            ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
     /**
      * $params['id']                 = (string) ID of the template to render
      *
@@ -1411,6 +1392,16 @@ class Client
     public function cat()
     {
         return $this->cat;
+    }
+
+    /**
+     * Operate on the Task namespace of commands
+     *
+     * @return TaskNamespace
+     */
+    public function tasks()
+    {
+        return $this->tasks;
     }
 
     /**

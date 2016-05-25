@@ -631,6 +631,15 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $methodParts = explode(".", $method);
 
+        //Filter php keywords. Only php 7 wont require this patch
+        $keywordSubstitutionList = ['list' => 'show'];
+        $positions = array_flip($methodParts);
+        foreach ($keywordSubstitutionList as $keyword => $substitute) {
+            if (isset($positions[$keyword])) {
+                $methodParts[$positions[$keyword]] = $substitute;
+            }
+        }
+
         if (is_object($hash)) {
             $hash = json_decode(json_encode($hash), true);
         }

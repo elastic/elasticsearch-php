@@ -45,8 +45,8 @@ class NodesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Stats $endpoint */
-        $endpoint = $endpointBuilder('Cluster\Nodes\Stats');
+        /** @var \Elasticsearch\Endpoints\Nodes\Stats $endpoint */
+        $endpoint = $endpointBuilder('Nodes\Stats');
         $endpoint->setNodeID($nodeID)
                  ->setMetric($metric)
                  ->setIndexMetric($index_metric)
@@ -75,8 +75,8 @@ class NodesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Info $endpoint */
-        $endpoint = $endpointBuilder('Cluster\Nodes\Info');
+        /** @var \Elasticsearch\Endpoints\Nodes\Info $endpoint */
+        $endpoint = $endpointBuilder('Nodes\Info');
         $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
@@ -102,33 +102,8 @@ class NodesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cluster\Nodes\HotThreads $endpoint */
-        $endpoint = $endpointBuilder('Cluster\Nodes\HotThreads');
-        $endpoint->setNodeID($nodeID);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
-     * $params['node_id'] = (list) A comma-separated list of node IDs or names to perform the operation on; use `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on all nodes
-     *        ['delay']   = (time) Set the delay for the operation (default: 1s)
-     *        ['exit']    = (boolean) Exit the JVM as well (default: true)
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function shutdown($params = array())
-    {
-        $nodeID = $this->extractArgument($params, 'node_id');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Shutdown $endpoint */
-        $endpoint = $endpointBuilder('Cluster\Nodes\Shutdown');
+        /** @var \Elasticsearch\Endpoints\Nodes\HotThreads $endpoint */
+        $endpoint = $endpointBuilder('Nodes\HotThreads');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();

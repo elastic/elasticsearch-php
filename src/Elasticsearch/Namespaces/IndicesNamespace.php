@@ -249,32 +249,6 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function snapshotIndex($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Gateway\Snapshot $endpoint */
-        $endpoint = $endpointBuilder('Indices\Gateway\Snapshot');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
      *        ['type']  = (list) A comma-separated list of document types
      *
@@ -386,11 +360,10 @@ class IndicesNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
-        $endpoint = $endpointBuilder('Indices\Flush');
+        /** @var \Elasticsearch\Endpoints\Indices\FlushSynced $endpoint */
+        $endpoint = $endpointBuilder('Indices\FlushSynced');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        $endpoint->setSynced(true);
         $response = $endpoint->performRequest();
         return $endpoint->resultOrFuture($response);
     }
@@ -700,33 +673,6 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index)
                  ->setType($type)
                  ->setBody($body);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` for all indices (Required)
-     *        ['type']  = (string) The name of the document type to delete (Required)
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function deleteMapping($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $type = $this->extractArgument($params, 'type');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Mapping\Delete $endpoint */
-        $endpoint = $endpointBuilder('Indices\Mapping\Delete');
-        $endpoint->setIndex($index)
-                 ->setType($type);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -1082,33 +1028,6 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['operation_threading'] = () TODO: ?
-     *        ['recovery']            = (boolean) Return information about shard recovery
-     *        ['snapshot']            = (boolean) TODO: ?
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function status($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Status $endpoint */
-        $endpoint = $endpointBuilder('Indices\Status');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      *
      * @param $params array Associative array of parameters
@@ -1157,30 +1076,7 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
-
-    /**
-     * $params['index']   = (string) The name of the index
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function seal($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Seal $endpoint */
-        $endpoint = $endpointBuilder('Indices\Seal');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
+    
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
      *        ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)

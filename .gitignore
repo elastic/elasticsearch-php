@@ -19,3 +19,4 @@ Thumbs.db
 
 #generator related
 generator/*
+util/output

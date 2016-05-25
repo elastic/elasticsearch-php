@@ -25,7 +25,7 @@ class Show extends AbstractEndpoint
      *
      * @return $this
      */
-    public function setTask_Id($task_id)
+    public function setTaskId($task_id)
     {
         if (isset($task_id) !== true) {
             return $this;

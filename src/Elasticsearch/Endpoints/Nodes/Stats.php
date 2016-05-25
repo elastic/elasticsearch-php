@@ -16,7 +16,8 @@ class Stats extends AbstractNodesEndpoint
     // Limit the information returned to the specified metrics
     private $metric;
 
-    // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices` (or `all`) metric isn&#039;t specified.
+    // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices`
+    // (or `all`) metric isn&#039;t specified.
     private $indexMetric;
 
     /**

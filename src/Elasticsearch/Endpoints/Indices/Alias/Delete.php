@@ -16,7 +16,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+    // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the
+    // specified indices.
     private $name;
 
     /**

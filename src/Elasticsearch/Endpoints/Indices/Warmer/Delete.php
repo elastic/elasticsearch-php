@@ -16,7 +16,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of warmer names to delete (supports wildcards); use `_all` to delete all warmers in the specified indices. You must specify a name either in the uri or in the parameters.
+    // A comma-separated list of warmer names to delete (supports wildcards); use `_all` to delete all warmers in the
+    // specified indices. You must specify a name either in the uri or in the parameters.
     private $name;
 
     /**

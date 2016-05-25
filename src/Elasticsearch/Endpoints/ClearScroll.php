@@ -23,7 +23,7 @@ class ClearScroll extends AbstractEndpoint
      *
      * @return $this
      */
-    public function setScroll_Id($scroll_id)
+    public function setScrollId($scroll_id)
     {
         if (isset($scroll_id) !== true) {
             return $this;

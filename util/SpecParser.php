@@ -189,7 +189,7 @@ function generateTemplate($path, $template)
 
     $ret = $template->render($renderVars);
 
-    $dir = './output/'.implode('/', array_map('ucfirst', array_splice($namespace, 0, count($namespace)-1)));
+    $dir = __DIR__.'/output/'.implode('/', array_map('ucfirst', array_splice($namespace, 0, count($namespace)-1)));
 
     if (substr($dir, -1) !== '/') {
         $dir .= '/';

@@ -25,6 +25,8 @@ trait BooleanRequestWrapper
      *
      * @throws Missing404Exception
      * @throws RoutingMissingException
+     *
+     * @return array|bool|callable
      */
     public static function performRequest(AbstractEndpoint $endpoint)
     {

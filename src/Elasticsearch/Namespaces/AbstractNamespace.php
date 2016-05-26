@@ -15,7 +15,7 @@ use Elasticsearch\Transport;
  */
 abstract class AbstractNamespace
 {
-    /** @var \Elasticsearch\Transport  */
+    /** @var \Elasticsearch\Transport */
     protected $transport;
 
     /** @var  callback */
@@ -42,7 +42,7 @@ abstract class AbstractNamespace
     public function extractArgument(&$params, $arg)
     {
         if (is_object($params) === true) {
-            $params = (array) $params;
+            $params = (array)$params;
         }
 
         if (isset($params[$arg]) === true) {

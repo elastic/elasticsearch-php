@@ -15,7 +15,8 @@ class CatNamespace extends AbstractNamespace
 {
     /**
      * $params['name']           = (list) A comma-separated list of alias names to return
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -25,7 +26,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function aliases($params = array())
+    public function aliases($params = [])
     {
         $name = $this->extractArgument($params, 'name');
 
@@ -44,7 +45,8 @@ class CatNamespace extends AbstractNamespace
     /**
      * $params['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information
      *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -54,7 +56,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function allocation($params = array())
+    public function allocation($params = [])
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
@@ -72,7 +74,8 @@ class CatNamespace extends AbstractNamespace
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to limit the returned information
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -82,7 +85,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function count($params = array())
+    public function count($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -99,7 +102,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -110,7 +114,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function health($params = array())
+    public function health($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -130,7 +134,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function help($params = array())
+    public function help($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -146,7 +150,8 @@ class CatNamespace extends AbstractNamespace
     /**
      * $params['index']          = (list) A comma-separated list of index names to limit the returned information
      *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -157,7 +162,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function indices($params = array())
+    public function indices($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -174,7 +179,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -184,7 +190,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function master($params = array())
+    public function master($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -198,7 +204,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -208,7 +215,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function nodes($params = array())
+    public function nodes($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -222,7 +229,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -232,7 +240,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function nodeAttrs($params = array())
+    public function nodeAttrs($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -246,7 +254,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -256,7 +265,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function pendingTasks($params = array())
+    public function pendingTasks($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -281,7 +290,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function recovery($params = array())
+    public function recovery($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -298,7 +307,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -308,7 +318,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function repositories($params = array())
+    public function repositories($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -323,7 +333,8 @@ class CatNamespace extends AbstractNamespace
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to limit the returned information
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -333,7 +344,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function shards($params = array())
+    public function shards($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -361,7 +372,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function snapshots($params = array())
+    public function snapshots($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
@@ -378,7 +389,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -389,7 +401,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function threadPool($params = array())
+    public function threadPool($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -405,7 +417,8 @@ class CatNamespace extends AbstractNamespace
     /**
      * $params['fields']         = (list) A comma-separated list of fields to return in the output
      *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -415,7 +428,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function fielddata($params = array())
+    public function fielddata($params = [])
     {
         $fields = $this->extractArgument($params, 'fields');
 
@@ -432,7 +445,8 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
      *        ['help']           = (boolean) Return help information (default: false)
@@ -442,7 +456,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function plugins($params = array())
+    public function plugins($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -465,7 +479,7 @@ class CatNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function segments($params = array())
+    public function segments($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 

@@ -17,14 +17,15 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['repository']          = (string) A repository name (Required)
      *        ['snapshot']            = (string) A snapshot name (Required)
      *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (default: false)
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+     * returning (default: false)
      *        ['body']                = The snapshot definition
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function create($params = array())
+    public function create($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -55,7 +56,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function createRepository($params = array())
+    public function createRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $body = $this->extractArgument($params, 'body');
@@ -82,7 +83,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function delete($params = array())
+    public function delete($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -109,7 +110,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function deleteRepository($params = array())
+    public function deleteRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
@@ -134,7 +135,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function get($params = array())
+    public function get($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -155,13 +156,14 @@ class SnapshotNamespace extends AbstractNamespace
     /**
      * $params['repository']     = (list) A comma-separated list of repository names
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function getRepository($params = array())
+    public function getRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
@@ -181,14 +183,15 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['repository']          = (string) A repository name (Required)
      *        ['snapshot']            = (string) A snapshot name (Required)
      *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (default: false)
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+     * returning (default: false)
      *        ['body']                = Details of what to restore
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function restore($params = array())
+    public function restore($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -217,7 +220,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function status($params = array())
+    public function status($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -244,7 +247,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function verifyRepository($params = array())
+    public function verifyRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 

@@ -5,13 +5,13 @@ namespace Elasticsearch;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
+use Elasticsearch\Namespaces\BooleanRequestWrapper;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
-use Elasticsearch\Namespaces\TaskNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
-use Elasticsearch\Namespaces\BooleanRequestWrapper;
+use Elasticsearch\Namespaces\TaskNamespace;
 
 /**
  * Class Client
@@ -72,16 +72,17 @@ class Client
     {
         $this->transport = $transport;
         $this->endpoints = $endpoint;
-        $this->indices   = new IndicesNamespace($transport, $endpoint);
-        $this->cluster   = new ClusterNamespace($transport, $endpoint);
-        $this->nodes     = new NodesNamespace($transport, $endpoint);
-        $this->snapshot  = new SnapshotNamespace($transport, $endpoint);
-        $this->cat       = new CatNamespace($transport, $endpoint);
-        $this->tasks     = new TaskNamespace($transport, $endpoint);
+        $this->indices = new IndicesNamespace($transport, $endpoint);
+        $this->cluster = new ClusterNamespace($transport, $endpoint);
+        $this->nodes = new NodesNamespace($transport, $endpoint);
+        $this->snapshot = new SnapshotNamespace($transport, $endpoint);
+        $this->cat = new CatNamespace($transport, $endpoint);
+        $this->tasks = new TaskNamespace($transport, $endpoint);
     }
 
     /**
      * @param $params
+     *
      * @return array
      */
     public function info($params = [])
@@ -124,14 +125,17 @@ class Client
     /**
      * $params['id']              = (string) The document ID (Required)
      *        ['index']           = (string) The name of the index (Required)
-     *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching
+     * the ID across all types) (Required)
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
      *        ['parent']          = (string) The ID of the parent document
-     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default:
+     * random)
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
-     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to
+     * return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *        ['version']         = (number) Explicit version number for concurrency control
@@ -166,13 +170,16 @@ class Client
     /**
      * $params['id']              = (string) The document ID (Required)
      *        ['index']           = (string) The name of the index (Required)
-     *        ['type']            = (string) The type of the document; use `_all` to fetch the first document matching the ID across all types (Required)
+     *        ['type']            = (string) The type of the document; use `_all` to fetch the first document matching
+     * the ID across all types (Required)
      *        ['parent']          = (string) The ID of the parent document
-     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default:
+     * random)
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
-     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to
+     * return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *        ['version']         = (number) Explicit version number for concurrency control
@@ -248,15 +255,18 @@ class Client
     /**
      *
      * $params[''] @todo finish the rest of these params
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both.
      *
      * @param array $params
      *
      * @return array
      */
-    public function deleteByQuery($params = array())
+    public function deleteByQuery($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -270,8 +280,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
         $endpoint = $endpointBuilder('DeleteByQuery');
         $endpoint->setIndex($index)
-                ->setType($type)
-                ->setBody($body);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -281,18 +291,27 @@ class Client
     /**
      * $params['index']                    = (list) A comma-separated list of indices to restrict the results
      *        ['type']                     = (list) A comma-separated list of types to restrict the results
-     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['min_score']                = (number) Include only documents with a specific `_score` value in the result
-     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when
+     * unavailable (missing or closed)
+     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into
+     * no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are
+     * open, closed or both. (open,closed,none,all) (default: open)
+     *        ['min_score']                = (number) Include only documents with a specific `_score` value in the
+     * result
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['routing']                  = (string) Specific routing value
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['analyzer']                 = (string) The analyzer to use for the query string
-     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
-     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR) (default: OR)
-     *        ['df']                       = (string) The field to use as default where no field prefix is given in the query string
-     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed
+     * (default: false)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR)
+     * (default: OR)
+     *        ['df']                       = (string) The field to use as default where no field prefix is given in the
+     * query string
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
+     * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
      *        ['body']                     = A query to restrict the results specified with the Query DSL (optional)
      *
@@ -300,7 +319,7 @@ class Client
      *
      * @return array
      */
-    public function count($params = array())
+    public function count($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -325,12 +344,18 @@ class Client
     /**
      * $params['index']              = (string) The index of the document being count percolated. (Required)
      *        ['type']               = (string) The type of the document being count percolated. (Required)
-     *        ['id']                 = (string) Substitute the document in the request body with a document that is known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document from within the cluster. (Required)
+     *        ['id']                 = (string) Substitute the document in the request body with a document that is
+     * known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document
+     * from within the cluster. (Required)
      *        ['routing']            = (list) A comma-separated list of specific routing values
-     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
      *        ['percolate_index']    = (string) The index to count percolate the document into. Defaults to index.
      *        ['percolate_type']     = (string) The type to count percolate document into. Defaults to type.
      *        ['version']            = (number) Explicit version number for concurrency control
@@ -341,12 +366,12 @@ class Client
      *
      * @return array
      */
-    public function countPercolate($params = array())
+    public function countPercolate($params = [])
     {
         $index = $this->extractArgument($params, 'index');
-        $type  = $this->extractArgument($params, 'type');
-        $id    = $this->extractArgument($params, 'id');
-        $body  = $this->extractArgument($params, 'body');
+        $type = $this->extractArgument($params, 'type');
+        $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -366,12 +391,18 @@ class Client
     /**
      * $params['index']                = (string) The index of the document being percolated. (Required)
      *        ['type']                 = (string) The type of the document being percolated. (Required)
-     *        ['id']                   = (string) Substitute the document in the request body with a document that is known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document from within the cluster. (Required)
+     *        ['id']                   = (string) Substitute the document in the request body with a document that is
+     * known by the specified id. On top of the id, the index and type parameter will be used to retrieve the document
+     * from within the cluster. (Required)
      *        ['routing']              = (list) A comma-separated list of specific routing values
-     *        ['preference']           = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['ignore_unavailable']   = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']     = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
+     *        ['preference']           = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
+     *        ['ignore_unavailable']   = (boolean) Whether specified concrete indices should be ignored when
+     * unavailable (missing or closed)
+     *        ['allow_no_indices']     = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are
+     * open, closed or both. (open,closed,none,all) (default: open)
      *        ['percolate_index']      = (string) The index to percolate the document into. Defaults to index.
      *        ['percolate_type']       = (string) The type to percolate document into. Defaults to type.
      *        ['percolate_routing']    = (string) The routing value to use when percolating the existing document.
@@ -388,9 +419,9 @@ class Client
     public function percolate($params)
     {
         $index = $this->extractArgument($params, 'index');
-        $type  = $this->extractArgument($params, 'type');
-        $id    = $this->extractArgument($params, 'id');
-        $body  = $this->extractArgument($params, 'body');
+        $type = $this->extractArgument($params, 'type');
+        $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -410,16 +441,19 @@ class Client
     /**
      * $params['index']              = (string) The index of the document being count percolated to use as default
      *        ['type']               = (string) The type of the document being percolated to use as default.
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
      *        ['body']               = The percolate request definitions (header & body pair), separated by newlines
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function mpercolate($params = array())
+    public function mpercolate($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -442,32 +476,39 @@ class Client
     /**
      * $params['index']            = (string) The index in which the document resides. (Required)
      *        ['type']             = (string) The type of the document. (Required)
-     *        ['id']               = (string) The id of the document, when not specified a doc param should be supplied.
-     *        ['term_statistics']  = (boolean) Specifies if total term frequency and document frequency should be returned. (default: false)
-     *        ['field_statistics'] = (boolean) Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. (default: true)
-     *        ['dfs']              = (boolean) Specifies if distributed frequencies should be returned instead shard frequencies. (default: false)
+     *        ['id']               = (string) The id of the document, when not specified a doc param should be
+     * supplied.
+     *        ['term_statistics']  = (boolean) Specifies if total term frequency and document frequency should be
+     * returned. (default: false)
+     *        ['field_statistics'] = (boolean) Specifies if document count, sum of document frequencies and sum of
+     * total term frequencies should be returned. (default: true)
+     *        ['dfs']              = (boolean) Specifies if distributed frequencies should be returned instead shard
+     * frequencies. (default: false)
      *        ['fields']           = (list) A comma-separated list of fields to return.
      *        ['offsets']          = (boolean) Specifies if term offsets should be returned. (default: true)
      *        ['positions']        = (boolean) Specifies if term positions should be returned. (default: true)
      *        ['payloads']         = (boolean) Specifies if term payloads should be returned. (default: true)
-     *        ['preference']       = (string) Specify the node or shard the operation should be performed on (default: random).
+     *        ['preference']       = (string) Specify the node or shard the operation should be performed on (default:
+     * random).
      *        ['routing']          = (string) Specific routing value.
      *        ['parent']           = (string) Parent id of documents.
-     *        ['realtime']         = (boolean) Specifies if request is real-time as opposed to near-real-time (default: true).
+     *        ['realtime']         = (boolean) Specifies if request is real-time as opposed to near-real-time (default:
+     * true).
      *        ['version']          = (number) Explicit version number for concurrency control
      *        ['version_type']     = (enum) Specific version type (internal,external,external_gte,force)
-     *        ['body']             = Define parameters and or supply a document to get termvectors for. See documentation.
+     *        ['body']             = Define parameters and or supply a document to get termvectors for. See
+     * documentation.
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function termvectors($params = array())
+    public function termvectors($params = [])
     {
         $index = $this->extractArgument($params, 'index');
-        $type  = $this->extractArgument($params, 'type');
-        $id    = $this->extractArgument($params, 'id');
-        $body  = $this->extractArgument($params, 'body');
+        $type = $this->extractArgument($params, 'type');
+        $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -487,30 +528,44 @@ class Client
     /**
      * $params['index']            = (string) The index in which the document resides.
      *        ['type']             = (string) The type of the document.
-     *        ['ids']              = (list) A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
-     *        ['term_statistics']  = (boolean) Specifies if total term frequency and document frequency should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default: false)
-     *        ['field_statistics'] = (boolean) Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default: true)
-     *        ['fields']           = (list) A comma-separated list of fields to return. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-     *        ['offsets']          = (boolean) Specifies if term offsets should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default: true)
-     *        ['positions']        = (boolean) Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default: true)
-     *        ['payloads']         = (boolean) Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default: true)
-     *        ['preference']       = (string) Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
-     *        ['routing']          = (string) Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-     *        ['parent']           = (string) Parent id of documents. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-     *        ['realtime']         = (boolean) Specifies if requests are real-time as opposed to near-real-time (default: true).
+     *        ['ids']              = (list) A comma-separated list of documents ids. You must define ids as parameter
+     * or set "ids" or "docs" in the request body
+     *        ['term_statistics']  = (boolean) Specifies if total term frequency and document frequency should be
+     * returned. Applies to all returned documents unless otherwise specified in body "params" or "docs". (default:
+     * false)
+     *        ['field_statistics'] = (boolean) Specifies if document count, sum of document frequencies and sum of
+     * total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body
+     * "params" or "docs". (default: true)
+     *        ['fields']           = (list) A comma-separated list of fields to return. Applies to all returned
+     * documents unless otherwise specified in body "params" or "docs".
+     *        ['offsets']          = (boolean) Specifies if term offsets should be returned. Applies to all returned
+     * documents unless otherwise specified in body "params" or "docs". (default: true)
+     *        ['positions']        = (boolean) Specifies if term positions should be returned. Applies to all returned
+     * documents unless otherwise specified in body "params" or "docs". (default: true)
+     *        ['payloads']         = (boolean) Specifies if term payloads should be returned. Applies to all returned
+     * documents unless otherwise specified in body "params" or "docs". (default: true)
+     *        ['preference']       = (string) Specify the node or shard the operation should be performed on (default:
+     * random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
+     *        ['routing']          = (string) Specific routing value. Applies to all returned documents unless
+     * otherwise specified in body "params" or "docs".
+     *        ['parent']           = (string) Parent id of documents. Applies to all returned documents unless
+     * otherwise specified in body "params" or "docs".
+     *        ['realtime']         = (boolean) Specifies if requests are real-time as opposed to near-real-time
+     * (default: true).
      *        ['version']          = (number) Explicit version number for concurrency control
      *        ['version_type']     = (enum) Specific version type (internal,external,external_gte,force)
-     *        ['body']             = Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
+     *        ['body']             = Define ids, documents, parameters or a list of parameters per document here. You
+     * must at least provide a list of document ids. See documentation.
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function mtermvectors($params = array())
+    public function mtermvectors($params = [])
     {
         $index = $this->extractArgument($params, 'index');
-        $type  = $this->extractArgument($params, 'type');
-        $body  = $this->extractArgument($params, 'body');
+        $type = $this->extractArgument($params, 'type');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -529,9 +584,11 @@ class Client
     /**
      * $params['id']         = (string) The document ID (Required)
      *        ['index']      = (string) The name of the index (Required)
-     *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['type']       = (string) The type of the document (use `_all` to fetch the first document matching the
+     * ID across all types) (Required)
      *        ['parent']     = (string) The ID of the parent document
-     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default:
+     * random)
      *        ['realtime']   = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']    = (string) Specific routing value
@@ -568,19 +625,22 @@ class Client
      * $params['index']           = (string) The name of the index
      *        ['type']            = (string) The type of the document
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
-     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default:
+     * random)
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
-     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to
+     * return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
-     *        ['body']            = Document identifiers; can be either `docs` (containing full document information) or `ids` (when index and type is provided in the URL.
+     *        ['body']            = Document identifiers; can be either `docs` (containing full document information)
+     * or `ids` (when index and type is provided in the URL.
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function mget($params = array())
+    public function mget($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -605,14 +665,16 @@ class Client
     /**
      * $params['index']       = (list) A comma-separated list of index names to use as default
      *        ['type']        = (list) A comma-separated list of document types to use as default
-     *        ['search_type'] = (enum) Search operation type (query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch,count,scan)
-     *        ['body']        = The request definitions (metadata-search request definition pairs), separated by newlines
+     *        ['search_type'] = (enum) Search operation type
+     * (query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch,count,scan)
+     *        ['body']        = The request definitions (metadata-search request definition pairs), separated by
+     * newlines
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function msearch($params = array())
+    public function msearch($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -694,7 +756,7 @@ class Client
      *
      * @return array
      */
-    public function bulk($params = array())
+    public function bulk($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -762,11 +824,16 @@ class Client
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     * $params['index']              = (list) A comma-separated list of index names to restrict the operation; use
+     * `_all` or empty string to perform the operation on all indices
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['routing']            = (string) Specific routing value
      *        ['body']               = The request definition
      *
@@ -774,7 +841,7 @@ class Client
      *
      * @return array
      */
-    public function suggest($params = array())
+    public function suggest($params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
@@ -797,18 +864,23 @@ class Client
      * $params['id']                       = (string) The document ID (Required)
      *        ['index']                    = (string) The name of the index (Required)
      *        ['type']                     = (string) The type of the document (Required)
-     *        ['analyze_wildcard']         = (boolean) Specify whether wildcards and prefix queries in the query string query should be analyzed (default: false)
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcards and prefix queries in the query string
+     * query should be analyzed (default: false)
      *        ['analyzer']                 = (string) The analyzer for the query string query
-     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR) (default: OR)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR)
+     * (default: OR)
      *        ['df']                       = (string) The default field for query string query (default: _all)
      *        ['fields']                   = (list) A comma-separated list of fields to return in the response
-     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
+     * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
      *        ['parent']                   = (string) The ID of the parent document
-     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (string) Specific routing value
-     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
+     * fields to return
      *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
      *        ['body']                     = The query definition using the Query DSL
@@ -843,48 +915,66 @@ class Client
     }
 
     /**
-     * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-     *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or
+     * empty string to perform the operation on all indices
+     *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to
+     * perform the operation on all types
      *        ['analyzer']                 = (string) The analyzer to use for the query string
-     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
-     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR) (default: OR)
-     *        ['df']                       = (string) The field to use as default where no field prefix is given in the query string
-     *        ['explain']                  = (boolean) Specify whether to return detailed information about score computation as part of a hit
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed
+     * (default: false)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR)
+     * (default: OR)
+     *        ['df']                       = (string) The field to use as default where no field prefix is given in the
+     * query string
+     *        ['explain']                  = (boolean) Specify whether to return detailed information about score
+     * computation as part of a hit
      *        ['fields']                   = (list) A comma-separated list of fields to return as part of a hit
-     *        ['fielddata_fields']         = (list) A comma-separated list of fields to return as the field data representation of a field for each hit
+     *        ['fielddata_fields']         = (list) A comma-separated list of fields to return as the field data
+     * representation of a field for each hit
      *        ['from']                     = (number) Starting offset (default: 0)
-     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when
+     * unavailable (missing or closed)
+     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into
+     * no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are
+     * open, closed or both. (open,closed,none,all) (default: open)
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
+     * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
-     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (list) A comma-separated list of specific routing values
-     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
-     *        ['search_type']              = (enum) Search operation type (query_then_fetch,dfs_query_then_fetch,count,scan)
+     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be
+     * maintained for scrolled search
+     *        ['search_type']              = (enum) Search operation type
+     * (query_then_fetch,dfs_query_then_fetch,count,scan)
      *        ['size']                     = (number) Number of hits to return (default: 10)
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
-     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
+     * fields to return
      *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
-     *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+     *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon
+     * reaching which the query execution will terminate early.
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
      *        ['suggest_field']            = (string) Specify which field to use for suggestions
      *        ['suggest_mode']             = (enum) Specify suggest mode (missing,popular,always) (default: missing)
      *        ['suggest_size']             = (number) How many suggestions to return in response
      *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
      *        ['timeout']                  = (time) Explicit operation timeout
-     *        ['track_scores']             = (boolean) Whether to calculate and return scores even if they are not used for sorting
+     *        ['track_scores']             = (boolean) Whether to calculate and return scores even if they are not used
+     * for sorting
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
-     *        ['request_cache']            = (boolean) Specify if request cache should be used for this request or not, defaults to index level setting
+     *        ['request_cache']            = (boolean) Specify if request cache should be used for this request or not,
+     * defaults to index level setting
      *        ['body']                     = The search definition using the Query DSL
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function search($params = array())
+    public function search($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -907,18 +997,27 @@ class Client
     /**
      * $params['index']                    = (list) A comma-separated list of indices to restrict the results
      *        ['type']                     = (list) A comma-separated list of types to restrict the results
-     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['min_score']                = (number) Include only documents with a specific `_score` value in the result
-     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when
+     * unavailable (missing or closed)
+     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into
+     * no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are
+     * open, closed or both. (open,closed,none,all) (default: open)
+     *        ['min_score']                = (number) Include only documents with a specific `_score` value in the
+     * result
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['routing']                  = (string) Specific routing value
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['analyzer']                 = (string) The analyzer to use for the query string
-     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
-     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR) (default: OR)
-     *        ['df']                       = (string) The field to use as default where no field prefix is given in the query string
-     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed
+     * (default: false)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR)
+     * (default: OR)
+     *        ['df']                       = (string) The field to use as default where no field prefix is given in the
+     * query string
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
+     * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
      *        ['body']                     = A query to restrict the results specified with the Query DSL (optional)
      *
@@ -926,7 +1025,7 @@ class Client
      *
      * @return array
      */
-    public function searchExists($params = array())
+    public function searchExists($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -947,20 +1046,27 @@ class Client
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-     *        ['type']               = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
-     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty
+     * string to perform the operation on all indices
+     *        ['type']               = (list) A comma-separated list of document types to search; leave empty to
+     * perform the operation on all types
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['routing']            = (string) Specific routing value
-     *        ['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
+     *        ['local']              = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function searchShards($params = array())
+    public function searchShards($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -979,22 +1085,30 @@ class Client
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-     *        ['type']               = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
+     * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty
+     * string to perform the operation on all indices
+     *        ['type']               = (list) A comma-separated list of document types to search; leave empty to
+     * perform the operation on all types
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
+     *        ['preference']         = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['routing']            = (list) A comma-separated list of specific routing values
-     *        ['scroll']             = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
-     *        ['search_type']        = (enum) Search operation type (query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch,count,scan)
+     *        ['scroll']             = (duration) Specify how long a consistent view of the index should be maintained
+     * for scrolled search
+     *        ['search_type']        = (enum) Search operation type
+     * (query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch,count,scan)
      *        ['body']               = The search definition template and its params
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function searchTemplate($params = array())
+    public function searchTemplate($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -1016,14 +1130,15 @@ class Client
 
     /**
      * $params['scroll_id'] = (string) The scroll ID for scrolled search
-     *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for
+     * scrolled search
      *        ['body']      = The scroll ID if not passed by URL or query parameter.
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function scroll($params = array())
+    public function scroll($params = [])
     {
         $scrollID = $this->extractArgument($params, 'scroll_id');
 
@@ -1044,13 +1159,14 @@ class Client
 
     /**
      * $params['scroll_id'] = (list) A comma-separated list of scroll IDs to clear
-     *        ['body']      = A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
+     *        ['body']      = A comma-separated list of scroll IDs to clear if none was specified via the scroll_id
+     * parameter
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function clearScroll($params = array())
+    public function clearScroll($params = [])
     {
         $scrollID = $this->extractArgument($params, 'scroll_id');
 
@@ -1077,13 +1193,16 @@ class Client
      *        ['consistency']       = (enum) Explicit write consistency setting for the operation (one,quorum,all)
      *        ['fields']            = (list) A comma-separated list of fields to return in the response
      *        ['lang']              = (string) The script language (default: groovy)
-     *        ['parent']            = (string) ID of the parent document. Is is only used for routing and when for the upsert request
+     *        ['parent']            = (string) ID of the parent document. Is is only used for routing and when for the
+     * upsert request
      *        ['refresh']           = (boolean) Refresh the index after performing the operation
-     *        ['retry_on_conflict'] = (number) Specify how many times should the operation be retried when a conflict occurs (default: 0)
+     *        ['retry_on_conflict'] = (number) Specify how many times should the operation be retried when a conflict
+     * occurs (default: 0)
      *        ['routing']           = (string) Specific routing value
      *        ['script']            = The URL-encoded script definition (instead of using request body)
      *        ['script_id']         = The id of a stored script
-     *        ['scripted_upsert']   = (boolean) True if the script referenced in script or script_id should be called to perform inserts - defaults to false
+     *        ['scripted_upsert']   = (boolean) True if the script referenced in script or script_id should be called
+     * to perform inserts - defaults to false
      *        ['timeout']           = (time) Explicit operation timeout
      *        ['timestamp']         = (time) Explicit timestamp for the document
      *        ['ttl']               = (duration) Expiration time for the document
@@ -1190,7 +1309,7 @@ class Client
      */
     public function putScript($params)
     {
-        $id   = $this->extractArgument($params, 'id');
+        $id = $this->extractArgument($params, 'id');
         $lang = $this->extractArgument($params, 'lang');
         $body = $this->extractArgument($params, 'body');
 
@@ -1271,7 +1390,7 @@ class Client
      */
     public function putTemplate($params)
     {
-        $id   = $this->extractArgument($params, 'id');
+        $id = $this->extractArgument($params, 'id');
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
@@ -1288,19 +1407,26 @@ class Client
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['fields']             = (list) A comma-separated list of fields for to get field statistics for (min value, max value, and more)
-     *        ['level']              = (enum) Defines if field stats should be returned on a per index level or on a cluster wide level (indices,cluster) (default: cluster)
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['body']               = Field json objects containing the name and optionally a range to filter out indices result, that have results outside the defined bounds
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to
+     * perform the operation on all indices
+     *        ['fields']             = (list) A comma-separated list of fields for to get field statistics for (min
+     * value, max value, and more)
+     *        ['level']              = (enum) Defines if field stats should be returned on a per index level or on a
+     * cluster wide level (indices,cluster) (default: cluster)
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+     * (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+     * concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     * closed or both. (open,closed,none,all) (default: open)
+     *        ['body']               = Field json objects containing the name and optionally a range to filter out
+     * indices result, that have results outside the defined bounds
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function fieldStats($params = array())
+    public function fieldStats($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $body = $this->extractArgument($params, 'body');
@@ -1311,7 +1437,7 @@ class Client
         /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
         $endpoint = $endpointBuilder('FieldStats');
         $endpoint->setIndex($index)
-            ->setBody($body);
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -1320,16 +1446,19 @@ class Client
 
     /**
      * $params['refresh']             = (boolean) Should the effected indexes be refreshed?
-     *        ['timeout']             = (time) Time each individual bulk request should wait for shards that are unavailable. (default: 1m)
+     *        ['timeout']             = (time) Time each individual bulk request should wait for shards that are
+     * unavailable. (default: 1m)
      *        ['consistency']         = (enum) Explicit write consistency setting for the operation (one,quorum,all)
-     *        ['wait_for_completion'] = (boolean) Should the request should block until the reindex is complete. (default: false)
-     *        ['body']                = The search definition using the Query DSL and the prototype for the index request.
+     *        ['wait_for_completion'] = (boolean) Should the request should block until the reindex is complete.
+     * (default: false)
+     *        ['body']                = The search definition using the Query DSL and the prototype for the index
+     * request.
      *
      * @param array $params
      *
      * @return array
      */
-    public function reIndex($params = array())
+    public function reIndex($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1342,55 +1471,77 @@ class Client
     }
 
     /**
-     * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
-     *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or
+     * empty string to perform the operation on all indices (Required)
+     *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to
+     * perform the operation on all types
      *        ['analyzer']                 = (string) The analyzer to use for the query string
-     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
-     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR) (default: OR)
-     *        ['df']                       = (string) The field to use as default where no field prefix is given in the query string
-     *        ['explain']                  = (boolean) Specify whether to return detailed information about score computation as part of a hit
+     *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed
+     * (default: false)
+     *        ['default_operator']         = (enum) The default operator for query string query (AND or OR) (AND,OR)
+     * (default: OR)
+     *        ['df']                       = (string) The field to use as default where no field prefix is given in the
+     * query string
+     *        ['explain']                  = (boolean) Specify whether to return detailed information about score
+     * computation as part of a hit
      *        ['fields']                   = (list) A comma-separated list of fields to return as part of a hit
-     *        ['fielddata_fields']         = (list) A comma-separated list of fields to return as the field data representation of a field for each hit
+     *        ['fielddata_fields']         = (list) A comma-separated list of fields to return as the field data
+     * representation of a field for each hit
      *        ['from']                     = (number) Starting offset (default: 0)
-     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['conflicts']                = (enum) What to do when the reindex hits version conflicts? (abort,proceed) (default: abort)
-     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
-     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when
+     * unavailable (missing or closed)
+     *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into
+     * no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['conflicts']                = (enum) What to do when the reindex hits version conflicts? (abort,proceed)
+     * (default: abort)
+     *        ['expand_wildcards']         = (enum) Whether to expand wildcard expression to concrete indices that are
+     * open, closed or both. (open,closed,none,all) (default: open)
+     *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
+     * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
-     *        ['preference']               = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['preference']               = (string) Specify the node or shard the operation should be performed on
+     * (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (list) A comma-separated list of specific routing values
-     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be
+     * maintained for scrolled search
      *        ['search_type']              = (enum) Search operation type (query_then_fetch,dfs_query_then_fetch)
      *        ['search_timeout']           = (time) Explicit timeout for each search request. Defaults to no timeout.
      *        ['size']                     = (number) Number of hits to return (default: 10)
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
-     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
+     * fields to return
      *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
-     *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+     *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon
+     * reaching which the query execution will terminate early.
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
      *        ['suggest_field']            = (string) Specify which field to use for suggestions
      *        ['suggest_mode']             = (enum) Specify suggest mode (missing,popular,always) (default: missing)
      *        ['suggest_size']             = (number) How many suggestions to return in response
      *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
-     *        ['timeout']                  = (time) Time each individual bulk request should wait for shards that are unavailable. (default: 1m)
-     *        ['track_scores']             = (boolean) Whether to calculate and return scores even if they are not used for sorting
+     *        ['timeout']                  = (time) Time each individual bulk request should wait for shards that are
+     * unavailable. (default: 1m)
+     *        ['track_scores']             = (boolean) Whether to calculate and return scores even if they are not used
+     * for sorting
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
-     *        ['version_type']             = (boolean) Should the document increment the version number (internal) on hit or not (reindex)
-     *        ['request_cache']            = (boolean) Specify if request cache should be used for this request or not, defaults to index level setting
+     *        ['version_type']             = (boolean) Should the document increment the version number (internal) on
+     * hit or not (reindex)
+     *        ['request_cache']            = (boolean) Specify if request cache should be used for this request or not,
+     * defaults to index level setting
      *        ['refresh']                  = (boolean) Should the effected indexes be refreshed?
-     *        ['consistency']              = (enum) Explicit write consistency setting for the operation (one,quorum,all)
+     *        ['consistency']              = (enum) Explicit write consistency setting for the operation
+     * (one,quorum,all)
      *        ['scroll_size']              = (integer) Size on the scroll request powering the update_by_query
-     *        ['wait_for_completion']      = (boolean) Should the request should block until the reindex is complete. (default: false)
+     *        ['wait_for_completion']      = (boolean) Should the request should block until the reindex is complete.
+     * (default: false)
      *        ['body']                     = The search definition using the Query DSL
      *
      * @param array $params
      *
      * @return array
      */
-    public function updateByQuery($params = array())
+    public function updateByQuery($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $body = $this->extractArgument($params, 'body');
@@ -1402,8 +1553,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\UpdateByQuery $endpoint */
         $endpoint = $endpointBuilder('UpdateByQuery');
         $endpoint->setIndex($index)
-            ->setType($type)
-            ->setBody($body);
+                 ->setType($type)
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -1418,10 +1569,10 @@ class Client
      *
      * @return array
      */
-    public function renderSearchTemplate($params = array())
+    public function renderSearchTemplate($params = [])
     {
         $body = $this->extractArgument($params, 'body');
-        $id   = $this->extractArgument($params, 'id');
+        $id = $this->extractArgument($params, 'id');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -1429,9 +1580,10 @@ class Client
         /** @var \Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */
         $endpoint = $endpointBuilder('RenderSearchTemplate');
         $endpoint->setBody($body)
-            ->setID($id);
+                 ->setID($id);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
+
         return $endpoint->resultOrFuture($response);
     }
 
@@ -1504,7 +1656,7 @@ class Client
     public function extractArgument(&$params, $arg)
     {
         if (is_object($params) === true) {
-            $params = (array) $params;
+            $params = (array)$params;
         }
 
         if (isset($params[$arg]) === true) {
@@ -1517,7 +1669,12 @@ class Client
         }
     }
 
-    private function verifyNotNullOrEmpty($name, $var) {
+    /**
+     * @param string $name
+     * @param mixed $var
+     */
+    private function verifyNotNullOrEmpty($name, $var)
+    {
         if ($var === null) {
             throw new InvalidArgumentException("$name cannot be null.");
         }

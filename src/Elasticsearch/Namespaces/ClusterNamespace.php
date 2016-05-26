@@ -14,15 +14,15 @@ namespace Elasticsearch\Namespaces;
 class ClusterNamespace extends AbstractNamespace
 {
     /**
-     * $params['index']                      = (string) Limit the information returned to a specific index
-     *        ['level']                      = (enum) Specify the level of detail for returned information
+     * $params['index']                      = (list) Limit the information returned to a specific index
+     *        ['level']                      = (enum) Specify the level of detail for returned information (cluster,indices,shards) (default: cluster)
      *        ['local']                      = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout']             = (time) Explicit operation timeout for connection to master node
      *        ['timeout']                    = (time) Explicit operation timeout
      *        ['wait_for_active_shards']     = (number) Wait until the specified number of shards is active
-     *        ['wait_for_nodes']             = (number) Wait until the specified number of nodes is available
+     *        ['wait_for_nodes']             = (string) Wait until the specified number of nodes is available
      *        ['wait_for_relocating_shards'] = (number) Wait until the specified number of relocating shards is finished
-     *        ['wait_for_status']            = (enum) Wait until cluster is in a specific state
+     *        ['wait_for_status']            = (enum) Wait until cluster is in a specific state (green,yellow,red)
      *
      * @param $params array Associative array of parameters
      *
@@ -45,10 +45,12 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
-     *        ['filter_metadata'] = (boolean) Don't return cluster state metadata (default: false)
-     *        ['body']            = (boolean) Don't return cluster state metadata (default: false)
-     *        ['explain']         = (boolean) Return an explanation of why the commands can or cannot be executed
+     * $params['dry_run']        = (boolean) Simulate the operation only and return the resulting state
+     *        ['explain']        = (boolean) Return an explanation of why the commands can or cannot be executed
+     *        ['metric']         = (list) Limit the information returned to the specified metrics. Defaults to all but metadata (_all,blocks,metadata,nodes,routing_table,master_node,version)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['body']           = The definition of `commands` to perform (`move`, `cancel`, `allocate`)
      *
      * @param $params array Associative array of parameters
      *
@@ -71,14 +73,14 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['filter_blocks']          = (boolean) Do not return information about blocks
-     *        ['filter_index_templates'] = (boolean) Do not return information about index templates
-     *        ['filter_indices']         = (list) Limit returned metadata information to specific indices
-     *        ['filter_metadata']        = (boolean) Do not return information about indices metadata
-     *        ['filter_nodes']           = (boolean) Do not return information about nodes
-     *        ['filter_routing_table']   = (boolean) Do not return information about shard allocation (`routing_table` and `routing_nodes`)
-     *        ['local']                  = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout']         = (time) Specify timeout for connection to master
+     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+     *        ['metric']             = (list) Limit the information returned to the specified metrics
+     *        ['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout']     = (time) Specify timeout for connection to master
+     *        ['flat_settings']      = (boolean) Return settings in flat format (default: false)
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (open,closed,none,all) (default: open)
      *
      * @param $params array Associative array of parameters
      *
@@ -103,8 +105,10 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['flat_settings']          = (boolean) Return settings in flat format (default: false)
-     *        ['human'] = (boolean) Whether to return time and byte values in human-readable format.
+     * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     *        ['flat_settings'] = (boolean) Return settings in flat format (default: false)
+     *        ['human']         = (boolean) Whether to return time and byte values in human-readable format. (default: false)
+     *        ['timeout']       = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *
@@ -127,7 +131,10 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['body'] = ()
+     * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['body']           = The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart).
      *
      * @param $params array Associative array of parameters
      *
@@ -150,6 +157,10 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
+     * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
+     *
      * @param array $params
      *
      * @return array
@@ -168,8 +179,8 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout']  = (time) Specify timeout for connection to master
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *        ['master_timeout'] = (time) Specify timeout for connection to master
      *
      * @param $params array Associative array of parameters
      *

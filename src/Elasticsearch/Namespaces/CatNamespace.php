@@ -14,11 +14,12 @@ namespace Elasticsearch\Namespaces;
 class CatNamespace extends AbstractNamespace
 {
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['name']           = (list) A comma-separated list of alias names to return
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -41,12 +42,13 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information
+     *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -69,11 +71,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['index']          = (list) A comma-separated list of index names to limit the returned information
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -96,12 +99,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['ts']             = (bool) Set to false to disable timestamping
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['ts']             = (boolean) Set to false to disable timestamping (default: true)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -121,7 +124,7 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['help'] = (bool) Return help information
+     * $params['help'] = (boolean) Return help information(default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -141,13 +144,14 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['index']          = (list) A comma-separated list of index names to limit the returned information
+     *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
-     *        ['pri']            = (bool) Set to true to return stats only for primary shards
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['pri']            = (boolean) Set to true to return stats only for primary shards (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -170,11 +174,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -194,11 +198,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -218,11 +222,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -242,11 +246,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -266,12 +270,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['index']          = (list) A comma-separated list of index names to limit the returned information
+     *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -294,11 +298,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -318,12 +322,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['index']          = (list) A comma-separated list of index names to limit the returned information
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -346,13 +350,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
-     *        ['repository']     = (string) Name of repository from which to fetch the snapshot information
+     * $params['repository']         = (list) Name of repository from which to fetch the snapshot information (Required)
+     *        ['ignore_unavailable'] = (boolean) Set to true to ignore unavailable snapshots (default: false)
+     *        ['master_timeout']     = (time) Explicit operation timeout for connection to master node
+     *        ['h']                  = (list) Comma-separated list of column names to display
+     *        ['help']               = (boolean) Return help information (default: false)
+     *        ['v']                  = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -375,12 +378,12 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['full_id']        = (bool) Enables displaying the complete node ids
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+     *        ['full_id']        = (boolean) Enables displaying the complete node ids (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -388,14 +391,11 @@ class CatNamespace extends AbstractNamespace
      */
     public function threadPool($params = array())
     {
-        $index = $this->extractArgument($params, 'index');
-
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cat\ThreadPool $endpoint */
         $endpoint = $endpointBuilder('Cat\ThreadPool');
-        $endpoint->setIndex($index);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 
@@ -403,13 +403,13 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['fields']         = (list) A comma-separated list of fields to return in the output
+     *        ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
-     *        ['bytes']          = (enum) The unit in which to display byte values
-     *        ['fields']         = (list) A comma-separated list of fields to return the fielddata size
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -432,11 +432,11 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *        ['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     *        ['help']           = (boolean) Return help information (default: false)
+     *        ['v']              = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -456,9 +456,10 @@ class CatNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['h']              = (list) Comma-separated list of column names to display
-     *        ['help']           = (bool) Return help information
-     *        ['v']              = (bool) Verbose mode. Display column headers
+     * $params['index'] = (list) A comma-separated list of index names to limit the returned information
+     *        ['h']     = (list) Comma-separated list of column names to display
+     *        ['help']  = (boolean) Return help information (default: false)
+     *        ['v']     = (boolean) Verbose mode. Display column headers (default: false)
      *
      * @param $params array Associative array of parameters
      *

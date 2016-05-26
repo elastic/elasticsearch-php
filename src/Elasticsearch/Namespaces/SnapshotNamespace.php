@@ -14,8 +14,11 @@ namespace Elasticsearch\Namespaces;
 class SnapshotNamespace extends AbstractNamespace
 {
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
+     * $params['repository']          = (string) A repository name (Required)
+     *        ['snapshot']            = (string) A snapshot name (Required)
+     *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (default: false)
+     *        ['body']                = The snapshot definition
      *
      * @param $params array Associative array of parameters
      *
@@ -42,8 +45,11 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['verify']         = (boolean) Whether to verify the repository after creation
+     *        ['body']           = The repository definition
      *
      * @param $params array Associative array of parameters
      *
@@ -68,7 +74,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['snapshot']       = (string) A snapshot name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
@@ -93,8 +101,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (list) A comma-separated list of repository names (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *
@@ -117,7 +126,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['snapshot']       = (list) A comma-separated list of snapshot names (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
@@ -142,8 +153,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (list) A comma-separated list of repository names
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
      * @param $params array Associative array of parameters
      *
@@ -166,8 +178,11 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
+     * $params['repository']          = (string) A repository name (Required)
+     *        ['snapshot']            = (string) A snapshot name (Required)
+     *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (default: false)
+     *        ['body']                = Details of what to restore
      *
      * @param $params array Associative array of parameters
      *
@@ -194,7 +209,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name
+     *        ['snapshot']       = (list) A comma-separated list of snapshot names
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
@@ -219,8 +236,9 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *

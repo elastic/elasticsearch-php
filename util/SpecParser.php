@@ -12,7 +12,7 @@ $counter = 0;
 
 function getApiPath()
 {
-    $path = dirname(__FILE__).'/elasticsearch/rest-api-spec/api/';
+    $path = dirname(__FILE__).'/elasticsearch/rest-api-spec/api';
     if (file_exists($path) !== true) {
         $path = dirname(__FILE__).'/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/api';
     }

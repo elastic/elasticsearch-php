@@ -256,7 +256,7 @@ class Client
     }
 
     /**
-     *
+     * @deprecated
      * $params[''] @todo finish the rest of these params
      *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable
      * (missing or closed)
@@ -654,7 +654,7 @@ class Client
     }
 
     /**
-     * @deprecated 
+     * @deprecated
      * $params['id']                     = (string) The document ID (Required)
      *        ['index']                  = (string) The name of the index (Required)
      *        ['type']                   = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)

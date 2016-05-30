@@ -68,11 +68,10 @@ class TermVectors extends AbstractEndpoint
                 'id is required for TermVector'
             );
         }
-
         $index = $this->index;
         $type = $this->type;
         $id = $this->id;
-        $uri = "/$index/$type/$id/termvector" . ($this->shouldUseDeprecated) ? '' : 's';
+        $uri = "/$index/$type/$id/_termvector" . ($this->shouldUseDeprecated ? '' : 's');
 
         return $uri;
     }

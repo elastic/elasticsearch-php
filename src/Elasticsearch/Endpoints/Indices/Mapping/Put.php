@@ -65,6 +65,7 @@ class Put extends AbstractEndpoint
         return [
             'timeout',
             'master_timeout',
+            'ignore_conflicts',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',

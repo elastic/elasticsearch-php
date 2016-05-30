@@ -57,6 +57,7 @@ class Delete extends AbstractEndpoint
             'consistency',
             'parent',
             'refresh',
+            'replication',
             'routing',
             'timeout',
             'version',

@@ -127,6 +127,7 @@ class Client
      *        ['index']           = (string) The name of the index (Required)
      *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching
      * the ID across all types) (Required)
+     *        ['ignore_missing']  = ??
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
      *        ['parent']          = (string) The ID of the parent document
      *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default:
@@ -178,6 +179,7 @@ class Client
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
+     *        ['ignore_missing']  = ??
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to
      * return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
@@ -218,6 +220,7 @@ class Client
      *        ['type']         = (string) The type of the document (Required)
      *        ['consistency']  = (enum) Specific write consistency setting for the operation (one,quorum,all)
      *        ['parent']       = (string) ID of parent document
+     *        ['replication']  = (enum) Specific replication type
      *        ['refresh']      = (boolean) Refresh the index after performing the operation
      *        ['routing']      = (string) Specific routing value
      *        ['timeout']      = (time) Explicit operation timeout
@@ -302,6 +305,7 @@ class Client
      *        ['preference']               = (string) Specify the node or shard the operation should be performed on
      * (default: random)
      *        ['routing']                  = (string) Specific routing value
+     *        ['source']                   = (string) The URL-encoded query definition (instead of using the request body)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['analyzer']                 = (string) The analyzer to use for the query string
      *        ['analyze_wildcard']         = (boolean) Specify whether wildcard and prefix queries should be analyzed
@@ -509,6 +513,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $id = $this->extractArgument($params, 'id');
         $body = $this->extractArgument($params, 'body');
+        $useDeprecated = $this->extractArgument($params, 'shouldUseDeprecated');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -520,9 +525,36 @@ class Client
                  ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
+        if ($useDeprecated) {
+           $endpoint->useDeprecated();
+        }
         $response = $endpoint->performRequest();
 
         return $endpoint->resultOrFuture($response);
+    }
+
+    /**
+     * $params['index']            = (string) Default index for items which don't provide one
+     *        ['type']             = (string) Default document type for items which don't provide one
+     *        ['term_statistics']  = (boolean) Specifies if total term frequency and document frequency should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs"."
+     *        ['field_statistics'] = (boolean) Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs"."
+     *        ['fields']           = (list) A comma-separated list of fields to return. Applies to all returned documents unless otherwise specified in body "params" or "docs"."
+     *        ['offsets']          = (boolean) Specifies if term offsets should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs"."
+     *        ['positions']        = (boolean) Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs"."
+     *        ['payloads']         = (boolean) Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+     *        ['preference']       = (string) Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
+     *        ['routing']          = (string) Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+     *        ['parent']           = (string) Parent id of documents. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+     *        ['realtime']         = (boolean) Specifies if request is real-time as opposed to near-real-time (default: true).
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function termvector($params = [])
+    {
+        $params['shouldUseDeprecated'] = true;
+        return $this->termvectors($params);
     }
 
     /**
@@ -622,11 +654,67 @@ class Client
     }
 
     /**
+     * @deprecated 
+     * $params['id']                     = (string) The document ID (Required)
+     *        ['index']                  = (string) The name of the index (Required)
+     *        ['type']                   = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
+     *        ['boost_terms']            = (number) The boost factor
+     *        ['max_doc_freq']           = (number) The word occurrence frequency as count: words with higher occurrence in the corpus will be ignored
+     *        ['max_query_terms']        = (number) The maximum query terms to be included in the generated query
+     *        ['max_word_len']           = (number) The minimum length of the word: longer words will be ignored
+     *        ['min_doc_freq']           = (number) The word occurrence frequency as count: words with lower occurrence in the corpus will be ignored
+     *        ['min_term_freq']          = (number) The term frequency as percent: terms with lower occurrence in the source document will be ignored
+     *        ['min_word_len']           = (number) The minimum length of the word: shorter words will be ignored
+     *        ['mlt_fields']             = (list) Specific fields to perform the query against
+     *        ['percent_terms_to_match'] = (number) How many terms have to match in order to consider the document a match (default: 0.3)
+     *        ['routing']                = (string) Specific routing value
+     *        ['search_from']            = (number) The offset from which to return results
+     *        ['search_indices']         = (list) A commaseparated list of indices to perform the query against (default: the index containing the document)
+     *        ['search_query_hint']      = (string) The search query hint
+     *        ['search_scroll']          = (string) A scroll search request definition
+     *        ['search_size']            = (number) The number of documents to return (default: 10)
+     *        ['search_source']          = (string) A specific search request definition (instead of using the request body)
+     *        ['search_type']            = (string) Specific search type (eg. `dfs_then_fetch`, `count`, etc)
+     *        ['search_types']           = (list) A commaseparated list of types to perform the query against (default: the same type as the document)
+     *        ['stop_words']             = (list) A list of stop words to be ignored
+     *        ['body']                   = (array) A specific search request definition
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function mlt($params)
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        $index = $this->extractArgument($params, 'index');
+
+        $type = $this->extractArgument($params, 'type');
+
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Mlt $endpoint */
+        $endpoint = $endpointBuilder('Mlt');
+        $endpoint->setID($id)
+                ->setIndex($index)
+                ->setType($type)
+                ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * $params['index']           = (string) The name of the index
      *        ['type']            = (string) The type of the document
      *        ['fields']          = (list) A comma-separated list of fields to return in the response
      *        ['preference']      = (string) Specify the node or shard the operation should be performed on (default:
      * random)
+     *        ['parent']          = (string) The ID of the parent document
      *        ['realtime']        = (boolean) Specify whether to perform the operation in realtime or search mode
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to
@@ -782,6 +870,8 @@ class Client
      * $params['id']           = (string) Document ID
      *        ['index']        = (string) The name of the index (Required)
      *        ['type']         = (string) The type of the document (Required)
+     *        ['percolate']    = (string) Percolator queries to execute while indexing the document
+     *        ['replication']  = (enum) Specific replication type
      *        ['consistency']  = (enum) Explicit write consistency setting for the operation (one,quorum,all)
      *        ['op_type']      = (enum) Explicit operation type (index,create) (default: index)
      *        ['parent']       = (string) ID of the parent document
@@ -828,6 +918,7 @@ class Client
      * `_all` or empty string to perform the operation on all indices
      *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
      * (missing or closed)
+     *        ['ignore_indices']     = (enum) When performed on multiple indices, allows to ignore `missing` ones
      *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
      * concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
@@ -835,6 +926,7 @@ class Client
      *        ['preference']         = (string) Specify the node or shard the operation should be performed on
      * (default: random)
      *        ['routing']            = (string) Specific routing value
+     *        ['source']             = (string) The URL-encoded request definition (instead of using request body)
      *        ['body']               = The request definition
      *
      * @param $params array Associative array of parameters
@@ -879,6 +971,8 @@ class Client
      * (default: random)
      *        ['q']                        = (string) Query in the Lucene query string syntax
      *        ['routing']                  = (string) Specific routing value
+     *        ['source']                   = (string) The URL-encoded query definition (instead of using the request
+     * body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
      * fields to return
      *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
@@ -932,6 +1026,9 @@ class Client
      *        ['fielddata_fields']         = (list) A comma-separated list of fields to return as the field data
      * representation of a field for each hit
      *        ['from']                     = (number) Starting offset (default: 0)
+     *        ['ignore_indices']           = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     *        ['indices_boost']            = (list) Comma-separated list of index boosts
+     *        ['query_cache']              = (boolean) Enable query cache for this request
      *        ['ignore_unavailable']       = (boolean) Whether specified concrete indices should be ignored when
      * unavailable (missing or closed)
      *        ['allow_no_indices']         = (boolean) Whether to ignore if a wildcard indices expression resolves into
@@ -951,6 +1048,8 @@ class Client
      * (query_then_fetch,dfs_query_then_fetch,count,scan)
      *        ['size']                     = (number) Number of hits to return (default: 10)
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
+     *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of
+     * using request body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
      * fields to return
      *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
@@ -1019,6 +1118,26 @@ class Client
      *        ['lenient']                  = (boolean) Specify whether format-based query failures (such as providing
      * text to a numeric field) should be ignored
      *        ['lowercase_expanded_terms'] = (boolean) Specify whether query terms should be lowercased
+     *        ['explain']                  = (boolean) Specify whether to return detailed information about score computation as part of a hit
+     *        ['fields']                   = (list) A comma-separated list of fields to return as part of a hit
+     *        ['from']                     = (number) Starting offset (default: 0)
+     *        ['ignore_indices']           = (enum) When performed on multiple indices, allows to ignore `missing` ones
+     *        ['indices_boost']            = (list) Comma-separated list of index boosts
+     *        ['scroll']                   = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['search_type']              = (enum) Search operation type
+     *        ['size']                     = (number) Number of hits to return (default: 10)
+     *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
+     *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of using request body)
+     *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
+     *        ['suggest_field']            = (string) Specify which field to use for suggestions
+     *        ['suggest_mode']             = (enum) Specify suggest mode
+     *        ['suggest_size']             = (number) How many suggestions to return in response
+     *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
+     *        ['timeout']                  = (time) Explicit operation timeout
+     *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
      *        ['body']                     = A query to restrict the results specified with the Query DSL (optional)
      *
      * @param $params array Associative array of parameters
@@ -1159,6 +1278,8 @@ class Client
 
     /**
      * $params['scroll_id'] = (list) A comma-separated list of scroll IDs to clear
+     *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for
+     * scrolled search
      *        ['body']      = A comma-separated list of scroll IDs to clear if none was specified via the scroll_id
      * parameter
      *
@@ -1195,7 +1316,10 @@ class Client
      *        ['lang']              = (string) The script language (default: groovy)
      *        ['parent']            = (string) ID of the parent document. Is is only used for routing and when for the
      * upsert request
+     *        ['percolate']         = (string) Perform percolation during the operation; use specific registered query
+     * name, attribute, or wildcard
      *        ['refresh']           = (boolean) Refresh the index after performing the operation
+     *        ['replication']       = (enum) Specific replication type
      *        ['retry_on_conflict'] = (number) Specify how many times should the operation be retried when a conflict
      * occurs (default: 0)
      *        ['routing']           = (string) Specific routing value

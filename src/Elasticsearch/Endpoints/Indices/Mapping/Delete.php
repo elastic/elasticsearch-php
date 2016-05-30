@@ -1,59 +1,47 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot;
+namespace Elasticsearch\Endpoints\Indices\Mapping;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class VerifyRepository
+ * Class Delete
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Snapshot *
+ * @package  Elasticsearch\Endpoints\Indices\Mapping
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class VerifyRepository extends AbstractEndpoint
+class Delete extends AbstractEndpoint
 {
-    // A repository name
-    private $repository;
-
-
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
-    {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
-        $this->repository = $repository;
-
-        return $this;
-    }
-
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->repository) !== true) {
+        if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'repository is required for VerifyRepository'
+                'index is required for Delete'
             );
         }
-        $repository = $this->repository;
-        $uri = "/_snapshot/$repository/_verify";
+        if (isset($this->type) !== true) {
+            throw new Exceptions\RuntimeException(
+                'type is required for Delete'
+            );
+        }
+        $index = $this->index;
+        $type = $this->type;
+        $uri = "/$index/$type/_mapping";
+
+        if (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_mapping";
+        }
 
         return $uri;
     }
-
 
     /**
      * @return string[]
@@ -62,17 +50,14 @@ class VerifyRepository extends AbstractEndpoint
     {
         return [
             'master_timeout',
-            'timeout',
-            'local',
         ];
     }
-
 
     /**
      * @return string
      */
     protected function getMethod()
     {
-        return 'POST';
+        return 'DELETE';
     }
 }

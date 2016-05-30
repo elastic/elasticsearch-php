@@ -62,6 +62,7 @@ class Count extends AbstractEndpoint
             'allow_no_indices',
             'expand_wildcards',
             'min_score',
+            'source',
             'preference',
             'routing',
             'q',

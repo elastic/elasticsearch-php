@@ -56,6 +56,7 @@ class Snapshots extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return [
+            'local',
             'ignore_unavailable',
             'master_timeout',
             'h',

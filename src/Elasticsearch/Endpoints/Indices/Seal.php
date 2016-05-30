@@ -1,30 +1,32 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Shards
+ * Class Seal
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Shards extends AbstractEndpoint
+class Seal extends AbstractEndpoint
 {
     /**
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
         $index = $this->index;
-        $uri = "/_cat/shards";
+        $uri = "/_seal";
 
         if (isset($index) === true) {
-            $uri = "/_cat/shards/$index";
+            $uri = "/$index/_seal";
         }
 
         return $uri;
@@ -35,14 +37,7 @@ class Shards extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return [
-            'local',
-            'bytes',
-            'master_timeout',
-            'h',
-            'help',
-            'v',
-        ];
+        return [];
     }
 
     /**
@@ -50,6 +45,6 @@ class Shards extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

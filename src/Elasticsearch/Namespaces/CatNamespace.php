@@ -333,6 +333,7 @@ class CatNamespace extends AbstractNamespace
 
     /**
      * $params['index']          = (list) A comma-separated list of index names to limit the returned information
+     *        ['bytes']          = (enum) The unit in which to display byte values
      *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
      * (default: false)
      *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -362,6 +363,8 @@ class CatNamespace extends AbstractNamespace
 
     /**
      * $params['repository']         = (list) Name of repository from which to fetch the snapshot information (Required)
+     *        ['local']              = (bool) Return local information, do not retrieve the state from master node
+     * (default: false)
      *        ['ignore_unavailable'] = (boolean) Set to true to ignore unavailable snapshots (default: false)
      *        ['master_timeout']     = (time) Explicit operation timeout for connection to master node
      *        ['h']                  = (list) Comma-separated list of column names to display

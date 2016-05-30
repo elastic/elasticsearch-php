@@ -61,6 +61,7 @@ class MGet extends AbstractEndpoint
             'fields',
             'preference',
             'realtime',
+            'routing',
             'refresh',
             '_source',
             '_source_exclude',

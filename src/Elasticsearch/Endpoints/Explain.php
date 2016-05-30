@@ -82,6 +82,7 @@ class Explain extends AbstractEndpoint
             'preference',
             'q',
             'routing',
+            'source',
             '_source',
             '_source_exclude',
             '_source_include',

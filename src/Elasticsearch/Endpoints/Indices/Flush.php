@@ -16,6 +16,23 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 class Flush extends AbstractEndpoint
 {
     /**
+     * @var boolean
+     */
+    protected $isSynced;
+
+    /**
+     * @param boolean $isSynced
+     *
+     * @return $this
+     */
+    public function setSynced($isSynced)
+    {
+        $this->isSynced = $isSynced;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     protected function getURI()
@@ -25,6 +42,10 @@ class Flush extends AbstractEndpoint
 
         if (isset($index) === true) {
             $uri = "/$index/_flush";
+        }
+
+        if ($this->isSynced === true) {
+            $uri .= "/synced";
         }
 
         return $uri;
@@ -37,6 +58,7 @@ class Flush extends AbstractEndpoint
     {
         return [
             'force',
+            'full',
             'wait_if_ongoing',
             'ignore_unavailable',
             'allow_no_indices',

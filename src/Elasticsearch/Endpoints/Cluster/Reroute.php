@@ -50,6 +50,7 @@ class Reroute extends AbstractEndpoint
     {
         return [
             'dry_run',
+            'filter_metadata',
             'explain',
             'metric',
             'master_timeout',

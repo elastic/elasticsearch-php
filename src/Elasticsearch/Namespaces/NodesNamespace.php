@@ -123,4 +123,32 @@ class NodesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * @deprecated
+     * $params['node_id'] = (list) A comma-separated list of node IDs or names to perform the operation on; use
+     *     `_local` to perform the operation on the node you're connected to, leave empty to perform the operation on
+     *     all nodes
+     *        ['delay']   = (time) Set the delay for the operation (default: 1s)
+     *        ['exit']    = (boolean) Exit the JVM as well (default: true)
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function shutdown($params = [])
+    {
+        $nodeID = $this->extractArgument($params, 'node_id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Nodes\Shutdown $endpoint */
+        $endpoint = $endpointBuilder('Nodes\Shutdown');
+        $endpoint->setNodeID($nodeID);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
 }

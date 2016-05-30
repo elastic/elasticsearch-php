@@ -37,6 +37,11 @@ class Clear extends AbstractEndpoint
     {
         return [
             'field_data',
+            'filter',
+            'filter_cache',
+            'filter_keys',
+            'id',
+            'id_cache',
             'fielddata',
             'fields',
             'query',

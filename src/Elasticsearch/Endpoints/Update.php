@@ -76,6 +76,7 @@ class Update extends AbstractEndpoint
             'lang',
             'parent',
             'refresh',
+            'replication',
             'retry_on_conflict',
             'routing',
             'script',

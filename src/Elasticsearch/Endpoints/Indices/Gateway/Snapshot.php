@@ -1,19 +1,19 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Elasticsearch\Endpoints\Indices\Gateway;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Shards
+ * Class Snapshot
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ * @package  Elasticsearch\Endpoints\Indices\Gateway
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Shards extends AbstractEndpoint
+class Snapshot extends AbstractEndpoint
 {
     /**
      * @return string
@@ -21,10 +21,10 @@ class Shards extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = "/_cat/shards";
+        $uri = "/_gateway/snapshot";
 
         if (isset($index) === true) {
-            $uri = "/_cat/shards/$index";
+            $uri = "/$index/_gateway/snapshot";
         }
 
         return $uri;
@@ -36,12 +36,9 @@ class Shards extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return [
-            'local',
-            'bytes',
-            'master_timeout',
-            'h',
-            'help',
-            'v',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
         ];
     }
 
@@ -50,6 +47,6 @@ class Shards extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

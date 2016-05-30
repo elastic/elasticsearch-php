@@ -49,9 +49,11 @@ class Query extends AbstractEndpoint
         return [
             'explain',
             'ignore_unavailable',
+            'ignore_indices',
             'allow_no_indices',
             'expand_wildcards',
             'operation_threading',
+            'source',
             'q',
             'analyzer',
             'analyze_wildcard',

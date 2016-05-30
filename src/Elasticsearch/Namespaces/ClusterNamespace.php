@@ -48,13 +48,14 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['dry_run']        = (boolean) Simulate the operation only and return the resulting state
-     *        ['explain']        = (boolean) Return an explanation of why the commands can or cannot be executed
-     *        ['metric']         = (list) Limit the information returned to the specified metrics. Defaults to all but
+     * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
+     *        ['explain']         = (boolean) Return an explanation of why the commands can or cannot be executed
+     *        ['filter_metadata'] = (boolean) Don't return cluster state metadata (default: false)
+     *        ['metric']          = (list) Limit the information returned to the specified metrics. Defaults to all but
      * metadata (_all,blocks,metadata,nodes,routing_table,master_node,version)
-     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']        = (time) Explicit operation timeout
-     *        ['body']           = The definition of `commands` to perform (`move`, `cancel`, `allocate`)
+     *        ['master_timeout']  = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']         = (time) Explicit operation timeout
+     *        ['body']            = The definition of `commands` to perform (`move`, `cancel`, `allocate`)
      *
      * @param $params array Associative array of parameters
      *

@@ -6,22 +6,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Create.
+ * Class Create
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Create extends AbstractEndpoint
 {
     /**
-     * @param array $body
+     * @param array|object $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -36,8 +34,7 @@ class Create extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -48,7 +45,8 @@ class Create extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $uri = "/$index";
+        $uri   = "/$index";
+
         if (isset($index) === true) {
             $uri = "/$index";
         }
@@ -64,7 +62,7 @@ class Create extends AbstractEndpoint
         return array(
             'timeout',
             'master_timeout',
-            'update_all_types',
+            'update_all_types'
         );
     }
 
@@ -73,7 +71,11 @@ class Create extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
+        if (is_array($this->body) && isset($this->body['mappings']) === true) {
+            return 'POST';
+        } elseif (is_object($this->body) && isset($this->body->mappings) === true) {
+            return 'POST';
+        }
         return 'PUT';
     }
 }

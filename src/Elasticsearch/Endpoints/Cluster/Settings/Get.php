@@ -5,15 +5,15 @@ namespace Elasticsearch\Endpoints\Cluster\Settings;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get.
+ * Class Get
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cluster\Settings
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
+
 class Get extends AbstractEndpoint
 {
     /**
@@ -21,7 +21,7 @@ class Get extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = '/_cluster/settings';
+        $uri   = "/_cluster/settings";
 
         return $uri;
     }
@@ -35,7 +35,6 @@ class Get extends AbstractEndpoint
             'flat_settings',
             'master_timeout',
             'timeout',
-            'include_defaults',
         );
     }
 

@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Repositories.
+ * Class Repositories
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Repositories extends AbstractEndpoint
@@ -21,7 +20,7 @@ class Repositories extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = '/_cat/repositories';
+        $uri   = "/_cat/repositories";
 
         return $uri;
     }
@@ -32,7 +31,6 @@ class Repositories extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
             'local',
             'master_timeout',
             'h',

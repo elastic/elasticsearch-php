@@ -5,19 +5,19 @@ namespace Elasticsearch\Endpoints\Snapshot\Repository;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get.
+ * Class Get
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Snapshot\Repository
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
     // A comma-separated list of repository names
     private $repository;
+
     /**
      * @param $repository
      *
@@ -28,9 +28,7 @@ class Get extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
-        if (is_array($repository) === true) {
-            $repository = implode(',', $repository);
-        }
+
         $this->repository = $repository;
 
         return $this;
@@ -42,7 +40,8 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
         $repository = $this->repository;
-        $uri = '/_snapshot';
+        $uri   = "/_snapshot";
+
         if (isset($repository) === true) {
             $uri = "/_snapshot/$repository";
         }

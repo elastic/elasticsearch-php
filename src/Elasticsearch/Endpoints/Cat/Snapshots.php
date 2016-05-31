@@ -3,24 +3,22 @@
 namespace Elasticsearch\Endpoints\Cat;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Snapshots.
+ * Class Snapshots
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Snapshots extends AbstractEndpoint
 {
-    // Name of repository from which to fetch the snapshot information
     private $repository;
+
     /**
-     * @param $repository
+     * @param $fields
      *
      * @return $this
      */
@@ -29,32 +27,24 @@ class Snapshots extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
-        if (is_array($repository) === true) {
-            $repository = implode(',', $repository);
-        }
+
         $this->repository = $repository;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
      * @return string
      */
     protected function getURI()
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'repository is required for Snapshots'
+                'repository is required for Cat Snapshots '
             );
         }
         $repository = $this->repository;
-        $uri = "/_cat/snapshots/$repository";
-        if (isset($repository) === true) {
-            $uri = "/_cat/snapshots/$repository";
-        }
-
+        $uri   = "/_cat/snapshots/$repository/";
         return $uri;
     }
 
@@ -64,8 +54,7 @@ class Snapshots extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
-            'ignore_unavailable',
+            'local',
             'master_timeout',
             'h',
             'help',

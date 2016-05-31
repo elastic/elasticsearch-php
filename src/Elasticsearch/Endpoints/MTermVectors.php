@@ -2,25 +2,23 @@
 
 namespace Elasticsearch\Endpoints;
 
-
+use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Mtermvectors.
+ * Class MTermVectors
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
-class Mtermvectors extends AbstractEndpoint
+class MTermVectors extends AbstractEndpoint
 {
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -39,16 +37,7 @@ class Mtermvectors extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri = '/_mtermvectors';
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mtermvectors";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_mtermvectors";
-        }
-
-        return $uri;
+        return $this->getOptionalURI('_mtermvectors');
     }
 
     /**
@@ -67,9 +56,7 @@ class Mtermvectors extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime',
-            'version',
-            'version_type',
+            'realtime'
         );
     }
 
@@ -78,7 +65,6 @@ class Mtermvectors extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET';
+        return 'POST';
     }
 }

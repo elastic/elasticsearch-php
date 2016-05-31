@@ -2,47 +2,17 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
-
 /**
- * Class Reindex.
+ * Class Reindex
  *
  * @category Elasticsearch
- *
- * @author   Zachary Tong <zach@elastic.co>
+ * @package  Elasticsearch\Endpoints\Indices
+ * @author   Augustin Husson <husson.augustin@gmail.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Reindex extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
-     * @return $this
-     */
-    public function setBody($body)
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getURI()
-    {
-        $uri = '/_reindex';
-
-        return $uri;
-    }
 
     /**
      * @return string[]
@@ -59,17 +29,11 @@ class Reindex extends AbstractEndpoint
     }
 
     /**
-     * @return array
-     *
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @return string
      */
-    protected function getBody()
+    protected function getURI()
     {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Reindex');
-        }
-
-        return $this->body;
+        return '/_reindex';
     }
 
     /**
@@ -78,5 +42,22 @@ class Reindex extends AbstractEndpoint
     protected function getMethod()
     {
         return 'POST';
+    }
+
+    /**
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @return $this
+     */
+    public function setBody($body)
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+
+        $this->body = $body;
+
+        return $this;
     }
 }

@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Tasks.
+ * Class Tasks
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Tasks extends AbstractEndpoint
@@ -21,9 +20,7 @@ class Tasks extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = '/_cat/tasks';
-
-        return $uri;
+        return "/_cat/tasks";
     }
 
     /**
@@ -40,7 +37,7 @@ class Tasks extends AbstractEndpoint
             'parent_task',
             'h',
             'help',
-            'v',
+            'v'
         );
     }
 

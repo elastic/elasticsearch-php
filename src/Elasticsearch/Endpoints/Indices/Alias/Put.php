@@ -6,24 +6,23 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put.
+ * Class Put
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices\Alias
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Put extends AbstractEndpoint
 {
     // The name of the alias to be created or updated
     private $name;
+
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -47,34 +46,32 @@ class Put extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
+
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Put'
-            );
-        }
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
                 'name is required for Put'
             );
         }
+
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Put'
+            );
+        }
         $index = $this->index;
         $name = $this->name;
         $uri = "/$index/_alias/$name";
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        }
 
         return $uri;
     }
@@ -95,7 +92,6 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'PUT';
     }
 }

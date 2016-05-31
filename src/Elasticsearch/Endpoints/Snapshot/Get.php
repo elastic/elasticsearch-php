@@ -6,21 +6,22 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get.
+ * Class Get
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
-    // A repository name
+    // A comma-separated list of repository names
     private $repository;
+
     // A comma-separated list of snapshot names
     private $snapshot;
+
     /**
      * @param $repository
      *
@@ -31,6 +32,7 @@ class Get extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
+
         $this->repository = $repository;
 
         return $this;
@@ -46,17 +48,14 @@ class Get extends AbstractEndpoint
         if (isset($snapshot) !== true) {
             return $this;
         }
-        if (is_array($snapshot) === true) {
-            $snapshot = implode(',', $snapshot);
-        }
+
         $this->snapshot = $snapshot;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -73,7 +72,8 @@ class Get extends AbstractEndpoint
         }
         $repository = $this->repository;
         $snapshot = $this->snapshot;
-        $uri = "/_snapshot/$repository/$snapshot";
+        $uri   = "/_snapshot/$repository/$snapshot";
+
         if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot";
         }

@@ -6,21 +6,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put.
+ * Class Put
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Template
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Put extends AbstractEndpoint
 {
     /**
      * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */
@@ -36,8 +33,7 @@ class Put extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -47,11 +43,9 @@ class Put extends AbstractEndpoint
                 'id is required for Put'
             );
         }
-        $id = $this->id;
-        $uri = "/_search/template/$id";
-        if (isset($id) === true) {
-            $uri = "/_search/template/$id";
-        }
+
+        $templateId = $this->id;
+        $uri  = "/_search/template/$templateId";
 
         return $uri;
     }
@@ -61,22 +55,7 @@ class Put extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-        );
-    }
-
-    /**
-     * @return array
-     *
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
-    protected function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Put');
-        }
-
-        return $this->body;
+        return array();
     }
 
     /**
@@ -84,7 +63,6 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'PUT';
     }
 }

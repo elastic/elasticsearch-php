@@ -6,20 +6,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Exists.
+ * Class Exists
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices\Type
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Exists extends AbstractEndpoint
 {
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -36,7 +34,8 @@ class Exists extends AbstractEndpoint
         }
         $index = $this->index;
         $type = $this->type;
-        $uri = "/$index/$type";
+        $uri   = "/$index/$type";
+
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type";
         }

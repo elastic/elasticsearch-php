@@ -6,24 +6,23 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put.
+ * Class Put
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices\Template
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Put extends AbstractEndpoint
 {
     // The name of the template
     private $name;
+
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -47,14 +46,14 @@ class Put extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
+
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -65,7 +64,8 @@ class Put extends AbstractEndpoint
             );
         }
         $name = $this->name;
-        $uri = "/_template/$name";
+        $uri   = "/_template/$name";
+
         if (isset($name) === true) {
             $uri = "/_template/$name";
         }
@@ -80,22 +80,21 @@ class Put extends AbstractEndpoint
     {
         return array(
             'order',
-            'create',
             'timeout',
             'master_timeout',
             'flat_settings',
+            'create'
         );
     }
 
     /**
      * @return array
-     *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Put');
+            throw new Exceptions\RuntimeException('Body is required for Put Template');
         }
 
         return $this->body;
@@ -106,7 +105,6 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'PUT';
     }
 }

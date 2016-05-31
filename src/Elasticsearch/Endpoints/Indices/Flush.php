@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Flush.
+ * Class Flush
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Flush extends AbstractEndpoint
@@ -29,7 +28,8 @@ class Flush extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = '/_flush';
+        $uri   = "/_flush";
+
         if (isset($index) === true) {
             $uri = "/$index/_flush";
         }
@@ -48,10 +48,11 @@ class Flush extends AbstractEndpoint
     {
         return array(
             'force',
-            'wait_if_ongoing',
+            'full',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'wait_if_ongoing'
         );
     }
 

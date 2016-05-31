@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Cluster;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Health.
+ * Class Health
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Health extends AbstractEndpoint
@@ -22,7 +21,8 @@ class Health extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = '/_cluster/health';
+        $uri   = "/_cluster/health";
+
         if (isset($index) === true) {
             $uri = "/_cluster/health/$index";
         }

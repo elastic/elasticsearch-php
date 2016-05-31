@@ -5,22 +5,21 @@ namespace Elasticsearch\Endpoints\Cluster;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Allocationexplain.
+ * Class AllocationExplain
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
-class Allocationexplain extends AbstractEndpoint
+class AllocationExplain extends AbstractEndpoint
 {
+
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -39,9 +38,7 @@ class Allocationexplain extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = '/_cluster/allocation/explain';
-
-        return $uri;
+        return "/_cluster/allocation/explain";
     }
 
     /**
@@ -50,7 +47,7 @@ class Allocationexplain extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'include_yes_decisions',
+            'include_yes_decisions'
         );
     }
 
@@ -59,7 +56,6 @@ class Allocationexplain extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'GET';
     }
 }

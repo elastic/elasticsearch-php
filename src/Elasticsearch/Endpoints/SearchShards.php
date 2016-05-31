@@ -2,19 +2,16 @@
 
 namespace Elasticsearch\Endpoints;
 
-
-
 /**
- * Class Searchshards.
+ * Class Search
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
-class Searchshards extends AbstractEndpoint
+class SearchShards extends AbstractEndpoint
 {
     /**
      * @return string
@@ -23,11 +20,14 @@ class Searchshards extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri = '/_search_shards';
+        $uri   = "/_search_shards";
+
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_search_shards";
         } elseif (isset($index) === true) {
             $uri = "/$index/_search_shards";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_search_shards";
         }
 
         return $uri;
@@ -44,7 +44,7 @@ class Searchshards extends AbstractEndpoint
             'local',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards',
+            'expand_wildcards'
         );
     }
 
@@ -53,7 +53,6 @@ class Searchshards extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'GET';
     }
 }

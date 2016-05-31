@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Count.
+ * Class Count
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Count extends AbstractEndpoint
@@ -22,7 +21,8 @@ class Count extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = '/_cat/count';
+        $uri   = "/_cat/count";
+
         if (isset($index) === true) {
             $uri = "/_cat/count/$index";
         }
@@ -36,7 +36,6 @@ class Count extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
             'local',
             'master_timeout',
             'h',

@@ -5,19 +5,18 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Fielddata.
+ * Class Fielddata
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Fielddata extends AbstractEndpoint
 {
-    // A comma-separated list of fields to return the fielddata size
     private $fields;
+
     /**
      * @param $fields
      *
@@ -28,9 +27,7 @@ class Fielddata extends AbstractEndpoint
         if (isset($fields) !== true) {
             return $this;
         }
-        if (is_array($fields) === true) {
-            $fields = implode(',', $fields);
-        }
+
         $this->fields = $fields;
 
         return $this;
@@ -42,7 +39,8 @@ class Fielddata extends AbstractEndpoint
     protected function getURI()
     {
         $fields = $this->fields;
-        $uri = '/_cat/fielddata';
+        $uri   = "/_cat/fielddata";
+
         if (isset($fields) === true) {
             $uri = "/_cat/fielddata/$fields";
         }
@@ -56,14 +54,11 @@ class Fielddata extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
-            'bytes',
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-            'fields',
         );
     }
 

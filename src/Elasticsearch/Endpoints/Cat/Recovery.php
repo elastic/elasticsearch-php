@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Recovery.
+ * Class Recovery
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Recovery extends AbstractEndpoint
@@ -22,7 +21,8 @@ class Recovery extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = '/_cat/recovery';
+        $uri   = "/_cat/recovery";
+
         if (isset($index) === true) {
             $uri = "/_cat/recovery/$index";
         }
@@ -36,8 +36,8 @@ class Recovery extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
             'bytes',
+            'local',
             'master_timeout',
             'h',
             'help',

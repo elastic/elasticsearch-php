@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Percolate.
+ * Class Percolate
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Percolate extends AbstractEndpoint
@@ -20,7 +19,6 @@ class Percolate extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -35,8 +33,7 @@ class Percolate extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -52,13 +49,12 @@ class Percolate extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $type = $this->type;
-        $id = $this->id;
-        $uri = "/$index/$type/_percolate";
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
+        $type  = $this->type;
+        $id    = $this->id;
+        $uri   = "/$index/$type/_percolate";
+
+        if (isset($id) === true) {
             $uri = "/$index/$type/$id/_percolate";
-        } elseif (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_percolate";
         }
 
         return $uri;
@@ -77,12 +73,19 @@ class Percolate extends AbstractEndpoint
             'expand_wildcards',
             'percolate_index',
             'percolate_type',
-            'percolate_routing',
-            'percolate_preference',
-            'percolate_format',
             'version',
             'version_type',
+            'percolate_format'
         );
+    }
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        return $this->body;
     }
 
     /**
@@ -90,7 +93,6 @@ class Percolate extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'GET';
     }
 }

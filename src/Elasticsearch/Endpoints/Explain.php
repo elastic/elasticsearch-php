@@ -5,13 +5,12 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Explain.
+ * Class Explain
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Explain extends AbstractEndpoint
@@ -20,7 +19,6 @@ class Explain extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -35,8 +33,7 @@ class Explain extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -59,7 +56,8 @@ class Explain extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri = "/$index/$type/$id/_explain";
+        $uri   = "/$index/$type/$id/_explain";
+
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_explain";
         }
@@ -84,6 +82,7 @@ class Explain extends AbstractEndpoint
             'preference',
             'q',
             'routing',
+            'source',
             '_source',
             '_source_exclude',
             '_source_include',
@@ -95,7 +94,6 @@ class Explain extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'GET';
     }
 }

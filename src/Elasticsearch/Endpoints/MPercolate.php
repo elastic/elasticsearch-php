@@ -2,24 +2,32 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 
 /**
- * Class Mpercolate.
+ * Class MPercolate
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
-class Mpercolate extends AbstractEndpoint
+class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
 {
     /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @param Transport           $transport
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Transport $transport, SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+        parent::__construct($transport);
+    }
+
+    /**
+     * @param string|array $body
      *
      * @return $this
      */
@@ -27,6 +35,14 @@ class Mpercolate extends AbstractEndpoint
     {
         if (isset($body) !== true) {
             return $this;
+        }
+
+        if (is_array($body) === true) {
+            $bulkBody = "";
+            foreach ($body as $item) {
+                $bulkBody .= $this->serializer->serialize($item)."\n";
+            }
+            $body = $bulkBody;
         }
 
         $this->body = $body;
@@ -39,16 +55,7 @@ class Mpercolate extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri = '/_mpercolate';
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mpercolate";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_mpercolate";
-        }
-
-        return $uri;
+        return $this->getOptionalURI('_mpercolate');
     }
 
     /**
@@ -64,25 +71,10 @@ class Mpercolate extends AbstractEndpoint
     }
 
     /**
-     * @return array
-     *
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
-    protected function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Mpercolate');
-        }
-
-        return $this->body;
-    }
-
-    /**
      * @return string
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
-        return 'GET';
+        return 'POST';
     }
 }

@@ -3,15 +3,15 @@
 namespace Elasticsearch\Endpoints\Cluster;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Reroute.
+ * Class Reroute
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Reroute extends AbstractEndpoint
@@ -20,7 +20,6 @@ class Reroute extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -39,7 +38,7 @@ class Reroute extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri = '/_cluster/reroute';
+        $uri   = "/_cluster/reroute";
 
         return $uri;
     }
@@ -51,11 +50,11 @@ class Reroute extends AbstractEndpoint
     {
         return array(
             'dry_run',
-            'explain',
-            'retry_failed',
-            'metric',
+            'filter_metadata',
             'master_timeout',
             'timeout',
+            'explain',
+            'metric'
         );
     }
 

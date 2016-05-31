@@ -6,20 +6,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Open.
+ * Class Open
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Open extends AbstractEndpoint
 {
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -30,7 +28,8 @@ class Open extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $uri = "/$index/_open";
+        $uri   = "/$index/_open";
+
         if (isset($index) === true) {
             $uri = "/$index/_open";
         }

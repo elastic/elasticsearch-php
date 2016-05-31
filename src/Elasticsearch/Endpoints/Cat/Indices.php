@@ -5,15 +5,15 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Indices.
+ * Class Indices
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
+
 class Indices extends AbstractEndpoint
 {
     /**
@@ -22,7 +22,8 @@ class Indices extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri = '/_cat/indices';
+        $uri   = "/_cat/indices";
+
         if (isset($index) === true) {
             $uri = "/_cat/indices/$index";
         }
@@ -36,7 +37,6 @@ class Indices extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
             'bytes',
             'local',
             'master_timeout',

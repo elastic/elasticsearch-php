@@ -6,19 +6,19 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Delete.
+ * Class Delete
  *
  * @category Elasticsearch
- *
+ * @package Elasticsearch\Endpoints\Indices\Alias
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Delete extends AbstractEndpoint
 {
     // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
     private $name;
+
     /**
      * @param $name
      *
@@ -29,17 +29,14 @@ class Delete extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
-        if (is_array($name) === true) {
-            $name = implode(',', $name);
-        }
+
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
@@ -56,7 +53,8 @@ class Delete extends AbstractEndpoint
         }
         $index = $this->index;
         $name = $this->name;
-        $uri = "/$index/_alias/$name";
+        $uri   = "/$index/_alias/$name";
+
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_alias/$name";
         }

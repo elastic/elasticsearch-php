@@ -2,16 +2,15 @@
 
 namespace Elasticsearch\Endpoints;
 
-
+use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Count.
+ * Class Count
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Count extends AbstractEndpoint
@@ -20,7 +19,6 @@ class Count extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setBody($body)
@@ -41,9 +39,12 @@ class Count extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri = '/_count';
+        $uri   = "/_count";
+
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_count";
+        } elseif (isset($type) === true) {
+            $uri = "/_all/$type/_count";
         } elseif (isset($index) === true) {
             $uri = "/$index/_count";
         }
@@ -63,13 +64,15 @@ class Count extends AbstractEndpoint
             'min_score',
             'preference',
             'routing',
+            'source',
             'q',
-            'analyzer',
-            'analyze_wildcard',
-            'default_operator',
             'df',
-            'lenient',
+            'default_operator',
+            'analyzer',
             'lowercase_expanded_terms',
+            'analyze_wildcard',
+            'lenient',
+            'lowercase_expanded_terms'
         );
     }
 
@@ -78,7 +81,6 @@ class Count extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        //TODO Fix Me!
         return 'GET';
     }
 }

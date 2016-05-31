@@ -5,19 +5,19 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Stats.
+ * Class Stats
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
 class Stats extends AbstractEndpoint
 {
     // Limit the information returned the specific metrics.
     private $metric;
+
     /**
      * @param $metric
      *
@@ -28,9 +28,11 @@ class Stats extends AbstractEndpoint
         if (isset($metric) !== true) {
             return $this;
         }
-        if (is_array($metric) === true) {
-            $metric = implode(',', $metric);
+
+        if (is_array($metric)) {
+            $metric = implode(",", $metric);
         }
+
         $this->metric = $metric;
 
         return $this;
@@ -43,7 +45,8 @@ class Stats extends AbstractEndpoint
     {
         $index = $this->index;
         $metric = $this->metric;
-        $uri = '/_stats';
+        $uri   = "/_stats";
+
         if (isset($index) === true && isset($metric) === true) {
             $uri = "/$index/_stats/$metric";
         } elseif (isset($index) === true) {
@@ -68,6 +71,7 @@ class Stats extends AbstractEndpoint
             'human',
             'level',
             'types',
+            'metric'
         );
     }
 

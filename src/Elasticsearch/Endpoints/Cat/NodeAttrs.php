@@ -5,23 +5,22 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Nodeattrs.
+ * Class NodeAttrs
  *
  * @category Elasticsearch
- *
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- *
  * @link     http://elastic.co
  */
-class Nodeattrs extends AbstractEndpoint
+class NodeAttrs extends AbstractEndpoint
 {
     /**
      * @return string
      */
     protected function getURI()
     {
-        $uri = '/_cat/nodeattrs';
+        $uri   = "/_cat/nodeattrs";
 
         return $uri;
     }
@@ -32,7 +31,6 @@ class Nodeattrs extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'format',
             'local',
             'master_timeout',
             'h',

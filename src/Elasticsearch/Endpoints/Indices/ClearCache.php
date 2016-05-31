@@ -3,10 +3,9 @@
 namespace Elasticsearch\Endpoints\Indices;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class ValidateQuery
+ * Class ClearCache
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -14,38 +13,18 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class ValidateQuery extends AbstractEndpoint
+class ClearCache extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-        $this->body = $body;
-
-        return $this;
-    }
-
     /**
      * @return string
      */
     protected function getURI()
     {
         $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_validate/query";
+        $uri   = "/_cache/clear";
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_validate/query";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_validate/query";
+        if (isset($index) === true) {
+            $uri = "/$index/_cache/clear";
         }
 
         return $uri;
@@ -57,13 +36,19 @@ class ValidateQuery extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'explain',
+            'field_data',
+            'fielddata',
+            'fields',
+            'filter',
+            'filter_cache',
+            'filter_keys',
+            'id',
+            'id_cache',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'operation_threading',
-            'source',
-            'q',
+            'index',
+            'recycler',
         );
     }
 

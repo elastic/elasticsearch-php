@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Put
@@ -66,7 +66,7 @@ class Put extends AbstractEndpoint
         $index = $this->index;
         $name = $this->name;
         $type = $this->type;
-        $uri   = "/_warmer/$name";
+        $uri = "/_warmer/$name";
 
         if (isset($index) === true && isset($type) === true && isset($name) === true) {
             $uri = "/$index/$type/_warmer/$name";
@@ -84,12 +84,13 @@ class Put extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+            'request_cache',
+        ];
     }
 
     /**

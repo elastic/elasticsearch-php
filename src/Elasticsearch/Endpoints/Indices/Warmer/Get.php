@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Warmer;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -44,14 +44,16 @@ class Get extends AbstractEndpoint
         $index = $this->index;
         $name = $this->name;
         $type = $this->type;
-        $uri   = "/_warmer";
+        $uri = "/_warmer";
 
         if (isset($index) === true && isset($type) === true && isset($name) === true) {
             $uri = "/$index/$type/_warmer/$name";
         } elseif (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_warmer/$name";
         } elseif (isset($index) === true && isset($type) === true) {
-            throw new Exceptions\RuntimeException('Invalid index/type/name combination. If index + type are defined, name must also be defined');
+            throw new Exceptions\RuntimeException(
+                'Invalid index/type/name combination. If index + type are defined, name must also be defined'
+            );
         } elseif (isset($index) === true) {
             $uri = "/$index/_warmer";
         } elseif (isset($name) === true) {
@@ -66,12 +68,12 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'local',
-        );
+        ];
     }
 
     /**

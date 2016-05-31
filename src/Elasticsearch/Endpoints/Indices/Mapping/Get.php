@@ -22,7 +22,7 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_mapping";
+        $uri = "/_mapping";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/_mapping/$type";
@@ -40,13 +40,13 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'wildcard_expansion',
             'local',
-        );
+        ];
     }
 
     /**

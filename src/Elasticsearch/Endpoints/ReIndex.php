@@ -1,20 +1,19 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class ValidateQuery
+ * Class ReIndex
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package Elasticsearch\Endpoints *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class ValidateQuery extends AbstractEndpoint
+class ReIndex extends AbstractEndpoint
 {
     /**
      * @param array $body
@@ -28,50 +27,61 @@ class ValidateQuery extends AbstractEndpoint
             return $this;
         }
 
+        if (is_array($body) !== true) {
+            throw new Exceptions\InvalidArgumentException(
+                'Body must be an array'
+            );
+        }
         $this->body = $body;
 
         return $this;
     }
+
 
     /**
      * @return string
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_validate/query";
-
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_validate/query";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_validate/query";
-        }
+        $uri = "/_reindex";
 
         return $uri;
     }
+
 
     /**
      * @return string[]
      */
     protected function getParamWhitelist()
     {
-        return array(
-            'explain',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
-            'operation_threading',
-            'source',
-            'q',
-        );
+        return [
+            'refresh',
+            'timeout',
+            'consistency',
+            'wait_for_completion',
+        ];
     }
+
+
+    /**
+     * @return array
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for POST');
+        }
+
+        return $this->body;
+    }
+
 
     /**
      * @return string
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

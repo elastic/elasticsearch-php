@@ -39,7 +39,7 @@ class Count extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_count";
+        $uri = "/_count";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_count";
@@ -57,14 +57,14 @@ class Count extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'min_score',
+            'source',
             'preference',
             'routing',
-            'source',
             'q',
             'df',
             'default_operator',
@@ -72,8 +72,8 @@ class Count extends AbstractEndpoint
             'lowercase_expanded_terms',
             'analyze_wildcard',
             'lenient',
-            'lowercase_expanded_terms'
-        );
+            'lowercase_expanded_terms',
+        ];
     }
 
     /**

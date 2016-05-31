@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Fielddata
+ * Class FieldData
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
@@ -13,7 +13,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Fielddata extends AbstractEndpoint
+class FieldData extends AbstractEndpoint
 {
     private $fields;
 
@@ -39,7 +39,7 @@ class Fielddata extends AbstractEndpoint
     protected function getURI()
     {
         $fields = $this->fields;
-        $uri   = "/_cat/fielddata";
+        $uri = "/_cat/fielddata";
 
         if (isset($fields) === true) {
             $uri = "/_cat/fielddata/$fields";
@@ -53,13 +53,15 @@ class Fielddata extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
+            'bytes',
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+            'fields',
+        ];
     }
 
     /**

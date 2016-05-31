@@ -45,7 +45,7 @@ class Stats extends AbstractEndpoint
     {
         $index = $this->index;
         $metric = $this->metric;
-        $uri   = "/_stats";
+        $uri = "/_stats";
 
         if (isset($index) === true && isset($metric) === true) {
             $uri = "/$index/_stats/$metric";
@@ -63,7 +63,7 @@ class Stats extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
@@ -71,8 +71,8 @@ class Stats extends AbstractEndpoint
             'human',
             'level',
             'types',
-            'metric'
-        );
+            'metric',
+        ];
     }
 
     /**

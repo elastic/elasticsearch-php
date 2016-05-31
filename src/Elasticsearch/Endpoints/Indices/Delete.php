@@ -21,7 +21,7 @@ class Delete extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/$index";
+        $uri = "/$index";
 
         if (isset($index) === true) {
             $uri = "/$index";
@@ -35,10 +35,10 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
-        );
+        ];
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Exists
@@ -47,7 +47,7 @@ class Exists extends AbstractEndpoint
             );
         }
         $name = $this->name;
-        $uri   = "/_template/$name";
+        $uri = "/_template/$name";
 
         if (isset($name) === true) {
             $uri = "/_template/$name";
@@ -61,10 +61,10 @@ class Exists extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
+            'master_timeout',
             'local',
-            'master_timeout'
-        );
+        ];
     }
 
     /**

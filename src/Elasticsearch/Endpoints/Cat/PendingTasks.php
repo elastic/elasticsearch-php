@@ -20,7 +20,7 @@ class PendingTasks extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/pending_tasks";
+        $uri = "/_cat/pending_tasks";
 
         return $uri;
     }
@@ -30,13 +30,13 @@ class PendingTasks extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

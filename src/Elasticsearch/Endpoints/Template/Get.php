@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -28,7 +28,7 @@ class Get extends AbstractEndpoint
             );
         }
         $templateId = $this->id;
-        $uri  = "/_search/template/$templateId";
+        $uri = "/_search/template/$templateId";
 
         return $uri;
     }
@@ -38,7 +38,10 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return [
+            'version',
+            'version_type',
+        ];
     }
 
     /**

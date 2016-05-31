@@ -13,7 +13,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Get extends AbstractEndpoint
 {
     /**
@@ -21,7 +20,7 @@ class Get extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cluster/settings";
+        $uri = "/_cluster/settings";
 
         return $uri;
     }
@@ -31,11 +30,11 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'flat_settings',
             'master_timeout',
             'timeout',
-        );
+        ];
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
@@ -27,8 +27,8 @@ class Delete extends AbstractEndpoint
                 'id is required for Delete'
             );
         }
-        $templateId   = $this->id;
-        $uri  = "/_search/template/$templateId";
+        $templateId = $this->id;
+        $uri = "/_search/template/$templateId";
 
         return $uri;
     }
@@ -38,7 +38,10 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return [
+            'version',
+            'version_type',
+        ];
     }
 
     /**

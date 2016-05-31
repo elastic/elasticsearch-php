@@ -56,7 +56,7 @@ class Mlt extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id/_mlt";
+        $uri = "/$index/$type/$id/_mlt";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_mlt";
@@ -70,7 +70,7 @@ class Mlt extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'boost_terms',
             'max_doc_freq',
             'max_query_terms',
@@ -90,7 +90,7 @@ class Mlt extends AbstractEndpoint
             'search_type',
             'search_types',
             'stop_words',
-        );
+        ];
     }
 
     /**

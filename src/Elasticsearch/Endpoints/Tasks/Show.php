@@ -1,55 +1,56 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Tasks;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class Show
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Template
+ * @package Elasticsearch\Endpoints\Tasks *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Get extends AbstractEndpoint
+class Show extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    // Return the task with specified id (node_id:task_number)
+    private $task_id;
+
 
     /**
-     * @param $name
+     * @param $task_id
      *
      * @return $this
      */
-    public function setName($name)
+    public function setTaskId($task_id)
     {
-        if (isset($name) !== true) {
+        if (isset($task_id) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->task_id = $task_id;
 
         return $this;
     }
 
+
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri = "/_template";
-
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        $task_id = $this->task_id;
+        $uri = "/_tasks";
+        if (isset($task_id) === true) {
+            $uri = "/_tasks/$task_id";
         }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -57,11 +58,15 @@ class Get extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return [
-            'flat_settings',
-            'master_timeout',
-            'local',
+            'node_id',
+            'actions',
+            'detailed',
+            'parent_node',
+            'parent_task',
+            'wait_for_completion',
         ];
     }
+
 
     /**
      * @return string

@@ -18,8 +18,8 @@ use GuzzleHttp\Ring\Future\FutureArrayInterface;
  */
 abstract class AbstractEndpoint
 {
-    /** @var array  */
-    protected $params = array();
+    /** @var array */
+    protected $params = [];
 
     /** @var  string */
     protected $index = null;
@@ -36,10 +36,10 @@ abstract class AbstractEndpoint
     /** @var  array */
     protected $body = null;
 
-    /** @var \Elasticsearch\Transport  */
+    /** @var \Elasticsearch\Transport */
     private $transport = null;
 
-    /** @var array  */
+    /** @var array */
     private $options = [];
 
     /**
@@ -71,7 +71,7 @@ abstract class AbstractEndpoint
      */
     public function performRequest()
     {
-        $promise =  $this->transport->performRequest(
+        $promise = $this->transport->performRequest(
             $this->getMethod(),
             $this->getURI(),
             $this->params,
@@ -86,12 +86,13 @@ abstract class AbstractEndpoint
      * Set the parameters for this endpoint
      *
      * @param string[] $params Array of parameters
+     *
      * @return $this
      */
     public function setParams($params)
     {
         if (is_object($params) === true) {
-            $params = (array) $params;
+            $params = (array)$params;
         }
 
         $this->checkUserParams($params);
@@ -162,6 +163,7 @@ abstract class AbstractEndpoint
 
     /**
      * @param $result
+     *
      * @return callable|array
      */
     public function resultOrFuture($result)
@@ -194,11 +196,11 @@ abstract class AbstractEndpoint
      */
     protected function getOptionalURI($endpoint)
     {
-        $uri = array();
+        $uri = [];
         $uri[] = $this->getOptionalIndex();
         $uri[] = $this->getOptionalType();
         $uri[] = $endpoint;
-        $uri =  array_filter($uri);
+        $uri = array_filter($uri);
 
         return '/' . implode('/', $uri);
     }
@@ -238,15 +240,17 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path'));
+        $whitelist = array_merge($this->getParamWhitelist(), ['client', 'custom', 'filter_path']);
 
         foreach ($params as $key => $value) {
             if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException(sprintf(
-                    '"%s" is not a valid parameter. Allowed parameters are: "%s"',
-                    $key,
-                    implode('", "', $whitelist)
-                ));
+                throw new UnexpectedValueException(
+                    sprintf(
+                        '"%s" is not a valid parameter. Allowed parameters are: "%s"',
+                        $key,
+                        implode('", "', $whitelist)
+                    )
+                );
             }
         }
     }

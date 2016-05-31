@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Exists;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Types
@@ -35,8 +35,8 @@ class Types extends AbstractEndpoint
         }
 
         $index = $this->index;
-        $type  = $this->type;
-        $uri   = "/$index/$type";
+        $type = $this->type;
+        $uri = "/$index/$type";
 
         return $uri;
     }
@@ -46,11 +46,12 @@ class Types extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
-        );
+            'expand_wildcards',
+            'local',
+        ];
     }
 
     /**

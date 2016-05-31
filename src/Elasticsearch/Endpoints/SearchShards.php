@@ -20,7 +20,7 @@ class SearchShards extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_search_shards";
+        $uri = "/_search_shards";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_search_shards";
@@ -38,14 +38,14 @@ class SearchShards extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'preference',
             'routing',
             'local',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
-        );
+            'expand_wildcards',
+        ];
     }
 
     /**

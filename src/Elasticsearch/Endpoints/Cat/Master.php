@@ -20,7 +20,7 @@ class Master extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/master";
+        $uri = "/_cat/master";
 
         return $uri;
     }
@@ -30,13 +30,13 @@ class Master extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

@@ -3,9 +3,11 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Transport;
 
 /**
- * Class Mget
+ * Class MSearch
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -13,10 +15,25 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Mget extends AbstractEndpoint
+class MSearch extends AbstractEndpoint
 {
     /**
-     * @param array $body
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
+     * @param Transport $transport
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Transport $transport, SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+        parent::__construct($transport);
+    }
+
+    /**
+     * @param array|string $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
@@ -25,6 +42,14 @@ class Mget extends AbstractEndpoint
     {
         if (isset($body) !== true) {
             return $this;
+        }
+
+        if (is_array($body) === true) {
+            $bulkBody = "";
+            foreach ($body as $item) {
+                $bulkBody .= $this->serializer->serialize($item) . "\n";
+            }
+            $body = $bulkBody;
         }
 
         $this->body = $body;
@@ -39,14 +64,14 @@ class Mget extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_mget";
+        $uri = "/_msearch";
 
         if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mget";
+            $uri = "/$index/$type/_msearch";
         } elseif (isset($index) === true) {
-            $uri = "/$index/_mget";
+            $uri = "/$index/_msearch";
         } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_mget";
+            $uri = "/_all/$type/_msearch";
         }
 
         return $uri;
@@ -57,16 +82,9 @@ class Mget extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-            'fields',
-            'preference',
-            'realtime',
-            'refresh',
-            '_source',
-            '_source_exclude',
-            '_source_include',
-            'routing'
-        );
+        return [
+            'search_type',
+        ];
     }
 
     /**
@@ -76,7 +94,7 @@ class Mget extends AbstractEndpoint
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MGet');
+            throw new Exceptions\RuntimeException('Body is required for MSearch');
         }
 
         return $this->body;
@@ -87,6 +105,6 @@ class Mget extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'POST';
+        return 'GET';
     }
 }

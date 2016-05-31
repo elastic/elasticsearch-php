@@ -45,7 +45,7 @@ class MTermVectors extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ids',
             'term_statistics',
             'field_statistics',
@@ -56,8 +56,10 @@ class MTermVectors extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
-        );
+            'realtime',
+            'version',
+            'version_type',
+        ];
     }
 
     /**

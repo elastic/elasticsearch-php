@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Create
@@ -64,7 +64,7 @@ class Create extends AbstractEndpoint
             );
         }
         $repository = $this->repository;
-        $uri   = "/_snapshot/$repository";
+        $uri = "/_snapshot/$repository";
 
         if (isset($repository) === true) {
             $uri = "/_snapshot/$repository";
@@ -78,10 +78,11 @@ class Create extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'timeout',
-        );
+            'verify',
+        ];
     }
 
     /**

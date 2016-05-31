@@ -15,10 +15,10 @@ use Elasticsearch\Common\Exceptions;
  */
 class Get extends AbstractEndpoint
 {
-    /** @var bool  */
+    /** @var bool */
     private $returnOnlySource = false;
 
-    /** @var bool  */
+    /** @var bool */
     private $checkOnlyExistance = false;
 
     /**
@@ -65,7 +65,7 @@ class Get extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
+        $uri = "/$index/$type/$id";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id";
@@ -83,7 +83,7 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'fields',
             'parent',
             'preference',
@@ -95,7 +95,7 @@ class Get extends AbstractEndpoint
             '_source_include',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**

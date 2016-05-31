@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Cluster\Settings;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Put
@@ -38,7 +38,7 @@ class Put extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cluster/settings";
+        $uri = "/_cluster/settings";
 
         return $uri;
     }
@@ -48,9 +48,11 @@ class Put extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'flat_settings',
-        );
+            'master_timeout',
+            'timeout',
+        ];
     }
 
     /**

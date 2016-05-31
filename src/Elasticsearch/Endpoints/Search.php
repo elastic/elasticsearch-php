@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -40,7 +39,7 @@ class Search extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_search";
+        $uri = "/_search";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_search";
@@ -58,13 +57,15 @@ class Search extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'analyzer',
             'analyze_wildcard',
             'default_operator',
             'df',
             'explain',
             'fields',
+            'fielddata_fields',
+            'filter_path',
             'from',
             'ignore_unavailable',
             'allow_no_indices',
@@ -85,16 +86,17 @@ class Search extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
+            'terminate_after',
             'stats',
             'suggest_field',
             'suggest_mode',
             'suggest_size',
             'suggest_text',
             'timeout',
+            'track_scores',
             'version',
-            'fielddata_fields',
-            'filter_path'
-        );
+            'request_cache',
+        ];
     }
 
     /**

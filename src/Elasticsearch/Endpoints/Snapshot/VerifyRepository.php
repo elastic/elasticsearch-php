@@ -1,23 +1,24 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot\Repository;
+namespace Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Verify
+ * Class VerifyRepository
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot\Repository
+ * @package Elasticsearch\Endpoints\Snapshot *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Verify extends AbstractEndpoint
+class VerifyRepository extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    // A repository name
     private $repository;
+
 
     /**
      * @param $repository
@@ -35,34 +36,37 @@ class Verify extends AbstractEndpoint
         return $this;
     }
 
+
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $repository = $this->repository;
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
-                'repository is required for Verify'
+                'repository is required for VerifyRepository'
             );
         }
-
-        $uri   = "/_snapshot/$repository/_verify";
+        $repository = $this->repository;
+        $uri = "/_snapshot/$repository/_verify";
 
         return $uri;
     }
+
 
     /**
      * @return string[]
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
+            'timeout',
             'local',
-        );
+        ];
     }
+
 
     /**
      * @return string

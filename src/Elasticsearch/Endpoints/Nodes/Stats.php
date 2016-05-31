@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace Elasticsearch\Endpoints\Nodes;
 
 /**
  * Class Stats
@@ -16,7 +16,8 @@ class Stats extends AbstractNodesEndpoint
     // Limit the information returned to the specified metrics
     private $metric;
 
-    // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices` (or `all`) metric isn&#039;t specified.
+    // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices`
+    // (or `all`) metric isn&#039;t specified.
     private $indexMetric;
 
     /**
@@ -67,7 +68,7 @@ class Stats extends AbstractNodesEndpoint
         $metric = $this->metric;
         $index_metric = $this->indexMetric;
         $node_id = $this->nodeID;
-        $uri   = "/_nodes/stats";
+        $uri = "/_nodes/stats";
 
         if (isset($node_id) === true && isset($metric) === true && isset($index_metric) === true) {
             $uri = "/_nodes/$node_id/stats/$metric/$index_metric";
@@ -89,7 +90,7 @@ class Stats extends AbstractNodesEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
@@ -97,7 +98,8 @@ class Stats extends AbstractNodesEndpoint
             'human',
             'level',
             'types',
-        );
+            'timeout',
+        ];
     }
 
     /**

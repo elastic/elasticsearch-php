@@ -39,7 +39,7 @@ class Delete extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
+        $uri = "/$index/$type/$id";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id";
@@ -53,7 +53,7 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'consistency',
             'parent',
             'refresh',
@@ -62,7 +62,7 @@ class Delete extends AbstractEndpoint
             'timeout',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**

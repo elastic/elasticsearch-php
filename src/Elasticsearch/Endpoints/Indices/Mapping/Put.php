@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Mapping;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Put
@@ -46,7 +46,7 @@ class Put extends AbstractEndpoint
         }
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_mapping/$type";
+        $uri = "/_mapping/$type";
 
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_mapping";
@@ -62,14 +62,15 @@ class Put extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-            'ignore_conflicts',
+        return [
             'timeout',
             'master_timeout',
+            'ignore_conflicts',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+            'update_all_types',
+        ];
     }
 
     /**

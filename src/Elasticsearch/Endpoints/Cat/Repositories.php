@@ -20,7 +20,7 @@ class Repositories extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/repositories";
+        $uri = "/_cat/repositories";
 
         return $uri;
     }
@@ -30,13 +30,13 @@ class Repositories extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

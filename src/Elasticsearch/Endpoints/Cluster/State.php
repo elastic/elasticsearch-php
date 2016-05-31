@@ -45,7 +45,7 @@ class State extends AbstractEndpoint
     {
         $index = $this->index;
         $metric = $this->metric;
-        $uri   = "/_cluster/state";
+        $uri = "/_cluster/state";
 
         if (isset($metric) === true && isset($index) === true) {
             $uri = "/_cluster/state/$metric/$index";
@@ -61,15 +61,15 @@ class State extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'flat_settings',
             'index_templates',
-            'expand_wildcards',
             'ignore_unavailable',
-            'allow_no_indices'
-        );
+            'allow_no_indices',
+            'expand_wildcards',
+        ];
     }
 
     /**

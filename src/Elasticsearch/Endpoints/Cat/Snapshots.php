@@ -2,6 +2,7 @@
 
 namespace Elasticsearch\Endpoints\Cat;
 
+use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -44,7 +45,8 @@ class Snapshots extends AbstractEndpoint
             );
         }
         $repository = $this->repository;
-        $uri   = "/_cat/snapshots/$repository/";
+        $uri = "/_cat/snapshots/$repository/";
+
         return $uri;
     }
 
@@ -53,13 +55,14 @@ class Snapshots extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
+            'ignore_unavailable',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

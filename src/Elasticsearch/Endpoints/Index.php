@@ -15,7 +15,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class Index extends AbstractEndpoint
 {
-    /** @var bool  */
+    /** @var bool */
     private $createIfAbsent = false;
 
     /**
@@ -63,10 +63,10 @@ class Index extends AbstractEndpoint
             );
         }
 
-        $id    = $this->id;
+        $id = $this->id;
         $index = $this->index;
-        $type  = $this->type;
-        $uri   = "/$index/$type";
+        $type = $this->type;
+        $uri = "/$index/$type";
 
         if (isset($id) === true) {
             $uri = "/$index/$type/$id";
@@ -79,25 +79,34 @@ class Index extends AbstractEndpoint
         return $uri;
     }
 
+    private function addCreateFlag()
+    {
+        if (isset($this->id) === true) {
+            return '/_create';
+        } else {
+            $this->params['op_type'] = 'create';
+
+            return "";
+        }
+    }
+
     /**
      * @return string[]
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'consistency',
             'op_type',
             'parent',
-            'percolate',
             'refresh',
-            'replication',
             'routing',
             'timeout',
             'timestamp',
             'ttl',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**
@@ -122,17 +131,6 @@ class Index extends AbstractEndpoint
             throw new Exceptions\RuntimeException('Document body must be set for index request');
         } else {
             return $this->body;
-        }
-    }
-
-    private function addCreateFlag()
-    {
-        if (isset($this->id) === true) {
-            return '/_create';
-        } else {
-            $this->params['op_type'] = 'create';
-
-            return "";
         }
     }
 }

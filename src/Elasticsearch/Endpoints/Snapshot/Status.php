@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Status
@@ -67,8 +67,8 @@ class Status extends AbstractEndpoint
         }
 
         $repository = $this->repository;
-        $snapshot   = $this->snapshot;
-        $uri        = "/_snapshot/_status";
+        $snapshot = $this->snapshot;
+        $uri = "/_snapshot/_status";
 
         if (isset($repository) === true) {
             $uri = "/_snapshot/$repository/_status";
@@ -84,9 +84,9 @@ class Status extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
-        );
+        ];
     }
 
     /**

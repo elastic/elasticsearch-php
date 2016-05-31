@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Source;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -40,7 +40,7 @@ class Get extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id/_source";
+        $uri = "/$index/$type/$id/_source";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_source";
@@ -54,7 +54,7 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'parent',
             'preference',
             'realtime',
@@ -65,7 +65,7 @@ class Get extends AbstractEndpoint
             '_source_include',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**

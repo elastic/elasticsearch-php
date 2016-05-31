@@ -23,7 +23,7 @@ class ClearScroll extends AbstractEndpoint
      *
      * @return $this
      */
-    public function setScroll_Id($scroll_id)
+    public function setScrollId($scroll_id)
     {
         if (isset($scroll_id) !== true) {
             return $this;
@@ -46,7 +46,7 @@ class ClearScroll extends AbstractEndpoint
             );
         }
         $scroll_id = $this->scroll_id;
-        $uri   = "/_search/scroll/$scroll_id";
+        $uri = "/_search/scroll/$scroll_id";
 
         if (isset($scroll_id) === true) {
             $uri = "/_search/scroll/$scroll_id";
@@ -60,8 +60,8 @@ class ClearScroll extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-        );
+        return [
+        ];
     }
 
     /**

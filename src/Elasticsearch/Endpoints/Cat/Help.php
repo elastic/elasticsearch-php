@@ -20,7 +20,7 @@ class Help extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat";
+        $uri = "/_cat";
 
         return $uri;
     }
@@ -30,9 +30,9 @@ class Help extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'help',
-        );
+        ];
     }
 
     /**

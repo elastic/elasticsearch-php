@@ -21,7 +21,7 @@ class Status extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_status";
+        $uri = "/_status";
 
         if (isset($index) === true) {
             $uri = "/$index/_status";
@@ -35,7 +35,7 @@ class Status extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
@@ -43,7 +43,7 @@ class Status extends AbstractEndpoint
             'operation_threading',
             'recovery',
             'snapshot',
-        );
+        ];
     }
 
     /**

@@ -39,7 +39,7 @@ class FieldStats extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_field_stats";
+        $uri = "/_field_stats";
 
         if (isset($index) === true) {
             $uri = "/$index/_field_stats";
@@ -53,14 +53,13 @@ class FieldStats extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'fields',
             'level',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'fields'
-        );
+        ];
     }
 
     /**

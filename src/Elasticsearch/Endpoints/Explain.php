@@ -56,7 +56,7 @@ class Explain extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id/_explain";
+        $uri = "/$index/$type/$id/_explain";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_explain";
@@ -70,7 +70,7 @@ class Explain extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'analyze_wildcard',
             'analyzer',
             'default_operator',
@@ -86,7 +86,7 @@ class Explain extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
-        );
+        ];
     }
 
     /**

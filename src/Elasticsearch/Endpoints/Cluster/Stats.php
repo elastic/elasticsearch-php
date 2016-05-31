@@ -15,7 +15,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Stats extends AbstractEndpoint
 {
-    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
+    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information
+    // from the node you&#039;re connecting to, leave empty to get information from all nodes
     private $nodeID;
 
     /**
@@ -40,7 +41,7 @@ class Stats extends AbstractEndpoint
     protected function getURI()
     {
         $node_id = $this->nodeID;
-        $uri   = "/_cluster/stats";
+        $uri = "/_cluster/stats";
 
         if (isset($node_id) === true) {
             $uri = "/_cluster/stats/nodes/$node_id";
@@ -54,10 +55,11 @@ class Stats extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'flat_settings',
             'human',
-        );
+            'timeout',
+        ];
     }
 
     /**

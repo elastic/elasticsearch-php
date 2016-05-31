@@ -15,10 +15,21 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Flush extends AbstractEndpoint
 {
-    protected $synced = false;
+    /**
+     * @var boolean
+     */
+    protected $isSynced;
 
-    public function setSynced($synced) {
-        $this->synced = $synced;
+    /**
+     * @param boolean $isSynced
+     *
+     * @return $this
+     */
+    public function setSynced($isSynced)
+    {
+        $this->isSynced = $isSynced;
+
+        return $this;
     }
 
     /**
@@ -27,13 +38,13 @@ class Flush extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_flush";
+        $uri = "/_flush";
 
         if (isset($index) === true) {
             $uri = "/$index/_flush";
         }
 
-        if ($this->synced === true) {
+        if ($this->isSynced === true) {
             $uri .= "/synced";
         }
 
@@ -45,14 +56,14 @@ class Flush extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'force',
             'full',
+            'wait_if_ongoing',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'wait_if_ongoing'
-        );
+        ];
     }
 
     /**

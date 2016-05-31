@@ -21,7 +21,7 @@ class Recovery extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_recovery";
+        $uri = "/_recovery";
 
         if (isset($index) === true) {
             $uri = "/$index/_recovery";
@@ -35,11 +35,11 @@ class Recovery extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'detailed',
             'active_only',
-            'human'
-        );
+            'human',
+        ];
     }
 
     /**

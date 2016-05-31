@@ -41,7 +41,7 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_aliases";
+        $uri = "/_aliases";
 
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_aliases/$name";
@@ -59,10 +59,10 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'timeout',
             'local',
-        );
+        ];
     }
 
     /**

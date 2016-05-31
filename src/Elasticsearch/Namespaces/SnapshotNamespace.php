@@ -14,14 +14,18 @@ namespace Elasticsearch\Namespaces;
 class SnapshotNamespace extends AbstractNamespace
 {
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
+     * $params['repository']          = (string) A repository name (Required)
+     *        ['snapshot']            = (string) A snapshot name (Required)
+     *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+     * returning (default: false)
+     *        ['body']                = The snapshot definition
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function create($params = array())
+    public function create($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -42,14 +46,17 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['verify']         = (boolean) Whether to verify the repository after creation
+     *        ['body']           = The repository definition
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function createRepository($params = array())
+    public function createRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $body = $this->extractArgument($params, 'body');
@@ -68,13 +75,15 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['snapshot']       = (string) A snapshot name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function delete($params = array())
+    public function delete($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -93,14 +102,15 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (list) A comma-separated list of repository names (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function deleteRepository($params = array())
+    public function deleteRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
@@ -117,13 +127,15 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['snapshot']       = (list) A comma-separated list of snapshot names (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function get($params = array())
+    public function get($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -142,14 +154,16 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (list) A comma-separated list of repository names
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['local']          = (boolean) Return local information, do not retrieve the state from master node
+     * (default: false)
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function getRepository($params = array())
+    public function getRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
@@ -166,14 +180,18 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
+     * $params['repository']          = (string) A repository name (Required)
+     *        ['snapshot']            = (string) A snapshot name (Required)
+     *        ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     *        ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+     * returning (default: false)
+     *        ['body']                = Details of what to restore
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function restore($params = array())
+    public function restore($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -194,13 +212,15 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['repository']     = (string) A repository name
+     *        ['snapshot']       = (list) A comma-separated list of snapshot names
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function status($params = array())
+    public function status($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
@@ -219,22 +239,23 @@ class SnapshotNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-     *        ['timeout'] = (time) Explicit operation timeout
+     * $params['repository']     = (string) A repository name (Required)
+     *        ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     *        ['timeout']        = (time) Explicit operation timeout
      *
      * @param $params array Associative array of parameters
      *
      * @return array
      */
-    public function verifyRepository($params = array())
+    public function verifyRepository($params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */
-        $endpoint = $endpointBuilder('Snapshot\Repository\Verify');
+        /** @var \Elasticsearch\Endpoints\Snapshot\VerifyRepository $endpoint */
+        $endpoint = $endpointBuilder('Snapshot\VerifyRepository');
         $endpoint->setRepository($repository)
                  ->setParams($params);
         $response = $endpoint->performRequest();

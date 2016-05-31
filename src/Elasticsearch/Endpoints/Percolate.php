@@ -49,9 +49,9 @@ class Percolate extends AbstractEndpoint
             );
         }
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
-        $uri   = "/$index/$type/_percolate";
+        $type = $this->type;
+        $id = $this->id;
+        $uri = "/$index/$type/_percolate";
 
         if (isset($id) === true) {
             $uri = "/$index/$type/$id/_percolate";
@@ -65,7 +65,7 @@ class Percolate extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'routing',
             'preference',
             'ignore_unavailable',
@@ -73,10 +73,12 @@ class Percolate extends AbstractEndpoint
             'expand_wildcards',
             'percolate_index',
             'percolate_type',
+            'percolate_routing',
+            'percolate_preference',
+            'percolate_format',
             'version',
             'version_type',
-            'percolate_format'
-        );
+        ];
     }
 
     /**

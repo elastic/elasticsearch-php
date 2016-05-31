@@ -40,7 +40,7 @@ class Aliases extends AbstractEndpoint
     protected function getURI()
     {
         $name = $this->name;
-        $uri   = "/_cat/aliases";
+        $uri = "/_cat/aliases";
 
         if (isset($name) === true) {
             $uri = "/_cat/aliases/$name";
@@ -54,13 +54,13 @@ class Aliases extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

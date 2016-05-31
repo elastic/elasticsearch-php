@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,7 +13,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class RenderSearchTemplate extends AbstractEndpoint
 {
     /**
@@ -30,6 +28,7 @@ class RenderSearchTemplate extends AbstractEndpoint
         }
 
         $this->body = $body;
+
         return $this;
     }
 
@@ -41,7 +40,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     {
         $id = $this->id;
 
-        $uri   = "/_render/template";
+        $uri = "/_render/template";
 
         if (isset($id) === true) {
             $uri = "/_render/template/$id";
@@ -55,7 +54,7 @@ class RenderSearchTemplate extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return [];
     }
 
     /**

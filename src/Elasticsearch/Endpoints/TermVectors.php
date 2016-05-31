@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class TermVector
+ * Class TermVectors
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -13,8 +13,23 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class TermVector extends AbstractEndpoint
+class TermVectors extends AbstractEndpoint
 {
+    /**
+     * @var boolean
+     */
+    protected $shouldUseDeprecated;
+
+    /**
+     * @return $this
+     */
+    public function useDeprecated()
+    {
+        $this->shouldUseDeprecated = true;
+
+        return $this;
+    }
+
     /**
      * @param array $body
      *
@@ -53,11 +68,10 @@ class TermVector extends AbstractEndpoint
                 'id is required for TermVector'
             );
         }
-
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
-        $uri   = "/$index/$type/$id/_termvector";
+        $type = $this->type;
+        $id = $this->id;
+        $uri = "/$index/$type/$id/_termvector" . ($this->shouldUseDeprecated ? '' : 's');
 
         return $uri;
     }
@@ -67,9 +81,10 @@ class TermVector extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'term_statistics',
             'field_statistics',
+            'dfs',
             'fields',
             'offsets',
             'positions',
@@ -77,8 +92,10 @@ class TermVector extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
-        );
+            'realtime',
+            'version',
+            'version_type',
+        ];
     }
 
     /**

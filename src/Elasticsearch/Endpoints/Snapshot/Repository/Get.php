@@ -40,7 +40,7 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
         $repository = $this->repository;
-        $uri   = "/_snapshot";
+        $uri = "/_snapshot";
 
         if (isset($repository) === true) {
             $uri = "/_snapshot/$repository";
@@ -54,10 +54,10 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'local',
-        );
+        ];
     }
 
     /**

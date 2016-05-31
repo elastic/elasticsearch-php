@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Settings;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Put
@@ -39,7 +39,7 @@ class Put extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_settings";
+        $uri = "/_settings";
 
         if (isset($index) === true) {
             $uri = "/$index/_settings";
@@ -53,13 +53,13 @@ class Put extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'flat_settings',
-        );
+        ];
     }
 
     /**

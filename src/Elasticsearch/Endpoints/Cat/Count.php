@@ -21,7 +21,7 @@ class Count extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_cat/count";
+        $uri = "/_cat/count";
 
         if (isset($index) === true) {
             $uri = "/_cat/count/$index";
@@ -35,13 +35,13 @@ class Count extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

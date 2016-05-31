@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Field;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -49,7 +49,7 @@ class Get extends AbstractEndpoint
         $index = $this->index;
         $type = $this->type;
         $field = $this->field;
-        $uri   = "/_mapping/field/$field";
+        $uri = "/_mapping/field/$field";
 
         if (isset($index) === true && isset($type) === true && isset($field) === true) {
             $uri = "/$index/_mapping/$type/field/$field";
@@ -69,13 +69,13 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'include_defaults',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'local',
-        );
+        ];
     }
 
     /**

@@ -20,7 +20,7 @@ class Plugins extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/plugins";
+        $uri = "/_cat/plugins";
 
         return $uri;
     }
@@ -30,13 +30,13 @@ class Plugins extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
     /**

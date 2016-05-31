@@ -7,8 +7,8 @@
 
 namespace Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Segments
@@ -19,7 +19,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Segments extends AbstractEndpoint
 {
     /**
@@ -28,7 +27,7 @@ class Segments extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_cat/segments";
+        $uri = "/_cat/segments";
 
         if (isset($index) === true) {
             $uri = "/_cat/segments/$index";
@@ -43,11 +42,11 @@ class Segments extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'h',
             'help',
             'v',
-        );
+        ];
     }
 
 

@@ -1,30 +1,28 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
-
-use Elasticsearch\Endpoints\AbstractEndpoint;
+namespace Elasticsearch\Endpoints\Nodes;
 
 /**
- * Class Snapshotindex
+ * Class Shutdown
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints\Cluster\Nodes
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Snapshotindex extends AbstractEndpoint
+class Shutdown extends AbstractNodesEndpoint
 {
     /**
      * @return string
      */
     protected function getURI()
     {
-        $index = $this->index;
-        $uri   = "/_gateway/snapshot";
+        $node_id = $this->nodeID;
+        $uri = "/_shutdown";
 
-        if (isset($index) === true) {
-            $uri = "/$index/_gateway/snapshot";
+        if (isset($node_id) === true) {
+            $uri = "/_cluster/nodes/$node_id/_shutdown";
         }
 
         return $uri;
@@ -35,11 +33,10 @@ class Snapshotindex extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
-        );
+        return [
+            'delay',
+            'exit',
+        ];
     }
 
     /**

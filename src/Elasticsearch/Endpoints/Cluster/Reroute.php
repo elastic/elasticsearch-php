@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Reroute
@@ -38,7 +38,7 @@ class Reroute extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cluster/reroute";
+        $uri = "/_cluster/reroute";
 
         return $uri;
     }
@@ -48,14 +48,14 @@ class Reroute extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'dry_run',
             'filter_metadata',
+            'explain',
+            'metric',
             'master_timeout',
             'timeout',
-            'explain',
-            'metric'
-        );
+        ];
     }
 
     /**

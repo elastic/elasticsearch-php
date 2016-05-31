@@ -1,55 +1,56 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Tasks;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class Cancel
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Template
+ * @package Elasticsearch\Endpoints\Tasks *
  * @author   Zachary Tong <zachary.tong@elasticsearch.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Get extends AbstractEndpoint
+class Cancel extends AbstractEndpoint
 {
-    // The name of the template
-    private $name;
+    // Cancel the task with specified task id (node_id:task_number)
+    private $task_id;
+
 
     /**
-     * @param $name
+     * @param $task_id
      *
      * @return $this
      */
-    public function setName($name)
+    public function setTaskId($task_id)
     {
-        if (isset($name) !== true) {
+        if (isset($task_id) !== true) {
             return $this;
         }
 
-        $this->name = $name;
+        $this->task_id = $task_id;
 
         return $this;
     }
 
+
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        $name = $this->name;
-        $uri = "/_template";
-
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        $task_id = $this->task_id;
+        $uri = "/_tasks/_cancel";
+        if (isset($task_id) === true) {
+            $uri = "/_tasks/$task_id/_cancel";
         }
 
         return $uri;
     }
+
 
     /**
      * @return string[]
@@ -57,17 +58,19 @@ class Get extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return [
-            'flat_settings',
-            'master_timeout',
-            'local',
+            'node_id',
+            'actions',
+            'parent_node',
+            'parent_task',
         ];
     }
+
 
     /**
      * @return string
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

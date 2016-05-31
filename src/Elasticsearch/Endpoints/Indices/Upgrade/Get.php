@@ -7,8 +7,8 @@
 
 namespace Elasticsearch\Endpoints\Indices\Upgrade;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Post
@@ -19,7 +19,6 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-
 class Get extends AbstractEndpoint
 {
 
@@ -29,7 +28,7 @@ class Get extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_upgrade";
+        $uri = "/_upgrade";
 
         if (isset($index) === true) {
             $uri = "/$index/_upgrade";
@@ -45,13 +44,14 @@ class Get extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'wait_for_completion',
             'only_ancient_segments',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-        );
+            'human',
+        ];
     }
 
 

@@ -56,7 +56,7 @@ class Update extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id/_update";
+        $uri = "/$index/$type/$id/_update";
 
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_update";
@@ -70,7 +70,7 @@ class Update extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'consistency',
             'fields',
             'lang',
@@ -80,12 +80,14 @@ class Update extends AbstractEndpoint
             'retry_on_conflict',
             'routing',
             'script',
+            'script_id',
+            'scripted_upsert',
             'timeout',
             'timestamp',
             'ttl',
             'version',
             'version_type',
-        );
+        ];
     }
 
     /**

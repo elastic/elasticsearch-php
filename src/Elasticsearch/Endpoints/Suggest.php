@@ -38,7 +38,7 @@ class Suggest extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_suggest";
+        $uri = "/_suggest";
 
         if (isset($index) === true) {
             $uri = "/$index/_suggest";
@@ -52,14 +52,14 @@ class Suggest extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'preference',
             'routing',
             'source',
-        );
+        ];
     }
 
     /**

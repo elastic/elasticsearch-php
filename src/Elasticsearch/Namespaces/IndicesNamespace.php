@@ -243,6 +243,33 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
+     * $params['index']          = (string) The name of the source index to shrink
+     *        ['target']         = (string) The name of the target index to shrink into
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['master_timeout'] = (time) Specify timeout for connection to master
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function shrink($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $target = $this->extractArgument($params, 'target');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Shrink $endpoint */
+        $endpoint = $endpointBuilder('Indices\Shrink');
+        $endpoint->setIndex($index)
+                 ->setTarget($target);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
      *        ['type']  = (list) A comma-separated list of document types
      *

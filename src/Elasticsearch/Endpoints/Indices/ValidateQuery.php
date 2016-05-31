@@ -3,23 +3,24 @@
 namespace Elasticsearch\Endpoints\Indices;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class ValidateQuery
+ * Class Validatequery.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class ValidateQuery extends AbstractEndpoint
+class Validatequery extends AbstractEndpoint
 {
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -40,8 +41,7 @@ class ValidateQuery extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_validate/query";
-
+        $uri = '/_validate/query';
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_validate/query";
         } elseif (isset($index) === true) {
@@ -62,8 +62,14 @@ class ValidateQuery extends AbstractEndpoint
             'allow_no_indices',
             'expand_wildcards',
             'operation_threading',
-            'source',
             'q',
+            'analyzer',
+            'analyze_wildcard',
+            'default_operator',
+            'df',
+            'lenient',
+            'lowercase_expanded_terms',
+            'rewrite',
         );
     }
 
@@ -72,6 +78,7 @@ class ValidateQuery extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

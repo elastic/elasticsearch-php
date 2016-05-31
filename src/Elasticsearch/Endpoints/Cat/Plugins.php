@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Health
+ * Class Plugins.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Plugins extends AbstractEndpoint
@@ -20,7 +21,7 @@ class Plugins extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_cat/plugins";
+        $uri = '/_cat/plugins';
 
         return $uri;
     }
@@ -31,6 +32,7 @@ class Plugins extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'format',
             'local',
             'master_timeout',
             'h',

@@ -2,32 +2,24 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Elasticsearch\Common\Exceptions;
 
 /**
- * Class MPercolate
+ * Class Mpercolate.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
+class Mpercolate extends AbstractEndpoint
 {
     /**
-     * @param Transport           $transport
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-        parent::__construct($transport);
-    }
-
-    /**
-     * @param string|array $body
+     * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */
@@ -35,14 +27,6 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     {
         if (isset($body) !== true) {
             return $this;
-        }
-
-        if (is_array($body) === true) {
-            $bulkBody = "";
-            foreach ($body as $item) {
-                $bulkBody .= $this->serializer->serialize($item)."\n";
-            }
-            $body = $bulkBody;
         }
 
         $this->body = $body;
@@ -55,7 +39,16 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
      */
     protected function getURI()
     {
-        return $this->getOptionalURI('_mpercolate');
+        $index = $this->index;
+        $type = $this->type;
+        $uri = '/_mpercolate';
+        if (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_mpercolate";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_mpercolate";
+        }
+
+        return $uri;
     }
 
     /**
@@ -71,10 +64,25 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     }
 
     /**
+     * @return array
+     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Mpercolate');
+        }
+
+        return $this->body;
+    }
+
+    /**
      * @return string
      */
     protected function getMethod()
     {
-        return 'POST';
+        //TODO Fix Me!
+        return 'GET';
     }
 }

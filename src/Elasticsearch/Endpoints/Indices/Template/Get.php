@@ -3,22 +3,21 @@
 namespace Elasticsearch\Endpoints\Indices\Template;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Template
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
-    // The name of the template
+    // The comma separated names of the index templates
     private $name;
-
     /**
      * @param $name
      *
@@ -29,21 +28,23 @@ class Get extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
-
+        if (is_array($name) === true) {
+            $name = implode(',', $name);
+        }
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
     {
         $name = $this->name;
-        $uri   = "/_template";
-
+        $uri = '/_template';
         if (isset($name) === true) {
             $uri = "/_template/$name";
         }
@@ -58,8 +59,8 @@ class Get extends AbstractEndpoint
     {
         return array(
             'flat_settings',
+            'master_timeout',
             'local',
-            'master_timeout'
         );
     }
 

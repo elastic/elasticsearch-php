@@ -5,23 +5,23 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class ThreadPool
+ * Class Threadpool.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-
-class ThreadPool extends AbstractEndpoint
+class Threadpool extends AbstractEndpoint
 {
     /**
      * @return string
      */
     protected function getURI()
     {
-        $uri   = "/_cat/thread_pool";
+        $uri = '/_cat/thread_pool';
 
         return $uri;
     }
@@ -32,13 +32,14 @@ class ThreadPool extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'format',
+            'size',
             'local',
             'master_timeout',
             'h',
             'help',
             'v',
             'full_id',
-            'size'
         );
     }
 

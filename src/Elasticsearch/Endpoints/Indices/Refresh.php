@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Refresh
+ * Class Refresh.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Refresh extends AbstractEndpoint
@@ -21,8 +22,7 @@ class Refresh extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_refresh";
-
+        $uri = '/_refresh';
         if (isset($index) === true) {
             $uri = "/$index/_refresh";
         }
@@ -49,6 +49,7 @@ class Refresh extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

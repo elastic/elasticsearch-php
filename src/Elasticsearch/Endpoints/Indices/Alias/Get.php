@@ -5,19 +5,19 @@ namespace Elasticsearch\Endpoints\Indices\Alias;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Alias
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
     // A comma-separated list of alias names to return
     private $name;
-
     /**
      * @param $name
      *
@@ -28,7 +28,9 @@ class Get extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
-
+        if (is_array($name) === true) {
+            $name = implode(',', $name);
+        }
         $this->name = $name;
 
         return $this;
@@ -41,14 +43,13 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_alias";
-
+        $uri = '/_alias';
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_alias/$name";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_alias";
         } elseif (isset($name) === true) {
             $uri = "/_alias/$name";
+        } elseif (isset($index) === true) {
+            $uri = "/$index/_alias";
         }
 
         return $uri;

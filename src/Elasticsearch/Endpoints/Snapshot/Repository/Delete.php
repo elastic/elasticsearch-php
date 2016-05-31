@@ -6,19 +6,19 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Delete
+ * Class Delete.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot\Repository
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Delete extends AbstractEndpoint
 {
     // A comma-separated list of repository names
     private $repository;
-
     /**
      * @param $repository
      *
@@ -29,14 +29,17 @@ class Delete extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
-
+        if (is_array($repository) === true) {
+            $repository = implode(',', $repository);
+        }
         $this->repository = $repository;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
@@ -47,8 +50,7 @@ class Delete extends AbstractEndpoint
             );
         }
         $repository = $this->repository;
-        $uri   = "/_snapshot/$repository";
-
+        $uri = "/_snapshot/$repository";
         if (isset($repository) === true) {
             $uri = "/_snapshot/$repository";
         }

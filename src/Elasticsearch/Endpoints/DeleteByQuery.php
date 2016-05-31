@@ -5,20 +5,22 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Deletebyquery
+ * Class Deletebyquery.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class DeleteByQuery extends AbstractEndpoint
+class Deletebyquery extends AbstractEndpoint
 {
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -33,7 +35,8 @@ class DeleteByQuery extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
@@ -45,12 +48,11 @@ class DeleteByQuery extends AbstractEndpoint
         }
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/_query";
-
+        $uri = "/$index/_delete_by_query";
         if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_query";
+            $uri = "/$index/$type/_delete_by_query";
         } elseif (isset($index) === true) {
-            $uri = "/$index/_query";
+            $uri = "/$index/_delete_by_query";
         }
 
         return $uri;
@@ -63,18 +65,60 @@ class DeleteByQuery extends AbstractEndpoint
     {
         return array(
             'analyzer',
-            'consistency',
+            'analyze_wildcard',
             'default_operator',
             'df',
+            'explain',
+            'fields',
+            'fielddata_fields',
+            'from',
             'ignore_unavailable',
             'allow_no_indices',
+            'conflicts',
             'expand_wildcards',
-            'replication',
+            'lenient',
+            'lowercase_expanded_terms',
+            'preference',
             'q',
             'routing',
-            'source',
+            'scroll',
+            'search_type',
+            'search_timeout',
+            'size',
+            'sort',
+            '_source',
+            '_source_exclude',
+            '_source_include',
+            'terminate_after',
+            'stats',
+            'suggest_field',
+            'suggest_mode',
+            'suggest_size',
+            'suggest_text',
             'timeout',
+            'track_scores',
+            'version',
+            'request_cache',
+            'refresh',
+            'consistency',
+            'scroll_size',
+            'wait_for_completion',
+            'requests_per_second',
         );
+    }
+
+    /**
+     * @return array
+     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Deletebyquery');
+        }
+
+        return $this->body;
     }
 
     /**
@@ -82,6 +126,6 @@ class DeleteByQuery extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'DELETE';
+        return 'POST';
     }
 }

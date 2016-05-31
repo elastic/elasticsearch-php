@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Segments
+ * Class Segments.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Segments extends AbstractEndpoint
@@ -21,8 +22,7 @@ class Segments extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_segments";
-
+        $uri = '/_segments';
         if (isset($index) === true) {
             $uri = "/$index/_segments";
         }
@@ -41,6 +41,7 @@ class Segments extends AbstractEndpoint
             'expand_wildcards',
             'human',
             'operation_threading',
+            'verbose',
         );
     }
 

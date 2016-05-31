@@ -1,25 +1,19 @@
 <?php
-/**
- * User: zach
- * Date: 01/12/2015
- * Time: 14:34:49 pm
- */
 
 namespace Elasticsearch\Endpoints\Cat;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Segments
+ * Class Segments.
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Cat
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-
 class Segments extends AbstractEndpoint
 {
     /**
@@ -28,8 +22,7 @@ class Segments extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_cat/segments";
-
+        $uri = '/_cat/segments';
         if (isset($index) === true) {
             $uri = "/_cat/segments/$index";
         }
@@ -37,19 +30,18 @@ class Segments extends AbstractEndpoint
         return $uri;
     }
 
-
     /**
      * @return string[]
      */
     protected function getParamWhitelist()
     {
         return array(
+            'format',
             'h',
             'help',
             'v',
         );
     }
-
 
     /**
      * @return string

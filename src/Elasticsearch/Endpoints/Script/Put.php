@@ -6,37 +6,23 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Put
+ * Class Put.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Script
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Put extends AbstractEndpoint
 {
-    /** @var  String */
+    // Script language
     private $lang;
-
-    /**
-     * @param $lang
-     *
-     * @return $this
-     */
-    public function setLang($lang)
-    {
-        if (isset($lang) !== true) {
-            return $this;
-        }
-
-        $this->lang = $lang;
-
-        return $this;
-    }
-
     /**
      * @param array $body
+     *
+     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */
@@ -52,24 +38,43 @@ class Put extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @param $lang
+     *
+     * @return $this
+     */
+    public function setLang($lang)
+    {
+        if (isset($lang) !== true) {
+            return $this;
+        }
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    /**
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
     {
+        if (isset($this->id) !== true) {
+            throw new Exceptions\RuntimeException(
+                'id is required for Put'
+            );
+        }
         if (isset($this->lang) !== true) {
             throw new Exceptions\RuntimeException(
                 'lang is required for Put'
             );
         }
-        if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
-                'id is required for put'
-            );
-        }
-        $id   = $this->id;
+        $id = $this->id;
         $lang = $this->lang;
-        $uri  = "/_scripts/$lang/$id";
+        $uri = "/_scripts/$lang/$id";
+        if (isset($lang) === true && isset($id) === true) {
+            $uri = "/_scripts/$lang/$id";
+        }
 
         return $uri;
     }
@@ -80,10 +85,21 @@ class Put extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'version_type',
-            'version',
-            'op_type'
         );
+    }
+
+    /**
+     * @return array
+     *
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    protected function getBody()
+    {
+        if (isset($this->body) !== true) {
+            throw new Exceptions\RuntimeException('Body is required for Put');
+        }
+
+        return $this->body;
     }
 
     /**
@@ -91,6 +107,7 @@ class Put extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'PUT';
     }
 }

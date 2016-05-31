@@ -2,16 +2,16 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions;
+
 
 /**
- * Class Search
+ * Class Search.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Search extends AbstractEndpoint
@@ -20,6 +20,7 @@ class Search extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -40,14 +41,11 @@ class Search extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_search";
-
+        $uri = '/_search';
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_search";
         } elseif (isset($index) === true) {
             $uri = "/$index/_search";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_search";
         }
 
         return $uri;
@@ -65,35 +63,33 @@ class Search extends AbstractEndpoint
             'df',
             'explain',
             'fields',
+            'fielddata_fields',
             'from',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'indices_boost',
             'lenient',
             'lowercase_expanded_terms',
             'preference',
             'q',
-            'query_cache',
-            'request_cache',
             'routing',
             'scroll',
             'search_type',
             'size',
             'sort',
-            'source',
             '_source',
             '_source_exclude',
             '_source_include',
+            'terminate_after',
             'stats',
             'suggest_field',
             'suggest_mode',
             'suggest_size',
             'suggest_text',
             'timeout',
+            'track_scores',
             'version',
-            'fielddata_fields',
-            'filter_path'
+            'request_cache',
         );
     }
 
@@ -102,6 +98,7 @@ class Search extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

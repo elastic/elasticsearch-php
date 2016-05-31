@@ -2,25 +2,27 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+
 
 /**
- * Class Scroll
+ * Class Scroll.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Scroll extends AbstractEndpoint
 {
-    private $clear = false;
-
+    // The scroll ID
+    private $scroll_id;
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -35,21 +37,6 @@ class Scroll extends AbstractEndpoint
     }
 
     /**
-     * @return array
-     */
-    protected function getBody()
-    {
-        return $this->body;
-    }
-
-    public function setClearScroll($clear)
-    {
-        $this->clear = $clear;
-
-        return $this;
-    }
-
-    /**
      * @param $scroll_id
      *
      * @return $this
@@ -59,8 +46,7 @@ class Scroll extends AbstractEndpoint
         if (isset($scroll_id) !== true) {
             return $this;
         }
-
-        $this->body = $scroll_id;
+        $this->scroll_id = $scroll_id;
 
         return $this;
     }
@@ -70,7 +56,12 @@ class Scroll extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_search/scroll";
+        $scroll_id = $this->scroll_id;
+        $uri = '/_search/scroll';
+        if (isset($scroll_id) === true) {
+            $uri = "/_search/scroll/$scroll_id";
+        }
+
         return $uri;
     }
 
@@ -81,6 +72,7 @@ class Scroll extends AbstractEndpoint
     {
         return array(
             'scroll',
+            'scroll_id',
         );
     }
 
@@ -89,10 +81,7 @@ class Scroll extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        if ($this->clear == true) {
-            return 'DELETE';
-        }
-
+        //TODO Fix Me!
         return 'GET';
     }
 }

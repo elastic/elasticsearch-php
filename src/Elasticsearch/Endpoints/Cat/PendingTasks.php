@@ -5,22 +5,23 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Pendingtasks
+ * Class Pendingtasks.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class PendingTasks extends AbstractEndpoint
+class Pendingtasks extends AbstractEndpoint
 {
     /**
      * @return string
      */
     protected function getURI()
     {
-        $uri   = "/_cat/pending_tasks";
+        $uri = '/_cat/pending_tasks';
 
         return $uri;
     }
@@ -31,6 +32,7 @@ class PendingTasks extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
+            'format',
             'local',
             'master_timeout',
             'h',

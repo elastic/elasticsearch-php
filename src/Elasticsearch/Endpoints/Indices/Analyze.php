@@ -3,15 +3,15 @@
 namespace Elasticsearch\Endpoints\Indices;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Analyze
+ * Class Analyze.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Analyze extends AbstractEndpoint
@@ -20,6 +20,7 @@ class Analyze extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -39,8 +40,7 @@ class Analyze extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_analyze";
-
+        $uri = '/_analyze';
         if (isset($index) === true) {
             $uri = "/$index/_analyze";
         }
@@ -55,17 +55,16 @@ class Analyze extends AbstractEndpoint
     {
         return array(
             'analyzer',
+            'char_filter',
             'field',
             'filter',
             'index',
             'prefer_local',
             'text',
             'tokenizer',
-            'format',
-            'char_filter',
             'explain',
             'attributes',
-            'format'
+            'format',
         );
     }
 
@@ -74,6 +73,7 @@ class Analyze extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

@@ -2,13 +2,16 @@
 
 namespace Elasticsearch\Endpoints;
 
+
+
 /**
- * Class Ping
+ * Class Ping.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Ping extends AbstractEndpoint
@@ -18,7 +21,7 @@ class Ping extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/";
+        $uri = '/';
 
         return $uri;
     }

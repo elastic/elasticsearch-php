@@ -3,48 +3,30 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
 
 /**
- * Class Msearch
+ * Class Msearch.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Msearch extends AbstractEndpoint
 {
     /**
-     * @param Transport           $transport
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-        parent::__construct($transport);
-    }
-
-    /**
-     * @param array|string $body
+     * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
     {
         if (isset($body) !== true) {
             return $this;
-        }
-
-        if (is_array($body) === true) {
-            $bulkBody = "";
-            foreach ($body as $item) {
-                $bulkBody .= $this->serializer->serialize($item)."\n";
-            }
-            $body = $bulkBody;
         }
 
         $this->body = $body;
@@ -59,14 +41,11 @@ class Msearch extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_msearch";
-
+        $uri = '/_msearch';
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_msearch";
         } elseif (isset($index) === true) {
             $uri = "/$index/_msearch";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_msearch";
         }
 
         return $uri;
@@ -84,12 +63,13 @@ class Msearch extends AbstractEndpoint
 
     /**
      * @return array
+     *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MSearch');
+            throw new Exceptions\RuntimeException('Body is required for Msearch');
         }
 
         return $this->body;
@@ -100,6 +80,7 @@ class Msearch extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

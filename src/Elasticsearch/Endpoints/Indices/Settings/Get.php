@@ -5,19 +5,19 @@ namespace Elasticsearch\Endpoints\Indices\Settings;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Settings
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
     // The name of the settings that should be included
     private $name;
-
     /**
      * @param $name
      *
@@ -28,7 +28,9 @@ class Get extends AbstractEndpoint
         if (isset($name) !== true) {
             return $this;
         }
-
+        if (is_array($name) === true) {
+            $name = implode(',', $name);
+        }
         $this->name = $name;
 
         return $this;
@@ -41,14 +43,13 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_settings";
-
+        $uri = '/_settings';
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_settings/$name";
-        } elseif (isset($name) === true) {
-            $uri = "/_settings/$name";
         } elseif (isset($index) === true) {
             $uri = "/$index/_settings";
+        } elseif (isset($name) === true) {
+            $uri = "/_settings/$name";
         }
 
         return $uri;
@@ -65,7 +66,8 @@ class Get extends AbstractEndpoint
             'expand_wildcards',
             'flat_settings',
             'local',
-            'include_defaults'
+            'human',
+            'include_defaults',
         );
     }
 

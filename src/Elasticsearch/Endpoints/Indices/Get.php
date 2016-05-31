@@ -6,20 +6,40 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Get
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
+    // A comma-separated list of features
     private $feature;
+    /**
+     * @param $feature
+     *
+     * @return $this
+     */
+    public function setFeature($feature)
+    {
+        if (isset($feature) !== true) {
+            return $this;
+        }
+        if (is_array($feature) === true) {
+            $feature = implode(',', $feature);
+        }
+        $this->feature = $feature;
+
+        return $this;
+    }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
@@ -29,30 +49,16 @@ class Get extends AbstractEndpoint
                 'index is required for Get'
             );
         }
-        $index   = $this->index;
+        $index = $this->index;
         $feature = $this->feature;
-        $uri     = "/$index";
-
-        if (isset($feature) === true) {
+        $uri = "/$index";
+        if (isset($index) === true && isset($feature) === true) {
             $uri = "/$index/$feature";
+        } elseif (isset($index) === true) {
+            $uri = "/$index";
         }
 
         return $uri;
-    }
-
-    public function setFeature($feature)
-    {
-        if (isset($feature) !== true) {
-            return $this;
-        }
-
-        if (is_array($feature) === true) {
-            $feature = implode(",", $feature);
-        }
-
-        $this->feature = $feature;
-
-        return $this;
     }
 
     /**
@@ -65,7 +71,9 @@ class Get extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'human'
+            'flat_settings',
+            'human',
+            'include_defaults',
         );
     }
 

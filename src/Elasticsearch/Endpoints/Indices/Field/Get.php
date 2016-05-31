@@ -6,59 +6,61 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Field
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
     // A comma-separated list of fields
-    private $field;
-
+    private $fields;
     /**
-     * @param $field
+     * @param $fields
      *
      * @return $this
      */
-    public function setField($field)
+    public function setFields($fields)
     {
-        if (isset($field) !== true) {
+        if (isset($fields) !== true) {
             return $this;
         }
-
-        $this->field = $field;
+        if (is_array($fields) === true) {
+            $fields = implode(',', $fields);
+        }
+        $this->fields = $fields;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->field) !== true) {
+        if (isset($this->fields) !== true) {
             throw new Exceptions\RuntimeException(
-                'field is required for Get'
+                'fields is required for Get'
             );
         }
         $index = $this->index;
         $type = $this->type;
-        $field = $this->field;
-        $uri   = "/_mapping/field/$field";
-
-        if (isset($index) === true && isset($type) === true && isset($field) === true) {
-            $uri = "/$index/_mapping/$type/field/$field";
-        } elseif (isset($type) === true && isset($field) === true) {
-            $uri = "/_mapping/$type/field/$field";
-        } elseif (isset($index) === true && isset($field) === true) {
-            $uri = "/$index/_mapping/field/$field";
-        } elseif (isset($field) === true) {
-            $uri = "/_mapping/field/$field";
+        $fields = $this->fields;
+        $uri = "/_mapping/field/$fields";
+        if (isset($index) === true && isset($type) === true && isset($fields) === true) {
+            $uri = "/$index/_mapping/$type/field/$fields";
+        } elseif (isset($type) === true && isset($fields) === true) {
+            $uri = "/_mapping/$type/field/$fields";
+        } elseif (isset($index) === true && isset($fields) === true) {
+            $uri = "/$index/_mapping/field/$fields";
+        } elseif (isset($fields) === true) {
+            $uri = "/_mapping/field/$fields";
         }
 
         return $uri;

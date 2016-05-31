@@ -1085,11 +1085,10 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
-        $endpoint = $endpointBuilder('Scroll');
+        /** @var \Elasticsearch\Endpoints\ClearScroll $endpoint */
+        $endpoint = $endpointBuilder('ClearScroll');
         $endpoint->setScrollID($scrollID)
-                 ->setBody($body)
-                 ->setClearScroll(true);
+                 ->setBody($body);
         $endpoint->setParams($params);
         $response = $endpoint->performRequest();
 

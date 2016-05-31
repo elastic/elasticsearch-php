@@ -2,24 +2,25 @@
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions;
+
 
 /**
- * Class SearchTemplate
+ * Class Searchtemplate.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class SearchTemplate extends AbstractEndpoint
+class Searchtemplate extends AbstractEndpoint
 {
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -40,14 +41,11 @@ class SearchTemplate extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_search/template";
-
+        $uri = '/_search/template';
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/$type/_search/template";
         } elseif (isset($index) === true) {
             $uri = "/$index/_search/template";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_search/template";
         }
 
         return $uri;
@@ -65,7 +63,7 @@ class SearchTemplate extends AbstractEndpoint
             'preference',
             'routing',
             'scroll',
-            'search_type'
+            'search_type',
         );
     }
 
@@ -74,6 +72,7 @@ class SearchTemplate extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

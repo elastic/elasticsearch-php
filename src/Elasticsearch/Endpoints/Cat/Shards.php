@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Shards
+ * Class Shards.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Shards extends AbstractEndpoint
@@ -21,8 +22,7 @@ class Shards extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_cat/shards";
-
+        $uri = '/_cat/shards';
         if (isset($index) === true) {
             $uri = "/_cat/shards/$index";
         }
@@ -36,7 +36,7 @@ class Shards extends AbstractEndpoint
     protected function getParamWhitelist()
     {
         return array(
-            'bytes',
+            'format',
             'local',
             'master_timeout',
             'h',

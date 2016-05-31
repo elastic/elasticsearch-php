@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Recovery
+ * Class Recovery.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Recovery extends AbstractEndpoint
@@ -21,8 +22,7 @@ class Recovery extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_recovery";
-
+        $uri = '/_recovery';
         if (isset($index) === true) {
             $uri = "/$index/_recovery";
         }
@@ -38,7 +38,7 @@ class Recovery extends AbstractEndpoint
         return array(
             'detailed',
             'active_only',
-            'human'
+            'human',
         );
     }
 

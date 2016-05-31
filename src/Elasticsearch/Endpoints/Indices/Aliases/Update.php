@@ -6,12 +6,13 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Update
+ * Class Update.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Aliases
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Update extends AbstractEndpoint
@@ -20,6 +21,7 @@ class Update extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -38,7 +40,7 @@ class Update extends AbstractEndpoint
      */
     protected function getURI()
     {
-        $uri   = "/_aliases";
+        $uri = '/_aliases';
 
         return $uri;
     }
@@ -56,12 +58,13 @@ class Update extends AbstractEndpoint
 
     /**
      * @return array
+     *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
     protected function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for Update Aliases');
+            throw new Exceptions\RuntimeException('Body is required for Update');
         }
 
         return $this->body;

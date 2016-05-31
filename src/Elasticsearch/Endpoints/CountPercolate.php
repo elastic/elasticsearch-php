@@ -5,20 +5,22 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class CountPercolate
+ * Class Countpercolate.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class CountPercolate extends AbstractEndpoint
+class Countpercolate extends AbstractEndpoint
 {
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -33,30 +35,30 @@ class CountPercolate extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for CountPercolate'
+                'index is required for Countpercolate'
             );
         }
-
         if (isset($this->type) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for CountPercolate'
+                'type is required for Countpercolate'
             );
         }
-
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
-        $uri   = "/$index/$type/_percolate/count";
-
-        if (isset($id) === true) {
+        $type = $this->type;
+        $id = $this->id;
+        $uri = "/$index/$type/_percolate/count";
+        if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id/_percolate/count";
+        } elseif (isset($index) === true && isset($type) === true) {
+            $uri = "/$index/$type/_percolate/count";
         }
 
         return $uri;
@@ -76,7 +78,7 @@ class CountPercolate extends AbstractEndpoint
             'percolate_index',
             'percolate_type',
             'version',
-            'version_type'
+            'version_type',
         );
     }
 
@@ -85,6 +87,7 @@ class CountPercolate extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

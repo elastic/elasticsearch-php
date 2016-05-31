@@ -3,25 +3,23 @@
 namespace Elasticsearch\Endpoints\Snapshot;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Status
+ * Class Status.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Status extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    // A repository name
     private $repository;
-
     // A comma-separated list of snapshot names
     private $snapshot;
-
     /**
      * @param $repository
      *
@@ -32,7 +30,6 @@ class Status extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
-
         $this->repository = $repository;
 
         return $this;
@@ -48,32 +45,26 @@ class Status extends AbstractEndpoint
         if (isset($snapshot) !== true) {
             return $this;
         }
-
+        if (is_array($snapshot) === true) {
+            $snapshot = implode(',', $snapshot);
+        }
         $this->snapshot = $snapshot;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     protected function getURI()
     {
-        if (isset($this->snapshot) === true && isset($this->repository) !== true) {
-            throw new Exceptions\RuntimeException(
-                'Repository param must be provided if snapshot param is set'
-            );
-        }
-
         $repository = $this->repository;
-        $snapshot   = $this->snapshot;
-        $uri        = "/_snapshot/_status";
-
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository/_status";
-        } elseif (isset($repository) === true && isset($snapshot) === true) {
+        $snapshot = $this->snapshot;
+        $uri = '/_snapshot/_status';
+        if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot/_status";
+        } elseif (isset($repository) === true) {
+            $uri = "/_snapshot/$repository/_status";
         }
 
         return $uri;

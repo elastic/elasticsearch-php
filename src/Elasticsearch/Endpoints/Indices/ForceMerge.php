@@ -5,15 +5,16 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class ForceMerge
+ * Class Forcemerge.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
-class ForceMerge extends AbstractEndpoint
+class Forcemerge extends AbstractEndpoint
 {
     /**
      * @return string
@@ -21,8 +22,7 @@ class ForceMerge extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_forcemerge";
-
+        $uri = '/_forcemerge';
         if (isset($index) === true) {
             $uri = "/$index/_forcemerge";
         }

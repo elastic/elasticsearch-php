@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
@@ -65,8 +66,7 @@ class Get extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
-
+        $uri = "/$index/$type/$id";
         if (isset($index) === true && isset($type) === true && isset($id) === true) {
             $uri = "/$index/$type/$id";
         }

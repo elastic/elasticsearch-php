@@ -6,18 +6,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Delete
+ * Class Delete.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Template
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Delete extends AbstractEndpoint
 {
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
@@ -27,8 +29,11 @@ class Delete extends AbstractEndpoint
                 'id is required for Delete'
             );
         }
-        $templateId   = $this->id;
-        $uri  = "/_search/template/$templateId";
+        $id = $this->id;
+        $uri = "/_search/template/$id";
+        if (isset($id) === true) {
+            $uri = "/_search/template/$id";
+        }
 
         return $uri;
     }
@@ -38,7 +43,8 @@ class Delete extends AbstractEndpoint
      */
     protected function getParamWhitelist()
     {
-        return array();
+        return array(
+        );
     }
 
     /**

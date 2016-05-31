@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints\Indices\Mapping;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class Get.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Mapping
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
@@ -22,8 +23,7 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/_mapping";
-
+        $uri = '/_mapping';
         if (isset($index) === true && isset($type) === true) {
             $uri = "/$index/_mapping/$type";
         } elseif (isset($type) === true) {
@@ -44,7 +44,6 @@ class Get extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'wildcard_expansion',
             'local',
         );
     }

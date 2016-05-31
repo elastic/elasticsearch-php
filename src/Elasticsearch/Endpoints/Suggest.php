@@ -5,12 +5,13 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Suggest
+ * Class Suggest.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Suggest extends AbstractEndpoint
@@ -19,6 +20,7 @@ class Suggest extends AbstractEndpoint
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -38,8 +40,7 @@ class Suggest extends AbstractEndpoint
     protected function getURI()
     {
         $index = $this->index;
-        $uri   = "/_suggest";
-
+        $uri = '/_suggest';
         if (isset($index) === true) {
             $uri = "/$index/_suggest";
         }
@@ -58,12 +59,12 @@ class Suggest extends AbstractEndpoint
             'expand_wildcards',
             'preference',
             'routing',
-            'source',
         );
     }
 
     /**
      * @return array
+     *
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
     protected function getBody()
@@ -80,6 +81,7 @@ class Suggest extends AbstractEndpoint
      */
     protected function getMethod()
     {
+        //TODO Fix Me!
         return 'GET';
     }
 }

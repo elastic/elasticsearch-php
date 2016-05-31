@@ -6,26 +6,26 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Restore
+ * Class Restore.
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot
+ *
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ *
  * @link     http://elastic.co
  */
 class Restore extends AbstractEndpoint
 {
     // A repository name
     private $repository;
-
     // A snapshot name
     private $snapshot;
-
     /**
      * @param array $body
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     *
      * @return $this
      */
     public function setBody($body)
@@ -49,7 +49,6 @@ class Restore extends AbstractEndpoint
         if (isset($repository) !== true) {
             return $this;
         }
-
         $this->repository = $repository;
 
         return $this;
@@ -65,14 +64,14 @@ class Restore extends AbstractEndpoint
         if (isset($snapshot) !== true) {
             return $this;
         }
-
         $this->snapshot = $snapshot;
 
         return $this;
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     *
      * @return string
      */
     protected function getURI()
@@ -89,8 +88,7 @@ class Restore extends AbstractEndpoint
         }
         $repository = $this->repository;
         $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot/_restore";
-
+        $uri = "/_snapshot/$repository/$snapshot/_restore";
         if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot/_restore";
         }

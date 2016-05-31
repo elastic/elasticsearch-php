@@ -130,7 +130,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         echo "\n         |assertFalsey($settings): ".json_encode($value)."\n";
         ob_flush();
-        if (!(isset($value) === false || $value === 0 || $value === false || $value === null || $value === '')) {
+        if (!(isset($value) === false || $value === 0 || $value === false || $value === null || $value === '' || count($value) === 0)) {
             $this->fail("Value is not falsey: ".print_r($value, true));
         }
     }
@@ -490,7 +490,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     } else {
                         $settings = YamlRunnerTest::replaceWithStash($settings, $stash);
                         echo "settings after replace: ";
-                        print_r($settings);
+                        //print_r($settings);
                         echo "\n";
                         $actual = $this->getNestedVar($response, $settings);
                         $actual = YamlRunnerTest::replaceWithStash($actual, $stash);
@@ -514,7 +514,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                     echo " $stashKey\n";
                     $stash["$$stashKey"] = $this->getNestedVar($response, key($settings));
                     echo "Stash updated.  Total stash now: \n";
-                    print_r($stash);
+                    //print_r($stash);
                     echo "\n";
                     ob_flush();
                 } elseif ($operator === "length") {
@@ -689,7 +689,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $piece = str_replace('\.', '.', $piece);
             if (!is_array($context) || !array_key_exists($piece, $context)) {
                 // error occurred
-                echo "Could not find nested property [$piece] in context: ".print_r($context, true);
+                echo "Could not find nested property [$piece] in context";//.print_r($context, true);
                 echo "\nReturning null...";
                 return null;
             }

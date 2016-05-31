@@ -1,0 +1,214 @@
+
+
+[[Elasticsearch_Namespaces_ClusterNamespace]]
+=== Elasticsearch\Namespaces\ClusterNamespace
+
+
+
+Class ClusterNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_ClusterNamespacehealth_health,`health()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacereroute_reroute,`reroute()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacestate_state,`state()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacestats_stats,`stats()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespaceputSettings_putSettings,`putSettings()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings,`getSettings()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks,`pendingTasks()`>>
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacehealth_health]]
+.`health()`
+****
+[source,php]
+----
+/*
+$params['index']                      = (list) Limit the information returned to a specific index
+       ['level']                      = (enum) Specify the level of detail for returned information
+(cluster,indices,shards) (default: cluster)
+       ['local']                      = (boolean) Return local information, do not retrieve the state from
+master node (default: false)
+       ['master_timeout']             = (time) Explicit operation timeout for connection to master node
+       ['timeout']                    = (time) Explicit operation timeout
+       ['wait_for_active_shards']     = (number) Wait until the specified number of shards is active
+       ['wait_for_nodes']             = (string) Wait until the specified number of nodes is available
+       ['wait_for_relocating_shards'] = (number) Wait until the specified number of relocating shards is
+finished
+       ['wait_for_status']            = (enum) Wait until cluster is in a specific state (green,yellow,red)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->health($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacereroute_reroute]]
+.`reroute()`
+****
+[source,php]
+----
+/*
+$params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
+       ['explain']         = (boolean) Return an explanation of why the commands can or cannot be executed
+       ['filter_metadata'] = (boolean) Don't return cluster state metadata (default: false)
+       ['metric']          = (list) Limit the information returned to the specified metrics. Defaults to all but
+metadata (_all,blocks,metadata,nodes,routing_table,master_node,version)
+       ['master_timeout']  = (time) Explicit operation timeout for connection to master node
+       ['timeout']         = (time) Explicit operation timeout
+       ['body']            = The definition of `commands` to perform (`move`, `cancel`, `allocate`)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->reroute($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacestate_state]]
+.`state()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to
+perform the operation on all indices
+       ['metric']             = (list) Limit the information returned to the specified metrics
+       ['local']              = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout']     = (time) Specify timeout for connection to master
+       ['flat_settings']      = (boolean) Return settings in flat format (default: false)
+       ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable
+(missing or closed)
+       ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no
+concrete indices. (This includes `_all` string or when no indices have been specified)
+       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open,
+closed or both. (open,closed,none,all) (default: open)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->state($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacestats_stats]]
+.`stats()`
+****
+[source,php]
+----
+/*
+$params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information;
+use `_local` to return information from the node you're connecting to, leave empty to get information from all
+nodes
+       ['flat_settings'] = (boolean) Return settings in flat format (default: false)
+       ['human']         = (boolean) Whether to return time and byte values in human-readable format. (default:
+false)
+       ['timeout']       = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->stats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespaceputSettings_putSettings]]
+.`putSettings()`
+****
+[source,php]
+----
+/*
+$params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['timeout']        = (time) Explicit operation timeout
+       ['body']           = The settings to be updated. Can be either `transient` or `persistent` (survives
+cluster restart).
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->putSettings($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings]]
+.`getSettings()`
+****
+[source,php]
+----
+/*
+$params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['timeout']        = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->getSettings($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks]]
+.`pendingTasks()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Specify timeout for connection to master
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->pendingTasks($params);
+----
+****
+
+

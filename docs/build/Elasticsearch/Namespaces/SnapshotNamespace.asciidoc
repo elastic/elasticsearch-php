@@ -1,0 +1,241 @@
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespace]]
+=== Elasticsearch\Namespaces\SnapshotNamespace
+
+
+
+Class SnapshotNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SnapshotNamespacecreate_create,`create()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacecreateRepository_createRepository,`createRepository()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacedelete_delete,`delete()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacedeleteRepository_deleteRepository,`deleteRepository()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespaceget_get,`get()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacegetRepository_getRepository,`getRepository()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacerestore_restore,`restore()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespacestatus_status,`status()`>>
+* <<Elasticsearch_Namespaces_SnapshotNamespaceverifyRepository_verifyRepository,`verifyRepository()`>>
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacecreate_create]]
+.`create()`
+****
+[source,php]
+----
+/*
+$params['repository']          = (string) A repository name (Required)
+       ['snapshot']            = (string) A snapshot name (Required)
+       ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+       ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+returning (default: false)
+       ['body']                = The snapshot definition
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->create($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacecreateRepository_createRepository]]
+.`createRepository()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name (Required)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['timeout']        = (time) Explicit operation timeout
+       ['verify']         = (boolean) Whether to verify the repository after creation
+       ['body']           = The repository definition
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->createRepository($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacedelete_delete]]
+.`delete()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name (Required)
+       ['snapshot']       = (string) A snapshot name (Required)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->delete($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacedeleteRepository_deleteRepository]]
+.`deleteRepository()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (list) A comma-separated list of repository names (Required)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['timeout']        = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->deleteRepository($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespaceget_get]]
+.`get()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name (Required)
+       ['snapshot']       = (list) A comma-separated list of snapshot names (Required)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->get($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacegetRepository_getRepository]]
+.`getRepository()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (list) A comma-separated list of repository names
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->getRepository($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacerestore_restore]]
+.`restore()`
+****
+[source,php]
+----
+/*
+$params['repository']          = (string) A repository name (Required)
+       ['snapshot']            = (string) A snapshot name (Required)
+       ['master_timeout']      = (time) Explicit operation timeout for connection to master node
+       ['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before
+returning (default: false)
+       ['body']                = Details of what to restore
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->restore($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespacestatus_status]]
+.`status()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name
+       ['snapshot']       = (list) A comma-separated list of snapshot names
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->status($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SnapshotNamespaceverifyRepository_verifyRepository]]
+.`verifyRepository()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name (Required)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['timeout']        = (time) Explicit operation timeout
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->verifyRepository($params);
+----
+****
+
+

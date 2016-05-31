@@ -1,0 +1,510 @@
+
+
+[[Elasticsearch_Namespaces_CatNamespace]]
+=== Elasticsearch\Namespaces\CatNamespace
+
+
+
+Class CatNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_CatNamespacealiases_aliases,`aliases()`>>
+* <<Elasticsearch_Namespaces_CatNamespaceallocation_allocation,`allocation()`>>
+* <<Elasticsearch_Namespaces_CatNamespacecount_count,`count()`>>
+* <<Elasticsearch_Namespaces_CatNamespacehealth_health,`health()`>>
+* <<Elasticsearch_Namespaces_CatNamespacehelp_help,`help()`>>
+* <<Elasticsearch_Namespaces_CatNamespaceindices_indices,`indices()`>>
+* <<Elasticsearch_Namespaces_CatNamespacemaster_master,`master()`>>
+* <<Elasticsearch_Namespaces_CatNamespacenodes_nodes,`nodes()`>>
+* <<Elasticsearch_Namespaces_CatNamespacenodeAttrs_nodeAttrs,`nodeAttrs()`>>
+* <<Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks,`pendingTasks()`>>
+* <<Elasticsearch_Namespaces_CatNamespacerecovery_recovery,`recovery()`>>
+* <<Elasticsearch_Namespaces_CatNamespacerepositories_repositories,`repositories()`>>
+* <<Elasticsearch_Namespaces_CatNamespaceshards_shards,`shards()`>>
+* <<Elasticsearch_Namespaces_CatNamespacesnapshots_snapshots,`snapshots()`>>
+* <<Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool,`threadPool()`>>
+* <<Elasticsearch_Namespaces_CatNamespacefielddata_fielddata,`fielddata()`>>
+* <<Elasticsearch_Namespaces_CatNamespaceplugins_plugins,`plugins()`>>
+* <<Elasticsearch_Namespaces_CatNamespacesegments_segments,`segments()`>>
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacealiases_aliases]]
+.`aliases()`
+****
+[source,php]
+----
+/*
+$params['name']           = (list) A comma-separated list of alias names to return
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->aliases($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespaceallocation_allocation]]
+.`allocation()`
+****
+[source,php]
+----
+/*
+$params['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information
+       ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->allocation($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacecount_count]]
+.`count()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names to limit the returned information
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->count($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacehealth_health]]
+.`health()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['ts']             = (boolean) Set to false to disable timestamping (default: true)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->health($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacehelp_help]]
+.`help()`
+****
+[source,php]
+----
+/*
+$params['help'] = (boolean) Return help information(default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->help($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespaceindices_indices]]
+.`indices()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names to limit the returned information
+       ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['pri']            = (boolean) Set to true to return stats only for primary shards (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->indices($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacemaster_master]]
+.`master()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->master($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacenodes_nodes]]
+.`nodes()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->nodes($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacenodeAttrs_nodeAttrs]]
+.`nodeAttrs()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->nodeAttrs($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks]]
+.`pendingTasks()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->pendingTasks($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacerecovery_recovery]]
+.`recovery()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names to limit the returned information
+       ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->recovery($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacerepositories_repositories]]
+.`repositories()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->repositories($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespaceshards_shards]]
+.`shards()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names to limit the returned information
+       ['bytes']          = (enum) The unit in which to display byte values
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->shards($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacesnapshots_snapshots]]
+.`snapshots()`
+****
+[source,php]
+----
+/*
+$params['repository']         = (list) Name of repository from which to fetch the snapshot information (Required)
+       ['local']              = (bool) Return local information, do not retrieve the state from master node
+(default: false)
+       ['ignore_unavailable'] = (boolean) Set to true to ignore unavailable snapshots (default: false)
+       ['master_timeout']     = (time) Explicit operation timeout for connection to master node
+       ['h']                  = (list) Comma-separated list of column names to display
+       ['help']               = (boolean) Return help information (default: false)
+       ['v']                  = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->snapshots($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool]]
+.`threadPool()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['full_id']        = (boolean) Enables displaying the complete node ids (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->threadPool($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacefielddata_fielddata]]
+.`fielddata()`
+****
+[source,php]
+----
+/*
+$params['fields']         = (list) A comma-separated list of fields to return in the output
+       ['bytes']          = (enum) The unit in which to display byte values (b,k,m,g)
+       ['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->fielddata($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespaceplugins_plugins]]
+.`plugins()`
+****
+[source,php]
+----
+/*
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node
+(default: false)
+       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
+       ['h']              = (list) Comma-separated list of column names to display
+       ['help']           = (boolean) Return help information (default: false)
+       ['v']              = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->plugins($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacesegments_segments]]
+.`segments()`
+****
+[source,php]
+----
+/*
+$params['index'] = (list) A comma-separated list of index names to limit the returned information
+       ['h']     = (list) Comma-separated list of column names to display
+       ['help']  = (boolean) Return help information (default: false)
+       ['v']     = (boolean) Verbose mode. Display column headers (default: false)
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->segments($params);
+----
+****
+
+

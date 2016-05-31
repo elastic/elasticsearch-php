@@ -1,0 +1,70 @@
+
+
+[[Elasticsearch_Namespaces_TaskNamespace]]
+=== Elasticsearch\Namespaces\TaskNamespace
+
+
+
+Class TaskNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_TaskNamespacecancel_cancel,`cancel()`>>
+* <<Elasticsearch_Namespaces_TaskNamespaceshow_show,`show()`>>
+
+
+
+[[Elasticsearch_Namespaces_TaskNamespacecancel_cancel]]
+.`cancel()`
+****
+[source,php]
+----
+/*
+$params['task_id']     = (string) Cancel the task with specified task id (node_id:task_number)
+       ['node_id']     = (list) A comma-separated list of node IDs or names to limit the returned information;
+use `_local` to return information from the node you're connecting to, leave empty to get information from all
+nodes
+       ['actions']     = (list) A comma-separated list of actions that should be cancelled. Leave empty to
+cancel all.
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->task()->cancel($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_TaskNamespaceshow_show]]
+.`show()`
+****
+[source,php]
+----
+/*
+$params['task_id']             = (string) Return the task with specified id (node_id:task_number)
+       ['node_id']             = (list) A comma-separated list of node IDs or names to limit the returned
+information; use `_local` to return information from the node you're connecting to, leave empty to get
+information from all nodes
+       ['actions']             = (list) A comma-separated list of actions that should be returned. Leave empty
+to return all.
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->task()->show($params);
+----
+****
+
+

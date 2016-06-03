@@ -1,3 +1,52 @@
+## Release 2.2.0
+
+- 236a5e0 Added depracated tag on deletebyquery and mlt
+- Update for 2.3 https://github.com/elastic/elasticsearch-php/pull/420
+  - Add Reindex Endpoint
+  - Add UpdateByQuery endpoint
+  - Add Tasks Namespace (Tasks/Cancel, Tasks/Show)
+  - Add `ignore_unavailable` to Cat/Snapshots
+  - Add `master_timeout`, `timeout` to Cluster/PutSettings
+  - Add `timeout` to Cluster/Stats
+  - Add `char_filters`, `char_filter`, `filter`, `explain`, `attributes` to Indices/Analyze
+  - Add `query`, `index`, `recycler`, `request` to Cache/Clear
+  - Add `update_all_types` to Indices/Create
+  - Add `local` to Indices/ExistsTypes
+  - Add `bytes` to Cat/Shards
+  - Add `wait_if_ongoing` to Indices/Flush
+  - Add `update_all_types` to Indices/PutMapping
+  - Add `verbose` to Indices/Segments
+  - Remove unused Indices/Snapshotindex (unlinked from any namespace)
+  - Add `ignore_unavailable`, `allow_no_indices`, `expand_wildcards`, `rewrite` to Indices/ValidateQuery
+  - Add `version`, `version_type` to MTermVectors
+  - Add `ignore_idle_threads` to Nodes/HotThreads
+  - Add `timeout` to Nodes/Info
+  - Add `timeout` to Nodes/Stats
+  - Add `percolate_routing`, `percolate_preference` to Percolate
+  - Add terminate_after`, `track_scores`, `request_cache` to Search
+  - Add `min_score` to SearchExists
+  - Add `verify` to Snapshot/CreateRepository
+  - Add `version`, `version_type` to Template/Delete
+  - Add `version`, `version_type` to Template/Get
+  - Add `version`, `version_type`, `op_type` to Template/Put
+  - Add `script_id`, `scripted_upsert` to Update
+- 6b6a1f6 feat(): allow to override client instantiation (#412)
+- 8b53f6b Fix bug when Create is called with an stdClass body
+
+### Testing
+- 1009763 [TEST] Fix jq syntax for numeric branches (e.g. `2.2`)
+- c303676 Fixed phpunit to refer to server instead of env
+- 391b249 Updated ParseSpec to be able to run from console and use new api path
+- 9308a1a getApiPath function returns path without trailing slash
+- 16dfe8a [TEST] Automate snapshot retrieval
+
+### Documentation
+- 1b01244 [Docs] Fix typo. (#409)
+- 1f07b31 [DOCS] Usage example for creating ClientBuilder fixed (#406)
+- e7b8e83, a3c806a [DOCS] Generate reference docs
+- 836b499 Add script to generate docs
+- 951d576 Make it easier to note that 'client' is an array of options.
+
 ## Release 2.1.5
 - whitelist search per-request cache parameters [[8105a9e]](http://github.com/elasticsearch/elasticsearch-php/commit/8105a9e)
 - Add 'routing' parameter to Mget endpoint whitelist [[bb0a623]](http://github.com/elasticsearch/elasticsearch-php/commit/bb0a623)

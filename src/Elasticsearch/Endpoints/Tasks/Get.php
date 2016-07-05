@@ -6,7 +6,7 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Show
+ * Class Get
  *
  * @category Elasticsearch
  * @package Elasticsearch\Endpoints\Tasks *
@@ -14,7 +14,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class Show extends AbstractEndpoint
+class Get extends AbstractEndpoint
 {
     // Return the task with specified id (node_id:task_number)
     private $task_id;

@@ -17,20 +17,20 @@ matrix:
   fast_finish: true
   include:
     - php: 5.6
+      env: ES_VERSION="2.2" TEST_BUILD_REF="origin/2.2"
+    - php: 5.6
       env: ES_VERSION="2.1" TEST_BUILD_REF="origin/2.1"
     - php: 5.6
       env: ES_VERSION="2.0" TEST_BUILD_REF="origin/2.0"
     - php: 5.6
       env: ES_VERSION="1.7" TEST_BUILD_REF="origin/1.7"
-    - php: 5.6
-      env: ES_VERSION="1.6" TEST_BUILD_REF="origin/1.6"
   allow_failures:
     - php: hhvm
 
 env:
   global:
-    - ES_VERSION="2.2"
-    - TEST_BUILD_REF="origin/2.2"
+    - ES_VERSION="2.3"
+    - TEST_BUILD_REF="origin/2.3"
     - ES_TEST_HOST=http://localhost:9200
 
 before_install:

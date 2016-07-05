@@ -3,7 +3,7 @@
 namespace Elasticsearch\Namespaces;
 
 /**
- * Class TaskNamespace
+ * Class TasksNamespace
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces\TaskNamespace
@@ -11,7 +11,7 @@ namespace Elasticsearch\Namespaces;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class TaskNamespace extends AbstractNamespace
+class TasksNamespace extends AbstractNamespace
 {
     /**
      * $params['task_id']     = (string) Cancel the task with specified task id (node_id:task_number)

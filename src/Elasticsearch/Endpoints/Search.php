@@ -64,7 +64,6 @@ class Search extends AbstractEndpoint
             'default_operator',
             'df',
             'explain',
-            'fields',
             'from',
             'ignore_unavailable',
             'allow_no_indices',
@@ -93,6 +92,7 @@ class Search extends AbstractEndpoint
             'timeout',
             'version',
             'fielddata_fields',
+            'docvalue_fields',
             'filter_path'
         );
     }

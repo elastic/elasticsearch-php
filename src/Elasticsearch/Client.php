@@ -518,60 +518,6 @@ class Client
     }
 
     /**
-     * $params['id']                     = (string) The document ID (Required)
-     *        ['index']                  = (string) The name of the index (Required)
-     *        ['type']                   = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)
-     *        ['boost_terms']            = (number) The boost factor
-     *        ['max_doc_freq']           = (number) The word occurrence frequency as count: words with higher occurrence in the corpus will be ignored
-     *        ['max_query_terms']        = (number) The maximum query terms to be included in the generated query
-     *        ['max_word_len']           = (number) The minimum length of the word: longer words will be ignored
-     *        ['min_doc_freq']           = (number) The word occurrence frequency as count: words with lower occurrence in the corpus will be ignored
-     *        ['min_term_freq']          = (number) The term frequency as percent: terms with lower occurrence in the source document will be ignored
-     *        ['min_word_len']           = (number) The minimum length of the word: shorter words will be ignored
-     *        ['mlt_fields']             = (list) Specific fields to perform the query against
-     *        ['percent_terms_to_match'] = (number) How many terms have to match in order to consider the document a match (default: 0.3)
-     *        ['routing']                = (string) Specific routing value
-     *        ['search_from']            = (number) The offset from which to return results
-     *        ['search_indices']         = (list) A comma-separated list of indices to perform the query against (default: the index containing the document)
-     *        ['search_query_hint']      = (string) The search query hint
-     *        ['search_scroll']          = (string) A scroll search request definition
-     *        ['search_size']            = (number) The number of documents to return (default: 10)
-     *        ['search_source']          = (string) A specific search request definition (instead of using the request body)
-     *        ['search_type']            = (string) Specific search type (eg. `dfs_then_fetch`, `count`, etc)
-     *        ['search_types']           = (list) A comma-separated list of types to perform the query against (default: the same type as the document)
-     *        ['stop_words']             = (list) A list of stop words to be ignored
-     *        ['body']                   = (array) A specific search request definition
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function mlt($params)
-    {
-        $id = $this->extractArgument($params, 'id');
-
-        $index = $this->extractArgument($params, 'index');
-
-        $type = $this->extractArgument($params, 'type');
-
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Mlt $endpoint */
-        $endpoint = $endpointBuilder('Mlt');
-        $endpoint->setID($id)
-                 ->setIndex($index)
-                 ->setType($type)
-                 ->setBody($body);
-        $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
-
-        return $endpoint->resultOrFuture($response);
-    }
-
-    /**
      * $params['index']           = (string) The name of the index
      *        ['type']            = (string) The type of the document
      *        ['fields']          = (list) A comma-separated list of fields to return in the response

@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class TermVector
+ * Class TermVectors
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -13,7 +13,7 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class TermVector extends AbstractEndpoint
+class TermVectors extends AbstractEndpoint
 {
     /**
      * @param array $body
@@ -40,24 +40,24 @@ class TermVector extends AbstractEndpoint
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
-                'index is required for TermVector'
+                'index is required for TermVectors'
             );
         }
         if (isset($this->type) !== true) {
             throw new Exceptions\RuntimeException(
-                'type is required for TermVector'
+                'type is required for TermVectors'
             );
         }
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
-                'id is required for TermVector'
+                'id is required for TermVectors'
             );
         }
 
         $index = $this->index;
         $type  = $this->type;
         $id    = $this->id;
-        $uri   = "/$index/$type/$id/_termvector";
+        $uri   = "/$index/$type/$id/_termvectors";
 
         return $uri;
     }

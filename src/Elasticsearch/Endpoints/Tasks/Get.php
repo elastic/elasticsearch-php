@@ -60,7 +60,8 @@ class Get extends AbstractEndpoint
             'parent_node',
             'parent_task',
             'wait_for_completion',
-            'group_by'
+            'group_by',
+            'task_id'
         );
     }
 

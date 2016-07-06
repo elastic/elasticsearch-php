@@ -1166,4 +1166,34 @@ class IndicesNamespace extends AbstractNamespace
 
         return $endpoint->resultOrFuture($response);
     }
+
+    /**
+     * $params['newIndex']       = (string) The name of the rollover index
+     *        ['alias']          = (string) The name of the alias to rollover
+     *        ['timeout']        = (time) Explicit operation timeout
+     *        ['master_timeout'] = (time) Specify timeout for connection to master
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function rollover($params)
+    {
+        $newIndex = $this->extractArgument($params, 'newIndex');
+        $alias = $this->extractArgument($params, 'alias');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Rollover $endpoint */
+        $endpoint = $endpointBuilder('Indices\Rollover');
+        $endpoint->setNewIndex($newIndex)
+            ->setAlias($alias)
+            ->setParams($params)
+            ->setBody($body);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
 }

@@ -18,7 +18,7 @@ class Snapshotindex extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/_gateway/snapshot";
@@ -33,7 +33,7 @@ class Snapshotindex extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'ignore_unavailable',
@@ -45,7 +45,7 @@ class Snapshotindex extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

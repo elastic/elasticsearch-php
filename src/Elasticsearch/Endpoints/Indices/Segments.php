@@ -18,7 +18,7 @@ class Segments extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/_segments";
@@ -33,7 +33,7 @@ class Segments extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'ignore_unavailable',
@@ -47,7 +47,7 @@ class Segments extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

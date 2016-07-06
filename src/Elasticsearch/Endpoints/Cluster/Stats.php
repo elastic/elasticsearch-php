@@ -37,7 +37,7 @@ class Stats extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $node_id = $this->nodeID;
         $uri   = "/_cluster/stats";
@@ -52,7 +52,7 @@ class Stats extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'flat_settings',
@@ -63,7 +63,7 @@ class Stats extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

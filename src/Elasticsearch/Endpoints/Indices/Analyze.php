@@ -36,7 +36,7 @@ class Analyze extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/_analyze";
@@ -51,7 +51,7 @@ class Analyze extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'analyzer',
@@ -72,7 +72,7 @@ class Analyze extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

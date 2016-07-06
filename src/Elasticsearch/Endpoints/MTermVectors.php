@@ -35,7 +35,7 @@ class MTermVectors extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         return $this->getOptionalURI('_mtermvectors');
     }
@@ -43,7 +43,7 @@ class MTermVectors extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'ids',
@@ -63,7 +63,7 @@ class MTermVectors extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

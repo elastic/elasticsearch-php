@@ -21,7 +21,7 @@ class ShardStores extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/_shard_stores";
@@ -37,7 +37,7 @@ class ShardStores extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'status',
@@ -52,7 +52,7 @@ class ShardStores extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

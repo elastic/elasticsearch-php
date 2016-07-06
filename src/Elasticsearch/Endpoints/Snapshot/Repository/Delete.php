@@ -39,7 +39,7 @@ class Delete extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
@@ -59,7 +59,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'master_timeout',
@@ -70,7 +70,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'DELETE';
     }

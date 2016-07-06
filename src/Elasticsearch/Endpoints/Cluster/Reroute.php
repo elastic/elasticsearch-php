@@ -36,7 +36,7 @@ class Reroute extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $uri   = "/_cluster/reroute";
 
@@ -46,7 +46,7 @@ class Reroute extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'dry_run',
@@ -61,7 +61,7 @@ class Reroute extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

@@ -39,7 +39,7 @@ class Info extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $node_id = $this->nodeID;
         $metric = $this->metric;
@@ -59,7 +59,7 @@ class Info extends AbstractNodesEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'flat_settings',
@@ -70,7 +70,7 @@ class Info extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

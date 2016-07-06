@@ -18,7 +18,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/$index";
@@ -33,7 +33,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'timeout',
@@ -44,7 +44,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'DELETE';
     }

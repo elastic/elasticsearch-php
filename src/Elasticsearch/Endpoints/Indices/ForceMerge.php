@@ -18,7 +18,7 @@ class ForceMerge extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $uri   = "/_forcemerge";
@@ -33,7 +33,7 @@ class ForceMerge extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'flush',
@@ -50,7 +50,7 @@ class ForceMerge extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

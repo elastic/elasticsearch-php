@@ -36,7 +36,7 @@ class SearchTemplate extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $index = $this->index;
         $type = $this->type;
@@ -56,7 +56,7 @@ class SearchTemplate extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'ignore_unavailable',
@@ -72,7 +72,7 @@ class SearchTemplate extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

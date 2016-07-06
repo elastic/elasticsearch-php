@@ -40,7 +40,7 @@ class TasksNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Tasks\Get');
         $endpoint->setTaskId($id)
             ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -66,7 +66,7 @@ class TasksNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Tasks\Cancel');
         $endpoint->setTaskId($id)
             ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }

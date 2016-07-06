@@ -16,7 +16,7 @@ class Shutdown extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $node_id = $this->nodeID;
         $uri   = "/_shutdown";
@@ -31,7 +31,7 @@ class Shutdown extends AbstractNodesEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'delay',
@@ -42,7 +42,7 @@ class Shutdown extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

@@ -37,7 +37,7 @@ class RenderSearchTemplate extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $id = $this->id;
 
@@ -53,7 +53,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array();
     }
@@ -62,7 +62,7 @@ class RenderSearchTemplate extends AbstractEndpoint
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    protected function getBody()
+    public function getBody()
     {
         return $this->body;
     }
@@ -70,7 +70,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

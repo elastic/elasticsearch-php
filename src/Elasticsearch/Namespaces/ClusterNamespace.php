@@ -39,7 +39,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Health');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -65,7 +65,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Reroute');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -97,7 +97,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params)
                  ->setIndex($index)
                  ->setMetric($metric);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -121,7 +121,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Stats');
         $endpoint->setNodeID($nodeID)
                  ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -144,7 +144,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Settings\Put');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -162,7 +162,7 @@ class ClusterNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
         $endpoint = $endpointBuilder('Cluster\Settings\Get');
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -183,7 +183,7 @@ class ClusterNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Cluster\PendingTasks $endpoint */
         $endpoint = $endpointBuilder('Cluster\PendingTasks');
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -206,7 +206,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\AllocationExplain');
         $endpoint->setBody($body)
                  ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }

@@ -18,7 +18,7 @@ class NodeAttrs extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $uri   = "/_cat/nodeattrs";
 
@@ -28,7 +28,7 @@ class NodeAttrs extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'local',
@@ -42,7 +42,7 @@ class NodeAttrs extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

@@ -3,6 +3,7 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
+use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use Exception;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
@@ -36,51 +37,27 @@ abstract class AbstractEndpoint
     /** @var  array */
     protected $body = null;
 
-    /** @var \Elasticsearch\Transport  */
-    private $transport = null;
-
     /** @var array  */
     private $options = [];
+
+    /** @var  SerializerInterface */
+    protected $serializer;
 
     /**
      * @return string[]
      */
-    abstract protected function getParamWhitelist();
+    abstract public function getParamWhitelist();
 
     /**
      * @return string
      */
-    abstract protected function getURI();
+    abstract public function getURI();
 
     /**
      * @return string
      */
-    abstract protected function getMethod();
+    abstract public function getMethod();
 
-    /**
-     * @param Transport $transport
-     */
-    public function __construct($transport)
-    {
-        $this->transport = $transport;
-    }
-
-    /**
-     * @throws \Exception
-     * @return array
-     */
-    public function performRequest()
-    {
-        $promise =  $this->transport->performRequest(
-            $this->getMethod(),
-            $this->getURI(),
-            $this->params,
-            $this->getBody(),
-            $this->options
-        );
-
-        return $promise;
-    }
 
     /**
      * Set the parameters for this endpoint
@@ -100,6 +77,22 @@ abstract class AbstractEndpoint
         $this->params = $this->convertArraysToStrings($params);
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**
@@ -182,7 +175,7 @@ abstract class AbstractEndpoint
     /**
      * @return array
      */
-    protected function getBody()
+    public function getBody()
     {
         return $this->body;
     }

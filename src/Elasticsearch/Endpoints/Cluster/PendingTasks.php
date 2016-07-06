@@ -18,7 +18,7 @@ class PendingTasks extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $uri   = "/_cluster/pending_tasks";
 
@@ -28,7 +28,7 @@ class PendingTasks extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'local',
@@ -39,7 +39,7 @@ class PendingTasks extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

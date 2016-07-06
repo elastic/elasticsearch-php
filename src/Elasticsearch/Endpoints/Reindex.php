@@ -17,7 +17,7 @@ class Reindex extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'refresh',
@@ -31,7 +31,7 @@ class Reindex extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         return '/_reindex';
     }
@@ -39,7 +39,7 @@ class Reindex extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

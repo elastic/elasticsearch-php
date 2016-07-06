@@ -43,7 +43,7 @@ class GetField extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (isset($this->fields) !== true) {
             throw new Exceptions\RuntimeException(
@@ -58,7 +58,7 @@ class GetField extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'include_defaults',
@@ -72,7 +72,7 @@ class GetField extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

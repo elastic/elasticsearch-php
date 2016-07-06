@@ -37,7 +37,7 @@ class IngestNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Ingest\Pipeline\Delete');
         $endpoint->setID($id);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -60,7 +60,7 @@ class IngestNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Ingest\Pipeline\Get');
         $endpoint->setID($id);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -86,7 +86,7 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setID($id)
             ->setBody($body)
             ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }
@@ -111,7 +111,7 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setID($id)
             ->setBody($body)
             ->setParams($params);
-        $response = $endpoint->performRequest();
+        $response = $this->performRequest($endpoint);
 
         return $endpoint->resultOrFuture($response);
     }

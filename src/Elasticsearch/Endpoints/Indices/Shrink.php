@@ -57,7 +57,7 @@ class Shrink extends AbstractEndpoint
      *
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -82,7 +82,7 @@ class Shrink extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'timeout',
@@ -93,7 +93,7 @@ class Shrink extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         //TODO Fix Me!
         return 'PUT';

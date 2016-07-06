@@ -2,6 +2,7 @@
 
 namespace Elasticsearch\Namespaces;
 
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Transport;
 
 /**
@@ -53,5 +54,22 @@ abstract class AbstractNamespace
         } else {
             return null;
         }
+    }
+
+    /**
+     * @param $endpoint AbstractEndpoint
+     *
+     * @throws \Exception
+     * @return array
+     */
+    protected function performRequest(AbstractEndpoint $endpoint)
+    {
+        return $this->transport->performRequest(
+            $endpoint->getMethod(),
+            $endpoint->getURI(),
+            $endpoint->getParams(),
+            $endpoint->getBody(),
+            $endpoint->getOptions()
+        );
     }
 }

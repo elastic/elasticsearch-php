@@ -58,7 +58,7 @@ class Status extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (isset($this->snapshot) === true && isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
@@ -82,7 +82,7 @@ class Status extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'master_timeout',
@@ -92,7 +92,7 @@ class Status extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

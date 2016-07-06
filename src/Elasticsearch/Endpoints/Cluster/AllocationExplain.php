@@ -36,7 +36,7 @@ class AllocationExplain extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         return "/_cluster/allocation/explain";
     }
@@ -44,7 +44,7 @@ class AllocationExplain extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'include_yes_decisions'
@@ -54,7 +54,7 @@ class AllocationExplain extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

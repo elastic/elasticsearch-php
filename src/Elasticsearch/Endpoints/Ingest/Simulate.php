@@ -37,7 +37,7 @@ class Simulate extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (isset($this->id) === true) {
             return "/_ingest/pipeline/{$this->id}/_simulate";
@@ -48,7 +48,7 @@ class Simulate extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'verbose',
@@ -58,7 +58,7 @@ class Simulate extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

@@ -17,13 +17,11 @@ use Elasticsearch\Transport;
 class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
 {
     /**
-     * @param Transport           $transport
      * @param SerializerInterface $serializer
      */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        parent::__construct($transport);
     }
 
     /**
@@ -53,7 +51,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         return $this->getOptionalURI('_mpercolate');
     }
@@ -61,7 +59,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'ignore_unavailable',
@@ -73,7 +71,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

@@ -62,7 +62,7 @@ class Stats extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         $metric = $this->metric;
         $index_metric = $this->indexMetric;
@@ -87,7 +87,7 @@ class Stats extends AbstractNodesEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             'completion_fields',
@@ -103,7 +103,7 @@ class Stats extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

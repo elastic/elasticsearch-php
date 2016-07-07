@@ -2,6 +2,7 @@
 
 namespace Elasticsearch;
 
+use Elasticsearch\Common\Exceptions\BadMethodCallException;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
@@ -10,6 +11,7 @@ use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\IngestNamespace;
+use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
@@ -74,13 +76,17 @@ class Client
     /** @var  callback */
     protected $endpoints;
 
+    /** @var  NamespaceBuilderInterface[] */
+    protected $registeredNamespaces = [];
+
     /**
      * Client constructor
      *
      * @param Transport $transport
      * @param callable $endpoint
+     * @param AbstractNamespace[] $registeredNamespaces
      */
-    public function __construct(Transport $transport, callable $endpoint)
+    public function __construct(Transport $transport, callable $endpoint, array $registeredNamespaces)
     {
         $this->transport = $transport;
         $this->endpoints = $endpoint;
@@ -91,6 +97,7 @@ class Client
         $this->cat       = new CatNamespace($transport, $endpoint);
         $this->ingest    = new IngestNamespace($transport, $endpoint);
         $this->tasks     = new TasksNamespace($transport, $endpoint);
+        $this->registeredNamespaces = $registeredNamespaces;
     }
 
     /**
@@ -1296,6 +1303,22 @@ class Client
     public function tasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Catchall for registered namespaces
+     *
+     * @param $name
+     * @param $arguments
+     * @return Object
+     * @throws BadMethodCallException if the namespace cannot be found
+     */
+    public function __call($name, $arguments)
+    {
+        if (isset($this->registeredNamespaces[$name])) {
+            return $this->registeredNamespaces[$name];
+        }
+        throw new BadMethodCallException("Namespace [$name] not found");
     }
 
     /**

@@ -10,6 +10,7 @@ use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
@@ -38,6 +39,9 @@ class ClientBuilder
 
     /** @var callback */
     private $endpoint;
+
+    /** @var NamespaceBuilderInterface[] */
+    private $registeredNamespacesBuilders = [];
 
     /** @var  ConnectionFactoryInterface */
     private $connectionFactory;
@@ -226,6 +230,17 @@ class ClientBuilder
     public function setEndpoint($endpoint)
     {
         $this->endpoint = $endpoint;
+
+        return $this;
+    }
+
+    /**
+     * @param NamespaceBuilderInterface $namespaceBuilder
+     * @return $this
+     */
+    public function registerNamespace(NamespaceBuilderInterface $namespaceBuilder)
+    {
+        $this->registeredNamespacesBuilders[] = $namespaceBuilder;
 
         return $this;
     }
@@ -427,7 +442,6 @@ class ClientBuilder
         $this->buildTransport();
 
         if (is_null($this->endpoint)) {
-            $transport = $this->transport;
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($serializer) {
@@ -440,17 +454,24 @@ class ClientBuilder
             };
         }
 
-        return $this->instantiate($this->transport, $this->endpoint);
+        $registeredNamespaces = [];
+        foreach ($this->registeredNamespacesBuilders as $builder) {
+            /** @var $builder NamespaceBuilderInterface */
+            $registeredNamespaces[$builder->getName()] = $builder->getObject($this->transport, $this->serializer);
+        }
+
+        return $this->instantiate($this->transport, $this->endpoint, $registeredNamespaces);
     }
 
     /**
      * @param Transport $transport
      * @param callable $endpoint
+     * @param Object[] $registeredNamespaces
      * @return Client
      */
-    protected function instantiate(Transport $transport, callable $endpoint)
+    protected function instantiate(Transport $transport, callable $endpoint, array $registeredNamespaces)
     {
-        return new Client($transport, $endpoint);
+        return new Client($transport, $endpoint, $registeredNamespaces);
     }
 
     private function buildLoggers()

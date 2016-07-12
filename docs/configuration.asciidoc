@@ -89,7 +89,7 @@ try {
 } catch (Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost $e) {
     $previous = $e->getPrevious();
     if ($previous instanceof 'Elasticsearch\Common\Exceptions\MaxRetriesException') {
-        echo "Max retries!"
+        echo "Max retries!";
     }
 }
 ----------------------------
@@ -110,7 +110,7 @@ try {
 } catch (Elasticsearch\Common\Exceptions\TransportException $e) {
     $previous = $e->getPrevious();
     if ($previous instanceof 'Elasticsearch\Common\Exceptions\MaxRetriesException') {
-        echo "Max retries!"
+        echo "Max retries!";
     }
 }
 ----------------------------

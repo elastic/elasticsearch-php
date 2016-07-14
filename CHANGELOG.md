@@ -1,6 +1,16 @@
+## Release 2.2.1
+
+- Reindex endpoint should accept a body parameter [[3d9d8e0]](http://github.com/elasticsearch/elasticsearch-php/commit/3d9d8e0)
+- `Tasks/Show` should be `Tasks/Get`. Deprecate `Show` [[fcc85b4]](http://github.com/elasticsearch/elasticsearch-php/commit/fcc85b4)
+- "Task" namespace should be plural ("Tasks") [[5e8bacf]](http://github.com/elasticsearch/elasticsearch-php/commit/5e8bacf)
+
+### Testing
+
+- Update travis to include 2.3 [[7108ca0]](http://github.com/elasticsearch/elasticsearch-php/commit/7108ca0)
+
 ## Release 2.2.0
 
-- 236a5e0 Added depracated tag on deletebyquery and mlt
+- 236a5e0 Added deprecated tag on deletebyquery and mlt
 - Update for 2.3 https://github.com/elastic/elasticsearch-php/pull/420
   - Add Reindex Endpoint
   - Add UpdateByQuery endpoint

@@ -1584,12 +1584,16 @@ class Client
      */
     public function reIndex($params = [])
     {
+        $body = $this->extractArgument($params, 'body');
+
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\ReIndex $endpoint */
         $endpoint = $endpointBuilder('Reindex');
-        $response = $endpoint->setParams($params)->performRequest();
+        $response = $endpoint->setParams($params)
+            ->setBody($body)
+            ->performRequest();
 
         return $endpoint->resultOrFuture($response);
     }

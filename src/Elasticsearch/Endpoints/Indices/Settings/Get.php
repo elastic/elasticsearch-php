@@ -37,7 +37,7 @@ class Get extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $name = $this->name;
@@ -71,7 +71,7 @@ class Get extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

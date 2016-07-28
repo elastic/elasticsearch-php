@@ -36,7 +36,7 @@ class Update extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
@@ -91,7 +91,7 @@ class Update extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

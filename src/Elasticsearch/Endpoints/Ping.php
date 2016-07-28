@@ -16,7 +16,7 @@ class Ping extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $uri   = "/";
 
@@ -35,7 +35,7 @@ class Ping extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'HEAD';
     }

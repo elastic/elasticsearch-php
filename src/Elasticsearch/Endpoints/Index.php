@@ -49,7 +49,7 @@ class Index extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -103,7 +103,7 @@ class Index extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         if (isset($this->id) === true) {
             return 'PUT';

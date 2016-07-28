@@ -3,9 +3,6 @@
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
-use Elasticsearch\Transport;
-use Exception;
-use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 /**
  * Class AbstractEndpoint
@@ -36,12 +33,6 @@ abstract class AbstractEndpoint
     /** @var  array */
     protected $body = null;
 
-    /** @var \Elasticsearch\Transport  */
-    private $transport = null;
-
-    /** @var array  */
-    private $options = [];
-
     /**
      * @return string[]
      */
@@ -50,37 +41,22 @@ abstract class AbstractEndpoint
     /**
      * @return string
      */
-    abstract protected function getURI();
+    abstract protected function getEndpointURI();
+
+    /**
+     * Return the full url (url + query params) for this endpoint
+     *
+     * @return string
+     */
+    public function getURI()
+    {
+        
+    }
 
     /**
      * @return string
      */
-    abstract protected function getMethod();
-
-    /**
-     * @param Transport $transport
-     */
-    public function __construct($transport)
-    {
-        $this->transport = $transport;
-    }
-
-    /**
-     * @throws \Exception
-     * @return array
-     */
-    public function performRequest()
-    {
-        $promise =  $this->transport->performRequest(
-            $this->getMethod(),
-            $this->getURI(),
-            $this->params,
-            $this->getBody(),
-            $this->options
-        );
-
-        return $promise;
-    }
+    abstract public function getMethod();
 
     /**
      * Set the parameters for this endpoint
@@ -96,7 +72,6 @@ abstract class AbstractEndpoint
 
         $this->checkUserParams($params);
         $params = $this->convertCustom($params);
-        $this->extractOptions($params);
         $this->params = $this->convertArraysToStrings($params);
 
         return $this;
@@ -158,25 +133,6 @@ abstract class AbstractEndpoint
         $this->id = urlencode($docID);
 
         return $this;
-    }
-
-    /**
-     * @param $result
-     * @return callable|array
-     */
-    public function resultOrFuture($result)
-    {
-        $response = null;
-        $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
-        if (is_null($async) || $async === false) {
-            do {
-                $result = $result->wait();
-            } while ($result instanceof FutureArrayInterface);
-
-            return $result;
-        } elseif ($async === true || $async === 'lazy') {
-            return $result;
-        }
     }
 
     /**
@@ -247,29 +203,6 @@ abstract class AbstractEndpoint
                     $key,
                     implode('", "', $whitelist)
                 ));
-            }
-        }
-    }
-
-    /**
-     * @param $params       Note: this is passed by-reference!
-     */
-    private function extractOptions(&$params)
-    {
-        // Extract out client options, then start transforming
-        if (isset($params['client']) === true) {
-            $this->options['client'] = $params['client'];
-            unset($params['client']);
-        }
-
-        $ignore = isset($this->options['client']['ignore']) ? $this->options['client']['ignore'] : null;
-        if (isset($ignore) === true) {
-            if (is_string($ignore)) {
-                $this->options['client']['ignore'] = explode(",", $ignore);
-            } elseif (is_array($ignore)) {
-                $this->options['client']['ignore'] = $ignore;
-            } else {
-                $this->options['client']['ignore'] = [$ignore];
             }
         }
     }

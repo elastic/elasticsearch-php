@@ -22,7 +22,7 @@ class Get extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -72,7 +72,7 @@ class Get extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

@@ -39,7 +39,7 @@ class Info extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $node_id = $this->nodeID;
         $metric = $this->metric;
@@ -70,7 +70,7 @@ class Info extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

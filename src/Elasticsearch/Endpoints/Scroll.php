@@ -68,7 +68,7 @@ class Scroll extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $uri   = "/_search/scroll";
         return $uri;
@@ -87,7 +87,7 @@ class Scroll extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         if ($this->clear == true) {
             return 'DELETE';

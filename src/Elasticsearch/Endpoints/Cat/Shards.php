@@ -18,7 +18,7 @@ class Shards extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $uri   = "/_cat/shards";
@@ -48,7 +48,7 @@ class Shards extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

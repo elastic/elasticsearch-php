@@ -36,7 +36,7 @@ class Put extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $uri   = "/_settings";
@@ -78,7 +78,7 @@ class Put extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'PUT';
     }

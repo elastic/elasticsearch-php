@@ -18,7 +18,7 @@ class PendingTasks extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $uri   = "/_cat/pending_tasks";
 
@@ -42,7 +42,7 @@ class PendingTasks extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

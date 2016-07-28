@@ -18,7 +18,7 @@ class Refresh extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $uri   = "/_refresh";
@@ -47,7 +47,7 @@ class Refresh extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

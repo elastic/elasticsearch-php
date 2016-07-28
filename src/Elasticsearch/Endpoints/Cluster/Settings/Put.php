@@ -36,7 +36,7 @@ class Put extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $uri   = "/_cluster/settings";
 
@@ -56,7 +56,7 @@ class Put extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'PUT';
     }

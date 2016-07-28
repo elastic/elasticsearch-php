@@ -37,7 +37,7 @@ class Get extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $repository = $this->repository;
         $uri   = "/_snapshot";
@@ -63,7 +63,7 @@ class Get extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

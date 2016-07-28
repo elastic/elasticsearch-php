@@ -35,7 +35,7 @@ class Mget extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $type = $this->type;
@@ -84,7 +84,7 @@ class Mget extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

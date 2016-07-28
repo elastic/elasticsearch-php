@@ -18,7 +18,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $uri   = "/$index";
@@ -44,7 +44,7 @@ class Delete extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'DELETE';
     }

@@ -53,7 +53,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         return $this->getOptionalURI('_mpercolate');
     }
@@ -73,7 +73,7 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

@@ -39,7 +39,7 @@ class Exists extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
@@ -70,7 +70,7 @@ class Exists extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'HEAD';
     }

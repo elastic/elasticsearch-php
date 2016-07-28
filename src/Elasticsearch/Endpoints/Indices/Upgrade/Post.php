@@ -26,7 +26,7 @@ class Post extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $uri   = "/_upgrade";
@@ -58,7 +58,7 @@ class Post extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

@@ -51,7 +51,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         return $this->getOptionalURI('_bulk');
     }
@@ -73,7 +73,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

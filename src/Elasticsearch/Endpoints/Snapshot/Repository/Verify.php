@@ -39,7 +39,7 @@ class Verify extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $repository = $this->repository;
         if (isset($this->repository) !== true) {
@@ -67,7 +67,7 @@ class Verify extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

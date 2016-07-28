@@ -16,7 +16,7 @@ class HotThreads extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $node_id = $this->nodeID;
         $uri   = "/_cluster/nodes/hotthreads";
@@ -44,7 +44,7 @@ class HotThreads extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

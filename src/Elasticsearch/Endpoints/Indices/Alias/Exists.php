@@ -37,7 +37,7 @@ class Exists extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $index = $this->index;
         $name = $this->name;
@@ -70,7 +70,7 @@ class Exists extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'HEAD';
     }

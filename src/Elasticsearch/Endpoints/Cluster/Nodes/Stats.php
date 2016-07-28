@@ -62,7 +62,7 @@ class Stats extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getURI()
+    protected function getEndpointURI()
     {
         $metric = $this->metric;
         $index_metric = $this->indexMetric;
@@ -103,7 +103,7 @@ class Stats extends AbstractNodesEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'GET';
     }

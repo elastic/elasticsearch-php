@@ -50,13 +50,27 @@ abstract class AbstractEndpoint
      */
     public function getURI()
     {
-        
+        $uri = $this->getEndpointURI();
+
+        if (!empty($this->params)) {
+            $uri .= '?'.http_build_query($this->params);
+        }
+
+        return $uri;
     }
 
     /**
      * @return string
      */
     abstract public function getMethod();
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
 
     /**
      * Set the parameters for this endpoint
@@ -138,7 +152,7 @@ abstract class AbstractEndpoint
     /**
      * @return array
      */
-    protected function getBody()
+    public function getBody()
     {
         return $this->body;
     }

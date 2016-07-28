@@ -17,14 +17,14 @@ use Elasticsearch\Transport;
  */
 class Msearch extends AbstractEndpoint
 {
+    protected $serializer;
+
     /**
-     * @param Transport           $transport
      * @param SerializerInterface $serializer
      */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        parent::__construct($transport);
     }
 
     /**
@@ -86,7 +86,7 @@ class Msearch extends AbstractEndpoint
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    protected function getBody()
+    public function getBody()
     {
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for MSearch');

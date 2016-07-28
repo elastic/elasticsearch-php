@@ -58,7 +58,7 @@ class Update extends AbstractEndpoint
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    protected function getBody()
+    public function getBody()
     {
         if (isset($this->body) !== true) {
             throw new Exceptions\RuntimeException('Body is required for Update Aliases');

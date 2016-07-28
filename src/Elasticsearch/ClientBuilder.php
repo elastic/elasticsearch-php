@@ -426,15 +426,14 @@ class ClientBuilder
         $this->buildTransport();
 
         if (is_null($this->endpoint)) {
-            $transport = $this->transport;
             $serializer = $this->serializer;
 
-            $this->endpoint = function ($class) use ($transport, $serializer) {
+            $this->endpoint = function ($class) use ($serializer) {
                 $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
                 if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MPercolate') {
-                    return new $fullPath($transport, $serializer);
+                    return new $fullPath($serializer);
                 } else {
-                    return new $fullPath($transport);
+                    return new $fullPath();
                 }
             };
         }

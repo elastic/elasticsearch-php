@@ -37,7 +37,7 @@ class Scroll extends AbstractEndpoint
     /**
      * @return array
      */
-    protected function getBody()
+    public function getBody()
     {
         return $this->body;
     }

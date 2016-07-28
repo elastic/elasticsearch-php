@@ -82,7 +82,7 @@ class Percolate extends AbstractEndpoint
      * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    protected function getBody()
+    public function getBody()
     {
         return $this->body;
     }

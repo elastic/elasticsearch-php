@@ -16,14 +16,14 @@ use Elasticsearch\Transport;
  */
 class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
+    protected $serializer;
+
     /**
-     * @param Transport           $transport
      * @param SerializerInterface $serializer
      */
-    public function __construct(Transport $transport, SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        parent::__construct($transport);
     }
 
     /**

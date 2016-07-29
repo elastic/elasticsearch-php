@@ -38,7 +38,7 @@ trait BooleanRequestWrapper
                 $endpoint->getOptions()
             );
 
-            $response = $endpoint->resultOrFuture($response);
+            $response = $transport->resultOrFuture($response, $endpoint->getOptions());
             if (!($response instanceof FutureArrayInterface)) {
                 if ($response['status'] === 200) {
                     return true;

@@ -6,6 +6,7 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
+use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -81,7 +82,7 @@ class Transport
      * @param array $options
      *
      * @throws Common\Exceptions\NoNodesAvailableException|\Exception
-     * @return array
+     * @return FutureArrayInterface
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [])
     {
@@ -119,6 +120,27 @@ class Transport
             });
 
         return $future;
+    }
+
+    /**
+     * @param FutureArrayInterface $result  Response of a request (promise)
+     * @param array                $options Options for transport
+     *
+     * @return callable|array
+     */
+    public function resultOrFuture($result, $options = [])
+    {
+        $response = null;
+        $async = isset($options['client']['future']) ? $options['client']['future'] : null;
+        if (is_null($async) || $async === false) {
+            do {
+                $result = $result->wait();
+            } while ($result instanceof FutureArrayInterface);
+
+            return $result;
+        } elseif ($async === true || $async === 'lazy') {
+            return $result;
+        }
     }
 
     /**

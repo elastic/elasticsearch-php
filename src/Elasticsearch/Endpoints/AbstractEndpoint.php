@@ -154,25 +154,6 @@ abstract class AbstractEndpoint
     }
 
     /**
-     * @param $result
-     * @return callable|array
-     */
-    public function resultOrFuture($result)
-    {
-        $response = null;
-        $async = isset($this->options['client']['future']) ? $this->options['client']['future'] : null;
-        if (is_null($async) || $async === false) {
-            do {
-                $result = $result->wait();
-            } while ($result instanceof FutureArrayInterface);
-
-            return $result;
-        } elseif ($async === true || $async === 'lazy') {
-            return $result;
-        }
-    }
-
-    /**
      * @return array
      */
     public function getBody()

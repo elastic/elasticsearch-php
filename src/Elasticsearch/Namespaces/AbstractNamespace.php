@@ -64,12 +64,14 @@ abstract class AbstractNamespace
      */
     protected function performRequest(AbstractEndpoint $endpoint)
     {
-        return $this->transport->performRequest(
+        $response = $this->transport->performRequest(
             $endpoint->getMethod(),
             $endpoint->getURI(),
             $endpoint->getParams(),
             $endpoint->getBody(),
             $endpoint->getOptions()
         );
+
+        return $this->transport->resultOrFuture($response, $endpoint->getOptions());
     }
 }

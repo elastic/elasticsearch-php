@@ -92,7 +92,7 @@ try {
         echo "Max retries!";
     }
 }
-----------------------------
+----
 
 Alternatively, all "hard" curl exceptions (`CouldNotConnectToHost`, `CouldNotResolveHostException`, `OperationTimeoutException`)
 extend the more general `TransportException`.  So you could instead catch the general `TransportException` and then
@@ -113,7 +113,7 @@ try {
         echo "Max retries!";
     }
 }
-----------------------------
+----
 
 
 [[enabling_logger]]

@@ -265,7 +265,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $yamlDocs[] = $tDoc;
                     }
                 } catch (ParseException $e) {
-                    printf("Unable to parse the YAML string: %s", $e->getMessage());
+                    $this->fail(sprintf("Unable to parse the YAML string: %s in file %s", $e->getMessage(), $testFile));
                 }
             }
 
@@ -332,7 +332,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $yamlDocs[] = $tDoc;
                     }
                 } catch (ParseException $e) {
-                    printf("Unable to parse the YAML string: %s", $e->getMessage());
+                    $this->fail(sprintf("Unable to parse the YAML string: %s in file %s", $e->getMessage(), $testFile));
                 }
             }
 

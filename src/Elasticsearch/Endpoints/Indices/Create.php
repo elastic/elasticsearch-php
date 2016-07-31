@@ -62,7 +62,8 @@ class Create extends AbstractEndpoint
         return array(
             'timeout',
             'master_timeout',
-            'update_all_types'
+            'update_all_types',
+            'wait_for_active_shards'
         );
     }
 

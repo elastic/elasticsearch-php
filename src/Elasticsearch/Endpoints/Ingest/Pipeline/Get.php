@@ -23,10 +23,9 @@ class Get extends AbstractEndpoint
     public function getURI()
     {
         if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
-                'id is required for GetPipeline'
-            );
+            return '/_ingest/pipeline/*';
         }
+
         $id = $this->id;
         $uri = "/_ingest/pipeline/$id";
 

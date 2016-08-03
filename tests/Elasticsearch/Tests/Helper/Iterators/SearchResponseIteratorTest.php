@@ -78,10 +78,7 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
 
-        foreach ($responses as $i => $response) {
-        }
-
-        $this->assertEquals(0, $i);
+        $this->assertCount(0, $responses);
     }
 
     public function testWithScan()
@@ -179,9 +176,6 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
 
-        foreach ($responses as $i => $response) {
-        }
-
-        $this->assertEquals(2, $i);
+        $this->assertCount(2, $responses);
     }
 }

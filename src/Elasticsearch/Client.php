@@ -112,9 +112,8 @@ class Client
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -132,8 +131,7 @@ class Client
         $endpoint->setParams($params);
 
         try {
-            $response = $this->performRequest($endpoint);
-            $endpoint->resultOrFuture($response);
+            $this->performRequest($endpoint);
         } catch (Missing404Exception $exception) {
             return false;
         } catch (TransportException $exception) {
@@ -177,9 +175,8 @@ class Client
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -213,9 +210,8 @@ class Client
                  ->setType($type)
                  ->returnOnlySource();
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -253,9 +249,8 @@ class Client
                  ->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -289,9 +284,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -332,9 +326,8 @@ class Client
                  ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -366,9 +359,8 @@ class Client
                  ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -399,9 +391,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -439,9 +430,8 @@ class Client
                  ->setID($id)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -478,9 +468,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -552,9 +541,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -582,9 +570,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -625,9 +612,8 @@ class Client
                  ->setBody($body)
                  ->createIfAbsent();
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -658,9 +644,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -701,9 +686,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -728,9 +712,8 @@ class Client
         $endpoint = $endpointBuilder('Reindex');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -758,9 +741,8 @@ class Client
         $endpoint->setIndex($index)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -805,9 +787,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -865,9 +846,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -897,9 +877,8 @@ class Client
         $endpoint->setIndex($index)
                  ->setType($type);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -925,9 +904,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -952,9 +930,8 @@ class Client
         $endpoint->setScrollID($scrollID)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -980,9 +957,8 @@ class Client
                  ->setBody($body)
                  ->setClearScroll(true);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1025,9 +1001,8 @@ class Client
                  ->setType($type)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1051,9 +1026,8 @@ class Client
         $endpoint->setID($id)
                  ->setLang($lang);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1077,9 +1051,8 @@ class Client
         $endpoint->setID($id)
                  ->setLang($lang);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1105,9 +1078,8 @@ class Client
                  ->setLang($lang)
                  ->setBody($body);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1128,9 +1100,8 @@ class Client
         $endpoint = $endpointBuilder('Template\Get');
         $endpoint->setID($id);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1151,9 +1122,8 @@ class Client
         $endpoint = $endpointBuilder('Template\Delete');
         $endpoint->setID($id);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1176,9 +1146,8 @@ class Client
         $endpoint->setID($id)
             ->setBody($body)
             ->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1206,9 +1175,8 @@ class Client
         $endpoint->setIndex($index)
             ->setBody($body)
             ->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1231,8 +1199,8 @@ class Client
         $endpoint->setBody($body)
             ->setID($id);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
-        return $endpoint->resultOrFuture($response);
+
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1378,6 +1346,6 @@ class Client
             $endpoint->getOptions()
         );
 
-        return $promise;
+        return $this->transport->resultOrFuture($promise, $endpoint->getOptions());
     }
 }

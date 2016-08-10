@@ -51,9 +51,8 @@ class NodesNamespace extends AbstractNamespace
                  ->setMetric($metric)
                  ->setIndexMetric($index_metric)
                  ->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -79,9 +78,8 @@ class NodesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Nodes\Info');
         $endpoint->setNodeID($nodeID)->setMetric($metric);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -106,9 +104,8 @@ class NodesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Nodes\HotThreads');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -131,8 +128,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cluster\Nodes\Shutdown');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
-        $response = $this->performRequest($endpoint);
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 }

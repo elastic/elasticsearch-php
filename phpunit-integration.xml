@@ -12,8 +12,7 @@
     </php>
     <testsuites>
         <testsuite>
-            <directory>tests</directory>
-            <exclude>tests/Elasticsearch/Tests/YamlRunnerTest.php</exclude>
+            <file>tests/Elasticsearch/Tests/YamlRunnerTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

@@ -94,7 +94,8 @@ class Rollover extends AbstractEndpoint
     {
         return array(
             'timeout',
-            'master_timeout'
+            'master_timeout',
+            'wait_for_active_shards',
         );
     }
 

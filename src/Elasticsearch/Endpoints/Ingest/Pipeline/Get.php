@@ -27,6 +27,7 @@ class Get extends AbstractEndpoint
                 'id is required for GetPipeline'
             );
         }
+
         $id = $this->id;
         $uri = "/_ingest/pipeline/$id";
 

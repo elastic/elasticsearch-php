@@ -18,7 +18,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param $params array Associative array of parameters
      *
-     * @return bool
+     * @return boolean
      */
     public function exists($params)
     {
@@ -439,7 +439,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param $params array Associative array of parameters
      *
-     * @return array
+     * @return boolean
      */
     public function existsType($params)
     {
@@ -669,7 +669,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param $params array Associative array of parameters
      *
-     * @return array
+     * @return boolean
      */
     public function existsTemplate($params)
     {
@@ -930,7 +930,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param $params array Associative array of parameters
      *
-     * @return array
+     * @return boolean
      */
     public function existsAlias($params)
     {

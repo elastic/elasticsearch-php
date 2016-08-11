@@ -10,6 +10,7 @@ use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
+use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -274,6 +275,29 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             self::markTestIncomplete(sprintf('Method "%s" not implement in "%s"', $method, get_class($caller)));
         }
 
+        // Exist* methods have to be manually 'unwrapped' into true/false for async
+        if (strpos($method, "exist") !== false && $async === true) {
+            return $this->executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $testName);
+        }
+
+        return $this->executeRequest($caller, $method, $endpointParams, $expectedError, $testName);
+    }
+
+    /**
+     * Obtain the response from the server
+     *
+     * @param $caller
+     * @param $method
+     * @param $endpointParams
+     * @param $expectedError
+     * @param $testName
+     *
+     * @throws \Exception
+     *
+     * @return array|mixed
+     */
+    public function executeRequest($caller, $method, $endpointParams, $expectedError, $testName)
+    {
         try {
             $response = $caller->$method($endpointParams);
 
@@ -282,6 +306,48 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
 
             return $response;
+        } catch (\Exception $exception) {
+            if (null !== $expectedError) {
+                return $this->assertException($exception, $expectedError, $testName);
+            }
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Obtain the response when it is an Exists* method.  These are converted into
+     * true/false responses
+     *
+     * @param $caller
+     * @param $method
+     * @param $endpointParams
+     * @param $expectedError
+     * @param $testName
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
+    public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $testName)
+    {
+        try {
+
+            $response = $caller->$method($endpointParams);
+
+            while ($response instanceof FutureArrayInterface) {
+                $response = $response->wait();
+            }
+
+            if ($response['status'] === 200) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Missing404Exception $exception) {
+            return false;
+        } catch (RoutingMissingException $exception) {
+            return false;
         } catch (\Exception $exception) {
             if (null !== $expectedError) {
                 return $this->assertException($exception, $expectedError, $testName);

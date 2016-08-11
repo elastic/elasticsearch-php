@@ -1,4 +1,9 @@
 
+== Breaking changes from 2.x
+
+- The client now requires PHP version 5.5 or higher
+-
+
 == Breaking changes from 1.x
 
 - The client now requires PHP version 5.4 or higher

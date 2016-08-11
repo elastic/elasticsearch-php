@@ -1338,14 +1338,6 @@ class Client
      */
     private function performRequest(AbstractEndpoint $endpoint)
     {
-        $promise =  $this->transport->performRequest(
-            $endpoint->getMethod(),
-            $endpoint->getURI(),
-            $endpoint->getParams(),
-            $endpoint->getBody(),
-            $endpoint->getOptions()
-        );
-
-        return $this->transport->resultOrFuture($promise, $endpoint->getOptions());
+        return $this->transport->performRequest($endpoint);
     }
 }

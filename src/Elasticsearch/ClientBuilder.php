@@ -11,12 +11,28 @@ use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 use Elasticsearch\Connections\ConnectionFactoryInterface;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use Elasticsearch\Plugin\ErrorPlugin;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
+use Http\Client\Common\EmulatedHttpAsyncClient;
+use Http\Client\Common\HttpClientPool;
+use Http\Client\Common\HttpClientPool\RandomClientPool;
+use Http\Client\Common\HttpClientPoolItem;
+use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\Plugin\LoggerPlugin;
+use Http\Client\Common\Plugin\RetryPlugin;
+use Http\Client\Common\PluginClient;
+use Http\Client\HttpAsyncClient;
+use Http\Discovery\Exception\NotFoundException;
+use Http\Discovery\HttpAsyncClientDiscovery;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\UriFactoryDiscovery;
+use Http\Message\UriFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Monolog\Logger;
@@ -34,64 +50,33 @@ use Monolog\Processor\IntrospectionProcessor;
   */
 class ClientBuilder
 {
-    /** @var Transport */
-    private $transport;
 
-    /** @var callback */
-    private $endpoint;
-
-    /** @var NamespaceBuilderInterface[] */
-    private $registeredNamespacesBuilders = [];
-
-    /** @var  ConnectionFactoryInterface */
-    private $connectionFactory;
-
-    private $handler;
-
-    /** @var  LoggerInterface */
-    private $logger;
-
-    /** @var  LoggerInterface */
-    private $tracer;
-
-    /** @var string */
-    private $connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
-
-    /** @var  string */
-    private $serializer = '\Elasticsearch\Serializers\SmartSerializer';
-
-    /** @var  string */
-    private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
-
-    /** @var  array */
-    private $connectionPoolArgs = [
-        'randomizeHosts' => true
-    ];
-
-    /** @var array */
-    private $hosts;
-
-    /** @var  int */
     private $retries;
 
-    /** @var bool */
-    private $sniffOnStart = false;
+    private $httpAsyncClient;
 
-    /** @var null|array  */
-    private $sslCert = null;
+    private $hosts;
 
-    /** @var null|array  */
-    private $sslKey = null;
+    private $serializer;
 
-    /** @var null|bool|string */
-    private $sslVerification = null;
+    private $logger;
+
+    private $endpoint;
+    
+    private $connectionPool = RandomClientPool::class;
+
+    private $registeredNamespacesBuilders = [];
 
     /**
      * @return ClientBuilder
      */
     public static function create()
     {
-        return new static();
+        $builder = new static();
+        $builder->serializer = new SmartSerializer();
+        $builder->hosts = ['localhost:9200'];
+
+        return $builder;
     }
 
     /**
@@ -112,113 +97,27 @@ class ClientBuilder
      */
     public static function fromConfig($config, $quiet = false)
     {
-        $builder = new self;
-        foreach ($config as $key => $value) {
-            $method = "set$key";
-            if (method_exists($builder, $method)) {
-                $builder->$method($value);
-                unset($config[$key]);
-            }
-        }
-
-        if ($quiet === false && count($config) > 0) {
-            $unknown = implode(array_keys($config));
-            throw new RuntimeException("Unknown parameters provided: $unknown");
-        }
-        return $builder->build();
     }
 
-    /**
-     * @param array $singleParams
-     * @param array $multiParams
-     * @throws \RuntimeException
-     * @return callable
-     */
-    public static function defaultHandler($multiParams = [], $singleParams = [])
-    {
-        $future = null;
-        if (extension_loaded('curl')) {
-            $config = array_merge([ 'mh' => curl_multi_init() ], $multiParams);
-            if (function_exists('curl_reset')) {
-                $default = new CurlHandler($singleParams);
-                $future = new CurlMultiHandler($config);
-            } else {
-                $default = new CurlMultiHandler($config);
-            }
-        } else {
-            throw new \RuntimeException('Elasticsearch-PHP requires cURL, or a custom HTTP handler.');
-        }
-
-        return $future ? Middleware::wrapFuture($default, $future) : $default;
-    }
 
     /**
-     * @param array $params
-     * @throws \RuntimeException
-     * @return CurlMultiHandler
-     */
-    public static function multiHandler($params = [])
-    {
-        if (function_exists('curl_multi_init')) {
-            return new CurlMultiHandler(array_merge([ 'mh' => curl_multi_init() ], $params));
-        } else {
-            throw new \RuntimeException('CurlMulti handler requires cURL.');
-        }
-    }
-
-    /**
-     * @return CurlHandler
-     * @throws \RuntimeException
-     */
-    public static function singleHandler()
-    {
-        if (function_exists('curl_reset')) {
-            return new CurlHandler();
-        } else {
-            throw new \RuntimeException('CurlSingle handler requires cURL.');
-        }
-    }
-
-    /**
-     * @param $path string
-     * @return \Monolog\Logger\Logger
-     */
-    public static function defaultLogger($path, $level = Logger::WARNING)
-    {
-        $log       = new Logger('log');
-        $handler   = new StreamHandler($path, $level);
-        $log->pushHandler($handler);
-
-        return $log;
-    }
-
-    /**
-     * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
-     * @return $this
-     */
-    public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
-    {
-        $this->connectionFactory = $connectionFactory;
-
-        return $this;
-    }
-
-    /**
-     * @param \Elasticsearch\ConnectionPool\AbstractConnectionPool|string $connectionPool
-     * @param array $args
+     * @param string $connectionPool
+     *
      * @throws \InvalidArgumentException
+     *
      * @return $this
      */
-    public function setConnectionPool($connectionPool, array $args = [])
+    public function setConnectionPool($connectionPool)
     {
-        if (is_string($connectionPool)) {
-            $this->connectionPool = $connectionPool;
-            $this->connectionPoolArgs = $args;
-        } elseif (is_object($connectionPool)) {
-            $this->connectionPool = $connectionPool;
-        } else {
-            throw new InvalidArgumentException("Serializer must be a class path or instantiated object extending AbstractConnectionPool");
+        if (!is_string($connectionPool)) {
+            throw new \InvalidArgumentException("Connection pool must be a class path extending HttpClientPool");
         }
+
+        if (!is_subclass_of($connectionPool, HttpClientPool::class)) {
+            throw new \InvalidArgumentException("Connection pool must be a class path extending HttpClientPool");
+        }
+
+        $this->connectionPool = $connectionPool;
 
         return $this;
     }
@@ -246,45 +145,12 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Transport $transport
-     * @return $this
-     */
-    public function setTransport($transport)
-    {
-        $this->transport = $transport;
-
-        return $this;
-    }
-
-    /**
-     * @param mixed $handler
-     * @return $this
-     */
-    public function setHandler($handler)
-    {
-        $this->handler = $handler;
-
-        return $this;
-    }
-
-    /**
      * @param \Psr\Log\LoggerInterface $logger
      * @return $this
      */
     public function setLogger($logger)
     {
         $this->logger = $logger;
-
-        return $this;
-    }
-
-    /**
-     * @param \Psr\Log\LoggerInterface $tracer
-     * @return $this
-     */
-    public function setTracer($tracer)
-    {
-        $this->tracer = $tracer;
 
         return $this;
     }
@@ -324,18 +190,6 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
-     * @throws \InvalidArgumentException
-     * @return $this
-     */
-    public function setSelector($selector)
-    {
-        $this->parseStringOrObject($selector, $this->selector, 'SelectorInterface');
-
-        return $this;
-    }
-
-    /**
      * @param boolean $sniffOnStart
      * @return $this
      */
@@ -346,102 +200,29 @@ class ClientBuilder
         return $this;
     }
 
-    /**
-     * @param $cert
-     * @param null|string $password
-     * @return $this
-     */
-    public function setSSLCert($cert, $password = null)
-    {
-        $this->sslCert = [$cert, $password];
-
-        return $this;
-    }
-
-    /**
-     * @param $key
-     * @param null|string $password
-     * @return $this
-     */
-    public function setSSLKey($key, $password = null)
-    {
-        $this->sslKey = [$key, $password];
-
-        return $this;
-    }
-
-    /**
-     * @param bool|string $value
-     * @return $this
-     */
-    public function setSSLVerification($value = true)
-    {
-        $this->sslVerification = $value;
-
-        return $this;
-    }
 
     /**
      * @return Client
      */
     public function build()
     {
-        $this->buildLoggers();
-
-        if (is_null($this->handler)) {
-            $this->handler = ClientBuilder::defaultHandler();
+        if (null === $this->httpAsyncClient) {
+            try {
+                $this->httpAsyncClient = HttpAsyncClientDiscovery::find();
+            } catch (NotFoundException $exception) {
+                $this->httpAsyncClient = new EmulatedHttpAsyncClient(HttpClientDiscovery::find());
+            }
         }
 
-        $sslOptions = null;
-        if (isset($this->sslKey)) {
-            $sslOptions['ssl_key'] = $this->sslKey;
-        }
-        if (isset($this->sslCert)) {
-            $sslOptions['cert'] = $this->sslCert;
-        }
-        if (isset($this->sslVerification)) {
-            $sslOptions['verify'] = $this->sslVerification;
-        }
-
-        if (!is_null($sslOptions)) {
-            $sslHandler = function (callable $handler, array $sslOptions) {
-                return function (array $request) use ($handler, $sslOptions) {
-                    // Add our custom headers
-                    foreach ($sslOptions as $key => $value) {
-                        $request['client'][$key] = $value;
-                    }
-
-                    // Send the request using the handler and return the response.
-                    return $handler($request);
-                };
-            };
-            $this->handler = $sslHandler($this->handler, $sslOptions);
-        }
-
-        if (is_null($this->serializer)) {
-            $this->serializer = new SmartSerializer();
-        } elseif (is_string($this->serializer)) {
+        if (is_string($this->serializer)) {
             $this->serializer = new $this->serializer;
         }
+        
+        $finalClient = $this->createHttpClient();
+        $requestBuilder = new MessageBuilder(MessageFactoryDiscovery::find(), $this->serializer);
+        $transport = new Transport($finalClient, $requestBuilder);
 
-        if (is_null($this->connectionFactory)) {
-            $connectionParams = [];
-            $this->connectionFactory = new ConnectionFactory($this->handler, $connectionParams, $this->serializer, $this->logger, $this->tracer);
-        }
-
-        if (is_null($this->hosts)) {
-            $this->hosts = $this->getDefaultHost();
-        }
-
-        if (is_null($this->selector)) {
-            $this->selector = new Selectors\RoundRobinSelector();
-        } elseif (is_string($this->selector)) {
-            $this->selector = new $this->selector;
-        }
-
-        $this->buildTransport();
-
-        if (is_null($this->endpoint)) {
+        if (null === $this->endpoint) {
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($serializer) {
@@ -455,61 +236,45 @@ class ClientBuilder
         }
 
         $registeredNamespaces = [];
+
         foreach ($this->registeredNamespacesBuilders as $builder) {
             /** @var $builder NamespaceBuilderInterface */
-            $registeredNamespaces[$builder->getName()] = $builder->getObject($this->transport, $this->serializer);
+            $registeredNamespaces[$builder->getName()] = $builder->getObject($transport, $this->serializer);
         }
 
-        return $this->instantiate($this->transport, $this->endpoint, $registeredNamespaces);
+        return new Client($transport, $this->endpoint, $registeredNamespaces);
     }
 
     /**
-     * @param Transport $transport
-     * @param callable $endpoint
-     * @param Object[] $registeredNamespaces
-     * @return Client
+     * @return HttpAsyncClient
      */
-    protected function instantiate(Transport $transport, callable $endpoint, array $registeredNamespaces)
+    private function createHttpClient()
     {
-        return new Client($transport, $endpoint, $registeredNamespaces);
-    }
-
-    private function buildLoggers()
-    {
-        if (is_null($this->logger)) {
-            $this->logger = new NullLogger();
+        /** @var HttpClientPool $pool */
+        $pool = new $this->connectionPool;
+        $uriFactory = UriFactoryDiscovery::find();
+        $retries = null === $this->retries ? count($this->hosts) : $this->retries;
+        $logger = null === $this->logger ? new NullLogger() : $this->logger;
+        
+        foreach ($this->hosts as $host) {
+            $client = new PluginClient($this->httpAsyncClient, [
+                new AddHostPlugin($uriFactory->createUri($host, [
+                    'replace' => true
+                ])),
+            ]);
+            
+            $pool->addHttpClient(new HttpClientPoolItem($client, 0));
         }
-
-        if (is_null($this->tracer)) {
-            $this->tracer = new NullLogger();
-        }
-    }
-
-    private function buildTransport()
-    {
-        $connections = $this->buildConnectionsFromHosts($this->hosts);
-
-        if (is_string($this->connectionPool)) {
-            $this->connectionPool = new $this->connectionPool(
-                $connections,
-                $this->selector,
-                $this->connectionFactory,
-                $this->connectionPoolArgs);
-        } elseif (is_null($this->connectionPool)) {
-            $this->connectionPool = new StaticNoPingConnectionPool(
-                $connections,
-                $this->selector,
-                $this->connectionFactory,
-                $this->connectionPoolArgs);
-        }
-
-        if (is_null($this->retries)) {
-            $this->retries = count($connections);
-        }
-
-        if (is_null($this->transport)) {
-            $this->transport = new Transport($this->retries, $this->sniffOnStart, $this->connectionPool, $this->logger);
-        }
+        
+        return new PluginClient($pool, [
+            new ErrorPlugin(
+                $this->serializer
+            ),
+            new RetryPlugin([
+                'retries' => $retries
+            ]),
+            new LoggerPlugin($logger),
+        ]);
     }
 
     private function parseStringOrObject($arg, &$destination, $interface)
@@ -521,70 +286,5 @@ class ClientBuilder
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object implementing $interface");
         }
-    }
-
-    /**
-     * @return array
-     */
-    private function getDefaultHost()
-    {
-        return ['localhost:9200'];
-    }
-
-    /**
-     * @param array $hosts
-     *
-     * @throws \InvalidArgumentException
-     * @return \Elasticsearch\Connections\Connection[]
-     */
-    private function buildConnectionsFromHosts($hosts)
-    {
-        if (is_array($hosts) === false) {
-            throw new InvalidArgumentException('Hosts parameter must be an array of strings');
-        }
-
-        $connections = [];
-        foreach ($hosts as $host) {
-            $host = $this->prependMissingScheme($host);
-            $host = $this->extractURIParts($host);
-            $connections[] = $this->connectionFactory->create($host);
-        }
-
-        return $connections;
-    }
-
-    /**
-     * @param array $host
-     *
-     * @throws \InvalidArgumentException
-     * @return array
-     */
-    private function extractURIParts($host)
-    {
-        $parts = parse_url($host);
-
-        if ($parts === false) {
-            throw new InvalidArgumentException("Could not parse URI");
-        }
-
-        if (isset($parts['port']) !== true) {
-            $parts['port'] = 9200;
-        }
-
-        return $parts;
-    }
-
-    /**
-     * @param string $host
-     *
-     * @return string
-     */
-    private function prependMissingScheme($host)
-    {
-        if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-            $host = 'http://' . $host;
-        }
-
-        return $host;
     }
 }

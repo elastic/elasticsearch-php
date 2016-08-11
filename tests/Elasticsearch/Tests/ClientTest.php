@@ -24,7 +24,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \LogicException
      */
     public function testConstructorIllegalPort()
     {
@@ -54,7 +54,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'localhost:9200'
             ],
             'retries' => 2,
-            'handler' => ClientBuilder::multiHandler()
         ];
         $client = ClientBuilder::fromConfig($params);
     }

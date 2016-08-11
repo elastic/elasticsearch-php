@@ -6,7 +6,12 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use Http\Client\Exception;
+use Http\Client\HttpAsyncClient;
+use Http\Promise\Promise;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -20,153 +25,55 @@ use Psr\Log\LoggerInterface;
  */
 class Transport
 {
-    /**
-     * @var AbstractConnectionPool
-     */
-    public $connectionPool;
 
     /**
-     * @var LoggerInterface
+     * @var HttpAsyncClient
      */
-    private $log;
+    private $httpAsyncClient;
 
-    /** @var  int */
-    public $retryAttempts = 0;
-
-    /** @var  Connection */
-    public $lastConnection;
-
-    /** @var int  */
-    public $retries;
+    /**
+     * @var MessageBuilder
+     */
+    private $messageBuilder;
 
     /**
      * Transport class is responsible for dispatching requests to the
      * underlying cluster connections
      *
-     * @param $retries
-     * @param bool $sniffOnStart
-     * @param ConnectionPool\AbstractConnectionPool $connectionPool
-     * @param \Psr\Log\LoggerInterface $log    Monolog logger object
+     * @param HttpAsyncClient $httpAsyncClient An http client to do async requests
+     * @param MessageBuilder  $messageBuilder
+     * @param bool            $sniffOnStart
      */
-    public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
+    public function __construct(HttpAsyncClient $httpAsyncClient, MessageBuilder $messageBuilder, $sniffOnStart = false)
     {
-        $this->log            = $log;
-        $this->connectionPool = $connectionPool;
-        $this->retries        = $retries;
-
-        if ($sniffOnStart === true) {
-            $this->log->notice('Sniff on Start.');
-            $this->connectionPool->scheduleCheck();
-        }
-    }
-
-    /**
-     * Returns a single connection from the connection pool
-     * Potentially performs a sniffing step before returning
-     *
-     * @return ConnectionInterface Connection
-     */
-
-    public function getConnection()
-    {
-        return $this->connectionPool->nextConnection();
+        $this->httpAsyncClient = $httpAsyncClient;
+        $this->messageBuilder = $messageBuilder;
     }
 
     /**
      * Perform a request to the Cluster
      *
-     * @param string $method     HTTP method to use
-     * @param string $uri        HTTP URI to send request to
-     * @param null $params     Optional query parameters
-     * @param null $body       Optional query body
-     * @param array $options
+     * @param AbstractEndpoint $endpoint Endpoint to use
+     * @param string           $fetch
      *
-     * @throws Common\Exceptions\NoNodesAvailableException|\Exception
-     * @return FutureArrayInterface
+     * @throws \Exception
+     *
+     * @return array|ResponseInterface|Promise
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [])
+    public function performRequest(AbstractEndpoint $endpoint, $fetch = null)
     {
-        try {
-            $connection  = $this->getConnection();
-        } catch (Exceptions\NoNodesAvailableException $exception) {
-            $this->log->critical('No alive nodes found in cluster');
-            throw $exception;
+        $request = $this->messageBuilder->createRequest($endpoint);
+        $promise = $this->httpAsyncClient->sendAsyncRequest($request);
+        $options = $endpoint->getOptions();
+
+        if (null === $fetch) {
+            $fetch = MessageBuilder::FETCH_RESULT;
+
+            if (isset($options['client']['future'])) {
+                $fetch = MessageBuilder::FETCH_PROMISE_DESERIALIZED;
+            }
         }
 
-        $response             = array();
-        $caughtException      = null;
-        $this->lastConnection = $connection;
-
-        $future = $connection->performRequest(
-            $method,
-            $uri,
-            $params,
-            $body,
-            $options,
-            $this
-        );
-
-        $future->promise()->then(
-            //onSuccess
-            function ($response) {
-                $this->retryAttempts = 0;
-                // Note, this could be a 4xx or 5xx error
-            },
-            //onFailure
-            function ($response) {
-                //some kind of real faiure here, like a timeout
-                $this->connectionPool->scheduleCheck();
-                // log stuff
-            });
-
-        return $future;
-    }
-
-    /**
-     * @param FutureArrayInterface $result  Response of a request (promise)
-     * @param array                $options Options for transport
-     *
-     * @return callable|array
-     */
-    public function resultOrFuture($result, $options = [])
-    {
-        $response = null;
-        $async = isset($options['client']['future']) ? $options['client']['future'] : null;
-        if (is_null($async) || $async === false) {
-            do {
-                $result = $result->wait();
-            } while ($result instanceof FutureArrayInterface);
-
-            return $result;
-        } elseif ($async === true || $async === 'lazy') {
-            return $result;
-        }
-    }
-
-    /**
-     * @param $request
-     *
-     * @return bool
-     */
-    public function shouldRetry($request)
-    {
-        if ($this->retryAttempts < $this->retries) {
-            $this->retryAttempts += 1;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns the last used connection so that it may be inspected.  Mainly
-     * for debugging/testing purposes.
-     *
-     * @return Connection
-     */
-    public function getLastConnection()
-    {
-        return $this->lastConnection;
+        return $this->messageBuilder->createResponse($promise, $fetch);
     }
 }

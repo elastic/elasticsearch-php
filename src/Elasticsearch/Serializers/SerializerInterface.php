@@ -25,6 +25,8 @@ interface SerializerInterface
     /**
      * Deserialize json encoded string into an associative array
      *
+     * @TODO Change the signature for using only a PSR7 Response as the input
+     *
      * @param string $data    JSON encoded string
      * @param array  $headers Response Headers
      *

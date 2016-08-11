@@ -10,6 +10,7 @@ use Elasticsearch\Common\Exceptions\Forbidden403Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
+use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -28,14 +29,32 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  Parser */
+    /** @var Parser Yaml parser for reading integrations tests */
     private $yaml;
 
-    /** @var  Elasticsearch\client */
+    /** @var Elasticsearch\Client client used by elasticsearch */
     private $client;
 
-    /** @var  Es version */
+    /** @var string Es version */
     private static $esVersion;
+
+    /** @var array A list of supported features */
+    private static $supportedFeatures = [
+        'stash_in_path',
+    ];
+
+    /** @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name */
+    private static $endpointMapping = [
+        'tasks' => [
+            'list' => ['get', 'tasks'],
+        ],
+    ];
+
+    /** @var array A list of skipped test with their reasons */
+    private static $skippedTest = [
+        'cat.nodeattrs/10_basic.yaml' => 'Using java regex fails in PHP',
+        'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP'
+    ];
 
     /**
      * Return the elasticsearch host
@@ -79,11 +98,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provider
+     * @group sync
      */
     public function testIntegration($testProcedure, $skip, $setupProcedure, $fileName)
     {
         if ($skip) {
             static::markTestIncomplete($testProcedure);
+        }
+
+        if (array_key_exists($fileName, static::$skippedTest)) {
+            static::markTestSkipped(static::$skippedTest[$fileName]);
         }
 
         if (null !== $setupProcedure) {
@@ -95,18 +119,41 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider provider
+     * @group async
+     */
+    public function testAsyncIntegration($testProcedure, $skip, $setupProcedure, $fileName)
+    {
+        if ($skip) {
+            static::markTestIncomplete($testProcedure);
+        }
+
+        if (array_key_exists($fileName, static::$skippedTest)) {
+            static::markTestSkipped(static::$skippedTest[$fileName]);
+        }
+
+        if (null !== $setupProcedure) {
+            $this->processProcedure(current($setupProcedure), 'setup');
+            $this->waitForYellow();
+        }
+
+        $this->processProcedure(current($testProcedure), key($testProcedure), true);
+    }
+
+    /**
      * Process a procedure
      *
      * @param $procedure
      * @param $name
+     * @param bool $async
      */
-    public function processProcedure($procedure, $name)
+    public function processProcedure($procedure, $name, $async = false)
     {
         $lastOperationResult = null;
         $context = [];
 
         foreach ($procedure as $operation) {
-            $lastOperationResult = $this->processOperation($operation, $lastOperationResult, $context, $name);
+            $lastOperationResult = $this->processOperation($operation, $lastOperationResult, $context, $name, $async);
         }
     }
 
@@ -126,7 +173,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $operationName = array_keys((array)$operation)[0];
 
         if ('do' === $operationName) {
-            return $this->operationDo($operation->{$operationName}, $lastOperationResult, $context, $testName);
+            return $this->operationDo($operation->{$operationName}, $lastOperationResult, $context, $testName, $async);
         }
 
         if ('is_false' === $operationName) {
@@ -190,6 +237,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $endpointInfo = explode('.', key($operation));
         $endpointParams = $this->replaceWithContext(current($operation), $context);
         $caller = $this->client;
+        $namespace = null;
         $method = null;
 
         if (count($endpointInfo) === 1) {
@@ -199,7 +247,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         if (count($endpointInfo) === 2) {
             $namespace = $endpointInfo[0];
             $method = Inflector::camelize($endpointInfo[1]);
-            $caller = $caller->$namespace();
         }
 
         if (property_exists($endpointParams, 'ignore')) {
@@ -207,6 +254,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             unset($endpointParams->ignore);
 
             $endpointParams->client['ignore'] = $ignore;
+        }
+
+        if ($async) {
+            $endpointParams->client['future'] = true;
+        }
+
+        list($method, $namespace) = $this->mapEndpoint($method, $namespace);
+
+        if (null !== $namespace) {
+            $caller = $caller->$namespace();
         }
 
         if (null === $method) {
@@ -218,7 +275,13 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         try {
-            return $caller->$method($endpointParams);
+            $response = $caller->$method($endpointParams);
+
+            while ($response instanceof FutureArrayInterface) {
+                $response = $response->wait();
+            }
+
+            return $response;
         } catch (\Exception $exception) {
             if (null !== $expectedError) {
                 return $this->assertException($exception, $expectedError, $testName);
@@ -279,9 +342,6 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = $this->replaceWithContext(current($operation), $context);
-
-        if ($expected === '_description') {
-        }
 
         if ($expected instanceof \stdClass) {
             // Avoid stdClass / array mismatch
@@ -377,8 +437,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      */
     public function operationSkip($operation, $lastOperationResult, $testName)
     {
-        if (property_exists($operation, 'features')) {
-            // No features supported
+        if (property_exists($operation, 'features') && !in_array($operation->features, static::$supportedFeatures, true)) {
             static::markTestSkipped(sprintf('Feature(s) %s not supported in test "%s"', json_encode($operation->features), $testName));
         }
 
@@ -413,6 +472,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      * @param \Exception $exception
      * @param            $expectedError
      * @param            $testName
+     *
+     * @return array
      */
     private function assertException(\Exception $exception, $expectedError, $testName)
     {
@@ -467,6 +528,27 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         return $files;
+    }
+
+    /**
+     * Return the real namespace / method couple for elasticsearch php
+     *
+     * @param string      $method
+     * @param string|null $namespace
+     *
+     * @return array
+     */
+    private function mapEndpoint($method, $namespace = null)
+    {
+        if (null === $namespace && array_key_exists($method, static::$endpointMapping)) {
+            return static::$endpointMapping[$method];
+        }
+
+        if (null !== $namespace && array_key_exists($namespace, static::$endpointMapping) && array_key_exists($method, static::$endpointMapping[$namespace])) {
+            return static::$endpointMapping[$namespace][$method];
+        }
+
+        return [$method, $namespace];
     }
 
     /**

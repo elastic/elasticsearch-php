@@ -67,16 +67,18 @@ class ClientBuilder
 
     private $registeredNamespacesBuilders = [];
 
+    public function __construct()
+    {
+        $this->serializer = new SmartSerializer();
+        $this->hosts = ['localhost:9200'];
+    }
+
     /**
      * @return ClientBuilder
      */
     public static function create()
     {
-        $builder = new static();
-        $builder->serializer = new SmartSerializer();
-        $builder->hosts = ['localhost:9200'];
-
-        return $builder;
+        return new static();
     }
 
     /**
@@ -97,6 +99,23 @@ class ClientBuilder
      */
     public static function fromConfig($config, $quiet = false)
     {
+        $builder = new self;
+
+        foreach ($config as $key => $value) {
+            $method = "set$key";
+            if (method_exists($builder, $method)) {
+                $builder->$method($value);
+                unset($config[$key]);
+            }
+        }
+
+        if ($quiet === false && count($config) > 0) {
+            $unknown = implode(array_keys($config));
+
+            throw new RuntimeException("Unknown parameters provided: $unknown");
+        }
+
+        return $builder->build();
     }
 
 

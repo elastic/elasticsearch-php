@@ -1,9 +1,11 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace Elasticsearch\Common\Exceptions\Http;
+
+use Elasticsearch\Common\Exceptions\HttpException;
 
 /**
- * Missing404Exception
+ * AlreadyExpiredException, thrown when a document has already expired
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Common\Exceptions
@@ -11,6 +13,6 @@ namespace Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Missing404Exception extends \Exception implements ElasticsearchException
+class AlreadyExpiredException extends HttpException
 {
 }

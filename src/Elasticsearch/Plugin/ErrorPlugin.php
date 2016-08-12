@@ -2,17 +2,7 @@
 
 namespace Elasticsearch\Plugin;
 
-use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
-use Elasticsearch\Common\Exceptions\NoShardAvailableException;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
-use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
+use Elasticsearch\Common\Exceptions\Http as HttpException;
 use Elasticsearch\Serializers\SerializerInterface;
 use Http\Client\Common\Plugin;
 use Psr\Http\Message\RequestInterface;
@@ -52,104 +42,105 @@ class ErrorPlugin implements Plugin
     }
 
     /**
-     * Create a 4XX Exception
+     * Throw a 4XX Exception
      *
      * @param RequestInterface $request
      * @param ResponseInterface $response
      *
-     * @throws AlreadyExpiredException
-     * @throws BadRequest400Exception
-     * @throws Conflict409Exception
-     * @throws Forbidden403Exception
-     * @throws Missing404Exception
-     * @throws ScriptLangNotSupportedException
+     * @throws HttpException\AlreadyExpiredException
+     * @throws HttpException\BadRequest400Exception
+     * @throws HttpException\Conflict409Exception
+     * @throws HttpException\Forbidden403Exception
+     * @throws HttpException\Missing404Exception
+     * @throws HttpException\ScriptLangNotSupportedException
      */
     private function process4xxError(RequestInterface $request, ResponseInterface $response)
     {
         $statusCode = $response->getStatusCode();
         $responseBody = (string)$response->getBody();
 
-        $exception = $this->tryDeserialize400Error($response);
+        $exception = $this->tryDeserialize400Error($request, $response, $responseBody);
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            $exception = new AlreadyExpiredException($responseBody, $statusCode);
+            $exception = new HttpException\AlreadyExpiredException($responseBody, $request, $response);
         } elseif ($statusCode === 403) {
-            $exception = new Forbidden403Exception($responseBody, $statusCode);
+            $exception = new HttpException\Forbidden403Exception($responseBody, $request, $response);
         } elseif ($statusCode === 404) {
-            $exception = new Missing404Exception($responseBody, $statusCode);
+            $exception = new HttpException\Missing404Exception($responseBody, $request, $response);
         } elseif ($statusCode === 409) {
-            $exception = new Conflict409Exception($responseBody, $statusCode);
+            $exception = new HttpException\Conflict409Exception($responseBody, $request, $response);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
+            $exception = new HttpException\ScriptLangNotSupportedException($responseBody, $request, $response);
         } elseif ($statusCode === 408) {
-            $exception = new RequestTimeout408Exception($responseBody, $statusCode);
+            $exception = new HttpException\RequestTimeout408Exception($responseBody, $request, $response);
         }
 
         throw $exception;
     }
 
     /**
-     * Create a 5XX Exception
+     * Throw a 5XX Exception
      *
      * @param RequestInterface $request
      * @param ResponseInterface $response
      *
-     * @throws NoDocumentsToGetException
-     * @throws NoShardAvailableException
-     * @throws RoutingMissingException
-     * @throws ServerErrorResponseException
+     * @throws HttpException\NoDocumentsToGetException
+     * @throws HttpException\NoShardAvailableException
+     * @throws HttpException\RoutingMissingException
+     * @throws HttpException\ServerErrorResponseException
      */
     private function process5xxError(RequestInterface $request, ResponseInterface $response)
     {
         $statusCode = $response->getStatusCode();
         $responseBody = (string)$response->getBody();
 
-        $exception = $this->tryDeserialize500Error($response);
+        $exception = $this->tryDeserialize500Error($request, $response, $responseBody);
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
-            $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
+            $exception = new HttpException\RoutingMissingException($exception->getMessage(), $request, $response, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
-            $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
+            $exception = new HttpException\NoDocumentsToGetException($exception->getMessage(), $request, $response, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
-            $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
+            $exception = new HttpException\NoShardAvailableException($exception->getMessage(), $request, $response, $exception);
         }
 
         throw $exception;
     }
 
     /**
+     * @param RequestInterface $request
      * @param ResponseInterface $response
      *
-     * @return BadRequest400Exception
+     * @return HttpException\BadRequest400Exception
      */
-    private function tryDeserialize400Error(ResponseInterface $response)
+    private function tryDeserialize400Error(RequestInterface $request, ResponseInterface $response, $responseBody)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
+        return $this->tryDeserializeError($request, $response, $responseBody, 'Elasticsearch\Common\Exceptions\Http\BadRequest400Exception');
     }
 
     /**
+     * @param RequestInterface $request
      * @param ResponseInterface $response
      *
-     * @return ServerErrorResponseException
+     * @return HttpException\ServerErrorResponseException
      */
-    private function tryDeserialize500Error(ResponseInterface $response)
+    private function tryDeserialize500Error(RequestInterface $request, ResponseInterface $response, $responseBody)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
+        return $this->tryDeserializeError($request, $response, $responseBody, 'Elasticsearch\Common\Exceptions\Http\ServerErrorResponseException');
     }
 
     /**
      * Return a new elasticsearch exception
      *
+     * @param RequestInterface $request
      * @param ResponseInterface $response
      * @param string            $errorClass
      *
      * @return \Exception
      */
-    private function tryDeserializeError(ResponseInterface $response, $errorClass)
+    private function tryDeserializeError(RequestInterface $request, ResponseInterface $response, $responseBody, $errorClass)
     {
-        $body = (string)$response->getBody();
-        $status = $response->getStatusCode();
-        $error = $this->serializer->deserialize($body, $response->getHeaders());
+        $error = $this->serializer->deserialize($responseBody, $response->getHeaders());
 
         if (is_array($error) === true) {
             // 2.0 structured exceptions
@@ -165,22 +156,22 @@ class ErrorPlugin implements Plugin
                     $type = $error['error']['type'];
                 }
 
-                $original = new $errorClass($body, $status);
+                $original = new $errorClass($responseBody, $request, $response);
 
-                return new $errorClass("$type: $cause", $status, $original);
+                return new $errorClass("$type: $cause", $request, $response, $original);
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
-                $original = new $errorClass($body, $status);
+                $original = new $errorClass($responseBody, $request, $response);
 
-                return new $errorClass($body, $status, $original);
+                return new $errorClass($responseBody, $request, $response, $original);
             }
 
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
-            return new $errorClass($body, $status);
+            return new $errorClass($responseBody, $request, $response);
         }
 
         // <2.0 "i just blew up" nonstructured exception
-        return new $errorClass($error, $status);
+        return new $errorClass($error, $request, $response);
     }
 }

@@ -23,7 +23,7 @@ class Refresh extends AbstractEndpoint
         $index = $this->index;
         $uri   = "/_refresh";
 
-        if (isset($index) === true) {
+        if (isset($index) === true && !empty($index)) {
             $uri = "/$index/_refresh";
         }
 

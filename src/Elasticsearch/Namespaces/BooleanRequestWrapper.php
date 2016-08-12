@@ -2,8 +2,8 @@
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
+use Elasticsearch\Common\Exceptions\Http\Missing404Exception;
+use Elasticsearch\Common\Exceptions\Http\RoutingMissingException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\MessageBuilder;
 use Elasticsearch\Transport;
@@ -26,8 +26,7 @@ trait BooleanRequestWrapper
      *
      * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
      *
-     * @throws Missing404Exception
-     * @throws RoutingMissingException
+     * @return boolean
      */
     public static function performRequest(AbstractEndpoint $endpoint, Transport $transport)
     {

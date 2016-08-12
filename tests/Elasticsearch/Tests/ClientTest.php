@@ -4,7 +4,6 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch;
 use Elasticsearch\ClientBuilder;
-use Mockery as m;
 
 /**
  * Class ClientTest
@@ -18,11 +17,6 @@ use Mockery as m;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
-
     /**
      * @expectedException \LogicException
      */
@@ -212,57 +206,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $this->fail("InvalidArgumentException was not thrown");
         } catch (Elasticsearch\Common\Exceptions\InvalidArgumentException $e) {
             // all good
-        }
-    }
-
-    public function testMaxRetriesException()
-    {
-        $client = Elasticsearch\ClientBuilder::create()
-            ->setHosts(["localhost:1"])
-            ->setRetries(0)
-            ->build();
-
-        $searchParams = array(
-            'index' => 'test',
-            'type' => 'test',
-            'body' => [
-                'query' => [
-                    'match_all' => []
-                ]
-            ]
-        );
-
-        $client = Elasticsearch\ClientBuilder::create()
-            ->setHosts(["localhost:1"])
-            ->setRetries(0)
-            ->build();
-
-        try {
-            $client->search($searchParams);
-            $this->fail("Should have thrown CouldNotConnectToHost");
-        } catch (Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost $e) {
-            // All good
-            $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-
-
-        $client = Elasticsearch\ClientBuilder::create()
-            ->setHosts(["localhost:1"])
-            ->setRetries(0)
-            ->build();
-
-        try {
-            $client->search($searchParams);
-            $this->fail("Should have thrown TransportException");
-        } catch (Elasticsearch\Common\Exceptions\TransportException $e) {
-            // All good
-            $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
-        } catch (\Exception $e) {
-            throw $e;
         }
     }
 }

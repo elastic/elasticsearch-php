@@ -66,12 +66,27 @@ class Transport
         $promise = $this->httpAsyncClient->sendAsyncRequest($request);
         $options = $endpoint->getOptions();
 
-        if (null === $fetch) {
-            $fetch = MessageBuilder::FETCH_RESULT;
+        if (array_key_exists('client', $options)) {
+            if (array_key_exists('ignore', $options['client'])) {
+                $promise = $promise->then(null, function ($exception) use ($options) {
+                    if (
+                        $exception instanceof Exception\HttpException &&
+                        in_array($exception->getResponse()->getStatusCode(), $options['client']['ignore'], true)
+                    ) {
+                        return $exception->getResponse();
+                    }
 
-            if (isset($options['client']['future'])) {
+                    throw $exception;
+                });
+            }
+
+            if (null === $fetch && array_key_exists('future', $options['client']) && $options['client']['future'] === true) {
                 $fetch = MessageBuilder::FETCH_PROMISE_DESERIALIZED;
             }
+        }
+
+        if (null === $fetch) {
+            $fetch = MessageBuilder::FETCH_RESULT;
         }
 
         return $this->messageBuilder->createResponse($promise, $fetch);

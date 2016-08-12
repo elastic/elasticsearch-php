@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace Elasticsearch\Common\Exceptions\Http;
 
 /**
- * Class ClientErrorResponseException
+ * RequestTimeout408Exception
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Common\Exceptions
@@ -11,6 +11,6 @@ namespace Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class ClientErrorResponseException extends TransportException implements ElasticsearchException
+class RequestTimeout408Exception extends BadRequest400Exception
 {
 }

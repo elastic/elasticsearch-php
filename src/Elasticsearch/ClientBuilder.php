@@ -4,20 +4,9 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Plugin\ErrorPlugin;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
-use GuzzleHttp\Ring\Client\CurlHandler;
-use GuzzleHttp\Ring\Client\CurlMultiHandler;
-use GuzzleHttp\Ring\Client\Middleware;
 use Http\Client\Common\EmulatedHttpAsyncClient;
 use Http\Client\Common\HttpClientPool;
 use Http\Client\Common\HttpClientPool\RandomClientPool;
@@ -33,11 +22,7 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\UriFactory;
-use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\IntrospectionProcessor;
 
 /**
  * Class ClientBuilder
@@ -63,7 +48,7 @@ class ClientBuilder
 
     private $endpoint;
     
-    private $connectionPool = RandomClientPool::class;
+    private $clientPoolStrategy = RandomClientPool::class;
 
     private $registeredNamespacesBuilders = [];
 
@@ -120,29 +105,34 @@ class ClientBuilder
 
 
     /**
-     * @param string $connectionPool
+     * Set the client pool strategy for selecting elasticsearch server
+     *
+     * @param string $clientPoolStrategy
      *
      * @throws \InvalidArgumentException
      *
      * @return $this
      */
-    public function setConnectionPool($connectionPool)
+    public function setClientPoolStrategy($clientPoolStrategy)
     {
-        if (!is_string($connectionPool)) {
-            throw new \InvalidArgumentException("Connection pool must be a class path extending HttpClientPool");
+        if (!is_string($clientPoolStrategy)) {
+            throw new \InvalidArgumentException("Client pool must be a class path extending HttpClientPool");
         }
 
-        if (!is_subclass_of($connectionPool, HttpClientPool::class)) {
-            throw new \InvalidArgumentException("Connection pool must be a class path extending HttpClientPool");
+        if (!is_subclass_of($clientPoolStrategy, HttpClientPool::class)) {
+            throw new \InvalidArgumentException("Client pool must be a class path extending HttpClientPool");
         }
 
-        $this->connectionPool = $connectionPool;
+        $this->clientPoolStrategy = $clientPoolStrategy;
 
         return $this;
     }
 
     /**
+     * Set the strategy to get an endpoint object
+     *
      * @param callable $endpoint
+     *
      * @return $this
      */
     public function setEndpoint($endpoint)
@@ -153,7 +143,10 @@ class ClientBuilder
     }
 
     /**
+     * Register a new namespace to Elasticsearch
+     *
      * @param NamespaceBuilderInterface $namespaceBuilder
+     *
      * @return $this
      */
     public function registerNamespace(NamespaceBuilderInterface $namespaceBuilder)
@@ -164,7 +157,10 @@ class ClientBuilder
     }
 
     /**
+     * Add a logger to have information about requests and responses
+     *
      * @param \Psr\Log\LoggerInterface $logger
+     *
      * @return $this
      */
     public function setLogger($logger)
@@ -175,13 +171,23 @@ class ClientBuilder
     }
 
     /**
+     * Set the serializer to use for requests and responses
+     *
      * @param \Elasticsearch\Serializers\SerializerInterface|string $serializer
+     *
      * @throws \InvalidArgumentException
+     *
      * @return $this
      */
     public function setSerializer($serializer)
     {
-        $this->parseStringOrObject($serializer, $this->serializer, 'SerializerInterface');
+        if (is_string($serializer)) {
+            $this->serializer = new $serializer;
+        } elseif (is_object($serializer)) {
+            $this->serializer = $serializer;
+        } else {
+            throw new InvalidArgumentException('Serializer must be a class path or instantiated object implementing SerializerInterface');
+        }
 
         return $this;
     }
@@ -209,16 +215,16 @@ class ClientBuilder
     }
 
     /**
-     * @param boolean $sniffOnStart
+     * @param HttpAsyncClient $httpAsyncClient
+     *
      * @return $this
      */
-    public function setSniffOnStart($sniffOnStart)
+    public function setHttpAsyncClient(HttpAsyncClient $httpAsyncClient)
     {
-        $this->sniffOnStart = $sniffOnStart;
+        $this->httpAsyncClient = $httpAsyncClient;
 
         return $this;
     }
-
 
     /**
      * @return Client
@@ -270,7 +276,7 @@ class ClientBuilder
     private function createHttpClient()
     {
         /** @var HttpClientPool $pool */
-        $pool = new $this->connectionPool;
+        $pool = new $this->clientPoolStrategy;
         $uriFactory = UriFactoryDiscovery::find();
         $retries = null === $this->retries ? count($this->hosts) : $this->retries;
         $logger = null === $this->logger ? new NullLogger() : $this->logger;
@@ -294,16 +300,5 @@ class ClientBuilder
             ]),
             new LoggerPlugin($logger),
         ]);
-    }
-
-    private function parseStringOrObject($arg, &$destination, $interface)
-    {
-        if (is_string($arg)) {
-            $destination = new $arg;
-        } elseif (is_object($arg)) {
-            $destination = $arg;
-        } else {
-            throw new InvalidArgumentException("Serializer must be a class path or instantiated object implementing $interface");
-        }
     }
 }

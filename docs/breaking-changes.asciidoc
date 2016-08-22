@@ -1,8 +1,16 @@
 
 == Breaking changes from 2.x
 
-- The client now requires PHP version 5.5 or higher
--
+- The client now requires PHP version 5.6 or higher
+- The client does not depend on any http client implementation, instead it relies on link:http://httplug.io[Httplug]
+ which abstract most of existing http client in PHP (guzzle6, guzzle5, react, zend, cakephp, buzz, socket, curl, ...)
+- The builder pattern has less options. Please see link:_configuration.html[Configuration] for more details
+- Notably setting the handler or ssl is not possible anymore, you should set a `HttpAsyncClient` instead with the
+configuration of your choice
+- All exceptions about the client (NoNodesAvailable, etc...) do not exist anymore, you should use the one provided by
+Httplug
+- Many exceptions about Elasticsearch are now under the `Http` namespace, also they include a PSR7 Response and the
+original PSR7 Request
 
 == Breaking changes from 1.x
 

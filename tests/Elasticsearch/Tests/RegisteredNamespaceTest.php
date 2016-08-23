@@ -6,7 +6,6 @@ use Elasticsearch;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
-use Mockery as m;
 
 /**
  * Class RegisteredNamespaceTest
@@ -20,11 +19,6 @@ use Mockery as m;
  */
 class RegisteredNamespaceTest extends \PHPUnit_Framework_TestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
-
     public function testRegisteringNamespace()
     {
         $builder = new FooNamespaceBuilder();

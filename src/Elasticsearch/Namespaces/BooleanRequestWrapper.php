@@ -2,11 +2,13 @@
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
+use Elasticsearch\Common\Exceptions\Http\Missing404Exception;
+use Elasticsearch\Common\Exceptions\Http\RoutingMissingException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\MessageBuilder;
 use Elasticsearch\Transport;
-use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use Http\Promise\Promise;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Trait AbstractNamespace
@@ -24,31 +26,27 @@ trait BooleanRequestWrapper
      *
      * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
      *
-     * @throws Missing404Exception
-     * @throws RoutingMissingException
+     * @return boolean
      */
     public static function performRequest(AbstractEndpoint $endpoint, Transport $transport)
     {
         try {
-            $response = $transport->performRequest(
-                $endpoint->getMethod(),
-                $endpoint->getURI(),
-                $endpoint->getParams(),
-                $endpoint->getBody(),
-                $endpoint->getOptions()
-            );
+            $options = $endpoint->getOptions();
+            $fetch = MessageBuilder::FETCH_PSR7_RESPONSE;
 
-            $response = $transport->resultOrFuture($response, $endpoint->getOptions());
-            if (!($response instanceof FutureArrayInterface)) {
-                if ($response['status'] === 200) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                // async mode, can't easily resolve this...punt to user
-                return $response;
+            if (isset($options['client']['future'])) {
+                $fetch = MessageBuilder::FETCH_PROMISE;
             }
+
+            $response = $transport->performRequest($endpoint, $fetch);
+
+            if ($response instanceof Promise) {
+                return $response->then(function (ResponseInterface $response) {
+                    return $response->getStatusCode() === 200;
+                });
+            }
+
+            return $response->getStatusCode() === 200;
         } catch (Missing404Exception $exception) {
             return false;
         } catch (RoutingMissingException $exception) {

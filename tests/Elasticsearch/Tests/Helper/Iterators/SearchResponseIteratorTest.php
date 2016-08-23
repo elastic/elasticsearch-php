@@ -2,8 +2,9 @@
 
 namespace Elasticsearch\Tests\Helper\Iterators;
 
+use Elasticsearch\Client;
 use Elasticsearch\Helper\Iterators\SearchResponseIterator;
-use Mockery as m;
+use Prophecy\Argument;
 
 /**
  * Class SearchResponseIteratorTest
@@ -14,12 +15,6 @@ use Mockery as m;
  */
 class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function tearDown()
-    {
-        m::close();
-    }
-
     public function testWithNoResults()
     {
         $search_params = array(
@@ -34,51 +29,24 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mock_client = m::mock('\Elasticsearch\Client');
+        $client = $this->prophesize(Client::class);
+        $client->search($search_params)->willReturn([
+            '_scroll_id' => 'scroll_id_01'
+        ]);
+        $client->scroll([
+            'scroll_id' => 'scroll_id_01',
+            'scroll'    => '5m'
+        ])->willReturn([
+            '_scroll_id' => 'scroll_id_02',
+            'hits' => [
+                'hits' => []
+            ]
+        ]);
+        $client->clearScroll(Argument::any())->shouldBeCalled();
 
-        $mock_client->shouldReceive('search')
-            ->once()
-            ->ordered()
-            ->with($search_params)
-            ->andReturn(array('_scroll_id' => 'scroll_id_01'));
+        $responses = new SearchResponseIterator($client->reveal(), $search_params);
 
-        $mock_client->shouldReceive('scroll')
-            ->once()
-            ->ordered()
-            ->with(
-                array(
-                    'scroll_id' => 'scroll_id_01',
-                    'scroll'    => '5m'
-                )
-            )
-            ->andReturn(
-                array(
-                    '_scroll_id' => 'scroll_id_02',
-                    'hits' => array(
-                        'hits' => array(
-                        )
-                    )
-                )
-            );
-
-        $mock_client->shouldReceive('scroll')
-            ->never()
-            ->with(
-                array(
-                    'scroll_id' => 'scroll_id_02',
-                    'scroll'    => '5m'
-                )
-            );
-
-        $mock_client->shouldReceive('clearScroll')
-            ->once()
-            ->ordered()
-            ->withAnyArgs();
-
-
-        $responses = new SearchResponseIterator($mock_client, $search_params);
-
-        $this->assertCount(0, $responses);
+        $this->assertCount(1, $responses);
     }
 
     public function testWithScan()
@@ -95,87 +63,43 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mock_client = m::mock('\Elasticsearch\Client');
+        $client = $this->prophesize(Client::class);
+        $client->search($search_params)->willReturn([
+            '_scroll_id' => 'scroll_id_01'
+        ]);
 
-        $mock_client->shouldReceive('search')
-            ->once()
-            ->ordered()
-            ->with($search_params)
-            ->andReturn(array('_scroll_id' => 'scroll_id_01'));
+        $client->scroll([
+            'scroll_id' => 'scroll_id_01',
+            'scroll'    => '5m'
+        ])->willReturn([
+            '_scroll_id' => 'scroll_id_02',
+            'hits' => [
+                'hits' => [[]]
+            ]
+        ]);
 
-        $mock_client->shouldReceive('scroll')
-            ->once()
-            ->ordered()
-            ->with(
-                array(
-                    'scroll_id'  => 'scroll_id_01',
-                    'scroll' => '5m'
-                )
-            )
-            ->andReturn(
-                array(
-                    '_scroll_id' => 'scroll_id_02',
-                    'hits' => array(
-                        'hits' => array(
-                            array()
-                        )
-                    )
-                )
-            );
+        $client->scroll([
+            'scroll_id' => 'scroll_id_02',
+            'scroll'    => '5m'
+        ])->willReturn([
+            '_scroll_id' => 'scroll_id_03',
+            'hits' => [
+                'hits' => [[]]
+            ]
+        ]);
 
-        $mock_client->shouldReceive('scroll')
-            ->once()
-            ->ordered()
-            ->with(
-                array(
-                    'scroll_id'  => 'scroll_id_02',
-                    'scroll' => '5m'
-                )
-            )
-            ->andReturn(
-                array(
-                    '_scroll_id' => 'scroll_id_03',
-                    'hits' => array(
-                        'hits' => array(
-                            array()
-                        )
-                    )
-                )
-            );
+        $client->scroll([
+            'scroll_id' => 'scroll_id_03',
+            'scroll'    => '5m'
+        ])->willReturn([
+            '_scroll_id' => 'scroll_id_04',
+            'hits' => [
+                'hits' => []
+            ]
+        ]);
+        $client->clearScroll(Argument::any())->shouldBeCalled();
+        $responses = new SearchResponseIterator($client->reveal(), $search_params);
 
-        $mock_client->shouldReceive('scroll')
-            ->once()
-            ->ordered()
-            ->with(
-                array(
-                    'scroll_id'  => 'scroll_id_03',
-                    'scroll' => '5m'
-                )
-            )
-            ->andReturn(
-                array(
-                    '_scroll_id' => 'scroll_id_04',
-                    'hits' => array(
-                    )
-                )
-            );
-
-        $mock_client->shouldReceive('scroll')
-            ->never()
-            ->with(
-                array(
-                    'scroll_id'  => 'scroll_id_04',
-                    'scroll' => '5m'
-                )
-            );
-
-        $mock_client->shouldReceive('clearScroll')
-            ->once()
-            ->ordered()
-            ->withAnyArgs();
-
-        $responses = new SearchResponseIterator($mock_client, $search_params);
-
-        $this->assertCount(2, $responses);
+        $this->assertCount(3, $responses);
     }
 }

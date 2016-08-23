@@ -4,14 +4,16 @@ namespace Elasticsearch\Tests;
 
 use Doctrine\Common\Inflector\Inflector;
 use Elasticsearch;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use Elasticsearch\Common\Exceptions\Http\BadRequest400Exception;
+use Elasticsearch\Common\Exceptions\Http\Conflict409Exception;
+use Elasticsearch\Common\Exceptions\Http\Forbidden403Exception;
+use Elasticsearch\Common\Exceptions\Http\Missing404Exception;
+use Elasticsearch\Common\Exceptions\Http\RequestTimeout408Exception;
+use Elasticsearch\Common\Exceptions\Http\ServerErrorResponseException;
+use Elasticsearch\Common\Exceptions\Http\RoutingMissingException;
+use Http\Promise\Promise;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -94,7 +96,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->clean();
-        $this->client = Elasticsearch\ClientBuilder::create()->setHosts([self::getHost()])->build();
+
+        $logger = new Logger('elasticsearch-debug');
+        $logger->pushHandler(new StreamHandler('php://stderr'));
+
+        $this->client = Elasticsearch\ClientBuilder::create()
+            ->setHosts([self::getHost()])
+            //->setLogger($logger)
+            ->build();
     }
 
     /**
@@ -301,7 +310,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         try {
             $response = $caller->$method($endpointParams);
 
-            while ($response instanceof FutureArrayInterface) {
+            if ($response instanceof Promise) {
                 $response = $response->wait();
             }
 
@@ -332,10 +341,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $testName)
     {
         try {
-
             $response = $caller->$method($endpointParams);
 
-            while ($response instanceof FutureArrayInterface) {
+            while ($response instanceof Promise) {
                 $response = $response->wait();
             }
 

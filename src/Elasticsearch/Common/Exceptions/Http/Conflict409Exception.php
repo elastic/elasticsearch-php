@@ -1,9 +1,11 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace Elasticsearch\Common\Exceptions\Http;
+
+use Elasticsearch\Common\Exceptions\HttpException;
 
 /**
- * BadRequest400Exception, thrown on 400 conflict http error
+ * Conflict409Exception, thrown on 409 conflict http error
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Common\Exceptions
@@ -11,6 +13,6 @@ namespace Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class BadRequest400Exception extends \Exception implements ElasticsearchException
+class Conflict409Exception extends HttpException
 {
 }

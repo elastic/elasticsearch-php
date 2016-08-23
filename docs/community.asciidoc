@@ -76,3 +76,14 @@ https://github.com/cviebrock/laravel-elasticsearch[Link: cviebrock/Laravel-Elast
 __________________________
 An easy way to use the official Elastic Search client in your Laravel applications.
 __________________________
+
+
+==== Plastic
+
+https://github.com/sleimanx2/plastic[Link: Plastic]
+
+[quote, Plastic]
+__________________________
+Plastic is an Elasticsearch ODM and mapper for Laravel. It renders the developer experience more enjoyable while using Elasticsearch, by providing a fluent syntax for mapping, querying, and storing eloquent models.
+__________________________
+

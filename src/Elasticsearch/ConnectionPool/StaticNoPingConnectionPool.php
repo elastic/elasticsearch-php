@@ -5,7 +5,7 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
+use Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class StaticNoPingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
@@ -22,7 +22,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
     /**
      * {@inheritdoc}
      */
-    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactoryInterface $factory, $connectionPoolParams)
     {
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
     }

@@ -5,7 +5,8 @@ namespace Elasticsearch\ConnectionPool;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
+use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class AbstractConnectionPool
@@ -39,18 +40,21 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
      */
     protected $selector;
 
+    /** @var array */
+    protected $connectionPoolParams;
+
     /** @var \Elasticsearch\Connections\ConnectionFactory  */
     protected $connectionFactory;
 
     /**
      * Constructor
      *
-     * @param ConnectionInterface[] $connections          The Connections to choose from
-     * @param SelectorInterface     $selector             A Selector instance to perform the selection logic for the available connections
-     * @param ConnectionFactory     $factory              ConnectionFactory instance
-     * @param array                 $connectionPoolParams
+     * @param ConnectionInterface[]          $connections          The Connections to choose from
+     * @param SelectorInterface              $selector             A Selector instance to perform the selection logic for the available connections
+     * @param ConnectionFactoryInterface     $factory              ConnectionFactory instance
+     * @param array                          $connectionPoolParams
      */
-    public function __construct($connections, SelectorInterface $selector, ConnectionFactory $factory, $connectionPoolParams)
+    public function __construct($connections, SelectorInterface $selector, ConnectionFactoryInterface $factory, $connectionPoolParams)
     {
         $paramList = array('connections', 'selector', 'connectionPoolParams');
         foreach ($paramList as $param) {

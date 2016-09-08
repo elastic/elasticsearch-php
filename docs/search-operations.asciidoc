@@ -170,7 +170,7 @@ see <<php_json_objects, Dealing with JSON Arrays and Objects in PHP>>.
 
 === A more complicated example
 
-Let's construct a slightly more complicated example: a filtered query that contains both a filter and a query.
+Let's construct a slightly more complicated example: a boolean query that contains both a filter and a query.
 This is a very common activity in elasticsearch queries, so it will be a good demonstration.
 
 The curl version of the query:
@@ -179,7 +179,7 @@ The curl version of the query:
 ----
 curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
     "query" : {
-        "filtered" : {
+        "bool" : {
             "filter" : {
                 "term" : { "my_field" : "abc" }
             },
@@ -201,7 +201,7 @@ $params = [
     'type' => 'my_type',
     'body' => [
         'query' => [
-            'filtered' => [
+            'bool' => [
                 'filter' => [
                     'term' => [ 'my_field' => 'abc' ]
                 ],

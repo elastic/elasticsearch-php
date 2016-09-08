@@ -19,6 +19,9 @@ class ConnectionFactory implements ConnectionFactoryInterface
     /** @var  array */
     private $connectionParams;
 
+    /** @var  SerializerInterface */
+    private $serializer;
+
     /** @var  LoggerInterface */
     private $logger;
 

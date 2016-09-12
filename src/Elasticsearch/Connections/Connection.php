@@ -505,6 +505,14 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * @return null|string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * @param $request
      * @param $response
      * @return \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\MaxRetriesException

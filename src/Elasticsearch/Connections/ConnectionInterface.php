@@ -52,6 +52,13 @@ interface ConnectionInterface
     public function getUserPass();
 
     /**
+     * Get the URL path suffix, null if not set
+     *
+     * @return null|string;
+     */
+    public function getPath();
+
+    /**
      * Check to see if this instance is marked as 'alive'
      *
      * @return bool

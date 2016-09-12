@@ -494,6 +494,17 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * @return null|string
+     */
+    public function getUserPass()
+    {
+        if (isset($this->connectionParams['client']['curl'][CURLOPT_USERPWD]) === true) {
+            return $this->connectionParams['client']['curl'][CURLOPT_USERPWD];
+        }
+        return null;
+    }
+
+    /**
      * @param $request
      * @param $response
      * @return \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\MaxRetriesException

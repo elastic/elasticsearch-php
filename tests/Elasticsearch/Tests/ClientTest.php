@@ -300,15 +300,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("https", $host->getTransportSchema());
 
 
-        // Note: we can't test user/pass themselves yet, need to introduce
-        // breaking change to interface in master to do that
-        // But we can confirm it doesn't break anything
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'https://user:pass@foo.com:9200'
         ])->build();
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("https", $host->getTransportSchema());
+        $this->assertEquals("user:pass", $host->getUserPass());
     }
 
     public function testExtendedHosts()
@@ -410,12 +408,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             [
                 'host' => 'foo.com',
                 'user' => 'user',
-                'pass' => 'abc#$%!abc'
+                'pass' => 'abc#$@?%!abc'
             ]
         ])->build();
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
-
+        $this->assertEquals("user:abc#$@?%!abc", $host->getUserPass());
     }
 }

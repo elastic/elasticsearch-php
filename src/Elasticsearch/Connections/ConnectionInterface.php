@@ -45,6 +45,13 @@ interface ConnectionInterface
     public function getHost();
 
     /**
+     * Get the username:password string for this connection, null if not set
+     *
+     * @return null|string
+     */
+    public function getUserPass();
+
+    /**
      * Check to see if this instance is marked as 'alive'
      *
      * @return bool

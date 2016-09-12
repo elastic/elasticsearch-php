@@ -7,7 +7,7 @@ their needs, but it is possible to completely replace much of the internals if r
 Custom configuration is accomplished before the client is instantiated, through the ClientBuilder helper object.
 We'll walk through all the configuration options and show sample code to replace the various components.
 
-=== Host Configuration
+=== Inline Host Configuration
 
 The most common configuration is telling the client about your cluster: how many nodes, their addresses and ports.  If
 no hosts are specified, the client will attempt to connect to `localhost:9200`.
@@ -48,6 +48,44 @@ $clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
 $clientBuilder->setHosts($hosts);           // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
+
+=== Extended Host Configuration
+
+The client also supports an _extended_ host configuration syntax.  The inline configuration method relies on PHP's
+`filter_var()` and `parse_url()` methods to validate and extract the components of a URL.  Unfortunately, these built-in
+methods run into problems with certain edge-cases.  For example, `filter_var()` will not accept URL's that have underscores
+(which are questionably legal, depending on how you interpret the RFCs).  Similarly, `parse_url()` will choke if a
+Basic Auth's password contains special characters such as a pound sign (`#`) or question-marks (`?`).
+
+For this reason, the client supports an extended host syntax which provides greater control over host initialization.
+None of the components are validated, so edge-cases like underscores domain names will not cause problems.
+
+The extended syntax is an array of parameters for each host:
+
+[source,php]
+----
+$hosts = [
+    // This is effectively equal to: "https://username:password!#$?*abc@foo.com:9200/"
+    [
+        'host' => 'foo.com',
+        'port' => '9200',
+        'scheme' => 'https',
+        'user' => 'username',
+        'password' => 'password!#$?*abc'
+    ],
+
+    // This is equal to "http://localhost:9200/"
+    [
+        'host' => 'localhost',    // Only host is required
+    ]
+];
+$client = ClientBuilder::create()           // Instantiate a new ClientBuilder
+                    ->setHosts($hosts)      // Set the hosts
+                    ->build();              // Build the client object
+----
+
+Only the `host` parameter is required for each configured host.  If not provided, the default port is `9200`.  The default
+scheme is `http`.
 
 === Authorization and Encryption
 

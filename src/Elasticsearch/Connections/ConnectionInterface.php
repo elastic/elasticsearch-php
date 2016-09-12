@@ -38,6 +38,13 @@ interface ConnectionInterface
     public function getTransportSchema();
 
     /**
+     * Get the hostname for this connection
+     *
+     * @return string
+     */
+    public function getHost();
+
+    /**
      * Check to see if this instance is marked as 'alive'
      *
      * @return bool

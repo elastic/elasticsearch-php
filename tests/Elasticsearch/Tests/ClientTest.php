@@ -273,11 +273,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'localhost:9200'
         ])->build();
-
-        // We're casting to Connection here, instead of ConnectionInterface
-        // so we can access getHost() on Connection
-
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("localhost:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -286,7 +281,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'http://localhost:9200'
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("localhost:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -294,7 +288,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'http://foo.com:9200'
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -302,7 +295,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'https://foo.com:9200'
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("https", $host->getTransportSchema());
@@ -314,7 +306,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'https://user:pass@foo.com:9200'
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("https", $host->getTransportSchema());
@@ -329,7 +320,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'scheme' => 'http'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("localhost:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -342,7 +332,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'scheme' => 'http'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -355,7 +344,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'scheme' => 'https'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("https", $host->getTransportSchema());
@@ -367,7 +355,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'scheme' => 'http'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -378,7 +365,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'host' => 'foo.com'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -391,7 +377,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'scheme' => 'https'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9500", $host->getHost());
         $this->assertEquals("https", $host->getTransportSchema());
@@ -415,7 +400,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'host' => 'the_foo.com'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("the_foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());
@@ -429,7 +413,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'pass' => 'abc#$%!abc'
             ]
         ])->build();
-        /** @var Connection $host */
         $host = $client->transport->getConnection();
         $this->assertEquals("foo.com:9200", $host->getHost());
         $this->assertEquals("http", $host->getTransportSchema());

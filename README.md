@@ -71,9 +71,9 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
 
     ```php
         <?php
-        
+
         use Elasticsearch\ClientBuilder;
-        
+
         require 'vendor/autoload.php';
 
         $client = ClientBuilder::create()->build();
@@ -168,6 +168,19 @@ Array
         )
 
 )
+```
+
+If you want to retrieve the `_source` field directly, there is the `getSource` method:
+
+```php
+$params = [
+    'index' => 'my_index',
+    'type' => 'my_type',
+    'id' => 'my_id'
+];
+
+$source = $client->getSource($params);
+doSomething($source);
 ```
 
 ### Search for a document

@@ -32,13 +32,7 @@ class Exists extends AbstractEndpoint
                 'type is required for Exists'
             );
         }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type";
-
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type";
-        }
+        $uri   = "/{$this->index}/_mapping/{$this->type}";
 
         return $uri;
     }

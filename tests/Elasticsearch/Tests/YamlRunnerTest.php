@@ -12,6 +12,7 @@ use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use stdClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -57,6 +58,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP'
     ];
 
+    /** @var array A list of files to skip completely, due to fatal parsing errors */
+    private static $skippedFiles = [
+        'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+        'indices.put_mapping/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+    ];
+
     /**
      * Return the elasticsearch host
      *
@@ -98,7 +105,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provider
+     * @dataProvider yamlProvider
      * @group sync
      */
     public function testIntegration($testProcedure, $skip, $setupProcedure, $fileName)
@@ -120,8 +127,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provider
-     * @group async
+
      */
     public function testAsyncIntegration($testProcedure, $skip, $setupProcedure, $fileName)
     {
@@ -311,7 +317,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 return $this->assertException($exception, $expectedError, $testName);
             }
 
-            throw $exception;
+            $msg = $exception->getMessage()
+                ."\nException in ".get_class($caller)." with [$method].\n Context:\n"
+                .var_export($endpointParams, true);
+            throw new \Exception($msg, 0, $exception);
         }
     }
 
@@ -366,7 +375,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      */
     public function operationIsFalse($operation, $lastOperationResult, &$context, $testName)
     {
-        static::assertFalse((bool)$this->resolveValue($lastOperationResult, $operation, $context), 'Failed to assert that a value is false in test ' . $testName);
+        $msg = "Failed to assert that a value is false in test \"$testName\"\n".var_export($lastOperationResult, true);
+        static::assertFalse((bool)$this->resolveValue($lastOperationResult, $operation, $context), $msg);
 
         return $lastOperationResult;
     }
@@ -382,10 +392,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->resolveValue($lastOperationResult, $operation, $context);
 
-        static::assertNotEquals(0, $value, 'Failed to assert that a value is true in test ' . $testName);
-        static::assertNotFalse($value, 'Failed to assert that a value is true in test ' . $testName);
-        static::assertNotNull($value, 'Failed to assert that a value is true in test ' . $testName);
-        static::assertNotEquals('', 'Failed to assert that a value is true in test ' . $testName);
+        $msg = "Failed to assert that a value is true in test \"$testName\"\n".var_export($lastOperationResult, true);
+        static::assertNotEquals(0, $value, $msg);
+        static::assertNotFalse($value, $msg);
+        static::assertNotNull($value, $msg);
+        static::assertNotEquals('', $msg);
 
         return $lastOperationResult;
     }
@@ -408,17 +419,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         $expected = $this->replaceWithContext(current($operation), $context);
+        $msg = "Failed to match in test \"$testName\". Expected ["
+            .var_export($expected, true)."] does not match [".var_export($match, true)."]\n".var_export($lastOperationResult, true);
 
         if ($expected instanceof \stdClass) {
             // Avoid stdClass / array mismatch
             $expected = json_decode(json_encode($expected), true);
             $match = json_decode(json_encode($match), true);
 
-            static::assertEquals($expected, $match, sprintf('Failed to match in test "%s"', $testName));
+            static::assertEquals($expected, $match, $msg);
         } elseif (is_string($expected) && preg_match('#^/.+?/$#s', $expected)) {
-            static::assertRegExp($this->formatRegex($expected), $match, sprintf('Failed to match in test "%s"', $testName));
+            static::assertRegExp($this->formatRegex($expected), $match, $msg);
         } else {
-            static::assertEquals($expected, $match, sprintf('Failed to match in test "%s"', $testName));
+            static::assertEquals($expected, $match, $msg);
         }
 
         return $lastOperationResult;
@@ -575,7 +588,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function provider()
+    public function yamlProvider()
     {
         $this->yaml = new Yaml();
         $path = __DIR__ . '/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test';
@@ -730,10 +743,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $setupSkip = false;
         $fileName = str_replace($path . '/', '', $file);
 
-        if (null !== $filter && !preg_match('/'.preg_quote($filter, '/').'/', $fileName)) {
+        if (array_key_exists($fileName, static::$skippedFiles)) {
+            echo "Skipping: $fileName.  ".static::$skippedFiles[$fileName]."\n";
             return [];
         }
 
+        if (null !== $filter && !preg_match('/'.preg_quote($filter, '/').'/', $fileName)) {
+            return [];
+        }
+        $skip = false;
+        $documentParsed = null;
         foreach ($documents as $documentString) {
             try {
                 if (!$setupSkip) {
@@ -742,7 +761,19 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 }
             } catch (ParseException $exception) {
                 $documentParsed = sprintf(
-                    "Cannot run this test as it cannot be parsed (%s) in file %s",
+                    "[ParseException]Cannot run this test as it cannot be parsed (%s) in file %s",
+                    $exception->getMessage(),
+                    $fileName
+                );
+
+                if (preg_match("#\nsetup:#mx", $documentString)) {
+                    $setupSkip = true;
+                }
+
+                $skip = true;
+            } catch (\Exception $exception) {
+                $documentParsed = sprintf(
+                    "[Exception] Cannot run this test as it generated an exception (%s) in file %s",
                     $exception->getMessage(),
                     $fileName
                 );

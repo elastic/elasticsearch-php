@@ -95,6 +95,7 @@ class Get extends AbstractEndpoint
             '_source_include',
             'version',
             'version_type',
+            'stored_fields'
         );
     }
 

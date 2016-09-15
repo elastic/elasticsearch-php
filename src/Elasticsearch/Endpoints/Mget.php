@@ -65,7 +65,8 @@ class Mget extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
-            'routing'
+            'routing',
+            'stored_fields'
         );
     }
 

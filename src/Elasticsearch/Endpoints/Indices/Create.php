@@ -72,11 +72,6 @@ class Create extends AbstractEndpoint
      */
     public function getMethod()
     {
-        if (is_array($this->body) && isset($this->body['mappings']) === true) {
-            return 'POST';
-        } elseif (is_object($this->body) && isset($this->body->mappings) === true) {
-            return 'POST';
-        }
         return 'PUT';
     }
 }

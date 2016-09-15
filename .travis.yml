@@ -25,8 +25,8 @@ matrix:
 
 env:
   global:
-    - ES_VERSION="master"
-    - TEST_BUILD_REF="origin/master"
+    - ES_VERSION="5.0"
+    - TEST_BUILD_REF="origin/5.0"
     - ES_TEST_HOST=http://localhost:9200
     - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 

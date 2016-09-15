@@ -86,6 +86,7 @@ class Status extends AbstractEndpoint
     {
         return array(
             'master_timeout',
+            'ignore_unavailable'
         );
     }
 

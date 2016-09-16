@@ -128,7 +128,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider yamlProvider
-     * @group sync
+     * @group async
      */
     public function testAsyncIntegration($testProcedure, $skip, $setupProcedure, $fileName)
     {

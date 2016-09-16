@@ -5,7 +5,7 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class ReIndex
+ * Class Reindex
  *
  * @category Elasticsearch
  * @package Elasticsearch\Endpoints *
@@ -13,7 +13,7 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elasticsearch.org
  */
-class ReIndex extends AbstractEndpoint
+class Reindex extends AbstractEndpoint
 {
     /**
      * @param array $body

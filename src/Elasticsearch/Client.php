@@ -1582,12 +1582,12 @@ class Client
      *
      * @return array
      */
-    public function reIndex($params = [])
+    public function reindex($params = [])
     {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\ReIndex $endpoint */
+        /** @var \Elasticsearch\Endpoints\Reindex $endpoint */
         $endpoint = $endpointBuilder('Reindex');
         $response = $endpoint->setParams($params)->performRequest();
 

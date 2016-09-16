@@ -379,7 +379,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     {
         $value = (bool)$this->resolveValue($lastOperationResult, $operation, $context);
         $msg = "Failed to assert that a value is false in test \"$testName\"\n"
-            ."$operation was [$value]"
+            ."$operation was [".print_r($value, true)."]"
             .var_export($lastOperationResult, true);
         static::assertFalse($value, $msg);
 
@@ -398,7 +398,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, $operation, $context);
 
         $msg = "Failed to assert that a value is true in test \"$testName\"\n"
-            ."$operation was [$value]"
+            ."$operation was [".print_r($value, true)."]"
             .var_export($lastOperationResult, true);
         static::assertNotEquals(0, $value, $msg);
         static::assertNotFalse($value, $msg);

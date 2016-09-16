@@ -55,7 +55,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var array A list of skipped test with their reasons */
     private static $skippedTest = [
         'cat.nodeattrs/10_basic.yaml' => 'Using java regex fails in PHP',
-        'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP'
+        'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP',
+        'indices.shrink/10_basic.yaml' => 'Shrink tests seem to require multiple nodes'
     ];
 
     /** @var array A list of files to skip completely, due to fatal parsing errors */

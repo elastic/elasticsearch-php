@@ -651,12 +651,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             return $data;
         }
 
-        if (is_string($data) && preg_match('/\$.+?$/', $data)) {
-            if (!array_key_exists($data, $context)) {
-                static::fail(sprintf('Cannot find variable %s in context', $data));
+        if (is_string($data)) {
+            if (array_key_exists($data, $context)) {
+                return $context[$data];
             }
-
-            return $context[$data];
         }
 
         if (!is_array($data) && !$data instanceof \stdClass) {

@@ -271,4 +271,4 @@ If you use an IDE with autocompletion, you should be able to easily explore the 
 ----
 $client->indices()->
 ----
-And perusing the list of available methods.  Alternatively, browsing the `\Elasticsearch\Namespaces\Indices.php` file will show you the full list of available method calls (as well as parameter lists in the comments for each method).
+And perusing the list of available methods.  Alternatively, browsing the `\Elasticsearch\Namespaces\IndicesNamespace.php` file will show you the full list of available method calls (as well as parameter lists in the comments for each method).

@@ -181,7 +181,9 @@ class ClientBuilder
 
     /**
      * @param $path string
-     * @return \Monolog\Logger\Logger
+     * @param $level
+     *
+     * @return Logger\Logger
      */
     public static function defaultLogger($path, $level = Logger::WARNING)
     {
@@ -512,6 +514,11 @@ class ClientBuilder
         }
     }
 
+    /**
+     * @param $arg
+     * @param $destination
+     * @param $interface
+     */
     private function parseStringOrObject($arg, &$destination, $interface)
     {
         if (is_string($arg)) {

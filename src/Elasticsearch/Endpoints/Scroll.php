@@ -42,6 +42,11 @@ class Scroll extends AbstractEndpoint
         return $this->body;
     }
 
+    /**
+     * @param $clear
+     * 
+     * @return $this
+     */
     public function setClearScroll($clear)
     {
         $this->clear = $clear;

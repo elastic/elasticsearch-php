@@ -7,6 +7,7 @@ use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Namespaces\AbstractNamespace;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
@@ -1311,6 +1312,10 @@ class Client
         }
     }
 
+    /**
+     * @param $name
+     * @param $var
+     */
     private function verifyNotNullOrEmpty($name, $var)
     {
         if ($var === null) {

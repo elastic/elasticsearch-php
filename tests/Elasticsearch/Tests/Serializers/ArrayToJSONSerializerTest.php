@@ -4,7 +4,7 @@ namespace Elasticsearch\Tests\Serializers;
 
 use Elasticsearch\Serializers\ArrayToJSONSerializer;
 use PHPUnit_Framework_TestCase;
-use Mockery as m;
+use Mockery as mock;
 
 /**
  * Class ArrayToJSONSerializerTest
@@ -14,7 +14,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        m::close();
+        mock::close();
     }
 
     public function testSerializeArray()

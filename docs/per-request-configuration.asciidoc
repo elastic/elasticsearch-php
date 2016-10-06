@@ -13,7 +13,7 @@ conflicts, etc.  But sometimes you want to deal with the response body rather th
 in test suites).
 
 If you need that behavior, you can configure an `ignore` parameter.  This should be configured in the `client` parameter
-of the reuqest array.  For example, this example will ignore the `MissingDocument404Exception`
+of the request array.  For example, this example will ignore the `MissingDocument404Exception`
 exception and instead return the JSON provided by Elasticsearch.
 
 

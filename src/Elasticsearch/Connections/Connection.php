@@ -667,36 +667,22 @@ class Connection implements ConnectionInterface
     private function tryDeserializeError($response, $errorClass)
     {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
-        if (is_array($error) === true) {
-            // 2.0 structured exceptions
-            if (isset($error['error']['reason']) === true) {
-
-                // Try to use root cause first (only grabs the first root cause)
-                $root = $error['error']['root_cause'];
-                if (isset($root) && isset($root[0])) {
-                    $cause = $root[0]['reason'];
-                    $type = $root[0]['type'];
-                } else {
-                    $cause = $error['error']['reason'];
-                    $type = $error['error']['type'];
-                }
-
-                $original = new $errorClass($response['body'], $response['status']);
-
-                return new $errorClass("$type: $cause", $response['status'], $original);
-            } elseif (isset($error['error']) === true) {
-                // <2.0 semi-structured exceptions
-                $original = new $errorClass($response['body'], $response['status']);
-
-                return new $errorClass($error['error'], $response['status'], $original);
+        if (is_array($error) === true && isset($error['error']['root_cause']) === true) {
+            // Try to use root cause first (only grabs the first root cause)
+            $root = $error['error']['root_cause'];
+            if (isset($root) && isset($root[0])) {
+                $cause = $root[0]['reason'];
+                $type = $root[0]['type'];
+            } else {
+                $cause = $error['error']['reason'];
+                $type = $error['error']['type'];
             }
 
-            // <2.0 "i just blew up" nonstructured exception
-            // $error is an array but we don't know the format, reuse the response body instead
-            return new $errorClass($response['body'], $response['status']);
+            $original = new $errorClass($response['body'], $response['status']);
+            return new $errorClass("$type: $cause", $response['status'], $original);
         }
 
-        // <2.0 "i just blew up" nonstructured exception
-        return new $errorClass($error, $response['status']);
+        // Response mangled or unexpected, just return the body
+        return new $errorClass($error, $response['body']);
     }
 }

@@ -640,7 +640,7 @@ class Connection implements ConnectionInterface
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
             // 2.0 structured exceptions
-            if (isset($error['error']['reason']) === true) {
+            if (isset($error['error']['root_cause']) === true) {
 
                 // Try to use root cause first (only grabs the first root cause)
                 $root = $error['error']['root_cause'];

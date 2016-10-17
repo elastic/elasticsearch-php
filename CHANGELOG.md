@@ -1,3 +1,16 @@
+## Release 2.2.2
+- Normalizing Reindex name (#466) [[e0cc5f9]](http://github.com/elasticsearch/elasticsearch-php/commit/e0cc5f9)
+- Add "extended" host configuration syntax [[99cd83f]](http://github.com/elasticsearch/elasticsearch-php/commit/99cd83f)
+- Reindex endpoint should not be camel-cased ("ReIndex") [[7ca34ab]](http://github.com/elasticsearch/elasticsearch-php/commit/7ca34ab)
+- Allow ConnectionFactory to be overridable (#459) [[81b2a23]](http://github.com/elasticsearch/elasticsearch-php/commit/81b2a23)
+- Reindex endpoint should accept a body parameter [[21ca68b]](http://github.com/elasticsearch/elasticsearch-php/commit/21ca68b)
+
+### Documentation
+- Fix typo (#471) [[20af8fb]](http://github.com/elasticsearch/elasticsearch-php/commit/20af8fb)
+- [DOCS] Update index-operations.asciidoc (#470) [[74f2b19]](http://github.com/elasticsearch/elasticsearch-php/commit/74f2b19)
+- Php typos [[3d9d8e0]](http://github.com/elasticsearch/elasticsearch-php/commit/7fd0051)
+- [DOCS] Update changelog [[4c9aab0]](http://github.com/elasticsearch/elasticsearch-php/commit/4c9aab0)
+
 ## Release 2.2.1
 
 - Reindex endpoint should accept a body parameter [[3d9d8e0]](http://github.com/elasticsearch/elasticsearch-php/commit/3d9d8e0)

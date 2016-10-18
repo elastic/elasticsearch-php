@@ -96,8 +96,14 @@ class Connection implements ConnectionInterface
      * @param \Psr\Log\LoggerInterface $log              Logger object
      * @param \Psr\Log\LoggerInterface $trace
      */
-    public function __construct($handler, $hostDetails, $connectionParams,
-                                SerializerInterface $serializer, LoggerInterface $log, LoggerInterface $trace)
+    public function __construct(
+        $handler,
+        $hostDetails,
+        $connectionParams,
+        SerializerInterface $serializer,
+        LoggerInterface $log,
+        LoggerInterface $trace
+    )
     {
         if (isset($hostDetails['port']) !== true) {
             $hostDetails['port'] = 9200;

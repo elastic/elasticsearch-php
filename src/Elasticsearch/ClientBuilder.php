@@ -183,7 +183,7 @@ class ClientBuilder
      * @param $path string
      * @param $level
      *
-     * @return Logger\Logger
+     * @return \Monolog\Logger\Logger
      */
     public static function defaultLogger($path, $level = Logger::WARNING)
     {

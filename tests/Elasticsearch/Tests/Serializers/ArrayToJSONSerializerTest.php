@@ -24,7 +24,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
 
         $ret = $serializer->serialize($body);
 
-        $body = json_encode($body);
+        $body = json_encode($body, JSON_PRESERVE_ZERO_FRACTION);
         $this->assertEquals($body, $ret);
     }
 

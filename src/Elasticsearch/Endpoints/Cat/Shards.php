@@ -42,6 +42,7 @@ class Shards extends AbstractEndpoint
             'h',
             'help',
             'v',
+            's'
         );
     }
 

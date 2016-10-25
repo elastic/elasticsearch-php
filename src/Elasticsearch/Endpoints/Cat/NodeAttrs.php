@@ -36,6 +36,7 @@ class NodeAttrs extends AbstractEndpoint
             'h',
             'help',
             'v',
+            's'
         );
     }
 

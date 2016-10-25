@@ -60,7 +60,8 @@ class Aliases extends AbstractEndpoint
             'h',
             'help',
             'v',
-            'format'
+            'format',
+            's'
         );
     }
 

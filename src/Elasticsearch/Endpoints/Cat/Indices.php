@@ -44,7 +44,8 @@ class Indices extends AbstractEndpoint
             'help',
             'pri',
             'v',
-            'health'
+            'health',
+            's'
         );
     }
 

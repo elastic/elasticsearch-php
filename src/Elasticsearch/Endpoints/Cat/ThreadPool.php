@@ -39,7 +39,8 @@ class ThreadPool extends AbstractEndpoint
             'v',
             'full_id',
             'size',
-            'thread_pool_patterns'
+            'thread_pool_patterns',
+            's'
         );
     }
 

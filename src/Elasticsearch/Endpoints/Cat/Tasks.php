@@ -37,7 +37,8 @@ class Tasks extends AbstractEndpoint
             'parent_task',
             'h',
             'help',
-            'v'
+            'v',
+            's'
         );
     }
 

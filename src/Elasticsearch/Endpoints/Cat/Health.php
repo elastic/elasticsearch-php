@@ -37,6 +37,7 @@ class Health extends AbstractEndpoint
             'help',
             'ts',
             'v',
+            's'
         );
     }
 

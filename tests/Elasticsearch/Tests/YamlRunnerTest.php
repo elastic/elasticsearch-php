@@ -48,7 +48,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name */
     private static $endpointMapping = [
         'tasks' => [
-            'list' => ['get', 'tasks'],
+            'list' => ['tasksList', 'tasks'],
         ],
     ];
 

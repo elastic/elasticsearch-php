@@ -17,6 +17,28 @@ use Elasticsearch\Endpoints\Tasks\Get;
 class TasksNamespace extends AbstractNamespace
 {
     /**
+     * $params['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function get($params = array())
+    {
+        $id = $this->extractArgument($params, 'task_id');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var Get $endpoint */
+        $endpoint = $endpointBuilder('Tasks\Get');
+        $endpoint->setTaskId($id)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
      * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      *        ['actions'] = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
      *        ['parent_node'] = (string) Cancel tasks with specified parent node
@@ -29,17 +51,15 @@ class TasksNamespace extends AbstractNamespace
      *
      * @return array
      */
-    public function get($params = array())
+    public function tasksList($params = array())
     {
-        $id = $this->extractArgument($params, 'id');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Get $endpoint */
-        $endpoint = $endpointBuilder('Tasks\Get');
-        $endpoint->setTaskId($id)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Tasks\TasksList');
+        $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }

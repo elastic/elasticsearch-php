@@ -6,7 +6,7 @@ use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Get
+ * Class TasksLists
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Tasks
@@ -14,26 +14,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Get extends AbstractEndpoint
+class TasksList extends AbstractEndpoint
 {
-    private $taskId;
-
-    /**
-     * @param string $taskId
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setTaskId($taskId)
-    {
-        if (isset($taskId) !== true) {
-            return $this;
-        }
-
-        $this->taskId = $taskId;
-
-        return $this;
-    }
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
@@ -41,10 +23,6 @@ class Get extends AbstractEndpoint
      */
     public function getURI()
     {
-        if (isset($this->taskId) === true) {
-            return "/_tasks/{$this->taskId}";
-        }
-
         return "/_tasks";
     }
 
@@ -54,7 +32,14 @@ class Get extends AbstractEndpoint
     public function getParamWhitelist()
     {
         return array(
-            'wait_for_completion'
+            'node_id',
+            'actions',
+            'detailed',
+            'parent_node',
+            'parent_task',
+            'wait_for_completion',
+            'group_by',
+            'task_id'
         );
     }
 

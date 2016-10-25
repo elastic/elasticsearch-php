@@ -25,7 +25,7 @@ class ArrayToJSONSerializer implements SerializerInterface
         if (is_string($data) === true) {
             return $data;
         } else {
-            $data = json_encode($data);
+            $data = json_encode($data, JSON_PRESERVE_ZERO_FRACTION);
             if ($data === '[]') {
                 return '{}';
             } else {

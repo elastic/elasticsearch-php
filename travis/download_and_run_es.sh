@@ -24,10 +24,7 @@ find . -name "elasticsearch.yml" | while read TXT ; do echo 'path.repo: ["/tmp"]
 
 echo "Starting Elasticsearch v${ES_VERSION}"
 
-./elasticsearch-*/bin/elasticsearch \
-    -E discovery.zen.ping_timeout=1s \
-    -E discovery.zen.minimum_master_nodes=1 \
-    -d
+./elasticsearch-*/bin/elasticsearch -d
 
 
 sleep 3

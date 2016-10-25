@@ -21,13 +21,17 @@ php:
   - hhvm
 
 matrix:
+  fast_finish: true
+  include:
+    - php: 7.1
+      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
   allow_failures:
     - php: hhvm
 
 env:
   global:
-    - ES_VERSION="5.0"
-    - TEST_BUILD_REF="origin/5.0"
+    - ES_VERSION="5.x"
+    - TEST_BUILD_REF="origin/5.x"
     - ES_TEST_HOST=http://localhost:9200
     - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 

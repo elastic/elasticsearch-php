@@ -2,8 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-
 /**
  * Class Get
  *
@@ -13,26 +11,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Get extends AbstractEndpoint
+class Get extends AbstractRepositoryEndpoint
 {
-    // A comma-separated list of repository names
-    private $repository;
-
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
-    {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
-        $this->repository = $repository;
-
-        return $this;
-    }
 
     /**
      * @return string

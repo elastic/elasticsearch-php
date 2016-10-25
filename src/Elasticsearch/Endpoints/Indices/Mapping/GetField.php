@@ -34,7 +34,7 @@ class GetField extends AbstractEndpoint
             $fields = implode(",", $fields);
         }
 
-        $this->fields = $fields;
+        $this->fields = urlencode($fields);
 
         return $this;
     }

@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,27 +13,8 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Get extends AbstractEndpoint
+class Get extends AbstractTemplateEndpoint
 {
-    // The name of the template
-    private $name;
-
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        if (isset($name) !== true) {
-            return $this;
-        }
-
-        $this->name = $name;
-
-        return $this;
-    }
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string

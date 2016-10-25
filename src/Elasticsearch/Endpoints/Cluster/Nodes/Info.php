@@ -13,29 +13,6 @@ namespace Elasticsearch\Endpoints\Cluster\Nodes;
  */
 class Info extends AbstractNodesEndpoint
 {
-    // A comma-separated list of metrics you wish returned. Leave empty to return all.
-    private $metric;
-
-    /**
-     * @param $metric
-     *
-     * @return $this
-     */
-    public function setMetric($metric)
-    {
-        if (isset($metric) !== true) {
-            return $this;
-        }
-
-        if (is_array($metric) === true) {
-            $metric = implode(",", $metric);
-        }
-
-        $this->metric = $metric;
-
-        return $this;
-    }
-
     /**
      * @return string
      */

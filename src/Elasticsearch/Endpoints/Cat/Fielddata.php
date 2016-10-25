@@ -28,7 +28,7 @@ class Fielddata extends AbstractEndpoint
             return $this;
         }
 
-        $this->fields = $fields;
+        $this->fields = urlencode($fields);
 
         return $this;
     }

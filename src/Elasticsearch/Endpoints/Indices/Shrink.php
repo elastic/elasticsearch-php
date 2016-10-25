@@ -47,7 +47,7 @@ class Shrink extends AbstractEndpoint
         if (isset($target) !== true) {
             return $this;
         }
-        $this->target = $target;
+        $this->target = urlencode($target);
 
         return $this;
     }

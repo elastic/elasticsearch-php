@@ -50,7 +50,7 @@ class Get extends AbstractEndpoint
             $feature = implode(",", $feature);
         }
 
-        $this->feature = $feature;
+        $this->feature = urlencode($feature);
 
         return $this;
     }

@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,26 +13,8 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Delete extends AbstractEndpoint
+class Delete extends AbstractAliasEndpoint
 {
-    // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
-    private $name;
-
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        if (isset($name) !== true) {
-            return $this;
-        }
-
-        $this->name = $name;
-
-        return $this;
-    }
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException

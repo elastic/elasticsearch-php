@@ -29,7 +29,7 @@ class Stats extends AbstractEndpoint
             return $this;
         }
 
-        $this->nodeID = $node_id;
+        $this->nodeID = urlencode($node_id);
 
         return $this;
     }

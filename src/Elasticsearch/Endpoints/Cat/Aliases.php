@@ -29,7 +29,7 @@ class Aliases extends AbstractEndpoint
             return $this;
         }
 
-        $this->name = $name;
+        $this->name = urlencode($name);
 
         return $this;
     }

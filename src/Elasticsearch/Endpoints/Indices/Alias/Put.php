@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,11 +13,8 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Put extends AbstractEndpoint
+class Put extends AbstractAliasEndpoint
 {
-    // The name of the alias to be created or updated
-    private $name;
-
     /**
      * @param array $body
      *
@@ -32,22 +28,6 @@ class Put extends AbstractEndpoint
         }
 
         $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        if (isset($name) !== true) {
-            return $this;
-        }
-
-        $this->name = $name;
 
         return $this;
     }

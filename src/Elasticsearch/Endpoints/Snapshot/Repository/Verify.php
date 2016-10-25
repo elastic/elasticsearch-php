@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,27 +13,8 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Verify extends AbstractEndpoint
+class Verify extends AbstractRepositoryEndpoint
 {
-    // A comma-separated list of repository names
-    private $repository;
-
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
-    {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
-        $this->repository = $repository;
-
-        return $this;
-    }
-
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string

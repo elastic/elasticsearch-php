@@ -18,6 +18,9 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
 {
     /** @var  string  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes */
     protected $nodeID;
+    
+    /** @var  string A comma-separated list of metrics you wish returned. Leave empty to return all. */
+    protected $metric;
 
     /**
      * @param $nodeID
@@ -40,7 +43,27 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
             $nodeID = implode(',', $nodeID);
         }
 
-        $this->nodeID = $nodeID;
+        $this->nodeID = urlencode($nodeID);
+
+        return $this;
+    }
+
+    /**
+     * @param $metric
+     *
+     * @return $this
+     */
+    public function setMetric($metric)
+    {
+        if (isset($metric) !== true) {
+            return $this;
+        }
+
+        if (is_array($metric) === true) {
+            $metric = implode(",", $metric);
+        }
+
+        $this->metric = urlencode($metric);
 
         return $this;
     }

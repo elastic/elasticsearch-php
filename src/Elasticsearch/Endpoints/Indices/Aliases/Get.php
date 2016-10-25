@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Aliases;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
@@ -13,26 +12,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Get extends AbstractEndpoint
+class Get extends AbstractAliasesEndpoint
 {
-    // A comma-separated list of alias names to filter
-    private $name;
-
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        if (isset($name) !== true) {
-            return $this;
-        }
-
-        $this->name = $name;
-
-        return $this;
-    }
 
     /**
      * @return string
@@ -41,7 +22,7 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_aliases";
+        $uri = "/_aliases";
 
         if (isset($index) === true && isset($name) === true) {
             $uri = "/$index/_aliases/$name";

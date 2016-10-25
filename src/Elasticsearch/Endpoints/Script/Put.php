@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Script;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
@@ -14,27 +13,8 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Put extends AbstractEndpoint
+class Put extends AbstractScriptEndpoint
 {
-    /** @var  String */
-    private $lang;
-
-    /**
-     * @param $lang
-     *
-     * @return $this
-     */
-    public function setLang($lang)
-    {
-        if (isset($lang) !== true) {
-            return $this;
-        }
-
-        $this->lang = $lang;
-
-        return $this;
-    }
-
     /**
      * @param array $body
      *

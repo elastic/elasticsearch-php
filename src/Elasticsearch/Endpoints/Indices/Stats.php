@@ -33,7 +33,7 @@ class Stats extends AbstractEndpoint
             $metric = implode(",", $metric);
         }
 
-        $this->metric = $metric;
+        $this->metric = urlencode($metric);
 
         return $this;
     }

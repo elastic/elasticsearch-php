@@ -1,21 +1,21 @@
 <?php
-
-namespace Elasticsearch\Endpoints\Indices\Template;
+namespace Elasticsearch\Endpoints\Indices\Aliases;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class AbstractTemplateEndpoint
+ * Class AbstractAliasesEndpoint
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Template
- * @author   Zachary Tong <zach@elastic.co>
+ * @package  Elasticsearch\Endpoints\Indices\Aliases
+ * @author   Augustin Husson <husson.augustin@gmail.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-abstract class AbstractTemplateEndpoint extends AbstractEndpoint
+abstract class AbstractAliasesEndpoint extends AbstractEndpoint
 {
-    /** @var  string : the name of the template */
+
+    /** @var null|string */
     protected $name = null;
 
     /**
@@ -29,7 +29,7 @@ abstract class AbstractTemplateEndpoint extends AbstractEndpoint
             return $this;
         }
 
-        $this->name = $name;
+        $this->name = urlencode($name);
 
         return $this;
     }

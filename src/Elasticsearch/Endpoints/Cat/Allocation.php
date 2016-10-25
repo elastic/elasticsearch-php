@@ -29,7 +29,7 @@ class Allocation extends AbstractEndpoint
             return $this;
         }
 
-        $this->node_id = $node_id;
+        $this->node_id = urlencode($node_id);
 
         return $this;
     }

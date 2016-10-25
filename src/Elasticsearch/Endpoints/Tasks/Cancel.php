@@ -3,7 +3,6 @@
 namespace Elasticsearch\Endpoints\Tasks;
 
 use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Cancel
@@ -14,26 +13,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Cancel extends AbstractEndpoint
+class Cancel extends AbstractTasksEndpoint
 {
-    private $taskId;
-
-    /**
-     * @param string $taskId
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setTaskId($taskId)
-    {
-        if (isset($taskId) !== true) {
-            return $this;
-        }
-
-        $this->taskId = $taskId;
-
-        return $this;
-    }
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException

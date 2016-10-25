@@ -2,7 +2,6 @@
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -16,21 +15,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 abstract class AbstractAliasEndpoint extends AbstractEndpoint
 {
-    /** @var null|string */
+    /** @var null|string : the name of alias */
     protected $name = null;
 
     /**
      * @param $name
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
      * @return $this
      */
     public function setName($name)
     {
-        if (is_string($name) !== true) {
-            throw new InvalidArgumentException('Name must be a string');
+        if (isset($name) !== true) {
+            return $this;
         }
+
         $this->name = urlencode($name);
 
         return $this;

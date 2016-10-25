@@ -30,7 +30,7 @@ class Get extends AbstractEndpoint
             return $this;
         }
 
-        $this->field = $field;
+        $this->field = urlencode($field);
 
         return $this;
     }

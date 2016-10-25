@@ -22,7 +22,7 @@ class EverythingToJSONSerializer implements SerializerInterface
      */
     public function serialize($data)
     {
-        $data = json_encode($data);
+        $data = json_encode($data, JSON_PRESERVE_ZERO_FRACTION);
         if ($data === '[]') {
             return '{}';
         } else {

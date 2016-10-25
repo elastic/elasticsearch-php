@@ -43,7 +43,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'type' => 'test',
             'id' => 1,
             'parent' => 'abc',
-            'custom' => array('customToken' => 'abc', 'otherToken' => 123)
+            'custom' => array('customToken' => 'abc', 'otherToken' => 123),
+            'client' => ['ignore' => 400]
         );
         $exists = $client->exists($getParams);
     }

@@ -604,13 +604,12 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Index $endpoint */
-        $endpoint = $endpointBuilder('Index');
+        /** @var \Elasticsearch\Endpoints\Create $endpoint */
+        $endpoint = $endpointBuilder('Create');
         $endpoint->setID($id)
                  ->setIndex($index)
                  ->setType($type)
-                 ->setBody($body)
-                 ->createIfAbsent();
+                 ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);

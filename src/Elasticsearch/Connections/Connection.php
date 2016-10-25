@@ -683,6 +683,6 @@ class Connection implements ConnectionInterface
         }
 
         // Response mangled or unexpected, just return the body
-        return new $errorClass($error, $response['body']);
+        return new $errorClass($response['body']);
     }
 }

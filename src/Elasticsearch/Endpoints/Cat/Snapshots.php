@@ -39,14 +39,12 @@ class Snapshots extends AbstractEndpoint
      */
     public function getURI()
     {
-        if (isset($this->repository) !== true) {
-            throw new RuntimeException(
-                'repository is required for Cat Snapshots '
-            );
-        }
         $repository = $this->repository;
-        $uri   = "/_cat/snapshots/$repository/";
-        return $uri;
+        if (isset($this->repository) === true) {
+            return "/_cat/snapshots/$repository/";
+        }
+
+        return "/_cat/snapshots/";
     }
 
     /**

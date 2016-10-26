@@ -25,19 +25,19 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 5.0                | dev-master               |
+| >= 5.0                | 5.0               |
 | >= 2.0, < 5.0         | 1.0 or 2.0               |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 5.0+ (master, alpha, beta), use Elasticsearch-PHP dev-master.  A 5.x branch will be cut when Elasticsearch 5.0 GA is released
+ - If you are using Elasticsearch 5.0+ , use Elasticsearch-PHP 5.0 branch.
  - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.
 
 Documentation
 --------------
-[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/2.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/5.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
 Installation via Composer
 -------------------------

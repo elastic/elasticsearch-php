@@ -21,6 +21,7 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuildersetConnectionFactory_setConnectionFactory,`setConnectionFactory()`>>
 * <<Elasticsearch_ClientBuildersetConnectionPool_setConnectionPool,`setConnectionPool()`>>
 * <<Elasticsearch_ClientBuildersetEndpoint_setEndpoint,`setEndpoint()`>>
+* <<Elasticsearch_ClientBuilderregisterNamespace_registerNamespace,`registerNamespace()`>>
 * <<Elasticsearch_ClientBuildersetTransport_setTransport,`setTransport()`>>
 * <<Elasticsearch_ClientBuildersetHandler_setHandler,`setHandler()`>>
 * <<Elasticsearch_ClientBuildersetLogger_setLogger,`setLogger()`>>
@@ -147,6 +148,19 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetEndpoint_setEndpoint]]
 .`setEndpoint()`
+****
+[source,php]
+----
+/*
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuilderregisterNamespace_registerNamespace]]
+.`registerNamespace()`
 ****
 [source,php]
 ----

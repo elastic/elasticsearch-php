@@ -18,15 +18,15 @@ alternate HTTP handler based on PHP streams.  Performance _will_ suffer, as the 
 
 === Version Matrix
 
-Since there are breaking changes in Elasticsearch 1.0, you need to match your version of Elasticsearch to the appropriate version of this library.
-If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch.  Otherwise, use the `2.0` branch.
+You need to match your version of Elasticsearch to the appropriate version of this library.
 
 The master branch will always track Elasticsearch master, but it is not recommended to use `dev-master` in your production code.
 
 [width="40%",options="header",frame="topbot"]
 |============================
 |Elasticsearch Version | Elasticsearch-PHP Branch
-| >= 1.0                | `1.0`, `2.0`
+| >= 5.0                | `5.0`
+| >= 1.0, <= 5.0        | `1.0`, `2.0`
 | <= 0.90.*             | `0.4`
 |============================
 
@@ -38,7 +38,7 @@ The master branch will always track Elasticsearch master, but it is not recommen
 --------------------------
 {
     "require": {
-        "elasticsearch/elasticsearch": "~2.0@beta"
+        "elasticsearch/elasticsearch": "~5.0"
     }
 }
 --------------------------

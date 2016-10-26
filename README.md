@@ -48,7 +48,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "~2.0"
+                "elasticsearch/elasticsearch": "~5.0"
             }
         }
     ```
@@ -90,7 +90,7 @@ eventually stop being supported.
 
 | PHP Version | Elasticsearch-PHP Branch |
 | ----------- | ------------------------ |
-| >= 5.6.6    | Dev-Master              |
+| >= 5.6.6    | 5.0              |
 | >= 5.4.0    | 2.0                      |
 | >= 5.3.9    | 0.4, 1.0                 |
 

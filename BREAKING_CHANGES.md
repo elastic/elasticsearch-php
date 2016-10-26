@@ -9,6 +9,7 @@
 - MoreLikeThis (MLT) endpoint has been removed
 - DeleteByQuery endpoint has been removed.
 - Tasks/List and Tasks/Get are now separate endpoints (see: [[e0cc5f9]](http://github.com/elasticsearch/elasticsearch-php/commit/752d5a2))
+- Client requires PHP 5.6.6 or higher
 
 ## Deprecations
 

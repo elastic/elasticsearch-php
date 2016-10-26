@@ -16,11 +16,11 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IndicesNamespaceget_get,`get()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacesegments_segments,`segments()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate,`deleteTemplate()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacedeleteWarmer_deleteWarmer,`deleteWarmer()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacedelete_delete,`delete()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacestats_stats,`stats()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings,`putSettings()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacesnapshotIndex_snapshotIndex,`snapshotIndex()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink,`shrink()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping,`getMapping()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping,`getFieldMapping()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceflush_flush,`flush()`>>
@@ -29,8 +29,6 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery,`recovery()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType,`existsType()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias,`putAlias()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetWarmer_getWarmer,`getWarmer()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceputWarmer_putWarmer,`putWarmer()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate,`putTemplate()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery,`validateQuery()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias,`getAlias()`>>
@@ -39,7 +37,6 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate,`getTemplate()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate,`existsTemplate()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacecreate_create,`create()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceoptimize_optimize,`optimize()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceforceMerge_forceMerge,`forceMerge()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias,`deleteAlias()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceopen_open,`open()`>>
@@ -55,6 +52,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade,`upgrade()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacegetUpgrade_getUpgrade,`getUpgrade()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores,`shardStores()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacerollover_rollover,`rollover()`>>
 
 
 
@@ -151,29 +149,6 @@ $response = $client->indices()->deleteTemplate($params);
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteWarmer_deleteWarmer]]
-.`deleteWarmer()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names to register warmer for; use `_all` or empty string to perform the operation on all indices (Required)
-       ['name']  = (string) The name of the warmer (supports wildcards); leave empty to delete all warmers
-       ['type']  = (list) A comma-separated list of document types to register warmer for; use `_all` or empty string to perform the operation on all types
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->deleteWarmer($params);
-----
-****
-
-
-
 [[Elasticsearch_Namespaces_IndicesNamespacedelete_delete]]
 .`delete()`
 ****
@@ -222,7 +197,6 @@ $params['fields']         = (boolean) A comma-separated list of fields for `fiel
        ['refresh']        = (boolean) Return information about refresh operations
        ['search']         = (boolean) Return information about search operations; use the `groups` parameter to include information for specific search groups
        ['store']          = (boolean) Return information about the size of the index
-       ['warmer']         = (boolean) Return information about warmers
        ['body']  = (array) Request body
 */
 
@@ -278,6 +252,30 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->indices()->snapshotIndex($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink]]
+.`shrink()`
+****
+[source,php]
+----
+/*
+$params['index']          = (string) The name of the source index to shrink
+       ['target']         = (string) The name of the target index to shrink into
+       ['timeout']        = (time) Explicit operation timeout
+       ['master_timeout'] = (time) Specify timeout for connection to master
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->shrink($params);
 ----
 ****
 
@@ -481,53 +479,6 @@ $response = $client->indices()->putAlias($params);
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetWarmer_getWarmer]]
-.`getWarmer()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices (Required)
-       ['name']  = (string) The name of the warmer (supports wildcards); leave empty to get all warmers
-       ['type']  = (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getWarmer($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceputWarmer_putWarmer]]
-.`putWarmer()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names to register the warmer for; use `_all` or empty string to perform the operation on all indices (Required)
-       ['name']  = (string) The name of the warmer (Required)
-       ['type']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
-       ['body']  = (list) A comma-separated list of document types to register the warmer for; leave empty to perform the operation on all types
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->putWarmer($params);
-----
-****
-
-
-
 [[Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate]]
 .`putTemplate()`
 ****
@@ -711,36 +662,6 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->indices()->create($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceoptimize_optimize]]
-.`optimize()`
-****
-[source,php]
-----
-/*
-$params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
-       ['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
-       ['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
-       ['operation_threading']  = () TODO: ?
-       ['refresh']              = (boolean) Specify whether the index should be refreshed after performing the operation (default: true)
-       ['wait_for_merge']       = (boolean) Specify whether the request should block until the merge process is finished (default: true)
-       ['ignore_unavailable']   = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']     = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->optimize($params);
 ----
 ****
 
@@ -1120,6 +1041,30 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->indices()->shardStores($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacerollover_rollover]]
+.`rollover()`
+****
+[source,php]
+----
+/*
+$params['newIndex']       = (string) The name of the rollover index
+       ['alias']          = (string) The name of the alias to rollover
+       ['timeout']        = (time) Explicit operation timeout
+       ['master_timeout'] = (time) Specify timeout for connection to master
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->rollover($params);
 ----
 ****
 

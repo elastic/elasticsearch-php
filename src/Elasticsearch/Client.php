@@ -136,6 +136,8 @@ class Client
             return false;
         } catch (TransportException $exception) {
             return false;
+        } catch (NoNodesAvailableException $exception) {
+            return false;
         }
 
         return true;

@@ -5,6 +5,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\Exceptions\BadMethodCallException;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
@@ -138,6 +139,8 @@ class Client
         } catch (TransportException $exception) {
             return false;
         } catch (NoNodesAvailableException $exception) {
+            return false;
+        } catch (BadRequest400Exception $exception) {
             return false;
         }
 

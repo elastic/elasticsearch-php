@@ -71,7 +71,7 @@ $hosts = [
         'port' => '9200',
         'scheme' => 'https',
         'user' => 'username',
-        'password' => 'password!#$?*abc'
+        'pass' => 'password!#$?*abc'
     ],
 
     // This is equal to "http://localhost:9200/"

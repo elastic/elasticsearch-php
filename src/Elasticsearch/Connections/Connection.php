@@ -594,6 +594,8 @@ class Connection implements ConnectionInterface
             $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
         } elseif ($statusCode === 408) {
             $exception = new RequestTimeout408Exception($responseBody, $statusCode);
+        } else {
+            $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
 
         $this->logRequestFail(
@@ -638,6 +640,8 @@ class Connection implements ConnectionInterface
             $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
+        } else {
+            $exception = new ServerErrorResponseException($responseBody, $statusCode);
         }
 
         $this->logRequestFail(

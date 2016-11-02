@@ -245,6 +245,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         $endpointInfo = explode('.', key($operation));
         $endpointParams = $this->replaceWithContext(current($operation), $context);
+        var_dump($endpointParams);
         $caller = $this->client;
         $namespace = null;
         $method = null;

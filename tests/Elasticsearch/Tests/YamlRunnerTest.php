@@ -42,7 +42,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /** @var array A list of supported features */
     private static $supportedFeatures = [
-        'stash_in_path',
+        'stash_in_path', 'warnings'
     ];
 
     /** @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name */
@@ -236,16 +236,22 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public function operationDo($operation, $lastOperationResult, &$context, $testName, $async = false)
     {
         $expectedError = null;
+        $expectedWarnings = null;
 
-        // Check if a error must be catched
+        // Check if a error must be caught
         if ('catch' === key($operation)) {
             $expectedError = current($operation);
             next($operation);
         }
 
+        // Check if a warning must be caught
+        if ('warnings' === key($operation)) {
+            $expectedWarnings = current($operation);
+            next($operation);
+        }
+
         $endpointInfo = explode('.', key($operation));
         $endpointParams = $this->replaceWithContext(current($operation), $context);
-        var_dump($endpointParams);
         $caller = $this->client;
         $namespace = null;
         $method = null;
@@ -286,10 +292,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         // Exist* methods have to be manually 'unwrapped' into true/false for async
         if (strpos($method, "exist") !== false && $async === true) {
-            return $this->executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $testName);
+            return $this->executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName);
         }
 
-        return $this->executeRequest($caller, $method, $endpointParams, $expectedError, $testName);
+        return $this->executeRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName);
     }
 
     /**
@@ -305,7 +311,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      *
      * @return array|mixed
      */
-    public function executeRequest($caller, $method, $endpointParams, $expectedError, $testName)
+    public function executeRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName)
     {
         try {
             $response = $caller->$method($endpointParams);
@@ -313,6 +319,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             while ($response instanceof FutureArrayInterface) {
                 $response = $response->wait();
             }
+
+            $this->checkForWarnings($expectedWarnings);
 
             return $response;
         } catch (\Exception $exception) {
@@ -341,7 +349,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      *
      * @return bool
      */
-    public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $testName)
+    public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName)
     {
         try {
 
@@ -350,6 +358,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             while ($response instanceof FutureArrayInterface) {
                 $response = $response->wait();
             }
+
+            $this->checkForWarnings($expectedWarnings);
 
             if ($response['status'] === 200) {
                 return true;
@@ -367,6 +377,38 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
             throw $exception;
         }
+    }
+
+    public function checkForWarnings($expectedWarnings) {
+        $last = $this->client->transport->getLastConnection()->getLastRequestInfo();
+
+
+            // We have some warnings to check
+            if ($expectedWarnings !== null) {
+                if (isset($last['response']['headers']['Warning']) === true) {
+                    foreach ($last['response']['headers']['Warning'] as $warning) {
+                        $position = array_search($warning, $expectedWarnings);
+                        if ($position !== false) {
+                            // found the warning
+                            unset($expectedWarnings[$position]);
+                        } else {
+                            // didn't find, throw error
+                            throw new \Exception("Expected to find warning [$warning] but did not.");
+                        }
+                    }
+                    if (count($expectedWarnings) > 0) {
+                        throw new \Exception("Expected to find more warnings: ". print_r($expectedWarnings, true));
+                    }
+                }
+            } else {
+                // no expected warnings, make sure we have none returned
+                if (isset($last['response']['headers']['Warning']) === true) {
+                    throw new \Exception("Did not expect to find warnings, found some instead: "
+                        . print_r($last['response']['headers']['Warning'], true));
+                }
+            }
+
+
     }
 
     /**

@@ -52,6 +52,7 @@ $params = [
     'id' => 'my_id',
     'routing' => 'company_xyz',
     'timestamp' => strtotime("-1d"),
+    'pipeline' => 'attachment',
     'body' => [ 'testField' => 'abc']
 ];
 

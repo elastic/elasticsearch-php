@@ -167,7 +167,7 @@ You might have noticed that Monolog was suggested during installation.  To begin
 {
     "require": {
         ...
-        "elasticsearch/elasticsearch" : "~2.0",
+        "elasticsearch/elasticsearch" : "~5.0",
         "monolog/monolog": "~1.0"
     }
 }

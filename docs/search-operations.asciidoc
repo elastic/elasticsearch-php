@@ -223,7 +223,7 @@ $results = $client->search($params);
 
 The Scan/Scroll functionality of Elasticsearch is similar to search, but different in many ways.  It works by executing a search query with a `search_type` of `scan`.  This initiates a "scan window" which will remain open for the duration of the scan.  This allows proper, consistent pagination.
 
-Once a scan window is open, you may start _scrolling) over that window.  This returns results matching your query...but returns them in random order.  This random ordering is important to performance.  Deep pagination is expensive when you need to maintain a sorted, consistent order across shards.  By removing this obligation, Scan/Scroll can efficiently export all the data from your index.
+Once a scan window is open, you may start `_scrolling` over that window.  This returns results matching your query... but returns them in random order.  This random ordering is important to performance.  Deep pagination is expensive when you need to maintain a sorted, consistent order across shards.  By removing this obligation, Scan/Scroll can efficiently export all the data from your index.
 
 This is an example which can be used as a template for more advanced operations:
 

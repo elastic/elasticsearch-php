@@ -104,28 +104,28 @@ $params = [
             '_default_' => [    <4>
                 'properties' => [
                     'title' => [
-                        'type' => 'string',
+                        'type' => 'text',
                         'analyzer' => 'reuters',
                         'term_vector' => 'yes',
                         'copy_to' => 'combined'
                     ],
                     'body' => [
-                        'type' => 'string',
+                        'type' => 'text',
                         'analyzer' => 'reuters',
                         'term_vector' => 'yes',
                         'copy_to' => 'combined'
                     ],
                     'combined' => [
-                        'type' => 'string',
+                        'type' => 'text',
                         'analyzer' => 'reuters',
                         'term_vector' => 'yes'
                     ],
                     'topics' => [
-                        'type' => 'string',
+                        'type' => 'text',
                         'index' => 'not_analyzed'
                     ],
                     'places' => [
-                        'type' => 'string',
+                        'type' => 'text',
                         'index' => 'not_analyzed'
                     ]
                 ]
@@ -133,7 +133,7 @@ $params = [
             'my_type' => [  <5>
                 'properties' => [
                     'my_field' => [
-                        'type' => 'string'
+                        'type' => 'text'
                     ]
                 ]
             ]

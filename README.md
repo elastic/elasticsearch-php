@@ -84,9 +84,8 @@ You'll notice that the installation command specified `--no-dev`.  This prevents
 
 PHP Version Requirement
 ----
-Version 2.0 of this library requires at least PHP version 5.4.0 to function.  If you are on an older version of PHP, it is recommended
-that you upgrade, as PHP 5.3 is official EOL.  Elasticsearch-PHP v0.4.x and v1.x are compatible with PHP 5.3.9+, but will
-eventually stop being supported.
+VeVersion 5.0 of this library requires at least PHP version 5.6.6 to function.  In addition, it requires the native JSON
+extension to be version 1.3.7 or higher.
 
 | PHP Version | Elasticsearch-PHP Branch |
 | ----------- | ------------------------ |

@@ -266,7 +266,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $method = Inflector::camelize($endpointInfo[1]);
         }
 
-        if (property_exists($endpointParams, 'ignore')) {
+        if (is_object($endpointParams) === true && property_exists($endpointParams, 'ignore')) {
             $ignore = $endpointParams->ignore;
             unset($endpointParams->ignore);
 
@@ -567,6 +567,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      */
     public function operationSkip($operation, $lastOperationResult, $testName)
     {
+        if (is_object($operation) !== true ) {
+            return $lastOperationResult;
+        }
+
         if (property_exists($operation, 'features') && !in_array($operation->features, static::$supportedFeatures, true)) {
             static::markTestSkipped(sprintf('Feature(s) %s not supported in test "%s"', json_encode($operation->features), $testName));
         }

@@ -24,16 +24,9 @@ class SmartSerializer implements SerializerInterface
      */
     public function serialize($data)
     {
-        if (is_string($data) === true) {
-            return $data;
-        } else {
-            $data = json_encode($data, JSON_PRESERVE_ZERO_FRACTION);
-            if ($data === '[]') {
-                return '{}';
-            } else {
-                return $data;
-            }
-        }
+        return is_string($data)
+            ? $data
+            : json_encode($data, JSON_FORCE_OBJECT | JSON_PRESERVE_ZERO_FRACTION);
     }
 
     /**

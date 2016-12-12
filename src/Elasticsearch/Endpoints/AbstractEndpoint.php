@@ -214,14 +214,15 @@ abstract class AbstractEndpoint
 
         $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path'));
 
-        foreach ($params as $key => $value) {
-            if (array_search($key, $whitelist) === false) {
-                throw new UnexpectedValueException(sprintf(
-                    '"%s" is not a valid parameter. Allowed parameters are: "%s"',
-                    $key,
-                    implode('", "', $whitelist)
-                ));
-            }
+        $invalid = array_diff(array_keys($params), $whitelist);
+        if (count($invalid) > 0) {
+            sort($invalid);
+            sort($whitelist);
+            throw new UnexpectedValueException(sprintf(
+                (count($invalid) > 1 ? '"%s" are not valid parameters.' : '"%s" is not a valid parameter.').' Allowed parameters are "%s"',
+                implode('", "', $invalid),
+                implode('", "', $whitelist)
+            ));
         }
     }
 

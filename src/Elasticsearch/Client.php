@@ -254,6 +254,44 @@ class Client
     }
 
     /**
+     *
+     * $params['conflicts'] = (enum) "proceed" tells cluster to count conflics, while "abort" will cause the operation to fail
+     *        ['refresh'] = (bool) Should indexes effected by the delete be refreshed
+     *        ['requests_per_second'] = (number) How many sub-requests should the operation perform per second.
+     *        ['routing'] = (string) a comma separate list of routing values
+     *        ['scroll_size'] = (number) Batch size for the query + delete. Default is 1,000.
+     *        ['slice'] = (object) Parameters for the sliced scroll
+     *        ['timeout'] = (number) The maximum time each individual bulk request should wait
+     *        ['wait_for_completion'] = (bool) Whether or not the request should block until the delete-by-query is finished
+     *        ['wait_for_active_shards'] = (number) Sets the number of shard copies that must be active before proceeding with the delete by query operation.
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function deleteByQuery($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+
+        $type = $this->extractArgument($params, 'type');
+
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
+        $endpoint = $endpointBuilder('DeleteByQuery');
+        $endpoint->setIndex($index)
+                ->setType($type)
+                ->setBody($body);
+        $endpoint->setParams($params);
+        $response = $endpoint->performRequest();
+
+        return $endpoint->resultOrFuture($response);
+    }
+
+    /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
      *        ['type']               = (list) A comma-separated list of types to restrict the results
      *        ['min_score']          = (number) Include only documents with a specific `_score` value in the result

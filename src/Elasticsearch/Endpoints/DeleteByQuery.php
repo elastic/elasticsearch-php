@@ -63,7 +63,6 @@ class DeleteByQuery extends AbstractEndpoint
             'requests_per_second',
             'routing',
             'scroll_size',
-            'slice',
             'timeout',
             'wait_for_completion',
             'wait_for_active_shards',

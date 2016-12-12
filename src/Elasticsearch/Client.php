@@ -260,7 +260,6 @@ class Client
      *        ['requests_per_second'] = (number) How many sub-requests should the operation perform per second.
      *        ['routing'] = (string) a comma separate list of routing values
      *        ['scroll_size'] = (number) Batch size for the query + delete. Default is 1,000.
-     *        ['slice'] = (object) Parameters for the sliced scroll
      *        ['timeout'] = (number) The maximum time each individual bulk request should wait
      *        ['wait_for_completion'] = (bool) Whether or not the request should block until the delete-by-query is finished
      *        ['wait_for_active_shards'] = (number) Sets the number of shard copies that must be active before proceeding with the delete by query operation.

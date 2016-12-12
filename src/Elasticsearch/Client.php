@@ -255,14 +255,38 @@ class Client
 
     /**
      *
-     * $params['conflicts'] = (enum) "proceed" tells cluster to count conflics, while "abort" will cause the operation to fail
-     *        ['refresh'] = (bool) Should indexes effected by the delete be refreshed
-     *        ['requests_per_second'] = (number) How many sub-requests should the operation perform per second.
-     *        ['routing'] = (string) a comma separate list of routing values
-     *        ['scroll_size'] = (number) Batch size for the query + delete. Default is 1,000.
-     *        ['timeout'] = (number) The maximum time each individual bulk request should wait
-     *        ['wait_for_completion'] = (bool) Whether or not the request should block until the delete-by-query is finished
-     *        ['wait_for_active_shards'] = (number) Sets the number of shard copies that must be active before proceeding with the delete by query operation.
+     * $params['_source'] = (list) True or false to return the _source field or not, or a list of fields to return
+     *        ['_source_exclude'] = (array) A list of fields to exclude from the returned _source field
+     *        ['_source_include'] = (array) A list of fields to extract and return from the _source field
+     *        ['allow_no_indices'] = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['analyze_wildcard'] = (bool) Specify whether wildcard and prefix queries should be analyzed (default: false)
+     *        ['analyzer'] = (string) The analyzer to use for the query string
+     *        ['conflicts'] = (enum) What to do when the delete-by-query hits version conflicts?
+     *        ['default_operator'] = (enum) The default operator for query string query (AND or OR)
+     *        ['df'] = (string) The field to use as default where no field prefix is given in the query string
+     *        ['expand_wildcards'] = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *        ['from'] = (number) Starting offset (default: 0)
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['lenient'] = (bool) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+     *        ['preference'] = (string) Specify the node or shard the operation should be performed on (default: random)
+     *        ['q'] = (string) Query in the Lucene query string syntax
+     *        ['refresh'] = (bool) Should the effected indexes be refreshed?
+     *        ['request_cache'] = (bool) Specify if request cache should be used for this request or not, defaults to index level setting
+     *        ['requests_per_second'] = (number) The throttle for this request in sub-requests per second. -1 means no throttle.
+     *        ['routing'] = (array) A comma-separated list of specific routing values
+     *        ['scroll'] = (number) Specify how long a consistent view of the index should be maintained for scrolled search
+     *        ['scroll_size'] = (number) Size on the scroll request powering the update_by_query
+     *        ['search_timeout'] = (number) Explicit timeout for each search request. Defaults to no timeout.
+     *        ['search_type'] = (enum) Search operation type
+     *        ['size'] = (number) Number of hits to return (default: 10)
+     *        ['slices'] = (integer) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks.
+     *        ['sort'] = (array) A comma-separated list of <field>:<direction> pairs
+     *        ['stats'] = (array) Specific 'tag' of the request for logging and statistical purposes
+     *        ['terminate_after'] = (number) The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+     *        ['timeout'] = (number) Time each individual bulk request should wait for shards that are unavailable.
+     *        ['version'] = (bool) Specify whether to return document version as part of a hit
+     *        ['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the delete by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+     *        ['wait_for_completion'] = (bool) Should the request should block until the delete-by-query is complete.
      *
      * @param array $params
      *

@@ -71,6 +71,9 @@ class ClientBuilder
     /** @var array */
     private $hosts;
 
+    /** @var array */
+    private $connectionParams;
+
     /** @var  int */
     private $retries;
 
@@ -313,6 +316,17 @@ class ClientBuilder
     }
 
     /**
+     * @param array $params
+     * @return $this
+     */
+    public function setConnectionParams(array $params)
+    {
+        $this->connectionParams = $params;
+
+        return $this;
+    }
+
+    /**
      * @param int $retries
      * @return $this
      */
@@ -425,8 +439,10 @@ class ClientBuilder
         }
 
         if (is_null($this->connectionFactory)) {
-            $connectionParams = [];
-            $this->connectionFactory = new ConnectionFactory($this->handler, $connectionParams, $this->serializer, $this->logger, $this->tracer);
+            if (is_null($this->connectionParams)) {
+                $this->connectionParams = [];
+            }
+            $this->connectionFactory = new ConnectionFactory($this->handler, $this->connectionParams, $this->serializer, $this->logger, $this->tracer);
         }
 
         if (is_null($this->hosts)) {

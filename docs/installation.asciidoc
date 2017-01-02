@@ -1,6 +1,6 @@
 == Installation
 
-Elasticsearch-php only has a three requirements that you need to worry about:
+Elasticsearch-php only has a four requirements that you need to worry about:
 
 * PHP 5.6.6 or higher
 * http://getcomposer.org[Composer]

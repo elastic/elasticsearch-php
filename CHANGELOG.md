@@ -1,3 +1,35 @@
+## Release 5.1.0
+
+- Catch additional exceptions in the ping function for those who use multiple nodes in their connection pool. [[ffe0510]](http://github.com/elasticsearch/elasticsearch-php/commit/ffe0510)
+- Use `array_diff` to Check Endpoint Parameters (#514) [[46f7f36]](http://github.com/elasticsearch/elasticsearch-php/commit/46f7f36)
+- Re-Add the DeleteByQuery Functionality (#513) [[b262dca]](http://github.com/elasticsearch/elasticsearch-php/commit/b262dca)
+- Add 'full_id' to Cat/Nodes endpoint [[f32cc54]](http://github.com/elasticsearch/elasticsearch-php/commit/f32cc54)
+- add ClientBuilder->setConnectionParams() (#507) [[3923432]](http://github.com/elasticsearch/elasticsearch-php/commit/3923432)
+- Add new (undocumented) PHP-7 JSON error codes, better unknown handling [[0a7fd55]](http://github.com/elasticsearch/elasticsearch-php/commit/0a7fd55)
+- Add ext-json version constraint, update some docs [[ca2791a]](http://github.com/elasticsearch/elasticsearch-php/commit/ca2791a)
+- Add catch-all in exception handling [[eb4117c]](http://github.com/elasticsearch/elasticsearch-php/commit/eb4117c)
+- Revert "Simplify error parsing now that we don't support <2.0 errors" [[fd38538]](http://github.com/elasticsearch/elasticsearch-php/commit/fd38538)
+
+### Testing
+
+- [TEST] Make sure property_exists calls only ocurr on objects [[30baa0d]](http://github.com/elasticsearch/elasticsearch-php/commit/30baa0d)
+- [TEST] Tweak travis to install better ext-json [[3409a81]](http://github.com/elasticsearch/elasticsearch-php/commit/3409a81)
+- [TEST] Mute rollover test temporarily [[2316d33]](http://github.com/elasticsearch/elasticsearch-php/commit/2316d33)
+- [TEST] Add support for warning header checks [[ac1b053]](http://github.com/elasticsearch/elasticsearch-php/commit/ac1b053)
+
+### Documentation
+
+- [DOCS] Removed unwanted ) and added proper formatting (#497) [[8187fdd]](http://github.com/elasticsearch/elasticsearch-php/commit/8187fdd)
+- [DOCS] Update index-operations.asciidoc (#496) [[a4dd09f]](http://github.com/elasticsearch/elasticsearch-php/commit/a4dd09f)
+- [DOCS] Update version in monolog configuration. (#489)  [[90fbd53]](http://github.com/elasticsearch/elasticsearch-php/commit/90fbd53)
+- [DOCS] Update php-version-requirement.asciidoc (#491) [[4951439]](http://github.com/elasticsearch/elasticsearch-php/commit/4951439)
+- [DOCS] "password" param should be "password" [[8ee2bc9]](http://github.com/elasticsearch/elasticsearch-php/commit/8ee2bc9)
+- More asciidoc tweaks [[451f985]](http://github.com/elasticsearch/elasticsearch-php/commit/451f985)
+- Asciidoc != markdown [[8a816c1]](http://github.com/elasticsearch/elasticsearch-php/commit/8a816c1)
+- [Docs] More 5.0 readme tweaks [[a60dd09]](http://github.com/elasticsearch/elasticsearch-php/commit/a60dd09)
+- [DOCS] 5.0 doc updates, readme, breaking changes [[6fb6421]](http://github.com/elasticsearch/elasticsearch-php/commit/6fb6421)
+
+
 ## Release 5.0.0
 
 Woo!

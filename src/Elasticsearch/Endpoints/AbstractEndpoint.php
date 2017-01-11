@@ -212,7 +212,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path', 'human'));
 
         $invalid = array_diff(array_keys($params), $whitelist);
         if (count($invalid) > 0) {

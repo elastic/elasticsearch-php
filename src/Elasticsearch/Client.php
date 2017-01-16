@@ -888,6 +888,7 @@ class Client
      *        ['suggest_size']             = (number) How many suggestions to return in response
      *        ['suggest_text']             = (text) The source text for which the suggestions should be returned
      *        ['timeout']                  = (time) Explicit operation timeout
+     *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
      *        ['body']                     = (array|string) The search definition using the Query DSL
      *

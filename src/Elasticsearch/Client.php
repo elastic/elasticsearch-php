@@ -313,9 +313,8 @@ class Client
                 ->setType($type)
                 ->setBody($body);
         $endpoint->setParams($params);
-        $response = $endpoint->performRequest();
 
-        return $endpoint->resultOrFuture($response);
+        return $this->performRequest($endpoint);
     }
 
     /**

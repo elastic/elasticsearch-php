@@ -72,7 +72,7 @@ class DeleteByQuery extends AbstractEndpoint
             'ignore_unavailable',
             'lenient',
             'preference',
-            'q',
+            'query',
             'refresh',
             'request_cache',
             'requests_per_second',

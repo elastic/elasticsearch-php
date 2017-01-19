@@ -3,6 +3,7 @@
 namespace Elasticsearch\Helper\Iterators;
 
 use ElasticSearch\Client;
+use Elasticsearch\Common\Exceptions\Helper\SearchResponseIteratorException;
 use Iterator;
 
 /**
@@ -62,6 +63,8 @@ class SearchResponseIterator implements Iterator
 
         if (isset($search_params['scroll'])) {
             $this->scroll_ttl = $search_params['scroll'];
+        } else {
+            throw new SearchResponseIteratorException('Not found "scroll" in search_params');
         }
     }
 
@@ -117,7 +120,7 @@ class SearchResponseIterator implements Iterator
         $this->clearScroll();
         $this->current_key = 0;
         $this->current_scrolled_response = $this->client->search($this->params);
-        $this->scroll_id = isset($this->current_scrolled_response['_scroll_id']) ? $this->current_scrolled_response['_scroll_id'] : null;
+        $this->scroll_id = $this->current_scrolled_response['_scroll_id'];
     }
 
     /**

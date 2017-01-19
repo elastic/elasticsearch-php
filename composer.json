@@ -1,5 +1,5 @@
 {
-  "name": "mxp100/elasticsearch",
+  "name": "elasticsearch/elasticsearch",
   "description": "PHP Client for Elasticsearch",
   "keywords": ["search","client", "elasticsearch"],
   "type": "library",
@@ -7,9 +7,6 @@
   "authors": [
     {
       "name": "Zachary Tong"
-    },
-    {
-      "name": "Yuriy Potemkin"
     }
   ],
   "require": {

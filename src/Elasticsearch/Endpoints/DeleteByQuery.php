@@ -36,7 +36,7 @@ class DeleteByQuery extends AbstractEndpoint
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
-    protected function getURI()
+    public function getURI()
     {
         if (!$this->index) {
             throw new Exceptions\RuntimeException(
@@ -55,7 +55,7 @@ class DeleteByQuery extends AbstractEndpoint
     /**
      * @return string[]
      */
-    protected function getParamWhitelist()
+    public function getParamWhitelist()
     {
         return array(
             '_source',
@@ -72,7 +72,7 @@ class DeleteByQuery extends AbstractEndpoint
             'ignore_unavailable',
             'lenient',
             'preference',
-            'q',
+            'query',
             'refresh',
             'request_cache',
             'requests_per_second',
@@ -96,7 +96,7 @@ class DeleteByQuery extends AbstractEndpoint
     /**
      * @return string
      */
-    protected function getMethod()
+    public function getMethod()
     {
         return 'POST';
     }

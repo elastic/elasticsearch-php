@@ -84,7 +84,7 @@ You'll notice that the installation command specified `--no-dev`.  This prevents
 
 PHP Version Requirement
 ----
-VeVersion 5.0 of this library requires at least PHP version 5.6.6 to function.  In addition, it requires the native JSON
+Version 5.0 of this library requires at least PHP version 5.6.6 to function.  In addition, it requires the native JSON
 extension to be version 1.3.7 or higher.
 
 | PHP Version | Elasticsearch-PHP Branch |

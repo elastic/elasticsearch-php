@@ -71,7 +71,8 @@ class Stats extends AbstractEndpoint
             'human',
             'level',
             'types',
-            'metric'
+            'metric',
+            'include_segment_file_sizes'
         );
     }
 

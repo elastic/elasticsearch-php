@@ -97,6 +97,7 @@ class Stats extends AbstractNodesEndpoint
             'human',
             'level',
             'types',
+            'include_segment_file_sizes',
         );
     }
 

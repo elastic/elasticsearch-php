@@ -28,6 +28,15 @@ class EverythingToJSONSerializerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body, $ret);
     }
 
+    public function testSerializeEmptyArray()
+    {
+        $serializer = new EverythingToJSONSerializer();
+
+        $actual = $serializer->serialize([]);
+
+        $this->assertEquals('{}', $actual);
+    }
+
     public function testSerializeString()
     {
         $serializer = new EverythingToJSONSerializer();

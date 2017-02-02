@@ -72,6 +72,9 @@ class Connection implements ConnectionInterface
      */
     protected $connectionParams;
 
+    /** @var  array */
+    protected $headers = [];
+
     /** @var bool  */
     protected $isAlive = false;
 
@@ -112,6 +115,11 @@ class Connection implements ConnectionInterface
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
 
+        if (isset($connectionParams['client']['headers']) === true) {
+            $this->headers = $connectionParams['client']['headers'];
+            unset($connectionParams['client']['headers']);
+        }
+
         $host = $hostDetails['host'].':'.$hostDetails['port'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
@@ -147,13 +155,17 @@ class Connection implements ConnectionInterface
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            'headers'     => [
+            'headers'     => array_merge([
                 'host'  => [$this->host]
-            ]
-
+            ], $this->headers)
         ];
+
         $request = array_merge_recursive($request, $this->connectionParams, $options);
 
+        // RingPHP does not like if client is empty
+        if (empty($request['client'])) {
+            unset($request['client']);
+        }
 
         $handler = $this->handler;
         $future = $handler($request, $this, $transport, $options);

@@ -37,7 +37,8 @@ class Nodes extends AbstractEndpoint
             'help',
             'v',
             's',
-            'full_id'
+            'full_id',
+            'format',
         );
     }
 

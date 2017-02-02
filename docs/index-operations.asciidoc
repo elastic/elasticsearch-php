@@ -17,7 +17,7 @@ $params = [
 ];
 
 // Create the index
-$response = $client->indices()->create($indexParams);
+$response = $client->indices()->create($params);
 ----
 {zwsp} +
 

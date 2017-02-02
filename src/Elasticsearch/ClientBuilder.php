@@ -89,6 +89,9 @@ class ClientBuilder
     /** @var null|bool|string */
     private $sslVerification = null;
 
+    /** @var bool  */
+    private $allowBadJSON = false;
+
     /**
      * @return ClientBuilder
      */
@@ -395,11 +398,23 @@ class ClientBuilder
         return $this;
     }
 
+    public function allowBadJSONSerialization()
+    {
+        $this->allowBadJSON = true;
+    }
+
     /**
      * @return Client
      */
     public function build()
     {
+        if(!defined('JSON_PRESERVE_ZERO_FRACTION') && $this->allowBadJSON === false) {
+            throw new RuntimeException("Your version of PHP / json-ext does not support the constant 'JSON_PRESERVE_ZERO_FRACTION',".
+            " which is important for proper type mapping in Elasticsearch. Please upgrade your PHP or json-ext.\n".
+            "If you are unable to upgrade, and are willing to accept the consequences, you may use the allowBadJSONSerialization()".
+            " method on the ClientBuilder to bypass this limitation.");
+        }
+
         $this->buildLoggers();
 
         if (is_null($this->handler)) {

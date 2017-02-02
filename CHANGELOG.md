@@ -1,3 +1,23 @@
+## Release 5.1.1
+
+- Add 'format' param to all Cat endpoints [[fc25a2c]](http://github.com/elasticsearch/elasticsearch-php/commit/fc25a2c)
+- Add opt-in for ignoring JSON_PRESERVE_ZERO_FRACTION when serializing [[e34fdfd]](http://github.com/elasticsearch/elasticsearch-php/commit/e34fdfd)
+- Prefer POST for Suggest endpoint [[aae7019]](http://github.com/elasticsearch/elasticsearch-php/commit/aae7019)
+- Whitelist 'include_segment_file_sizes' in Cluster/Nodes/Stats endpoint [[a2744b4]](http://github.com/elasticsearch/elasticsearch-php/commit/a2744b4)
+- Whitelist 'include_segment_file_sizes' in Indices/Stats endpoint [[2c6cd30]](http://github.com/elasticsearch/elasticsearch-php/commit/2c6cd30)
+- Automatically set Content-type and Accept headers [[3d52e11]](http://github.com/elasticsearch/elasticsearch-php/commit/3d52e11)
+- Put back UpdateByQuery (#531) [[6f4394f]](http://github.com/elasticsearch/elasticsearch-php/commit/6f4394f)
+- Add 'human' param to global whitelist [[d16e541]](http://github.com/elasticsearch/elasticsearch-php/commit/d16e541)
+
+### Testing
+
+- [TEST] Tidy up version check [[ec6b832]](http://github.com/elasticsearch/elasticsearch-php/commit/ec6b832)
+
+### Docs
+
+- [DOCS] Update search-operations.asciidoc (#520) [[4aba49b]](http://github.com/elasticsearch/elasticsearch-php/commit/4aba49b)
+- [DOCS] fix broken links to breaking changes docs [[7d1b0ec]](http://github.com/elasticsearch/elasticsearch-php/commit/7d1b0ec)
+
 ## Release 5.1.0
 
 - Catch additional exceptions in the ping function for those who use multiple nodes in their connection pool. [[ffe0510]](http://github.com/elasticsearch/elasticsearch-php/commit/ffe0510)

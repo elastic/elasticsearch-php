@@ -58,7 +58,8 @@ class Snapshots extends AbstractEndpoint
             'h',
             'help',
             'v',
-            's'
+            's',
+            'format',
         );
     }
 

@@ -1,3 +1,7 @@
+## Release 5.1.2
+
+- A specific version of json-ext is no longer needed in 5.0 branch [[e1b5c2a]](http://github.com/elasticsearch/elasticsearch-php/commit/e1b5c2a)
+
 ## Release 5.1.1
 
 - Add 'format' param to all Cat endpoints [[fc25a2c]](http://github.com/elasticsearch/elasticsearch-php/commit/fc25a2c)

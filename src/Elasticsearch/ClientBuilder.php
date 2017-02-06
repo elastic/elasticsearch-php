@@ -401,6 +401,7 @@ class ClientBuilder
     public function allowBadJSONSerialization()
     {
         $this->allowBadJSON = true;
+        return $this;
     }
 
     /**

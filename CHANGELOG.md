@@ -1,3 +1,7 @@
+## Release 5.1.3
+
+- allowBadJSONSerialization() builder method should be fluent [[f1812d4]](http://github.com/elasticsearch/elasticsearch-php/commit/f1812d4)
+
 ## Release 5.1.2
 
 - A specific version of json-ext is no longer needed in 5.0 branch [[e1b5c2a]](http://github.com/elasticsearch/elasticsearch-php/commit/e1b5c2a)

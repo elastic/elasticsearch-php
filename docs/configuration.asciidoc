@@ -53,7 +53,7 @@ $client = $clientBuilder->build();          // Build the client object
 
 The client also supports an _extended_ host configuration syntax.  The inline configuration method relies on PHP's
 `filter_var()` and `parse_url()` methods to validate and extract the components of a URL.  Unfortunately, these built-in
-methods run into problems with certain edge-cases.  For example, `filter_var()` will not accept URL's that have underscores
+methods run into problems with certain edge-cases.  For example, `filter_var()` will not accept URLs that have underscores
 (which are questionably legal, depending on how you interpret the RFCs).  Similarly, `parse_url()` will choke if a
 Basic Auth's password contains special characters such as a pound sign (`#`) or question-marks (`?`).
 
@@ -130,11 +130,11 @@ try {
         echo "Max retries!";
     }
 }
-----------------------------
+----
 
 Alternatively, all "hard" curl exceptions (`CouldNotConnectToHost`, `CouldNotResolveHostException`, `OperationTimeoutException`)
 extend the more general `TransportException`.  So you could instead catch the general `TransportException` and then
-check it's previous value:
+check its previous value:
 
 [source,php]
 ----
@@ -151,7 +151,7 @@ try {
         echo "Max retries!";
     }
 }
-----------------------------
+----
 
 
 [[enabling_logger]]
@@ -366,7 +366,7 @@ The ConnectionFactory requires a working HTTP handler, serializer, logger and tr
 
 The client uses an Endpoint closure to dispatch API requests to the correct Endpoint object.  A namespace object will
 construct a new Endpoint via this closure, which means this is a handy location if you wish to extend the available set
-of API endpoints available
+of API endpoints available.
 
 For example, we could add a new endpoint like so:
 

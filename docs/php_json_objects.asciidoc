@@ -3,7 +3,7 @@
 
 A common source of confusion with the client revolves around JSON arrays and objects, and how to specify them in PHP.
 In particular, problems are caused by empty objects and arrays of objects.  This page will show you some common patterns
-used in Elasticsearch JSON API, and how to convert that to a PHP representation
+used in Elasticsearch JSON API, and how to convert that to a PHP representation.
 
 === Empty Objects
 

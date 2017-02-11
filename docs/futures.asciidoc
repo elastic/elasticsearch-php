@@ -6,9 +6,9 @@ to the cluster), which can have a dramatic impact on performance and throughput.
 
 PHP is fundamentally single-threaded, however libcurl provides functionality called the "multi interface".  This allows
 languages like PHP to gain concurrency by providing a batch of requests to process.  The batch is executed in a parallel
-by the underlying multithreaded libcurl library, and the batch of responses is then returned to PHP.
+fashion by the underlying multithreaded libcurl library, and the batch of responses is then returned to PHP.
 
-In a single-threaded environment, the time to execute `n` requests is the sum of those `n` request's latencies.  With
+In a single-threaded environment, the time to execute `n` requests is the sum of those `n` requests' latencies.  With
 the multi interface, the time to execute `n` requests is the latency of the slowest request (assuming enough handles
 are available to execute all requests in parallel).
 
@@ -239,7 +239,7 @@ $doc = $futures['getRequest']['_source'];
 === Caveats to Future mode
 
 There are a few caveats to using future mode.  The biggest is also the most obvious: you need to deal with resolving the
-future yourself.  This is usually trivia, but can sometimes introduce unexpected complications.
+future yourself.  This is usually trivial, but can sometimes introduce unexpected complications.
 
 For example, if you resolve manually using `wait()`, you may need to call `wait()` several times if there were retries.
 This is because each retry will introduce another layer of wrapped futures, and each needs to be resolved to get the

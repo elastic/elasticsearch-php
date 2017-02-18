@@ -217,7 +217,7 @@ Array
 === Curl Timeouts
 
 It is possible to configure per-request curl timeouts via the `timeout` and `connect_timeout` parameters.  These
-control the client-side, curl timeouts.  The `connect_timeout` paramter controls how long curl should wait for the
+control the client-side, curl timeouts.  The `connect_timeout` parameter controls how long curl should wait for the
 "connect" phase to finish, while the `timeout` parameter controls how long curl should wait for the entire request
 to finish.
 
@@ -268,7 +268,7 @@ $future = $client->get($params);
 $results = $future->wait();       // resolve the future
 ----
 
-Future mode supports two options: `true` or `'lazy'`.  For more details about how asynchronous execution functions, and
+Future mode supports two options: `true` or `lazy`.  For more details about how asynchronous execution functions, and
 how to work with the results, see the dedicated page on <<_future_mode>>.
 
 === SSL Encryption

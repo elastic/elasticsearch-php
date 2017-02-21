@@ -36,7 +36,8 @@ class Repositories extends AbstractEndpoint
             'h',
             'help',
             'v',
-            's'
+            's',
+            'format',
         );
     }
 

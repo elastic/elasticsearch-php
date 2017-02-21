@@ -15,7 +15,6 @@ branches:
 sudo: true
 
 php:
-  - 5.6
   - 7.0
   - 7.1
   - hhvm
@@ -25,6 +24,10 @@ matrix:
   include:
     - php: 7.1
       env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
+    - php: 7.1
+      env: ES_VERSION="5.1" TEST_BUILD_REF="origin/5.1"
+    - php: 7.1
+      env: ES_VERSION="5.2" TEST_BUILD_REF="origin/5.2"
   allow_failures:
     - php: hhvm
 
@@ -36,7 +39,6 @@ env:
     - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 
 before_install:
-  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then sudo apt-get -y install php5-json; fi
   - sudo update-java-alternatives -s java-8-oracle
   - ./travis/download_and_run_es.sh
 

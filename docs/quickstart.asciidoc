@@ -258,7 +258,7 @@ Array
 
 === Wrap up
 
-That was just a crash-course overview of the client and it's syntax.  If you are familiar with elasticsearch, you'll
+That was just a crash-course overview of the client and its syntax.  If you are familiar with elasticsearch, you'll
 notice that the methods are named just like REST endpoints.
 
 You'll also notice that the client is configured in a manner that facilitates easy discovery via your IDE.  All core

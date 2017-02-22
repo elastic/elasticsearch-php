@@ -60,7 +60,7 @@ Note that the implementation is specified via a namespace path to the class.
 
 === simpleConnectionPool
 
-The `SimpleConnectionPool` simply returns the next node as specified by the Selector; it does not perform track
+The `SimpleConnectionPool` simply returns the next node as specified by the Selector; it does not track
 the "liveness" of nodes.  This pool will return nodes whether they are alive or dead.  It is just a simple pool of static
 hosts.
 
@@ -81,7 +81,7 @@ Note that the implementation is specified via a namespace path to the class.
 
 Unlike the two previous static connection pools, this one is dynamic.  The user provides a seed list of hosts, which the
 client uses to "sniff" and discover the rest of the cluster.  It achieves this through the Cluster State API.  As new
-nodes are added or removed from the cluster, the client will update it's pool of active connections.
+nodes are added or removed from the cluster, the client will update its pool of active connections.
 
 To use the `SniffingConnectionPool`:
 
@@ -195,7 +195,7 @@ Sniffing is a relatively lightweight operation (one API call to `/_cluster/state
 it may be a non-negligible overhead for certain PHP applications.  The average PHP script will likely load the client,
 execute a few queries and then close.  Imagine this script being called 1000 times per second: the sniffing connection
 pool will perform the sniffing and pinging process 1000 times per second.  The sniffing process will add a large
-amount of overhead
+amount of overhead.
 
 In reality, if your script only executes a few queries, the sniffing concept is _too_ robust.  It tends to be more
 useful in long-lived processes which potentially "out-live" a static list.

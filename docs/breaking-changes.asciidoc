@@ -1,6 +1,6 @@
 == Breaking changes from 2.x
 
-- Indices/Analyze Endpoint: `filters` and `char_filters` URI parameters have renamed to `filter` and `char_filter` respectively
+- Indices/Analyze Endpoint: `filters` and `char_filters` URI parameters have been renamed to `filter` and `char_filter` respectively
 - SearchExists endpoint has been removed (use `size=0` and `terminate_after=1` instead)
 - Warmers have been removed because they are no longer useful
 - Indices/Optimize Endpoint has been removed (use `_forcemerge` instead)

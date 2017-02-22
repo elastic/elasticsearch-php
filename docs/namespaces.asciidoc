@@ -43,7 +43,7 @@ As you can see, the same `stats()` call is made through three different
 namespaces.  Sometimes the methods require parameters.  These parameters work
 just like any other method in the library.
 
-For example, we can requests index stats about a specific index, or multiple
+For example, we can request index stats about a specific index, or multiple
 indices:
 
 [source,php]

@@ -183,7 +183,7 @@ curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
             "filter" : {
                 "term" : { "my_field" : "abc" }
             },
-            "query" : {
+            "should" : {
                 "match" : { "my_other_field" : "xyz" }
             }
         }
@@ -205,7 +205,7 @@ $params = [
                 'filter' => [
                     'term' => [ 'my_field' => 'abc' ]
                 ],
-                'query' => [
+                'should' => [
                     'match' => [ 'my_other_field' => 'xyz' ]
                 ]
             ]

@@ -237,7 +237,7 @@ $params = [
     "index" => "my_index",
     "body" => [
         "query" => [
-            "match_all" => []
+            "match_all" => new \stdClass() 
         ]
     ]
 ];

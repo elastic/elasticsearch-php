@@ -103,7 +103,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->clean();
-        $this->client = Elasticsearch\ClientBuilder::create()->setHosts([self::getHost()])->build();
+        $builder = Elasticsearch\ClientBuilder::create()->setHosts([self::getHost()]);
+        if (version_compare(phpversion(), '5.6.6', '<') || ! defined('JSON_PRESERVE_ZERO_FRACTION')) {
+            $builder->allowBadJSONSerialization();
+        }
+        $this->client = $builder->build();
     }
 
     /**

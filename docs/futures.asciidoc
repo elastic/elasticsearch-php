@@ -214,7 +214,7 @@ $futures['indexRequest'] = $client->index($params);       // Second request
 
 $params = [
     'index' => 'test',
-    'type' => 'test',,
+    'type' => 'test',
     'body' => [
         'query' => [
             'match' => [

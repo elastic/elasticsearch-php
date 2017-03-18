@@ -98,6 +98,36 @@ class ClientBuilder
     }
 
     /**
+     * Can supply first parm to Client::__construct() when invoking manually or with dependency injection
+     * @return this->ransport
+     *
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Can supply second parm to Client::__construct() when invoking manually or with dependency injection
+     * @return this->endpoint
+     *
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
+
+    /**
+     * Can supply third parm to Client::__construct() when invoking manually or with dependency injection
+     * @return this->registeredNamespacesBuilders
+     *
+     */
+    public function getRegisteredNamespacesBuilders()
+    {
+        return $this->registeredNamespacesBuilders;
+    }
+
+    /**
      * Build a new client from the provided config.  Hash keys
      * should correspond to the method name e.g. ['connectionPool']
      * corresponds to setConnectionPool().

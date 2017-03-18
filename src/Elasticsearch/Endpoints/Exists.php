@@ -59,6 +59,7 @@ class Exists extends AbstractEndpoint
             'realtime',
             'refresh',
             'routing',
+            'version',
         );
     }
 

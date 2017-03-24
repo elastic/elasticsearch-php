@@ -96,6 +96,14 @@ abstract class AbstractEndpoint
     }
 
     /**
+     * @return string|null
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
      * @param string $index
      *
      * @return $this
@@ -114,6 +122,14 @@ abstract class AbstractEndpoint
         $this->index = urlencode($index);
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

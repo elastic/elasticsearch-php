@@ -219,11 +219,18 @@ $results = $client->search($params);
 {zwsp} +
 
 
-=== Scan/Scroll
+=== Scrolling
 
-The Scan/Scroll functionality of Elasticsearch is similar to search, but different in many ways. This initiates a "scan window" which will remain open for the duration of the scan.  This allows proper, consistent pagination.
+The Scrolling functionality of Elasticsearch is used to paginate over many documents in a bulk manner, such as exporting
+all the documents belonging to a single user.  It is more efficient than regular search because it doesn't need to maintain
+an expensive priority queue ordering the documents.
 
-Once a scan window is open, you may start `_scrolling` over that window.  This returns results matching your query... but returns them in random order.  This random ordering is important to performance.  Deep pagination is expensive when you need to maintain a sorted, consistent order across shards.  By removing this obligation, Scan/Scroll can efficiently export all the data from your index.
+Scrolling works by maintaining a "point in time" snapshot of the index which is then used to page over.
+This window allows consistent paging even if there is background indexing/updating/deleting.  First, you execute a search
+request with `scroll` enabled.  This returns a "page" of documents, and a scroll_id which is used to continue
+paginating through the hits.
+
+More details about scrolling can be found in the https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html[Link: reference documentation].
 
 This is an example which can be used as a template for more advanced operations:
 
@@ -241,29 +248,27 @@ $params = [
     ]
 ];
 
-$docs = $client->search($params);   // Execute the search
-$scroll_id = $docs['_scroll_id'];   // The response will contain no results, just a _scroll_id
+// Execute the search
+// The response will contain the first batch of documents
+// and a scroll_id
+$response = $client->search($params);
 
 // Now we loop until the scroll "cursors" are exhausted
-while (\true) {
+while (isset($response['hits']['hits']) && count($response['hits']['hits']) > 0) {
 
-    // Execute a Scroll request
+    // **
+    // Do your work here, on the $response['hits']['hits'] array
+    // **
+
+    // When done, get the new scroll_id
+    // You must always refresh your _scroll_id!  It can change sometimes
+    $scroll_id = $response['_scroll_id'];
+
+    // Execute a Scroll request and repeat
     $response = $client->scroll([
             "scroll_id" => $scroll_id,  //...using our previously obtained _scroll_id
             "scroll" => "30s"           // and the same timeout window
         ]
     );
-
-    // Check to see if we got any search hits from the scroll
-    if (count($response['hits']['hits']) > 0) {
-        // If yes, Do Work Here
-
-        // Get new scroll_id
-        // Must always refresh your _scroll_id!  It can change sometimes
-        $scroll_id = $response['_scroll_id'];
-    } else {
-        // No results, scroll cursor is empty.  You've exported all the data
-        break;
-    }
 }
 ----

@@ -46,7 +46,7 @@ abstract class AbstractNamespace
             $params = (array) $params;
         }
 
-        if (isset($params[$arg]) === true) {
+        if (array_key_exists($arg, $params) === true) {
             $val = $params[$arg];
             unset($params[$arg]);
 

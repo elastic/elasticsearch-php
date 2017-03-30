@@ -48,7 +48,9 @@ class Clear extends AbstractEndpoint
             'recycler',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'request_cache',
+            'request'
         );
     }
 

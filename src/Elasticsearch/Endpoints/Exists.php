@@ -60,6 +60,7 @@ class Exists extends AbstractEndpoint
             'refresh',
             'routing',
             'version',
+            'stored_fields'
         );
     }
 

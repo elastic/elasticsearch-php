@@ -86,6 +86,7 @@ class Explain extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
+            'stored_fields'
         );
     }
 

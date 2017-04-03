@@ -152,7 +152,7 @@ class Connection implements ConnectionInterface
             ]
 
         ];
-        $request = array_merge_recursive($request, $this->connectionParams, $options);
+        $request = array_replace_recursive($request, $this->connectionParams, $options);
 
 
         $handler = $this->handler;

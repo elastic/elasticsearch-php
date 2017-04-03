@@ -160,7 +160,7 @@ class Connection implements ConnectionInterface
             ], $this->headers)
         ];
 
-        $request = array_merge_recursive($request, $this->connectionParams, $options);
+        $request = array_replace_recursive($request, $this->connectionParams, $options);
 
         // RingPHP does not like if client is empty
         if (empty($request['client'])) {

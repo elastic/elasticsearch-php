@@ -95,7 +95,9 @@ class Search extends AbstractEndpoint
             'docvalue_fields',
             'filter_path',
             'terminate_after',
-            'stored_fields'
+            'stored_fields',
+            'batched_reduce_size',
+            'typed_keys'
         );
     }
 

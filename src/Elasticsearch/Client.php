@@ -560,7 +560,7 @@ class Client
         $params['client']['verbose'] = true;
 
         //ignore warning when the resource does not exist
-        if (is_array($params['client']['ignore']) {
+        if (is_array($params['client']['ignore'])) {
             $params['client']['ignore'][] = '404';
         }
 

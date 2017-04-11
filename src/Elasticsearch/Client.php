@@ -559,8 +559,10 @@ class Client
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        //ignore warning when resource does not exist
-        $params['client']['ignore'] = ['404'];
+        //ignore warning when the resource does not exist
+        if (is_array($params['client']['ignore']) {
+            $params['client']['ignore'][] = '404';
+        }
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;

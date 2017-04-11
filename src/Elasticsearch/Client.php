@@ -559,6 +559,9 @@ class Client
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
+        //ignore warning when resource does not exist
+        $params['client']['ignore'] = ['404'];
+
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 

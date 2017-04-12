@@ -1,3 +1,30 @@
+## Release 5.2.0
+
+- Add 'batched_reduce_size' / 'typed_keys' params to Search endpoint [[691ce24]](http://github.com/elasticsearch/elasticsearch-php/commit/691ce24)
+- Fix Scroll and ClearScroll syntax [[59b3c08]](http://github.com/elasticsearch/elasticsearch-php/commit/59b3c08)
+- Add 'request', 'request_cache' to ClearCache endpoint [[07ff0be]](http://github.com/elasticsearch/elasticsearch-php/commit/07ff0be)
+- Handle null `type` better [[9900cfd]](http://github.com/elasticsearch/elasticsearch-php/commit/9900cfd)
+- Add 'stored_fields' param to Exists, Explain and Search endpoints [[01f9a06]](http://github.com/elasticsearch/elasticsearch-php/commit/01f9a06)
+- Add endpoint index and type getters (#557) [[0d9cdfa]](http://github.com/elasticsearch/elasticsearch-php/commit/0d9cdfa)
+- added getTransport, getEndpoint, getRegisteredNamespacesBuilder to ClientBuilder.php (#551) [[608bfe8]](http://github.com/elasticsearch/elasticsearch-php/commit/608bfe8)
+- Add 'version' param to Exists whitelist [[f2ae26b]](http://github.com/elasticsearch/elasticsearch-php/commit/f2ae26b)
+- Add 'typed_keys' param to MSearch whitelist [[3884ca0]](http://github.com/elasticsearch/elasticsearch-php/commit/3884ca0)
+- Make id param optionnal for termvectors requests. (#542) [[e6f79de]](http://github.com/elasticsearch/elasticsearch-php/commit/e6f79de)
+
+### Testing
+
+- [TEST] Warning header format has changed slightly [[6c8699c]](http://github.com/elasticsearch/elasticsearch-php/commit/6c8699c)
+- [TEST] Added missing semicolon (#544) [[ccfb5a6]](http://github.com/elasticsearch/elasticsearch-php/commit/ccfb5a6)
+- [TEST] Allow JSON workaround, remove travis hackery [[3467c19]](http://github.com/elasticsearch/elasticsearch-php/commit/3467c19)
+
+### Docs
+
+- Update index-operations.asciidoc (#537) [[348fb4d]](http://github.com/elasticsearch/elasticsearch-php/commit/348fb4d)
+- [DOCS] use std class in example instead of empty array (#549) [[9c45775]](http://github.com/elasticsearch/elasticsearch-php/commit/9c45775)
+- [DOCS] Documentation fixes for 5.0 (typos, etc.) (#543) [[c4cf003]](http://github.com/elasticsearch/elasticsearch-php/commit/c4cf003)
+- [DOCS] bool query's "query" should use a "should" (#545) [[8ec26ba]](http://github.com/elasticsearch/elasticsearch-php/commit/8ec26ba)
+- [DOCS] Fix scrolling example [[006b3c2]](http://github.com/elasticsearch/elasticsearch-php/commit/006b3c2)
+
 ## Release 5.1.3
 
 - allowBadJSONSerialization() builder method should be fluent [[f1812d4]](http://github.com/elasticsearch/elasticsearch-php/commit/f1812d4)

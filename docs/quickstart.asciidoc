@@ -46,12 +46,12 @@ corresponding to the data in your document:
 
 [source,php]
 ----------------------------
-$params = [
+$params = array(
     'index' => 'my_index',
     'type' => 'my_type',
     'id' => 'my_id',
-    'body' => ['testField' => 'abc']
-];
+    'body' => array('testField' => 'abc')
+);
 
 $response = $client->index($params);
 print_r($response);
@@ -79,11 +79,11 @@ Let's get the document that we just indexed.  This will simply return the docume
 
 [source,php]
 ----------------------------
-$params = [
+$params = array(
     'index' => 'my_index',
     'type' => 'my_type',
     'id' => 'my_id'
-];
+);
 
 $response = $client->get($params);
 print_r($response);
@@ -105,7 +105,6 @@ Array
         (
             [testField] => abc
         )
-
 )
 ----------------------------
 
@@ -115,17 +114,17 @@ Searching is a hallmark of elasticsearch, so let's perform a search.  We are goi
 
 [source,php]
 ----------------------------
-$params = [
+$params = array(
     'index' => 'my_index',
     'type' => 'my_type',
-    'body' => [
-        'query' => [
-            'match' => [
+    'body' => array(
+        'query' => array(
+            'match' => array(
                 'testField' => 'abc'
-            ]
-        ]
-    ]
-];
+            )
+        )
+    )
+);
 
 $response = $client->search($params);
 print_r($response);
@@ -176,11 +175,11 @@ Alright, let's go ahead and delete the document that we added previously:
 
 [source,php]
 ----------------------------
-$params = [
+$params = array(
     'index' => 'my_index',
     'type' => 'my_type',
     'id' => 'my_id'
-];
+);
 
 $response = $client->delete($params);
 print_r($response);
@@ -208,9 +207,9 @@ Due to the dynamic nature of elasticsearch, the first document we added automati
 
 [source,php]
 ----------------------------
-$deleteParams = [
+$deleteParams = array(
     'index' => 'my_index'
-];
+);
 $response = $client->indices()->delete($deleteParams);
 print_r($response);
 ----------------------------
@@ -232,15 +231,15 @@ Now that we are starting fresh (no data or index), let's add a new index with so
 
 [source,php]
 ----------------------------
-$params = [
+$params = array(
     'index' => 'my_index',
-    'body' => [
-        'settings' => [
+    'body' => array(
+        'settings' => array(
             'number_of_shards' => 2,
             'number_of_replicas' => 0
-        ]
-    ]
-];
+        )
+    )
+);
 
 $response = $client->indices()->create($params);
 print_r($response);

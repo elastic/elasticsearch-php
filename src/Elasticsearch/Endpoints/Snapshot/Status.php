@@ -60,7 +60,7 @@ class Status extends AbstractEndpoint
      */
     public function getURI()
     {
-        if (isset($this->snapshot) === true && isset($this->repository) !== true) {
+        if (isset($this->snapshot) && !isset($this->repository)) {
             throw new Exceptions\RuntimeException(
                 'Repository param must be provided if snapshot param is set'
             );
@@ -70,10 +70,11 @@ class Status extends AbstractEndpoint
         $snapshot   = $this->snapshot;
         $uri        = "/_snapshot/_status";
 
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository/_status";
-        } elseif (isset($repository) === true && isset($snapshot) === true) {
+        if (isset($repository, $snapshot)) {
             $uri = "/_snapshot/$repository/$snapshot/_status";
+        }
+        elseif (isset($repository)) {
+            $uri = "/_snapshot/$repository/_status";
         }
 
         return $uri;

@@ -16,6 +16,8 @@ use Elasticsearch\Common\Exceptions;
  */
 class Search extends AbstractEndpoint
 {
+    protected $method = 'GET';
+
     /**
      * @param array $body
      *
@@ -29,6 +31,7 @@ class Search extends AbstractEndpoint
         }
 
         $this->body = $body;
+        $this->method = 'POST';
 
         return $this;
     }
@@ -106,6 +109,6 @@ class Search extends AbstractEndpoint
      */
     public function getMethod()
     {
-        return 'GET';
+        return $this->method;
     }
 }

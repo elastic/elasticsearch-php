@@ -6,6 +6,9 @@ composer.phar
 
 #editor related
 .idea
+/.settings/
+/.buildpath
+/.project
 
 # OS generated files
 .DS_Store

@@ -772,7 +772,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
         /** @var \Elasticsearch\Endpoints\Reindex $endpoint */
-        $endpoint = $endpointBuilder('Reindex');
+        $endpoint = $endpointBuilder('ReIndex');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
 

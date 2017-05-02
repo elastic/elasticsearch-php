@@ -95,7 +95,7 @@ $params = [
                     'reuters' => [
                         'type' => 'custom',
                         'tokenizer' => 'standard',
-                        'filter' => ['lowercase', 'stop', 'kstem']
+                        'filter' => [ 'lowercase', 'stop', 'kstem']
                     ]
                 ]
             ]
@@ -186,7 +186,7 @@ Get Settings API will show you the currently configured settings for one or more
 [source,php]
 ----
 // Get settings for one index
-$params = ['index' => 'my_index'];
+$params = [ 'index' => 'my_index'];
 $response = $client->indices()->getSettings($params);
 
 // Get settings for several indices
@@ -240,16 +240,16 @@ The Get Mappings API will return the mapping details about your indexes and type
 $response = $client->indices()->getMapping();
 
 // Get mappings for all types in 'my_index'
-$params = ['index' => 'my_index'];
+$params = [ 'index' => 'my_index'];
 $response = $client->indices()->getMapping($params);
 
 // Get mappings for all types of 'my_type', regardless of index
-$params = ['type' => 'my_type' ];
+$params = [ 'type' => 'my_type' ];
 $response = $client->indices()->getMapping($params);
 
 // Get mapping 'my_type' in 'my_index'
 $params = [
-    'index' => 'my_index'
+    'index' => 'my_index',
     'type' => 'my_type'
 ];
 $response = $client->indices()->getMapping($params);

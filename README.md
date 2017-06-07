@@ -317,7 +317,27 @@ Array
 )
 ```
 
+Unit Testing using Mock a Elastic Client
+========================================
+```php
+use GuzzleHttp\Ring\Client\MockHandler;
+use Elasticsearch\ClientBuilder;
 
+// The connection class requires 'body' to be a file stream handle
+// Depending on what kind of request you do, you may need to set more values here
+$handler = new MockHandler([
+  'status' => 200,
+  'transfer_stats' => [
+     'total_time' => 100
+  ],
+  'body' => fopen('somefile.json')
+]);
+$builder = ClientBuilder::create();
+$builder->setHosts(['somehost']);
+$builder->setHandler($handler);
+$client = $builder->build();
+// Do a request and you'll get back the 'body' response above
+```
 
 Wrap up
 =======

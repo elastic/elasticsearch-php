@@ -45,6 +45,20 @@ Technical goodies:
 __________________________
 
 
+==== FOS Elastica Bundle
+
+https://github.com/FriendsOfSymfony/FOSElasticaBundle[Link: FOS Elastica Bundle]
+
+[quote, FOS Elastica Bundle]
+__________________________
+This bundle provides integration with https://github.com/ruflin/Elastica[Link: Elastica] for Symfony. Features include:
+
+- Integrates the Elastica library into a Symfony environment
+- Automatically generate mappings using a serializer
+- Listeners for Doctrine events for automatic indexing
+__________________________
+
+
 === Drupal
 
 ==== Elasticsearch Connector

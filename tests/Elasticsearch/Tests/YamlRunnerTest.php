@@ -64,6 +64,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private static $skippedFiles = [
         'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
         'indices.put_mapping/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+        'search/110_field_collapsing.yaml' => 'Temporary: parse error, malformed inline yaml',
+        'cat.nodes/10_basic.yaml' => 'Temporary: parse error, something about $body: |'
     ];
 
     /**

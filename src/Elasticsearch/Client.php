@@ -9,12 +9,14 @@ use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Namespaces\AbstractNamespace;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\IngestNamespace;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\NodesNamespace;
+use Elasticsearch\Namespaces\RemoteNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 use Elasticsearch\Namespaces\TasksNamespace;
@@ -75,6 +77,11 @@ class Client
      */
     protected $tasks;
 
+    /**
+     * @var RemoteNamespace
+     */
+    protected $remote;
+
     /** @var  callback */
     protected $endpoints;
 
@@ -99,6 +106,7 @@ class Client
         $this->cat       = new CatNamespace($transport, $endpoint);
         $this->ingest    = new IngestNamespace($transport, $endpoint);
         $this->tasks     = new TasksNamespace($transport, $endpoint);
+        $this->remote    = new RemoteNamespace($transport, $endpoint);
         $this->registeredNamespaces = $registeredNamespaces;
     }
 
@@ -1428,6 +1436,16 @@ class Client
     public function tasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Operate on the Remote namespace of commands
+     *
+     * @return RemoteNamespace
+     */
+    public function remote()
+    {
+        return $this->remote;
     }
 
     /**

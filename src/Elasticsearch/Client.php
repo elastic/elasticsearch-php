@@ -1345,6 +1345,33 @@ class Client
     }
 
     /**
+     * $params['index']              = (list) A comma-separated list of indices to restrict the results
+     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function fieldCaps($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\FieldCaps $endpoint */
+        $endpoint = $endpointBuilder('FieldCaps');
+        $endpoint->setIndex($index)
+            ->setBody($body)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
      * $params['id']                 = (string) ID of the template to render
      *
      * @param $params array Associative array of parameters

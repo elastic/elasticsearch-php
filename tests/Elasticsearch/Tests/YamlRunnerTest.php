@@ -210,6 +210,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             return $this->operationGreaterThan($operation->{$operationName}, $lastOperationResult, $context, $testName);
         }
 
+        if ('lte' === $operationName) {
+            return $this->operationLessThanOrEqual($operation->{$operationName}, $lastOperationResult, $context, $testName);
+        }
+
+        if ('t' === $operationName) {
+            return $this->operationLessThan($operation->{$operationName}, $lastOperationResult, $context, $testName);
+        }
+
         if ('length' === $operationName) {
             return $this->operationLength($operation->{$operationName}, $lastOperationResult, $context, $testName);
         }
@@ -534,6 +542,40 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $expected = current($operation);
 
         static::assertGreaterThan($expected, $value, 'Failed to gt in test ' . $testName);
+
+        return $lastOperationResult;
+    }
+
+    /**
+     * Check if a field in the last operation is less than or equal a value
+     *
+     * @param $operation
+     * @param $lastOperationResult
+     * @param $testName
+     */
+    public function operationLessThanOrEqual($operation, $lastOperationResult, &$context, $testName)
+    {
+        $value = $this->resolveValue($lastOperationResult, key($operation), $context);
+        $expected = current($operation);
+
+        static::assertLessThanOrEqual($expected, $value, 'Failed to lte in test ' . $testName);
+
+        return $lastOperationResult;
+    }
+
+    /**
+     * Check if a field in the last operation is less than a value
+     *
+     * @param $operation
+     * @param $lastOperationResult
+     * @param $testName
+     */
+    public function operationLessThan($operation, $lastOperationResult, &$context, $testName)
+    {
+        $value = $this->resolveValue($lastOperationResult, key($operation), $context);
+        $expected = current($operation);
+
+        static::assertLessThan($expected, $value, 'Failed to lt in test ' . $testName);
 
         return $lastOperationResult;
     }

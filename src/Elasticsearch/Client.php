@@ -647,6 +647,36 @@ class Client
     }
 
     /**
+     * $params['index']       = (list) A comma-separated list of index names to use as default
+     *        ['type']        = (list) A comma-separated list of document types to use as default
+     *        ['search_type'] = (enum) Search operation type
+     *        ['body']        = (array|string) The request definitions (metadata-search request definition pairs), separated by newlines
+     *        ['max_concurrent_searches'] = (number) Controls the maximum number of concurrent searches the multi search api will execute
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function msearchTemplate($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $type = $this->extractArgument($params, 'type');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\MsearchTemplate $endpoint */
+        $endpoint = $endpointBuilder('MsearchTemplate');
+        $endpoint->setIndex($index)
+            ->setType($type)
+            ->setBody($body);
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
      * $params['index']        = (string) The name of the index (Required)
      *        ['type']         = (string) The type of the document (Required)
      *        ['id']           = (string) Specific document ID (when the POST method is used)

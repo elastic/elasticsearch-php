@@ -79,6 +79,7 @@ class Search extends AbstractEndpoint
             'scroll',
             'search_type',
             'size',
+            'slice',
             'sort',
             'source',
             '_source',

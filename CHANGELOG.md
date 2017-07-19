@@ -1,3 +1,21 @@
+## Release 5.3.0
+- Add MsearchTemplate endpoint [[df7004f]](http://github.com/elasticsearch/elasticsearch-php/commit/df7004f)
+- Add Cat\Templates endpoint [[776c865]](http://github.com/elasticsearch/elasticsearch-php/commit/776c865)
+- Add FieldCaps endpoint [[0acccc6]](http://github.com/elasticsearch/elasticsearch-php/commit/0acccc6)
+- Add Remote Namespace and Remote\Info endpoint [[82121d9]](http://github.com/elasticsearch/elasticsearch-php/commit/82121d9)
+- Allow Sliced Scroll for the Search endpoint (#604) [[dfdb1a8]](http://github.com/elasticsearch/elasticsearch-php/commit/dfdb1a8)
+- Added "slices" parameter to the Reindex endpoint (#598) [[d9aaefd]](http://github.com/elasticsearch/elasticsearch-php/commit/d9aaefd)
+- fix conflict when merging timeout param (#562) [[505688d]](http://github.com/elasticsearch/elasticsearch-php/commit/505688d)
+
+### Testing
+- [TEST] Temporarily blacklist some yaml tests that aren't parsing [[d857ae1]](http://github.com/elasticsearch/elasticsearch-php/commit/d857ae1)
+- [TEST] Add missing `lt` and `lte` test operators [[02adc14]](http://github.com/elasticsearch/elasticsearch-php/commit/02adc14)
+
+### Docs
+- [Docs] Updating readme with mock testing instructions (#591) [[1623d44]](http://github.com/elasticsearch/elasticsearch-php/commit/1623d44)
+- [Docs] Symfony bundle added (#560) [[69dbd4c]](http://github.com/elasticsearch/elasticsearch-php/commit/69dbd4c)
+- [DOCS] Remove incorrect Composer instructions from README (#565) [[9606f52]](http://github.com/elasticsearch/elasticsearch-php/commit/9606f52)
+
 ## Release 5.2.0
 
 - Add 'batched_reduce_size' / 'typed_keys' params to Search endpoint [[691ce24]](http://github.com/elasticsearch/elasticsearch-php/commit/691ce24)

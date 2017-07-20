@@ -303,7 +303,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         // TODO remove this after cat testing situation resolved
         if ($caller instanceof Elasticsearch\Namespaces\CatNamespace) {
-            $endpointParams->format = 'text';
+            if (!isset($endpointParams->format)) {
+                $endpointParams->format = 'text';
+            }
         }
 
         // Exist* methods have to be manually 'unwrapped' into true/false for async

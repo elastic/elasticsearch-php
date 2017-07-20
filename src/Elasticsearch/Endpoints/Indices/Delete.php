@@ -38,6 +38,7 @@ class Delete extends AbstractEndpoint
         return array(
             'timeout',
             'master_timeout',
+            'ignore_unavailable'
         );
     }
 

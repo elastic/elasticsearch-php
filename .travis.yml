@@ -14,28 +14,31 @@ branches:
 
 sudo: true
 
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - hhvm
-
 matrix:
   fast_finish: true
   include:
+    - php: 5.6
+      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
+    - php: 5.6
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+
+    - php: 7.0
+      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
+    - php: 7.0
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+
     - php: 7.1
       env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
     - php: 7.1
-      env: ES_VERSION="5.1" TEST_BUILD_REF="origin/5.1"
-    - php: 7.1
-      env: ES_VERSION="5.2" TEST_BUILD_REF="origin/5.2"
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+
+    - php: hhvm
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
   allow_failures:
     - php: hhvm
 
 env:
   global:
-    - ES_VERSION="5.x"
-    - TEST_BUILD_REF="origin/5.x"
     - ES_TEST_HOST=http://localhost:9200
     - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 

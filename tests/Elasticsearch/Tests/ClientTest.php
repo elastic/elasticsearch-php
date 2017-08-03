@@ -6,7 +6,6 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch;
 use Elasticsearch\ClientBuilder;
-use Elasticsearch\Connections\Connection;
 use Mockery as m;
 
 /**

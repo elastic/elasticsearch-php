@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Elasticsearch\Tests\ConnectionPool;
 
 use Elasticsearch;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Mockery as m;
 
 /**

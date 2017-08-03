@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests\ConnectionPool;
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\SniffingConnectionPool;
 use Mockery as m;
 

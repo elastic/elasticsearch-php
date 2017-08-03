@@ -31,7 +31,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Parser Yaml parser for reading integrations tests */
+    /** @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests */
     private $yaml;
 
     /** @var Elasticsearch\Client client used by elasticsearch */
@@ -1029,8 +1029,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             ++$counter;
 
             if ($counter > 10) {
-                $this->log("Aborting test due to failure in clearing cluster.\n");
-                $this->log(print_r($response, true));
+                echo "Aborting test due to failure in clearing cluster.\n";
+                echo print_r($response, true);
                 exit;
             }
         }

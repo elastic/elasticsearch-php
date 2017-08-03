@@ -1,4 +1,7 @@
 <?php
+
+namespace Elasticsearch\Tests\ConnectionPool;
+
 use Elasticsearch\ClientBuilder;
 
 /**

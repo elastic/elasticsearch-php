@@ -1,5 +1,7 @@
 <?php
 
+namespace Elasticsearch\Tests\ConnectionPool;
+
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\ConnectionPool\SniffingConnectionPool;
 use Mockery as m;

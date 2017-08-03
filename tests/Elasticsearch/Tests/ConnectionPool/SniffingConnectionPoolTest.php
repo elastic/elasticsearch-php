@@ -189,7 +189,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testAddTenNodesAllTimeout()
     {
@@ -266,7 +266,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testAddSeed_SniffTwo_TimeoutTwo()
     {
@@ -367,7 +367,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testTen_TimeoutNine_SniffTenth_AddTwoDead_TimeoutEveryone()
     {

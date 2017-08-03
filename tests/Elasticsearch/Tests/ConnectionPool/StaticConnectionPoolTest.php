@@ -86,7 +86,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testAllHostsFailPing()
     {

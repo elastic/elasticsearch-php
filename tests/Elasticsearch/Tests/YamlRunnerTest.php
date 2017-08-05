@@ -57,17 +57,31 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     /** @var array A list of skipped test with their reasons */
     private static $skippedTest = [
         'cat.nodeattrs/10_basic.yml' => 'Using java regex fails in PHP',
+        'cat.nodeattrs/10_basic.yaml' => 'Using java regex fails in PHP',
+
         'cat.repositories/10_basic.yml' => 'Using java regex fails in PHP',
+        'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP',
+
         'indices.shrink/10_basic.yml' => 'Shrink tests seem to require multiple nodes',
-        'indices.rollover/10_basic.yml' => 'Rollover test seems buggy atm'
+        'indices.shrink/10_basic.yaml' => 'Shrink tests seem to require multiple nodes',
+
+        'indices.rollover/10_basic.yml' => 'Rollover test seems buggy atm',
+        'indices.rollover/10_basic.yaml' => 'Rollover test seems buggy atm',
     ];
 
     /** @var array A list of files to skip completely, due to fatal parsing errors */
     private static $skippedFiles = [
         'indices.create/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+        'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+
         'indices.put_mapping/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+        'indices.put_mapping/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
+
         'search/110_field_collapsing.yml' => 'Temporary: parse error, malformed inline yaml',
-        'cat.nodes/10_basic.yml' => 'Temporary: parse error, something about $body: |'
+        'search/110_field_collapsing.yaml' => 'Temporary: parse error, malformed inline yaml',
+
+        'cat.nodes/10_basic.yml' => 'Temporary: parse error, something about $body: |',
+        'cat.nodes/10_basic.yaml' => 'Temporary: parse error, something about $body: |',
     ];
 
     /**
@@ -732,6 +746,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $finder->in($path);
         $finder->files();
         $finder->name('*.yml');
+
+        // *.yaml files should be included until the library is ES 6.0+ only
+        $finder->name('*.yaml');
 
         $filter = isset($_SERVER['TEST_CASE']) ? $_SERVER['TEST_CASE'] : null;
 

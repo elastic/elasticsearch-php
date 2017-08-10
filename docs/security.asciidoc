@@ -60,14 +60,14 @@ $client = ClientBuilder::create()
 
 
 If your server has out-dated root certificates, you may need to use a certificate bundle.  For PHP clients, the best
-way is to use https://github.com/Kdyby/CurlCaBundle[Kdyby/CurlCaBundle].  Once installed, you need to tell the client to
+way is to use https://github.com/composer/ca-bundle[composer/ca-bundle].  Once installed, you need to tell the client to
 use your certificates instead of the system-wide bundle.  To do this, specify the path to verify:
 
 
 [source,php]
 ----
 $hosts = ['https://localhost:9200'];
-$caBundle = \Kdyby\CurlCaBundle\CertificateHelper::getCaInfoFile();
+$caBundle = \Composer\CaBundle\CaBundle::getBundledCaBundlePath();
 
 $client = ClientBuilder::create()
                     ->setHosts($hosts)

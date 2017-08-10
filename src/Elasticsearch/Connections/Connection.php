@@ -156,7 +156,7 @@ class Connection implements ConnectionInterface
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
             'headers'     => array_merge([
-                'host'  => [$this->host]
+                'Host'  => [$this->host]
             ], $this->headers)
         ];
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Tests;
 
 use Doctrine\Common\Inflector\Inflector;
@@ -12,11 +14,9 @@ use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
-use stdClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -31,7 +31,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Parser Yaml parser for reading integrations tests */
+    /** @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests */
     private $yaml;
 
     /** @var Elasticsearch\Client client used by elasticsearch */
@@ -1029,8 +1029,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             ++$counter;
 
             if ($counter > 10) {
-                $this->log("Aborting test due to failure in clearing cluster.\n");
-                $this->log(print_r($response, true));
+                echo "Aborting test due to failure in clearing cluster.\n";
+                echo print_r($response, true);
                 exit;
             }
         }

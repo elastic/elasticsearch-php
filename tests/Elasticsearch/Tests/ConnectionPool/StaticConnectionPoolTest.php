@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Tests\ConnectionPool;
 
 use Elasticsearch;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Mockery as m;
 
 /**
@@ -84,7 +85,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function testAllHostsFailPing()
     {

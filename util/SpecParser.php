@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types = 1);
+
 require_once '../vendor/autoload.php';
 
 $loader = new Twig_Loader_Filesystem('templates');

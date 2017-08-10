@@ -14,6 +14,8 @@ use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -669,7 +671,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 $version[1] = PHP_INT_MAX;
             }
 
-            if (version_compare(static::$esVersion, $version[0], '>=')  && version_compare(static::$esVersion, $version[1], '<=')) {
+            if (version_compare(static::$esVersion, (string)$version[0], '>=')  && version_compare(static::$esVersion, (string)$version[1], '<=')) {
                 static::markTestSkipped(sprintf('Skip test "%s", as version %s should be skipped (%s)', $testName, static::$esVersion, $operation->reason));
             }
         }
@@ -862,7 +864,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      */
     private function splitDocument($file, $path, $filter = null)
     {
-        $fileContent = file_get_contents($file);
+
+        $fileContent = $file->getContents();
         // cleanup some bad comments
         $fileContent = str_replace('"#', '" #', $fileContent);
 
@@ -999,14 +1002,30 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        // TODO ewwww...
-        shell_exec('rm -rf /tmp/test_repo_create_1_loc');
-        shell_exec('rm -rf /tmp/test_repo_restore_1_loc');
-        shell_exec('rm -rf /tmp/test_cat_repo_1_loc');
-        shell_exec('rm -rf /tmp/test_cat_repo_2_loc');
-        shell_exec('rm -rf /tmp/test_cat_snapshots_1_loc');
+        $this->rmDirRecursively('/tmp/test_repo_create_1_loc');
+        $this->rmDirRecursively('/tmp/test_repo_restore_1_loc');
+        $this->rmDirRecursively('/tmp/test_cat_repo_1_loc');
+        $this->rmDirRecursively('/tmp/test_cat_repo_2_loc');
+        $this->rmDirRecursively('/tmp/test_cat_snapshots_1_loc');
 
         $this->waitForYellow();
+    }
+
+    private function rmDirRecursively($dir) {
+        if (!is_dir($dir )) {
+            return;
+        }
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($files as $fileinfo) {
+            $todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
+            $todo($fileinfo->getRealPath());
+        }
+
+        rmdir($dir);
     }
 
     /**

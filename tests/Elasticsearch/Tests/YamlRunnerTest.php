@@ -462,10 +462,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         // Check to make sure we're adding headers
-        static::assertArrayHasKey('Content-type', $last['request']['headers'], print_r($last['request']['headers'], true));
-        static::assertSame('application/json', $last['request']['headers']['Content-type'][0], print_r($last['request']['headers'], true));
-        static::assertArrayHasKey('Accept', $last['request']['headers'], print_r($last['request']['headers'], true));
-        static::assertSame('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
+        $this->assertArrayHasKey('Content-type', $last['request']['headers'], print_r($last['request']['headers'], true));
+        $this->assertSame('application/json', $last['request']['headers']['Content-type'][0], print_r($last['request']['headers'], true));
+        $this->assertArrayHasKey('Accept', $last['request']['headers'], print_r($last['request']['headers'], true));
+        $this->assertSame('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
 
     }
 
@@ -482,7 +482,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $msg = "Failed to assert that a value is false in test \"$testName\"\n"
             ."$operation was [".print_r($value, true)."]"
             .var_export($lastOperationResult, true);
-        static::assertFalse($value, $msg);
+        $this->assertFalse($value, $msg);
 
         return $lastOperationResult;
     }
@@ -501,10 +501,10 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $msg = "Failed to assert that a value is true in test \"$testName\"\n"
             ."$operation was [".print_r($value, true)."]"
             .var_export($lastOperationResult, true);
-        static::assertNotEquals(0, $value, $msg);
-        static::assertNotFalse($value, $msg);
-        static::assertNotNull($value, $msg);
-        static::assertNotEquals('', $msg);
+        $this->assertNotEquals(0, $value, $msg);
+        $this->assertNotFalse($value, $msg);
+        $this->assertNotNull($value, $msg);
+        $this->assertNotEquals('', $msg);
 
         return $lastOperationResult;
     }
@@ -535,11 +535,11 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $expected = json_decode(json_encode($expected), true);
             $match = json_decode(json_encode($match), true);
 
-            static::assertEquals($expected, $match, $msg);
+            $this->assertEquals($expected, $match, $msg);
         } elseif (is_string($expected) && preg_match('#^/.+?/$#s', $expected)) {
-            static::assertRegExp($this->formatRegex($expected), $match, $msg);
+            $this->assertRegExp($this->formatRegex($expected), $match, $msg);
         } else {
-            static::assertEquals($expected, $match, $msg);
+            $this->assertEquals($expected, $match, $msg);
         }
 
         return $lastOperationResult;
@@ -557,7 +557,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        static::assertGreaterThanOrEqual($expected, $value, 'Failed to gte in test ' . $testName);
+        $this->assertGreaterThanOrEqual($expected, $value, 'Failed to gte in test ' . $testName);
 
         return $lastOperationResult;
     }
@@ -574,7 +574,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        static::assertGreaterThan($expected, $value, 'Failed to gt in test ' . $testName);
+        $this->assertGreaterThan($expected, $value, 'Failed to gt in test ' . $testName);
 
         return $lastOperationResult;
     }
@@ -591,7 +591,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        static::assertLessThanOrEqual($expected, $value, 'Failed to lte in test ' . $testName);
+        $this->assertLessThanOrEqual($expected, $value, 'Failed to lte in test ' . $testName);
 
         return $lastOperationResult;
     }
@@ -608,7 +608,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        static::assertLessThan($expected, $value, 'Failed to lt in test ' . $testName);
+        $this->assertLessThan($expected, $value, 'Failed to lt in test ' . $testName);
 
         return $lastOperationResult;
     }
@@ -625,7 +625,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        static::assertCount($expected, $value, 'Failed to gte in test ' . $testName);
+        $this->assertCount($expected, $value, 'Failed to gte in test ' . $testName);
 
         return $lastOperationResult;
     }
@@ -711,23 +711,23 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     private function assertException(\Exception $exception, $expectedError, $testName)
     {
         if (is_string($expectedError) && preg_match('#^/.+?/$#', $expectedError)) {
-            static::assertRegExp($expectedError, $exception->getMessage(), 'Failed to catch error in test ' . $testName);
+            $this->assertRegExp($expectedError, $exception->getMessage(), 'Failed to catch error in test ' . $testName);
         } elseif ($exception instanceof Missing404Exception && $expectedError === 'missing') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof Conflict409Exception && $expectedError === 'conflict') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof Forbidden403Exception && $expectedError === 'forbidden') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof RequestTimeout408Exception && $expectedError === 'request_timeout') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof BadRequest400Exception && $expectedError === 'request') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof ServerErrorResponseException && $expectedError === 'request') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } elseif ($exception instanceof \RuntimeException && $expectedError === 'param') {
-            static::assertTrue(true);
+            $this->assertTrue(true);
         } else {
-            static::assertContains($expectedError, $exception->getMessage());
+            $this->assertContains($expectedError, $exception->getMessage());
         }
 
         if ($exception->getPrevious() !== null) {

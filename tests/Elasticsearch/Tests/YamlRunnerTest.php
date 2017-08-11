@@ -463,9 +463,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
         // Check to make sure we're adding headers
         static::assertArrayHasKey('Content-type', $last['request']['headers'], print_r($last['request']['headers'], true));
-        static::assertEquals('application/json', $last['request']['headers']['Content-type'][0], print_r($last['request']['headers'], true));
+        static::assertSame('application/json', $last['request']['headers']['Content-type'][0], print_r($last['request']['headers'], true));
         static::assertArrayHasKey('Accept', $last['request']['headers'], print_r($last['request']['headers'], true));
-        static::assertEquals('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
+        static::assertSame('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
 
     }
 

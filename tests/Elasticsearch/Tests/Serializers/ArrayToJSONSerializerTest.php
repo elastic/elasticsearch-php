@@ -27,7 +27,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
         $ret = $serializer->serialize($body);
 
         $body = json_encode($body, JSON_PRESERVE_ZERO_FRACTION);
-        $this->assertEquals($body, $ret);
+        $this->assertSame($body, $ret);
     }
 
     public function testSerializeString()
@@ -37,7 +37,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
 
         $ret = $serializer->serialize($body);
 
-        $this->assertEquals($body, $ret);
+        $this->assertSame($body, $ret);
     }
 
     public function testDeserializeJSON()
@@ -48,6 +48,6 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
         $ret = $serializer->deserialize($body, array());
 
         $body = json_decode($body, true);
-        $this->assertEquals($body, $ret);
+        $this->assertSame($body, $ret);
     }
 }

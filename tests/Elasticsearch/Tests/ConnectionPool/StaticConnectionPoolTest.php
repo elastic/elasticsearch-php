@@ -53,7 +53,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($mockConnection, $retConnection);
+        $this->assertSame($mockConnection, $retConnection);
     }
 
     public function testAddMultipleHostsThenGetFirst()
@@ -85,7 +85,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($connections[0], $retConnection);
+        $this->assertSame($connections[0], $retConnection);
     }
 
     /**
@@ -166,7 +166,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $ret = $connectionPool->nextConnection();
-        $this->assertEquals($goodConnection, $ret);
+        $this->assertSame($goodConnection, $ret);
     }
 
     public function testAllExceptLastHostFailPingRevivesPreSkip()
@@ -212,7 +212,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
 
         $ret = $connectionPool->nextConnection();
-        $this->assertEquals($goodConnection, $ret);
+        $this->assertSame($goodConnection, $ret);
     }
 
     public function testCustomConnectionPoolIT()

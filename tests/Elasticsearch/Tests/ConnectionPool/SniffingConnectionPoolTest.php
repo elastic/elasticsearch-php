@@ -52,7 +52,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($mockConnection, $retConnection);
+        $this->assertSame($mockConnection, $retConnection);
     }
 
     public function testAddOneHostAndTriggerSniff()
@@ -85,7 +85,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($mockNewConnection, $retConnection);
+        $this->assertSame($mockNewConnection, $retConnection);
     }
 
     public function testAddOneHostAndForceNext()
@@ -116,7 +116,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection(true);
 
-        $this->assertEquals($mockNewConnection, $retConnection);
+        $this->assertSame($mockNewConnection, $retConnection);
     }
 
     public function testAddTenNodesThenGetConnection()
@@ -147,7 +147,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($connections[0], $retConnection);
+        $this->assertSame($connections[0], $retConnection);
     }
 
     public function testAddTenNodesTimeoutAllButLast()
@@ -188,7 +188,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $retConnection = $connectionPool->nextConnection();
 
-        $this->assertEquals($connections[9], $retConnection);
+        $this->assertSame($connections[9], $retConnection);
     }
 
     /**
@@ -262,10 +262,10 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[0], $retConnection);
+        $this->assertSame($newConnections[0], $retConnection);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[1], $retConnection);
+        $this->assertSame($newConnections[1], $retConnection);
     }
 
     /**
@@ -312,7 +312,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($mockConnection, $retConnection);
+        $this->assertSame($mockConnection, $retConnection);
     }
 
     public function testTen_TimeoutNine_SniffTenth_AddTwoAlive()
@@ -363,10 +363,10 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[11], $retConnection);
+        $this->assertSame($newConnections[11], $retConnection);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[12], $retConnection);
+        $this->assertSame($newConnections[12], $retConnection);
     }
 
     /**
@@ -425,9 +425,9 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[11], $retConnection);
+        $this->assertSame($newConnections[11], $retConnection);
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertEquals($newConnections[12], $retConnection);
+        $this->assertSame($newConnections[12], $retConnection);
     }
 }

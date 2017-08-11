@@ -6,6 +6,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Mockery as m;
 
 /**
@@ -247,7 +248,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         } catch (Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost $e) {
             // All good
             $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
+            $this->assertInstanceOf(MaxRetriesException::class, $previous);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -264,7 +265,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         } catch (Elasticsearch\Common\Exceptions\TransportException $e) {
             // All good
             $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
+            $this->assertInstanceOf(MaxRetriesException::class, $previous);
         } catch (\Exception $e) {
             throw $e;
         }

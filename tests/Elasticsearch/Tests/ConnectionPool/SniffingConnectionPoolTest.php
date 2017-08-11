@@ -38,7 +38,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->andReturn(true)
                           ->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
 
         $selector = m::mock(RoundRobinSelector::class)
                     ->shouldReceive('select')
@@ -47,7 +47,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $connectionPoolParams = array('randomizeHosts' => false);
+        $connectionPoolParams = ['randomizeHosts' => false];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -65,7 +65,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
         $mockNewConnection = m::mock(Connection::class)
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
 
@@ -75,12 +75,12 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock(ConnectionFactory::class)
-                    ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($mockNewConnection)->getMock();
+                    ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($mockNewConnection)->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false,
             'sniffingInterval'  => -1
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -98,7 +98,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
         $mockNewConnection = m::mock(Connection::class)
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
 
@@ -107,11 +107,11 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->shouldReceive('select')->once()->andReturn($mockNewConnection)->getMock();
 
         $connectionFactory = m::mock(ConnectionFactory::class)
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($mockNewConnection)->getMock();
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($mockNewConnection)->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection(true);
@@ -121,7 +121,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddTenNodesThenGetConnection()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -142,7 +142,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $connectionPoolParams = array('randomizeHosts' => false);
+        $connectionPoolParams = ['randomizeHosts' => false];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -152,7 +152,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddTenNodesTimeoutAllButLast()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 9) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -183,7 +183,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $connectionPoolParams = array('randomizeHosts' => false);
+        $connectionPoolParams = ['randomizeHosts' => false];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -196,7 +196,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddTenNodesAllTimeout()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -217,7 +217,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $connectionPoolParams = array('randomizeHosts' => false);
+        $connectionPoolParams = ['randomizeHosts' => false];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -233,9 +233,9 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->shouldReceive('getTransportSchema')->twice()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->twice()->andReturn($clusterState)->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
 
-        $newConnections = array();
+        $newConnections = [];
         $newConnections[] = m::mock(Connection::class)
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
 
@@ -244,21 +244,21 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $selector = m::mock(RoundRobinSelector::class)
                     ->shouldReceive('select')
-                    ->andReturnValues(array(        //selects provided node first, then the new cluster list
+                    ->andReturnValues([        //selects provided node first, then the new cluster list
                             $mockConnection,
                             $newConnections[0],
                             $newConnections[1]
-                    ))
+                    ])
                     ->getMock();
 
         $connectionFactory = m::mock(ConnectionFactory::class)
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[0])->getMock()
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[1])->getMock();
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($newConnections[0])->getMock()
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9201])->andReturn($newConnections[1])->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false,
             'sniffingInterval'  => -1
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -281,9 +281,9 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
 
-        $newConnections = array();
+        $newConnections = [];
         $newConnections[] = m::mock(Connection::class)
                             ->shouldReceive('isAlive')->andReturn(false)->getMock()
                             ->shouldReceive('ping')->andReturn(false)->getMock();
@@ -294,21 +294,21 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $selector = m::mock(RoundRobinSelector::class)
                     ->shouldReceive('select')
-                    ->andReturnValues(array(        //selects provided node first, then the new cluster list
+                    ->andReturnValues([        //selects provided node first, then the new cluster list
                     $mockConnection,
                     $newConnections[0],
                     $newConnections[1]
-                ))
+                    ])
                     ->getMock();
 
         $connectionFactory = m::mock(ConnectionFactory::class)
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[0])->getMock()
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[1])->getMock();
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($newConnections[0])->getMock()
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9201])->andReturn($newConnections[1])->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false,
             'sniffingInterval'  => -1
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -319,7 +319,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
 
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -353,13 +353,13 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
                     ->getMock();
 
         $connectionFactory = m::mock(ConnectionFactory::class)
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[10])->getMock()
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[11])->getMock();
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($newConnections[10])->getMock()
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9201])->andReturn($newConnections[11])->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false,
             'sniffingInterval'  => -1
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
@@ -376,7 +376,7 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
 
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -415,13 +415,13 @@ class SniffingConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $RRConnections = $newConnections;
         //array_push($connections);
         $connectionFactory = m::mock(ConnectionFactory::class)
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9200))->andReturn($newConnections[10])->getMock()
-                             ->shouldReceive('create')->with(array('host' => '192.168.1.119', 'port' => 9201))->andReturn($newConnections[11])->getMock();
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($newConnections[10])->getMock()
+                             ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9201])->andReturn($newConnections[11])->getMock();
 
-        $connectionPoolParams = array(
+        $connectionPoolParams = [
             'randomizeHosts' => false,
             'sniffingInterval'  => -1
-        );
+        ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();

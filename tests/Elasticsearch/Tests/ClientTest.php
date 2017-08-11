@@ -36,18 +36,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testCustomQueryParams()
     {
-        $params = array();
+        $params = [];
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
-        $getParams = array(
+        $getParams = [
             'index' => 'test',
             'type' => 'test',
             'id' => 1,
             'parent' => 'abc',
-            'custom' => array('customToken' => 'abc', 'otherToken' => 123),
+            'custom' => ['customToken' => 'abc', 'otherToken' => 123],
             'client' => ['ignore' => 400]
-        );
+        ];
         $exists = $client->exists($getParams);
     }
 
@@ -227,7 +227,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->setRetries(0)
             ->build();
 
-        $searchParams = array(
+        $searchParams = [
             'index' => 'test',
             'type' => 'test',
             'body' => [
@@ -235,7 +235,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                     'match_all' => []
                 ]
             ]
-        );
+        ];
 
         $client = Elasticsearch\ClientBuilder::create()
             ->setHosts(["localhost:1"])

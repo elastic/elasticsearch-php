@@ -22,7 +22,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
     public function testSerializeArray()
     {
         $serializer = new ArrayToJSONSerializer();
-        $body = array('value' => 'field');
+        $body = ['value' => 'field'];
 
         $ret = $serializer->serialize($body);
 
@@ -45,7 +45,7 @@ class ArrayToJSONSerializerTest extends PHPUnit_Framework_TestCase
         $serializer = new ArrayToJSONSerializer();
         $body = '{"field":"value"}';
 
-        $ret = $serializer->deserialize($body, array());
+        $ret = $serializer->deserialize($body, []);
 
         $body = json_decode($body, true);
         $this->assertSame($body, $ret);

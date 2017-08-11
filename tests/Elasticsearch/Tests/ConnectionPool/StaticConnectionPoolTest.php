@@ -39,7 +39,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
                           ->getMock()
                           ->shouldReceive('markDead')->once()->getMock();
 
-        $connections = array($mockConnection);
+        $connections = [$mockConnection];
 
         $selector = m::mock(RoundRobinSelector::class)
                     ->shouldReceive('select')
@@ -58,7 +58,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAddMultipleHostsThenGetFirst()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -93,7 +93,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllHostsFailPing()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 10) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -125,7 +125,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAllExceptLastHostFailPingRevivesInSkip()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 9) as $index) {
             $mockConnection = m::mock(Connection::class)
@@ -171,7 +171,7 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testAllExceptLastHostFailPingRevivesPreSkip()
     {
-        $connections = array();
+        $connections = [];
 
         foreach (range(1, 9) as $index) {
             $mockConnection = m::mock(Connection::class)

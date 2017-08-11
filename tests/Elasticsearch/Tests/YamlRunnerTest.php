@@ -56,6 +56,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /** @var array A list of skipped test with their reasons */
     private static $skippedTest = [
+        'cat.aliases/20_headers.yml' => 'Using java regex fails in PHP',
+        'cat.aliases/20_headers.yaml' => 'Using java regex fails in PHP',
+
         'cat.nodeattrs/10_basic.yml' => 'Using java regex fails in PHP',
         'cat.nodeattrs/10_basic.yaml' => 'Using java regex fails in PHP',
 

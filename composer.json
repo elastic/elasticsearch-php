@@ -21,7 +21,8 @@
     "symfony/yaml": "^2.8",
     "symfony/finder": "^2.8",
     "cpliakas/git-wrapper": "~1.0",
-    "doctrine/inflector": "^1.1"
+    "doctrine/inflector": "^1.1",
+    "phpstan/phpstan-shim": "0.8.3"
   },
   "suggest": {
     "ext-curl": "*",
@@ -36,5 +37,10 @@
     "psr-4": {
       "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
     }
+  },
+  "scripts": {
+    "phpstan": [
+      "@php vendor/phpstan/phpstan-shim/phpstan.phar analyse -c phpstan.neon tests --level 7 --no-progress"
+    ]
   }
 }

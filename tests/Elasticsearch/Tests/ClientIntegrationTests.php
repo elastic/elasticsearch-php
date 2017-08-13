@@ -16,19 +16,21 @@ class ClientIntegrationTests extends \PHPUnit_Framework_TestCase
 {
     public function testCustomQueryParams()
     {
-        $params = array();
+        $params = [];
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
-        $getParams = array(
+        $getParams = [
             'index' => 'test',
             'type' => 'test',
             'id' => 1,
             'parent' => 'abc',
-            'custom' => array('customToken' => 'abc', 'otherToken' => 123),
+            'custom' => ['customToken' => 'abc', 'otherToken' => 123],
             'client' => ['ignore' => 400]
-        );
+        ];
         $exists = $client->exists($getParams);
+
+        $this->assertFalse($exists);
     }
 
 }

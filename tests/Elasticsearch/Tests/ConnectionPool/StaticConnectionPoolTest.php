@@ -224,13 +224,9 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
             ->setConnectionPool(StaticConnectionPool::class, [])
             ->build();
 
-        try {
-            $client->search([]);
-            $this->fail("Should have thrown NoNodesAvailableException");
-        } catch (Elasticsearch\Common\Exceptions\NoNodesAvailableException $e) {
-            // All good
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this->expectException(Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
+
+        $client->search([]);
     }
 }

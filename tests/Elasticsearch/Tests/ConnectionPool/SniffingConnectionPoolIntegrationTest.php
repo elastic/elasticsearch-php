@@ -26,6 +26,8 @@ class SniffingConnectionPoolIntegrationTest extends \PHPUnit_Framework_TestCase
             ->setConnectionPool(SniffingConnectionPool::class, ['sniffingInterval' => -10])
             ->build();
 
-        $client->ping();
+        $pinged = $client->ping();
+
+        $this->assertTrue($pinged);
     }
 }

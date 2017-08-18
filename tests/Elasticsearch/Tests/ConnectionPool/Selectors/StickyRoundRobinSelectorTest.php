@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Elasticsearch\Tests\ConnectionPool\Selectors;
 
 use Elasticsearch;
+use Elasticsearch\Connections\ConnectionInterface;
 use Mockery as m;
 
 /**
@@ -28,18 +29,18 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
     {
         $roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
 
-        $mockConnections = array();
-        $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $mockConnections = [];
+        $mockConnections[] = m::mock(ConnectionInterface::class)
                              ->shouldReceive('isAlive')->times(16)->andReturn(true)->getMock();
 
         foreach (range(0, 9) as $index) {
-            $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection');
+            $mockConnections[] = m::mock(ConnectionInterface::class);
         }
 
         foreach (range(0, 15) as $index) {
             $retConnection = $roundRobin->select($mockConnections);
 
-            $this->assertEquals($mockConnections[0], $retConnection);
+            $this->assertSame($mockConnections[0], $retConnection);
         }
     }
 
@@ -47,21 +48,21 @@ class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
     {
         $roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
 
-        $mockConnections = array();
-        $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $mockConnections = [];
+        $mockConnections[] = m::mock(ConnectionInterface::class)
                              ->shouldReceive('isAlive')->once()->andReturn(false)->getMock();
 
-        $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection')
+        $mockConnections[] = m::mock(ConnectionInterface::class)
                              ->shouldReceive('isAlive')->times(15)->andReturn(true)->getMock();
 
         foreach (range(0, 8) as $index) {
-            $mockConnections[] = m::mock('\Elasticsearch\Connections\GuzzleConnection');
+            $mockConnections[] = m::mock(ConnectionInterface::class);
         }
 
         foreach (range(0, 15) as $index) {
             $retConnection = $roundRobin->select($mockConnections);
 
-            $this->assertEquals($mockConnections[1], $retConnection);
+            $this->assertSame($mockConnections[1], $retConnection);
         }
     }
 }

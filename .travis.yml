@@ -32,11 +32,6 @@ matrix:
     - php: 7.1
       env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
 
-    - php: hhvm
-      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
-  allow_failures:
-    - php: hhvm
-
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200

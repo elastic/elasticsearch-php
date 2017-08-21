@@ -54,8 +54,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         ],
     ];
 
+    private static $skippedTests = [
+        'cluster.put_settings/10_basic.yml#Test get a default settings' => 'Tested attribute does not exist normally, followup with core.'
+    ];
+
     /** @var array A list of skipped test with their reasons */
-    private static $skippedTest = [
+    private static $skippedFiles = [
         'cat.aliases/20_headers.yml' => 'Using java regex fails in PHP',
         'cat.aliases/20_headers.yaml' => 'Using java regex fails in PHP',
 
@@ -74,7 +78,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     ];
 
     /** @var array A list of files to skip completely, due to fatal parsing errors */
-    private static $skippedFiles = [
+    private static $fatalFiles = [
         'indices.create/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
         'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
 
@@ -140,16 +144,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             static::markTestIncomplete($testProcedure);
         }
 
-        if (array_key_exists($fileName, static::$skippedTest)) {
-            static::markTestSkipped(static::$skippedTest[$fileName]);
+        if (array_key_exists($fileName, static::$skippedFiles)) {
+            static::markTestSkipped(static::$skippedFiles[$fileName]);
         }
 
         if (null !== $setupProcedure) {
-            $this->processProcedure(current($setupProcedure), 'setup');
+            $this->processProcedure(current($setupProcedure), 'setup', $fileName);
             $this->waitForYellow();
         }
 
-        $this->processProcedure(current($testProcedure), key($testProcedure));
+        $this->processProcedure(current($testProcedure), key($testProcedure), $fileName);
     }
 
     /**
@@ -162,8 +166,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             static::markTestIncomplete($testProcedure);
         }
 
-        if (array_key_exists($fileName, static::$skippedTest)) {
-            static::markTestSkipped(static::$skippedTest[$fileName]);
+        if (array_key_exists($fileName, static::$skippedFiles)) {
+            static::markTestSkipped(static::$skippedFiles[$fileName]);
         }
 
         if (null !== $setupProcedure) {
@@ -171,7 +175,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $this->waitForYellow();
         }
 
-        $this->processProcedure(current($testProcedure), key($testProcedure), true);
+        $this->processProcedure(current($testProcedure), key($testProcedure), $fileName, true);
     }
 
     /**
@@ -181,10 +185,14 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      * @param $name
      * @param bool $async
      */
-    public function processProcedure($procedure, $name, $async = false)
+    public function processProcedure($procedure, $name, $fileName, $async = false)
     {
         $lastOperationResult = null;
         $context = [];
+
+        if (array_key_exists("$fileName#$name", static::$skippedTests)) {
+            static::markTestSkipped(static::$skippedTests["$fileName#$name"]);
+        }
 
         foreach ($procedure as $operation) {
             $lastOperationResult = $this->processOperation($operation, $lastOperationResult, $context, $name, $async);
@@ -902,8 +910,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         $setupSkip = false;
         $fileName = str_replace($path . '/', '', $file);
 
-        if (array_key_exists($fileName, static::$skippedFiles)) {
-            echo "Skipping: $fileName.  ".static::$skippedFiles[$fileName]."\n";
+        if (array_key_exists($fileName, static::$fatalFiles)) {
+            echo "Skipping: $fileName.  ".static::$fatalFiles[$fileName]."\n";
             return [];
         }
 

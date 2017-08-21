@@ -13,6 +13,9 @@ Class ClientBuilder
 The class defines the following methods:
 
 * <<Elasticsearch_ClientBuildercreate_create,`create()`>>
+* <<Elasticsearch_ClientBuildergetTransport_getTransport,`getTransport()`>>
+* <<Elasticsearch_ClientBuildergetEndpoint_getEndpoint,`getEndpoint()`>>
+* <<Elasticsearch_ClientBuildergetRegisteredNamespacesBuilders_getRegisteredNamespacesBuilders,`getRegisteredNamespacesBuilders()`>>
 * <<Elasticsearch_ClientBuilderfromConfig_fromConfig,`fromConfig()`>>
 * <<Elasticsearch_ClientBuilderdefaultHandler_defaultHandler,`defaultHandler()`>>
 * <<Elasticsearch_ClientBuildermultiHandler_multiHandler,`multiHandler()`>>
@@ -28,6 +31,7 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuildersetTracer_setTracer,`setTracer()`>>
 * <<Elasticsearch_ClientBuildersetSerializer_setSerializer,`setSerializer()`>>
 * <<Elasticsearch_ClientBuildersetHosts_setHosts,`setHosts()`>>
+* <<Elasticsearch_ClientBuildersetConnectionParams_setConnectionParams,`setConnectionParams()`>>
 * <<Elasticsearch_ClientBuildersetRetries_setRetries,`setRetries()`>>
 * <<Elasticsearch_ClientBuildersetSelector_setSelector,`setSelector()`>>
 * <<Elasticsearch_ClientBuildersetSniffOnStart_setSniffOnStart,`setSniffOnStart()`>>
@@ -35,6 +39,7 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuildersetSSLKey_setSSLKey,`setSSLKey()`>>
 * <<Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification,`setSSLVerification()`>>
 * <<Elasticsearch_ClientBuilderbuild_build,`build()`>>
+* <<Elasticsearch_ClientBuilderinstantiate_instantiate,`instantiate()`>>
 
 
 
@@ -44,6 +49,51 @@ The class defines the following methods:
 [source,php]
 ----
 /*
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuildergetTransport_getTransport]]
+.`getTransport()`
+****
+[source,php]
+----
+/*
+    Can supply first parm to Client::__construct() when invoking manually or with dependency injection
+    ['body']  = (array) Request body
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuildergetEndpoint_getEndpoint]]
+.`getEndpoint()`
+****
+[source,php]
+----
+/*
+    Can supply second parm to Client::__construct() when invoking manually or with dependency injection
+    ['body']  = (array) Request body
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuildergetRegisteredNamespacesBuilders_getRegisteredNamespacesBuilders]]
+.`getRegisteredNamespacesBuilders()`
+****
+[source,php]
+----
+/*
+    Can supply third parm to Client::__construct() when invoking manually or with dependency injection
+    ['body']  = (array) Request body
 */
 
 ----
@@ -250,6 +300,19 @@ corresponds to setConnectionPool().
 
 
 
+[[Elasticsearch_ClientBuildersetConnectionParams_setConnectionParams]]
+.`setConnectionParams()`
+****
+[source,php]
+----
+/*
+*/
+
+----
+****
+
+
+
 [[Elasticsearch_ClientBuildersetRetries_setRetries]]
 .`setRetries()`
 ****
@@ -330,6 +393,19 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderbuild_build]]
 .`build()`
+****
+[source,php]
+----
+/*
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuilderinstantiate_instantiate]]
+.`instantiate()`
 ****
 [source,php]
 ----

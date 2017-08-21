@@ -1,0 +1,36 @@
+
+
+[[Elasticsearch_Namespaces_RemoteNamespace]]
+=== Elasticsearch\Namespaces\RemoteNamespace
+
+
+
+Class RemoteNamespace
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_RemoteNamespaceinfo_info,`info()`>>
+
+
+
+[[Elasticsearch_Namespaces_RemoteNamespaceinfo_info]]
+.`info()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->remote()->info($params);
+----
+****
+
+

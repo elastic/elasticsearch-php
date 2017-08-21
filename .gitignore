@@ -24,3 +24,6 @@ generator/*
 util/elasticsearch/
 util/cache/
 util/output
+
+# Sami docs generator
+/sami.phar

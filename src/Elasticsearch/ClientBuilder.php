@@ -162,8 +162,8 @@ class ClientBuilder
     }
 
     /**
-     * @param array $singleParams
      * @param array $multiParams
+     * @param array $singleParams
      * @throws \RuntimeException
      * @return callable
      */
@@ -214,6 +214,7 @@ class ClientBuilder
 
     /**
      * @param $path string
+     * @param int $level
      * @return \Monolog\Logger\Logger
      */
     public static function defaultLogger($path, $level = Logger::WARNING)

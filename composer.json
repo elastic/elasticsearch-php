@@ -21,7 +21,6 @@
     "symfony/yaml": "^2.8",
     "symfony/finder": "^2.8",
     "cpliakas/git-wrapper": "~1.0",
-    "sami/sami": "~3.2",
     "doctrine/inflector": "^1.1"
   },
   "suggest": {

@@ -6,6 +6,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Mockery as m;
 
 /**
@@ -35,18 +36,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testCustomQueryParams()
     {
-        $params = array();
+        $params = [];
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
-        $getParams = array(
+        $getParams = [
             'index' => 'test',
             'type' => 'test',
             'id' => 1,
             'parent' => 'abc',
-            'custom' => array('customToken' => 'abc', 'otherToken' => 123),
+            'custom' => ['customToken' => 'abc', 'otherToken' => 123],
             'client' => ['ignore' => 400]
-        );
+        ];
         $exists = $client->exists($getParams);
     }
 
@@ -226,7 +227,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->setRetries(0)
             ->build();
 
-        $searchParams = array(
+        $searchParams = [
             'index' => 'test',
             'type' => 'test',
             'body' => [
@@ -234,7 +235,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                     'match_all' => []
                 ]
             ]
-        );
+        ];
 
         $client = Elasticsearch\ClientBuilder::create()
             ->setHosts(["localhost:1"])
@@ -247,7 +248,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         } catch (Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost $e) {
             // All good
             $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
+            $this->assertInstanceOf(MaxRetriesException::class, $previous);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -264,7 +265,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         } catch (Elasticsearch\Common\Exceptions\TransportException $e) {
             // All good
             $previous = $e->getPrevious();
-            $this->assertInstanceOf('Elasticsearch\Common\Exceptions\MaxRetriesException', $previous);
+            $this->assertInstanceOf(MaxRetriesException::class, $previous);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -276,39 +277,39 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'localhost:9200'
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("localhost:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'http://localhost:9200'
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("localhost:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'http://foo.com:9200'
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'https://foo.com:9200'
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("https", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("https", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
             'https://user:pass@foo.com:9200'
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("https", $host->getTransportSchema());
-        $this->assertEquals("user:pass", $host->getUserPass());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("https", $host->getTransportSchema());
+        $this->assertSame("user:pass", $host->getUserPass());
     }
 
     public function testExtendedHosts()
@@ -321,8 +322,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("localhost:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
@@ -333,8 +334,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
@@ -345,8 +346,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("https", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("https", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
@@ -356,8 +357,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
@@ -366,8 +367,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts([
@@ -378,8 +379,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9500", $host->getHost());
-        $this->assertEquals("https", $host->getTransportSchema());
+        $this->assertSame("foo.com:9500", $host->getHost());
+        $this->assertSame("https", $host->getTransportSchema());
 
 
         try {
@@ -401,8 +402,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("the_foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
+        $this->assertSame("the_foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
 
 
         // Special characters in user/pass, would break inline
@@ -414,8 +415,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ])->build();
         $host = $client->transport->getConnection();
-        $this->assertEquals("foo.com:9200", $host->getHost());
-        $this->assertEquals("http", $host->getTransportSchema());
-        $this->assertEquals("user:abc#$@?%!abc", $host->getUserPass());
+        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("http", $host->getTransportSchema());
+        $this->assertSame("user:abc#$@?%!abc", $host->getUserPass());
     }
 }

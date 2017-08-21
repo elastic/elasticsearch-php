@@ -21,8 +21,8 @@ echo "Adding repo to config..."
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'repositories.url.allowed_urls: ["http://*"]' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'path.repo: ["/tmp"]' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'node.max_local_storage_nodes: 1' >> $TXT ; done
-find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.low: 1b' >> $TXT ; done
-find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.high: 1b' >> $TXT ; done
+find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.low: 0.1%' >> $TXT ; done
+find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.high: 0.1%' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'node.attr.testattr: test' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'script.max_compilations_per_minute: 2048' >> $TXT ; done
 

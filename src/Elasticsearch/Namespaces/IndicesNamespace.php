@@ -248,6 +248,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
         $target = $this->extractArgument($params, 'target');
+        $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
@@ -255,7 +256,8 @@ class IndicesNamespace extends AbstractNamespace
         /** @var \Elasticsearch\Endpoints\Indices\Shrink $endpoint */
         $endpoint = $endpointBuilder('Indices\Shrink');
         $endpoint->setIndex($index)
-                 ->setTarget($target);
+                 ->setTarget($target)
+                 ->setBody($body);
 
         return $this->performRequest($endpoint);
     }

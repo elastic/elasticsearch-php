@@ -55,7 +55,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     ];
 
     private static $skippedTests = [
-        'cluster.put_settings/10_basic.yml#Test get a default settings' => 'Tested attribute does not exist normally, followup with core.'
+
     ];
 
     /** @var array A list of skipped test with their reasons */

@@ -31,6 +31,9 @@ matrix:
     - php: 7.1
       env: ES_VERSION="6.x" TEST_BUILD_REF="origin/6.x"
 
+    - php: 7.2
+      env: ES_VERSION="6.0" TEST_BUILD_REF="origin/6.0"
+
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200

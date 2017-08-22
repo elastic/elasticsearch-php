@@ -274,7 +274,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($newConnections[1], $retConnection);
     }
 
-    public function testAddSeed_SniffTwo_TimeoutTwo()
+    public function testAddSeedSniffTwoTimeoutTwo()
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
 
@@ -320,7 +320,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $retConnection = $connectionPool->nextConnection();
     }
 
-    public function testTen_TimeoutNine_SniffTenth_AddTwoAlive()
+    public function testTenTimeoutNineSniffTenthAddTwoAlive()
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
 
@@ -374,7 +374,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($newConnections[12], $retConnection);
     }
 
-    public function testTen_TimeoutNine_SniffTenth_AddTwoDead_TimeoutEveryone()
+    public function testTenTimeoutNineSniffTenthAddTwoDeadTimeoutEveryone()
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
 

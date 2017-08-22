@@ -51,6 +51,7 @@ before_script:
   - php util/EnsureClusterAlive.php
 
 script:
+  - composer run-script phpcs
   - composer run-script phpstan
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS

@@ -15,7 +15,7 @@ use Mockery as m;
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://Elasticsearch.org
  */
-class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
+class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

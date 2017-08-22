@@ -31,7 +31,7 @@ use Symfony\Component\Yaml\Yaml;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class YamlRunnerTest extends \PHPUnit_Framework_TestCase
+class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests */
     private $yaml;

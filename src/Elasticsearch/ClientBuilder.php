@@ -474,16 +474,16 @@ class ClientBuilder
                 $this->connectionParams = [];
             }
 
-            // Make sure we are setting Content-type and Accept (unless the user has explicitly
+            // Make sure we are setting Content-Type and Accept (unless the user has explicitly
             // overridden it
             if (isset($this->connectionParams['client']['headers']) === false) {
                 $this->connectionParams['client']['headers'] = [
-                    'Content-type' => ['application/json'],
+                    'Content-Type' => ['application/json'],
                     'Accept' => ['application/json']
                 ];
             } else {
-                if (isset($this->connectionParams['client']['headers']['Content-type']) === false) {
-                    $this->connectionParams['client']['headers']['Content-type'] = ['application/json'];
+                if (isset($this->connectionParams['client']['headers']['Content-Type']) === false) {
+                    $this->connectionParams['client']['headers']['Content-Type'] = ['application/json'];
                 }
                 if (isset($this->connectionParams['client']['headers']['Accept']) === false) {
                     $this->connectionParams['client']['headers']['Accept'] = ['application/json'];

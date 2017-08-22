@@ -2,6 +2,8 @@
 
 namespace Elasticsearch;
 
+use Composer\Autoload\ClassLoader;
+use Dotenv\Dotenv;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
@@ -215,7 +217,7 @@ class ClientBuilder
     /**
      * @param $path string
      * @param int $level
-     * @return \Monolog\Logger\Logger
+     * @return Logger
      */
     public static function defaultLogger($path, $level = Logger::WARNING)
     {
@@ -592,7 +594,13 @@ class ClientBuilder
      */
     private function getDefaultHost()
     {
-        return ['localhost:9200'];
+        $reflection = new \ReflectionClass(ClassLoader::class);
+        $vendorDir = dirname(dirname($reflection->getFileName()));
+
+        $dotenv = new Dotenv(implode(DIRECTORY_SEPARATOR, [$vendorDir, '..']));
+        $dotenv->load();
+
+        return [getenv('ELASTICSEARCH_DEFAULT_HOST', 'elasticsearch:9200')];
     }
 
     /**

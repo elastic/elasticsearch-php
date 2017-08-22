@@ -36,8 +36,15 @@ Version Matrix
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.
 
 Documentation
---------------
+-------------
 [Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/5.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+
+Environment
+-----------
+Using the `.env` file pattern you can define the default host of ElasticSearch. The default value is `localhost:9200`, but you can replace it setting the variable in your `.env` like this:
+```
+ELASTICSEARCH_DEFAULT_HOST=elasticsearch:9200
+```
 
 Installation via Composer
 -------------------------

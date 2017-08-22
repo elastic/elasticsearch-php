@@ -27,11 +27,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         m::close();
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     */
     public function testConstructorIllegalPort()
     {
+        $this->expectException(\Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Could not parse URI');
+
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['localhost:abc'])->build();
     }
 
@@ -49,9 +49,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function testFromConfigBadParam()
     {
         $params = [
@@ -61,6 +58,10 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             'retries' => 2,
             'imNotReal' => 5
         ];
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\RuntimeException::class);
+        $this->expectExceptionMessage('Unknown parameters provided: imNotReal');
+
         $client = ClientBuilder::fromConfig($params);
     }
 

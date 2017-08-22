@@ -88,9 +88,6 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($connections[0], $retConnection);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
     public function testAllHostsFailPing()
     {
         $connections = [];
@@ -119,6 +116,9 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $randomizeHosts = false;
         $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
 
         $connectionPool->nextConnection();
     }

@@ -191,9 +191,6 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($connections[9], $retConnection);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
     public function testAddTenNodesAllTimeout()
     {
         $connections = [];
@@ -219,6 +216,9 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionPoolParams = ['randomizeHosts' => false];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
 
         $retConnection = $connectionPool->nextConnection();
     }
@@ -268,9 +268,6 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($newConnections[1], $retConnection);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
     public function testAddSeed_SniffTwo_TimeoutTwo()
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
@@ -311,8 +308,10 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
+
         $retConnection = $connectionPool->nextConnection();
-        $this->assertSame($mockConnection, $retConnection);
     }
 
     public function testTen_TimeoutNine_SniffTenth_AddTwoAlive()
@@ -369,9 +368,6 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($newConnections[12], $retConnection);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
     public function testTen_TimeoutNine_SniffTenth_AddTwoDead_TimeoutEveryone()
     {
         $clusterState = json_decode('{"ok":true,"cluster_name":"elasticsearch_zach","nodes":{"node1":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9300]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9200]"}, "node2":{"name":"Vesta","transport_address":"inet[/192.168.1.119:9301]","hostname":"zach-ThinkPad-W530","version":"0.90.5","http_address":"inet[/192.168.1.119:9201]"}}}', true);
@@ -412,8 +408,6 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                     ->andReturnValues($newConnections)
                     ->getMock();
 
-        $RRConnections = $newConnections;
-        //array_push($connections);
         $connectionFactory = m::mock(ConnectionFactory::class)
                              ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9200])->andReturn($newConnections[10])->getMock()
                              ->shouldReceive('create')->with(['host' => '192.168.1.119', 'port' => 9201])->andReturn($newConnections[11])->getMock();
@@ -424,10 +418,9 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
         ];
         $connectionPool = new SniffingConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
-        $retConnection = $connectionPool->nextConnection();
-        $this->assertSame($newConnections[11], $retConnection);
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
 
         $retConnection = $connectionPool->nextConnection();
-        $this->assertSame($newConnections[12], $retConnection);
     }
 }

@@ -470,8 +470,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         // Check to make sure we're adding headers
-        $this->assertArrayHasKey('Content-type', $last['request']['headers'], print_r($last['request']['headers'], true));
-        $this->assertSame('application/json', $last['request']['headers']['Content-type'][0], print_r($last['request']['headers'], true));
+        $this->assertArrayHasKey('Content-Type', $last['request']['headers'], print_r($last['request']['headers'], true));
+        $this->assertSame('application/json', $last['request']['headers']['Content-Type'][0], print_r($last['request']['headers'], true));
         $this->assertArrayHasKey('Accept', $last['request']['headers'], print_r($last['request']['headers'], true));
         $this->assertSame('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
 

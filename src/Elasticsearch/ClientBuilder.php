@@ -600,7 +600,7 @@ class ClientBuilder
         $dotenv = new Dotenv(implode(DIRECTORY_SEPARATOR, [$vendorDir, '..']));
         $dotenv->load();
 
-        return [getenv('ELASTICSEARCH_DEFAULT_HOST', 'elasticsearch:9200')];
+        return [getenv('ELASTICSEARCH_DEFAULT_HOST', 'localhost:9200')];
     }
 
     /**

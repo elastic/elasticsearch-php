@@ -42,7 +42,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
 
     /** @var array A list of supported features */
     private static $supportedFeatures = [
-        'stash_in_path', 'warnings', 'headers', 'yaml'
+        'stash_in_path', 'warnings', 'headers'
     ];
 
     /** @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name */

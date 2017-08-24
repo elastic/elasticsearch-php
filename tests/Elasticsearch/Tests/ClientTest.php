@@ -34,23 +34,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = Elasticsearch\ClientBuilder::create()->setHosts(['localhost:abc'])->build();
     }
 
-    public function testCustomQueryParams()
-    {
-        $params = [];
-
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
-
-        $getParams = [
-            'index' => 'test',
-            'type' => 'test',
-            'id' => 1,
-            'parent' => 'abc',
-            'custom' => ['customToken' => 'abc', 'otherToken' => 123],
-            'client' => ['ignore' => 400]
-        ];
-        $exists = $client->exists($getParams);
-    }
-
     public function testFromConfig()
     {
         $params = [

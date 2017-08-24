@@ -58,6 +58,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         ob_implicit_flush();
+        date_default_timezone_set('UTC');
         $host = YamlRunnerTest::getHostEnvVar();
         echo "Test Host: $host\n";
 

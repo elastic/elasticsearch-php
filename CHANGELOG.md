@@ -1,3 +1,17 @@
+## Release 2.3.1
+
+- Do not schedule connection pool checks on 4xx level errors  [[e8520e6]](http://github.com/elasticsearch/elasticsearch-php/commit/e8520e619fa2f5ffe9c7733338f273df1dfa296d)
+- fix: conflict when merging timeout param (#563) [[76265b7]](http://github.com/elasticsearch/elasticsearch-php/commit/76265b7)
+- [DOCS] Update futures.asciidoc (#510) [[840fd91]](http://github.com/elasticsearch/elasticsearch-php/commit/840fd91)
+- [DOCS] Added period at end of sentence [[caebfd6]](http://github.com/elasticsearch/elasticsearch-php/commit/caebfd6)
+- [DOCS] Fixed a typo [[24912ad]](http://github.com/elasticsearch/elasticsearch-php/commit/24912ad)
+- [DOCS] Fix a small typo [[faf81d0]](http://github.com/elasticsearch/elasticsearch-php/commit/faf81d0)
+- [DOCS] Fix wording, typos [[c549428]](http://github.com/elasticsearch/elasticsearch-php/commit/c549428)
+- [DOCS] Fix a typo, add a period [[af124ff]](http://github.com/elasticsearch/elasticsearch-php/commit/af124ff)
+- [DOCS] Fix wording, remove apostrophe, add period [[6ff41dd]](http://github.com/elasticsearch/elasticsearch-php/commit/6ff41dd)
+- [DOCS] Fix formatting, remove apostrophes, add a period [[bc008cc]](http://github.com/elasticsearch/elasticsearch-php/commit/bc008cc)
+- [Docs] Include namespace import [[b91ab4a]](http://github.com/elasticsearch/elasticsearch-php/commit/b91ab4a)
+
 ## Release 2.3.0
 - Allow global connectionParam configuration (via ClientBuilder->setConnectionParams()) [[e768e0]](http://github.com/elasticsearch/elasticsearch-php/commit/e768e0d64ef365ecc7eb837e3bedf32c5e943a67)
 

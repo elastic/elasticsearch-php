@@ -1,3 +1,24 @@
+## Release 5.3.1
+
+- Do not schedule connection pool checks on 4xx level errors [[f91465d]](http://github.com/elasticsearch/elasticsearch-php/commit/f91465d)
+- Add 'terminate_after' to Count endpoint whitelist (#634) [[1a20259]](http://github.com/elasticsearch/elasticsearch-php/commit/1a20259)
+- Use upper-case "Host" header [[1621094]](http://github.com/elasticsearch/elasticsearch-php/commit/1621094)
+- Shrink API was not setting body correctly [[129ed4a]](http://github.com/elasticsearch/elasticsearch-php/commit/129ed4a)
+- Capitalize 'Content-Type' for maximum compatibility [[3f136b5]](http://github.com/elasticsearch/elasticsearch-php/commit/3f136b5)
+- Fix ClientBuilder - pass correct argument for Elasticsearch\Endpoints\MsearchTemplate::__construct. (#606) [[21f5ce4]](http://github.com/elasticsearch/elasticsearch-php/commit/21f5ce4)
+
+### Testing
+
+- [TEST] move integration test to dedicated test file [[3e01b9e]](http://github.com/elasticsearch/elasticsearch-php/commit/3e01b9e)
+- [TEST] Client does not support accepting Yaml format responses [[e5d9fbb]](http://github.com/elasticsearch/elasticsearch-php/commit/e5d9fbb)
+- [TEST] Fix content-type assertions in test to match case [[d31a51b]](http://github.com/elasticsearch/elasticsearch-php/commit/d31a51b)
+- [TEST] Support headers in yaml runner, do some bad-comment cleaning [[5590a88]](http://github.com/elasticsearch/elasticsearch-php/commit/5590a88)
+- [TEST] Add some missing and required static configs [[b41c733]](http://github.com/elasticsearch/elasticsearch-php/commit/b41c733)
+- [TEST] add newer ES versions to Travis build matrix (#609) [[de6cde4]](http://github.com/elasticsearch/elasticsearch-php/commit/de6cde4)
+- [TEST] fix handling of format for Cat tests [[46f9d59]](http://github.com/elasticsearch/elasticsearch-php/commit/46f9d59)
+- [TEST] drop HHVM from build [#611] (#615) [[34d09a8]](http://github.com/elasticsearch/elasticsearch-php/commit/34d09a8)
+
+
 ## Release 5.3.0
 - Add MsearchTemplate endpoint [[df7004f]](http://github.com/elasticsearch/elasticsearch-php/commit/df7004f)
 - Add Cat\Templates endpoint [[776c865]](http://github.com/elasticsearch/elasticsearch-php/commit/776c865)

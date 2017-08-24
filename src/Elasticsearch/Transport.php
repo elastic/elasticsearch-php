@@ -114,9 +114,11 @@ class Transport
             },
             //onFailure
             function ($response) {
-                //some kind of real faiure here, like a timeout
-                $this->connectionPool->scheduleCheck();
-                // log stuff
+                // Ignore 400 level errors, as that means the server responded just fine
+                if (!(isset($response['code']) && $response['code'] >=400 && $response['code'] < 500)) {
+                    // Otherwise schedule a check
+                    $this->connectionPool->scheduleCheck();
+                }
             });
 
         return $future;

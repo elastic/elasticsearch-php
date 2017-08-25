@@ -25,6 +25,7 @@ matrix:
 
 env:
   global:
+    - ES_VERSION="2.4"
     - TEST_BUILD_REF="origin/2.3"
     - ES_TEST_HOST=http://localhost:9200
 

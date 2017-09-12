@@ -44,6 +44,7 @@
   },
   "scripts": {
     "phpcs": [
+      "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src",
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests"
     ],
     "phpstan": [

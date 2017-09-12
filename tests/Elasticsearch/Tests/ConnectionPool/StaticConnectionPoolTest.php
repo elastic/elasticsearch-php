@@ -48,8 +48,10 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $randomizeHosts = false;
-        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPoolParams = [
+            'randomizeHosts' => false,
+        ];
+        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
 
@@ -80,8 +82,10 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $randomizeHosts = false;
-        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPoolParams = [
+            'randomizeHosts' => false,
+        ];
+        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $retConnection = $connectionPool->nextConnection();
 
@@ -114,8 +118,13 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $randomizeHosts = false;
-        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPoolParams = [
+            'randomizeHosts' => false,
+        ];
+        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
 
         $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
         $this->expectExceptionMessage('No alive nodes found in your cluster');
@@ -162,8 +171,10 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $randomizeHosts = false;
-        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPoolParams = [
+            'randomizeHosts' => false,
+        ];
+        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $ret = $connectionPool->nextConnection();
         $this->assertSame($goodConnection, $ret);
@@ -208,8 +219,10 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
         $connectionFactory = m::mock(ConnectionFactory::class);
 
-        $randomizeHosts = false;
-        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+        $connectionPoolParams = [
+            'randomizeHosts' => false,
+        ];
+        $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $connectionPoolParams);
 
         $ret = $connectionPool->nextConnection();
         $this->assertSame($goodConnection, $ret);

@@ -101,5 +101,8 @@ interface ConnectionInterface
      * @param \Elasticsearch\Transport $transport
      * @return mixed
      */
+	// @codingStandardsIgnoreStart
+	// "Arguments with default values must be at the end of the argument list" - cannot change the interface
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport);
+	// @codingStandardsIgnoreEnd
 }

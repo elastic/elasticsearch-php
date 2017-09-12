@@ -21,7 +21,7 @@ use Mockery as m;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
+class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {
@@ -88,9 +88,6 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($connections[0], $retConnection);
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
     public function testAllHostsFailPing()
     {
         $connections = [];
@@ -119,6 +116,9 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
 
         $randomizeHosts = false;
         $connectionPool = new StaticConnectionPool($connections, $selector, $connectionFactory, $randomizeHosts);
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
 
         $connectionPool->nextConnection();
     }
@@ -224,13 +224,9 @@ class StaticConnectionPoolTest extends \PHPUnit_Framework_TestCase
             ->setConnectionPool(StaticConnectionPool::class, [])
             ->build();
 
-        try {
-            $client->search([]);
-            $this->fail("Should have thrown NoNodesAvailableException");
-        } catch (Elasticsearch\Common\Exceptions\NoNodesAvailableException $e) {
-            // All good
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this->expectException(Elasticsearch\Common\Exceptions\NoNodesAvailableException::class);
+        $this->expectExceptionMessage('No alive nodes found in your cluster');
+
+        $client->search([]);
     }
 }

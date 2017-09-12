@@ -20,7 +20,7 @@ use Mockery as m;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class RegisteredNamespaceTest extends \PHPUnit_Framework_TestCase
+class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {
@@ -34,14 +34,15 @@ class RegisteredNamespaceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("123", $client->foo()->fooMethod());
     }
 
-    /**
-     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
-     */
     public function testNonExistingNamespace()
     {
         $builder = new FooNamespaceBuilder();
         $client = ClientBuilder::create()->registerNamespace($builder)->build();
-        $this->assertSame("123", $client->bar()->fooMethod());
+
+        $this->expectException(\Elasticsearch\Common\Exceptions\BadMethodCallException::class);
+        $this->expectExceptionMessage('Namespace [bar] not found');
+
+        $client->bar()->fooMethod();
     }
 }
 

@@ -169,7 +169,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
         }
 
         if (null !== $setupProcedure) {
-            $this->processProcedure(current($setupProcedure), 'setup');
+            $this->processProcedure(current($setupProcedure), 'setup', $fileName);
             $this->waitForYellow();
         }
 
@@ -326,6 +326,9 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $endpointParams->client['headers'] = $headers;
         }
 
+        if (!is_string($method)) {
+            throw new \Exception('$method must be string');
+        }
         list($method, $namespace) = $this->mapEndpoint($method, $namespace);
 
         if (null !== $namespace) {
@@ -404,7 +407,7 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
      *
      * @throws \Exception
      *
-     * @return bool
+     * @return bool|mixed[]
      */
     public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName)
     {

@@ -99,9 +99,15 @@ class Connection implements ConnectionInterface
      * @param \Psr\Log\LoggerInterface $log              Logger object
      * @param \Psr\Log\LoggerInterface $trace
      */
-    public function __construct($handler, $hostDetails, $connectionParams,
-                                SerializerInterface $serializer, LoggerInterface $log, LoggerInterface $trace)
-    {
+    public function __construct(
+        $handler,
+        $hostDetails,
+        $connectionParams,
+        SerializerInterface $serializer,
+        LoggerInterface $log,
+        LoggerInterface $trace
+    ) {
+    
         if (isset($hostDetails['port']) !== true) {
             $hostDetails['port'] = 9200;
         }
@@ -290,7 +296,6 @@ class Connection implements ConnectionInterface
                 );
 
                 return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
-
             });
 
             return $response;
@@ -309,7 +314,7 @@ class Connection implements ConnectionInterface
             array_walk($params, function (&$value, &$key) {
                 if ($value === true) {
                     $value = 'true';
-                } else if ($value === false) {
+                } elseif ($value === false) {
                     $value = 'false';
                 }
             });
@@ -686,7 +691,6 @@ class Connection implements ConnectionInterface
         if (is_array($error) === true) {
             // 2.0 structured exceptions
             if (isset($error['error']['reason']) === true) {
-
                 // Try to use root cause first (only grabs the first root cause)
                 $root = $error['error']['root_cause'];
                 if (isset($root) && isset($root[0])) {

@@ -119,7 +119,8 @@ class Transport
                     // Otherwise schedule a check
                     $this->connectionPool->scheduleCheck();
                 }
-            });
+            }
+        );
 
         return $future;
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Elasticsearch\Endpoints\Remote;
+
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**

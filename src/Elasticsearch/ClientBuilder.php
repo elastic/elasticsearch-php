@@ -558,13 +558,15 @@ class ClientBuilder
                 $connections,
                 $this->selector,
                 $this->connectionFactory,
-                $this->connectionPoolArgs);
+                $this->connectionPoolArgs
+            );
         } elseif (is_null($this->connectionPool)) {
             $this->connectionPool = new StaticNoPingConnectionPool(
                 $connections,
                 $this->selector,
                 $this->connectionFactory,
-                $this->connectionPoolArgs);
+                $this->connectionPoolArgs
+            );
         }
 
         if (is_null($this->retries)) {
@@ -613,7 +615,7 @@ class ClientBuilder
             if (is_string($host)) {
                 $host = $this->prependMissingScheme($host);
                 $host = $this->extractURIParts($host);
-            } else if (is_array($host)) {
+            } elseif (is_array($host)) {
                 $host = $this->normalizeExtendedHost($host);
             } else {
                 $this->logger->error("Could not parse host: ".print_r($host, true));
@@ -629,7 +631,8 @@ class ClientBuilder
      * @param $host
      * @return array
      */
-    private function normalizeExtendedHost($host) {
+    private function normalizeExtendedHost($host)
+    {
         if (isset($host['host']) === false) {
             $this->logger->error("Required 'host' was not defined in extended format: ".print_r($host, true));
             throw new RuntimeException("Required 'host' was not defined in extended format: ".print_r($host, true));

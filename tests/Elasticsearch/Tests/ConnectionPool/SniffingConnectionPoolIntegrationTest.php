@@ -27,7 +27,6 @@ class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
             ->build();
 
         $pinged = $client->ping();
-
         $this->assertTrue($pinged);
     }
 }

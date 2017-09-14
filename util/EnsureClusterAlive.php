@@ -24,7 +24,22 @@ while (!$client->ping()) {
     $count += 1;
 
     if ($count > 15) {
-        throw new \Exception("Live cluster could not be found in 15s!");
+        echo "Live cluster could not be found in 15s!\nContents of elasticsearch.log:\n\n";
+
+        $dir = new DirectoryIterator(dirname(__DIR__));
+
+        foreach ($dir as $fileinfo) {
+            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                if (strpos($fileinfo->getFilename(), "elasticsearch") === 0) {
+                    $log = file_get_contents(dirname(__DIR__)."/$fileinfo/logs/elasticsearch.log");
+                    echo $log;
+                    break;
+                }
+
+            }
+        }
+
+        throw new \Exception();
     }
     sleep(1);
 }

@@ -24,7 +24,7 @@ find . -name "elasticsearch.yml" | while read TXT ; do echo 'node.max_local_stor
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.low: 0.1%' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'cluster.routing.allocation.disk.watermark.high: 0.1%' >> $TXT ; done
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'node.attr.testattr: test' >> $TXT ; done
-find . -name "elasticsearch.yml" | while read TXT ; do echo 'script.max_compilations_per_minute: 2048' >> $TXT ; done
+find . -name "elasticsearch.yml" | while read TXT ; do echo 'script.max_compilations_rate: 2048/1m' >> $TXT ; done
 
 echo "Starting Elasticsearch v${ES_VERSION}"
 

@@ -48,7 +48,7 @@
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests"
     ],
     "phpstan": [
-      "@php vendor/phpstan/phpstan-shim/phpstan.phar analyse -c phpstan.neon tests --level 7 --no-progress"
+      "@php vendor/phpstan/phpstan-shim/phpstan.phar analyse -c phpstan-tests.neon tests --level 7 --no-progress"
     ]
   }
 }

@@ -30,6 +30,9 @@ matrix:
     - php: 7.2
       env: ES_VERSION="6.0"
 
+  allow_failures:
+    - env: ES_VERSION="6.x"
+
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200

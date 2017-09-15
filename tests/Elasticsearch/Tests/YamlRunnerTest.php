@@ -37,13 +37,13 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /** @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests */
     private $yaml;
 
-    /** @var Elasticsearch\Client client used by elasticsearch */
+    /** @var \Elasticsearch\Client client used by elasticsearch */
     private $client;
 
     /** @var string Es version */
     private static $esVersion;
 
-    /** @var array A list of supported features */
+    /** @var string[] A list of supported features */
     private static $supportedFeatures = [
         'stash_in_path', 'warnings', 'headers'
     ];
@@ -107,7 +107,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
         exit;
     }
-
 
     public static function setUpBeforeClass()
     {

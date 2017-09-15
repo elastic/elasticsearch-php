@@ -19,7 +19,7 @@ abstract class AbstractNamespace
     /** @var \Elasticsearch\Transport  */
     protected $transport;
 
-    /** @var  callback */
+    /** @var callable */
     protected $endpoints;
 
     /**

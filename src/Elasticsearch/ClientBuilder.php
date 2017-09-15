@@ -37,7 +37,7 @@ class ClientBuilder
     /** @var Transport */
     private $transport;
 
-    /** @var callback */
+    /** @var callable */
     private $endpoint;
 
     /** @var NamespaceBuilderInterface[] */
@@ -99,7 +99,7 @@ class ClientBuilder
 
     /**
      * Can supply first parm to Client::__construct() when invoking manually or with dependency injection
-     * @return this->ransport
+     * @return Transport
      *
      */
     public function getTransport()
@@ -109,7 +109,7 @@ class ClientBuilder
 
     /**
      * Can supply second parm to Client::__construct() when invoking manually or with dependency injection
-     * @return this->endpoint
+     * @return callable
      *
      */
     public function getEndpoint()
@@ -119,7 +119,7 @@ class ClientBuilder
 
     /**
      * Can supply third parm to Client::__construct() when invoking manually or with dependency injection
-     * @return this->registeredNamespacesBuilders
+     * @return NamespaceBuilderInterface[]
      *
      */
     public function getRegisteredNamespacesBuilders()

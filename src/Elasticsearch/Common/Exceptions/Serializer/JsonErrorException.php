@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Common\Exceptions\Serializer;
 
 use Elasticsearch\Common\Exceptions\ElasticsearchException;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Endpoints\Indices\Exists;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;

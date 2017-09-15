@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Namespaces;
 
 use Elasticsearch\Common\Exceptions\Missing404Exception;

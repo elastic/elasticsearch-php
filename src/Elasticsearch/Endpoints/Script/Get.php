@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Endpoints\Script;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Endpoints\Indices\Aliases;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;

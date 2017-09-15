@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Common;
 
 use Psr\Log\AbstractLogger;

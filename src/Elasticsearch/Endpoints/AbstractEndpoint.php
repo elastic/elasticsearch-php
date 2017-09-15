@@ -166,6 +166,10 @@ abstract class AbstractEndpoint
             return $this;
         }
 
+        if (is_int($docID)) {
+            $docID = (string) $docID;
+        }
+
         $this->id = urlencode($docID);
 
         return $this;

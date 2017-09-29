@@ -87,9 +87,9 @@ extension to be version 1.3.7 or higher.
 
 | Elasticsearch-PHP Branch | PHP Version |
 | ----------- | ------------------------ |
-| 5.0              | >= 5.6.6    |
-| 2.0                      | >= 5.4.0    |
-| 0.4, 1.0                 | >= 5.3.9    |
+| 5.0         | >= 5.6.6                 |
+| 2.0         | >= 5.4.0                 |
+| 0.4, 1.0    | >= 5.3.9                 |
 
 
 Quickstart

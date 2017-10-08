@@ -60,7 +60,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider existAliasDataProvider
+     * @dataProvider aliasDataProvider
      */
     public function testExistAlias($alias)
     {
@@ -73,7 +73,20 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $this->assertTrue(self::$client->indices()->existsAlias($params));
     }
 
-    public function existAliasDataProvider()
+    /**
+     * @dataProvider aliasDataProvider
+     */
+    public function testFindIndexByAlias($alias)
+    {
+        $this->createIndexWithAlias($alias);
+
+        $params = array(
+            'name' => $alias
+        );
+        $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
+    }
+
+    public function aliasDataProvider()
     {
         return [
             'latin-char' => ['myindextest'],

@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Elasticsearch\Tests;
 
 use Elasticsearch;
+use stdClass;
 
 /**
  * Class ClientTest
@@ -33,6 +34,47 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $exists = $client->exists($getParams);
 
         $this->assertFalse($exists);
+    }
+
+    /**
+     * @dataProvider
+     */
+    public function testExistAlias($alias)
+    {
+        $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+
+        $this->createIndexWithAlias($alias, $client);
+
+        $params = array(
+            'name' => $alias
+        );
+
+        $this->assertTrue($client->indices()->existsAlias($params));
+    }
+
+    public function existAliasDataProvider()
+    {
+        return [
+            ['myindextest'],
+            ['⿇⽸⾽']
+        ];
+    }
+
+    /**
+     * @param $alias
+     * @param $client Elasticsearch\Client
+     */
+    private function createIndexWithAlias($alias, $client)
+    {
+        $params = array(
+            'index' => $alias . '_v1',
+            'body' => array(
+                'aliases' => array(
+                    $alias => new stdClass()
+                )),
+        );
+
+        $client->indices()->create($params);
     }
 
 }

@@ -19,9 +19,32 @@ use stdClass;
  */
 class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 {
+
+    /**
+     * @var $client Elasticsearch\Client
+     */
+    protected static $client;
+
+    /**
+     * initialize elasticsearch client
+     */
+    public static function setUpBeforeClass()
+    {
+        self::$client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+    }
+
+    public function tearDown()
+    {
+        // remove all previously indices created by test or by the before setup
+        $param = [
+            'index' => '_all'
+        ];
+        self::$client->indices()->delete($param);
+    }
+
     public function testCustomQueryParams()
     {
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+        self::$client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
         $getParams = [
             'index' => 'test',
@@ -31,25 +54,23 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
             'custom' => ['customToken' => 'abc', 'otherToken' => 123],
             'client' => ['ignore' => 400]
         ];
-        $exists = $client->exists($getParams);
+        $exists = self::$client->exists($getParams);
 
         $this->assertFalse($exists);
     }
 
     /**
-     * @dataProvider
+     * @dataProvider existAliasDataProvider
      */
     public function testExistAlias($alias)
     {
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
-
-        $this->createIndexWithAlias($alias, $client);
+        $this->createIndexWithAlias($alias);
 
         $params = array(
             'name' => $alias
         );
 
-        $this->assertTrue($client->indices()->existsAlias($params));
+        $this->assertTrue(self::$client->indices()->existsAlias($params));
     }
 
     public function existAliasDataProvider()
@@ -60,11 +81,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @param $alias
-     * @param $client Elasticsearch\Client
-     */
-    private function createIndexWithAlias($alias, $client)
+    private function createIndexWithAlias($alias)
     {
         $params = array(
             'index' => $alias . '_v1',
@@ -74,7 +91,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
                 )),
         );
 
-        $client->indices()->create($params);
+        self::$client->indices()->create($params);
     }
 
 }

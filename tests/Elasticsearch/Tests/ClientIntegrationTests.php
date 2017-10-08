@@ -76,8 +76,8 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     public function existAliasDataProvider()
     {
         return [
-            ['myindextest'],
-            ['⿇⽸⾽']
+            'latin-char' => ['myindextest'],
+            'utf-8-char' => ['⿇⽸⾽']
         ];
     }
 

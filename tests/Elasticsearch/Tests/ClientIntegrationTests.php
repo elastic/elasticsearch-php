@@ -86,6 +86,27 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
     }
 
+    /**
+     * @dataProvider aliasDataProvider
+     */
+    public function testPutAlias($alias)
+    {
+
+        $this->createIndexWithoutAlias($alias);
+
+        $params = array(
+            'index' => $alias . '_v1',
+            'name' => $alias
+        );
+
+        self::$client->indices()->putAlias($params);
+
+        $params = array(
+            'name' => urlencode($alias)
+        );
+        $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
+    }
+
     public function aliasDataProvider()
     {
         return [
@@ -103,6 +124,13 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
                     $alias => new stdClass()
                 )),
         );
+
+        self::$client->indices()->create($params);
+    }
+
+    private function createIndexWithoutAlias($alias)
+    {
+        $params = array('index' => $alias . '_v1');
 
         self::$client->indices()->create($params);
     }

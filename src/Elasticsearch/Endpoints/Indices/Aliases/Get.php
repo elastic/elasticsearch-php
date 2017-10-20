@@ -41,14 +41,14 @@ class Get extends AbstractEndpoint
     {
         $index = $this->index;
         $name = $this->name;
-        $uri   = "/_aliases";
+        $uri   = "/_alias";
 
         if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_aliases/$name";
+            $uri = "/$index/_alias/$name";
         } elseif (isset($name) === true) {
-            $uri = "/_aliases/$name";
+            $uri = "/_alias/$name";
         } elseif (isset($index) === true) {
-            $uri = "/$index/_aliases";
+            $uri = "/$index/_alias";
         }
 
         return $uri;

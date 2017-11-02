@@ -44,7 +44,7 @@ $params['body'] = array(
     ),
     'highlight' => array(
         'fields' => array(
-            'content' => new \stdClass() <1>
+            'content' => new \stdClass() //(object)[]<1>
         )
     )
 );

@@ -22,9 +22,8 @@ The process for contributing to any of the Elasticsearch repositories is similar
             -Des.index.store.type=memory -Des.discovery.zen.ping.multicast.enabled=false \
             -Des.node.bench=true -Des.script.disable_dynamic=false
 
-4. Run the unit and yaml integration tests to ensure your changes do not break existing code.  The exported `TEST_BUILD_REF` should match the branch of Elasticsearch that is running on your machine (since tests are specific to the server version):
+4. Run the unit and yaml integration tests to ensure your changes do not break existing code. The `util/RestSpecRunner.php` script will automatically checkout the tests for the exact same build as is the Elasticsearch you are running on your machine (since tests are specific to the server version):
 
-        $> export TEST_BUILD_REF='origin/1.x'
         $> export ES_TEST_HOST='http://localhost:9200'
 
     Then proceed to initialize the REST yaml tests and run the package. **WARNING: the unit tests will clear your cluster

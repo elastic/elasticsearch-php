@@ -48,8 +48,12 @@ class Transport
      * @param ConnectionPool\AbstractConnectionPool $connectionPool
      * @param \Psr\Log\LoggerInterface $log    Monolog logger object
      */
+	// @codingStandardsIgnoreStart
+	// "Arguments with default values must be at the end of the argument list" - cannot change the interface
     public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
+	    // @codingStandardsIgnoreEnd
+
         $this->log            = $log;
         $this->connectionPool = $connectionPool;
         $this->retries        = $retries;
@@ -119,7 +123,8 @@ class Transport
                     // Otherwise schedule a check
                     $this->connectionPool->scheduleCheck();
                 }
-            });
+            }
+        );
 
         return $future;
     }

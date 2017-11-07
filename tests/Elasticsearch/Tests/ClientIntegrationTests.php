@@ -102,7 +102,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         self::$client->indices()->putAlias($params);
 
         $params = array(
-            'name' => urlencode($alias)
+            'name' => $alias
         );
         $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
     }

@@ -213,20 +213,6 @@ class ClientBuilder
     }
 
     /**
-     * @param $path string
-     * @param int $level
-     * @return \Monolog\Logger\Logger
-     */
-    public static function defaultLogger($path, $level = Logger::WARNING)
-    {
-        $log       = new Logger('log');
-        $handler   = new StreamHandler($path, $level);
-        $log->pushHandler($handler);
-
-        return $log;
-    }
-
-    /**
      * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
      * @return $this
      */

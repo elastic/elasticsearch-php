@@ -180,34 +180,7 @@ And then update your composer installation:
 php composer.phar update
 ----------------------------
 
-Once Monolog (or another logger) is installed, you need to create a log object and inject it into the client.  The
-`ClientBuilder` object has a helper static function that will generate a common Monolog-based logger for you.  All you need
-to do is provide the path to your desired logging location:
-
-[source,php]
-----
-$logger = ClientBuilder::defaultLogger('path/to/your.log');
-
-$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
-            ->setLogger($logger)        // Set the logger with a default logger
-            ->build();                  // Build the client object
-----
-
-You can also specify the severity of log messages that you wish to log:
-
-[source,php]
-----
-// set severity with second parameter
-$logger = ClientBuilder::defaultLogger('/path/to/logs/', Logger::INFO);
-
-$client = ClientBuilder::create()       // Instantiate a new ClientBuilder
-            ->setLogger($logger)        // Set the logger with a default logger
-            ->build();                  // Build the client object
-----
-
-The `defaultLogger()` method is just a helper, you are not required to use it.  You can create your own logger and inject
-that instead:
-
+Once Monolog (or another logger) is installed, you need to create a log object and inject it into the client:
 
 [source,php]
 ----

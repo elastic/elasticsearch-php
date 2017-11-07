@@ -81,6 +81,7 @@ class Create extends AbstractEndpoint
         return array(
             'master_timeout',
             'timeout',
+            'verify'
         );
     }
 

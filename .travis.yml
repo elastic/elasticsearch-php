@@ -18,21 +18,20 @@ matrix:
   fast_finish: true
   include:
     - php: 7.0
-      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+      env: ES_VERSION="6.0"
     - php: 7.0
-      env: ES_VERSION="6.0" TEST_BUILD_REF="origin/6.0"
-    - php: 7.0
-      env: ES_VERSION="6.x" TEST_BUILD_REF="origin/6.x"
+      env: ES_VERSION="6.x"
 
     - php: 7.1
-      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+      env: ES_VERSION="6.0"
     - php: 7.1
-      env: ES_VERSION="6.0" TEST_BUILD_REF="origin/6.0"
-    - php: 7.1
-      env: ES_VERSION="6.x" TEST_BUILD_REF="origin/6.x"
+      env: ES_VERSION="6.x"
 
     - php: 7.2
-      env: ES_VERSION="6.0" TEST_BUILD_REF="origin/6.0"
+      env: ES_VERSION="6.0"
+
+  allow_failures:
+    - env: ES_VERSION="6.x"
 
 env:
   global:

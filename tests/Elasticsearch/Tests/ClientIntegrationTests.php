@@ -80,7 +80,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $params = array(
             'name' => $alias
         );
-        $this->assertEquals($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
+        $this->assertSame($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
     }
 
     /**
@@ -100,7 +100,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $params = array(
             'name' => $alias
         );
-        $this->assertEquals($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
+        $this->assertSame($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
     }
 
     public function aliasDataProvider()

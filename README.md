@@ -85,11 +85,11 @@ PHP Version Requirement
 Version 5.0 of this library requires at least PHP version 5.6.6 to function.  In addition, it requires the native JSON
 extension to be version 1.3.7 or higher.
 
-| PHP Version | Elasticsearch-PHP Branch |
+| Elasticsearch-PHP Branch | PHP Version |
 | ----------- | ------------------------ |
-| >= 5.6.6    | 5.0              |
-| >= 5.4.0    | 2.0                      |
-| >= 5.3.9    | 0.4, 1.0                 |
+| 5.0         | >= 5.6.6                 |
+| 2.0         | >= 5.4.0                 |
+| 0.4, 1.0    | >= 5.3.9                 |
 
 
 Quickstart

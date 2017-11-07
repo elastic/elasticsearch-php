@@ -34,5 +34,4 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 
         $this->assertFalse($exists);
     }
-
 }

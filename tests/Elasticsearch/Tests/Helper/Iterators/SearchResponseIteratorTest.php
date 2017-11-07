@@ -107,7 +107,8 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
                             ]
                         ]
                     ]
-                ]);
+                ]
+            );
 
         $mock_client->shouldReceive('scroll')
             ->once()

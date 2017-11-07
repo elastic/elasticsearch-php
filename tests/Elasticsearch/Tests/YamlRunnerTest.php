@@ -203,7 +203,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * @param      $operation
      * @param      $lastOperationResult
      * @param      $testName
-     * @param array $context 
+     * @param array $context
      * @param bool $async
      *
      * @return mixed
@@ -412,7 +412,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function executeAsyncExistRequest($caller, $method, $endpointParams, $expectedError, $expectedWarnings, $testName)
     {
         try {
-
             $response = $caller->$method($endpointParams);
 
             while ($response instanceof FutureArrayInterface) {
@@ -439,7 +438,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function checkForWarnings($expectedWarnings) {
+    public function checkForWarnings($expectedWarnings)
+    {
         $last = $this->client->transport->getLastConnection()->getLastRequestInfo();
 
 
@@ -475,7 +475,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('application/json', $last['request']['headers']['Content-Type'][0], print_r($last['request']['headers'], true));
         $this->assertArrayHasKey('Accept', $last['request']['headers'], print_r($last['request']['headers'], true));
         $this->assertSame('application/json', $last['request']['headers']['Accept'][0], print_r($last['request']['headers'], true));
-
     }
 
     /**
@@ -667,7 +666,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      */
     public function operationSkip($operation, $lastOperationResult, $testName)
     {
-        if (is_object($operation) !== true ) {
+        if (is_object($operation) !== true) {
             return $lastOperationResult;
         }
 
@@ -696,7 +695,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
                 $version[0] = ~PHP_INT_MAX;
             }
 
-            if (!isset($version[1]) || $version[1] === "" ) {
+            if (!isset($version[1]) || $version[1] === "") {
                 $version[1] = PHP_INT_MAX;
             }
 
@@ -1029,7 +1028,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
                     $response = curl_exec($ch);
                     curl_close($ch);
-
                 }
             }
         }
@@ -1043,8 +1041,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $this->waitForYellow();
     }
 
-    private function rmDirRecursively($dir) {
-        if (!is_dir($dir )) {
+    private function rmDirRecursively($dir)
+    {
+        if (!is_dir($dir)) {
             return;
         }
         $files = new RecursiveIteratorIterator(

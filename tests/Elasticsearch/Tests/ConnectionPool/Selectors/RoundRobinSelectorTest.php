@@ -55,7 +55,6 @@ class RoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($mockConnections[2], $roundRobin->select($mockConnections));
         $this->assertSame($mockConnections[3], $roundRobin->select($mockConnections));
         $this->assertSame($mockConnections[4], $roundRobin->select($mockConnections));
-
     }
 
     /**

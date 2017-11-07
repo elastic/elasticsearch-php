@@ -11,7 +11,6 @@
 
 namespace Elasticsearch\Namespaces;
 
-
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 

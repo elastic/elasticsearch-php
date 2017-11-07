@@ -59,7 +59,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider aliasDataProvider
      */
-    public function testExistAlias($alias)
+    public function testExistAlias(string $alias)
     {
         $this->createIndexWithAlias($alias);
 
@@ -73,7 +73,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider aliasDataProvider
      */
-    public function testFindIndexByAlias($alias)
+    public function testFindIndexByAlias(string $alias)
     {
         $this->createIndexWithAlias($alias);
 
@@ -86,7 +86,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider aliasDataProvider
      */
-    public function testPutAlias($alias)
+    public function testPutAlias(string $alias)
     {
         $this->createIndexWithoutAlias($alias);
 
@@ -111,7 +111,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private function createIndexWithAlias($alias)
+    private function createIndexWithAlias(string $alias)
     {
         $params = array(
             'index' => $alias . '_v1',
@@ -124,7 +124,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $this->client->indices()->create($params);
     }
 
-    private function createIndexWithoutAlias($alias)
+    private function createIndexWithoutAlias(string $alias)
     {
         $params = array('index' => $alias . '_v1');
 

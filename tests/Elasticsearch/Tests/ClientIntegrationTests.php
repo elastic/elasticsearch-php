@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
@@ -23,14 +23,11 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
     /**
      * @var $client Elasticsearch\Client
      */
-    protected static $client;
+    protected $client;
 
-    /**
-     * initialize elasticsearch client
-     */
-    public static function setUpBeforeClass()
+    public function setUp()
     {
-        self::$client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+        $this->client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
     }
 
     public function tearDown()
@@ -39,12 +36,12 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $param = [
             'index' => '_all'
         ];
-        self::$client->indices()->delete($param);
+        $this->client->indices()->delete($param);
     }
 
     public function testCustomQueryParams()
     {
-        self::$client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+        $this->client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
         $getParams = [
             'index' => 'test',
@@ -54,7 +51,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
             'custom' => ['customToken' => 'abc', 'otherToken' => 123],
             'client' => ['ignore' => 400]
         ];
-        $exists = self::$client->exists($getParams);
+        $exists = $this->client->exists($getParams);
 
         $this->assertFalse($exists);
     }
@@ -70,7 +67,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
             'name' => $alias
         );
 
-        $this->assertTrue(self::$client->indices()->existsAlias($params));
+        $this->assertTrue($this->client->indices()->existsAlias($params));
     }
 
     /**
@@ -83,7 +80,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         $params = array(
             'name' => $alias
         );
-        $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
+        $this->assertEquals($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
     }
 
     /**
@@ -91,7 +88,6 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
      */
     public function testPutAlias($alias)
     {
-
         $this->createIndexWithoutAlias($alias);
 
         $params = array(
@@ -99,12 +95,12 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
             'name' => $alias
         );
 
-        self::$client->indices()->putAlias($params);
+        $this->client->indices()->putAlias($params);
 
         $params = array(
             'name' => $alias
         );
-        $this->assertEquals($alias . '_v1', array_keys(self::$client->indices()->getAlias($params))[0]);
+        $this->assertEquals($alias . '_v1', array_keys($this->client->indices()->getAlias($params))[0]);
     }
 
     public function aliasDataProvider()
@@ -125,14 +121,13 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
                 )),
         );
 
-        self::$client->indices()->create($params);
+        $this->client->indices()->create($params);
     }
 
     private function createIndexWithoutAlias($alias)
     {
         $params = array('index' => $alias . '_v1');
 
-        self::$client->indices()->create($params);
+        $this->client->indices()->create($params);
     }
-
 }

@@ -23,8 +23,13 @@ interface ConnectionFactoryInterface
      * @param LoggerInterface $logger
      * @param LoggerInterface $tracer
      */
-    public function __construct(callable $handler, array $connectionParams,
-                                SerializerInterface $serializer, LoggerInterface $logger, LoggerInterface $tracer);
+    public function __construct(
+        callable $handler,
+        array $connectionParams,
+        SerializerInterface $serializer,
+        LoggerInterface $logger,
+        LoggerInterface $tracer
+    );
 
     /**
      * @param $hostDetails

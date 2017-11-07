@@ -1564,7 +1564,7 @@ class Client
 
     /**
      * @param $endpoint AbstractEndpoint
-     * 
+     *
      * @throws \Exception
      * @return array
      */

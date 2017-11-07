@@ -39,31 +39,31 @@ class TermVectors extends AbstractEndpoint
     public function getURI()
     {
         if (isset($this->index) !== true) {
-           throw new Exceptions\RuntimeException(
-               'index is required for TermVectors'
-           );
-       }
-       if (isset($this->type) !== true) {
-           throw new Exceptions\RuntimeException(
-               'type is required for TermVectors'
-           );
-       }
-       if (isset($this->id) !== true && isset($this->body['doc']) !== true) {
-           throw new Exceptions\RuntimeException(
-               'id or doc is required for TermVectors'
-           );
-       }
+            throw new Exceptions\RuntimeException(
+                'index is required for TermVectors'
+            );
+        }
+        if (isset($this->type) !== true) {
+            throw new Exceptions\RuntimeException(
+                'type is required for TermVectors'
+            );
+        }
+        if (isset($this->id) !== true && isset($this->body['doc']) !== true) {
+            throw new Exceptions\RuntimeException(
+                'id or doc is required for TermVectors'
+            );
+        }
 
-       $index = $this->index;
-       $type  = $this->type;
-       $id    = $this->id;
-       $uri   = "/$index/$type/_termvectors";
+        $index = $this->index;
+        $type  = $this->type;
+        $id    = $this->id;
+        $uri   = "/$index/$type/_termvectors";
 
-       if ($id !== null) {
-           $uri = "/$index/$type/$id/_termvectors";
-       }
+        if ($id !== null) {
+            $uri = "/$index/$type/$id/_termvectors";
+        }
 
-       return $uri;
+        return $uri;
     }
 
     /**

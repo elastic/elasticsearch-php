@@ -41,8 +41,6 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 
     public function testCustomQueryParams()
     {
-        $this->client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
-
         $getParams = [
             'index' => 'test',
             'type' => 'test',

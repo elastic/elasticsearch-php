@@ -1,6 +1,12 @@
+## Release 5.3.2
+
+- Fix parsing of NodesInfo for Sniffing [[d771699]](http://github.com/elasticsearch/elasticsearch-php/commit/d771699)
+- [TEST] print elasticsearch.log if cluster fails to start [[e03cbb2]](http://github.com/elasticsearch/elasticsearch-php/commit/e03cbb2)
+- Fix bug where exceptions were being used as array in PHP 5.x [[c5db567]](http://github.com/elasticsearch/elasticsearch-php/commit/c5db567)
+
 ## Release 5.3.1
 
-- Do not schedule connection pool checks on 4xx level errors [[f91465d]](http://github.com/elasticsearch/elasticsearch-php/commit/f91465d)
+- Do not schedule connection pool checks on 4xx level errors
 - Add 'terminate_after' to Count endpoint whitelist (#634) [[1a20259]](http://github.com/elasticsearch/elasticsearch-php/commit/1a20259)
 - Use upper-case "Host" header [[1621094]](http://github.com/elasticsearch/elasticsearch-php/commit/1621094)
 - Shrink API was not setting body correctly [[129ed4a]](http://github.com/elasticsearch/elasticsearch-php/commit/129ed4a)

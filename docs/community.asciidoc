@@ -101,3 +101,15 @@ __________________________
 Plastic is an Elasticsearch ODM and mapper for Laravel. It renders the developer experience more enjoyable while using Elasticsearch, by providing a fluent syntax for mapping, querying, and storing eloquent models.
 __________________________
 
+=== Helper
+
+==== Index Helper
+
+https://github.com/Nexucis/es-php-index-helper[Link: nexucis/es-php-index-helper]
+
+[quote, Index Helper]
+_____________________
+This helper is a light library which wrap the official client elasticsearch-php. It will help you to manage your ES Indices with no downtime.
+This helper implements the philosophy described in the https://www.elastic.co/guide/en/elasticsearch/guide/master/index-aliases.html[official documentation]
+which can be summarized in a few words : *use alias instead of index directly*
+_____________________

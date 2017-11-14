@@ -4,6 +4,7 @@ namespace Elasticsearch\Namespaces;
 
 use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
 use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
+use Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
 use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
 use Elasticsearch\Endpoints\Ingest\Simulate;
 
@@ -108,6 +109,24 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setID($id)
             ->setBody($body)
             ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params[]
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function processorGrok($params = [])
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var ProcessorGrok $endpoint */
+        $endpoint = $endpointBuilder('Ingest\ProcessorGrok');
 
         return $this->performRequest($endpoint);
     }

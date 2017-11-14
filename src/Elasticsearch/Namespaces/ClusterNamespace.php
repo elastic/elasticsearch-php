@@ -202,4 +202,22 @@ class ClusterNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+
+    /**
+     * $params[]
+     *
+     * @param $params array Associative array of parameters
+     *
+     * @return array
+     */
+    public function remoteInfo($params = array())
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Cluster\RemoteInfo $endpoint */
+        $endpoint = $endpointBuilder('Cluster\RemoteInfo');
+
+        return $this->performRequest($endpoint);
+    }
 }

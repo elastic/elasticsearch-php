@@ -20,6 +20,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings,`getSettings()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks,`pendingTasks()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespaceallocationExplain_allocationExplain,`allocationExplain()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespaceremoteInfo_remoteInfo,`remoteInfo()`>>
 
 
 
@@ -204,6 +205,27 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cluster()->allocationExplain($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespaceremoteInfo_remoteInfo]]
+.`remoteInfo()`
+****
+[source,php]
+----
+/*
+$params[]
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->remoteInfo($params);
 ----
 ****
 

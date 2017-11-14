@@ -16,6 +16,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IngestNamespacegetPipeline_getPipeline,`getPipeline()`>>
 * <<Elasticsearch_Namespaces_IngestNamespaceputPipeline_putPipeline,`putPipeline()`>>
 * <<Elasticsearch_Namespaces_IngestNamespacesimulate_simulate,`simulate()`>>
+* <<Elasticsearch_Namespaces_IngestNamespaceprocessorGrok_processorGrok,`processorGrok()`>>
 
 
 
@@ -100,6 +101,27 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->ingest()->simulate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IngestNamespaceprocessorGrok_processorGrok]]
+.`processorGrok()`
+****
+[source,php]
+----
+/*
+$params[]
+       ['body']  = (array) Request body
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ingest()->processorGrok($params);
 ----
 ****
 

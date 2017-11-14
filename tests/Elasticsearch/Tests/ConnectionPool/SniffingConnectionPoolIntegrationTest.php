@@ -17,7 +17,7 @@ use Elasticsearch\ConnectionPool\SniffingConnectionPool;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class SniffingConnectionPoolIntegrationTest extends \PHPUnit_Framework_TestCase
+class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
     public function testSniff()
     {

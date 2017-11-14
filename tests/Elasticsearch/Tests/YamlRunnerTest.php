@@ -720,6 +720,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     {
         if (is_string($expectedError) && preg_match('#^/.+?/$#', $expectedError)) {
             $this->assertRegExp($expectedError, $exception->getMessage(), 'Failed to catch error in test ' . $testName);
+        } elseif ($exception instanceof BadRequest400Exception && $expectedError === 'bad_request') {
+            $this->assertTrue(true);
         } elseif ($exception instanceof Missing404Exception && $expectedError === 'missing') {
             $this->assertTrue(true);
         } elseif ($exception instanceof Conflict409Exception && $expectedError === 'conflict') {

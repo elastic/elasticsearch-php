@@ -1,4 +1,33 @@
 
+## Release 6.0.0
+
+
+- Add Ingest\ProcessorGrok endpoint [[800b1ec]](http://github.com/elasticsearch/elasticsearch-php/commit/800b1ec)
+- Add Cluster\RemoteInfo endoint [[dfd8c3c]](http://github.com/elasticsearch/elasticsearch-php/commit/dfd8c3c)
+- Add Unauthorized401Exception [[cc68efd]](http://github.com/elasticsearch/elasticsearch-php/commit/cc68efd)
+- Add verify as acceptable query string parameter for createRepository (#665) [[885bfea]](http://github.com/elasticsearch/elasticsearch-php/commit/885bfea)
+- Fix parsing of NodesInfo for Sniffing [[e22f67f]](http://github.com/elasticsearch/elasticsearch-php/commit/e22f67f)
+- Do not schedule connection pool checks on 4xx level errors [[fd75e99]](http://github.com/elasticsearch/elasticsearch-php/commit/fd75e99)
+- Add 'terminate_after' to Count endpoint whitelist (#634) [[c3cacd7]](http://github.com/elasticsearch/elasticsearch-php/commit/c3cacd7)
+
+### Docs
+- [DOCS] Flip Branch / PHP Version table (#656) [[fa7bfb3]](http://github.com/elasticsearch/elasticsearch-php/commit/fa7bfb3)
+
+### Testing
+- [TEST] use proper TestCase parent clsas [[766b440]](http://github.com/elasticsearch/elasticsearch-php/commit/766b440)
+- [TEST] add PHPStan to build (#628) [[946cd65]](http://github.com/elasticsearch/elasticsearch-php/commit/946cd65)
+- [TEST] Fix some PHPCS violations in tests [[18a38dd]](http://github.com/elasticsearch/elasticsearch-php/commit/18a38dd)
+- [src] add PHP_CodeSniffer (#647) [[24900ef]](http://github.com/elasticsearch/elasticsearch-php/commit/24900ef)
+- [TEST] add PHP_CodeSniffer to build (#638) [[088a509]](http://github.com/elasticsearch/elasticsearch-php/commit/088a509)
+- [TEST] Use tests from corresponding ES version (#649) [[75c6680]](http://github.com/elasticsearch/elasticsearch-php/commit/75c6680)
+- [TEST] Add support for `bad_request` in yaml runner [[ad86f91]](http://github.com/elasticsearch/elasticsearch-php/commit/ad86f91)
+- [TEST] `max_compilations_per_minute` is now `max_compilations_rate` [[ebdba06]](http://github.com/elasticsearch/elasticsearch-php/commit/ebdba06)
+- [TEST] print elasticsearch.log if cluster fails to start [[fe796aa]](http://github.com/elasticsearch/elasticsearch-php/commit/fe796aa)
+- [TEST] move integration test to dedicated test file [[71ccfc1]](http://github.com/elasticsearch/elasticsearch-php/commit/71ccfc1)
+- [TEST] Client does not support accepting Yaml format responses [[fc9a9f9]](http://github.com/elasticsearch/elasticsearch-php/commit/fc9a9f9)
+
+
+
 ## Release 6.0.0-beta1
 
 Woo!

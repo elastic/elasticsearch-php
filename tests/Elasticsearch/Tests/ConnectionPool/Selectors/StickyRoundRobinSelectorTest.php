@@ -18,7 +18,7 @@ use Mockery as m;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class StickyRoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
+class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

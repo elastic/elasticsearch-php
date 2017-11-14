@@ -17,7 +17,7 @@ use Elasticsearch\Connections\ConnectionInterface;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class RoundRobinSelectorTest extends \PHPUnit_Framework_TestCase
+class RoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Add Ten connections, select 15 to verify round robin

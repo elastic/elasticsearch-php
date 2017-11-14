@@ -25,12 +25,14 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 5.0                | 5.0               |
+| >= 6.0                | 6.0                      |
+| >= 5.0, < 6.0         | 5.0                      |
 | >= 2.0, < 5.0         | 1.0 or 2.0               |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 5.0+ , use Elasticsearch-PHP 5.0 branch.
+ - If you are using Elasticsearch 6.0+ , use Elasticsearch-PHP 6.0 branch.
+ - If you are using Elasticsearch 5.x , use Elasticsearch-PHP 5.0 branch.
  - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticearch master and may contain incomplete features or breaks in backwards compat.  Only use ES-PHP master if you are developing against ES master for some reason.
@@ -48,7 +50,7 @@ The recommended method to install _Elasticsearch-PHP_ is through [Composer](http
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "~5.0"
+                "elasticsearch/elasticsearch": "~6.0"
             }
         }
     ```
@@ -82,11 +84,12 @@ You can find out more on how to install Composer, configure autoloading, and oth
 
 PHP Version Requirement
 ----
-Version 5.0 of this library requires at least PHP version 5.6.6 to function.  In addition, it requires the native JSON
+Version 6.0 of this library requires at least PHP version 7.0.0 to function.  In addition, it requires the native JSON
 extension to be version 1.3.7 or higher.
 
 | Elasticsearch-PHP Branch | PHP Version |
 | ----------- | ------------------------ |
+| 6.0         | >= 7.0.0                 |
 | 5.0         | >= 5.6.6                 |
 | 2.0         | >= 5.4.0                 |
 | 0.4, 1.0    | >= 5.3.9                 |

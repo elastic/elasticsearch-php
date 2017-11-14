@@ -720,6 +720,8 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
             $this->assertRegExp($expectedError, $exception->getMessage(), 'Failed to catch error in test ' . $testName);
         } elseif ($exception instanceof BadRequest400Exception && $expectedError === 'bad_request') {
             $this->assertTrue(true);
+        } elseif ($exception instanceof Unauthorized401Exception && $expectedError === 'unauthorized') {
+            $this->assertTrue(true);
         } elseif ($exception instanceof Missing404Exception && $expectedError === 'missing') {
             $this->assertTrue(true);
         } elseif ($exception instanceof Conflict409Exception && $expectedError === 'conflict') {

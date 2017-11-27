@@ -45,7 +45,7 @@ class Put extends AbstractEndpoint
         }
 
         $templateId = $this->id;
-        $uri  = "/_search/template/$templateId";
+        $uri  = "/templates/$templateId";
 
         return $uri;
     }
@@ -63,6 +63,6 @@ class Put extends AbstractEndpoint
      */
     public function getMethod()
     {
-        return 'PUT';
+        return 'POST';
     }
 }

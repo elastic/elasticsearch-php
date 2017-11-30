@@ -7,3 +7,6 @@ parameters:
         # because of \Elasticsearch\Tests\RegisteredNamespaceTest
         - '#Call to an undefined method Elasticsearch\\Client::foo\(\)#'
         - '#Call to an undefined method Elasticsearch\\Client::bar\(\)#'
+
+        # because of \Elasticsearch\Tests\ClientBuilderTest
+        - '#expects Psr\\Log\\LoggerInterface, Elasticsearch\\Tests\\ClientBuilder\\DummyLogger given.$#'

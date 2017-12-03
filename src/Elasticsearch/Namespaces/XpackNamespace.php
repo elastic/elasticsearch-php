@@ -34,7 +34,7 @@ class XpackNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['username'] = (string) An identifier for the user. If you omit this parameter, it retrieves information about all users.
+     * $params['username'] = (string) A comma-separated list of an identifier for the user. If you omit this parameter, it retrieves information about all users.
      * @param array $params Associative array of parameters
      * @return array
      */
@@ -77,4 +77,25 @@ class XpackNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+
+    /**
+     * $params['username']  = (string) An identifier for the user. (Required)
+     * @param $params
+     * @return array
+     */
+    public function deleteUser($params)
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Delete $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Delete');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
 }

@@ -49,7 +49,11 @@ class Get extends AbstractEndpoint
     }
 
 
-    public function setUsername(string $username)
+    /**
+     * @param $username string
+     * @return Get
+     */
+    public function setUsername($username)
     {
         if (isset($username) !== true) {
             return $this;

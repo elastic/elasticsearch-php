@@ -80,6 +80,30 @@ class XpackNamespace extends AbstractNamespace
 
     /**
      * $params['username']  = (string) An identifier for the user. (Required)
+     *        ['email']     = (string) The email of the user.
+     *        ['full_name'] = (string) The full name of the user.
+     *        ['metadata']  = (object) Arbitrary metadata that you want to associate with the user.
+     *        ['roles']     = (list) A set of roles the user has. The roles determine the user’s access permissions. (Required)
+     * @param array $params Associative array of parameters
+     * @return array
+     */
+    public function updateUser($params)
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Put $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Put');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params['username']  = (string) An identifier for the user. (Required)
      * @param array $params Associative array of parameters
      * @return array
      */

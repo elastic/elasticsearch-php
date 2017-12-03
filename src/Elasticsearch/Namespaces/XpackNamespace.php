@@ -16,7 +16,7 @@ class XpackNamespace extends AbstractNamespace
 
     /**
      * $param['categories']    = (list) A comma-separated list of the information categories to include in the response. For example, build,license,features
-     *       ['humans']        = (boolean) Defines whether additional human-readable information is included in the response. In particular, it adds descriptions and a tag line. The default value is true.
+     *       ['human']        = (boolean) Defines whether additional human-readable information is included in the response. In particular, it adds descriptions and a tag line. The default value is true.
      * @param array $params Associative array of parameters
      * @return array
      */

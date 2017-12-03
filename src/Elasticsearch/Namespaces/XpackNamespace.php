@@ -32,4 +32,24 @@ class XpackNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+
+    /**
+     * $params['username'] = (string) An identifier for the user. If you omit this parameter, it retrieves information about all users.
+     * @param array $params Associative array of parameters
+     * @return array
+     */
+    public function getUser($params = array())
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Get $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Get');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
 }

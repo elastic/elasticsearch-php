@@ -20,6 +20,7 @@ use Elasticsearch\Namespaces\RemoteNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 use Elasticsearch\Namespaces\TasksNamespace;
+use Elasticsearch\Namespaces\XpackNamespace;
 
 /**
  * Class Client
@@ -82,6 +83,11 @@ class Client
      */
     protected $remote;
 
+    /**
+     * @var XpackNamespace
+     */
+    protected $xpack;
+
     /** @var  callback */
     protected $endpoints;
 
@@ -107,6 +113,7 @@ class Client
         $this->ingest    = new IngestNamespace($transport, $endpoint);
         $this->tasks     = new TasksNamespace($transport, $endpoint);
         $this->remote    = new RemoteNamespace($transport, $endpoint);
+        $this->xpack     = new XpackNamespace($transport, $endpoint);
         $this->registeredNamespaces = $registeredNamespaces;
     }
 
@@ -1478,6 +1485,16 @@ class Client
     public function remote()
     {
         return $this->remote;
+    }
+
+    /**
+     * Operate on the Xpack namespace of commands
+     *
+     * @return XpackNamespace
+     */
+    public function xpack()
+    {
+        return $this->xpack;
     }
 
     /**

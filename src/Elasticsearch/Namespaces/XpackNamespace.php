@@ -104,6 +104,27 @@ class XpackNamespace extends AbstractNamespace
 
     /**
      * $params['username']  = (string) An identifier for the user. (Required)
+     *        ['password']  = (string) The user’s password. Passwords must be at least 6 characters long. (Required)
+     * @param array $params Associative array of parameters
+     * @return array
+     */
+    public function updateUserPassword($params)
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Password $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Password');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params['username']  = (string) An identifier for the user. (Required)
      * @param array $params Associative array of parameters
      * @return array
      */

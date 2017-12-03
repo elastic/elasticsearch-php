@@ -60,7 +60,7 @@ class XpackNamespace extends AbstractNamespace
      *        ['metadata']  = (object) Arbitrary metadata that you want to associate with the user.
      *        ['password']  = (string) The user’s password. Passwords must be at least 6 characters long. (Required)
      *        ['roles']     = (list) A set of roles the user has. The roles determine the user’s access permissions. (Required)
-     * @param $params
+     * @param array $params Associative array of parameters
      * @return array
      */
     public function createUser($params)
@@ -80,7 +80,7 @@ class XpackNamespace extends AbstractNamespace
 
     /**
      * $params['username']  = (string) An identifier for the user. (Required)
-     * @param $params
+     * @param array $params Associative array of parameters
      * @return array
      */
     public function deleteUser($params)
@@ -92,6 +92,46 @@ class XpackNamespace extends AbstractNamespace
 
         /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Delete $endpoint */
         $endpoint = $endpointBuilder('Xpack\Security\User\Delete');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params['username']  = (string) An identifier for the user. (Required)
+     * @param array $params Associative array of parameters
+     * @return array
+     */
+    public function enableUser($params)
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Enable $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Enable');
+        $endpoint->setUsername($username)
+            ->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params['username']  = (string) An identifier for the user. (Required)
+     * @param array $params Associative array of parameters
+     * @return array
+     */
+    public function disableUser($params)
+    {
+        $username = $this->extractArgument($params, 'username');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Xpack\Security\User\Disable $endpoint */
+        $endpoint = $endpointBuilder('Xpack\Security\User\Disable');
         $endpoint->setUsername($username)
             ->setParams($params);
 

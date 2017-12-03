@@ -6,6 +6,15 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class XpackNamespaceIntegrationTest
+ *
+ * @category Elasticsearch
+ * @package Elasticsearch\Tests\Namespaces
+ * @author   Augustin Husson <husson.augustin@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elastic.co
+ */
 class XpackNamespaceIntegrationTest extends TestCase
 {
 

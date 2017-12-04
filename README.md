@@ -19,6 +19,10 @@ Features
  - Pluggable connection pools to offer different connection strategies
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
  - Option to use asynchronous future, which enables parallel execution of curl requests to multiple nodes
+ 
+ 
+**Note:** If you want to use X-Pack API, you need to install an optional extension [elasticsearch/xpack](https://github.com/elastic/elasticsearch-x-pack-php). 
+
 
 Version Matrix
 --------------

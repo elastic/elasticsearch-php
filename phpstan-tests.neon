@@ -1,6 +1,6 @@
 parameters:
     ignoreErrors:
-        - '#Mockery\\MockInterface::shouldReceive\(\)#'
+        - '#Mockery\\ExpectationInterface#'
         - '#Mockery\\MockInterface given#'
 
         # because of \Elasticsearch\Tests\RegisteredNamespaceTest

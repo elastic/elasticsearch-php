@@ -1,7 +1,7 @@
 elasticsearch-php
 =================
 
-[![Build Status](https://img.shields.io/travis/elastic/elasticsearch-php.svg?style=flat-square)](https://travis-ci.org/elastic/elasticsearch-php)
+[![Build Status](https://travis-ci.org/elastic/elasticsearch-php.svg?branch=master)](https://travis-ci.org/elastic/elasticsearch-php)
 
 
 Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.

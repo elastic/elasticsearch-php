@@ -22,8 +22,8 @@
     "phpstan/phpstan-shim": "0.9.1",
     "phpunit/phpunit": "6.5.5",
     "squizlabs/php_codesniffer": "3.2.2",
-    "symfony/finder": "2.8.32",
-    "symfony/yaml": "2.8.32"
+    "symfony/finder": "3.4.1",
+    "symfony/yaml": "3.4.1"
   },
   "suggest": {
     "ext-curl": "*",

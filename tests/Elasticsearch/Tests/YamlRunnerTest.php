@@ -947,7 +947,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         foreach ($documents as $documentString) {
             try {
                 if (!$setupSkip) {
-                    $documentParsed = $this->yaml->parse($documentString, false, false, true);
+                    $documentParsed = $this->yaml->parse($documentString, Yaml::PARSE_OBJECT_FOR_MAP);
                     $skip = false;
                 }
             } catch (ParseException $exception) {

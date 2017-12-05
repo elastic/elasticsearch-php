@@ -1,3 +1,9 @@
+## Release 2.3.2
+
+This is likely to be the final release of the 2.x branch!
+
+- Backport #542 (Make id param optionnal for termvectors requests when doc is set in the body). (#683) [[c057d70]](http://github.com/elasticsearch/elasticsearch-php/commit/c057d70)
+
 ## Release 2.3.1
 
 - Do not schedule connection pool checks on 4xx level errors  [[e8520e6]](http://github.com/elasticsearch/elasticsearch-php/commit/e8520e619fa2f5ffe9c7733338f273df1dfa296d)

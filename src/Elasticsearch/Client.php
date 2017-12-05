@@ -82,7 +82,7 @@ class Client
      */
     protected $remote;
 
-    /** @var  callback */
+    /** @var callable */
     protected $endpoints;
 
     /** @var  NamespaceBuilderInterface[] */
@@ -1030,7 +1030,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setScroll($scroll)
                  ->setBody($body);
         $endpoint->setParams($params);
@@ -1057,7 +1057,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\ClearScroll $endpoint */
         $endpoint = $endpointBuilder('ClearScroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setBody($body);
         $endpoint->setParams($params);
 

@@ -63,15 +63,21 @@ class TermVectors extends AbstractEndpoint
                 'type is required for TermVector'
             );
         }
-        if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
-                'id is required for TermVector'
-            );
+        if (isset($this->id) !== true && isset($this->body['doc']) !== true) {
+           throw new Exceptions\RuntimeException(
+               'id or doc is required for TermVectors'
+           );
         }
+
         $index = $this->index;
         $type = $this->type;
         $id = $this->id;
-        $uri = "/$index/$type/$id/_termvector" . ($this->shouldUseDeprecated ? '' : 's');
+
+        $uri = "/$index/$type/_termvector" . ($this->shouldUseDeprecated ? '' : 's');
+
+        if ($id !== null) {
+            $uri = "/$index/$type/$id/_termvector" . ($this->shouldUseDeprecated ? '' : 's');
+        }
 
         return $uri;
     }

@@ -3,7 +3,7 @@
 
 When you add documents to Elasticsearch, you index JSON documents.  This maps naturally to PHP associative arrays, since
 they can easily be encoded in JSON.  Therefore, in Elasticsearch-PHP you create and pass associative arrays to the client
-for indexing.  There are several methods of ingesting data into Elasticsearch, which we will cover here
+for indexing.  There are several methods of ingesting data into Elasticsearch, which we will cover here.
 
 === Single document indexing
 

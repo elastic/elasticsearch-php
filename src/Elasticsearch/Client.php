@@ -929,6 +929,10 @@ class Client
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
      *        ['body']                     = (array|string) The search definition using the Query DSL
      *
+     * Note: Some Search API parameters, such as `search_after`, are not
+     * whitelisted for the top-level of of the $params array. They can be
+     * passed along within $params['body']
+     *
      * @param $params array Associative array of parameters
      *
      * @return array

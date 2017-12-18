@@ -11,7 +11,7 @@ This section will give you a quick overview of the client and how the major func
 ----------------------------
 {
     "require": {
-        "elasticsearch/elasticsearch": "~5.0"
+        "elasticsearch/elasticsearch": "~6.0"
     }
 }
 ----------------------------

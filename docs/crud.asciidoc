@@ -97,7 +97,7 @@ to batch up the requests and periodically send them:
 ----
 $params = ['body' => []];
 
-for ($i = 1; $i <= 1234567; $i++) {
+for ($i = 1; $i <= 500; $i++) {
     $params['body'][] = [
         'index' => [
             '_index' => 'my_index',

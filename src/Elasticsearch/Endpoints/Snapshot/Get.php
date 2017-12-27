@@ -16,14 +16,22 @@ use Elasticsearch\Common\Exceptions;
  */
 class Get extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    /**
+     * A comma-separated list of repository names
+     *
+     * @var string
+     */
     private $repository;
 
-    // A comma-separated list of snapshot names
+    /**
+     * A comma-separated list of snapshot names
+     *
+     * @var string
+     */
     private $snapshot;
 
     /**
-     * @param $repository
+     * @param string $repository
      *
      * @return $this
      */
@@ -39,7 +47,7 @@ class Get extends AbstractEndpoint
     }
 
     /**
-     * @param $snapshot
+     * @param string $snapshot
      *
      * @return $this
      */

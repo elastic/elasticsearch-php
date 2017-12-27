@@ -53,7 +53,7 @@ class Connection implements ConnectionInterface
     protected $host;
 
     /**
-     * @var string || null
+     * @var string|null
      */
     protected $path;
 
@@ -90,9 +90,7 @@ class Connection implements ConnectionInterface
     private $lastRequest = array();
 
     /**
-     * Constructor
-     *
-     * @param $handler
+     * @param callable $handler
      * @param array $hostDetails
      * @param array $connectionParams Array of connection-specific parameters
      * @param \Elasticsearch\Serializers\SerializerInterface $serializer
@@ -142,9 +140,9 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param $method
-     * @param $uri
-     * @param null $params
+     * @param string $method
+     * @param string $uri
+     * @param array $params
      * @param null $body
      * @param array $options
      * @param \Elasticsearch\Transport $transport
@@ -382,7 +380,7 @@ class Connection implements ConnectionInterface
      * @param null|string $statusCode
      * @param null|string $response
      * @param string $duration
-     * @param \Exception|null $exception
+     * @param \Exception $exception
      *
      * @return void
      */
@@ -530,8 +528,8 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param $request
-     * @param $response
+     * @param array $request
+     * @param array $response
      * @return \Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost|\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException|\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException|\Elasticsearch\Common\Exceptions\MaxRetriesException
      */
     protected function getCurlRetryException($request, $response)
@@ -582,9 +580,9 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param $request
-     * @param $response
-     * @param $ignore
+     * @param array $request
+     * @param array $response
+     * @param array $ignore
      * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException|\Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException|null
      */
     private function process4xxError($request, $response, $ignore)
@@ -630,9 +628,9 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param $request
-     * @param $response
-     * @param $ignore
+     * @param array $request
+     * @param array $response
+     * @param array $ignore
      * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException|\Elasticsearch\Common\Exceptions\NoShardAvailableException|\Elasticsearch\Common\Exceptions\RoutingMissingException|\Elasticsearch\Common\Exceptions\ServerErrorResponseException
      */
     private function process5xxError($request, $response, $ignore)

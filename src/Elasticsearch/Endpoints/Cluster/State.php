@@ -15,11 +15,15 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class State extends AbstractEndpoint
 {
-    // Limit the information returned to the specified metrics
+    /**
+     * Limit the information returned to the specified metrics
+     *
+     * @var string
+     */
     private $metric;
 
     /**
-     * @param $metric
+     * @param string|string[] $metric
      *
      * @return $this
      */

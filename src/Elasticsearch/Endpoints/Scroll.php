@@ -42,7 +42,7 @@ class Scroll extends AbstractEndpoint
     }
 
     /**
-     * @param $scroll
+     * @param string $scroll
      *
      * @return $this
      */
@@ -58,7 +58,7 @@ class Scroll extends AbstractEndpoint
     }
 
     /**
-     * @param $scroll_id
+     * @param string $scroll_id
      *
      * @return $this
      */

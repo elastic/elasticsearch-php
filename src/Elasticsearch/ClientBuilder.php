@@ -386,7 +386,7 @@ class ClientBuilder
     }
 
     /**
-     * @param $cert
+     * @param string $cert The name of a file containing a PEM formatted certificate.
      * @param null|string $password
      * @return $this
      */
@@ -398,7 +398,7 @@ class ClientBuilder
     }
 
     /**
-     * @param $key
+     * @param string $key The name of a file containing a private SSL key.
      * @param null|string $password
      * @return $this
      */
@@ -514,7 +514,7 @@ class ClientBuilder
 
         $registeredNamespaces = [];
         foreach ($this->registeredNamespacesBuilders as $builder) {
-            /** @var $builder NamespaceBuilderInterface */
+            /** @var NamespaceBuilderInterface $builder */
             $registeredNamespaces[$builder->getName()] = $builder->getObject($this->transport, $this->serializer);
         }
 
@@ -622,10 +622,10 @@ class ClientBuilder
     }
 
     /**
-     * @param $host
+     * @param array $host
      * @return array
      */
-    private function normalizeExtendedHost($host)
+    private function normalizeExtendedHost(array $host)
     {
         if (isset($host['host']) === false) {
             $this->logger->error("Required 'host' was not defined in extended format: ".print_r($host, true));

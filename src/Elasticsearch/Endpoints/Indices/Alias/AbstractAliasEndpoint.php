@@ -20,7 +20,7 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
     protected $name = null;
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      *

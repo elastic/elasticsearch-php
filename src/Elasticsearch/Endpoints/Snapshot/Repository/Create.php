@@ -16,7 +16,11 @@ use Elasticsearch\Common\Exceptions;
  */
 class Create extends AbstractEndpoint
 {
-    // A repository name
+    /**
+     * A repository name
+     *
+     * @var string
+     */
     private $repository;
 
     /**
@@ -37,7 +41,7 @@ class Create extends AbstractEndpoint
     }
 
     /**
-     * @param $repository
+     * @param string $repository
      *
      * @return $this
      */

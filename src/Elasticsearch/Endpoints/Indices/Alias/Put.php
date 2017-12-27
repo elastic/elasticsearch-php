@@ -16,7 +16,11 @@ use Elasticsearch\Common\Exceptions;
  */
 class Put extends AbstractEndpoint
 {
-    // The name of the alias to be created or updated
+    /**
+     * The name of the alias to be created or updated
+     *
+     * @var string
+     */
     private $name;
 
     /**
@@ -37,7 +41,7 @@ class Put extends AbstractEndpoint
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return $this
      */

@@ -19,7 +19,7 @@ class Snapshots extends AbstractEndpoint
     private $repository;
 
     /**
-     * @param $fields
+     * @param string $repository
      *
      * @return $this
      */

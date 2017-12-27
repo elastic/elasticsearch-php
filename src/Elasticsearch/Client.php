@@ -111,7 +111,7 @@ class Client
     }
 
     /**
-     * @param $params
+     * @param string[] $params
      * @return array
      */
     public function info($params = [])
@@ -127,7 +127,7 @@ class Client
     }
 
     /**
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return bool
      */
@@ -168,7 +168,7 @@ class Client
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -202,7 +202,7 @@ class Client
      *        ['refresh']        = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']        = (string) Specific routing value
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -238,7 +238,7 @@ class Client
      *        ['timeout']      = (time) Explicit operation timeout
      *        ['version_type'] = (enum) Specific version type
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -337,7 +337,7 @@ class Client
      *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -375,7 +375,7 @@ class Client
      *        ['version']            = (number) Explicit version number for concurrency control
      *        ['version_type']       = (enum) Specific version type
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      *
@@ -408,7 +408,7 @@ class Client
      *        ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
      *        ['body']         = (array) The document (`doc`) to percolate against registered queries; optionally also a `query` to limit the percolation to specific registered queries
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      *
@@ -442,7 +442,7 @@ class Client
      *        ['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      *
@@ -481,7 +481,7 @@ class Client
      *        ['parent']           = (string) Parent id of documents. Applies to all returned documents unless otherwise specified in body \"params\" or \"docs\".
      *        ['realtime']         = (boolean) Specifies if request is real-time as opposed to near-real-time (default: true).
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -521,7 +521,7 @@ class Client
      *        ['parent']           = (string) Parent id of documents. Applies to all returned documents unless otherwise specified in body \"params\" or \"docs\".
      *        ['realtime']         = (boolean) Specifies if request is real-time as opposed to near-real-time (default: true).
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -554,7 +554,7 @@ class Client
      *        ['refresh']    = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']    = (string) Specific routing value
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array | boolean
      */
@@ -594,7 +594,7 @@ class Client
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -623,7 +623,7 @@ class Client
      *        ['search_type'] = (enum) Search operation type
      *        ['body']        = (array|string) The request definitions (metadata-search request definition pairs), separated by newlines
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -653,7 +653,7 @@ class Client
      *        ['body']        = (array|string) The request definitions (metadata-search request definition pairs), separated by newlines
      *        ['max_concurrent_searches'] = (number) Controls the maximum number of concurrent searches the multi search api will execute
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -692,7 +692,7 @@ class Client
      *        ['version_type'] = (enum) Specific version type
      *        ['body']         = (array) The document
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -726,7 +726,7 @@ class Client
      *        ['fields']      = (list) Default comma-separated list of fields to return in the response for updates
      *        ['body']        = (array) The document
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -766,7 +766,7 @@ class Client
      *        ['version_type'] = (enum) Specific version type
      *        ['body']         = (array) The document
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -799,7 +799,7 @@ class Client
      *        ['requests_per_second'] = (float) The throttle for this request in sub-requests per second. 0 means set no throttle
      *        ['body']                = (array) The search definition using the Query DSL and the prototype for the index request (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -825,7 +825,7 @@ class Client
      *        ['source']         = (string) The URL-encoded request definition (instead of using request body)
      *        ['body']           = (array) The request definition
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -867,7 +867,7 @@ class Client
      *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
      *        ['body']                     = (string) The URL-encoded query definition (instead of using the request body)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -929,7 +929,7 @@ class Client
      *        ['version']                  = (boolean) Specify whether to return document version as part of a hit
      *        ['body']                     = (array|string) The search definition using the Query DSL
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -962,7 +962,7 @@ class Client
      *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -987,7 +987,7 @@ class Client
      * $params['index']                    = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      *        ['type']                     = (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1015,7 +1015,7 @@ class Client
      *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
      *        ['body']      = (string) The scroll ID for scrolled search
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1043,7 +1043,7 @@ class Client
      *        ['scroll']    = (duration) Specify how long a consistent view of the index should be maintained for scrolled search
      *        ['body']      = (string) The scroll ID for scrolled search
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1083,7 +1083,7 @@ class Client
      *        ['version_type']      = (number) Explicit version number for concurrency control
      *        ['body']              = (array) The request definition using either `script` or partial `doc`
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1204,7 +1204,7 @@ class Client
      * $params['id']   = (string) The script ID (Required)
      *        ['lang'] = (string) The script language (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1229,7 +1229,7 @@ class Client
      * $params['id']   = (string) The script ID (Required)
      *        ['lang'] = (string) The script language (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1254,7 +1254,7 @@ class Client
      * $params['id']   = (string) The script ID (Required)
      *        ['lang'] = (string) The script language (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1279,7 +1279,7 @@ class Client
     /**
      * $params['id']   = (string) The search template ID (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1301,7 +1301,7 @@ class Client
     /**
      * $params['id']   = (string) The search template ID (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1328,7 +1328,7 @@ class Client
      *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1355,7 +1355,7 @@ class Client
      *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1379,7 +1379,7 @@ class Client
     /**
      * $params['id']                 = (string) ID of the template to render
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */
@@ -1483,8 +1483,8 @@ class Client
     /**
      * Catchall for registered namespaces
      *
-     * @param $name
-     * @param $arguments
+     * @param string $name
+     * @param array $arguments
      * @return Object
      * @throws BadMethodCallException if the namespace cannot be found
      */
@@ -1538,7 +1538,7 @@ class Client
     }
 
     /**
-     * @param $endpoint AbstractEndpoint
+     * @param AbstractEndpoint $endpoint
      *
      * @throws \Exception
      * @return array

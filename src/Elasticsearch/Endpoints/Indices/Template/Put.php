@@ -16,7 +16,11 @@ use Elasticsearch\Common\Exceptions;
  */
 class Put extends AbstractEndpoint
 {
-    // The name of the template
+    /**
+     * The name of the template
+     *
+     * @var string
+     */
     private $name;
 
     /**
@@ -37,7 +41,7 @@ class Put extends AbstractEndpoint
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return $this
      */

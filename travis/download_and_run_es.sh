@@ -10,12 +10,14 @@ which java
 java -version
 
 
-echo "Downloading Elasticsearch v${ES_VERSION}-SNAPSHOT..."
+echo "Downloading Elasticsearch v${ES_VERSION}..."
 
-ES_URL=$(curl -sS "https://esvm-props.kibana.rocks/builds" | jq -r ".branches[\"$ES_VERSION\"].zip")
+ES_URL=$(curl -sS "https://esvm-props.kibana.rocks/builds" | jq -r ".releases[\"$ES_VERSION\"].zip")
 
-curl -L -o elasticsearch-latest-SNAPSHOT.zip $ES_URL
-unzip "elasticsearch-latest-SNAPSHOT.zip"
+echo "Downloading from ${ES_URL}"
+
+curl -L -o elasticsearch-latest.zip $ES_URL
+unzip "elasticsearch-latest.zip"
 
 echo "Adding repo to config..."
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'repositories.url.allowed_urls: ["http://*"]' >> $TXT ; done

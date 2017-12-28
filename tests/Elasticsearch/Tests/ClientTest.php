@@ -93,6 +93,20 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         ]);
     }
 
+    public function testAnalyze()
+    {
+        $client = ClientBuilder::create()->build();
+
+        $response = $client->analyze([
+            "index" => "fulltext",
+            "body" => [
+                "tokenizer" => "ik_smart",
+                "text" => "用户可以在这里配置远程扩",
+            ],
+        ]);
+        $this->assertInternalType("array", $response);
+    }
+
     public function testTypeCannotBeNullForDelete()
     {
         $client = ClientBuilder::create()->build();

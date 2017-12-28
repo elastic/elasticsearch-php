@@ -154,6 +154,31 @@ class Client
     }
 
     /**
+     * $params['index'] = (string) The name of the index(Optional).
+     *        ['body']  = (array) The text which need to be analyzed(Required).
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @author Fenton Ma <mfdboy@163.com>
+     */
+    public function analyze($params = [])
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Ping $endpoint */
+        $endpoint = $endpointBuilder('Analyze');
+        $endpoint->setIndex($index)
+                 ->setParams($params);
+        $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
      * $params['id']              = (string) The document ID (Required)
      *        ['index']           = (string) The name of the index (Required)
      *        ['type']            = (string) The type of the document (use `_all` to fetch the first document matching the ID across all types) (Required)

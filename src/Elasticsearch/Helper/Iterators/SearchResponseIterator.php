@@ -44,7 +44,7 @@ class SearchResponseIterator implements Iterator
     private $scroll_id;
 
     /**
-     * @var duration
+     * @var string duration
      */
     private $scroll_ttl;
 

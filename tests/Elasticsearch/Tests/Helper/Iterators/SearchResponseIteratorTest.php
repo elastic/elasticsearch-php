@@ -31,7 +31,7 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             'size'        => 1000,
             'body'        => [
                 'query' => [
-                    'match_all' => new \StdClass
+                    'match_all' => new \stdClass
                 ]
             ]
         ];
@@ -66,7 +66,7 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             'size'        => 1000,
             'body'        => [
                 'query' => [
-                    'match_all' => new \StdClass
+                    'match_all' => new \stdClass
                 ]
             ]
         ];

@@ -18,6 +18,21 @@ use Elasticsearch;
  */
 class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 {
+
+    public function testAnalyzeIndices()
+    {
+        $client = ClientBuilder::create()->build();
+
+        $response = $client->analyzeIndices([
+            "index" => "fulltext",
+            "body" => [
+                "tokenizer" => "ik_smart",
+                "text" => "用户可以在这里配置远程扩",
+            ],
+        ]);
+        $this->assertInternalType("array", $response);
+    }
+
     public function testCustomQueryParams()
     {
         $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
@@ -34,4 +49,5 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 
         $this->assertFalse($exists);
     }
+
 }

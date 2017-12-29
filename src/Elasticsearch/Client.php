@@ -82,7 +82,7 @@ class Client
      */
     protected $remote;
 
-    /** @var  callback */
+    /** @var callable */
     protected $endpoints;
 
     /** @var  NamespaceBuilderInterface[] */
@@ -151,6 +151,31 @@ class Client
         }
 
         return true;
+    }
+
+    /**
+     * $params['index'] = (string) The name of the index(Optional).
+     *        ['body']  = (array) The text which need to be analyzed(Required).
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @author Fenton Ma <mfdboy@163.com>
+     */
+    public function analyzeIndices($params = [])
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Ping $endpoint */
+        $endpoint = $endpointBuilder('Indices\Analyze');
+        $endpoint->setIndex($index)
+                 ->setParams($params);
+        $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1030,7 +1055,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setScroll($scroll)
                  ->setBody($body);
         $endpoint->setParams($params);
@@ -1057,7 +1082,7 @@ class Client
 
         /** @var \Elasticsearch\Endpoints\ClearScroll $endpoint */
         $endpoint = $endpointBuilder('ClearScroll');
-        $endpoint->setScrollID($scrollID)
+        $endpoint->setScrollId($scrollID)
                  ->setBody($body);
         $endpoint->setParams($params);
 

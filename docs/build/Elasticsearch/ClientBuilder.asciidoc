@@ -20,7 +20,6 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuilderdefaultHandler_defaultHandler,`defaultHandler()`>>
 * <<Elasticsearch_ClientBuildermultiHandler_multiHandler,`multiHandler()`>>
 * <<Elasticsearch_ClientBuildersingleHandler_singleHandler,`singleHandler()`>>
-* <<Elasticsearch_ClientBuilderdefaultLogger_defaultLogger,`defaultLogger()`>>
 * <<Elasticsearch_ClientBuildersetConnectionFactory_setConnectionFactory,`setConnectionFactory()`>>
 * <<Elasticsearch_ClientBuildersetConnectionPool_setConnectionPool,`setConnectionPool()`>>
 * <<Elasticsearch_ClientBuildersetEndpoint_setEndpoint,`setEndpoint()`>>
@@ -146,19 +145,6 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersingleHandler_singleHandler]]
 .`singleHandler()`
-****
-[source,php]
-----
-/*
-*/
-
-----
-****
-
-
-
-[[Elasticsearch_ClientBuilderdefaultLogger_defaultLogger]]
-.`defaultLogger()`
 ****
 [source,php]
 ----

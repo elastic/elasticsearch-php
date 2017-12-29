@@ -161,7 +161,7 @@ class Client
      * @return array
      * @author Fenton Ma <mfdboy@163.com>
      */
-    public function analyze($params = [])
+    public function analyzeIndices($params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $body = $this->extractArgument($params, 'body');
@@ -170,7 +170,7 @@ class Client
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Ping $endpoint */
-        $endpoint = $endpointBuilder('Analyze');
+        $endpoint = $endpointBuilder('Indices\Analyze');
         $endpoint->setIndex($index)
                  ->setParams($params);
         $endpoint->setBody($body);

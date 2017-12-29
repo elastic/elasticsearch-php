@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests\ConnectionPool;
 
+use Elasticsearch;
+
 /**
  * Class StaticConnectionPoolIntegrationTest
  *

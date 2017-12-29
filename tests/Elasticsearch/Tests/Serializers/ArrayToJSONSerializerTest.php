@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Elasticsearch\Tests\Serializers;
 
 use Elasticsearch\Serializers\ArrayToJSONSerializer;
-use PHPUnit_Framework_TestCase;
 use Mockery as m;
 
 /**

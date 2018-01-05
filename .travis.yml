@@ -20,15 +20,19 @@ matrix:
     - php: 7.0
       env: ES_VERSION="6.0"
     - php: 7.0
-      env: ES_VERSION="6.x"
+      env: ES_VERSION="6.1"
 
     - php: 7.1
       env: ES_VERSION="6.0"
     - php: 7.1
-      env: ES_VERSION="6.x"
+      env: ES_VERSION="6.1"
 
     - php: 7.2
       env: ES_VERSION="6.0"
+    - php: 7.2
+      env: ES_VERSION="6.1"
+    - php: 7.2
+      env: ES_VERSION="6.x"
 
   allow_failures:
     - env: ES_VERSION="6.x"

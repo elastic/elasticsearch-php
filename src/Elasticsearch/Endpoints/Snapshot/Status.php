@@ -70,10 +70,10 @@ class Status extends AbstractEndpoint
         $snapshot   = $this->snapshot;
         $uri        = "/_snapshot/_status";
 
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository/_status";
-        } elseif (isset($repository) === true && isset($snapshot) === true) {
+        if (isset($repository) === true && isset($snapshot) === true) {
             $uri = "/_snapshot/$repository/$snapshot/_status";
+        } elseif (isset($repository) === true) {
+            $uri = "/_snapshot/$repository/_status";
         }
 
         return $uri;

@@ -13,6 +13,11 @@ use Elasticsearch\ClientBuilder;
  */
 class SniffingConnectionPoolIntegrationTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        static::markTestSkipped("All of Sniffing unit tests use outdated cluster state format, need to redo");
+    }
+
     public function testSniff()
     {
         $client = ClientBuilder::create()

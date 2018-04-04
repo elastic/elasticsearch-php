@@ -898,6 +898,19 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
+     * @return array
+     */
+    public function listAliases()
+    {
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Aliases\Update $endpoint */
+        $endpoint = $endpointBuilder('Indices\Aliases\Get');
+        return $this->performRequest($endpoint);
+    }
+
+    /**
      * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
      *        ['timeout'] = (time) Explicit timestamp for the document
      *

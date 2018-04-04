@@ -18,6 +18,15 @@ __________________________
 This agnostic package is a lightweight wrapper on top of the Elasticsearch PHP client. Its main goal is to allow for easier structuring of queries and indices in your application. It does not want to hide or replace functionality of the Elasticsearch PHP client.
 __________________________
 
+=== ElasticSearchQueryDSL
+
+https://github.com/gskema/elasticsearch-query-dsl-php[Link: ElasticSearchQueryDSL]
+
+[quote, ElasticSearchQueryDSL]
+__________________________
+Feature complete, object oriented, composable, extendable ElasticSearch query DSL builder for PHP. Deliberately built to be as simple as possible, easily usable and with explicit naming.
+__________________________
+
 == Community Integrations
 
 === Symfony

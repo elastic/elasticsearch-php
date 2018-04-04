@@ -1,6 +1,2 @@
 parameters:
     ignoreErrors:
-
-        # because src\Elasticsearch\Connections\Connection.php
-        - '#Anonymous function has an unused use \$logger.#'
-        - '#Anonymous function has an unused use \$tracer.#'

@@ -107,7 +107,7 @@ class Connection implements ConnectionInterface
         LoggerInterface $log,
         LoggerInterface $trace
     ) {
-    
+
         if (isset($hostDetails['port']) !== true) {
             $hostDetails['port'] = 9200;
         }
@@ -138,7 +138,7 @@ class Connection implements ConnectionInterface
         $this->connectionParams = $connectionParams;
         $this->serializer       = $serializer;
 
-        $this->handler = $this->wrapHandler($handler, $log, $trace);
+        $this->handler = $this->wrapHandler($handler);
     }
 
     /**
@@ -191,15 +191,15 @@ class Connection implements ConnectionInterface
         return $this->lastRequest;
     }
 
-    private function wrapHandler(callable $handler, LoggerInterface $logger, LoggerInterface $tracer)
+    private function wrapHandler(callable $handler)
     {
-        return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler, $logger, $tracer) {
+        return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler) {
 
             $this->lastRequest = [];
             $this->lastRequest['request'] = $request;
 
             // Send the request using the wrapped handler.
-            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $logger, $tracer, $request, $options) {
+            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $request, $options) {
 
                 $this->lastRequest['response'] = $response;
 

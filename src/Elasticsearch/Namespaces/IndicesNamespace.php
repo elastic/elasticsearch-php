@@ -900,7 +900,8 @@ class IndicesNamespace extends AbstractNamespace
     /**
      * @return array
      */
-    public function listAliases(){
+    public function listAliases()
+    {
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 

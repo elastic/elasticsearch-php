@@ -212,13 +212,15 @@ $params = [
     'type' => 'my_type',
     'id' => 'my_id',
     'body' => [
-        'script' => 'ctx._source.counter += count',
-        'params' => [
-            'count' => 4
+        'script' => [
+            'source' => 'ctx._source.counter += params.count',
+            'params' => [
+                'count' => 4
+            ],
         ],
         'upsert' => [
             'counter' => 1
-        ]
+        ],
     ]
 ];
 

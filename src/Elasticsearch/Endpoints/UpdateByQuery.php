@@ -105,6 +105,7 @@ class UpdateByQuery extends AbstractEndpoint
             'consistency',
             'scroll_size',
             'wait_for_completion',
+            'slices',
         ];
     }
 

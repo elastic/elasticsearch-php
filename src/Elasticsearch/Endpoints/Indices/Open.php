@@ -48,6 +48,7 @@ class Open extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
+            'wait_for_active_shards',
         );
     }
 

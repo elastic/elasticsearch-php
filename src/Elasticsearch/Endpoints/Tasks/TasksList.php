@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Endpoints\Tasks;
 
 use Elasticsearch\Common\Exceptions;

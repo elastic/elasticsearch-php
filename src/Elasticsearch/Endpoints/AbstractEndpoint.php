@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\UnexpectedValueException;
@@ -162,6 +164,10 @@ abstract class AbstractEndpoint
     {
         if ($docID === null) {
             return $this;
+        }
+
+        if (is_int($docID)) {
+            $docID = (string) $docID;
         }
 
         $this->id = urlencode($docID);

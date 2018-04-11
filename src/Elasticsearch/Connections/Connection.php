@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Elasticsearch\Connections;
 
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
@@ -539,13 +541,13 @@ class Connection implements ConnectionInterface
         $exception = new MaxRetriesException($message);
         switch ($response['curl']['errno']) {
             case 6:
-                $exception = new CouldNotResolveHostException($message, null, $exception);
+                $exception = new CouldNotResolveHostException($message, 0, $exception);
                 break;
             case 7:
-                $exception = new CouldNotConnectToHost($message, null, $exception);
+                $exception = new CouldNotConnectToHost($message, 0, $exception);
                 break;
             case 28:
-                $exception = new OperationTimeoutException($message, null, $exception);
+                $exception = new OperationTimeoutException($message, 0, $exception);
                 break;
         }
 
@@ -595,6 +597,11 @@ class Connection implements ConnectionInterface
 
         if (array_search($response['status'], $ignore) !== false) {
             return;
+        }
+
+        // if responseBody is not string, we convert it so it can be used as Exception message
+        if (!is_string($responseBody)) {
+            $responseBody = json_encode($responseBody);
         }
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
@@ -714,7 +721,13 @@ class Connection implements ConnectionInterface
             return new $errorClass($response['body'], $response['status']);
         }
 
+        // if responseBody is not string, we convert it so it can be used as Exception message
+        $responseBody = $response['body'];
+        if (!is_string($responseBody)) {
+            $responseBody = json_encode($responseBody);
+        }
+
         // <2.0 "i just blew up" nonstructured exception
-        return new $errorClass($response['body']);
+        return new $errorClass($responseBody);
     }
 }

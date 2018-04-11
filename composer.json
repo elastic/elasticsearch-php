@@ -19,7 +19,7 @@
     "cpliakas/git-wrapper": "1.7.0",
     "doctrine/inflector": "1.2.0",
     "mockery/mockery": "1.0",
-    "phpstan/phpstan-shim": "0.9.1",
+    "phpstan/phpstan-shim": "0.9.2",
     "phpunit/phpunit": "6.5.5",
     "squizlabs/php_codesniffer": "3.2.2",
     "symfony/finder": "3.4.1",

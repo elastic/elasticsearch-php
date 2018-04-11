@@ -16,11 +16,15 @@ use Elasticsearch\Common\Exceptions;
  */
 class Verify extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    /**
+     * A comma-separated list of repository names
+     *
+     * @var string
+     */
     private $repository;
 
     /**
-     * @param $repository
+     * @param string $repository
      *
      * @return $this
      */

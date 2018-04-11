@@ -26,7 +26,7 @@ abstract class AbstractNamespace
      * Abstract constructor
      *
      * @param Transport $transport Transport object
-     * @param $endpoints
+     * @param callable $endpoints
      */
     public function __construct($transport, $endpoints)
     {
@@ -57,7 +57,7 @@ abstract class AbstractNamespace
     }
 
     /**
-     * @param $endpoint AbstractEndpoint
+     * @param AbstractEndpoint $endpoint
      *
      * @throws \Exception
      * @return array

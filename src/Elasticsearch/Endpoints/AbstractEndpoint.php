@@ -243,7 +243,7 @@ abstract class AbstractEndpoint
     }
 
     /**
-     * @param $params       Note: this is passed by-reference!
+     * @param array $params       Note: this is passed by-reference!
      */
     private function extractOptions(&$params)
     {

@@ -17,8 +17,13 @@ use Elasticsearch\Common\Exceptions;
  */
 class Shrink extends AbstractEndpoint
 {
-    // The name of the target index to shrink into
+    /**
+     * The name of the target index to shrink into
+     *
+     * @var string
+     */
     private $target;
+
     /**
      * @param array $body
      *
@@ -38,7 +43,7 @@ class Shrink extends AbstractEndpoint
     }
 
     /**
-     * @param $target
+     * @param string $target
      *
      * @return $this
      */

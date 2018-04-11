@@ -44,6 +44,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->andReturn(true)
                           ->getMock();
 
+        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
         $connections = [$mockConnection];
 
         $selector = m::mock(RoundRobinSelector::class)
@@ -71,6 +72,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
+        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
         $connections = [$mockConnection];
         $mockNewConnection = m::mock(Connection::class)
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
@@ -104,6 +106,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
+        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
         $connections = [$mockConnection];
         $mockNewConnection = m::mock(Connection::class)
                              ->shouldReceive('isAlive')->andReturn(true)->getMock();
@@ -239,6 +242,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->shouldReceive('getTransportSchema')->twice()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->twice()->andReturn($clusterState)->getMock();
 
+        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
         $connections = [$mockConnection];
 
         $newConnections = [];
@@ -284,6 +288,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->shouldReceive('getTransportSchema')->once()->andReturn('http')->getMock()
                           ->shouldReceive('sniff')->once()->andReturn($clusterState)->getMock();
 
+        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
         $connections = [$mockConnection];
 
         $newConnections = [];

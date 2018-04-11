@@ -16,11 +16,15 @@ use Elasticsearch\Common\Exceptions;
  */
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+    /**
+     * A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+     *
+     * @var string
+     */
     private $name;
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return $this
      */

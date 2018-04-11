@@ -16,11 +16,11 @@ use Elasticsearch\Common\Exceptions;
  */
 class Delete extends AbstractEndpoint
 {
-    /** @var  String */
+    /** @var string */
     private $lang;
 
     /**
-     * @param $lang
+     * @param string $lang
      *
      * @return $this
      */

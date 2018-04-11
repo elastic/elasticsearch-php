@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\Remote\Info;
 class RemoteNamespace extends AbstractNamespace
 {
     /**
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      *
      * @return array
      */

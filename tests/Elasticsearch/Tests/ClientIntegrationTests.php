@@ -32,6 +32,6 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         ];
         $exists = $client->exists($getParams);
 
-        $this->assertFalse($exists);
+        $this->assertFalse((bool) $exists);
     }
 }

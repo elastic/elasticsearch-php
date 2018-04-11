@@ -19,7 +19,7 @@ abstract class AbstractTemplateEndpoint extends AbstractEndpoint
     protected $name;
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return $this
      */

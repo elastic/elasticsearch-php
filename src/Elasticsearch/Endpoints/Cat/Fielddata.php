@@ -18,7 +18,7 @@ class Fielddata extends AbstractEndpoint
     private $fields;
 
     /**
-     * @param $fields
+     * @param string $fields
      *
      * @return $this
      */

@@ -2,7 +2,6 @@ parameters:
     ignoreErrors:
         - '#Mockery\\MockInterface::shouldReceive\(\)#'
         - '#Mockery\\MockInterface given#'
-        - '#Mockery\\MockInterface\[\] given#'
 
         # because of \Elasticsearch\Tests\RegisteredNamespaceTest
         - '#Call to an undefined method Elasticsearch\\Client::foo\(\)#'
@@ -10,3 +9,6 @@ parameters:
 
         # because of \Elasticsearch\Tests\ClientBuilderTest
         - '#expects Psr\\Log\\LoggerInterface, Elasticsearch\\Tests\\ClientBuilder\\DummyLogger given.$#'
+
+        # probably PHPStan issue, because it actually works https://3v4l.org/s3U2B
+        - '#Argument of an invalid type array\|stdClass supplied for foreach, only iterables are supported#'

@@ -49,7 +49,7 @@ class ConnectionFactory implements ConnectionFactoryInterface
         $this->serializer       = $serializer;
     }
     /**
-     * @param $hostDetails
+     * @param array $hostDetails
      *
      * @return ConnectionInterface
      */

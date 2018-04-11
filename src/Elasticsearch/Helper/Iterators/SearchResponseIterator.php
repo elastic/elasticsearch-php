@@ -2,7 +2,7 @@
 
 namespace Elasticsearch\Helper\Iterators;
 
-use ElasticSearch\Client;
+use Elasticsearch\Client;
 use Iterator;
 
 /**
@@ -52,7 +52,7 @@ class SearchResponseIterator implements Iterator
      * Constructor
      *
      * @param Client $client
-     * @param array  $params  Associative array of parameters
+     * @param array  $search_params  Associative array of parameters
      * @see   Client::search()
      */
     public function __construct(Client $client, array $search_params)

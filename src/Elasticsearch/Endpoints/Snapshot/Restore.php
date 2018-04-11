@@ -16,10 +16,18 @@ use Elasticsearch\Common\Exceptions;
  */
 class Restore extends AbstractEndpoint
 {
-    // A repository name
+    /**
+     * A repository name
+     *
+     * @var string
+     */
     private $repository;
 
-    // A snapshot name
+    /**
+     * A snapshot name
+     *
+     * @var string
+     */
     private $snapshot;
 
     /**
@@ -40,7 +48,7 @@ class Restore extends AbstractEndpoint
     }
 
     /**
-     * @param $repository
+     * @param string $repository
      *
      * @return $this
      */
@@ -56,7 +64,7 @@ class Restore extends AbstractEndpoint
     }
 
     /**
-     * @param $snapshot
+     * @param string $snapshot
      *
      * @return $this
      */

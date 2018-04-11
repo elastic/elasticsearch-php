@@ -979,9 +979,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             if (!$skip && key($documentParsed) === 'setup') {
                 $setup = $documentParsed;
                 $setupSkip = $skip;
-            } else if (!$skip && key($documentParsed) === 'teardown') {
+            } elseif (!$skip && key($documentParsed) === 'teardown') {
                 $teardown = $documentParsed;
-            }  else {
+            } else {
                 $documentsParsed[] = [$documentParsed, $skip || $setupSkip, $setup, $teardown, $fileName];
             }
         }

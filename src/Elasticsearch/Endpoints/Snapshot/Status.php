@@ -4,11 +4,10 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Common\Exceptions;
 
 /**
- * Class Status
+ * Snapshot Status endpoint.
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Snapshot
@@ -16,83 +15,39 @@ use Elasticsearch\Common\Exceptions;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Status extends AbstractEndpoint
+class Status extends AbstractSnapshotEndpoint
 {
-    /**
-     * A comma-separated list of repository names
-     *
-     * @var string
-     */
-    private $repository;
+
+    protected $baseUrl = '/_snapshot/{repository}{snapshot}/_status';
 
     /**
-     * A comma-separated list of snapshot names
-     *
-     * @var string
+     * @throws Exceptions\RuntimeException
      */
-    private $snapshot;
-
-    /**
-     * @param string $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function getURI(): string
     {
-        if (isset($repository) !== true) {
-            return $this;
+        if (empty($this->repository) && empty($this->snapshot)) {
+            return '/_snapshot/_status';
         }
 
-        $this->repository = $repository;
+        $this->ensureRepository();
 
-        return $this;
+        return $this->buildUrl();
     }
 
-    /**
-     * @param string $snapshot
-     *
-     * @return $this
-     */
-    public function setSnapshot($snapshot)
+    protected function buildUrlParameters(): array
     {
-        if (isset($snapshot) !== true) {
-            return $this;
+        $parameters = parent::buildUrlParameters();
+        if (!empty($this->snapshot)) {
+            $parameters['{snapshot}'] = '/'.$parameters['{snapshot}'];
         }
 
-        $this->snapshot = $snapshot;
-
-        return $this;
-    }
-
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
-    {
-        if (isset($this->snapshot) === true && isset($this->repository) !== true) {
-            throw new Exceptions\RuntimeException(
-                'Repository param must be provided if snapshot param is set'
-            );
-        }
-
-        $repository = $this->repository;
-        $snapshot   = $this->snapshot;
-        $uri        = "/_snapshot/_status";
-
-        if (isset($repository) === true && isset($snapshot) === true) {
-            $uri = "/_snapshot/$repository/$snapshot/_status";
-        } elseif (isset($repository) === true) {
-            $uri = "/_snapshot/$repository/_status";
-        }
-
-        return $uri;
+        return $parameters;
     }
 
     /**
      * @return string[]
      */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
         return array(
             'master_timeout',
@@ -100,10 +55,7 @@ class Status extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

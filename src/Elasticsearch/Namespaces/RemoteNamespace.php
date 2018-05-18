@@ -19,6 +19,7 @@ class RemoteNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function info($params = array())
     {

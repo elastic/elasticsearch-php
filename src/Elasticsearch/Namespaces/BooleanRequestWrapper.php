@@ -24,8 +24,10 @@ trait BooleanRequestWrapper
      *
      * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
      *
-     * @throws Missing404Exception
-     * @throws RoutingMissingException
+     * @param Transport $transport
+     *
+     * @return array|bool|callable|FutureArrayInterface
+     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public static function performRequest(AbstractEndpoint $endpoint, Transport $transport)
     {

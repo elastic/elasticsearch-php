@@ -22,6 +22,7 @@ class TasksNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function get($params = array())
     {
@@ -50,6 +51,7 @@ class TasksNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function tasksList($params = array())
     {
@@ -73,6 +75,7 @@ class TasksNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function cancel($params = array())
     {

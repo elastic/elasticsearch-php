@@ -26,6 +26,7 @@ class IngestNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deletePipeline($params = array())
     {
@@ -48,6 +49,7 @@ class IngestNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getPipeline($params = array())
     {
@@ -71,6 +73,7 @@ class IngestNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putPipeline($params = array())
     {
@@ -95,6 +98,7 @@ class IngestNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function simulate($params = array())
     {
@@ -119,6 +123,7 @@ class IngestNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function processorGrok($params = [])
     {

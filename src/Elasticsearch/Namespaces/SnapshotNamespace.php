@@ -20,6 +20,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function create($params = array())
     {
@@ -47,6 +48,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function createRepository($params = array())
     {
@@ -71,6 +73,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function delete($params = array())
     {
@@ -96,6 +99,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteRepository($params = array())
     {
@@ -118,6 +122,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function get($params = array())
     {
@@ -143,6 +148,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getRepository($params = array())
     {
@@ -166,6 +172,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function restore($params = array())
     {
@@ -192,6 +199,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function status($params = array())
     {
@@ -217,6 +225,7 @@ class SnapshotNamespace extends AbstractNamespace
      * @param $params array Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function verifyRepository($params = array())
     {

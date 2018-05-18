@@ -21,6 +21,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return boolean
+     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function exists($params)
     {
@@ -50,7 +51,8 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      *
-     * @return bool
+     * @return array
+     * @throws \Exception
      */
     public function get($params)
     {
@@ -79,6 +81,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function segments($params = array())
     {
@@ -102,6 +105,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteTemplate($params)
     {
@@ -125,6 +129,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function delete($params = array())
     {
@@ -166,6 +171,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function stats($params = array())
     {
@@ -192,6 +198,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putSettings($params = array())
     {
@@ -220,6 +227,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function snapshotIndex($params = array())
     {
@@ -245,6 +253,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function shrink($params = array())
     {
@@ -271,6 +280,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getMapping($params = array())
     {
@@ -299,6 +309,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getFieldMapping($params = array())
     {
@@ -337,6 +348,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function flush($params = array())
     {
@@ -365,6 +377,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function flushSynced($params = array())
     {
@@ -393,6 +406,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function refresh($params = array())
     {
@@ -418,6 +432,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function recovery($params = array())
     {
@@ -444,6 +459,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return boolean
+     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function existsType($params)
     {
@@ -475,6 +491,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putAlias($params = array())
     {
@@ -507,6 +524,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putTemplate($params)
     {
@@ -538,6 +556,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function validateQuery($params = array())
     {
@@ -569,6 +588,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getAlias($params)
     {
@@ -598,6 +618,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putMapping($params)
     {
@@ -627,6 +648,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteMapping($params)
     {
@@ -652,6 +674,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getTemplate($params)
     {
@@ -674,6 +697,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return boolean
+     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function existsTemplate($params)
     {
@@ -701,6 +725,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function create($params)
     {
@@ -735,6 +760,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function forceMerge($params = array())
     {
@@ -759,6 +785,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteAlias($params)
     {
@@ -785,6 +812,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function open($params)
     {
@@ -819,6 +847,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function analyze($params = array())
     {
@@ -856,6 +885,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function clearCache($params = array())
     {
@@ -880,6 +910,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function updateAliases($params = array())
     {
@@ -906,6 +937,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getAliases($params = array())
     {
@@ -935,6 +967,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return boolean
+     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function existsAlias($params)
     {
@@ -967,6 +1000,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function status($params = array())
     {
@@ -989,6 +1023,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getSettings($params = array())
     {
@@ -1015,6 +1050,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function close($params)
     {
@@ -1037,6 +1073,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function seal($params)
     {
@@ -1065,6 +1102,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function upgrade($params = array())
     {
@@ -1093,6 +1131,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getUpgrade($params = array())
     {
@@ -1120,6 +1159,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function shardStores($params)
     {
@@ -1145,6 +1185,7 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function rollover($params)
     {

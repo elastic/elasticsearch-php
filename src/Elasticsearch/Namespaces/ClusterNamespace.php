@@ -29,6 +29,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function health($params = array())
     {
@@ -54,6 +55,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function reroute($params = array())
     {
@@ -83,6 +85,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function state($params = array())
     {
@@ -108,6 +111,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function stats($params = array())
     {
@@ -130,6 +134,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putSettings($params = array())
     {
@@ -150,6 +155,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params
      *
      * @return array
+     * @throws \Exception
      */
     public function getSettings($params = array())
     {
@@ -170,6 +176,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function pendingTasks($params = array())
     {
@@ -189,6 +196,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function allocationExplain($params = array())
     {
@@ -211,6 +219,7 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function remoteInfo($params = array())
     {

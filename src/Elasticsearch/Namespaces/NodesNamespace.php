@@ -35,6 +35,7 @@ class NodesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function stats($params = array())
     {
@@ -62,11 +63,11 @@ class NodesNamespace extends AbstractNamespace
      *        ['metric']        = (list) A comma-separated list of metrics you wish returned. Leave empty to return all.
      *        ['flat_settings'] = (boolean) Return settings in flat format (default: false)
      *        ['human']         = (boolean) Whether to return time and byte values in human-readable format.
-
      *
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function info($params = array())
     {
@@ -94,6 +95,7 @@ class NodesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function hotThreads($params = array())
     {
@@ -118,6 +120,7 @@ class NodesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function shutdown($params = array())
     {

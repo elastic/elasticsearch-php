@@ -25,6 +25,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function aliases($params = array())
     {
@@ -52,6 +53,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function allocation($params = array())
     {
@@ -78,6 +80,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function count($params = array())
     {
@@ -105,6 +108,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function health($params = array())
     {
@@ -124,6 +128,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function help($params = array())
     {
@@ -149,6 +154,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function indices($params = array())
     {
@@ -175,6 +181,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function master($params = array())
     {
@@ -198,6 +205,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function nodes($params = array())
     {
@@ -221,6 +229,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function nodeAttrs($params = array())
     {
@@ -244,6 +253,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function pendingTasks($params = array())
     {
@@ -268,6 +278,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function recovery($params = array())
     {
@@ -294,6 +305,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function repositories($params = array())
     {
@@ -318,6 +330,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function shards($params = array())
     {
@@ -346,6 +359,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function snapshots($params = array())
     {
@@ -374,6 +388,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function threadPool($params = array())
     {
@@ -402,6 +417,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function fielddata($params = array())
     {
@@ -428,6 +444,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function plugins($params = array())
     {
@@ -449,6 +466,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function segments($params = array())
     {
@@ -480,6 +498,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function tasks($params = array())
     {
@@ -504,6 +523,7 @@ class CatNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function templates($params = array())
     {

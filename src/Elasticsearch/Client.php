@@ -820,35 +820,6 @@ class Client
     }
 
     /**
-     * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['routing']        = (string) Specific routing value
-     *        ['source']         = (string) The URL-encoded request definition (instead of using request body)
-     *        ['body']           = (array) The request definition
-     *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
-     */
-    public function suggest($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Suggest $endpoint */
-        $endpoint = $endpointBuilder('Suggest');
-        $endpoint->setIndex($index)
-                 ->setBody($body);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
      * $params['id']                       = (string) The document ID (Required)
      *        ['index']                    = (string) The name of the index (Required)
      *        ['type']                     = (string) The type of the document (Required)

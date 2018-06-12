@@ -117,8 +117,11 @@ class Connection implements ConnectionInterface
         }
 
         if (isset($hostDetails['user']) && isset($hostDetails['pass'])) {
+            // not supported at the moment because the default wrapper is ringPHP instead of curl
             $connectionParams['client']['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
+            // basic auth fix for RingPHP - make sure no user and pass has no URL Encoding signs 
+            $connectionParams['headers']['Authorization'] = ['Basic '.base64_encode($hostDetails['user'].':'.$hostDetails['pass'])];
         }
 
         if (isset($connectionParams['client']['headers']) === true) {

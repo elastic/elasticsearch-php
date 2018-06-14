@@ -34,6 +34,8 @@ matrix:
     - php: 7.2
       env: ES_VERSION="6.2"
     - php: 7.2
+      env: ES_VERSION="6.3"
+    - php: 7.2
       env: ES_VERSION="6.x"
 
   allow_failures:

@@ -60,16 +60,17 @@ Basic Auth's password contains special characters such as a pound sign (`#`) or 
 For this reason, the client supports an extended host syntax which provides greater control over host initialization.
 None of the components are validated, so edge-cases like underscores domain names will not cause problems.
 
-The extended syntax is an array of parameters for each host:
+The extended syntax is an array of parameters for each host. The structure of the parameter list is identical to the return values of a http://php.net/manual/en/function.parse-url.php#refsect1-function.parse-url-returnvalues[`parse_url()`] call:
 
 [source,php]
 ----
 $hosts = [
-    // This is effectively equal to: "https://username:password!#$?*abc@foo.com:9200/"
+    // This is effectively equal to: "https://username:password!#$?*abc@foo.com:9200/elastic"
     [
         'host' => 'foo.com',
         'port' => '9200',
         'scheme' => 'https',
+        'path' => '/elastic',
         'user' => 'username',
         'pass' => 'password!#$?*abc'
     ],

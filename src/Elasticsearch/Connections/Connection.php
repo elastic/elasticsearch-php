@@ -121,12 +121,14 @@ class Connection implements ConnectionInterface
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
 
+        $connectionParams['client']['curl'][CURLOPT_PORT] = $hostDetails['port'];
+
         if (isset($connectionParams['client']['headers']) === true) {
             $this->headers = $connectionParams['client']['headers'];
             unset($connectionParams['client']['headers']);
         }
 
-        $host = $hostDetails['host'].':'.$hostDetails['port'];
+        $host = $hostDetails['host'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
             $path = $hostDetails['path'];

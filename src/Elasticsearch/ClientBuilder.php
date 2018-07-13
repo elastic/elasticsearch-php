@@ -638,7 +638,7 @@ class ClientBuilder
             $host['scheme'] = 'http';
         }
         if (isset($host['port']) === false) {
-            $host['port'] = '9200';
+            $host['port'] = 9200;
         }
         return $host;
     }

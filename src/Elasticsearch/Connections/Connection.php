@@ -58,6 +58,11 @@ class Connection implements ConnectionInterface
      * @var string|null
      */
     protected $path;
+    
+    /**
+    * @var int
+    */
+    protected $port;
 
     /**
      * @var LoggerInterface
@@ -133,8 +138,11 @@ class Connection implements ConnectionInterface
         if (isset($hostDetails['path']) === true) {
             $path = $hostDetails['path'];
         }
+        $port = $hostDetails['port'];
+        
         $this->host             = $host;
         $this->path             = $path;
+        $this->port             = $port;
         $this->log              = $log;
         $this->trace            = $trace;
         $this->connectionParams = $connectionParams;
@@ -511,6 +519,9 @@ class Connection implements ConnectionInterface
     {
         return $this->host;
     }
+    
+    /**
+    
 
     /**
      * @return null|string
@@ -529,6 +540,14 @@ class Connection implements ConnectionInterface
     public function getPath()
     {
         return $this->path;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
     /**

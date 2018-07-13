@@ -519,9 +519,6 @@ class Connection implements ConnectionInterface
     {
         return $this->host;
     }
-    
-    /**
-    
 
     /**
      * @return null|string

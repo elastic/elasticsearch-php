@@ -51,6 +51,13 @@ interface ConnectionInterface
     public function getHost();
 
     /**
+     * Get the port for this connection
+     *
+     * @return int
+     */
+    public function getPort();
+
+    /**
      * Get the username:password string for this connection, null if not set
      *
      * @return null|string

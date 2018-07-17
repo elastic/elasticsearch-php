@@ -1,7 +1,7 @@
 {
   "name": "elasticsearch/elasticsearch",
   "description": "PHP Client for Elasticsearch",
-  "keywords": ["search","client", "elasticsearch"],
+  "keywords": ["search", "client", "elasticsearch"],
   "type": "library",
   "license": "Apache-2.0",
   "authors": [
@@ -36,7 +36,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
+      "Elasticsearch\\Tests\\": "tests/Elasticsearch/Tests/"
     }
   },
   "config": {

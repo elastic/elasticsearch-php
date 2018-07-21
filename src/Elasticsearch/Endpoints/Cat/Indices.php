@@ -43,6 +43,7 @@ class Indices extends AbstractEndpoint
             'help',
             'pri',
             'v',
+            'format',
         ];
     }
 

@@ -1518,7 +1518,7 @@ class Client
         }
     }
 
-    private function verifyNotNullOrEmpty($name, $var)
+    protected function verifyNotNullOrEmpty($name, $var)
     {
         if ($var === null) {
             throw new InvalidArgumentException("$name cannot be null.");
@@ -1543,7 +1543,7 @@ class Client
      * @throws \Exception
      * @return array
      */
-    private function performRequest(AbstractEndpoint $endpoint)
+    protected function performRequest(AbstractEndpoint $endpoint)
     {
         $promise =  $this->transport->performRequest(
             $endpoint->getMethod(),

@@ -644,7 +644,7 @@ class ClientBuilder
     }
 
     /**
-     * @param array $host
+     * @param string $host
      *
      * @throws \InvalidArgumentException
      * @return array

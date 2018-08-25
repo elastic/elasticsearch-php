@@ -270,8 +270,12 @@ class Connection implements ConnectionInterface
                     $connection->markAlive();
 
                     if (isset($response['body']) === true) {
-                        $response['body'] = stream_get_contents($response['body']);
-                        $this->lastRequest['response']['body'] = $response['body'];
+                        if (is_string($response['body'])) {
+                            $this->lastRequest['response']['body'] = $response['body'];
+                        } else {
+                            $response['body'] = stream_get_contents($response['body']);
+                            $this->lastRequest['response']['body'] = $response['body'];
+                        }
                     }
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {

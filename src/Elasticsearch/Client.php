@@ -236,6 +236,7 @@ class Client
      *        ['replication']  = (enum) Specific replication type
      *        ['routing']      = (string) Specific routing value
      *        ['timeout']      = (time) Explicit operation timeout
+     *        ['version']      = (number) Explicit version number for concurrency control
      *        ['version_type'] = (enum) Specific version type
      *
      * @param $params array Associative array of parameters
@@ -1080,7 +1081,7 @@ class Client
      *        ['timeout']           = (time) Explicit operation timeout
      *        ['timestamp']         = (time) Explicit timestamp for the document
      *        ['ttl']               = (duration) Expiration time for the document
-     *        ['version_type']      = (number) Explicit version number for concurrency control
+     *        ['version']           = (number) Explicit version number for concurrency control
      *        ['body']              = (array) The request definition using either `script` or partial `doc`
      *
      * @param $params array Associative array of parameters

@@ -1213,15 +1213,13 @@ class Client
     public function getScript($params)
     {
         $id = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Get $endpoint */
         $endpoint = $endpointBuilder('Script\Get');
-        $endpoint->setID($id)
-                 ->setLang($lang);
+        $endpoint->setID($id);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
@@ -1238,15 +1236,13 @@ class Client
     public function deleteScript($params)
     {
         $id = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Delete $endpoint */
         $endpoint = $endpointBuilder('Script\Delete');
-        $endpoint->setID($id)
-                 ->setLang($lang);
+        $endpoint->setID($id);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);

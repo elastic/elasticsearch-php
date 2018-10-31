@@ -263,7 +263,7 @@ Connection pools are configured via the `setConnectionPool()` method:
 
 [source,php]
 ----
-$connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+$connectionPool = \Elasticsearch\ConnectionPool\StaticNoPingConnectionPool::class;;
 $client = ClientBuilder::create()
             ->setConnectionPool($connectionPool)
             ->build();
@@ -279,7 +279,7 @@ via the `setSelector()` method:
 
 [source,php]
 ----
-$selector = '\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector';
+$selector = \Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector::class;
 $client = ClientBuilder::create()
             ->setSelector($selector)
             ->build();
@@ -299,7 +299,7 @@ it can be done via the `setSerializer()` method:
 
 [source,php]
 ----
-$serializer = '\Elasticsearch\Serializers\SmartSerializer';
+$serializer = \Elasticsearch\Serializers\SmartSerializer::class;
 $client = ClientBuilder::create()
             ->setSerializer($serializer)
             ->build();

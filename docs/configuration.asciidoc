@@ -263,7 +263,7 @@ Connection pools are configured via the `setConnectionPool()` method:
 
 [source,php]
 ----
-$connectionPool = \Elasticsearch\ConnectionPool\StaticNoPingConnectionPool::class;;
+$connectionPool = \Elasticsearch\ConnectionPool\StaticNoPingConnectionPool::class;
 $client = ClientBuilder::create()
             ->setConnectionPool($connectionPool)
             ->build();

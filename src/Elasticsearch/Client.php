@@ -112,9 +112,11 @@ class Client
         $this->registeredNamespaces = $registeredNamespaces;
     }
 
+
     /**
-     * @param string[] $params
+     * @param array $params
      * @return array
+     * @throws \Exception
      */
     public function info($params = [])
     {
@@ -130,8 +132,8 @@ class Client
 
     /**
      * @param array $params Associative array of parameters
-     *
      * @return bool
+     * @throws \Exception
      */
     public function ping($params = [])
     {
@@ -173,6 +175,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function get($params)
     {
@@ -207,6 +210,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getSource($params)
     {
@@ -243,6 +247,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function delete($params)
     {
@@ -305,6 +310,7 @@ class Client
      * @param array $params
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteByQuery($params = array())
     {
@@ -342,6 +348,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function count($params = array())
     {
@@ -380,7 +387,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
-     *
+     * @throws \Exception
      * @deprecated
      */
     public function countPercolate($params = array())
@@ -413,7 +420,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
-     *
+     * @throws \Exception
      * @deprecated
      */
     public function percolate($params)
@@ -447,7 +454,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
-     *
+     * @throws \Exception
      * @deprecated
      */
     public function mpercolate($params = array())
@@ -486,6 +493,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function termvectors($params = array())
     {
@@ -526,6 +534,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function mtermvectors($params = array())
     {
@@ -558,7 +567,9 @@ class Client
      *
      * @param array $params Associative array of parameters
      *
-     * @return array | boolean
+     * @return array|bool|callable
+     * @throws Common\Exceptions\RoutingMissingException
+     * @throws Missing404Exception
      */
     public function exists($params)
     {
@@ -599,6 +610,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function mget($params = array())
     {
@@ -628,6 +640,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function msearch($params = array())
     {
@@ -658,6 +671,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function msearchTemplate($params = array())
     {
@@ -697,6 +711,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function create($params)
     {
@@ -731,6 +746,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function bulk($params = array())
     {
@@ -771,6 +787,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function index($params)
     {
@@ -804,6 +821,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function reindex($params)
     {
@@ -830,6 +848,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function suggest($params = array())
     {
@@ -872,6 +891,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function explain($params)
     {
@@ -934,6 +954,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function search($params = array())
     {
@@ -967,6 +988,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function searchShards($params = array())
     {
@@ -992,6 +1014,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function searchTemplate($params = array())
     {
@@ -1020,6 +1043,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function scroll($params = array())
     {
@@ -1048,6 +1072,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function clearScroll($params = array())
     {
@@ -1088,6 +1113,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function update($params)
     {
@@ -1180,6 +1206,7 @@ class Client
      * @param array $params
      *
      * @return array
+     * @throws \Exception
      */
     public function updateByQuery($params = array())
     {
@@ -1209,6 +1236,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getScript($params)
     {
@@ -1234,6 +1262,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteScript($params)
     {
@@ -1259,11 +1288,11 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function putScript($params)
     {
         $id   = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */
@@ -1284,6 +1313,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function getTemplate($params)
     {
@@ -1306,6 +1336,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function deleteTemplate($params)
     {
@@ -1333,6 +1364,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function fieldStats($params = array())
     {
@@ -1360,6 +1392,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function fieldCaps($params = array())
     {
@@ -1384,6 +1417,7 @@ class Client
      * @param array $params Associative array of parameters
      *
      * @return array
+     * @throws \Exception
      */
     public function renderSearchTemplate($params = array())
     {

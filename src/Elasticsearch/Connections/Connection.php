@@ -108,10 +108,6 @@ class Connection implements ConnectionInterface
         LoggerInterface $trace
     ) {
 
-        if (isset($hostDetails['port']) !== true) {
-            $hostDetails['port'] = 9200;
-        }
-
         if (isset($hostDetails['scheme'])) {
             $this->transportSchema = $hostDetails['scheme'];
         }

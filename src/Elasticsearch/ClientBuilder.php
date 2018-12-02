@@ -637,9 +637,7 @@ class ClientBuilder
         if (isset($host['scheme']) === false) {
             $host['scheme'] = 'http';
         }
-        if (isset($host['port']) === false) {
-            $host['port'] = '9200';
-        }
+
         return $host;
     }
 
@@ -655,10 +653,6 @@ class ClientBuilder
 
         if ($parts === false) {
             throw new InvalidArgumentException("Could not parse URI");
-        }
-
-        if (isset($parts['port']) !== true) {
-            $parts['port'] = 9200;
         }
 
         return $parts;

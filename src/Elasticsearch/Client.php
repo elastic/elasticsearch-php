@@ -1204,7 +1204,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1227,7 +1226,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1250,7 +1248,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1259,7 +1256,6 @@ class Client
     public function putScript($params)
     {
         $id   = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
         $body = $this->extractArgument($params, 'body');
 
         /** @var callback $endpointBuilder */

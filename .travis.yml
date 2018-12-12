@@ -30,18 +30,11 @@ matrix:
     - php: 7.2
       env: ES_VERSION="6.0"
 
+    - php: 7.3
+      env: ES_VERSION="6.0"
+
   allow_failures:
     - env: ES_VERSION="6.x"
-
-    - php: 7.2
-      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
-    - php: 7.2
-      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
-
-    - php: 7.3
-      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
-    - php: 7.3
-      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
 
 env:
   global:

@@ -39,7 +39,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/polyfractal/Yaml"
+      "url": "https://github.com/polyfractal/Yaml.git"
     }
   ]
 }

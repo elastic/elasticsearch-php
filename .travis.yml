@@ -54,7 +54,7 @@ before_script:
   - php util/EnsureClusterAlive.php
 
 script:
-  - composer run-script phpcs
+  - if [ $TRAVIS_PHP_VERSION != '7.3' ]; then composer run-script phpcs; fi
   - composer run-script phpstan
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS

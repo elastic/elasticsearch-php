@@ -950,6 +950,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $skip = false;
         $documentParsed = null;
         foreach ($documents as $documentString) {
+            // TODO few bad instances of teardown, should be fixed in upstream but this is a quick fix locally
+            $documentString = str_replace(" teardown:", "teardown:", $documentString);
             try {
                 if (!$setupSkip) {
                     $documentParsed = $this->yaml->parse($documentString, false, false, true);
@@ -984,7 +986,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             if (!$skip && key($documentParsed) === 'setup') {
                 $setup = $documentParsed;
                 $setupSkip = $skip;
-            } elseif (!$skip && key($documentParsed) === 'teardown') {
+            } elseif (!$teardown && key($documentParsed) === 'teardown') {
                 $teardown = $documentParsed;
             } else {
                 $documentsParsed[] = [$documentParsed, $skip || $setupSkip, $setup, $teardown, $fileName];

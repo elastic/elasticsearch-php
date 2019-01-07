@@ -86,11 +86,16 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
         'search/110_field_collapsing.yml' => 'Temporary: parse error, malformed inline yaml',
         'search/110_field_collapsing.yaml' => 'Temporary: parse error, malformed inline yaml',
+        'range/10_basic.yml' => 'Temporary: parse error, malformed inline yaml',
 
         'cat.nodes/10_basic.yml' => 'Temporary: parse error, something about $body: |',
         'cat.nodes/10_basic.yaml' => 'Temporary: parse error, something about $body: |',
         'search.aggregation/180_percentiles_tdigest_metric.yml' => 'array of objects, unclear how to fix',
-        'search.aggregation/190_percentiles_hdr_metric.yml' => 'array of objects, unclear how to fix'
+        'search.aggregation/190_percentiles_hdr_metric.yml' => 'array of objects, unclear how to fix',
+        'search/190_index_prefix_search.yml' => 'bad yaml array syntax',
+        'search.aggregation/230_composite.yml' => 'bad yaml array syntax',
+        'search/30_limits.yml' => 'bad regex'
+
     ];
 
     /**

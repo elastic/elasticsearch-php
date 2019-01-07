@@ -142,7 +142,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * @dataProvider yamlProvider
      * @group sync
      */
-    public function testIntegration($testProcedure, $skip, $setupProcedure, $fileName)
+    public function testIntegration($testProcedure, bool $skip, $setupProcedure, $teardownProcedure, string $fileName)
     {
         if ($skip) {
             static::markTestIncomplete($testProcedure);
@@ -157,14 +157,21 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             $this->waitForYellow();
         }
 
-        $this->processProcedure(current($testProcedure), key($testProcedure), $fileName);
+        try {
+            $this->processProcedure(current($testProcedure), key($testProcedure), $fileName);
+        } finally {
+            if (null !== $teardownProcedure) {
+                $this->processProcedure(current($teardownProcedure), 'teardown', $fileName);
+                $this->waitForYellow();
+            }
+        }
     }
 
     /**
      * @dataProvider yamlProvider
      * @group async
      */
-    public function testAsyncIntegration($testProcedure, $skip, $setupProcedure, $fileName)
+    public function testAsyncIntegration($testProcedure, bool $skip, $setupProcedure, $teardownProcedure, string $fileName)
     {
         if ($skip) {
             static::markTestIncomplete($testProcedure);
@@ -179,7 +186,14 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             $this->waitForYellow();
         }
 
-        $this->processProcedure(current($testProcedure), key($testProcedure), $fileName, true);
+        try {
+            $this->processProcedure(current($testProcedure), key($testProcedure), $fileName, true);
+        } finally {
+            if (null !== $teardownProcedure) {
+                $this->processProcedure(current($teardownProcedure), 'teardown', $fileName);
+                $this->waitForYellow();
+            }
+        }
     }
 
     /**
@@ -918,6 +932,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $documentsParsed = [];
         $setup = null;
         $setupSkip = false;
+        $teardown = null;
         $fileName = str_replace($path . '/', '', $file);
 
         if (array_key_exists($fileName, static::$fatalFiles)) {
@@ -931,6 +946,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $skip = false;
         $documentParsed = null;
         foreach ($documents as $documentString) {
+            // TODO few bad instances of teardown, should be fixed in upstream but this is a quick fix locally
+            $documentString = str_replace(" teardown:", "teardown:", $documentString);
             try {
                 if (!$setupSkip) {
                     $documentParsed = $this->yaml->parse($documentString, false, false, true);
@@ -965,8 +982,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             if (!$skip && key($documentParsed) === 'setup') {
                 $setup = $documentParsed;
                 $setupSkip = $skip;
+            } elseif (!$teardown && key($documentParsed) === 'teardown') {
+                $teardown = $documentParsed;
             } else {
-                $documentsParsed[] = [$documentParsed, $skip || $setupSkip, $setup, $fileName];
+                $documentsParsed[] = [$documentParsed, $skip || $setupSkip, $setup, $teardown, $fileName];
             }
         }
 

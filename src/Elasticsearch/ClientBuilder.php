@@ -687,7 +687,7 @@ class ClientBuilder
      */
     private function prependMissingScheme($host)
     {
-        if (!filter_var($host, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+        if (!filter_var($host, FILTER_VALIDATE_URL)) {
             $host = 'http://' . $host;
         }
 

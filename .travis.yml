@@ -32,6 +32,16 @@ matrix:
     - php: 7.1
       env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
 
+    - php: 7.2
+      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
+    - php: 7.2
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+
+    - php: 7.3
+      env: ES_VERSION="5.0" TEST_BUILD_REF="origin/5.0"
+    - php: 7.3
+      env: ES_VERSION="5.5" TEST_BUILD_REF="origin/5.5"
+
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200
@@ -42,10 +52,10 @@ before_install:
   - ./travis/download_and_run_es.sh
 
 install:
-  - composer install --prefer-source
+  - composer install --prefer-dist
 
 before_script:
-  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
   - php util/RestSpecRunner.php
   - php util/EnsureClusterAlive.php
 
@@ -54,4 +64,4 @@ script:
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
 
 after_script:
-  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then php vendor/bin/coveralls; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then php vendor/bin/coveralls; fi

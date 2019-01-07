@@ -1162,4 +1162,36 @@ class IndicesNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+
+    /**
+     * $params['index'] = (string) The name of the source index to split
+     *        ['target']  = (string) The name of the target index to split into
+     *        ['copy_settings']  = (boolean) whether or not to copy settings from the source index (defaults to false)
+     *        ['timeout']  = (time) Explicit operation timeout
+     *        ['master_timeout']  = (time) Specify timeout for connection to master
+     *        ['wait_for_active_shards']  = (string) Set the number of active shards to wait for on the shrunken index before the operation returns.
+     *
+     * @param array $params Associative array of parameters
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function split($params = array())
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+        $target = $this->extractArgument($params, 'target');
+
+        /** @var callback $endpointBuilder */
+        $endpointBuilder = $this->endpoints;
+
+        /** @var \Elasticsearch\Endpoints\Indices\Split $endpoint */
+        $endpoint = $endpointBuilder('Indices\Split');
+        $endpoint->setIndex($index)
+                 ->setBody($body)
+                 ->setTarget($target);
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
 }

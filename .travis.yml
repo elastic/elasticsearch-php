@@ -18,19 +18,13 @@ matrix:
   fast_finish: true
   include:
     - php: 7.0
-      env: ES_VERSION="6.1"
-    - php: 7.0
-      env: ES_VERSION="6.2"
+      env: ES_VERSION="6.5"
 
     - php: 7.1
-      env: ES_VERSION="6.1"
-    - php: 7.1
-      env: ES_VERSION="6.2"
+      env: ES_VERSION="6.5"
 
     - php: 7.2
-      env: ES_VERSION="6.1"
-    - php: 7.2
-      env: ES_VERSION="6.2"
+      env: ES_VERSION="6.5"
 
     - php: 7.3
       env: ES_VERSION="6.0"
@@ -38,6 +32,12 @@ matrix:
       env: ES_VERSION="6.1"
     - php: 7.3
       env: ES_VERSION="6.2"
+    - php: 7.3
+      env: ES_VERSION="6.3"
+    - php: 7.3
+      env: ES_VERSION="6.4"
+    - php: 7.3
+      env: ES_VERSION="6.5"
     - php: 7.3
       env: ES_VERSION="6.x"
 

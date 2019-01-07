@@ -78,7 +78,8 @@ class Msearch extends AbstractEndpoint
         return array(
             'search_type',
             'typed_keys',
-            'max_concurrent_shard_requests'
+            'max_concurrent_shard_requests',
+            'max_concurrent_searches'
         );
     }
 

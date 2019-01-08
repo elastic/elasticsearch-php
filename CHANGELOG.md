@@ -1,3 +1,8 @@
+## Release 2.4.0
+
+-Fixed php 7.3 compatibiltiy for elasticsearch 2 / 1 (#825) [[823d56e]](http://github.com/elasticsearch/elasticsearch-php/commit/823d56e)
+- [DOCS] add link to community index helper (#681) (#725) [[32c3673]](http://github.com/elasticsearch/elasticsearch-php/commit/32c3673)
+
 ## Release 2.3.2
 
 This is likely to be the final release of the 2.x branch!

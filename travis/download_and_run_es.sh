@@ -15,7 +15,7 @@ echo "Downloading Elasticsearch v${ES_VERSION}..."
 ES_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz"
 
 curl -L -o elasticsearch-latest.tar.gz $ES_URL
-tar -xvfz "elasticsearch-latest.tar.gz"
+tar -xvf "elasticsearch-latest.tar.gz"
 
 echo "Adding repo to config..."
 find . -name "elasticsearch.yml" | while read TXT ; do echo 'repositories.url.allowed_urls: ["http://*"]' >> $TXT ; done

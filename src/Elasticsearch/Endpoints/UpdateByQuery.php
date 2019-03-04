@@ -108,6 +108,7 @@ class UpdateByQuery extends AbstractEndpoint
             'scroll_size',
             'wait_for_completion',
             'pipeline',
+            'slices',
         ];
     }
 

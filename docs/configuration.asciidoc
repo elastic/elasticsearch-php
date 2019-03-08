@@ -1,4 +1,4 @@
-
+[[configuration]]
 == Configuration
 
 Almost every aspect of the client is configurable.  Most users will only need to configure a few parameters to suit

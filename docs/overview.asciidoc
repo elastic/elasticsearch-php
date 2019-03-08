@@ -1,3 +1,4 @@
+[[overview]]
 == Overview
 
 This is the official PHP client for Elasticsearch.  It is designed to be a very low-level client that does not stray from the REST API.

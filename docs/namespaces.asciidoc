@@ -1,4 +1,4 @@
-
+[[namespaces]]
 == Namespaces
 
 The client has a number of "namespaces", which generally expose administrative

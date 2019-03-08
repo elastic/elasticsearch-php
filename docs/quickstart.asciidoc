@@ -1,4 +1,4 @@
-
+[[quickstart]]
 == Quickstart
 
 This section will give you a quick overview of the client and how the major functions work.

@@ -1,4 +1,4 @@
-
+[[indexing_documents]]
 == Indexing Documents
 
 When you add documents to Elasticsearch, you index JSON documents.  This maps naturally to PHP associative arrays, since
@@ -129,6 +129,7 @@ if (!empty($params['body'])) {
 }
 ----
 
+[[getting_documents]]
 == Getting Documents
 
 Elasticsearch provides realtime GETs of documents.  This means that as soon as the document has been indexed and your
@@ -148,6 +149,7 @@ $response = $client->get($params);
 ----
 {zwsp} +
 
+[[updating_documents]]
 == Updating Documents
 
 Updating a document allows you to either completely replace the contents of the existing document, or perform a partial
@@ -228,7 +230,7 @@ $response = $client->update($params);
 ----
 {zwsp} +
 
-
+[[deleting_documents]]
 == Deleting documents
 
 Finally, you can delete documents by specifying their full `/index/type/id` path:

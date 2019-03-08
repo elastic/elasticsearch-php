@@ -1,4 +1,4 @@
-
+[[future_mode]]
 == Future Mode
 
 The client offers a mode called "future" or "async" mode.  This allows batch processing of requests (sent in parallel

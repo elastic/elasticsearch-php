@@ -1,3 +1,4 @@
+[[installation]]
 == Installation
 
 Elasticsearch-php only has a three requirements that you need to worry about:

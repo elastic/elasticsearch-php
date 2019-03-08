@@ -1,3 +1,4 @@
+[[search_operations]]
 == Search Operations
 
 Well...it isn't called elasticsearch for nothing!  Let's talk about search operations in the client.

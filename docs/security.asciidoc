@@ -1,4 +1,4 @@
-
+[[security]]
 == Security
 
 The Elasticsearch-PHP client supports two security features: HTTP Authentication and SSL encryption.

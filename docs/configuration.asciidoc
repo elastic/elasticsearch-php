@@ -89,7 +89,8 @@ scheme is `http`.
 
 === Authorization and Encryption
 
-For details about HTTP Authorization and SSL encryption, please see link:_security.html[Authorization and SSL].
+For details about HTTP Authorization and SSL encryption, see
+<<security,Authorization and SSL>>.
 
 === Set retries
 

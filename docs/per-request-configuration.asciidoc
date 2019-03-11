@@ -269,11 +269,12 @@ $results = $future->wait();       // resolve the future
 ----
 
 Future mode supports two options: `true` or `'lazy'`.  For more details about how asynchronous execution functions, and
-how to work with the results, see the dedicated page on <<_future_mode>>.
+how to work with the results, see the dedicated page on <<future_mode>>.
 
 === SSL Encryption
 
-Normally, you will specify SSL configurations when you create the client (see <<_security>> for more details), since encryption typically
+Normally, you will specify SSL configurations when you create the client (see
+<<security>> for more details), since encryption typically
 applies to all requests. However, it is possible to configure on a per-request basis too if you need that functionality.
 For example, if you  need to use a self-signed cert on a specific request, you can specify it via the `verify` parameter
 in the client options:

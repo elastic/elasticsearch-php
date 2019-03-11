@@ -1,4 +1,4 @@
-
+[[connection_pool]]
 == Connection Pool
 
 The connection pool is an object inside the client that is responsible for maintaining the current list of nodes.

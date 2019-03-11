@@ -1,4 +1,4 @@
-
+[[per_request_configuration]]
 == Per-request configuration
 
 There are several configurations that can be set on a per-request basis, rather than at a connection- or client-level.

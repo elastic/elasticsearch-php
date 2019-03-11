@@ -1,4 +1,4 @@
-
+[[index_management]]
 == Index Management Operations
 
 Index management operations allow you to manage the indices in your Elasticsearch cluster, such as creating, deleting and

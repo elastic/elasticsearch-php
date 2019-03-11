@@ -1,4 +1,4 @@
-
+[[selectors]]
 == Selectors
 
 The connection pool maintains the list of connections, and decides when nodes should transition from alive to dead (and

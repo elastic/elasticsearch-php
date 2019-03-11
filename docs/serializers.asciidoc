@@ -1,4 +1,4 @@
-
+[[serializers]]
 == Serializers
 
 The client has three serializers available.  You will most likely never need

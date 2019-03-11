@@ -37,7 +37,7 @@ better to "stick" to a single connection for the duration of the script.
 By default, this selector will randomize the hosts upon initialization, which will still guarantee an even distribution
 of load across the cluster.  It changes the round-robin dynamics from per-request to per-script.
 
-If you are using <<_future_mode>>, the "sticky" behavior of this selector will be non-ideal, since all parallel requests
+If you are using <<future_mode>>, the "sticky" behavior of this selector will be non-ideal, since all parallel requests
 will go to the same node instead of multiple nodes in your cluster.  When using future mode, the default `RoundRobinSelector`
 should be preferred.
 

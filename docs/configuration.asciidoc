@@ -89,7 +89,8 @@ scheme is `http`.
 
 === Authorization and Encryption
 
-For details about HTTP Authorization and SSL encryption, please see link:_security.html[Authorization and SSL].
+For details about HTTP Authorization and SSL encryption, see
+<<security,Authorization and SSL>>.
 
 === Set retries
 
@@ -242,7 +243,8 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on link:_connection_pool.html[configuring connection pools].
+For more details, please see the dedicated page on 
+<<connection_pool,configuring connection pools>>.
 
 === Setting the Connection Selector
 
@@ -258,7 +260,8 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on link:_selectors.html[configuring selectors].
+For more details, please see the dedicated page on
+<<selectors,configuring selectors>>.
 
 
 === Setting the Serializer
@@ -278,7 +281,8 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on link:_serializers.html[configuring serializers].
+For more details, please see the dedicated page on
+<<serializers,configuring serializers>>.
 
 
 === Setting a custom ConnectionFactory

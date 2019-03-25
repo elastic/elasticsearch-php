@@ -38,6 +38,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
         }
 
         if (is_array($body) === true || $body instanceof \Traversable) {
+            $this->body = '';
             foreach ($body as $item) {
                 $this->body .= $this->serializer->serialize($item) . "\n";
             }

@@ -63,6 +63,8 @@ class DeleteByQuery extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
+            '_source_excludes',
+            '_source_includes',
             'allow_no_indices',
             'analyze_wildcard',
             'analyzer',

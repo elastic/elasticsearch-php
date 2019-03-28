@@ -87,6 +87,8 @@ class Search extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
+            '_source_excludes',
+            '_source_includes',
             'stats',
             'suggest_field',
             'suggest_mode',

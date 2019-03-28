@@ -92,6 +92,8 @@ class UpdateByQuery extends AbstractEndpoint
             '_source',
             '_source_exclude',
             '_source_include',
+            '_source_excludes',
+            '_source_includes',
             'terminate_after',
             'stats',
             'suggest_field',

@@ -167,8 +167,8 @@ class Client
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes'] = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes'] = (list) A list of fields to extract and return from the _source field
      *
      * @param array $params Associative array of parameters
      *
@@ -270,8 +270,8 @@ class Client
     /**
      *
      * $params['_source'] = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude'] = (array) A list of fields to exclude from the returned _source field
-     *        ['_source_include'] = (array) A list of fields to extract and return from the _source field
+     *        ['_source_excludes'] = (array) A list of fields to exclude from the returned _source field
+     *        ['_source_includes'] = (array) A list of fields to extract and return from the _source field
      *        ['allow_no_indices'] = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['analyze_wildcard'] = (bool) Specify whether wildcard and prefix queries should be analyzed (default: false)
      *        ['analyzer'] = (string) The analyzer to use for the query string
@@ -593,8 +593,8 @@ class Client
      *        ['routing']         = (string) Specific routing value
      *        ['body']            = (array) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index and type is provided in the URL.
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes'] = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes'] = (list) A list of fields to extract and return from the _source field
      *
      * @param array $params Associative array of parameters
      *
@@ -865,8 +865,8 @@ class Client
      *        ['routing']                  = (string) Specific routing value
      *        ['source']                   = (string) The URL-encoded query definition (instead of using the request body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']          = (list) A list of fields to extract and return from the _source field
      *        ['body']                     = (string) The URL-encoded query definition (instead of using the request body)
      *
      * @param array $params Associative array of parameters
@@ -919,8 +919,8 @@ class Client
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
      *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of using request body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']          = (list) A list of fields to extract and return from the _source field
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
      *        ['suggest_field']            = (string) Specify which field to use for suggestions
      *        ['suggest_mode']             = (enum) Specify suggest mode
@@ -1151,8 +1151,8 @@ class Client
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
      * fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']          = (list) A list of fields to extract and return from the _source field
      *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon
      * reaching which the query execution will terminate early.
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes

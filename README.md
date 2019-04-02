@@ -43,7 +43,7 @@ Version Matrix
 
 Documentation
 --------------
-[Full documentation can be found here.](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/5.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+[Full documentation can be found here.](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
 Installation via Composer
 -------------------------
@@ -353,7 +353,7 @@ That was just a crash-course overview of the client and its syntax.  If you are 
 
 You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the `$client` object (indexing, searching, getting, etc.).  Index and cluster management are located under the `$client->indices()` and `$client->cluster()` objects, respectively.
 
-Check out the rest of the [Documentation](http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html) to see how the entire client works.
+Check out the rest of the [Documentation](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/) to see how the entire client works.
 
 
 Available Licenses

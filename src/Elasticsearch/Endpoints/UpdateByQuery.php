@@ -109,6 +109,7 @@ class UpdateByQuery extends AbstractEndpoint
             'wait_for_completion',
             'pipeline',
             'slices',
+            'wait_for_active_shards',
         ];
     }
 

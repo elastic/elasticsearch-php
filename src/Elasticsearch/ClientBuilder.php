@@ -82,6 +82,9 @@ class ClientBuilder
     /** @var bool */
     private $sniffOnStart = false;
 
+    /** @var bool */
+    private $keepRequests = false;
+
     /** @var null|array  */
     private $sslCert = null;
 
@@ -388,6 +391,17 @@ class ClientBuilder
     }
 
     /**
+     * @param boolean $keepRequests
+     * @return $this
+     */
+    public function setKeepRequests($keepRequests)
+    {
+        $this->keepRequests = $keepRequests;
+
+        return $this;
+    }
+
+    /**
      * @param string $cert The name of a file containing a PEM formatted certificate.
      * @param null|string $password
      * @return $this
@@ -570,7 +584,7 @@ class ClientBuilder
         }
 
         if (is_null($this->transport)) {
-            $this->transport = new Transport($this->retries, $this->sniffOnStart, $this->connectionPool, $this->logger);
+            $this->transport = new Transport($this->retries, $this->sniffOnStart, $this->keepRequests, $this->connectionPool, $this->logger);
         }
     }
 

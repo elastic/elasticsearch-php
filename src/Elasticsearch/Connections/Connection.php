@@ -198,10 +198,22 @@ class Connection implements ConnectionInterface
             $this->lastRequest = [];
             $this->lastRequest['request'] = $request;
 
+
+            $indexKey = count($transport->getKeptRequests());
+
+            if ($transport->keepRequests === true) {
+                $transport->keptRequests[$indexKey]['request'] = $request;
+            }
+
+
             // Send the request using the wrapped handler.
-            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $request, $options) {
+            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $request, $options, $indexKey) {
 
                 $this->lastRequest['response'] = $response;
+
+                if ($transport->keepRequests === true) {
+                    $transport->keptRequests[$indexKey]['response'] = $response;
+                }
 
                 if (isset($response['error']) === true) {
                     if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
@@ -272,6 +284,10 @@ class Connection implements ConnectionInterface
                     if (isset($response['body']) === true) {
                         $response['body'] = stream_get_contents($response['body']);
                         $this->lastRequest['response']['body'] = $response['body'];
+
+                        if ($transport->keepRequests === true) {
+                            $transport->keptRequests[$indexKey]['response']['body'] = $response['body'];
+                        }
                     }
 
                     if ($response['status'] >= 400 && $response['status'] < 500) {

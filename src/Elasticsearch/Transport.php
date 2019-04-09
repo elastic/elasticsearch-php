@@ -38,6 +38,12 @@ class Transport
     /** @var  Connection */
     public $lastConnection;
 
+    /** @var bool */
+    public $keepRequests = false;
+
+    /** @var array */
+    public $keptRequests = [];
+
     /** @var int  */
     public $retries;
 
@@ -47,18 +53,20 @@ class Transport
      *
      * @param int $retries
      * @param bool $sniffOnStart
+     * @param bool $keepRequests
      * @param ConnectionPool\AbstractConnectionPool $connectionPool
      * @param \Psr\Log\LoggerInterface $log    Monolog logger object
      */
 	// @codingStandardsIgnoreStart
 	// "Arguments with default values must be at the end of the argument list" - cannot change the interface
-    public function __construct($retries, $sniffOnStart = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
+    public function __construct($retries, $sniffOnStart = false, $keepRequests = false, AbstractConnectionPool $connectionPool, LoggerInterface $log)
     {
 	    // @codingStandardsIgnoreEnd
 
         $this->log            = $log;
         $this->connectionPool = $connectionPool;
         $this->retries        = $retries;
+        $this->keepRequests   = $keepRequests;
 
         if ($sniffOnStart === true) {
             $this->log->notice('Sniff on Start.');
@@ -177,5 +185,16 @@ class Transport
     public function getLastConnection()
     {
         return $this->lastConnection;
+    }
+
+    /**
+     * Returns the array of requests performed from the client.  Mainly
+     * for debugging/testing purposes.
+     *
+     * @return array
+     */
+    public function getKeptRequests()
+    {
+        return $this->keptRequests;
     }
 }

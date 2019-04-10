@@ -27,3 +27,6 @@ util/output
 
 # Sami docs generator
 /sami.phar
+
+# PHPUnit
+phpunit.xml

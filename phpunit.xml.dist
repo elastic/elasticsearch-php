@@ -9,7 +9,7 @@
         beStrictAboutOutputDuringTests="true"
 >
     <php>
-        <server name="ES_TEST_HOST" value="localhost:9200"/>
+        <server name="ES_TEST_HOST" value=""/>
     </php>
     <testsuites>
         <testsuite name="Tests">

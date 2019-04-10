@@ -6,7 +6,10 @@
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "Zachary Tong"
+        "name": "Zachary Tong"
+    },
+    {
+        "name": "Enrico Zimuel"
     }
   ],
   "require": {
@@ -18,7 +21,7 @@
   "require-dev": {
     "cpliakas/git-wrapper": "~1.0",
     "doctrine/inflector": "^1.1",
-    "mockery/mockery": "0.9.4",
+    "mockery/mockery": "^1.2",
     "phpstan/phpstan-shim": "0.9.1",
     "phpunit/phpunit": "6.3.0",
     "squizlabs/php_codesniffer": "3.0.2",
@@ -36,7 +39,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
+      "Elasticsearch\\Tests\\": "tests/Elasticsearch/Tests/",
+      "Elasticsearch\\IntegrationTests\\": "tests/Elasticsearch/IntegrationTests/"
     }
   },
   "config": {

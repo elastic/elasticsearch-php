@@ -376,6 +376,38 @@ Obviously, by doing this you take responsibility that all existing endpoints sti
 assume the responsibility of correctly wiring the Transport and Serializer into each endpoint.
 
 
+=== Keep Requests
+
+Notice: This is mainly used for debugging purposes.
+
+By default the client will only keep the latest request made to ElasticSearch saved in the latest connection. By enabling
+the Keep Requests part of the Client, the client will keep a record of all requests made during its lifecycle.
+This can be useful if you are interested in logging the requests and responses different from the default way this
+library logs the requests.
+
+If you wish to enable to client to keep requests you can use the setKeepRequests(true):
+
+[source,php]
+----------------------------
+
+$client = ClientBuilder::create()
+                    ->setKeepRequests(true)
+                    ->build();
+----------------------------
+
+Once the client has been built using the setKeepRequests(true), you can retrieve the requests using:
+
+[source,php]
+----------------------------
+
+$requests = $client->transport->getKeptRequests();
+
+//or
+
+$requests = $client->transport->keptRequests;
+----------------------------
+
+
 === Building the client from a configuration hash
 
 To help ease automated building of the client, all configurations can be provided in a setting

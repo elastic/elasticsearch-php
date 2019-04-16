@@ -56,7 +56,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     ];
 
     private static $skippedTests = [
-
+        'nodes.stats/30_discovery.yml#Discovery stats' => 'Failing on ES 6.1+: nodes.$master.discovery is an empty array, expected to have cluster_state_queue field in it',
+        'indices.stats/20_translog.yml#Translog retention' => 'Failing on ES 6.3+: Failed asserting that 495 is equal to <string:$creation_size> or is less than \'$creation_size\'',
+        'indices.shrink/30_copy_settings.yml#Copy settings during shrink index' => 'Failing on ES 6.4+: Failed to match in test "Copy settings during shrink index". Expected [\'4\'] does not match [false] '
     ];
 
     /** @var array A list of skipped test with their reasons */
@@ -105,8 +107,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      */
     public static function getHost(): string
     {
-        if (isset($_SERVER['ES_TEST_HOST']) === true) {
-            return $_SERVER['ES_TEST_HOST'];
+        if (getenv('ES_TEST_HOST') !== false) {
+            return getenv('ES_TEST_HOST');
         }
 
         echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
@@ -793,7 +795,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         // *.yaml files should be included until the library is ES 6.0+ only
         $finder->name('*.yaml');
 
-        $filter = isset($_SERVER['TEST_CASE']) ? $_SERVER['TEST_CASE'] : null;
+        $filter = getenv('TEST_CASE') !== false ? getenv('TEST_CASE') : null;
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {

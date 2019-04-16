@@ -21,9 +21,12 @@ Thumbs.db
 generator/*
 
 # Elasticsearch related
-util/elasticsearch/
+util/elasticsearch
 util/cache/
 util/output
 
 # Sami docs generator
 /sami.phar
+
+# PHPUnit
+/phpunit.xml

@@ -34,7 +34,7 @@ class ClusterNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Health $endpoint */
@@ -59,7 +59,7 @@ class ClusterNamespace extends AbstractNamespace
     {
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Reroute $endpoint */
@@ -89,7 +89,7 @@ class ClusterNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         $metric = $this->extractArgument($params, 'metric');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\State $endpoint */
@@ -113,7 +113,7 @@ class ClusterNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Stats $endpoint */
@@ -135,7 +135,7 @@ class ClusterNamespace extends AbstractNamespace
     {
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
@@ -153,7 +153,7 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function getSettings($params = array())
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Settings\Put $endpoint */
@@ -173,7 +173,7 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function pendingTasks($params = array())
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\PendingTasks $endpoint */
@@ -194,7 +194,7 @@ class ClusterNamespace extends AbstractNamespace
     {
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\AllocationExplain $endpoint */
@@ -214,7 +214,7 @@ class ClusterNamespace extends AbstractNamespace
      */
     public function remoteInfo($params = array())
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\RemoteInfo $endpoint */

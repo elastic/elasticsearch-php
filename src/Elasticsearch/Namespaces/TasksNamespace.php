@@ -29,7 +29,7 @@ class TasksNamespace extends AbstractNamespace
     {
         $id = $this->extractArgument($params, 'task_id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Get $endpoint */
@@ -56,7 +56,7 @@ class TasksNamespace extends AbstractNamespace
     public function tasksList($params = array())
     {
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Get $endpoint */
@@ -80,7 +80,7 @@ class TasksNamespace extends AbstractNamespace
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Cancel $endpoint */

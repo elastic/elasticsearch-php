@@ -21,7 +21,7 @@ Thumbs.db
 generator/*
 
 # Elasticsearch related
-util/elasticsearch/
+util/elasticsearch
 util/cache/
 util/output
 

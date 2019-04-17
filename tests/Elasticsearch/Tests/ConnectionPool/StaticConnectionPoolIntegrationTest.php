@@ -18,11 +18,20 @@ use Elasticsearch;
  */
 class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
+    public function setUp()
+    {
+        if (empty(getenv('ES_TEST_HOST'))) {
+            $this->markTestSkipped(
+                'Elasticsearch is not configured. Check the ES_TEST_HOST env in your phpunit.xml file.'
+            );
+        }
+    }
+
     // Issue #636
     public function test404Liveness()
     {
         $client = \Elasticsearch\ClientBuilder::create()
-            ->setHosts([$_SERVER['ES_TEST_HOST']])
+            ->setHosts([getenv('ES_TEST_HOST')])
             ->setConnectionPool(\Elasticsearch\ConnectionPool\StaticConnectionPool::class)
             ->build();
 

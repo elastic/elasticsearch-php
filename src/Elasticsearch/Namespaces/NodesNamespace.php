@@ -44,7 +44,7 @@ class NodesNamespace extends AbstractNamespace
 
         $index_metric = $this->extractArgument($params, 'index_metric');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Stats $endpoint */
@@ -73,7 +73,7 @@ class NodesNamespace extends AbstractNamespace
         $nodeID = $this->extractArgument($params, 'node_id');
         $metric = $this->extractArgument($params, 'metric');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\Info $endpoint */
@@ -99,7 +99,7 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\HotThreads $endpoint */
@@ -121,7 +121,7 @@ class NodesNamespace extends AbstractNamespace
     {
         $nodeID = $this->extractArgument($params, 'node_id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Cluster\Nodes\ReloadSecureSettings $endpoint */

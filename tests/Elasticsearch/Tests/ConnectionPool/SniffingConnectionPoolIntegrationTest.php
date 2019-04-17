@@ -27,7 +27,7 @@ class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
     public function testSniff()
     {
         $client = ClientBuilder::create()
-            ->setHosts([$_SERVER['ES_TEST_HOST']])
+            ->setHosts([getenv('ES_TEST_HOST')])
             ->setConnectionPool(SniffingConnectionPool::class, ['sniffingInterval' => -10])
             ->build();
 

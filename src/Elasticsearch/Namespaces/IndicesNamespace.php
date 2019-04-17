@@ -29,7 +29,7 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Exists $endpoint */
@@ -57,7 +57,7 @@ class IndicesNamespace extends AbstractNamespace
         $index = $this->extractArgument($params, 'index');
         $feature = $this->extractArgument($params, 'feature');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Get $endpoint */
@@ -84,7 +84,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Segments $endpoint */
@@ -107,7 +107,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Template\Delete $endpoint */
@@ -130,7 +130,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Delete $endpoint */
@@ -173,7 +173,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Stats $endpoint */
@@ -199,7 +199,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Settings\Put $endpoint */
@@ -225,7 +225,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Gateway\Snapshot $endpoint */
@@ -252,7 +252,7 @@ class IndicesNamespace extends AbstractNamespace
         $target = $this->extractArgument($params, 'target');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Shrink $endpoint */
@@ -278,7 +278,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Mapping\Get $endpoint */
@@ -311,7 +311,7 @@ class IndicesNamespace extends AbstractNamespace
         }
 
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Mapping\GetField $endpoint */
@@ -342,7 +342,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
@@ -370,7 +370,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
@@ -398,7 +398,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Refresh $endpoint */
@@ -423,7 +423,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Flush $endpoint */
@@ -454,7 +454,7 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Type\Exists $endpoint */
@@ -484,7 +484,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Put $endpoint */
@@ -514,7 +514,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Template\Put $endpoint */
@@ -547,7 +547,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Validate\Query $endpoint */
@@ -576,7 +576,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Get $endpoint */
@@ -607,7 +607,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Mapping\Put $endpoint */
@@ -634,7 +634,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Mapping\Delete $endpoint */
@@ -657,7 +657,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Template\Get $endpoint */
@@ -682,7 +682,7 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Template\Exists $endpoint */
@@ -708,7 +708,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Create $endpoint */
@@ -740,7 +740,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\ForceMerge $endpoint */
@@ -766,7 +766,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Delete $endpoint */
@@ -790,7 +790,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Open $endpoint */
@@ -826,7 +826,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Analyze $endpoint */
@@ -861,7 +861,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Cache\Clear $endpoint */
@@ -887,7 +887,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Aliases\Update $endpoint */
@@ -913,7 +913,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Get $endpoint */
@@ -945,7 +945,7 @@ class IndicesNamespace extends AbstractNamespace
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Alias\Exists $endpoint */
@@ -972,7 +972,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Status $endpoint */
@@ -996,7 +996,7 @@ class IndicesNamespace extends AbstractNamespace
 
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Settings\Get $endpoint */
@@ -1020,7 +1020,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Close $endpoint */
@@ -1042,7 +1042,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Seal $endpoint */
@@ -1070,7 +1070,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Upgrade\Post $endpoint */
@@ -1098,7 +1098,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Upgrade\Get $endpoint */
@@ -1125,7 +1125,7 @@ class IndicesNamespace extends AbstractNamespace
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\ShardStores $endpoint */
@@ -1152,7 +1152,7 @@ class IndicesNamespace extends AbstractNamespace
         $alias = $this->extractArgument($params, 'alias');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Rollover $endpoint */
@@ -1184,7 +1184,7 @@ class IndicesNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
         $target = $this->extractArgument($params, 'target');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Indices\Split $endpoint */

@@ -165,7 +165,12 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->withAnyArgs();
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
-
-        $this->assertCount(4, $responses);
+        $count = 0;
+        $i = 0;
+        foreach ($responses as $response) {
+            $count += count($response['hits']['hits']);
+            $this->assertEquals($response['_scroll_id'], sprintf("scroll_id_%02d", ++$i));
+        }
+        $this->assertEquals(3, $count);
     }
 }

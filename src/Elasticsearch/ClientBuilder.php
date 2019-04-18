@@ -610,6 +610,7 @@ class ClientBuilder
         foreach ($hosts as $host) {
             if (is_string($host)) {
                 $host = $this->prependMissingScheme($host);
+                $host = $this->removeTrailingSlashes($host);
                 $host = $this->extractURIParts($host);
             } elseif (is_array($host)) {
                 $host = $this->normalizeExtendedHost($host);
@@ -676,5 +677,15 @@ class ClientBuilder
         }
 
         return $host;
+    }
+
+    /**
+     * @param string $host
+     *
+     * @return string
+     */
+    private function removeTrailingSlashes($host)
+    {
+        return rtrim($host, '/');
     }
 }

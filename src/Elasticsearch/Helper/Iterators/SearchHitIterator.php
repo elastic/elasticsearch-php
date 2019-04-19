@@ -130,7 +130,7 @@ class SearchHitIterator implements Iterator, \Countable
      */
     public function key()
     {
-        return $this->current_hit_index;
+        return $this->current_key;
     }
 
     /**

@@ -86,11 +86,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('index cannot be null.');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => null,
             'type' => 'test',
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testTypeCannotBeNullForDelete()
@@ -100,11 +102,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('type cannot be null.');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => null,
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testIdCannotBeNullForDelete()
@@ -114,11 +118,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('id cannot be null.');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => 'test',
             'id' => null
-        ]);
+            ]
+        );
     }
 
     public function testIndexCannotBeEmptyStringForDelete()
@@ -128,11 +134,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('index cannot be an empty string');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => '',
             'type' => 'test',
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testTypeCannotBeEmptyStringForDelete()
@@ -142,11 +150,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('type cannot be an empty string');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => '',
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testIdCannotBeEmptyStringForDelete()
@@ -156,11 +166,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('id cannot be an empty string');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => 'test',
             'id' => ''
-        ]);
+            ]
+        );
     }
 
     public function testIndexCannotBeArrayOfEmptyStringsForDelete()
@@ -170,11 +182,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('index cannot be an array of empty strings');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => ['', '', ''],
             'type' => 'test',
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testTypeCannotBeArrayOfEmptyStringsForDelete()
@@ -184,11 +198,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('type cannot be an array of empty strings');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => ['', '', ''],
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testIndexCannotBeArrayOfNullsForDelete()
@@ -198,11 +214,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('index cannot be an array of empty strings');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => [null, null, null],
             'type' => 'test',
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testTypeCannotBeArrayOfNullsForDelete()
@@ -212,11 +230,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
         $this->expectExceptionMessage('type cannot be an array of empty strings');
 
-        $client->delete([
+        $client->delete(
+            [
             'index' => 'test',
             'type' => [null, null, null],
             'id' => 'test'
-        ]);
+            ]
+        );
     }
 
     public function testMaxRetriesException()
@@ -272,39 +292,49 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testInlineHosts()
     {
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             'localhost:9200'
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("localhost:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             'http://localhost:9200'
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("localhost:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             'http://foo.com:9200'
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             'https://foo.com:9200'
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("https", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             'https://user:pass@foo.com:9200'
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("https", $host->getTransportSchema());
@@ -313,106 +343,124 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testExtendedHosts()
     {
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'localhost',
                 'port' => 9200,
                 'scheme' => 'http'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("localhost:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com',
                 'port' => 9200,
                 'scheme' => 'http'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com',
                 'port' => 9200,
                 'scheme' => 'https'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("https", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com',
                 'scheme' => 'http'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com',
                 'port' => 9500,
                 'scheme' => 'https'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9500", $host->getHost());
         $this->assertSame("https", $host->getTransportSchema());
 
 
         try {
-            $client = Elasticsearch\ClientBuilder::create()->setHosts([
+            $client = Elasticsearch\ClientBuilder::create()->setHosts(
+                [
                 [
                     'port' => 9200,
                     'scheme' => 'http'
                 ]
-            ])->build();
+                ]
+            )->build();
             $this->fail("Expected RuntimeException from missing host, none thrown");
         } catch (Elasticsearch\Common\Exceptions\RuntimeException $e) {
             // good
         }
 
         // Underscore host, questionably legal, but inline method would break
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'the_foo.com'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("the_foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());
 
 
         // Special characters in user/pass, would break inline
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
             [
                 'host' => 'foo.com',
                 'user' => 'user',
                 'pass' => 'abc#$@?%!abc'
             ]
-        ])->build();
+            ]
+        )->build();
         $host = $client->transport->getConnection();
         $this->assertSame("foo.com:9200", $host->getHost());
         $this->assertSame("http", $host->getTransportSchema());

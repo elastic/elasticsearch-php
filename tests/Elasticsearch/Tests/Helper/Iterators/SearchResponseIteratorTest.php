@@ -10,6 +10,7 @@ use Mockery as m;
 
 /**
  * Class SearchResponseIteratorTest
+ *
  * @package Elasticsearch\Tests\Helper\Iterators
  * @author  Arturo Mejia <arturo.mejia@kreatetechnology.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -77,7 +78,8 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->once()
             ->ordered()
             ->with($search_params)
-            ->andReturn([
+            ->andReturn(
+                [
                 '_scroll_id' => 'scroll_id_01',
                 'hits' => [
                     'hits' => [
@@ -86,7 +88,8 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
                         ]
                     ]
                 ]
-            ]);
+                ]
+            );
 
         $mock_client->shouldReceive('scroll')
             ->once()

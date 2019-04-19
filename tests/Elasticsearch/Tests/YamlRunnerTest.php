@@ -34,21 +34,31 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests */
+    /**
+     * @var \Symfony\Component\Yaml\Yaml Yaml parser for reading integrations tests
+     */
     private $yaml;
 
-    /** @var \Elasticsearch\Client client used by elasticsearch */
+    /**
+     * @var \Elasticsearch\Client client used by elasticsearch
+     */
     private $client;
 
-    /** @var string Es version */
+    /**
+     * @var string Es version
+     */
     private static $esVersion;
 
-    /** @var string[] A list of supported features */
+    /**
+     * @var string[] A list of supported features
+     */
     private static $supportedFeatures = [
         'stash_in_path', 'warnings', 'headers'
     ];
 
-    /** @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name */
+    /**
+     * @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name
+     */
     private static $endpointMapping = [
         'tasks' => [
             'list' => ['tasksList', 'tasks'],
@@ -61,7 +71,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         'indices.shrink/30_copy_settings.yml#Copy settings during shrink index' => 'Failing on ES 6.4+: Failed to match in test "Copy settings during shrink index". Expected [\'4\'] does not match [false] '
     ];
 
-    /** @var array A list of skipped test with their reasons */
+    /**
+     * @var array A list of skipped test with their reasons
+     */
     private static $skippedFiles = [
 
         'cat.nodeattrs/10_basic.yml' => 'Using java regex fails in PHP',
@@ -78,7 +90,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
     ];
 
-    /** @var array A list of files to skip completely, due to fatal parsing errors */
+    /**
+     * @var array A list of files to skip completely, due to fatal parsing errors
+     */
     private static $fatalFiles = [
         'indices.create/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
         'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
@@ -200,10 +214,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Process a procedure
      *
-     * @param array $procedure
+     * @param array  $procedure
      * @param string $name
      * @param string $fileName
-     * @param bool $async
+     * @param bool   $async
      */
     public function processProcedure(array $procedure, string $name, string $fileName, bool $async = false)
     {
@@ -222,11 +236,11 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Process an operation
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param array $context
-     * @param string $testName
-     * @param bool $async
+     * @param array             $context
+     * @param string            $testName
+     * @param bool              $async
      *
      * @return mixed
      */
@@ -284,11 +298,11 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Do something on the client
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param array $context
-     * @param string $testName
-     * @param bool $async
+     * @param array             $context
+     * @param string            $testName
+     * @param bool              $async
      *
      * @throws \Exception
      *
@@ -320,7 +334,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
         $endpointInfo = explode('.', key($operation));
 
-        /** @var \stdClass $endpointParams */
+        /**
+ * @var \stdClass $endpointParams
+*/
         $endpointParams = $this->replaceWithContext(current($operation), $context);
         $caller = $this->client;
         $namespace = null;
@@ -385,12 +401,12 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Obtain the response from the server
      *
-     * @param object $caller
-     * @param string $method
-     * @param object $endpointParams
+     * @param object      $caller
+     * @param string      $method
+     * @param object      $endpointParams
      * @param string|null $expectedError
-     * @param null $expectedWarnings
-     * @param string $testName
+     * @param null        $expectedWarnings
+     * @param string      $testName
      *
      * @throws \Exception
      *
@@ -424,12 +440,12 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * Obtain the response when it is an Exists* method.  These are converted into
      * true/false responses
      *
-     * @param object $caller
-     * @param string $method
-     * @param object $endpointParams
+     * @param object      $caller
+     * @param string      $method
+     * @param object      $endpointParams
      * @param string|null $expectedError
-     * @param null $expectedWarnings
-     * @param string $testName
+     * @param null        $expectedWarnings
+     * @param string      $testName
      *
      * @throws \Exception
      *
@@ -506,10 +522,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is false
      *
-     * @param string $operation
+     * @param string            $operation
      * @param array|string|null $lastOperationResult
-     * @param array $context
-     * @param string $testName
+     * @param array             $context
+     * @param string            $testName
      */
     public function operationIsFalse(string $operation, $lastOperationResult, &$context, string $testName)
     {
@@ -525,9 +541,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is true
      *
-     * @param string $operation
+     * @param string            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationIsTrue(string $operation, $lastOperationResult, &$context, string $testName)
     {
@@ -547,9 +563,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation match an expected value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationMatch($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -583,9 +599,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is greater than or equal a value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationGreaterThanOrEqual($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -600,9 +616,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is greater than a value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationGreaterThan($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -617,9 +633,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is less than or equal a value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationLessThanOrEqual($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -634,9 +650,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation is less than a value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationLessThan($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -651,9 +667,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Check if a field in the last operation has length of a value
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationLength($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -668,10 +684,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Set a variable into context from last operation
      *
-     * @param object $operation
+     * @param object            $operation
      * @param array|string|null $lastOperationResult
-     * @param array $context
-     * @param string $testName
+     * @param array             $context
+     * @param string            $testName
      */
     public function operationSet($operation, $lastOperationResult, &$context, string $testName)
     {
@@ -687,9 +703,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Skip an operation depending on Elasticsearch Version
      *
-     * @param \stdClass&object $operation
+     * @param \stdClass         &object              $operation
      * @param array|string|null $lastOperationResult
-     * @param string $testName
+     * @param string            $testName
      */
     public function operationSkip($operation, $lastOperationResult, string $testName)
     {
@@ -797,7 +813,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
         $filter = getenv('TEST_CASE') !== false ? getenv('TEST_CASE') : null;
 
-        /** @var SplFileInfo $file */
+        /**
+ * @var SplFileInfo $file
+*/
         foreach ($finder as $file) {
             $files = array_merge($files, $this->splitDocument($file, $path, $filter));
         }
@@ -830,7 +848,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * Replace contextual variable into a bunch of data
      *
      * @param object|array|string|integer $data
-     * @param array $context
+     * @param array                       $context
      *
      * @return mixed
      */
@@ -860,9 +878,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Resolve a value into an array given a specific field
      *
-     * @param mixed $result
-     * @param string $field
-     * @param array $context
+     * @param  mixed  $result
+     * @param  string $field
+     * @param  array  $context
      * @return mixed
      */
     private function resolveValue($result, $field, array &$context)
@@ -931,9 +949,12 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $fileContent = str_replace('"#', '" #', $fileContent);
 
         $documents = explode("---\n", $fileContent);
-        $documents = array_filter($documents, function ($item) {
-            return trim($item) !== '';
-        });
+        $documents = array_filter(
+            $documents,
+            function ($item) {
+                return trim($item) !== '';
+            }
+        );
 
         $documentsParsed = [];
         $setup = null;

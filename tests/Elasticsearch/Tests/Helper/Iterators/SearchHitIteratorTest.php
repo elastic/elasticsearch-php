@@ -10,6 +10,7 @@ use Mockery;
 
 /**
  * Class SearchResponseIteratorTest
+ *
  * @package Elasticsearch\Tests\Helper\Iterators
  * @author  Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
@@ -55,7 +56,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
             ->ordered();
 
         $this->searchResponse->shouldReceive('current')
-            ->andReturn([
+            ->andReturn(
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar0' ],
@@ -64,8 +66,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 3
                 ]
-            ],
-            [
+                ],
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar0' ],
@@ -74,8 +76,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 3
                 ]
-            ],
-            [
+                ],
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar0' ],
@@ -84,8 +86,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 3
                 ]
-            ],
-            [
+                ],
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar0' ],
@@ -94,8 +96,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 3
                 ]
-            ],
-            [
+                ],
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar3' ],
@@ -103,8 +105,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 2
                 ]
-            ],
-            [
+                ],
+                [
                 'hits' => [
                     'hits' => [
                         [ 'foo' => 'bar3' ],
@@ -112,7 +114,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                     ],
                     'total' => 2
                 ]
-            ]);
+                ]
+            );
 
         $this->searchResponse->shouldReceive('valid')
             ->andReturn(true, true, true, false);

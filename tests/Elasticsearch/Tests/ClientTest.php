@@ -73,6 +73,22 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $client = ClientBuilder::fromConfig($params, true);
     }
 
+    public function testResponseBodyReturnString()
+    {
+        $params = [
+            'hosts' => [
+                'localhost:9200'
+            ],
+            'retries' => 2,
+            'handler' => new Elasticsearch\Tests\ClientBuilder\StringHandler()
+        ];
+
+        $client = ClientBuilder::fromConfig($params);
+
+        $res = $client->info();
+        $this->assertSame(1, $res['took']);
+    }
+
     public function testNullDelete()
     {
         $client = ClientBuilder::create()->build();

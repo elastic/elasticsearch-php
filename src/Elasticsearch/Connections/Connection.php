@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Connections;
 
-use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
@@ -585,7 +584,7 @@ class Connection implements ConnectionInterface
      * @param array $request
      * @param array $response
      * @param array $ignore
-     * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException|\Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException
+     * @throws \Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException
      */
     private function process4xxError($request, $response, $ignore)
     {
@@ -604,9 +603,7 @@ class Connection implements ConnectionInterface
             $responseBody = json_encode($responseBody);
         }
 
-        if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            $exception = new AlreadyExpiredException($responseBody, $statusCode);
-        } elseif ($statusCode === 403) {
+        if ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
             $exception = new Missing404Exception($responseBody, $statusCode);

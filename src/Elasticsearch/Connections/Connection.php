@@ -591,9 +591,6 @@ class Connection implements ConnectionInterface
         $statusCode = $response['status'];
         $responseBody = $response['body'];
 
-        /** @var \Exception $exception */
-        $exception = $this->tryDeserialize400Error($response);
-
         if (array_search($response['status'], $ignore) !== false) {
             return;
         }
@@ -677,17 +674,11 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
-    private function tryDeserialize400Error($response)
-    {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
-    }
-
+    /**
+     * @param array $response
+     * @return ServerErrorResponseException
+     */
     private function tryDeserialize500Error($response)
-    {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
-    }
-
-    private function tryDeserializeError($response, $errorClass)
     {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
@@ -703,19 +694,19 @@ class Connection implements ConnectionInterface
                     $type = $error['error']['type'];
                 }
 
-                $original = new $errorClass($response['body'], $response['status']);
+                $original = new ServerErrorResponseException($response['body'], $response['status']);
 
-                return new $errorClass("$type: $cause", $response['status'], $original);
+                return new ServerErrorResponseException("$type: $cause", $response['status'], $original);
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
-                $original = new $errorClass($response['body'], $response['status']);
+                $original = new ServerErrorResponseException($response['body'], $response['status']);
 
-                return new $errorClass($error['error'], $response['status'], $original);
+                return new ServerErrorResponseException($error['error'], $response['status'], $original);
             }
 
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
-            return new $errorClass($response['body'], $response['status']);
+            return new ServerErrorResponseException($response['body'], $response['status']);
         }
 
         // if responseBody is not string, we convert it so it can be used as Exception message
@@ -725,6 +716,6 @@ class Connection implements ConnectionInterface
         }
 
         // <2.0 "i just blew up" nonstructured exception
-        return new $errorClass($responseBody);
+        return new ServerErrorResponseException($responseBody);
     }
 }

@@ -209,16 +209,7 @@ class Connection implements ConnectionInterface
 
                         $exception = $this->getCurlRetryException($request, $response);
 
-                        $this->logRequestFail(
-                            $request['http_method'],
-                            $response['effective_url'],
-                            $request['body'],
-                            $request['headers'],
-                            $response['status'],
-                            $response['body'],
-                            $response['transfer_stats']['total_time'],
-                            $exception
-                        );
+                        $this->logRequestFail($request, $response, $exception);
 
                         $node = $connection->getHost();
                         $this->log->warning("Marking node $node dead.");
@@ -254,16 +245,7 @@ class Connection implements ConnectionInterface
                     } else {
                         // Something went seriously wrong, bail
                         $exception = new TransportException($response['error']->getMessage());
-                        $this->logRequestFail(
-                            $request['http_method'],
-                            $response['effective_url'],
-                            $request['body'],
-                            $request['headers'],
-                            $response['status'],
-                            $response['body'],
-                            $response['transfer_stats']['total_time'],
-                            $exception
-                        );
+                        $this->logRequestFail($request, $response, $exception);
                         throw $exception;
                     }
                 } else {
@@ -285,15 +267,7 @@ class Connection implements ConnectionInterface
                     // No error, deserialize
                     $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
                 }
-                $this->logRequestSuccess(
-                    $request['http_method'],
-                    $response['effective_url'],
-                    $request['body'],
-                    $request['headers'],
-                    $response['status'],
-                    $response['body'],
-                    $response['transfer_stats']['total_time']
-                );
+                $this->logRequestSuccess($request, $response);
 
                 return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
             });
@@ -332,42 +306,36 @@ class Connection implements ConnectionInterface
     /**
      * Log a successful request
      *
-     * @param string $method
-     * @param string $fullURI
-     * @param string $body
-     * @param array  $headers
-     * @param string $statusCode
-     * @param string $response
-     * @param string $duration
-     *
+     * @param array $request
+     * @param array $response
      * @return void
      */
-    public function logRequestSuccess($method, $fullURI, $body, $headers, $statusCode, $response, $duration)
+    public function logRequestSuccess($request, $response)
     {
-        $this->log->debug('Request Body', array($body));
+        $this->log->debug('Request Body', array($request['body']));
         $this->log->info(
             'Request Success:',
             array(
-                'method'    => $method,
-                'uri'       => $fullURI,
-                'headers'   => $headers,
-                'HTTP code' => $statusCode,
-                'duration'  => $duration,
+                'method'    => $request['http_method'],
+                'uri'       => $response['effective_url'],
+                'headers'   => $request['headers'],
+                'HTTP code' => $response['status'],
+                'duration'  => $response['transfer_stats']['total_time'],
             )
         );
-        $this->log->debug('Response', array($response));
+        $this->log->debug('Response', array($response['body']));
 
         // Build the curl command for Trace.
-        $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
+        $curlCommand = $this->buildCurlCommand($request['http_method'], $response['effective_url'], $request['body']);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
             array(
-                'response'  => $response,
-                'method'    => $method,
-                'uri'       => $fullURI,
-                'HTTP code' => $statusCode,
-                'duration'  => $duration,
+                'response'  => $response['body'],
+                'method'    => $request['http_method'],
+                'uri'       => $response['effective_url'],
+                'HTTP code' => $response['status'],
+                'duration'  => $response['transfer_stats']['total_time'],
             )
         );
     }
@@ -375,44 +343,39 @@ class Connection implements ConnectionInterface
     /**
      * Log a failed request
      *
-     * @param string $method
-     * @param string $fullURI
-     * @param string $body
-     * @param array $headers
-     * @param null|string $statusCode
-     * @param null|string $response
-     * @param string $duration
+     * @param array $request
+     * @param array $response
      * @param \Exception $exception
      *
      * @return void
      */
-    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, \Exception $exception)
+    public function logRequestFail($request, $response, \Exception $exception)
     {
-        $this->log->debug('Request Body', array($body));
+        $this->log->debug('Request Body', array($request['body']));
         $this->log->warning(
             'Request Failure:',
             array(
-                'method'    => $method,
-                'uri'       => $fullURI,
-                'headers'   => $headers,
-                'HTTP code' => $statusCode,
-                'duration'  => $duration,
+                'method'    => $request['http_method'],
+                'uri'       => $response['effective_url'],
+                'headers'   => $request['headers'],
+                'HTTP code' => $response['status'],
+                'duration'  => $response['transfer_stats']['total_time'],
                 'error'     => $exception->getMessage(),
             )
         );
-        $this->log->warning('Response', array($response));
+        $this->log->warning('Response', array($response['body']));
 
         // Build the curl command for Trace.
-        $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
+        $curlCommand = $this->buildCurlCommand($request['http_method'], $response['effective_url'], $request['body']);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
             array(
                 'response'  => $response,
-                'method'    => $method,
-                'uri'       => $fullURI,
-                'HTTP code' => $statusCode,
-                'duration'  => $duration,
+                'method'    => $request['http_method'],
+                'uri'       => $response['effective_url'],
+                'HTTP code' => $response['status'],
+                'duration'  => $response['transfer_stats']['total_time'],
             )
         );
     }
@@ -620,16 +583,7 @@ class Connection implements ConnectionInterface
             $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
 
-        $this->logRequestFail(
-            $request['http_method'],
-            $response['effective_url'],
-            $request['body'],
-            $request['headers'],
-            $response['status'],
-            $response['body'],
-            $response['transfer_stats']['total_time'],
-            $exception
-        );
+        $this->logRequestFail($request, $response, $exception);
 
         throw $exception;
     }
@@ -666,16 +620,7 @@ class Connection implements ConnectionInterface
             $exception = new ServerErrorResponseException($responseBody, $statusCode);
         }
 
-        $this->logRequestFail(
-            $request['http_method'],
-            $response['effective_url'],
-            $request['body'],
-            $request['headers'],
-            $response['status'],
-            $response['body'],
-            $response['transfer_stats']['total_time'],
-            $exception
-        );
+        $this->logRequestFail($request, $response, $exception);
 
         throw $exception;
     }

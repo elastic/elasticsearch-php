@@ -373,7 +373,7 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * Log a a failed request
+     * Log a failed request
      *
      * @param string $method
      * @param string $fullURI

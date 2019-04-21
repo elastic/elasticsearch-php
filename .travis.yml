@@ -25,6 +25,9 @@ matrix:
       env: ES_VERSION="6.6.0"
     - php: 7.3
       env: ES_VERSION="6.7.0"
+    - php: 7.3
+      env: ES_VERSION="7.0.0"
+
 
 
 env:

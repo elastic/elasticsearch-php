@@ -48,6 +48,7 @@ class Get extends AbstractEndpoint
             'expand_wildcards',
             'wildcard_expansion',
             'local',
+            'include_type_name'
         );
     }
 

@@ -50,7 +50,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      *
-     * @return bool
+     * @return array
      */
     public function get($params)
     {

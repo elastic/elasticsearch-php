@@ -19,9 +19,9 @@ Features
  - Pluggable connection pools to offer different connection strategies
  - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
  - Option to use asynchronous future, which enables parallel execution of curl requests to multiple nodes
- 
- 
-**Note:** If you want to use X-Pack API, you need to install an optional extension [elasticsearch/xpack](https://github.com/elastic/elasticsearch-x-pack-php). 
+
+
+**Note:** If you want to use X-Pack API, you need to install an optional extension [elasticsearch/xpack](https://github.com/elastic/elasticsearch-x-pack-php).
 
 
 Version Matrix
@@ -29,14 +29,16 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 6.0                | 6.0                      |
+| >= 6.6, <= 6.7        | 6.7                      |
+| >= 6.0, <= 6.5        | 6.5                      |
 | >= 5.0, < 6.0         | 5.0                      |
 | >= 2.0, < 5.0         | 1.0 or 2.0               |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 6.0+ , use Elasticsearch-PHP 6.0 branch.
- - If you are using Elasticsearch 5.x , use Elasticsearch-PHP 5.0 branch.
+ - If you are using Elasticsearch 6.6 or 6.7, use Elasticsearch-PHP 6.7 branch.
+ - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5 branch.
+ - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
  - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticsearch master and may contain incomplete features or breaks in backwards compatibility. Only use ES-PHP master if you are developing against ES master for some reason.
@@ -49,12 +51,12 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch):
+1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance this is for ES 6.0 to 6.5):
 
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "~6.0"
+                "elasticsearch/elasticsearch": "^6.5"
             }
         }
     ```

@@ -91,6 +91,7 @@ class Scroll extends AbstractEndpoint
     {
         return array(
             'scroll',
+            'rest_total_hits_as_int'
         );
     }
 

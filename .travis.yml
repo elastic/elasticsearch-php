@@ -22,10 +22,21 @@ matrix:
       env: ES_VERSION="6.7.0"
 
     - php: 7.3
+      env: ES_VERSION="6.0.0"
+    - php: 7.3
+      env: ES_VERSION="6.1.0"
+    - php: 7.3
+      env: ES_VERSION="6.2.0"
+    - php: 7.3
+      env: ES_VERSION="6.3.0"
+    - php: 7.3
+      env: ES_VERSION="6.4.0"
+    - php: 7.3
+      env: ES_VERSION="6.5.0"
+    - php: 7.3
       env: ES_VERSION="6.6.0"
     - php: 7.3
       env: ES_VERSION="6.7.0"
-
 
 env:
   global:

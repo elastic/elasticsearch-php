@@ -81,7 +81,8 @@ class Msearch extends AbstractEndpoint
             'search_type',
             'typed_keys',
             'max_concurrent_shard_requests',
-            'max_concurrent_searches'
+            'max_concurrent_searches',
+            'rest_total_hits_as_int'
         );
     }
 

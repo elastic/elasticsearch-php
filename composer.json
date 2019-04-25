@@ -19,7 +19,7 @@
     "psr/log": "~1.0"
   },
   "require-dev": {
-    "cpliakas/git-wrapper": "~1.0",
+    "cpliakas/git-wrapper": "^1.7 || ^2.1",
     "doctrine/inflector": "^1.1",
     "mockery/mockery": "^1.2",
     "phpstan/phpstan-shim": "^0.9 || ^0.11",

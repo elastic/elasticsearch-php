@@ -29,14 +29,15 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 6.6, < 7.0         | 6.7                      |
-| >= 6.0, < 6.6         | 6.5                      |
+| >= 6.6, < 7.0         | 6.7.x                    |
+| >= 6.0, < 6.6         | 6.5.x                    |
 | >= 5.0, < 6.0         | 5.0                      |
 | >= 2.0, < 5.0         | 1.0 or 2.0               |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 6.x, use Elasticsearch-PHP 6.0 branch.
+ - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
+ - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
  - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
@@ -44,7 +45,7 @@ Version Matrix
 
 Documentation
 --------------
-[Full documentation can be found here.](https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
+[Full documentation can be found here.](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
 Installation via Composer
 -------------------------
@@ -354,7 +355,7 @@ That was just a crash-course overview of the client and its syntax.  If you are 
 
 You'll also notice that the client is configured in a manner that facilitates easy discovery via the IDE.  All core actions are available under the `$client` object (indexing, searching, getting, etc.).  Index and cluster management are located under the `$client->indices()` and `$client->cluster()` objects, respectively.
 
-Check out the rest of the [Documentation](https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/index.html) to see how the entire client works.
+Check out the rest of the [Documentation](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html) to see how the entire client works.
 
 
 Available Licenses

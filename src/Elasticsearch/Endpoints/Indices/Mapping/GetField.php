@@ -67,7 +67,8 @@ class GetField extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'local'
+            'local',
+            'include_type_name'
         );
     }
 

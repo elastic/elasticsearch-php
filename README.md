@@ -29,7 +29,8 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 6.0, < 7.0         | 6.0                      |
+| >= 6.6, < 7.0         | 6.7                      |
+| >= 6.0, < 6.6         | 6.5                      |
 | >= 5.0, < 6.0         | 5.0                      |
 | >= 2.0, < 5.0         | 1.0 or 2.0               |
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
@@ -49,12 +50,12 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance this is for ES 6.0 to 6.5):
+1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance for ES 6.7):
 
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "^6.5"
+                "elasticsearch/elasticsearch": "^6.7"
             }
         }
     ```

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Elasticsearch\Connections;
 
@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
+use Elasticsearch\Common\Exceptions\IndexClosedExceptionException;
 use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
@@ -77,27 +78,27 @@ class Connection implements ConnectionInterface
     /** @var  array */
     protected $headers = [];
 
-    /** @var bool  */
+    /** @var bool */
     protected $isAlive = false;
 
-    /** @var float  */
+    /** @var float */
     private $pingTimeout = 1;    //TODO expose this
 
-    /** @var int  */
+    /** @var int */
     private $lastPing = 0;
 
-    /** @var int  */
+    /** @var int */
     private $failedPings = 0;
 
-    private $lastRequest = array();
+    private $lastRequest = [];
 
     /**
-     * @param callable $handler
-     * @param array $hostDetails
-     * @param array $connectionParams Array of connection-specific parameters
+     * @param callable                                       $handler
+     * @param array                                          $hostDetails
+     * @param array                                          $connectionParams Array of connection-specific parameters
      * @param \Elasticsearch\Serializers\SerializerInterface $serializer
-     * @param \Psr\Log\LoggerInterface $log              Logger object
-     * @param \Psr\Log\LoggerInterface $trace
+     * @param \Psr\Log\LoggerInterface                       $log              Logger object
+     * @param \Psr\Log\LoggerInterface                       $trace
      */
     public function __construct(
         $handler,
@@ -118,7 +119,7 @@ class Connection implements ConnectionInterface
 
         if (isset($hostDetails['user']) && isset($hostDetails['pass'])) {
             $connectionParams['client']['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-            $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
+            $connectionParams['client']['curl'][CURLOPT_USERPWD]  = $hostDetails['user'] . ':' . $hostDetails['pass'];
         }
 
         if (isset($connectionParams['client']['headers']) === true) {
@@ -126,7 +127,7 @@ class Connection implements ConnectionInterface
             unset($connectionParams['client']['headers']);
         }
 
-        $host = $hostDetails['host'].':'.$hostDetails['port'];
+        $host = $hostDetails['host'] . ':' . $hostDetails['port'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
             $path = $hostDetails['path'];
@@ -142,16 +143,22 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * @param string $method
-     * @param string $uri
-     * @param array $params
-     * @param null $body
-     * @param array $options
+     * @param string                   $method
+     * @param string                   $uri
+     * @param array                    $params
+     * @param null                     $body
+     * @param array                    $options
      * @param \Elasticsearch\Transport $transport
      * @return mixed
      */
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null)
-    {
+    public function performRequest(
+        $method,
+        $uri,
+        $params = null,
+        $body = null,
+        $options = [],
+        Transport $transport = null
+    ) {
         if (isset($body) === true) {
             $body = $this->serializer->serialize($body);
         }
@@ -161,9 +168,12 @@ class Connection implements ConnectionInterface
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            'headers'     => array_merge([
-                'Host'  => [$this->host]
-            ], $this->headers)
+            'headers'     => array_merge(
+                [
+                    'Host' => [$this->host],
+                ],
+                $this->headers
+            ),
         ];
 
         $request = array_replace_recursive($request, $this->connectionParams, $options);
@@ -174,7 +184,7 @@ class Connection implements ConnectionInterface
         }
 
         $handler = $this->handler;
-        $future = $handler($request, $this, $transport, $options);
+        $future  = $handler($request, $this, $transport, $options);
 
         return $future;
     }
@@ -195,108 +205,118 @@ class Connection implements ConnectionInterface
     {
         return function (array $request, Connection $connection, Transport $transport = null, $options) use ($handler) {
 
-            $this->lastRequest = [];
+            $this->lastRequest            = [];
             $this->lastRequest['request'] = $request;
 
             // Send the request using the wrapped handler.
-            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $request, $options) {
+            $response = Core::proxy(
+                $handler($request),
+                function ($response) use ($connection, $transport, $request, $options) {
 
-                $this->lastRequest['response'] = $response;
+                    $this->lastRequest['response'] = $response;
 
-                if (isset($response['error']) === true) {
-                    if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
-                        $this->log->warning("Curl exception encountered.");
+                    if (isset($response['error']) === true) {
+                        if ($response['error'] instanceof ConnectException
+                            || $response['error']
+                               instanceof
+                               RingException) {
+                            $this->log->warning("Curl exception encountered.");
 
-                        $exception = $this->getCurlRetryException($request, $response);
+                            $exception = $this->getCurlRetryException($request, $response);
 
-                        $this->logRequestFail(
-                            $request['http_method'],
-                            $response['effective_url'],
-                            $request['body'],
-                            $request['headers'],
-                            $response['status'],
-                            $response['body'],
-                            $response['transfer_stats']['total_time'],
-                            $exception
-                        );
+                            $this->logRequestFail(
+                                $request['http_method'],
+                                $response['effective_url'],
+                                $request['body'],
+                                $request['headers'],
+                                $response['status'],
+                                $response['body'],
+                                $response['transfer_stats']['total_time'],
+                                $exception
+                            );
 
-                        $node = $connection->getHost();
-                        $this->log->warning("Marking node $node dead.");
-                        $connection->markDead();
+                            $node = $connection->getHost();
+                            $this->log->warning("Marking node $node dead.");
+                            $connection->markDead();
 
-                        // If the transport has not been set, we are inside a Ping or Sniff,
-                        // so we don't want to retrigger retries anyway.
-                        //
-                        // TODO this could be handled better, but we are limited because connectionpools do not
-                        // have access to Transport.  Architecturally, all of this needs to be refactored
-                        if (isset($transport) === true) {
-                            $transport->connectionPool->scheduleCheck();
+                            // If the transport has not been set, we are inside a Ping or Sniff,
+                            // so we don't want to retrigger retries anyway.
+                            //
+                            // TODO this could be handled better, but we are limited because connectionpools do not
+                            // have access to Transport.  Architecturally, all of this needs to be refactored
+                            if (isset($transport) === true) {
+                                $transport->connectionPool->scheduleCheck();
 
-                            $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
-                            $shouldRetry = $transport->shouldRetry($request);
-                            $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
+                                $neverRetry      =
+                                    isset($request['client']['never_retry']) ? $request['client']['never_retry']
+                                        : false;
+                                $shouldRetry     = $transport->shouldRetry($request);
+                                $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
 
-                            $this->log->warning("Retries left? $shouldRetryText");
-                            if ($shouldRetry && !$neverRetry) {
-                                return $transport->performRequest(
-                                    $request['http_method'],
-                                    $request['uri'],
-                                    [],
-                                    $request['body'],
-                                    $options
-                                );
+                                $this->log->warning("Retries left? $shouldRetryText");
+                                if ($shouldRetry && !$neverRetry) {
+                                    return $transport->performRequest(
+                                        $request['http_method'],
+                                        $request['uri'],
+                                        [],
+                                        $request['body'],
+                                        $options
+                                    );
+                                }
                             }
+
+                            $this->log->warning("Out of retries, throwing exception from $node");
+                            // Only throw if we run out of retries
+                            throw $exception;
+                        } else {
+                            // Something went seriously wrong, bail
+                            $exception = new TransportException($response['error']->getMessage());
+                            $this->logRequestFail(
+                                $request['http_method'],
+                                $response['effective_url'],
+                                $request['body'],
+                                $request['headers'],
+                                $response['status'],
+                                $response['body'],
+                                $response['transfer_stats']['total_time'],
+                                $exception
+                            );
+                            throw $exception;
+                        }
+                    } else {
+                        $connection->markAlive();
+
+                        if (isset($response['body']) === true) {
+                            $response['body']                      = stream_get_contents($response['body']);
+                            $this->lastRequest['response']['body'] = $response['body'];
                         }
 
-                        $this->log->warning("Out of retries, throwing exception from $node");
-                        // Only throw if we run out of retries
-                        throw $exception;
-                    } else {
-                        // Something went seriously wrong, bail
-                        $exception = new TransportException($response['error']->getMessage());
-                        $this->logRequestFail(
-                            $request['http_method'],
-                            $response['effective_url'],
-                            $request['body'],
-                            $request['headers'],
-                            $response['status'],
-                            $response['body'],
-                            $response['transfer_stats']['total_time'],
-                            $exception
-                        );
-                        throw $exception;
-                    }
-                } else {
-                    $connection->markAlive();
+                        if ($response['status'] >= 400 && $response['status'] < 500) {
+                            $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
+                            $this->process4xxError($request, $response, $ignore);
+                        } elseif ($response['status'] >= 500) {
+                            $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
+                            $this->process5xxError($request, $response, $ignore);
+                        }
 
-                    if (isset($response['body']) === true) {
-                        $response['body'] = stream_get_contents($response['body']);
-                        $this->lastRequest['response']['body'] = $response['body'];
+                        // No error, deserialize
+                        $response['body'] =
+                            $this->serializer->deserialize($response['body'], $response['transfer_stats']);
                     }
+                    $this->logRequestSuccess(
+                        $request['http_method'],
+                        $response['effective_url'],
+                        $request['body'],
+                        $request['headers'],
+                        $response['status'],
+                        $response['body'],
+                        $response['transfer_stats']['total_time']
+                    );
 
-                    if ($response['status'] >= 400 && $response['status'] < 500) {
-                        $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
-                        $this->process4xxError($request, $response, $ignore);
-                    } elseif ($response['status'] >= 500) {
-                        $ignore = isset($request['client']['ignore']) ? $request['client']['ignore'] : [];
-                        $this->process5xxError($request, $response, $ignore);
-                    }
-
-                    // No error, deserialize
-                    $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
+                    return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response
+                        : $response['body'];
                 }
-                $this->logRequestSuccess(
-                    $request['http_method'],
-                    $response['effective_url'],
-                    $request['body'],
-                    $request['headers'],
-                    $response['status'],
-                    $response['body'],
-                    $response['transfer_stats']['total_time']
-                );
-
-                return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
-            });
+            );
 
             return $response;
         };
@@ -304,20 +324,23 @@ class Connection implements ConnectionInterface
 
     /**
      * @param string $uri
-     * @param array $params
+     * @param array  $params
      *
      * @return string
      */
     private function getURI($uri, $params)
     {
         if (isset($params) === true && !empty($params)) {
-            array_walk($params, function (&$value, &$key) {
-                if ($value === true) {
-                    $value = 'true';
-                } elseif ($value === false) {
-                    $value = 'false';
+            array_walk(
+                $params,
+                function (&$value, &$key) {
+                    if ($value === true) {
+                        $value = 'true';
+                    } elseif ($value === false) {
+                        $value = 'false';
+                    }
                 }
-            });
+            );
 
             $uri .= '?' . http_build_query($params);
         }
@@ -344,76 +367,84 @@ class Connection implements ConnectionInterface
      */
     public function logRequestSuccess($method, $fullURI, $body, $headers, $statusCode, $response, $duration)
     {
-        $this->log->debug('Request Body', array($body));
+        $this->log->debug('Request Body', [$body]);
         $this->log->info(
             'Request Success:',
-            array(
+            [
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
-        $this->log->debug('Response', array($response));
+        $this->log->debug('Response', [$response]);
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
-            array(
+            [
                 'response'  => $response,
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
     }
 
     /**
      * Log a a failed request
      *
-     * @param string $method
-     * @param string $fullURI
-     * @param string $body
-     * @param array $headers
+     * @param string      $method
+     * @param string      $fullURI
+     * @param string      $body
+     * @param array       $headers
      * @param null|string $statusCode
      * @param null|string $response
-     * @param string $duration
-     * @param \Exception $exception
+     * @param string      $duration
+     * @param \Exception  $exception
      *
      * @return void
      */
-    public function logRequestFail($method, $fullURI, $body, $headers, $statusCode, $response, $duration, \Exception $exception)
-    {
-        $this->log->debug('Request Body', array($body));
+    public function logRequestFail(
+        $method,
+        $fullURI,
+        $body,
+        $headers,
+        $statusCode,
+        $response,
+        $duration,
+        \Exception $exception
+    ) {
+        $this->log->debug('Request Body', [$body]);
         $this->log->warning(
             'Request Failure:',
-            array(
+            [
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'headers'   => $headers,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
                 'error'     => $exception->getMessage(),
-            )
+            ]
         );
-        $this->log->warning('Response', array($response));
+        $this->log->warning('Response', [$response]);
 
         // Build the curl command for Trace.
         $curlCommand = $this->buildCurlCommand($method, $fullURI, $body);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
-            array(
+            [
                 'response'  => $response,
                 'method'    => $method,
                 'uri'       => $fullURI,
                 'HTTP code' => $statusCode,
                 'duration'  => $duration,
-            )
+            ]
         );
     }
 
@@ -424,10 +455,10 @@ class Connection implements ConnectionInterface
     {
         $options = [
             'client' => [
-                'timeout' => $this->pingTimeout,
+                'timeout'     => $this->pingTimeout,
                 'never_retry' => true,
-                'verbose' => true
-            ]
+                'verbose'     => true,
+            ],
         ];
         try {
             $response = $this->performRequest('HEAD', '/', null, null, $options);
@@ -456,9 +487,9 @@ class Connection implements ConnectionInterface
     {
         $options = [
             'client' => [
-                'timeout' => $this->pingTimeout,
-                'never_retry' => true
-            ]
+                'timeout'     => $this->pingTimeout,
+                'never_retry' => true,
+            ],
         ];
 
         return $this->performRequest('GET', '/_nodes/', null, null, $options);
@@ -475,15 +506,15 @@ class Connection implements ConnectionInterface
     public function markAlive()
     {
         $this->failedPings = 0;
-        $this->isAlive = true;
-        $this->lastPing = time();
+        $this->isAlive     = true;
+        $this->lastPing    = time();
     }
 
     public function markDead()
     {
-        $this->isAlive = false;
+        $this->isAlive     = false;
         $this->failedPings += 1;
-        $this->lastPing = time();
+        $this->lastPing    = time();
     }
 
     /**
@@ -537,7 +568,7 @@ class Connection implements ConnectionInterface
     protected function getCurlRetryException($request, $response)
     {
         $exception = null;
-        $message = $response['error']->getMessage();
+        $message   = $response['error']->getMessage();
         $exception = new MaxRetriesException($message);
         switch ($response['curl']['errno']) {
             case 6:
@@ -589,7 +620,7 @@ class Connection implements ConnectionInterface
      */
     private function process4xxError($request, $response, $ignore)
     {
-        $statusCode = $response['status'];
+        $statusCode   = $response['status'];
         $responseBody = $response['body'];
 
         /** @var \Exception $exception */
@@ -606,6 +637,8 @@ class Connection implements ConnectionInterface
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
+        } elseif ($statusCode === 400 && strpos($responseBody, "index_closed_exception") !== false) {
+            $exception = new IndexClosedExceptionException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
@@ -613,7 +646,7 @@ class Connection implements ConnectionInterface
         } elseif ($statusCode === 409) {
             $exception = new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
-            $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
+            $exception = new ScriptLangNotSupportedException($responseBody . $statusCode);
         } elseif ($statusCode === 408) {
             $exception = new RequestTimeout408Exception($responseBody, $statusCode);
         } else {
@@ -642,13 +675,13 @@ class Connection implements ConnectionInterface
      */
     private function process5xxError($request, $response, $ignore)
     {
-        $statusCode = $response['status'];
+        $statusCode   = $response['status'];
         $responseBody = $response['body'];
 
         /** @var \Exception $exception */
         $exception = $this->tryDeserialize500Error($response);
 
-        $exceptionText = "[$statusCode Server Exception] ".$exception->getMessage();
+        $exceptionText = "[$statusCode Server Exception] " . $exception->getMessage();
         $this->log->error($exceptionText);
         $this->log->error($exception->getTraceAsString());
 
@@ -658,7 +691,11 @@ class Connection implements ConnectionInterface
 
         if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
-        } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
+        } elseif ($statusCode === 500
+                  && preg_match(
+                         '/ActionRequestValidationException.+ no documents to get/',
+                         $responseBody
+                     ) === 1) {
             $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
@@ -700,10 +737,10 @@ class Connection implements ConnectionInterface
                 $root = $error['error']['root_cause'];
                 if (isset($root) && isset($root[0])) {
                     $cause = $root[0]['reason'];
-                    $type = $root[0]['type'];
+                    $type  = $root[0]['type'];
                 } else {
                     $cause = $error['error']['reason'];
-                    $type = $error['error']['type'];
+                    $type  = $error['error']['type'];
                 }
 
                 $original = new $errorClass($response['body'], $response['status']);

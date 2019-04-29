@@ -12,6 +12,7 @@
 - [DOCS] Update `community.asciidoc`, added `ElasticSearchQueryDSL` project [#749](https://github.com/elastic/elasticsearch-php/pull/749)
 - [DOCS] Proper return type array for get method for `IndicesNamespace` [#651](https://github.com/elastic/elasticsearch-php/pull/651)
 - [DOCS] Fix full docs link [#862](https://github.com/elastic/elasticsearch-php/pull/862)
+- [DOCS] Update breaking-changes.asciidoc, removal of ClientBuilder::defaultLogger() [#879](https://github.com/elastic/elasticsearch-php/pull/879)
 
 ### Testing
 

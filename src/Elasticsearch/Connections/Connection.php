@@ -11,6 +11,7 @@ use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\Forbidden403Exception;
+use Elasticsearch\Common\Exceptions\IndexClosedException;
 use Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
@@ -606,6 +607,8 @@ class Connection implements ConnectionInterface
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
+        } elseif ($statusCode === 400 && strpos($responseBody, "index_closed_exception") !== false) {
+            $exception = new IndexClosedException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {

@@ -96,7 +96,8 @@ class Index extends AbstractEndpoint
             'version_type',
             'pipeline',
             'if_primary_term',
-            'if_seq_no'
+            'if_seq_no',
+            'include_type_name'
         );
     }
 

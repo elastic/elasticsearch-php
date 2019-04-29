@@ -78,7 +78,8 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
             '_source_includes',
             '_source_exclude',
             '_source_excludes',
-            'pipeline'
+            'pipeline',
+            'seq_no_primary_term'
         );
     }
 

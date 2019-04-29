@@ -68,9 +68,17 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     private static $skippedTests = [
         'nodes.stats/30_discovery.yml#Discovery stats' => 'Failing on ES 6.1+: nodes.$master.discovery is an empty array, expected to have cluster_state_queue field in it',
         'indices.stats/20_translog.yml#Translog retention' => 'Failing on ES 6.3+: Failed asserting that 495 is equal to <string:$creation_size> or is less than \'$creation_size\'',
-        'indices.shrink/30_copy_settings.yml#Copy settings during shrink index' => 'Failing on ES 6.4+: Failed to match in test "Copy settings during shrink index". Expected [\'4\'] does not match [false] '
+        'indices.shrink/30_copy_settings.yml#Copy settings during shrink index' => 'Failing on ES 6.4+: Failed to match in test "Copy settings during shrink index". Expected [\'4\'] does not match [false] ',
     ];
 
+    private static $skippedTestsIfPhpLessThan = [
+        // Failing on ES 6.7+ only with PHP 7.0: Cannot access empty property
+        'indices.put_mapping/11_basic_with_types.yml#Create index with invalid mappings' => '7.1.0',
+        'indices.put_mapping/10_basic.yml#Create index with invalid mappings' => '7.1.0',
+        'indices.create/11_basic_with_types.yml#Create index with invalid mappings' => '7.1.0',
+        'indices.create/11_basic_with_types.yml#Create index with no type mappings' => '7.1.0',
+        'indices.create/10_basic.yml#Create index with invalid mappings' => '7.1.0',
+    ];
     /**
      * @var array A list of skipped test with their reasons
      */
@@ -814,8 +822,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $filter = getenv('TEST_CASE') !== false ? getenv('TEST_CASE') : null;
 
         /**
- * @var SplFileInfo $file
-*/
+         * @var SplFileInfo $file
+         */
         foreach ($finder as $file) {
             $files = array_merge($files, $this->splitDocument($file, $path, $filter));
         }
@@ -944,6 +952,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      */
     private function splitDocument(SplFileInfo $file, string $path, string $filter = null): array
     {
+
         $fileContent = $file->getContents();
         // cleanup some bad comments
         $fileContent = str_replace('"#', '" #', $fileContent);
@@ -973,6 +982,17 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $skip = false;
         $documentParsed = null;
         foreach ($documents as $documentString) {
+            // Extract test name
+            if (preg_match('/"([^"]+)"/', $documentString, $matches)) {
+                $testName = $matches[1];
+                // Skip YAML parsing if test is signed to be skipped and if PHP is < version specified
+                // To prevent YAML parse error, e.g. empty property
+                if (array_key_exists("$fileName#$testName", static::$skippedTestsIfPhpLessThan)) {
+                    if (version_compare(PHP_VERSION, static::$skippedTestsIfPhpLessThan["$fileName#$testName"], '<')) {
+                        continue;
+                    }
+                }
+            }
             // TODO few bad instances of teardown, should be fixed in upstream but this is a quick fix locally
             $documentString = str_replace(" teardown:", "teardown:", $documentString);
             try {

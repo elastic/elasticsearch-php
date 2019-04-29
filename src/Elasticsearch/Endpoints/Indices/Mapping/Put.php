@@ -41,19 +41,21 @@ class Put extends AbstractEndpoint
      */
     public function getURI()
     {
-        if (isset($this->type) !== true) {
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
+
+        if (null === $index && $type === $index) {
             throw new Exceptions\RuntimeException(
-                'type is required for Put'
+                'type or index are required for Put'
             );
         }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping/$type";
-
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mapping";
-        } elseif (isset($type) === true) {
-            $uri = "/_mapping/$type";
+        $uri = '';
+        if (null !== $index) {
+            $uri = "/$index";
+        }
+        $uri .= '/_mapping';
+        if (null !== $type) {
+            $uri .= "/$type";
         }
 
         return $uri;
@@ -71,7 +73,8 @@ class Put extends AbstractEndpoint
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'update_all_types'
+            'update_all_types',
+            'include_type_name'
         );
     }
 

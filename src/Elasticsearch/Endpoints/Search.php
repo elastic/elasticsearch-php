@@ -104,7 +104,8 @@ class Search extends AbstractEndpoint
             'batched_reduce_size',
             'typed_keys',
             'pre_filter_shard_size',
-            'rest_total_hits_as_int'
+            'rest_total_hits_as_int',
+            'seq_no_primary_term'
         );
     }
 

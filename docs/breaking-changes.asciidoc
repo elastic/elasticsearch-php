@@ -1,4 +1,17 @@
 [[breaking_changes]]
 == Breaking changes from 5.x
 
-None! :)
+### Removal of ClientBuilder::defaultLogger()
+
+In 5.x there is the ability to create a default Logger object, which has been removed. It is now required to explicitly make a Logger object.
+
+5.x
+```
+$logger = ClientBuilder::defaultLogger('path_to_log_file');
+```
+
+6.5
+```
+$logger = new Logger('name');
+$logger->pushHandler(new StreamHandler('path_to_log_file', Logger::WARNING);
+```

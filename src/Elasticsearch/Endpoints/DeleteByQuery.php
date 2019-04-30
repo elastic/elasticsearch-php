@@ -61,8 +61,10 @@ class DeleteByQuery extends AbstractEndpoint
     {
         return array(
             '_source',
-            '_source_exclude',
             '_source_include',
+            '_source_includes',
+            '_source_exclude',
+            '_source_excludes',
             'allow_no_indices',
             'analyze_wildcard',
             'analyzer',

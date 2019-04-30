@@ -33,7 +33,7 @@ class IngestNamespace extends AbstractNamespace
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Delete $endpoint */
@@ -55,7 +55,7 @@ class IngestNamespace extends AbstractNamespace
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Get $endpoint */
@@ -79,7 +79,7 @@ class IngestNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Put $endpoint */
@@ -103,7 +103,7 @@ class IngestNamespace extends AbstractNamespace
         $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var Simulate $endpoint */
@@ -124,7 +124,7 @@ class IngestNamespace extends AbstractNamespace
      */
     public function processorGrok($params = [])
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var ProcessorGrok $endpoint */

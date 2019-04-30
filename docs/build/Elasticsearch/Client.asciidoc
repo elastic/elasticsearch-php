@@ -931,7 +931,6 @@ $response = $client->updateByQuery($params);
 ----
 /*
 $params['id']   = (string) The script ID (Required)
-       ['lang'] = (string) The script language (Required)
        ['body']  = (array) Request body
 */
 
@@ -953,7 +952,6 @@ $response = $client->getScript($params);
 ----
 /*
 $params['id']   = (string) The script ID (Required)
-       ['lang'] = (string) The script language (Required)
        ['body']  = (array) Request body
 */
 
@@ -975,7 +973,6 @@ $response = $client->deleteScript($params);
 ----
 /*
 $params['id']   = (string) The script ID (Required)
-       ['lang'] = (string) The script language (Required)
        ['body']  = (array) Request body
 */
 

@@ -9,6 +9,7 @@ use Mockery as m;
 
 /**
  * Class EverythingToJSONSerializerTest
+ *
  * @package Elasticsearch\Tests\Serializers
  */
 class EverythingToJSONSerializerTest extends \PHPUnit\Framework\TestCase

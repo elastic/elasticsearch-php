@@ -130,15 +130,11 @@ class SearchResponseIterator implements Iterator
      */
     public function next()
     {
-        if ($this->current_key !== 0) {
-            $this->current_scrolled_response = $this->client->scroll(
-                array(
-                    'scroll_id' => $this->scroll_id,
-                    'scroll'    => $this->scroll_ttl
-                )
-            );
-            $this->scroll_id = $this->current_scrolled_response['_scroll_id'];
-        }
+        $this->current_scrolled_response = $this->client->scroll([
+            'scroll_id' => $this->scroll_id,
+            'scroll'    => $this->scroll_ttl
+        ]);
+        $this->scroll_id = $this->current_scrolled_response['_scroll_id'];
         $this->current_key++;
     }
 

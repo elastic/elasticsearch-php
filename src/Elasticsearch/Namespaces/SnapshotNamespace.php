@@ -29,7 +29,7 @@ class SnapshotNamespace extends AbstractNamespace
         $snapshot = $this->extractArgument($params, 'snapshot');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Create $endpoint */
@@ -55,7 +55,7 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Create $endpoint */
@@ -79,7 +79,7 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Delete $endpoint */
@@ -103,7 +103,7 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Delete $endpoint */
@@ -126,7 +126,7 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint */
@@ -150,7 +150,7 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Get $endpoint */
@@ -175,7 +175,7 @@ class SnapshotNamespace extends AbstractNamespace
         $snapshot = $this->extractArgument($params, 'snapshot');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Restore $endpoint */
@@ -200,7 +200,7 @@ class SnapshotNamespace extends AbstractNamespace
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Status $endpoint */
@@ -224,7 +224,7 @@ class SnapshotNamespace extends AbstractNamespace
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */

@@ -118,7 +118,7 @@ class Client
      */
     public function info($params = [])
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Info $endpoint */
@@ -135,7 +135,7 @@ class Client
      */
     public function ping($params = [])
     {
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Ping $endpoint */
@@ -167,8 +167,10 @@ class Client
      *        ['refresh']         = (boolean) Refresh the shard containing the document before performing the operation
      *        ['routing']         = (string) Specific routing value
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
+     *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_excludes'] = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_include'] = (list) A list of fields to extract and return from the _source field (deprecated in ES 6.6.0)
+     *        ['_source_includes'] = (list) A list of fields to extract and return from the _source field
      *
      * @param array $params Associative array of parameters
      *
@@ -180,7 +182,7 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Get $endpoint */
@@ -214,7 +216,7 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Get $endpoint */
@@ -254,7 +256,7 @@ class Client
         $this->verifyNotNullOrEmpty("type", $type);
         $this->verifyNotNullOrEmpty("index", $index);
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Delete $endpoint */
@@ -270,8 +272,10 @@ class Client
     /**
      *
      * $params['_source'] = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude'] = (array) A list of fields to exclude from the returned _source field
-     *        ['_source_include'] = (array) A list of fields to extract and return from the _source field
+     *        ['_source_exclude'] = (array) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_include'] = (array) A list of fields to extract and return from the _source field (deprecated in ES 6.6.0)
+     *        ['_source_excludes'] = (array) A list of fields to exclude from the returned _source field
+     *        ['_source_includes'] = (array) A list of fields to extract and return from the _source field
      *        ['allow_no_indices'] = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      *        ['analyze_wildcard'] = (bool) Specify whether wildcard and prefix queries should be analyzed (default: false)
      *        ['analyzer'] = (string) The analyzer to use for the query string
@@ -314,7 +318,7 @@ class Client
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
@@ -349,7 +353,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Count $endpoint */
@@ -390,7 +394,7 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\CountPercolate $endpoint */
@@ -423,7 +427,7 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Percolate $endpoint */
@@ -456,7 +460,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\MPercolate $endpoint */
@@ -494,7 +498,7 @@ class Client
         $id    = $this->extractArgument($params, 'id');
         $body  = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\TermVectors $endpoint */
@@ -533,7 +537,7 @@ class Client
         $type  = $this->extractArgument($params, 'type');
         $body  = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\MTermVectors $endpoint */
@@ -569,7 +573,7 @@ class Client
         //manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Exists $endpoint */
@@ -595,6 +599,8 @@ class Client
      *        ['_source']         = (list) True or false to return the _source field or not, or a list of fields to return
      *        ['_source_exclude'] = (list) A list of fields to exclude from the returned _source field
      *        ['_source_include'] = (list) A list of fields to extract and return from the _source field
+     *        ['_source_excludes'] = (list) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_includes'] = (list) A list of fields to extract and return from the _source field (deprecated in ES 6.6.0)
      *
      * @param array $params Associative array of parameters
      *
@@ -606,7 +612,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Mget $endpoint */
@@ -635,7 +641,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Msearch $endpoint */
@@ -665,7 +671,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\MsearchTemplate $endpoint */
@@ -705,7 +711,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Create $endpoint */
@@ -738,7 +744,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Bulk $endpoint */
@@ -779,7 +785,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Index $endpoint */
@@ -809,40 +815,11 @@ class Client
     {
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
         /** @var \Elasticsearch\Endpoints\Reindex $endpoint */
         $endpoint = $endpointBuilder('Reindex');
         $endpoint->setBody($body);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['index']          = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['preference']     = (string) Specify the node or shard the operation should be performed on (default: random)
-     *        ['routing']        = (string) Specific routing value
-     *        ['source']         = (string) The URL-encoded request definition (instead of using request body)
-     *        ['body']           = (array) The request definition
-     *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
-     */
-    public function suggest($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-        $body = $this->extractArgument($params, 'body');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Suggest $endpoint */
-        $endpoint = $endpointBuilder('Suggest');
-        $endpoint->setIndex($index)
-                 ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
@@ -865,8 +842,10 @@ class Client
      *        ['routing']                  = (string) Specific routing value
      *        ['source']                   = (string) The URL-encoded query definition (instead of using the request body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field  (deprecated in ES 6.6.0)
+     *        ['_source_excludes']          = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']          = (list) A list of fields to extract and return from the _source field
      *        ['body']                     = (string) The URL-encoded query definition (instead of using the request body)
      *
      * @param array $params Associative array of parameters
@@ -880,7 +859,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Explain $endpoint */
@@ -919,8 +898,10 @@ class Client
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
      *        ['source']                   = (string) The URL-encoded request definition using the Query DSL (instead of using request body)
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field (deprecated in ES 6.6.0)
+     *        ['_source_excludes']         = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']         = (list) A list of fields to extract and return from the _source field
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
      *        ['suggest_field']            = (string) Specify which field to use for suggestions
      *        ['suggest_mode']             = (enum) Specify suggest mode
@@ -941,7 +922,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
@@ -973,7 +954,7 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\SearchShards $endpoint */
@@ -999,7 +980,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Search $endpoint */
@@ -1027,7 +1008,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
         $scroll = $this->extractArgument($params, 'scroll');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
@@ -1054,7 +1035,7 @@ class Client
         $scrollID = $this->extractArgument($params, 'scroll_id');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\ClearScroll $endpoint */
@@ -1096,7 +1077,7 @@ class Client
         $type = $this->extractArgument($params, 'type');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Update $endpoint */
@@ -1151,8 +1132,10 @@ class Client
      *        ['sort']                     = (list) A comma-separated list of <field>:<direction> pairs
      *        ['_source']                  = (list) True or false to return the _source field or not, or a list of
      * fields to return
-     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field
-     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field
+     *        ['_source_exclude']          = (list) A list of fields to exclude from the returned _source field (deprecated in ES 6.6.0)
+     *        ['_source_include']          = (list) A list of fields to extract and return from the _source field (deprecated in ES 6.6.0)
+     *        ['_source_excludes']         = (list) A list of fields to exclude from the returned _source field
+     *        ['_source_includes']         = (list) A list of fields to extract and return from the _source field
      *        ['terminate_after']          = (number) The maximum number of documents to collect for each shard, upon
      * reaching which the query execution will terminate early.
      *        ['stats']                    = (list) Specific 'tag' of the request for logging and statistical purposes
@@ -1189,7 +1172,7 @@ class Client
 
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\UpdateByQuery $endpoint */
@@ -1204,7 +1187,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1213,15 +1195,13 @@ class Client
     public function getScript($params)
     {
         $id = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Get $endpoint */
         $endpoint = $endpointBuilder('Script\Get');
-        $endpoint->setID($id)
-                 ->setLang($lang);
+        $endpoint->setID($id);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
@@ -1229,7 +1209,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1238,15 +1217,13 @@ class Client
     public function deleteScript($params)
     {
         $id = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Delete $endpoint */
         $endpoint = $endpointBuilder('Script\Delete');
-        $endpoint->setID($id)
-                 ->setLang($lang);
+        $endpoint->setID($id);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
@@ -1254,7 +1231,6 @@ class Client
 
     /**
      * $params['id']   = (string) The script ID (Required)
-     *        ['lang'] = (string) The script language (Required)
      *
      * @param array $params Associative array of parameters
      *
@@ -1263,10 +1239,9 @@ class Client
     public function putScript($params)
     {
         $id   = $this->extractArgument($params, 'id');
-        $lang = $this->extractArgument($params, 'lang');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Script\Put $endpoint */
@@ -1289,7 +1264,7 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Template\Get $endpoint */
@@ -1311,7 +1286,7 @@ class Client
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\Template\Delete $endpoint */
@@ -1339,7 +1314,7 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
@@ -1366,7 +1341,7 @@ class Client
         $index = $this->extractArgument($params, 'index');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\FieldCaps $endpoint */
@@ -1390,7 +1365,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
         $id   = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /** @var callable $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
         /** @var \Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */

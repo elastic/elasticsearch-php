@@ -93,11 +93,14 @@ class Get extends AbstractEndpoint
             'refresh',
             'routing',
             '_source',
-            '_source_exclude',
             '_source_include',
+            '_source_includes',
+            '_source_exclude',
+            '_source_excludes',
             'version',
             'version_type',
-            'stored_fields'
+            'stored_fields',
+            'include_type_name'
         );
     }
 

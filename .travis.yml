@@ -1,12 +1,7 @@
 language: php
 
-jdk:
-  - oraclejdk8
-
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+services:
+  - docker
 
 branches:
   except:
@@ -18,13 +13,13 @@ matrix:
   fast_finish: true
   include:
     - php: 7.0
-      env: ES_VERSION="6.5.0"
+      env: ES_VERSION="6.7.0"
 
     - php: 7.1
-      env: ES_VERSION="6.5.0"
+      env: ES_VERSION="6.7.0"
 
     - php: 7.2
-      env: ES_VERSION="6.5.0"
+      env: ES_VERSION="6.7.0"
 
     - php: 7.3
       env: ES_VERSION="6.0.0"
@@ -38,16 +33,17 @@ matrix:
       env: ES_VERSION="6.4.0"
     - php: 7.3
       env: ES_VERSION="6.5.0"
-
+    - php: 7.3
+      env: ES_VERSION="6.6.0"
+    - php: 7.3
+      env: ES_VERSION="6.7.0"
 
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200
-    - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 
 before_install:
-  - sudo update-java-alternatives -s java-8-oracle
-  - ./travis/download_and_run_es.sh
+  - ./travis/run_es_docker.sh
 
 install:
   - composer install --prefer-dist
@@ -65,3 +61,6 @@ script:
 
 after_script:
   - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then php vendor/bin/coveralls; fi
+
+notifications:
+  email: true

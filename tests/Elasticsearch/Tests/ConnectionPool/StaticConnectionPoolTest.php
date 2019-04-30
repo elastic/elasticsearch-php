@@ -39,7 +39,9 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
                           ->getMock()
                           ->shouldReceive('markDead')->once()->getMock();
 
-        /** @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections */
+        /**
+ * @var \Elasticsearch\Connections\Connection[]&\Mockery\MockInterface[] $connections
+*/
         $connections = [$mockConnection];
 
         $selector = m::mock(RoundRobinSelector::class)

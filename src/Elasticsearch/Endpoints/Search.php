@@ -85,8 +85,10 @@ class Search extends AbstractEndpoint
             'sort',
             'source',
             '_source',
-            '_source_exclude',
             '_source_include',
+            '_source_includes',
+            '_source_exclude',
+            '_source_excludes',
             'stats',
             'suggest_field',
             'suggest_mode',
@@ -101,7 +103,9 @@ class Search extends AbstractEndpoint
             'stored_fields',
             'batched_reduce_size',
             'typed_keys',
-            'pre_filter_shard_size'
+            'pre_filter_shard_size',
+            'rest_total_hits_as_int',
+            'seq_no_primary_term'
         );
     }
 

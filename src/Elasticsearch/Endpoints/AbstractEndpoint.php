@@ -36,7 +36,7 @@ abstract class AbstractEndpoint
     /** @var  string */
     protected $method = null;
 
-    /** @var  array */
+    /** @var string|array */
     protected $body = null;
 
     /** @var array  */

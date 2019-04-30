@@ -1,3 +1,40 @@
+## Release 6.7.0
+
+- Removed requirement of `{type}` part in `indices.put_mapping`, see new API specification [here](https://github.com/elastic/elasticsearch/blob/v6.7.0/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_mapping.json)
+- Added `seq_no_primary_term` parameter in `bulk` endpoint [#884](https://github.com/elastic/elasticsearch-php/pull/884)
+- Added `include_type_name`, `if_primary_term`, `if_seq_no` in `delete` endpoint [#884](https://github.com/elastic/elasticsearch-php/pull/884)
+- Added `include_type_name` in `get`, `index`, `indices.create`, `indices.field.get`, `indices.get`, `indices.mapping.get`, `indices.mapping.getfield`, `indices.mapping.put`, `indices.rollover`, `indices.template.get`, `indices.template.put` endpoints [#884](https://github.com/elastic/elasticsearch-php/pull/884)
+- Added `seq_no_primary_term` in `search` endpoint [#884](https://github.com/elastic/elasticsearch-php/pull/884)
+- Added `if_primary_term', 'if_seq_no`in `update` endpoint [#884](https://github.com/elastic/elasticsearch-php/pull/884)
+
+### Testing
+
+- Fix tests for PHP 7 with ES 6.7 [[5401479](https://github.com/elastic/elasticsearch-php/pull/884/commits/5401479)
+
+### Docs
+
+- [DOCS] Fix doc links in README [[5a1782d]](https://github.com/elastic/elasticsearch-php/pull/884/commits/5a1782d)
+
+## Release 6.5.0
+
+- Remove `_suggest` endpoint, which has disappeared from ES6 [#763](https://github.com/elastic/elasticsearch-php/pull/763)
+- Fix `SearchHitIterator` key duplicates [#872](https://github.com/elastic/elasticsearch-php/pull/872)
+- Fixing script get and delete by removing `lang` from endpoint url [#814](https://github.com/elastic/elasticsearch-php/pull/814)
+- Fix `SearchResponseIterator` is scrolling the first page twice [#871](https://github.com/elastic/elasticsearch-php/pull/871), issue [#595](https://github.com/elastic/elasticsearch-php/issues/595)
+
+### Docs
+
+- [DOCS] Add reference to `parse_url()` for Extended Host Configuration [#778](https://github.com/elastic/elasticsearch-php/pull/778)
+- [DOCS] Update php version requirement [#757](https://github.com/elastic/elasticsearch-php/pull/757)
+- [DOCS] Update `community.asciidoc`, added `ElasticSearchQueryDSL` project [#749](https://github.com/elastic/elasticsearch-php/pull/749)
+- [DOCS] Proper return type array for get method for `IndicesNamespace` [#651](https://github.com/elastic/elasticsearch-php/pull/651)
+- [DOCS] Fix full docs link [#862](https://github.com/elastic/elasticsearch-php/pull/862)
+- [DOCS] Update breaking-changes.asciidoc, removal of ClientBuilder::defaultLogger() [879](https://github.com/elastic/elasticsearch-php/pull/879)
+
+### Testing
+
+- Fix integration tests using docker [#867](https://github.com/elastic/elasticsearch-php/pull/867)
+
 ## Release 6.1.0
 
 - Add 'wait_for_no_initializing_shards' to Cluster\Health whitelist [[98a372c]](http://github.com/elasticsearch/elasticsearch-php/commit/98a372c)

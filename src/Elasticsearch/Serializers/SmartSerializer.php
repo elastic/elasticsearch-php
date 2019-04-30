@@ -7,6 +7,11 @@ namespace Elasticsearch\Serializers;
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
 
+if (!defined('JSON_INVALID_UTF8_SUBSTITUTE')) {
+    //PHP < 7.2 Define it as 0 so it does nothing
+    define('JSON_INVALID_UTF8_SUBSTITUTE', 0);
+}
+
 /**
  * Class SmartSerializer
  *

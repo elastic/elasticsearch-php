@@ -194,7 +194,7 @@ class Transport
      *
      * @return bool
      */
-    protected function ignoreTheError(?int $errorCode): bool
+    protected function ignoreTheError($errorCode = null): bool
     {
         if (null === $errorCode) {
             return false;

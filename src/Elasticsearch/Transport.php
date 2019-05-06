@@ -119,9 +119,9 @@ class Transport
                 // Note, this could be a 4xx or 5xx error
             },
             //onFailure
-            function ($response) {
+            function (Throwable $response) {
                 // Ignore 400 level errors, as that means the server responded just fine
-                if (!(isset($response['code']) && $response['code'] >=400 && $response['code'] < 500)) {
+                if ($response->getCode() < 400 || $response->getCode() >= 500) {
                     // Otherwise schedule a check
                     $this->connectionPool->scheduleCheck();
                 }

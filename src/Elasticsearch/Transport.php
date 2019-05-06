@@ -10,6 +10,7 @@ use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * Class Transport
@@ -120,9 +121,15 @@ class Transport
             },
             //onFailure
             function ($response) {
-                // Ignore 400 level errors, as that means the server responded just fine
-                if (!(isset($response['code']) && $response['code'] >=400 && $response['code'] < 500)) {
-                    // Otherwise schedule a check
+                // for backward compatibility
+                if ($response instanceof Throwable) {
+                    $responseCode = $response->getCode();
+                } else {
+                    $responseData = (array) $response;
+                    $responseCode = isset($responseData['code']) ? $responseData['code'] : null;
+                }
+
+                if (!$this->ignoreTheError($responseCode)) {
                     $this->connectionPool->scheduleCheck();
                 }
             }
@@ -177,5 +184,27 @@ class Transport
     public function getLastConnection()
     {
         return $this->lastConnection;
+    }
+
+    /**
+     * Returns the need to ignore the error.
+     * Ignore 400 level errors, as that means the server responded just fine
+     *
+     * @param int|null $errorCode
+     *
+     * @return bool
+     */
+    protected function ignoreTheError(?int $errorCode): bool
+    {
+        if (null === $errorCode) {
+            return false;
+        }
+
+        // Ignore 400 level errors, as that means the server responded just fine
+        if ($errorCode >=400 && $errorCode < 500) {
+            return true;
+        }
+
+        return false;
     }
 }

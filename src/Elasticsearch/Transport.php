@@ -10,6 +10,7 @@ use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * Class Transport

@@ -105,7 +105,8 @@ class Search extends AbstractEndpoint
             'typed_keys',
             'pre_filter_shard_size',
             'rest_total_hits_as_int',
-            'seq_no_primary_term'
+            'seq_no_primary_term',
+            'track_total_hits'
         );
     }
 

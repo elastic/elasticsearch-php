@@ -11,7 +11,7 @@ This section will give you a quick overview of the client and how the major func
 ----------------------------
 {
     "require": {
-        "elasticsearch/elasticsearch": "~5.0"
+        "elasticsearch/elasticsearch": "~6.7.0"
     }
 }
 ----------------------------
@@ -266,4 +266,3 @@ actions are available under the `$client` object (indexing, searching, getting, 
 are located under the `$client->indices()` and `$client->cluster()` objects, respectively.
 
 Check out the rest of the Documentation to see how the entire client works.
-

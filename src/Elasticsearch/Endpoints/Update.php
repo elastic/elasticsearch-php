@@ -83,8 +83,6 @@ class Update extends AbstractEndpoint
             'routing',
             'script',
             'timeout',
-            'timestamp',
-            'ttl',
             'version',
             'version_type',
             '_source',

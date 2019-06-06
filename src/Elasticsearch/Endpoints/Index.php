@@ -90,8 +90,6 @@ class Index extends AbstractEndpoint
             'replication',
             'routing',
             'timeout',
-            'timestamp',
-            'ttl',
             'version',
             'version_type',
             'pipeline',

@@ -17,32 +17,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Help extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cat";
-
-        return $uri;
+        return "/_cat";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'help',
-            's',
-            'format',
-        );
+            's'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

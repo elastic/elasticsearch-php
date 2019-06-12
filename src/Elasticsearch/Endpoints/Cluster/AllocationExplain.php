@@ -17,14 +17,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class AllocationExplain extends AbstractEndpoint
 {
-
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): AllocationExplain
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,30 +28,21 @@ class AllocationExplain extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         return "/_cluster/allocation/explain";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'include_yes_decisions',
-            'include_disk_info',
-        );
+            'include_disk_info'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

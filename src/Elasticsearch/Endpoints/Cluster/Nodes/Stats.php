@@ -32,10 +32,8 @@ class Stats extends AbstractNodesEndpoint
 
     /**
      * @param string|string[] $metric
-     *
-     * @return $this
      */
-    public function setMetric($metric)
+    public function setMetric($metric): Stats
     {
         if (isset($metric) !== true) {
             return $this;
@@ -51,11 +49,9 @@ class Stats extends AbstractNodesEndpoint
     }
 
     /**
-     * @param string $indexMetric
-     *
-     * @return $this
+     * @param string|string[] $indexMetric
      */
-    public function setIndexMetric($indexMetric)
+    public function setIndexMetric($indexMetric): Stats
     {
         if (isset($indexMetric) !== true) {
             return $this;
@@ -70,52 +66,45 @@ class Stats extends AbstractNodesEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $metric = $this->metric;
-        $index_metric = $this->indexMetric;
-        $node_id = $this->nodeID;
-        $uri   = "/_nodes/stats";
+        $metric = $this->metric ?? null;
+        $indexMetric = $this->indexMetric ?? null;
+        $nodeId = $this->nodeID ?? null;
 
-        if (isset($node_id) === true && isset($metric) === true && isset($index_metric) === true) {
-            $uri = "/_nodes/$node_id/stats/$metric/$index_metric";
-        } elseif (isset($metric) === true && isset($index_metric) === true) {
-            $uri = "/_nodes/stats/$metric/$index_metric";
-        } elseif (isset($node_id) === true && isset($metric) === true) {
-            $uri = "/_nodes/$node_id/stats/$metric";
-        } elseif (isset($metric) === true) {
-            $uri = "/_nodes/stats/$metric";
-        } elseif (isset($node_id) === true) {
-            $uri = "/_nodes/$node_id/stats";
+        if (isset($nodeId) && isset($metric) && isset($indexMetric)) {
+            return "/_nodes/$nodeId/stats/$metric/$indexMetric";
         }
-
-        return $uri;
+        if (isset($metric) && isset($indexMetric)) {
+            return "/_nodes/stats/$metric/$indexMetric";
+        }
+        if (isset($nodeId) && isset($metric)) {
+            return "/_nodes/$nodeId/stats/$metric";
+        }
+        if (isset($metric)) {
+            return "/_nodes/stats/$metric";
+        }
+        if (isset($nodeId)) {
+            return "/_nodes/$nodeId/stats";
+        }
+        return "/_nodes/stats";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
             'groups',
-            'human',
             'level',
             'types',
-            'include_segment_file_sizes',
-        );
+            'timeout',
+            'include_segment_file_sizes'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

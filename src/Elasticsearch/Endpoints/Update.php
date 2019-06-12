@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Update
@@ -17,13 +17,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class Update extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Update
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,69 +29,50 @@ class Update extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
+     * @throws RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'id is required for Update'
             );
         }
         if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for Update'
             );
         }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Update'
-            );
-        }
+
         $id = $this->id;
         $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/$id/_update";
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id/_update";
+        if (isset($type)) {
+            return "/$index/$type/$id/_update";
         }
-
-        return $uri;
+        return "/$index/_update/$id";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'consistency',
-            'fields',
+        return [
+            'wait_for_active_shards',
+            '_source',
+            '_source_excludes',
+            '_source_includes',
             'lang',
             'parent',
             'refresh',
-            'replication',
             'retry_on_conflict',
             'routing',
-            'script',
             'timeout',
-            'timestamp',
-            'ttl',
-            'version',
-            'version_type',
-            '_source',
-            'include_type_name',
-            'if_primary_term',
-            'if_seq_no'
-        );
+            'if_seq_no',
+            'if_primary_term'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

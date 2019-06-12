@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
 
 /**
  * Class MsearchTemplate
@@ -29,11 +28,8 @@ class MsearchTemplate extends AbstractEndpoint
 
     /**
      * @param array|string $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): MsearchTemplate
     {
         if (isset($body) !== true) {
             return $this;
@@ -52,56 +48,45 @@ class MsearchTemplate extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_msearch/template";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_msearch/template";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_msearch/template";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_msearch/template";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_msearch/template";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_msearch/template";
+        }
+        return "/_msearch/template";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'search_type',
             'typed_keys',
-            'max_concurrent_searches'
-        );
+            'max_concurrent_searches',
+            'rest_total_hits_as_int',
+            'ccs_minimize_roundtrips'
+        ];
     }
 
     /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws RuntimeException
      */
     public function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MSearch');
+            throw new RuntimeException('Body is required for MSearch');
         }
 
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return 'POST';
     }
 }

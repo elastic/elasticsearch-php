@@ -19,13 +19,9 @@ use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
 class SmartSerializer implements SerializerInterface
 {
     /**
-     * Serialize assoc array into JSON string
-     *
-     * @param string|array $data Assoc array to encode into JSON
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function serialize($data)
+    public function serialize($data): string
     {
         if (is_string($data) === true) {
             return $data;
@@ -43,16 +39,9 @@ class SmartSerializer implements SerializerInterface
     }
 
     /**
-     * Deserialize by introspecting content_type. Tries to deserialize JSON,
-     * otherwise returns string
-     *
-     * @param string $data JSON encoded string
-     * @param array  $headers Response Headers
-     *
-     * @throws JsonErrorException
-     * @return array
+     * {@inheritdoc}
      */
-    public function deserialize($data, $headers)
+    public function deserialize(?string $data, array $headers)
     {
         if (isset($headers['content_type']) === true) {
             if (strpos($headers['content_type'], 'json') !== false) {
@@ -75,20 +64,27 @@ class SmartSerializer implements SerializerInterface
      * @return array
      * @throws JsonErrorException
      */
-    private function decode($data)
+    private function decode(?string $data): array
     {
         if ($data === null || strlen($data) === 0) {
-            return "";
+            return [];
+        }
+
+        if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
+            try {
+                $result = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+                return $result;
+            } catch (\JsonException $e) {
+                $result = $result ?? [];
+                throw new JsonErrorException($e->getMessage(), $data, $result);
+            }
         }
 
         $result = @json_decode($data, true);
-
         // Throw exception only if E_NOTICE is on to maintain backwards-compatibility on systems that silently ignore E_NOTICEs.
         if (json_last_error() !== JSON_ERROR_NONE && (error_reporting() & E_NOTICE) === E_NOTICE) {
-            $e = new JsonErrorException(json_last_error(), $data, $result);
-            throw $e;
+            throw new JsonErrorException(json_last_error(), $data, $result);
         }
-
         return $result;
     }
 }

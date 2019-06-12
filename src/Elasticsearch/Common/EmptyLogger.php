@@ -22,15 +22,9 @@ use Psr\Log\LoggerInterface;
 class EmptyLogger extends AbstractLogger implements LoggerInterface
 {
     /**
-     * Logs with an arbitrary level.
-     *
-     * @param mixed $level
-     * @param string $message
-     * @param array $context
-     *
-     * @return null
+     * {@inheritDoc}
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         return;
     }

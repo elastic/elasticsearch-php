@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
 
 /**
  * Class Msearch
@@ -29,11 +28,8 @@ class Msearch extends AbstractEndpoint
 
     /**
      * @param array|string $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Msearch
     {
         if (isset($body) !== true) {
             return $this;
@@ -52,58 +48,51 @@ class Msearch extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_msearch";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_msearch";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_msearch";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_msearch";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_msearch";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_msearch";
+        }
+        return "/_msearch";
     }
 
     /**
      * @return string[]
      */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'search_type',
-            'typed_keys',
-            'max_concurrent_shard_requests',
             'max_concurrent_searches',
-            'rest_total_hits_as_int'
-        );
+            'typed_keys',
+            'pre_filter_shard_size',
+            'max_concurrent_shard_requests',
+            'rest_total_hits_as_int',
+            'ccs_minimize_roundtrips'
+        ];
     }
 
     /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @return array|string
+     * @throws RuntimeException
      */
     public function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MSearch');
+            throw new RuntimeException('Body is required for MSearch');
         }
 
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return 'POST';
     }
 }

@@ -16,7 +16,7 @@ use Elasticsearch\Common\Exceptions;
  * Class Segments
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Cat
+ * @package  Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -24,41 +24,30 @@ use Elasticsearch\Common\Exceptions;
 
 class Segments extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_cat/segments";
+        $index = $this->index ?? null;
 
-        if (isset($index) === true) {
-            $uri = "/_cat/segments/$index";
+        if (isset($index)) {
+            return "/_cat/segments/$index";
         }
 
-        return $uri;
+        return "/_cat/segments";
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
+            'bytes',
             'h',
             'help',
-            'v',
             's',
-            'format',
-        );
+            'v'
+        ];
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

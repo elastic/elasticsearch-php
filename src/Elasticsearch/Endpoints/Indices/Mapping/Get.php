@@ -17,45 +17,35 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping";
-
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/_mapping/$type";
-        } elseif (isset($type) === true) {
-            $uri = "/_mapping/$type";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_mapping";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
+        if (isset($index) && isset($type)) {
+            return "/$index/_mapping/$type";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_mapping";
+        }
+        if (isset($type)) {
+            return "/_mapping/$type";
+        }
+        return "/_mapping";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'include_type_name',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'wildcard_expansion',
-            'local',
-            'include_type_name'
-        );
+            'master_timeout',
+            'local'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

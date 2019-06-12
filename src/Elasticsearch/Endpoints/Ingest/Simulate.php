@@ -18,13 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Simulate extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Simulate
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,32 +29,23 @@ class Simulate extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->id) === true) {
-            return "/_ingest/pipeline/{$this->id}/_simulate";
+        $id = $this->id ?? null;
+        if (isset($id)) {
+            return "/_ingest/pipeline/$id/_simulate";
         }
         return "/_ingest/pipeline/_simulate";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'verbose',
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

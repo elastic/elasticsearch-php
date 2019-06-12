@@ -20,36 +20,26 @@ class Delete extends AbstractEndpoint
 {
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
-                'id is required for put'
+                'id is required for Delete'
             );
         }
-        $id   = $this->id;
-        $uri  = "/_scripts/$id";
-
-        return $uri;
+        return "/_scripts/{$this->id}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'version',
-            'version_type'
-        );
+        return [
+            'timeout',
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

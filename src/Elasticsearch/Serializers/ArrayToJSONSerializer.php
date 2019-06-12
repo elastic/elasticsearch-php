@@ -18,13 +18,9 @@ use Elasticsearch\Common\Exceptions\RuntimeException;
 class ArrayToJSONSerializer implements SerializerInterface
 {
     /**
-     * Serialize assoc array into JSON string
-     *
-     * @param string|array $data Assoc array to encode into JSON
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function serialize($data)
+    public function serialize($data): string
     {
         if (is_string($data) === true) {
             return $data;
@@ -42,14 +38,9 @@ class ArrayToJSONSerializer implements SerializerInterface
     }
 
     /**
-     * Deserialize JSON into an assoc array
-     *
-     * @param string $data JSON encoded string
-     * @param array  $headers Response Headers
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    public function deserialize($data, $headers)
+    public function deserialize(?string $data, array $headers)
     {
         return json_decode($data, true);
     }

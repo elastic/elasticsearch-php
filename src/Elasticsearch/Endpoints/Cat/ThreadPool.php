@@ -18,39 +18,40 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 class ThreadPool extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
-    {
-        $uri   = "/_cat/thread_pool";
+    protected $threadPoolPatterns;
 
-        return $uri;
+    public function setThreadPoolPatterns(?string $threadPoolPatterns): ThreadPool
+    {
+        if ($threadPoolPatterns !== null) {
+            $this->threadPoolPatterns = $threadPoolPatterns;
+        }
+        return $this;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getURI(): string
     {
-        return array(
+        $threadPoolPatterns = $this->threadPoolPatterns ?? null;
+        if (isset($threadPoolPatterns)) {
+            return "/_cat/thread_pool/$threadPoolPatterns";
+        }
+        return "/_cat/thread_pool";
+    }
+
+    public function getParamWhitelist(): array
+    {
+        return [
+            'format',
+            'size',
             'local',
             'master_timeout',
             'h',
             'help',
-            'v',
-            'full_id',
-            'size',
-            'thread_pool_patterns',
             's',
-            'format',
-        );
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

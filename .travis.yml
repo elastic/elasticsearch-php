@@ -12,31 +12,17 @@ sudo: true
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-      env: ES_VERSION="6.7.0"
-
     - php: 7.1
-      env: ES_VERSION="6.7.0"
+      env: ES_VERSION="7.0.0"
 
     - php: 7.2
-      env: ES_VERSION="6.7.0"
+      env: ES_VERSION="7.0.0"
 
     - php: 7.3
-      env: ES_VERSION="6.0.0"
+      env: ES_VERSION="7.0.0"
+  allow_failures:
     - php: 7.3
-      env: ES_VERSION="6.1.0"
-    - php: 7.3
-      env: ES_VERSION="6.2.0"
-    - php: 7.3
-      env: ES_VERSION="6.3.0"
-    - php: 7.3
-      env: ES_VERSION="6.4.0"
-    - php: 7.3
-      env: ES_VERSION="6.5.0"
-    - php: 7.3
-      env: ES_VERSION="6.6.0"
-    - php: 7.3
-      env: ES_VERSION="6.7.0"
+      env: ES_VERSION="7.1.0"
 
 env:
   global:
@@ -55,7 +41,9 @@ before_script:
 
 script:
   - if [ $TRAVIS_PHP_VERSION != '7.3' ]; then composer run-script phpcs; fi
-  - composer run-script phpstan
+  - if [ $TRAVIS_PHP_VERSION = '7.1' ]; then composer run-script phpstan7.1; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.2' ]; then composer run-script phpstan7.1; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then composer run-script phpstan; fi
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
 

@@ -6,6 +6,7 @@ namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Serializers\SerializerInterface;
+use Traversable;
 
 /**
  * Class Bulk
@@ -27,17 +28,15 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
     }
 
     /**
-     * @param string|array|\Traversable $body
-     *
-     * @return $this
+     * @param string|array|Traversable $body
      */
-    public function setBody($body)
+    public function setBody($body): BulkEndpointInterface
     {
         if (empty($body)) {
             return $this;
         }
 
-        if (is_array($body) === true || $body instanceof \Traversable) {
+        if (is_array($body) === true || $body instanceof Traversable) {
             foreach ($body as $item) {
                 $this->body .= $this->serializer->serialize($item) . "\n";
             }
@@ -53,40 +52,35 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        return $this->getOptionalURI('_bulk');
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_bulk";
+        }
+        if (isset($index)) {
+            return "/$index/_bulk";
+        }
+        return "/_bulk";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'consistency',
+        return [
+            'wait_for_active_shards',
             'refresh',
-            'replication',
+            'routing',
+            'timeout',
             'type',
-            'fields',
-            'pipeline',
             '_source',
-            '_source_include',
             '_source_includes',
-            '_source_exclude',
             '_source_excludes',
-            'pipeline',
-            'seq_no_primary_term'
-        );
+            'pipeline'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

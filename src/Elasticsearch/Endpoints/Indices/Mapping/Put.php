@@ -19,12 +19,9 @@ use Elasticsearch\Common\Exceptions;
 class Put extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -37,49 +34,39 @@ class Put extends AbstractEndpoint
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         $index = $this->index ?? null;
         $type = $this->type ?? null;
 
-        if (null === $index && $type === $index) {
-            throw new Exceptions\RuntimeException(
-                'type or index are required for Put'
-            );
+        if (isset($index) && isset($type)) {
+            return "/$index/_mapping/$type";
         }
-        $uri = '';
-        if (null !== $index) {
-            $uri = "/$index";
+        if (isset($index)) {
+            return "/$index/_mapping";
         }
-        $uri .= '/_mapping';
-        if (null !== $type) {
-            $uri .= "/$type";
+        if (isset($type)) {
+            return "/_mapping/$type";
         }
-
-        return $uri;
+        throw new Exceptions\RuntimeException(
+            'Type or Index is required for Put'
+        );
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'ignore_conflicts',
+        return [
+            'include_type_name',
             'timeout',
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards',
-            'update_all_types',
-            'include_type_name'
-        );
+            'expand_wildcards'
+        ];
     }
 
     /**
-     * @return array
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
@@ -91,10 +78,7 @@ class Put extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

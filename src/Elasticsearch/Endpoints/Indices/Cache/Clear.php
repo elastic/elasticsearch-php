@@ -17,49 +17,30 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Clear extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_cache/clear";
-
-        if (isset($index) === true) {
-            $uri = "/$index/_cache/clear";
+        $index = $this->index ?? null;
+        if (isset($index)) {
+            return "/$index/_cache/clear";
         }
-
-        return $uri;
+        return "/_cache/clear";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'field_data',
+        return [
             'fielddata',
             'fields',
-            'filter',
-            'filter_cache',
-            'filter_keys',
-            'id',
-            'id_cache',
-            'index',
-            'recycler',
+            'query',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'request_cache',
+            'index',
             'request'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

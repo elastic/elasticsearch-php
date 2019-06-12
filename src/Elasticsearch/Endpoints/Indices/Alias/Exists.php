@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices\Alias;
 
+use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -24,12 +25,7 @@ class Exists extends AbstractEndpoint
      */
     private $name;
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Exists
     {
         if (isset($name) !== true) {
             return $this;
@@ -41,42 +37,35 @@ class Exists extends AbstractEndpoint
     }
 
     /**
-     * @return string
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/_alias/$name";
-
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_alias";
-        } elseif (isset($name) === true) {
-            $uri = "/_alias/$name";
+        if (isset($this->name) !== true) {
+            throw new Exceptions\RuntimeException(
+                'name is required for Exists'
+            );
         }
+        $name = $this->name;
+        $index = $this->index ?? null;
 
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_alias/$name";
+        }
+        return "/_alias/$name";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'local',
-        );
+            'local'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'HEAD';
     }

@@ -17,37 +17,25 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Recovery extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_recovery";
+        $index = $this->index ?? null;
 
-        if (isset($index) === true) {
-            $uri = "/$index/_recovery";
+        if (isset($index)) {
+            return "/$index/_recovery";
         }
-
-        return $uri;
+        return "/_recovery";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'detailed',
-            'active_only',
-            'human'
-        );
+            'active_only'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -47,13 +47,4 @@ class StatusEndpointTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame($expected, $this->endpoint->getURI());
     }
-
-    public function testMissingRepositoryThrowsException()
-    {
-
-        $this->expectException(Exceptions\RuntimeException::class);
-
-        $this->endpoint->setSnapshot('should fail');
-        $this->endpoint->getURI();
-    }
 }

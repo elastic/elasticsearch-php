@@ -18,16 +18,18 @@ use Elasticsearch\Endpoints\Remote\Info;
 class RemoteNamespace extends AbstractNamespace
 {
     /**
-     * @param array $params Associative array of parameters
-     *
-     * @return array
+     * @return callable|array
      */
-    public function info($params = array())
+    public function info(array $params = [])
     {
-        /** @var callable $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Info $endpoint */
+        /**
+ * @var Info $endpoint
+*/
         $endpoint = $endpointBuilder('Remote\Info');
         $endpoint->setParams($params);
 

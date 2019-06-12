@@ -5,7 +5,7 @@ if [ -z $ES_VERSION ]; then
 fi;
 
 docker pull docker.elastic.co/elasticsearch/elasticsearch-oss:${ES_VERSION}
-docker network inspect esnet-oss > /dev/null || docker network create esnet-oss;
+docker network create esnet-oss;
 docker run \
   --rm \
   --publish 9200:9200 \

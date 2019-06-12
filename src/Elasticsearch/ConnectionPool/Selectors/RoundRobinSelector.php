@@ -25,11 +25,9 @@ class RoundRobinSelector implements SelectorInterface
     /**
      * Select the next connection in the sequence
      *
-     * @param  ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
-     *
-     * @return \Elasticsearch\Connections\ConnectionInterface
+     * @param ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      */
-    public function select($connections)
+    public function select(array $connections): ConnectionInterface
     {
         $returnConnection = $connections[$this->current % count($connections)];
 

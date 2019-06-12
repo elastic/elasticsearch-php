@@ -26,10 +26,8 @@ class Stats extends AbstractEndpoint
 
     /**
      * @param string|string[] $metric
-     *
-     * @return $this
      */
-    public function setMetric($metric)
+    public function setMetric($metric): Stats
     {
         if (isset($metric) !== true) {
             return $this;
@@ -44,48 +42,37 @@ class Stats extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $metric = $this->metric;
-        $uri   = "/_stats";
+        $index = $this->index ?? null;
+        $metric = $this->metric ?? null;
 
-        if (isset($index) === true && isset($metric) === true) {
-            $uri = "/$index/_stats/$metric";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_stats";
-        } elseif (isset($metric) === true) {
-            $uri = "/_stats/$metric";
+        if (isset($index) && isset($metric)) {
+            return "/$index/_stats/$metric";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_stats";
+        }
+        if (isset($metric)) {
+            return "/_stats/$metric";
+        }
+        return "/_stats";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
             'groups',
-            'human',
             'level',
             'types',
-            'metric',
             'include_segment_file_sizes'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

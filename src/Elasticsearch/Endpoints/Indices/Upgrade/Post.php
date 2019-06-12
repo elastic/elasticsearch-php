@@ -16,7 +16,7 @@ use Elasticsearch\Common\Exceptions;
  * Class Post
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -24,43 +24,28 @@ use Elasticsearch\Common\Exceptions;
 
 class Post extends AbstractEndpoint
 {
-
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_upgrade";
+        $index = $this->index ?? null;
 
-        if (isset($index) === true) {
-            $uri = "/$index/_upgrade";
+        if (isset($index)) {
+            return "/$index/_upgrade";
         }
-
-
-        return $uri;
+        return "/_upgrade";
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'wait_for_completion',
-            'only_ancient_segments',
-            'ignore_unavailable',
+        return [
             'allow_no_indices',
             'expand_wildcards',
-        );
+            'ignore_unavailable',
+            'wait_for_completion',
+            'only_ancient_segments'
+        ];
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

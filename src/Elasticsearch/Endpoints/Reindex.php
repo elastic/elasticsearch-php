@@ -16,44 +16,30 @@ namespace Elasticsearch\Endpoints;
 class Reindex extends AbstractEndpoint
 {
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'slices',
+        return [
             'refresh',
             'timeout',
-            'consistency',
+            'wait_for_active_shards',
             'wait_for_completion',
             'requests_per_second',
-        );
+            'scroll',
+            'slices'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         return '/_reindex';
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }
 
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Reindex
     {
         if (isset($body) !== true) {
             return $this;

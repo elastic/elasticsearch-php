@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Deletebyquery
@@ -17,13 +17,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class DeleteByQuery extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): DeleteByQuery
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,73 +29,64 @@ class DeleteByQuery extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
+     * @throws RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (!$this->index) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for Deletebyquery'
             );
         }
+        $index = $this->index;
+        $type = $this->type ?? null;
 
-        $uri = "/{$this->index}/_delete_by_query";
-        if ($this->type) {
-            $uri = "/{$this->index}/{$this->type}/_delete_by_query";
+        if (isset($type)) {
+            return "/$index/$type/_delete_by_query";
         }
-
-        return $uri;
+        return "/$index/_delete_by_query";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            '_source',
-            '_source_include',
-            '_source_includes',
-            '_source_exclude',
-            '_source_excludes',
-            'allow_no_indices',
-            'analyze_wildcard',
+        return [
+
             'analyzer',
-            'conflicts',
+            'analyze_wildcard',
             'default_operator',
             'df',
-            'expand_wildcards',
             'from',
             'ignore_unavailable',
+            'allow_no_indices',
+            'conflicts',
+            'expand_wildcards',
             'lenient',
             'preference',
-            'query',
             'q',
-            'refresh',
-            'request_cache',
-            'requests_per_second',
             'routing',
             'scroll',
-            'scroll_size',
-            'search_timeout',
             'search_type',
+            'search_timeout',
             'size',
-            'slices',
             'sort',
-            'stats',
+            '_source',
+            '_source_excludes',
+            '_source_includes',
             'terminate_after',
-            'timeout',
+            'stats',
             'version',
+            'request_cache',
+            'refresh',
+            'timeout',
             'wait_for_active_shards',
+            'scroll_size',
             'wait_for_completion',
-        );
+            'requests_per_second',
+            'slices'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

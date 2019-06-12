@@ -17,13 +17,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class Count extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Count
     {
         if (isset($body) !== true) {
             return $this;
@@ -34,55 +28,41 @@ class Count extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_count";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_count";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_count";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_count";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_count";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_count";
+        }
+        return "/_count";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
+            'ignore_throttled',
             'allow_no_indices',
             'expand_wildcards',
             'min_score',
             'preference',
             'routing',
-            'source',
             'q',
-            'df',
-            'default_operator',
             'analyzer',
-            'lowercase_expanded_terms',
             'analyze_wildcard',
+            'default_operator',
+            'df',
             'lenient',
-            'lowercase_expanded_terms',
             'terminate_after'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

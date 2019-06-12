@@ -40,19 +40,13 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
         $mock_client = m::mock(Client::class);
 
         $mock_client->shouldReceive('search')
-            ->once()
-            ->ordered()
+            ->twice()
             ->with($search_params)
             ->andReturn(['_scroll_id' => 'scroll_id_01']);
 
-        $mock_client->shouldReceive('scroll')
-            ->never();
-
         $mock_client->shouldReceive('clearScroll')
-            ->once()
-            ->ordered()
+            ->twice()
             ->withAnyArgs();
-
 
         $responses = new SearchResponseIterator($mock_client, $search_params);
 

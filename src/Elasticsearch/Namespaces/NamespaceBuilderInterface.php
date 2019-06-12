@@ -21,17 +21,16 @@ interface NamespaceBuilderInterface
     /**
      * Returns the name of the namespace.  This is what users will call, e.g. the name
      * "foo" will be invoked by the user as `$client->foo()`
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the actual namespace object which contains your custom methods. The transport
      * and serializer objects are provided so that your namespace may do whatever custom
      * logic is required.
      *
-     * @param Transport $transport
-     * @param SerializerInterface $serializer
+     * @param  Transport           $transport
+     * @param  SerializerInterface $serializer
      * @return Object
      */
     public function getObject(Transport $transport, SerializerInterface $serializer);

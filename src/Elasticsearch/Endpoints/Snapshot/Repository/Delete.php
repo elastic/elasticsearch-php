@@ -25,12 +25,7 @@ class Delete extends AbstractEndpoint
      */
     private $repository;
 
-    /**
-     * @param string $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Delete
     {
         if (isset($repository) !== true) {
             return $this;
@@ -43,40 +38,26 @@ class Delete extends AbstractEndpoint
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
                 'repository is required for Delete'
             );
         }
-        $repository = $this->repository;
-        $uri   = "/_snapshot/$repository";
-
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
-            'timeout',
-        );
+            'timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

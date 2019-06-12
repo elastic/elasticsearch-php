@@ -24,12 +24,7 @@ class ClearScroll extends AbstractEndpoint
      */
     private $scrollId;
 
-    /**
-     * @param string $scrollId
-     *
-     * @return $this
-     */
-    public function setScrollId($scrollId)
+    public function setScrollId(?string $scrollId): ClearScroll
     {
         if (isset($scrollId) !== true) {
             return $this;
@@ -40,22 +35,16 @@ class ClearScroll extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        return "/_search/scroll/";
+        $scrollId = $this->scrollId ?? null;
+        if (isset($scrollId)) {
+            return "/_search/scroll/$scrollId";
+        }
+        return "/_search/scroll";
     }
 
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): ClearScroll
     {
         if (isset($body) !== true) {
             return $this;
@@ -66,9 +55,6 @@ class ClearScroll extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getBody()
     {
         if (isset($this->body)) {
@@ -80,19 +66,12 @@ class ClearScroll extends AbstractEndpoint
         return ['scroll_id' => [$this->scrollId]];
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-        );
+        return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

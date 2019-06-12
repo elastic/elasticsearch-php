@@ -21,18 +21,20 @@ class TasksNamespace extends AbstractNamespace
     /**
      * $params['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
      *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
+     * @return callable|array
      */
-    public function get($params = array())
+    public function get(array $params = [])
     {
         $id = $this->extractArgument($params, 'task_id');
 
-        /** @var callable $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Get $endpoint */
+        /**
+ * @var Get $endpoint
+*/
         $endpoint = $endpointBuilder('Tasks\Get');
         $endpoint->setTaskId($id)
             ->setParams($params);
@@ -49,17 +51,19 @@ class TasksNamespace extends AbstractNamespace
      *        ['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
      *        ['group_by'] = (enum) Group tasks by nodes or parent/child relationships
      *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
+     * @return callable|array
      */
-    public function tasksList($params = array())
+    public function tasksList(array $params = [])
     {
 
-        /** @var callable $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Get $endpoint */
+        /**
+ * @var Get $endpoint
+*/
         $endpoint = $endpointBuilder('Tasks\TasksList');
         $endpoint->setParams($params);
 
@@ -72,18 +76,20 @@ class TasksNamespace extends AbstractNamespace
      *        ['parent_node'] = (string) Cancel tasks with specified parent node
      *        ['parent_task'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
      *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
+     * @return callable|array
      */
-    public function cancel($params = array())
+    public function cancel(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callable $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Cancel $endpoint */
+        /**
+ * @var Cancel $endpoint
+*/
         $endpoint = $endpointBuilder('Tasks\Cancel');
         $endpoint->setTaskId($id)
             ->setParams($params);

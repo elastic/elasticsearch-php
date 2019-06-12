@@ -20,89 +20,48 @@ use Psr\Log\LoggerInterface;
 interface ConnectionInterface
 {
     /**
-     * @param callable $handler
-     * @param array $hostDetails
-     * @param array $connectionParams connection-specific parameters
-     * @param \Elasticsearch\Serializers\SerializerInterface $serializer
-     * @param \Psr\Log\LoggerInterface $log          Logger object
-     * @param \Psr\Log\LoggerInterface $trace        Logger object
-     */
-    public function __construct(
-        $handler,
-        $hostDetails,
-        $connectionParams,
-        SerializerInterface $serializer,
-        LoggerInterface $log,
-        LoggerInterface $trace
-    );
-
-    /**
      * Get the transport schema for this connection
-     *
-     * @return string
      */
-    public function getTransportSchema();
+    public function getTransportSchema(): string;
 
     /**
      * Get the hostname for this connection
-     *
-     * @return string
      */
-    public function getHost();
+    public function getHost(): string;
 
     /**
      * Get the username:password string for this connection, null if not set
-     *
-     * @return null|string
      */
-    public function getUserPass();
+    public function getUserPass(): ?string;
 
     /**
      * Get the URL path suffix, null if not set
-     *
-     * @return null|string;
      */
-    public function getPath();
+    public function getPath(): ?string;
 
     /**
      * Check to see if this instance is marked as 'alive'
-     *
-     * @return bool
      */
-    public function isAlive();
+    public function isAlive(): bool;
 
     /**
      * Mark this instance as 'alive'
-     *
-     * @return void
      */
-    public function markAlive();
+    public function markAlive(): void;
 
     /**
      * Mark this instance as 'dead'
-     *
-     * @return void
      */
-    public function markDead();
+    public function markDead(): void;
 
     /**
      * Return an associative array of information about the last request
-     *
-     * @return array
      */
-    public function getLastRequestInfo();
+    public function getLastRequestInfo(): array;
 
     /**
-     * @param string $method
-     * @param string $uri
-     * @param array $params
-     * @param null $body
-     * @param array $options
-     * @param \Elasticsearch\Transport $transport
+     * @param  null $body
      * @return mixed
      */
-	// @codingStandardsIgnoreStart
-	// "Arguments with default values must be at the end of the argument list" - cannot change the interface
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport);
-	// @codingStandardsIgnoreEnd
+    public function performRequest(string $method, string $uri, array $params = [], $body = null, array $options = [], Transport $transport = null);
 }

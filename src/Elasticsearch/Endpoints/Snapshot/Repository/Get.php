@@ -24,12 +24,7 @@ class Get extends AbstractEndpoint
      */
     private $repository;
 
-    /**
-     * @param string $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Get
     {
         if (isset($repository) !== true) {
             return $this;
@@ -40,36 +35,24 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $repository = $this->repository;
-        $uri   = "/_snapshot";
-
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository";
+        $repository = $this->repository ?? null;
+        if (isset($repository)) {
+            return "/_snapshot/$repository";
         }
-
-        return $uri;
+        return "/_snapshot";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
             'local',
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

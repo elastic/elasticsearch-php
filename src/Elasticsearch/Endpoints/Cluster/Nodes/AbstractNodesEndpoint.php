@@ -30,7 +30,7 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
     /**
      * @param string|string[] $nodeID
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return $this
      */

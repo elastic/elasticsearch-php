@@ -20,9 +20,8 @@ class Get extends AbstractEndpoint
 {
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
@@ -34,48 +33,34 @@ class Get extends AbstractEndpoint
                 'index is required for Get'
             );
         }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Get'
-            );
-        }
+
         $id = $this->id;
         $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/$id/_source";
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id/_source";
+        if (isset($type)) {
+            return "/$index/$type/$id/_source";
         }
-
-        return $uri;
+        return "/$index/_source/$id";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'parent',
             'preference',
             'realtime',
             'refresh',
             'routing',
             '_source',
-            '_source_include',
-            '_source_includes',
-            '_source_exclude',
             '_source_excludes',
+            '_source_includes',
             'version',
-            'version_type',
-        );
+            'version_type'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

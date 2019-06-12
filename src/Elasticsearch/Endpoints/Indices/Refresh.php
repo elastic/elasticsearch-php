@@ -17,39 +17,26 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Refresh extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_refresh";
+        $index = $this->index ?? null;
 
-        if (isset($index) === true) {
-            $uri = "/$index/_refresh";
+        if (isset($index)) {
+            return "/$index/_refresh";
         }
-
-        return $uri;
+        return "/_refresh";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards',
-            'force',
-            'operation_threading',
-        );
+            'expand_wildcards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

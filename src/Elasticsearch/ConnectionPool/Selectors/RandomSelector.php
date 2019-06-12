@@ -20,11 +20,9 @@ class RandomSelector implements SelectorInterface
     /**
      * Select a random connection from the provided array
      *
-     * @param  ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
-     *
-     * @return \Elasticsearch\Connections\ConnectionInterface
+     * @param ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      */
-    public function select($connections)
+    public function select(array $connections): ConnectionInterface
     {
         return $connections[array_rand($connections)];
     }

@@ -23,10 +23,8 @@ class Split extends AbstractEndpoint
 
     /**
      * @param array|object $body
-     *
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Split
     {
         if (isset($body) !== true) {
             return $this;
@@ -37,12 +35,7 @@ class Split extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param string $target
-     *
-     * @return $this
-     */
-    public function setTarget($target)
+    public function setTarget(?string $target): Split
     {
         if ($target === null) {
             return $this;
@@ -54,9 +47,8 @@ class Split extends AbstractEndpoint
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -70,28 +62,20 @@ class Split extends AbstractEndpoint
             );
         }
 
-        $uri   = "/{$this->index}/_split/{$this->target}";
-
-        return $uri;
+        return "/{$this->index}/_split/{$this->target}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'copy_settings',
             'timeout',
             'master_timeout',
             'wait_for_active_shards'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

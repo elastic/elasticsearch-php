@@ -20,9 +20,8 @@ class Exists extends AbstractEndpoint
 {
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -34,28 +33,20 @@ class Exists extends AbstractEndpoint
                 'type is required for Exists'
             );
         }
-        $uri   = "/{$this->index}/_mapping/{$this->type}";
-
-        return $uri;
+        return "/{$this->index}/_mapping/{$this->type}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'local',
-        );
+            'local'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'HEAD';
     }

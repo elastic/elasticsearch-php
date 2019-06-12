@@ -17,39 +17,26 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Segments extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_segments";
-
-        if (isset($index) === true) {
-            $uri = "/$index/_segments";
+        $index = $this->index ?? null;
+        if (isset($index)) {
+            return "/$index/_segments";
         }
-
-        return $uri;
+        return "/_segments";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'human',
-            'operation_threading',
-        );
+            'verbose'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

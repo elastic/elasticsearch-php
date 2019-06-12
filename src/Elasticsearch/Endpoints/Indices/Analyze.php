@@ -18,13 +18,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class Analyze extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Analyze
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,47 +29,24 @@ class Analyze extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_analyze";
-
-        if (isset($index) === true) {
-            $uri = "/$index/_analyze";
+        $index = $this->index ?? null;
+        if (isset($index)) {
+            return "/$index/_analyze";
         }
-
-        return $uri;
+        return "/_analyze";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'analyzer',
-            'field',
-            'filter',
-            'index',
-            'prefer_local',
-            'text',
-            'tokenizer',
-            'format',
-            'char_filter',
-            'explain',
-            'attributes',
-            'format'
-        );
+        return [
+            'index'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

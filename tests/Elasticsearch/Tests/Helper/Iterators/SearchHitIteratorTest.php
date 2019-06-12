@@ -31,20 +31,6 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
 
     public function testWithNoResults()
     {
-        $this->searchResponse->shouldReceive('rewind')
-            ->once()
-            ->ordered();
-
-        $this->searchResponse->shouldReceive('current')
-            ->once()
-            ->ordered()
-            ->andReturn([]);
-
-        $this->searchResponse->shouldReceive('valid')
-            ->twice()
-            ->ordered()
-            ->andReturn(false);
-
         $searchHit = new SearchHitIterator($this->searchResponse);
         $this->assertCount(0, $searchHit);
     }

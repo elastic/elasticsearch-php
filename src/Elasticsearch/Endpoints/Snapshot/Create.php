@@ -33,12 +33,10 @@ class Create extends AbstractEndpoint
     private $snapshot;
 
     /**
-     * @param array $body
-     *
+     * @param  null|string|array $body
      * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Create
     {
         if (isset($body) !== true) {
             return $this;
@@ -49,12 +47,7 @@ class Create extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param string $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Create
     {
         if (isset($repository) !== true) {
             return $this;
@@ -65,12 +58,7 @@ class Create extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param string $snapshot
-     *
-     * @return $this
-     */
-    public function setSnapshot($snapshot)
+    public function setSnapshot(?string $snapshot): Create
     {
         if (isset($snapshot) !== true) {
             return $this;
@@ -83,9 +71,8 @@ class Create extends AbstractEndpoint
 
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
@@ -97,32 +84,18 @@ class Create extends AbstractEndpoint
                 'snapshot is required for Create'
             );
         }
-        $repository = $this->repository;
-        $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot";
-
-        if (isset($repository) === true && isset($snapshot) === true) {
-            $uri = "/_snapshot/$repository/$snapshot";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}/{$this->snapshot}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
-            'wait_for_completion',
-        );
+            'wait_for_completion'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

@@ -17,36 +17,25 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Master extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cat/master";
-
-        return $uri;
+        return "/_cat/master";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
             'local',
             'master_timeout',
             'h',
             'help',
-            'v',
             's',
-            'format',
-        );
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

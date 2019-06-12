@@ -5,13 +5,12 @@ declare(strict_types = 1);
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Render
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints
+ * @package  Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -20,12 +19,9 @@ use Elasticsearch\Common\Exceptions;
 class RenderSearchTemplate extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): RenderSearchTemplate
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,45 +31,28 @@ class RenderSearchTemplate extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $id = $this->id;
+        $id = $this->id ?? null;
 
-        $uri   = "/_render/template";
-
-        if (isset($id) === true) {
-            $uri = "/_render/template/$id";
+        if (isset($id)) {
+            return "/_render/template/$id";
         }
-
-        return $uri;
+        return "/_render/template";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array();
+        return [];
     }
 
-    /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function getBody()
     {
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

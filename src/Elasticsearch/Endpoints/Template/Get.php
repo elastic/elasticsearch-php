@@ -20,33 +20,23 @@ class Get extends AbstractEndpoint
 {
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for Get'
             );
         }
-        $templateId = $this->id;
-        $uri  = "/_search/template/$templateId";
-
-        return $uri;
+        return "/_search/template/{$this->id}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array();
+        return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -19,12 +19,7 @@ class Fielddata extends AbstractEndpoint
 {
     private $fields;
 
-    /**
-     * @param string $fields
-     *
-     * @return $this
-     */
-    public function setFields($fields)
+    public function setFields(?string $fields): Fielddata
     {
         if (isset($fields) !== true) {
             return $this;
@@ -35,41 +30,33 @@ class Fielddata extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $fields = $this->fields;
-        $uri   = "/_cat/fielddata";
+        $fields = $this->fields ?? null;
 
-        if (isset($fields) === true) {
-            $uri = "/_cat/fielddata/$fields";
+        if (isset($fields)) {
+            return "/_cat/fielddata/$fields";
         }
 
-        return $uri;
+        return "/_cat/fielddata";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
+            'bytes',
             'local',
             'master_timeout',
             'h',
             'help',
-            'v',
             's',
-            'format',
-        );
+            'v',
+            'fields'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -24,12 +24,7 @@ class Get extends AbstractEndpoint
      */
     private $name;
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Get
     {
         if (isset($name) !== true) {
             return $this;
@@ -40,43 +35,33 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/_alias";
-
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_alias";
-        } elseif (isset($name) === true) {
-            $uri = "/_alias/$name";
+        $index = $this->index ?? null;
+        $name = $this->name ?? null;
+        if (isset($index) && isset($name)) {
+            return "/$index/_alias/$name";
         }
-
-        return $uri;
+        if (isset($name)) {
+            return "/_alias/$name";
+        }
+        if (isset($index)) {
+            return "/$index/_alias";
+        }
+        return "/_alias";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'local',
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

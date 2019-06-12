@@ -95,12 +95,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testTypeCannotBeNullForDelete()
+    public function testTypeCanBeNullForDelete()
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('type cannot be null.');
+        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
 
         $client->delete(
             [
@@ -147,8 +146,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('type cannot be an empty string');
+        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
 
         $client->delete(
             [
@@ -191,22 +189,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testTypeCannotBeArrayOfEmptyStringsForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('type cannot be an array of empty strings');
-
-        $client->delete(
-            [
-            'index' => 'test',
-            'type' => ['', '', ''],
-            'id' => 'test'
-            ]
-        );
-    }
-
     public function testIndexCannotBeArrayOfNullsForDelete()
     {
         $client = ClientBuilder::create()->build();
@@ -218,22 +200,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             [
             'index' => [null, null, null],
             'type' => 'test',
-            'id' => 'test'
-            ]
-        );
-    }
-
-    public function testTypeCannotBeArrayOfNullsForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('type cannot be an array of empty strings');
-
-        $client->delete(
-            [
-            'index' => 'test',
-            'type' => [null, null, null],
             'id' => 'test'
             ]
         );

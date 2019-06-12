@@ -21,7 +21,7 @@ Thumbs.db
 generator/*
 
 # Elasticsearch related
-util/elasticsearch
+util/elasticsearch/
 util/cache/
 util/output
 
@@ -30,3 +30,6 @@ util/output
 
 # PHPUnit
 /phpunit.xml
+
+# Code coverage
+build

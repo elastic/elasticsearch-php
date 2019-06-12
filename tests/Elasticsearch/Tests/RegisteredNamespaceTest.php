@@ -6,6 +6,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use Mockery as m;
@@ -49,7 +50,7 @@ class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
 // @codingStandardsIgnoreStart "Each class must be in a file by itself" - not worth the extra work here
 class FooNamespaceBuilder implements Elasticsearch\Namespaces\NamespaceBuilderInterface
 {
-    public function getName()
+    public function getName(): string
     {
         return "foo";
     }

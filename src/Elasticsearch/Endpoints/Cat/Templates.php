@@ -19,53 +19,38 @@ class Templates extends AbstractEndpoint
 {
     private $name;
 
-    /**
-     * @param string $name
-     * @return Templates
-     */
-    public function setName($name)
+    public function setName(?string $name): Templates
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->name)) {
-            return "/_cat/templates/{$this->name}";
-        } else {
-            return "/_cat/templates";
+        $name = $this->name ?? null;
+        if (isset($name)) {
+            return "/_cat/templates/$name";
         }
+        return "/_cat/templates";
     }
 
     /**
      * @return string[]
      */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'format',
-            'node_id',
-            'actions',
-            'detailed',
-            'parent_node',
-            'parent_task',
-            'h',
-            'help',
-            'v',
-            's',
             'local',
             'master_timeout',
-        );
+            'h',
+            'help',
+            's',
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

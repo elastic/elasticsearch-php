@@ -19,11 +19,11 @@ use Elasticsearch\Common\Exceptions;
 class Put extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
-     * @return $this
+     * @var string
      */
-    public function setBody($body)
+    protected $context;
+
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -34,39 +34,43 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
+    public function setContext(?string $context): Put
+    {
+        if ($context !== null) {
+            $this->context = $context;
+        }
+        return $this;
+    }
+
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
-                'id is required for put'
+                'id is required for Put'
             );
         }
-        $id   = $this->id;
-        $uri  = "/_scripts/$id";
+        $id = $this->id;
+        $context = $this->context ?? null;
 
-        return $uri;
+        if (isset($context)) {
+            return "/_scripts/$id/$context";
+        }
+        return "/_scripts/$id";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'version_type',
-            'version',
-            'op_type'
-        );
+        return [
+            'timeout',
+            'master_timeout',
+            'context'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

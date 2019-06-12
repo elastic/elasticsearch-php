@@ -20,42 +20,30 @@ class Exists extends AbstractEndpoint
 {
     /**
      * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Exists'
             );
         }
-        $index = $this->index;
-        $uri   = "/$index";
-
-        if (isset($index) === true) {
-            $uri = "/$index";
-        }
-
-        return $uri;
+        return "/{$this->index}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'local',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
-            'local',
-        );
+            'flat_settings',
+            'include_defaults'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'HEAD';
     }

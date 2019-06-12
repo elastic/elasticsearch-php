@@ -18,15 +18,9 @@ use Elasticsearch\Common\Exceptions;
  */
 class Search extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Search
     {
-        if (isset($body) !== true) {
+        if ($body === null) {
             return $this;
         }
 
@@ -35,85 +29,71 @@ class Search extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_search";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_search";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_search";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_search";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_search";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_search";
+        }
+        return "/_search";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'analyzer',
             'analyze_wildcard',
+            'ccs_minimize_roundtrips',
             'default_operator',
             'df',
             'explain',
+            'stored_fields',
+            'docvalue_fields',
             'from',
             'ignore_unavailable',
+            'ignore_throttled',
             'allow_no_indices',
             'expand_wildcards',
             'indices_boost',
             'lenient',
-            'lowercase_expanded_terms',
             'preference',
             'q',
-            'query_cache',
-            'request_cache',
             'routing',
             'scroll',
             'search_type',
             'size',
-            'slice',
             'sort',
-            'source',
             '_source',
-            '_source_include',
-            '_source_includes',
-            '_source_exclude',
             '_source_excludes',
+            '_source_includes',
+            'terminate_after',
             'stats',
             'suggest_field',
             'suggest_mode',
             'suggest_size',
             'suggest_text',
             'timeout',
-            'version',
-            'fielddata_fields',
-            'docvalue_fields',
-            'filter_path',
-            'terminate_after',
-            'stored_fields',
-            'batched_reduce_size',
+            'track_scores',
+            'track_total_hits',
+            'allow_partial_search_results',
             'typed_keys',
+            'version',
+            'seq_no_primary_term',
+            'request_cache',
+            'batched_reduce_size',
+            'max_concurrent_shard_requests',
             'pre_filter_shard_size',
-            'rest_total_hits_as_int',
-            'seq_no_primary_term'
-        );
+            'rest_total_hits_as_int'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Mget
@@ -17,13 +17,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class Mget extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Mget
     {
         if (isset($body) !== true) {
             return $this;
@@ -34,64 +28,48 @@ class Mget extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mget";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mget";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_mget";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_mget";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_mget";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_mget";
+        }
+        return '/_mget';
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'fields',
+        return [
+            'stored_fields',
             'preference',
             'realtime',
             'refresh',
-            '_source',
-            '_source_include',
-            '_source_includes',
-            '_source_exclude',
-            '_source_excludes',
             'routing',
-            'stored_fields'
-        );
+            '_source',
+            '_source_excludes',
+            '_source_includes'
+        ];
     }
 
     /**
-     * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws RuntimeException
      */
     public function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Body is required for MGet');
+            throw new RuntimeException('Body is required for MGet');
         }
 
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'POST';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

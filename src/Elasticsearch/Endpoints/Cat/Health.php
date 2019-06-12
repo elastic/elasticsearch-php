@@ -17,37 +17,26 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Health extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cat/health";
-
-        return $uri;
+        return "/_cat/health";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
             'local',
             'master_timeout',
             'h',
             'help',
-            'ts',
-            'v',
             's',
-            'format',
-        );
+            'ts',
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

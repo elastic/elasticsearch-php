@@ -12,10 +12,10 @@ use Elasticsearch\Common\Exceptions;
  *
  * @category Elasticsearch
  *
- * @author   Zachary Tong <zach@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @author  Zachary Tong <zach@elastic.co>
+ * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  *
- * @link     http://elastic.co
+ * @link http://elastic.co
  */
 class Shrink extends AbstractEndpoint
 {
@@ -26,14 +26,7 @@ class Shrink extends AbstractEndpoint
      */
     private $target;
 
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     *
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Shrink
     {
         if (isset($body) !== true) {
             return $this;
@@ -44,12 +37,7 @@ class Shrink extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param string $target
-     *
-     * @return $this
-     */
-    public function setTarget($target)
+    public function setTarget(?string $target): Shrink
     {
         if (isset($target) !== true) {
             return $this;
@@ -60,11 +48,9 @@ class Shrink extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     *
-     * @return string
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -76,33 +62,21 @@ class Shrink extends AbstractEndpoint
                 'target is required for Shrink'
             );
         }
-        $index = $this->index;
-        $target = $this->target;
-        $uri = "/$index/_shrink/$target";
-        if (isset($index) === true && isset($target) === true) {
-            $uri = "/$index/_shrink/$target";
-        }
-
-        return $uri;
+        return "/{$this->index}/_shrink/{$this->target}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'copy_settings',
             'timeout',
             'master_timeout',
-        );
+            'wait_for_active_shards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        //TODO Fix Me!
         return 'PUT';
     }
 }

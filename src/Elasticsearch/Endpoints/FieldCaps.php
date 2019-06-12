@@ -18,53 +18,28 @@ use Elasticsearch\Common\Exceptions;
  */
 class FieldCaps extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+
+    public function getURI(): string
     {
-        if (isset($body) !== true) {
-            return $this;
-        }
+        $index = $this->index ?? null;
 
-        $this->body = $body;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getURI()
-    {
-        $index = $this->index;
-
-        if (isset($index) === true) {
+        if (isset($index)) {
             return "/$index/_field_caps";
-        } else {
-            return "/_field_caps";
         }
+        return "/_field_caps";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'fields',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

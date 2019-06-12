@@ -18,13 +18,7 @@ use Elasticsearch\Common\Exceptions;
  */
 class SearchTemplate extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): SearchTemplate
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,47 +29,41 @@ class SearchTemplate extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_search/template";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_search/template";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_search/template";
-        } elseif (isset($type) === true) {
-            $uri = "/_all/$type/_search/template";
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_search/template";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_search/template";
+        }
+        return "/_search/template";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ignore_unavailable',
+            'ignore_throttled',
             'allow_no_indices',
             'expand_wildcards',
             'preference',
             'routing',
             'scroll',
-            'search_type'
-        );
+            'search_type',
+            'explain',
+            'profile',
+            'typed_keys',
+            'rest_total_hits_as_int',
+            'ccs_minimize_roundtrips'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return 'POST';
     }
 }

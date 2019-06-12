@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -18,37 +19,30 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 class Delete extends AbstractEndpoint
 {
     /**
-     * @return string
+     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/$index";
-
-        if (isset($index) === true) {
-            $uri = "/$index";
+        if (isset($this->index) !== true) {
+            throw new Exceptions\RuntimeException(
+                'index is required for Delete'
+            );
         }
-
-        return $uri;
+        return "/{$this->index}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
             'ignore_unavailable',
-            'allow_no_indices'
-        );
+            'allow_no_indices',
+            'expand_wildcards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

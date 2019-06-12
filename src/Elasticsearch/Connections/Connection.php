@@ -249,25 +249,11 @@ class Connection implements ConnectionInterface
                                     $options
                                 );
                             }
-
-                            $this->log->warning("Out of retries, throwing exception from $node");
-                            // Only throw if we run out of retries
-                            throw $exception;
-                        } else {
-                            // Something went seriously wrong, bail
-                            $exception = new TransportException($response['error']->getMessage());
-                            $this->logRequestFail(
-                                $request['http_method'],
-                                $response['effective_url'],
-                                $request['body'],
-                                $request['headers'],
-                                (int) $response['status'],
-                                $response['body'],
-                                (float) $response['transfer_stats']['total_time'],
-                                $exception
-                            );
-                            throw $exception;
                         }
+
+                        $this->log->warning("Out of retries, throwing exception from $node");
+                        // Only throw if we run out of retries
+                        throw $exception;
                     } else {
                         // Something went seriously wrong, bail
                         $exception = new TransportException($response['error']->getMessage());
@@ -277,38 +263,26 @@ class Connection implements ConnectionInterface
                 } else {
                     $connection->markAlive();
 
-                        if (isset($response['body']) === true) {
-                            $response['body'] = stream_get_contents($response['body']);
-                            $this->lastRequest['response']['body'] = $response['body'];
-                        }
-
-                        if ($response['status'] >= 400 && $response['status'] < 500) {
-                            $ignore = $request['client']['ignore'] ?? [];
-                            // Skip 404 if succeeded true in the body (e.g. clear_scroll)
-                            $body = $response['body'] ?? '';
-                            if (strpos($body, '"succeeded":true') !== false) {
-                                 $ignore[] = 404;
-                            }
-                            $this->process4xxError($request, $response, $ignore);
-                        } elseif ($response['status'] >= 500) {
-                            $ignore = $request['client']['ignore'] ?? [];
-                            $this->process5xxError($request, $response, $ignore);
-                        }
-
-                        // No error, deserialize
-                        $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
+                    if (isset($response['body']) === true) {
+                        $response['body'] = stream_get_contents($response['body']);
+                        $this->lastRequest['response']['body'] = $response['body'];
                     }
-                    $this->logRequestSuccess(
-                        $request['http_method'],
-                        $response['effective_url'],
-                        $request['body'],
-                        $request['headers'],
-                        (int) $response['status'],
-                        (array) $response['body'],
-                        (float) $response['transfer_stats']['total_time']
-                    );
 
-                    return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
+                    if ($response['status'] >= 400 && $response['status'] < 500) {
+                        $ignore = $request['client']['ignore'] ?? [];
+                        // Skip 404 if succeeded true in the body (e.g. clear_scroll)
+                        $body = $response['body'] ?? '';
+                        if (strpos($body, '"succeeded":true') !== false) {
+                             $ignore[] = 404;
+                        }
+                        $this->process4xxError($request, $response, $ignore);
+                    } elseif ($response['status'] >= 500) {
+                        $ignore = $request['client']['ignore'] ?? [];
+                        $this->process5xxError($request, $response, $ignore);
+                    }
+
+                    // No error, deserialize
+                    $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
                 }
                 $this->logRequestSuccess($request, $response);
 
@@ -350,7 +324,7 @@ class Connection implements ConnectionInterface
      * @param array $response
      * @return void
      */
-    public function logRequestSuccess($request, $response)
+    public function logRequestSuccess(array $request, array $response): void
     {
         $this->log->debug('Request Body', array($request['body']));
         $this->log->info(
@@ -389,7 +363,7 @@ class Connection implements ConnectionInterface
      *
      * @return void
      */
-    public function logRequestFail($request, $response, \Exception $exception)
+    public function logRequestFail(array $request, array $response, \Exception $exception): void
     {
         $this->log->debug('Request Body', array($request['body']));
         $this->log->warning(

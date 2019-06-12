@@ -136,7 +136,7 @@ class Connection implements ConnectionInterface
 
         // Add the User-Agent using the format: <client-repo-name>/<client-version> (metadata-values)
         $this->headers['User-Agent'] = [sprintf(
-            "elasticsearch-php/%s (%s %s, PHP %s)",
+            "elasticsearch-php/%s (%s %s; PHP %s)",
             Client::VERSION,
             php_uname("s"),
             php_uname("r"),

@@ -31,7 +31,8 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         ];
 
         $connection = new Connection(
-            function(){},
+            function () {
+            },
             $host,
             $params,
             $this->serializer,
@@ -50,7 +51,8 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         ];
 
         $connection = new Connection(
-            function(){},
+            function () {
+            },
             $host,
             $params,
             $this->serializer,

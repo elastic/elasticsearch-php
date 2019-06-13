@@ -27,11 +27,12 @@ The master branch will always track Elasticsearch master, but it is not recommen
 [width="40%",options="header",frame="topbot"]
 |============================
 |Elasticsearch Version | Elasticsearch-PHP Branch
-| >= 6.6, <= 6.7        | `6.7`
-| >= 6.0, <= 6.5        | `6.5`
-| >= 5.0, <= 6.0        | `5.0`
-| >= 1.0, <= 5.0        | `1.0`, `2.0`
-| <= 0.90.*             | `0.4`
+| >= 7.0, < 8.0        | `7.0`
+| >= 6.6, <= 6.7       | `6.7.x`
+| >= 6.0, <= 6.5       | `6.5.c`
+| >= 5.0, < 6.0        | `5.0`
+| >= 1.0, < 5.0        | `1.0`, `2.0`
+| <= 0.90.*            | `0.4`
 |============================
 
 === Composer Installation
@@ -42,7 +43,7 @@ The master branch will always track Elasticsearch master, but it is not recommen
 --------------------------
 {
     "require": {
-        "elasticsearch/elasticsearch": "~6.7.0"
+        "elasticsearch/elasticsearch": "~7.0"
     }
 }
 --------------------------

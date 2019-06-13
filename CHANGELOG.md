@@ -1,3 +1,22 @@
+## Release 7.0.0
+
+- Requirement of PHP 7.1 instead of 7.0 that is not supported since 1 Jan 2019.
+  [#897](https://github.com/elastic/elasticsearch-php/pull/897)
+- Code refactoring using type hints and return type declarations where possible
+  [#897](https://github.com/elastic/elasticsearch-php/pull/897)
+- Update vendor libraries (PHPUnit 7.5, Symfony YAML 4.3, etc)
+  [#897](https://github.com/elastic/elasticsearch-php/pull/897)
+- Updated all the API endpoints using the [latest 7.0.0 specs](https://github.com/elastic/elasticsearch/tree/v7.0.0/rest-api-spec/src/main/resources/rest-api-spec/api) of Elasticsearch [#897](https://github.com/elastic/elasticsearch-php/pull/897)
+- Added the `User-Agent` in each HTTP request [#898](https://github.com/elastic/elasticsearch-php/pull/898)
+- Simplified the logging methods `logRequestFail($request, $response, $exception)`
+  and `logRequestSuccess($request, $response)` in `Elasticsearch\Connections\Connection`
+  [#876](https://github.com/elastic/elasticsearch-php/pull/876)
+- Fix `json_encode` for unicode(emoji) characters [856](https://github.com/elastic/elasticsearch-php/pull/856)
+- Fix HTTP port specification using CURLOPT_PORT, not anymore in the host [782](https://github.com/elastic/elasticsearch-php/pull/782)
+
+### Testing
+
+
 ## Release 6.7.1
 
 - Added `track_total_hits` in `search` endpoint [0c9ff47](https://github.com/elastic/elasticsearch-php/commit/9f4f0dfa331c4f50d2c88c0068afd3062e6ea353)

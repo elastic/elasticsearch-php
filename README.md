@@ -29,6 +29,7 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
+| >= 7.0, < 8.0         | 7.0                      |
 | >= 6.6, < 7.0         | 6.7.x                    |
 | >= 6.0, < 6.6         | 6.5.x                    |
 | >= 5.0, < 6.0         | 5.0                      |
@@ -36,6 +37,7 @@ Version Matrix
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
+ - If you are using Elasticsearch 7.x, use Elasticsearch-PHP 7.0 branch.
  - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
  - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
@@ -51,12 +53,12 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance for ES 6.7):
+1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance for ES 7.0):
 
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "^6.7"
+                "elasticsearch/elasticsearch": "^7.0"
             }
         }
     ```
@@ -90,11 +92,12 @@ You can find out more on how to install Composer, configure autoloading, and oth
 
 PHP Version Requirement
 ----
-Version 6.0 of this library requires at least PHP version 7.0.0 to function.  In addition, it requires the native JSON
+Version 7.0 of this library requires at least PHP version 7.1 to function.  In addition, it requires the native JSON
 extension to be version 1.3.7 or higher.
 
 | Elasticsearch-PHP Branch | PHP Version |
 | ----------- | ------------------------ |
+| 7.0         | >= 7.1.0                 |
 | 6.0         | >= 7.0.0                 |
 | 5.0         | >= 5.6.6                 |
 | 2.0         | >= 5.4.0                 |

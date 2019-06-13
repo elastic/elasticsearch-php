@@ -1,17 +1,19 @@
 [[breaking_changes]]
-== Breaking changes from 5.x
+== Breaking changes from 6.x
 
-### Removal of ClientBuilder::defaultLogger()
+### Moving from types to typeless APIs in Elasticsearch 7.0
 
-In 5.x there is the ability to create a default Logger object, which has been removed. It is now required to explicitly make a Logger object.
+Elasticsearch 7.0 deprecated APIs that accept types, introduced new typeless
+APIs, and removed support for the _default_ mapping. Read [this](https://www.elastic.co/blog/moving-from-types-to-typeless-apis-in-elasticsearch-7-0)
+blog post for more information.
 
-5.x
-```
-$logger = ClientBuilder::defaultLogger('path_to_log_file');
-```
+### Type hint and return type
 
-6.5
-```
-$logger = new Logger('name');
-$logger->pushHandler(new StreamHandler('path_to_log_file', Logger::WARNING);
-```
+Added type hints and return type declarations in all the code base, where possible.
+See PR [#897](https://github.com/elastic/elasticsearch-php/pull/897).
+
+### PHP 7.1+ Requirement
+
+We require using PHP 7.1+ for elasticsearch-php. PHP 7.0 is not supported since
+1st Jan 2019. See [PHP supported version](https://www.php.net/supported-versions.php) for
+more information.

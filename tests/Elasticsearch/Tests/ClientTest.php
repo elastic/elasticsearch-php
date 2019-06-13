@@ -264,7 +264,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("localhost", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -274,7 +275,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("localhost", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts(
@@ -283,7 +285,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
         $client = Elasticsearch\ClientBuilder::create()->setHosts(
@@ -292,7 +295,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
 
 
@@ -302,7 +306,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
         $this->assertSame("user:pass", $host->getUserPass());
     }
@@ -319,7 +324,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("localhost:9200", $host->getHost());
+        $this->assertSame("localhost", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -333,7 +339,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -347,7 +354,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
 
 
@@ -360,7 +368,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -372,7 +381,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -386,7 +396,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9500", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9500, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
 
 
@@ -413,7 +424,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("the_foo.com:9200", $host->getHost());
+        $this->assertSame("the_foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
 
 
@@ -428,7 +440,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ]
         )->build();
         $host = $client->transport->getConnection();
-        $this->assertSame("foo.com:9200", $host->getHost());
+        $this->assertSame("foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
         $this->assertSame("user:abc#$@?%!abc", $host->getUserPass());
     }

@@ -66,6 +66,11 @@ class Connection implements ConnectionInterface
     protected $path;
 
     /**
+    * @var int
+    */
+    protected $port;
+
+    /**
      * @var LoggerInterface
      */
     protected $log;
@@ -129,7 +134,9 @@ class Connection implements ConnectionInterface
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
 
-        if (isset($connectionParams['client']['headers'])) {
+        $connectionParams['client']['curl'][CURLOPT_PORT] = $hostDetails['port'];
+
+        if (isset($connectionParams['client']['headers']) {
             $this->headers = $connectionParams['client']['headers'];
             unset($connectionParams['client']['headers']);
         }
@@ -143,13 +150,16 @@ class Connection implements ConnectionInterface
             phpversion()
         )];
 
-        $host = $hostDetails['host'].':'.$hostDetails['port'];
+        $host = $hostDetails['host'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
             $path = $hostDetails['path'];
         }
+        $port = $hostDetails['port'];
+
         $this->host             = $host;
         $this->path             = $path;
+        $this->port             = $port;
         $this->log              = $log;
         $this->trace            = $trace;
         $this->connectionParams = $connectionParams;
@@ -492,6 +502,14 @@ class Connection implements ConnectionInterface
     public function getPath(): ?string
     {
         return $this->path;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
     protected function getCurlRetryException(array $request, array $response): ElasticsearchException

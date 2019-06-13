@@ -136,7 +136,7 @@ class Connection implements ConnectionInterface
 
         $connectionParams['client']['curl'][CURLOPT_PORT] = $hostDetails['port'];
 
-        if (isset($connectionParams['client']['headers']) {
+        if (isset($connectionParams['client']['headers'])) {
             $this->headers = $connectionParams['client']['headers'];
             unset($connectionParams['client']['headers']);
         }

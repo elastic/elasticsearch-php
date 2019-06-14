@@ -448,7 +448,10 @@ class Connection implements ConnectionInterface
         }
     }
 
-    public function sniff(): array
+    /**
+     * @return array|\GuzzleHttp\Ring\Future\FutureArray
+     */
+    public function sniff()
     {
         $options = [
             'client' => [
@@ -457,9 +460,7 @@ class Connection implements ConnectionInterface
             ]
         ];
 
-        $future = $this->performRequest('GET', '/_nodes/', null, null, $options);
-
-        return $future->wait();
+        return $this->performRequest('GET', '/_nodes/', null, null, $options);
     }
 
     public function isAlive(): bool

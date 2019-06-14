@@ -124,7 +124,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         return true;
     }
 
-    private function parseClusterState(string $transportSchema, array $nodeInfo): array
+    private function parseClusterState(string $transportSchema, $nodeInfo): array
     {
         $pattern       = '/([^:]*):([0-9]+)/';
         $schemaAddress = $transportSchema . '_address';

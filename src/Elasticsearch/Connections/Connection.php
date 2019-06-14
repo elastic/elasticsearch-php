@@ -457,7 +457,9 @@ class Connection implements ConnectionInterface
             ]
         ];
 
-        return $this->performRequest('GET', '/_nodes/', null, null, $options);
+        $future = $this->performRequest('GET', '/_nodes/', null, null, $options);
+
+        return $future->wait();
     }
 
     public function isAlive(): bool

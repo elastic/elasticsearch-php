@@ -342,7 +342,8 @@ $handler = new MockHandler([
   'transfer_stats' => [
      'total_time' => 100
   ],
-  'body' => fopen('somefile.json')
+  'body' => fopen('somefile.json'),
+  'effective_url' => 'localhost'
 ]);
 $builder = ClientBuilder::create();
 $builder->setHosts(['somehost']);

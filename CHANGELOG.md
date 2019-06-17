@@ -1,3 +1,8 @@
+## Release 7.0.1
+
+- Fixed SniffingConnectionPool removing the return type of Connection::sniff()
+  [#899](https://github.com/elastic/elasticsearch-php/pull/899)
+
 ## Release 7.0.0
 
 - Requirement of PHP 7.1 instead of 7.0 that is not supported since 1 Jan 2019.
@@ -13,9 +18,6 @@
   [#876](https://github.com/elastic/elasticsearch-php/pull/876)
 - Fix `json_encode` for unicode(emoji) characters [856](https://github.com/elastic/elasticsearch-php/pull/856)
 - Fix HTTP port specification using CURLOPT_PORT, not anymore in the host [782](https://github.com/elastic/elasticsearch-php/pull/782)
-
-### Testing
-
 
 ## Release 6.7.1
 

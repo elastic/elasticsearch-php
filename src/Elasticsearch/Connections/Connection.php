@@ -448,7 +448,10 @@ class Connection implements ConnectionInterface
         }
     }
 
-    public function sniff(): array
+    /**
+     * @return array|\GuzzleHttp\Ring\Future\FutureArray
+     */
+    public function sniff()
     {
         $options = [
             'client' => [

@@ -1,7 +1,7 @@
 [[indexing_documents]]
 == Indexing Documents
 
-IMPORTANT: Please note that mapping types will disappear from Elasticsearch, https://www.elastic.co/guide/en/elasticsearch/reference/7.x/removal-of-types.html[Link: read more]. 
+IMPORTANT: Please note that mapping types will disappear from Elasticsearch, read more https://www.elastic.co/guide/en/elasticsearch/reference/7.x/removal-of-types.html[here]. 
 
 When you add documents to Elasticsearch, you index JSON documents.  This maps naturally to PHP associative arrays, since
 they can easily be encoded in JSON.  Therefore, in Elasticsearch-PHP you create and pass associative arrays to the client

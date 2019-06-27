@@ -268,7 +268,7 @@ class Client
         /**
  * @var \Elasticsearch\Endpoints\Get $endpoint
 */
-        $endpoint = $endpointBuilder('Get');
+        $endpoint = $endpointBuilder('Source\Get');
         $endpoint->setID($id)
             ->setIndex($index)
             ->setType($type);

@@ -35,18 +35,15 @@ $params = [
             'number_of_replicas' => 2
         ],
         'mappings' => [
-            'my_type' => [
-                '_source' => [
-                    'enabled' => true
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties' => [
+                'first_name' => [
+                    'type' => 'keyword'
                 ],
-                'properties' => [
-                    'first_name' => [
-                        'type' => 'keyword',
-                        'analyzer' => 'standard'
-                    ],
-                    'age' => [
-                        'type' => 'integer'
-                    ]
+                'age' => [
+                    'type' => 'integer'
                 ]
             ]
         ]
@@ -101,40 +98,26 @@ $params = [
             ]
         ],
         'mappings' => [ <3>
-            '_default_' => [    <4>
-                'properties' => [
-                    'title' => [
-                        'type' => 'keyword',
-                        'analyzer' => 'reuters',
-                        'term_vector' => 'yes',
-                        'copy_to' => 'combined'
-                    ],
-                    'body' => [
-                        'type' => 'keyword',
-                        'analyzer' => 'reuters',
-                        'term_vector' => 'yes',
-                        'copy_to' => 'combined'
-                    ],
-                    'combined' => [
-                        'type' => 'keyword',
-                        'analyzer' => 'reuters',
-                        'term_vector' => 'yes'
-                    ],
-                    'topics' => [
-                        'type' => 'keyword',
-                        'index' => 'not_analyzed'
-                    ],
-                    'places' => [
-                        'type' => 'keyword',
-                        'index' => 'not_analyzed'
-                    ]
-                ]
-            ],
-            'my_type' => [  <5>
-                'properties' => [
-                    'my_field' => [
-                        'type' => 'keyword'
-                    ]
+            'properties' => [
+                'title' => [
+                    'type' => 'text',
+                    'analyzer' => 'reuters',
+                    'copy_to' => 'combined'
+                ],
+                'body' => [
+                    'type' => 'text',
+                    'analyzer' => 'reuters',
+                    'copy_to' => 'combined'
+                ],
+                'combined' => [
+                    'type' => 'text',
+                    'analyzer' => 'reuters'
+                ],
+                'topics' => [
+                    'type' => 'keyword'
+                ],
+                'places' => [
+                    'type' => 'keyword'
                 ]
             ]
         ]
@@ -145,8 +128,6 @@ $client->indices()->create($params);
 <1> The top level `settings` contains config about the index (# of shards, etc) as well as analyzers
 <2> `analysis` is nested inside of `settings`, and contains tokenizers, filters, char filters and analyzers
 <3> `mappings` is another element nested inside of `settings`, and contains the mappings for various types
-<4> The `_default_` type is a dynamic template that is applied to all fields that don't have an explicit mapping
-<5> The `my_type` type is an example of a user-defined type that holds a single field, `my_field`
 
 
 === Delete an index
@@ -206,20 +187,17 @@ The Put Mappings API allows you to modify or add to an existing index's mapping.
 // Set the index and type
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type2',
     'body' => [
-        'my_type2' => [
-            '_source' => [
-                'enabled' => true
+        '_source' => [
+            'enabled' => true
+        ],
+        'properties' => [
+            'first_name' => [
+                'type' => 'text',
+                'analyzer' => 'standard'
             ],
-            'properties' => [
-                'first_name' => [
-                    'type' => 'keyword',
-                    'analyzer' => 'standard'
-                ],
-                'age' => [
-                    'type' => 'integer'
-                ]
+            'age' => [
+                'type' => 'integer'
             ]
         ]
     ]
@@ -232,26 +210,15 @@ $client->indices()->putMapping($params);
 
 === Get Mappings API
 
-The Get Mappings API will return the mapping details about your indexes and types.  Depending on the mappings that you wish to retrieve, you can specify a number of combinations of index and type:
+The Get Mappings API will return the mapping details about your indexes.  Depending on the mappings that you wish to retrieve, you can specify one of more indexes:
 
 [source,php]
 ----
-// Get mappings for all indexes and types
+// Get mappings for all indexes
 $response = $client->indices()->getMapping();
 
-// Get mappings for all types in 'my_index'
+// Get mappings in 'my_index'
 $params = ['index' => 'my_index'];
-$response = $client->indices()->getMapping($params);
-
-// Get mappings for all types of 'my_type', regardless of index
-$params = ['type' => 'my_type' ];
-$response = $client->indices()->getMapping($params);
-
-// Get mapping 'my_type' in 'my_index'
-$params = [
-    'index' => 'my_index'
-    'type' => 'my_type'
-];
 $response = $client->indices()->getMapping($params);
 
 // Get mappings for two indexes

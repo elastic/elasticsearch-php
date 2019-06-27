@@ -113,7 +113,7 @@ Quickstart
 
 In elasticsearch-php, almost everything is configured by associative arrays. The REST endpoint, document and optional parameters - everything is an associative array.
 
-To index a document, we need to specify four pieces of information: index, id and a document body. This is done by
+To index a document, we need to specify three pieces of information: index, id and a document body. This is done by
 constructing an associative array of key:value pairs.  The request body is itself an associative array with key:value pairs
 corresponding to the data in your document:
 
@@ -165,7 +165,7 @@ $response = $client->get($params);
 print_r($response);
 ```
 
-The response contains some metadata (index, version, etc.) as well as a `_source` field, this is the original document
+The response contains some metadata (index, version, etc.) as well as a `_source` field, which is the original document
 that you sent to Elasticsearch.
 
 ```php

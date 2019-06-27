@@ -165,7 +165,7 @@ $response = $client->get($params);
 print_r($response);
 ```
 
-The response contains some metadata (index, version, etc.) as well as a `_source` field, this is the original document
+The response contains some metadata (index, version, etc.) as well as a `_source` field, which is the original document
 that you sent to Elasticsearch.
 
 ```php

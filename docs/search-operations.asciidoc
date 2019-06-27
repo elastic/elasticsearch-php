@@ -12,7 +12,7 @@ Here is a standard curl for a Match query:
 
 [source,shell]
 ----
-curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+curl -XGET 'localhost:9200/my_index/_search' -d '{
     "query" : {
         "match" : {
             "testField" : "abc"
@@ -28,8 +28,7 @@ And here is the same query constructed in the client:
 ----
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'match' => [
                 'testField' => 'abc'
@@ -50,8 +49,7 @@ encode it back to JSON and check by eye:
 ----
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'match' => [
                 'testField' => 'abc'
@@ -85,8 +83,7 @@ $json = '{
 
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => $json
+    'body'  => $json
 ];
 
 $results = $client->search($params);
@@ -101,8 +98,7 @@ serialized back into PHP arrays. Working with the search results is as simple as
 ----
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'match' => [
                 'testField' => 'abc'
@@ -126,7 +122,7 @@ $doc   = $results['hits']['hits'][0]['_source'];
 Bool queries can be easily constructed using the client. For example, this query:
 [source,shell]
 ----
-curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+curl -XGET 'localhost:9200/my_index/_search' -d '{
     "query" : {
         "bool" : {
             "must": [
@@ -148,8 +144,7 @@ Would be structured like this (Note the position of the square brackets):
 ----
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'bool' => [
                 'must' => [
@@ -178,7 +173,7 @@ The curl version of the query:
 
 [source,shell]
 ----
-curl -XGET 'localhost:9200/my_index/my_type/_search' -d '{
+curl -XGET 'localhost:9200/my_index/_search' -d '{
     "query" : {
         "bool" : {
             "filter" : {
@@ -199,8 +194,7 @@ And in PHP:
 ----
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'bool' => [
                 'filter' => [
@@ -239,12 +233,12 @@ This is an example which can be used as a template for more advanced operations:
 ----
 $client = ClientBuilder::create()->build();
 $params = [
-    "scroll" => "30s",          // how long between scroll requests. should be small!
-    "size" => 50,               // how many results *per shard* you want back
-    "index" => "my_index",
-    "body" => [
-        "query" => [
-            "match_all" => new \stdClass() 
+    'scroll' => '30s',          // how long between scroll requests. should be small!
+    'size'   => 50,             // how many results *per shard* you want back
+    'index'  => 'my_index',
+    'body'   => [
+        'query' => [
+            'match_all' => new \stdClass() 
         ]
     ]
 ];
@@ -267,8 +261,8 @@ while (isset($response['hits']['hits']) && count($response['hits']['hits']) > 0)
 
     // Execute a Scroll request and repeat
     $response = $client->scroll([
-            "scroll_id" => $scroll_id,  //...using our previously obtained _scroll_id
-            "scroll" => "30s"           // and the same timeout window
+            'scroll_id' => $scroll_id,  //...using our previously obtained _scroll_id
+            'scroll'    => '30s'        // and the same timeout window
         ]
     );
 }

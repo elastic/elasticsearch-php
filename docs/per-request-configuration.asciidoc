@@ -23,13 +23,12 @@ $client = ClientBuilder::create()->build();
 
 $params = [
     'index'  => 'test_missing',
-    'type'   => 'test',
     'id'     => 1,
     'client' => [ 'ignore' => 404 ] <1>
 ];
 echo $client->get($params);
 
-> {"_index":"test_missing","_type":"test","_id":"1","found":false}
+> {"_index":"test_missing","_type":"_doc","_id":"1","found":false}
 ----
 <1> This will ignore just the 404 missing exception
 
@@ -41,7 +40,6 @@ $client = ClientBuilder::create()->build();
 
 $params = [
     'index'  => 'test_missing',
-    'type'   => 'test',
     'client' => [ 'ignore' => [400, 404] ] <1>
 ];
 echo $client->get($params);
@@ -72,14 +70,13 @@ parameter as an array of values:
 $client = ClientBuilder::create()->build();
 
 $params = [
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
+    'index'  => 'test',
+    'id'     => 1,
     'parent' => 'abc',              // white-listed Elasticsearch parameter
     'client' => [
         'custom' => [
             'customToken' => 'abc', // user-defined, not white listed, not checked
-            'otherToken' => 123
+            'otherToken'  => 123
         ]
     ]
 ];
@@ -101,8 +98,7 @@ $client = ClientBuilder::create()->build();
 
 $params = [
     'index' => 'test',
-    'type' => 'test',
-    'id' => 1
+    'id'    => 1
 ];
 $response = $client->get($params);
 print_r($response);
@@ -111,7 +107,7 @@ print_r($response);
 Array
 (
     [_index] => test
-    [_type] => test
+    [_type] => _doc
     [_id] => 1
     [_version] => 1
     [found] => 1
@@ -130,9 +126,8 @@ With verbosity turned on, you will see all of the transfer stats:
 $client = ClientBuilder::create()->build();
 
 $params = [
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
+    'index'  => 'test',
+    'id'     => 1,
     'client' => [
         'verbose' => true
     ]
@@ -202,7 +197,7 @@ Array
     [body] => Array
         (
             [_index] => test
-            [_type] => test
+            [_type] => _doc
             [_id] => 1
             [_version] => 1
             [found] => 1
@@ -236,9 +231,8 @@ client.  In these situations, you will see the appropriate threadpool queue grow
 $client = ClientBuilder::create()->build();
 
 $params = [
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
+    'index'  => 'test',
+    'id'     => 1,
     'client' => [
         'timeout' => 10,        // ten second timeout
         'connect_timeout' => 10
@@ -257,9 +251,8 @@ a per-request basis via the `future` parameter in the client options:
 $client = ClientBuilder::create()->build();
 
 $params = [
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
+    'index'  => 'test',
+    'id'     => 1,
     'client' => [
         'future' => 'lazy'
     ]
@@ -285,9 +278,8 @@ in the client options:
 $client = ClientBuilder::create()->build();
 
 $params = [
-    'index' => 'test',
-    'type' => 'test',
-    'id' => 1,
+    'index'  => 'test',
+    'id'     => 1,
     'client' => [
         'verify' => 'path/to/cacert.pem'      //Use a self-signed certificate
     ]

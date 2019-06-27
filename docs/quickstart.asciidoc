@@ -40,7 +40,7 @@ $client = ClientBuilder::create()->build();
 
 In elasticsearch-php, almost everything is configured by associative arrays.  The REST endpoint, document and optional parameters - everything is an associative array.
 
-To index a document, we need to specify four pieces of information: index, type, id and a document body. This is done by
+To index a document, we need to specify four pieces of information: index, id and a document body. This is done by
 constructing an associative array of key:value pairs.  The request body is itself an associative array with key:value pairs
 corresponding to the data in your document:
 
@@ -48,9 +48,8 @@ corresponding to the data in your document:
 ----------------------------
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'id' => 'my_id',
-    'body' => ['testField' => 'abc']
+    'id'    => 'my_id',
+    'body'  => ['testField' => 'abc']
 ];
 
 $response = $client->index($params);
@@ -65,7 +64,7 @@ associative array containing a decoded version of the JSON that Elasticsearch re
 Array
 (
     [_index] => my_index
-    [_type] => my_type
+    [_type] => _doc
     [_id] => my_id
     [_version] => 1
     [created] => 1
@@ -81,15 +80,14 @@ Let's get the document that we just indexed.  This will simply return the docume
 ----------------------------
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'id' => 'my_id'
+    'id'    => 'my_id'
 ];
 
 $response = $client->get($params);
 print_r($response);
 ----------------------------
 
-The response contains some metadata (index, type, etc) as well as a `_source` field...this is the original document
+The response contains some metadata (index, etc) as well as a `_source` field...this is the original document
 that you sent to Elasticsearch.
 
 [source,php]
@@ -97,7 +95,7 @@ that you sent to Elasticsearch.
 Array
 (
     [_index] => my_index
-    [_type] => my_type
+    [_type] => _doc
     [_id] => my_id
     [_version] => 1
     [found] => 1
@@ -117,8 +115,7 @@ Searching is a hallmark of elasticsearch, so let's perform a search.  We are goi
 ----------------------------
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'body' => [
+    'body'  => [
         'query' => [
             'match' => [
                 'testField' => 'abc'
@@ -157,7 +154,7 @@ Array
                     [0] => Array
                         (
                             [_index] => my_index
-                            [_type] => my_type
+                            [_type] => _doc
                             [_id] => my_id
                             [_score] => 0.30685282
                             [_source] => Array
@@ -178,8 +175,7 @@ Alright, let's go ahead and delete the document that we added previously:
 ----------------------------
 $params = [
     'index' => 'my_index',
-    'type' => 'my_type',
-    'id' => 'my_id'
+    'id'    => 'my_id'
 ];
 
 $response = $client->delete($params);
@@ -195,7 +191,7 @@ Array
 (
     [found] => 1
     [_index] => my_index
-    [_type] => my_type
+    [_type] => _doc
     [_id] => my_id
     [_version] => 2
 )

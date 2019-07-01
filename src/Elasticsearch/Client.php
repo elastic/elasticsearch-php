@@ -1550,9 +1550,9 @@ class Client
     }
 
     /**
-     * @throws \Exception
+     * @return callable|array
      */
-    private function performRequest(AbstractEndpoint $endpoint): array
+    private function performRequest(AbstractEndpoint $endpoint)
     {
         $promise =  $this->transport->performRequest(
             $endpoint->getMethod(),

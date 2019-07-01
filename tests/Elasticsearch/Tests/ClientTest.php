@@ -8,6 +8,8 @@ use Elasticsearch;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\MaxRetriesException;
+use GuzzleHttp\Ring\Client\MockHandler;
+use GuzzleHttp\Ring\Future\FutureArray;
 use Mockery as m;
 
 /**
@@ -444,5 +446,29 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(9200, $host->getPort());
         $this->assertSame("http", $host->getTransportSchema());
         $this->assertSame("user:abc#$@?%!abc", $host->getUserPass());
+    }
+
+    public function testClientLazy()
+    {
+        $handler = new MockHandler([
+          'status' => 200,
+          'transfer_stats' => [
+             'total_time' => 100
+          ],
+          'body' => '{test}',
+          'effective_url' => 'localhost'
+        ]);
+        $builder = ClientBuilder::create();
+        $builder->setHosts(['somehost']);
+        $builder->setHandler($handler);
+        $client = $builder->build();
+
+        $params = [
+            'client' => [
+                'future' => 'lazy',
+            ]
+        ];
+        $result = $client->info($params);
+        $this->assertInstanceOf(FutureArray::class, $result);
     }
 }

@@ -1,3 +1,8 @@
+## Release 7.0.2
+
+- Fixed incorrect return type hint when using async requests/futures
+  [#905](https://github.com/elastic/elasticsearch-php/pull/905)
+
 ## Release 7.0.1
 
 - Fixed SniffingConnectionPool removing the return type of Connection::sniff()

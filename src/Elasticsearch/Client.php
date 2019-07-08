@@ -1026,7 +1026,6 @@ class Client
     {
         $scrollID = $this->extractArgument($params, 'scroll_id');
         $body = $this->extractArgument($params, 'body');
-        $scroll = $this->extractArgument($params, 'scroll');
 
         /**
  * @var callable $endpointBuilder

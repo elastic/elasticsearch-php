@@ -34,7 +34,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.0.2';
+    const VERSION = '7.1.0';
 
     /**
      * @var Transport

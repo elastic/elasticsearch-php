@@ -283,6 +283,9 @@ class Connection implements ConnectionInterface
                 } else {
                     $connection->markAlive();
 
+                    if (isset($response['headers']['Warning'])) {
+                        $this->logWarning($request, $response);
+                    }
                     if (isset($response['body']) === true) {
                         $response['body'] = stream_get_contents($response['body']);
                         $this->lastRequest['response']['body'] = $response['body'];
@@ -340,6 +343,11 @@ class Connection implements ConnectionInterface
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    public function logWarning(array $request, array $response): void
+    {
+        $this->log->warning('Deprecation', $response['headers']['Warning']);
     }
 
     /**

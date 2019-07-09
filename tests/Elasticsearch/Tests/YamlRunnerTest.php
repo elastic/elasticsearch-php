@@ -66,61 +66,26 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     ];
 
     private static $skippedTests = [
-        'nodes.stats/30_discovery.yml#Discovery stats' => 'Failing on ES 6.1+: nodes.$master.discovery is an empty array, expected to have cluster_state_queue field in it',
-        'indices.stats/20_translog.yml#Translog retention' => 'Failing on ES 6.3+: Failed asserting that 495 is equal to <string:$creation_size> or is less than \'$creation_size\'',
-        'indices.shrink/30_copy_settings.yml#Copy settings during shrink index' => 'Failing on ES 6.4+: Failed to match in test "Copy settings during shrink index". Expected [\'4\'] does not match [false] ',
     ];
 
     private static $skippedTestsIfPhpLessThan = [
-        // Failing on ES 6.7+ only with PHP 7.0: Cannot access empty property
-        'indices.put_mapping/11_basic_with_types.yml#Create index with invalid mappings' => '7.1.0',
-        'indices.put_mapping/10_basic.yml#Create index with invalid mappings' => '7.1.0',
-        'indices.create/11_basic_with_types.yml#Create index with invalid mappings' => '7.1.0',
-        'indices.create/11_basic_with_types.yml#Create index with no type mappings' => '7.1.0',
-        'indices.create/10_basic.yml#Create index with invalid mappings' => '7.1.0',
     ];
     /**
      * @var array A list of skipped test with their reasons
      */
     private static $skippedFiles = [
-
         'cat.nodeattrs/10_basic.yml' => 'Using java regex fails in PHP',
-        'cat.nodeattrs/10_basic.yaml' => 'Using java regex fails in PHP',
-
         'cat.repositories/10_basic.yml' => 'Using java regex fails in PHP',
-        'cat.repositories/10_basic.yaml' => 'Using java regex fails in PHP',
-
-        'indices.shrink/10_basic.yml' => 'Shrink tests seem to require multiple nodes',
-        'indices.shrink/10_basic.yaml' => 'Shrink tests seem to require multiple nodes',
-
-        'indices.rollover/10_basic.yml' => 'Rollover test seems buggy atm',
-        'indices.rollover/10_basic.yaml' => 'Rollover test seems buggy atm',
-
-        'get_source/70_source_filtering.yml' => 'Expected [\'v1\'] does not match [false]',
-        'get_source/71_source_filtering_with_types.yml' => 'Expected [\'v1\'] does not match [false]',
+        'indices.rollover/10_basic.yml' => 'Rollover test seems buggy atm'
     ];
 
     /**
      * @var array A list of files to skip completely, due to fatal parsing errors
      */
     private static $fatalFiles = [
-        'indices.create/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
-        'indices.create/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
-
-        'indices.put_mapping/10_basic.yml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
-        'indices.put_mapping/10_basic.yaml' => 'Temporary: Yaml parser doesnt support "inline" empty keys',
-
         'search/110_field_collapsing.yml' => 'Temporary: parse error, malformed inline yaml',
-        'search/110_field_collapsing.yaml' => 'Temporary: parse error, malformed inline yaml',
-        'range/10_basic.yml' => 'Temporary: parse error, malformed inline yaml',
-
-        'cat.nodes/10_basic.yml' => 'Temporary: parse error, something about $body: |',
-        'cat.nodes/10_basic.yaml' => 'Temporary: parse error, something about $body: |',
-        'search.aggregation/180_percentiles_tdigest_metric.yml' => 'array of objects, unclear how to fix',
-        'search.aggregation/190_percentiles_hdr_metric.yml' => 'array of objects, unclear how to fix',
         'search/190_index_prefix_search.yml' => 'bad yaml array syntax',
-        'search.aggregation/230_composite.yml' => 'bad yaml array syntax',
-        'search/30_limits.yml' => 'bad regex'
+        'search.aggregation/230_composite.yml' => 'bad yaml array syntax'
     ];
 
     /**
@@ -843,7 +808,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $finder->name('*.yml');
 
         // *.yaml files should be included until the library is ES 6.0+ only
-        $finder->name('*.yaml');
+        //$finder->name('*.yaml');
 
         $filter = getenv('TEST_CASE') !== false ? getenv('TEST_CASE') : null;
 
@@ -1080,22 +1045,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         curl_close($ch);
 
         $ch = curl_init($host."/_template/*");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $ch = curl_init($host."/_snapshot/*/*");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $ch = curl_init($host."/_snapshot/*");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);

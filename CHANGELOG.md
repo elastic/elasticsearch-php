@@ -1,3 +1,27 @@
+## Release 7.1.0
+
+- Added warning log for Elasticsearch response containing the `Warning` header
+  [#911](https://github.com/elastic/elasticsearch-php/pull/911)
+- Fixed #838 hosting company is blocking ports because of `YamlRunnerTest.php`
+  [#844](https://github.com/elastic/elasticsearch-php/pull/844)
+- Specialized inheritance of `NoNodesAvailableException` to extend `ServerErrorResponseException`
+  instead of the generic `\Exception`
+  [#607](https://github.com/elastic/elasticsearch-php/pull/607)
+- Fixed scroll TTL is extracted but not set as a body param
+  [#907](https://github.com/elastic/elasticsearch-php/pull/907)
+
+### Testing
+
+- Improved the speed of integration tests removing snapshots delete from `YamlRunnerTest::clean`
+  [#911](https://github.com/elastic/elasticsearch-php/pull/911)
+- Reduced the number of skipping YAML integration tests from 20 to 6
+  [#911](https://github.com/elastic/elasticsearch-php/pull/911)
+
+### Docs
+
+- Documentation updated for Elasticsearch 7
+  [#904](https://github.com/elastic/elasticsearch-php/pull/904)
+
 ## Release 7.0.2
 
 - Fixed incorrect return type hint when using async requests/futures

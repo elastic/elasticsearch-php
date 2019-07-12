@@ -1,3 +1,10 @@
+## Release 7.1.1
+
+- Fixed `ClientBuilder::setSSLVerification()` to accept string or boolean
+  [#917](https://github.com/elastic/elasticsearch-php/pull/917)
+- Fix type hinting for `setBody` in `Elasticsearch\Endpoints\Ingest\Pipeline\Put`
+  [#913](https://github.com/elastic/elasticsearch-php/pull/913)
+
 ## Release 7.1.0
 
 - Added warning log for Elasticsearch response containing the `Warning` header

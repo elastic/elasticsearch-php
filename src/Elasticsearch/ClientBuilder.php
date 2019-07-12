@@ -381,7 +381,10 @@ class ClientBuilder
         return $this;
     }
 
-    public function setSSLVerification(bool $value = true): ClientBuilder
+    /**
+     *  @param bool|string $value
+     */
+    public function setSSLVerification($value = true): ClientBuilder
     {
         $this->sslVerification = $value;
 

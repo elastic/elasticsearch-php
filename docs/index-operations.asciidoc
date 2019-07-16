@@ -70,6 +70,7 @@ $params = [
         'settings' => [ <1>
             'number_of_shards' => 1,
             'number_of_replicas' => 0,
+            'index' => [<5>
             'analysis' => [ <2>
                 'filter' => [
                     'shingle' => [
@@ -96,6 +97,7 @@ $params = [
                     ]
                 ]
             ]
+        ]
         ],
         'mappings' => [ <3>
             'properties' => [
@@ -128,7 +130,7 @@ $client->indices()->create($params);
 <1> The top level `settings` contains config about the index (# of shards, etc) as well as analyzers
 <2> `analysis` is nested inside of `settings`, and contains tokenizers, filters, char filters and analyzers
 <3> `mappings` is another element nested inside of `settings`, and contains the mappings for various types
-
+<5>  setting should be in an 'index' field assign
 
 === Delete an index
 

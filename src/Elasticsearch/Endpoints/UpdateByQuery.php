@@ -79,6 +79,7 @@ class UpdateByQuery extends AbstractEndpoint
             'expand_wildcards',
             'lenient',
             'lowercase_expanded_terms',
+            'pipeline',
             'preference',
             'q',
             'routing',
@@ -105,6 +106,7 @@ class UpdateByQuery extends AbstractEndpoint
             'consistency',
             'scroll_size',
             'wait_for_completion',
+            'wait_for_active_shards',
             'slices',
         ];
     }

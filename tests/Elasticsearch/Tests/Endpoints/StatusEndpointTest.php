@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types = 1);
-
 namespace Elasticsearch\Tests\Endpoints;
 
 use Elasticsearch\Endpoints\Snapshot\Status;

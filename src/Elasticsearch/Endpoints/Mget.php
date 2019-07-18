@@ -88,6 +88,6 @@ class Mget extends AbstractEndpoint
      */
     public function getMethod()
     {
-        return 'POST';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

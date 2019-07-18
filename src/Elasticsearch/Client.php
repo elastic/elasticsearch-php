@@ -32,6 +32,8 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
+    const VERSION = '5.5.0';
+
     /**
      * @var Transport
      */
@@ -1564,7 +1566,7 @@ class Client
 
     /**
      * @param $endpoint AbstractEndpoint
-     * 
+     *
      * @throws \Exception
      * @return array
      */

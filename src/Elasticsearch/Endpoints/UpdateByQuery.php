@@ -105,11 +105,14 @@ class UpdateByQuery extends AbstractEndpoint
             'version',
             'version_type',
             'request_cache',
+            'request_per_second',
+            'slices',
             'refresh',
             'consistency',
             'scroll_size',
             'wait_for_completion',
-            'pipeline',
+            'wait_for_active_shards',
+            'pipeline'
         ];
     }
 

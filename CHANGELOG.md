@@ -1,3 +1,11 @@
+## Release 6.7.1
+
+- Fix #846 choosing `GET` and `POST` in endpoints based on body [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fix #843 adding `wait_for_active_shards` and `pipeline` in `UpdateByQuery` [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fixed missing `ScriptsPainlessExecute` endpoint, since ES 6.3 [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fixed missing `RankEval` endpoint, since ES 6.2 [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Added User-Agent header equal to `elasticsearch-php/6.7.1 (metadata-values)` [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+
 ## Release 6.7.0
 
 - Removed requirement of `{type}` part in `indices.put_mapping`, see new API specification [here](https://github.com/elastic/elasticsearch/blob/v6.7.0/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_mapping.json)
@@ -29,7 +37,7 @@
 - [DOCS] Update `community.asciidoc`, added `ElasticSearchQueryDSL` project [#749](https://github.com/elastic/elasticsearch-php/pull/749)
 - [DOCS] Proper return type array for get method for `IndicesNamespace` [#651](https://github.com/elastic/elasticsearch-php/pull/651)
 - [DOCS] Fix full docs link [#862](https://github.com/elastic/elasticsearch-php/pull/862)
-- [DOCS] Update breaking-changes.asciidoc, removal of ClientBuilder::defaultLogger() [879](https://github.com/elastic/elasticsearch-php/pull/879)
+- [DOCS] Update breaking-changes.asciidoc, removal of ClientBuilder::defaultLogger() [#879](https://github.com/elastic/elasticsearch-php/pull/879)
 
 ### Testing
 

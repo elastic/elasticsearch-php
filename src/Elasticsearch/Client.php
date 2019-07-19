@@ -34,6 +34,8 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
+    const VERSION = '6.7.1';
+
     /**
      * @var Transport
      */
@@ -153,6 +155,39 @@ class Client
         }
 
         return true;
+    }
+
+    /**
+     * $params['body']  = (string) The ranking evaluation search definition, including
+     *        search requests, document ratings and ranking metric definition (Required)
+     *        ['index'] = (list) A comma-separated list of index names to search; use `_all` or
+     *        empty string to perform the operation on all indices
+     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be
+     *        ignored when unavailable (missing or closed)
+     *        ['allow_no_indices'] = (boolean) Whether to ignore if a wildcard indices expression
+     *        resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     *        ['expand_wildcards'] = (enum) Whether to expand wildcard expression to concrete indices that are open,
+     *        closed or both.
+     *
+     * @return callable|array
+     */
+    public function rankEval(array $params)
+    {
+        $body = $this->extractArgument($params, 'body');
+        $index = $this->extractArgument($params, 'index');
+        /**
+ * @var callable $endpointBuilder
+*/
+        $endpointBuilder = $this->endpoints;
+        /**
+ * @var \Elasticsearch\Endpoints\RankEval $endpoint
+*/
+        $endpoint = $endpointBuilder('RankEval');
+        $endpoint->setBody($body)
+            ->setIndex($index);
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
     }
 
     /**
@@ -1018,6 +1053,27 @@ class Client
                  ->setBody($body);
         $endpoint->setParams($params);
 
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * $params['body'] = (string) The script to execute
+     *
+     * @return callable|array
+     */
+    public function scriptsPainlessExecute(array $params = [])
+    {
+        $body = $this->extractArgument($params, 'body');
+        /**
+ * @var callable $endpointBuilder
+*/
+        $endpointBuilder = $this->endpoints;
+        /**
+ * @var \Elasticsearch\Endpoints\ScriptsPainlessExecute $endpoint
+*/
+        $endpoint = $endpointBuilder('ScriptsPainlessExecute');
+        $endpoint->setBody($body);
+        $endpoint->setParams($params);
         return $this->performRequest($endpoint);
     }
 

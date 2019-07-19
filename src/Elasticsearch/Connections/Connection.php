@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Connections;
 
+use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
@@ -126,6 +127,15 @@ class Connection implements ConnectionInterface
             unset($connectionParams['client']['headers']);
         }
 
+        // Add the User-Agent using the format: <client-repo-name>/<client-version> (metadata-values)
+        $this->headers['User-Agent'] = [sprintf(
+            "elasticsearch-php/%s (%s %s, PHP %s)",
+            Client::VERSION,
+            php_uname("s"),
+            php_uname("r"),
+            phpversion()
+        )];
+
         $host = $hostDetails['host'].':'.$hostDetails['port'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
@@ -177,6 +187,12 @@ class Connection implements ConnectionInterface
         $future = $handler($request, $this, $transport, $options);
 
         return $future;
+    }
+
+    /** @return array */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /** @return string */

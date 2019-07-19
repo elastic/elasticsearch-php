@@ -1,3 +1,11 @@
+## Release 6.5.1
+
+- Fix #846 choosing `GET` and `POST` in endpoints based on body [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fix #843 adding `wait_for_active_shards` and `pipeline` in `UpdateByQuery` [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fixed missing `ScriptsPainlessExecute` endpoint, since ES 6.3 [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Fixed missing `RankEval` endpoint, since ES 6.2 [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+- Added User-Agent header equal to `elasticsearch-php/6.5.1 (metadata-values)` [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)
+
 ## Release 6.5.0
 
 - Remove `_suggest` endpoint, which has disappeared from ES6 [#763](https://github.com/elastic/elasticsearch-php/pull/763)

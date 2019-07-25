@@ -126,6 +126,11 @@ class ClientBuilder
      */
     private $sslVerification = null;
 
+    /**
+     * @var null|string
+     */
+    private $apiKey = null;
+
     public static function create(): ClientBuilder
     {
         return new static();
@@ -330,9 +335,60 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the APIKey for Authenication
+     * 
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+     * 
+     * @param string $apiKey
+     */
+    public function setApiKeyAuthentication(string $apiKey)
+    {
+        $this->connectionParams['client']['headers']['Authorization'] = ['ApiKey ' . $apiKey];
+
+        return $this;
+    }
+
+    /**
+     * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+     * 
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+     * 
+     * @param string $id
+     * @param string $apiKey
+     */
+    public function setApiKeyPairAuthentication(string $id, string $apiKey)
+    {
+        $this->setApiKeyAuthentication(base64_encode($id . ':' . $apiKey));
+
+        return $this;
+    }
+
     public function setConnectionParams(array $params): ClientBuilder
     {
         $this->connectionParams = $params;
+
+        return $this;
+    }
+
+    /**
+     * Set Elastic Cloud's best Practices Connection Parameters
+     * 
+     * <i>Add custom/additional Params as parameter</i>
+     * 
+     * @param array $additional
+     */
+    public function setElasticCloudConnectionParams(array $additional = [])
+    {
+        $this->setConnectionParams(
+            [
+                'client' => [
+                    'curl' => [
+                        CURLOPT_ENCODING => 1,
+                    ],
+                ]
+            ] + $additional
+        );
 
         return $this;
     }
@@ -565,6 +621,7 @@ class ClientBuilder
                 $this->logger->error("Could not parse host: ".print_r($host, true));
                 throw new RuntimeException("Could not parse host: ".print_r($host, true));
             }
+
             $connections[] = $this->connectionFactory->create($host);
         }
 

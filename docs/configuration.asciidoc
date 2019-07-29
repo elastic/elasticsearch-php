@@ -94,34 +94,22 @@ If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic
 
 [source,php]
 ----
-use Elasticsearch\Helper\ElasticCloudHelper;
-
-$cloud = new ElasticCloudHelper('elastic-cloud-id'); <1>
-$cloud->setBasicAuthentication('username', 'secure-password'); <2>
-
 $client = ClientBuilder::create()
-            ->setHosts($cloud->getHost()) <3>
-            ->setElasticCloudConnectionParams() <4>
-            ->build(); 
+            ->setElasticCloudId('<elastic-cloud-id>', '<username>', '<secure-password>') <1>, <2>
+            ->build();
 ----
 <1> Your Cloud ID provided by the Elastic Cloud platform
 <2> Your basic authentication credentials
-<3> Let the `ElasticCloudHelper` unwrap the Cloud ID to a hostname
-<3> Activate the best practises for communicating with Elastic Cloud
 
 [source,php]
 ----
-use Elasticsearch\Helper\ElasticCloudHelper;
-
-$cloud = new ElasticCloudHelper('elastic-cloud-id');
-
 $client = ClientBuilder::create()
-            ->setHosts($cloud->getHost())
-            ->setElasticCloudConnectionParams()
-            ->setApiKeyPairAuthentication('id', 'api_key') <1>
-            ->build(); 
+            ->setElasticCloudId('<elastic-cloud-id>') <1>
+            ->setApiKeyPairAuthentication('<id>', '<api_key>') <2>
+            ->build();
 ----
-<1> Your ApiKey pair as described https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/security.html[here]
+<1> Your Cloud ID provided by the Elastic Cloud platform
+<2> Your ApiKey pair as described https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/security.html[here]
 
 === Authorization and Encryption
 

@@ -17,6 +17,7 @@ use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
+use Elasticsearch\Helper\ElasticCloudIdParser;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
@@ -372,23 +373,43 @@ class ClientBuilder
     }
 
     /**
-     * Set Elastic Cloud's best Practices Connection Parameters
+     * Set Elastic Cloud ID to connect to Elastic Cloud
      * 
-     * <i>Add custom/additional Params as parameter</i>
+     * <b>No authentication is provided</b>
      * 
-     * @param array $additional
+     * - set Hostname
+     * - set best practices for the connection
+     * 
+     * @param string $cloudId
+     * @param string $username, optional if using Basic Authentication
+     * @param string $password, optional if using Basic Authentication
+     * 
+     * @throws Elasticsearch\Common\Exceptions\ElasticCloudIdParseException
      */
-    public function setElasticCloudConnectionParams(array $additional = [])
+    public function setElasticCloudId(string $cloudId, ?string $username = null, ?string $password = null)
     {
-        $this->setConnectionParams(
+        $cloud = new ElasticCloudIdParser($cloudId);
+        $hosts = [
             [
-                'client' => [
-                    'curl' => [
-                        CURLOPT_ENCODING => 1,
-                    ],
-                ]
-            ] + $additional
-        );
+                'host'   => $cloud->getClusterDns(),
+                'port'   => '',
+                'scheme' => 'https',
+                'user'   => $username,
+                'pass'   => $password,
+            ]
+        ];
+
+        // Register the Hosts array
+        $this->setHosts($hosts);
+
+        // Merge best practices for the connection
+        $this->setConnectionParams([
+            'client' => [
+                'curl' => [
+                    CURLOPT_ENCODING => 1,
+                ],
+            ]
+        ]);
 
         return $this;
     }

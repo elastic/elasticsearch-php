@@ -9,7 +9,7 @@ namespace Elasticsearch\Helper;
 use Elasticsearch\Common\Exceptions\ElasticCloudIdParseException;
 
 /**
- * Class ElasticCloudHelper
+ * Class ElasticCloudIdParser
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Helper
@@ -17,7 +17,7 @@ use Elasticsearch\Common\Exceptions\ElasticCloudIdParseException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class ElasticCloudHelper
+class ElasticCloudIdParser
 {
 
     /**
@@ -34,11 +34,6 @@ class ElasticCloudHelper
      * @var string
      */
     private $clusterDns;
-
-    /**
-     * @var array
-     */
-    private $basicAuth = [];
 
     /**
      * @param string $cloudId
@@ -77,40 +72,6 @@ class ElasticCloudHelper
     public function getClusterDns(): string
     {
         return $this->clusterDns;
-    }
-
-    /**
-     * Get Elastic Cloud Host Array
-     * 
-     * @link https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/configuration.html#_extended_host_configuration
-     * 
-     * @return array
-     */
-    public function getHost(): array
-    {
-        return [ 
-            [
-                'host'   => $this->clusterDns,
-                'port'   => '',
-                'scheme' => 'https',
-            ] + $this->basicAuth
-        ];
-    }
-
-    /**
-     * Set the Basic Authentication Credentials
-     * 
-     * @param string $username
-     * @param string $password
-     * 
-     * @return void
-     */
-    public function setBasicAuthentication(string $username, string $password): void
-    {
-        $this->basicAuth = [
-            'user' => $username, 
-            'pass' => $password,
-        ];
     }
 
     /**

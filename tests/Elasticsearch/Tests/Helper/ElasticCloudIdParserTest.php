@@ -34,7 +34,7 @@ class ElasticCloudIdParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider cloudIdsProvider
-     * 
+     *
      * @covers ElasticCloudIdParser::parse
      * @covers ElasticCloudIdParser::getCloudId
      * @covers ElasticCloudIdParser::getClusterName
@@ -89,5 +89,4 @@ class ElasticCloudIdParserTest extends \PHPUnit\Framework\TestCase
         $this->expectException(ElasticCloudIdParseException::class);
         $cloud = new ElasticCloudIdParser($cloudId);
     }
-
 }

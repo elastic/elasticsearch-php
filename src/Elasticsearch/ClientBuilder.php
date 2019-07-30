@@ -338,9 +338,9 @@ class ClientBuilder
 
     /**
      * Set the APIKey for Authenication
-     * 
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
-     * 
+     *
      * @param string $apiKey
      */
     public function setApiKeyAuthentication(string $apiKey)
@@ -352,9 +352,9 @@ class ClientBuilder
 
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
-     * 
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
-     * 
+     *
      * @param string $id
      * @param string $apiKey
      */
@@ -374,16 +374,16 @@ class ClientBuilder
 
     /**
      * Set Elastic Cloud ID to connect to Elastic Cloud
-     * 
+     *
      * <b>No authentication is provided</b>
-     * 
+     *
      * - set Hostname
      * - set best practices for the connection
-     * 
+     *
      * @param string $cloudId
      * @param string $username, optional if using Basic Authentication
      * @param string $password, optional if using Basic Authentication
-     * 
+     *
      * @throws Elasticsearch\Common\Exceptions\ElasticCloudIdParseException
      */
     public function setElasticCloudId(string $cloudId, ?string $username = null, ?string $password = null)

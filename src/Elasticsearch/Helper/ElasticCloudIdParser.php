@@ -46,7 +46,7 @@ class ElasticCloudIdParser
 
     /**
      * Get the Elastic Cloud Id
-     * 
+     *
      * @return string
      */
     public function getCloudId(): string
@@ -56,7 +56,7 @@ class ElasticCloudIdParser
 
     /**
      * Get the Name of the Elastic Cloud Cluster
-     * 
+     *
      * @return string
      */
     public function getClusterName(): string
@@ -66,7 +66,7 @@ class ElasticCloudIdParser
 
     /**
      * Get the DNS of the Elasticsearch Cluster
-     * 
+     *
      * @return string
      */
     public function getClusterDns(): string
@@ -76,26 +76,22 @@ class ElasticCloudIdParser
 
     /**
      * Parse the Elastic Cloud Params from the CloudId
-     * 
+     *
      * @return void
-     * 
+     *
      * @throws Elasticsearch\Common\Exceptions\ElasticCloudIdParseException
      */
     private function parse(): void
     {
-        try
-        {
+        try {
             list($name, $encoded) = explode(':', $this->cloudId);
             list($uri, $uuids)    = explode('$', base64_decode($encoded));
             list($es,)            = explode(':', $uuids);
 
             $this->clusterName = $name;
             $this->clusterDns  = $es . '.' . $uri;
-        }
-        catch(\Throwable $t)
-        {
+        } catch (\Throwable $t) {
             throw new ElasticCloudIdParseException('could not parse the Cloud ID:' . $this->cloudId);
         }
     }
-
 }

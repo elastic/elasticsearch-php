@@ -1,3 +1,5 @@
+[source,php]
+----
 $params = [
     'index' => 'twitter',
     'id'    => '1',
@@ -8,3 +10,4 @@ $params = [
     'version_type' => 'external',
 ];
 $response = $client->index($params);
+----

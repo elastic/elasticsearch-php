@@ -1,0 +1,38 @@
+[source,php]
+----
+$params = [
+    'body' => [
+        'persistent'=> [
+            'action.auto_create_index' =>
+                'twitter,index10,-index1*,+ind*' // <1>
+        ]
+    ]
+];
+$response = $client->cluser()->putSettings($params);
+
+$params = [
+    'body' => [
+        'persistent'=> [
+            'action.auto_create_index' => false // <2>
+        ]
+    ]
+];
+$response = $client->cluser()->putSettings($params);
+
+$params = [
+    'body' => [
+        'persistent'=> [
+            'action.auto_create_index' => true // <3>
+        ]
+    ]
+];
+$response = $client->cluser()->putSettings($params);
+----
+
+<1> Permit only the auto-creation of indices called `twitter`, `index10`, no
+other index matching `index1*`, and any other index matching `ind*`. The
+patterns are matched in the order in which they are given.
+
+<2> Completely disable the auto-creation of indices.
+
+<3> Permit the auto-creation of indices with any name. This is the default.

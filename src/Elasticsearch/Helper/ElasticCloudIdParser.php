@@ -79,7 +79,7 @@ class ElasticCloudIdParser
      *
      * @return void
      *
-     * @throws Elasticsearch\Common\Exceptions\ElasticCloudIdParseException
+     * @throws ElasticCloudIdParseException
      */
     private function parse(): void
     {

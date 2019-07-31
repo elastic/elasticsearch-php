@@ -383,8 +383,6 @@ class ClientBuilder
      * @param string $cloudId
      * @param string $username, optional if using Basic Authentication
      * @param string $password, optional if using Basic Authentication
-     *
-     * @throws Elasticsearch\Common\Exceptions\ElasticCloudIdParseException
      */
     public function setElasticCloudId(string $cloudId, ?string $username = null, ?string $password = null)
     {

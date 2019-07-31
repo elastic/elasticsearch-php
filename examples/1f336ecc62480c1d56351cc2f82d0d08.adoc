@@ -1,13 +1,4 @@
 [source,php]
 ----
-$params = [
-    'index' => 'twitter',
-    'id'    => '1',
-    'body'  => [
-        'message' => 'elasticsearch now has versioning support, double cool!',
-    ],
-    'version'      => '2',
-    'version_type' => 'external',
-];
-$response = $client->index($params);
+include::reference/docs/index_.php[tag=1f336ecc62480c1d56351cc2f82d0d08]
 ----

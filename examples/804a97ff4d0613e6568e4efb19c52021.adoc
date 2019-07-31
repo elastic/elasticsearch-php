@@ -1,32 +1,6 @@
 [source,php]
 ----
-$params = [
-    'body' => [
-        'persistent'=> [
-            'action.auto_create_index' =>
-                'twitter,index10,-index1*,+ind*' // <1>
-        ]
-    ]
-];
-$response = $client->cluser()->putSettings($params);
-
-$params = [
-    'body' => [
-        'persistent'=> [
-            'action.auto_create_index' => false // <2>
-        ]
-    ]
-];
-$response = $client->cluser()->putSettings($params);
-
-$params = [
-    'body' => [
-        'persistent'=> [
-            'action.auto_create_index' => true // <3>
-        ]
-    ]
-];
-$response = $client->cluser()->putSettings($params);
+include::reference/docs/index_.php[tag=804a97ff4d0613e6568e4efb19c52021]
 ----
 
 <1> Permit only the auto-creation of indices called `twitter`, `index10`, no

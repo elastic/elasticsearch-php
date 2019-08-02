@@ -1,0 +1,4 @@
+[source,php]
+----
+include::reference/docs/delete.php[tag=c5e5873783246c7b1c01d8464fed72c4]
+----

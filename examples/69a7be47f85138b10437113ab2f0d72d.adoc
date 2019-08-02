@@ -1,0 +1,4 @@
+[source,php]
+----
+include::reference/docs/get.php[tag=69a7be47f85138b10437113ab2f0d72d]
+----

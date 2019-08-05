@@ -187,7 +187,6 @@ foreach($docs as $key => $examples) {
         }
     }
 
-    if($counters['new_classes'] > 2) break;
 }
 
 echo "--------------------------------------- \n";

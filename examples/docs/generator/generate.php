@@ -166,8 +166,8 @@ foreach($docs as $key => $examples) {
 
     // Generate Ascii Doc include files
     $folders  = (empty($parts)) ? '' : implode('/', $parts) . '/';
-    $filePath = sprintf('%ssrc/Examples/Docs/%s%s.php', str_repeat('../', count($parts)+1), $folders, $filename);
-    $asciidir = sprintf('../asciidoc/%s', $folders);
+    $filePath = sprintf('%ssrc/Examples/Docs/%s%s.php', str_repeat('../', count($parts)+2), $folders, $filename);
+    $asciidir = sprintf('../asciidoc/%s%s/', $folders, $filename);
 
     // Build Sub directory Structure
     if(file_exists($asciidir) === false) {

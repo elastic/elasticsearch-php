@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CheckRunning
  *
- * Date: 2019-08-05 07:33:01
+ * Date: 2019-08-05 08:49:19
  *
  * @source   setup/install/check-running.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CheckRunning extends SimpleExamplesTester {
     /**
      * Tag:  3d1ff6097e2359f927c88c2ccdb36252
      * Line: 7
-     * Date: 2019-08-05 07:33:01
+     * Date: 2019-08-05 08:49:19
      */
     public function testExampleL7_3d1ff6097e2359f927c88c2ccdb36252()
     {
@@ -39,6 +39,6 @@ class CheckRunning extends SimpleExamplesTester {
         // TODO -- make assertion
     }
 
-    // %__METHOD__%
+// %__METHOD__%
 
 }

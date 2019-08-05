@@ -1,4 +1,0 @@
-[source,php]
-----
-include::reference/getting-started.php[tag=2e6bfd38c9bcb728227f0d4dd11c09a2]
-----

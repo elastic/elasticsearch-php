@@ -60,7 +60,7 @@ while (($line = fgets($handle)) !== false)
     if($capture === true && trim($line) != '----') {
         $out = str_replace(PHP_EOL, '', $line);
         if(trim(strlen($out)) > 0) {
-            $docs[$ptrs['f']][$ptrs['e']]['content'][] = $out;
+            $docs[$ptrs['f']][$ptrs['e']]['content'][] = str_replace("'", "\'", $out);
         }
     }
 
@@ -186,7 +186,6 @@ foreach($docs as $key => $examples) {
             $counters['new_asciidoc']++;
         }
     }
-
 }
 
 echo "--------------------------------------- \n";

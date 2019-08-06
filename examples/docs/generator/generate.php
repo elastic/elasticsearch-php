@@ -176,7 +176,7 @@ foreach($docs as $key => $examples) {
 
     // Generate Asciifdoc Include Files
     foreach($examples as $example) {
-        if(file_exists(sprintf('%s/%s.asciidoc', $asciidir, $example['hash'])) === false || file_exists(sprintf('%s/_%s.asciidoc', $asciidir, $example['hash'])) === false) {
+        if(file_exists(sprintf('%s/%s.asciidoc', $asciidir, $example['hash'])) === false && file_exists(sprintf('%s/_%s.asciidoc', $asciidir, $example['hash'])) === false) {
             $search  = ['%__FILEPATH__%', '%__TAG__%'];
             $replace = [$filePath, $example['hash']];
             $skel    = file_get_contents('./skeletons/asciidoc-include.skel');

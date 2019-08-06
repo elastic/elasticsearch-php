@@ -1,0 +1,4 @@
+[source,php]
+----
+include::./../../src/Examples/Docs/GettingStarted.php[tag=37c778346eb67042df5e8edf2485e40a,indent=0]
+----

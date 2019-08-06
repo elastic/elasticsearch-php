@@ -1,0 +1,4 @@
+[source,php]
+----
+include::./../../../src/Examples/Docs/Docs/Index.php[tag=804a97ff4d0613e6568e4efb19c52021,indent=0]
+----

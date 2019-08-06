@@ -1,0 +1,18 @@
+    /**
+     * Tag:  %__TAG__%
+     * Line: %__LINE__%
+     */
+    public function %__METHOD_NAME__%()
+    {
+        $client = $this->getClient();
+        // tag::%__TAG__%[]
+        // TODO -- Implement Example
+        %__CURL_EXAMPLE__%
+        // end::%__TAG__%[]
+
+        $curl = %__CURL_STRING__%;
+
+        // TODO -- make assertion
+    }
+
+// %__METHOD__%

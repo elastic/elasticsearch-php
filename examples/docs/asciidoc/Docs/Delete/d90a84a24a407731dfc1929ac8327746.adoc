@@ -1,0 +1,4 @@
+[source,php]
+----
+include::./../../../src/Examples/Docs/Docs/Delete.php[tag=d90a84a24a407731dfc1929ac8327746,indent=0]
+----

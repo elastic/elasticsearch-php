@@ -1,0 +1,4 @@
+[source,php]
+----
+include::./../../../../src/Examples/Docs/Setup/Install/CheckRunning.php[tag=3d1ff6097e2359f927c88c2ccdb36252,indent=0]
+----

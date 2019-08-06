@@ -12,8 +12,6 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: %__CLASSNAME__%
  *
- * Date: %__TIMESTAMP__%
- *
  * @source   %__ASCIIDOC__%
  * @category Elasticsearch\Examples\Docs
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2

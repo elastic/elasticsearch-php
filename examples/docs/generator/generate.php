@@ -115,8 +115,8 @@ foreach($docs as $key => $examples) {
 
     // Generate Stub Class
     if(file_exists($fullpath) === false) {
-        $search  = ['%__NAMESPACE__%', '%__CLASSNAME__%', '%__TIMESTAMP__%', '%__ASCIIDOC__%'];
-        $replace = [$namespace, $filename, date('Y-m-d H:i:s'), $key];
+        $search  = ['%__NAMESPACE__%', '%__CLASSNAME__%', '%__ASCIIDOC__%'];
+        $replace = [$namespace, $filename, $key];
         $skel    = file_get_contents('./skeletons/class.skel');
         $class   = str_replace($search, $replace, $skel);
 
@@ -148,8 +148,8 @@ foreach($docs as $key => $examples) {
                 }
             }
 
-            $search  = ['%__TAG__%', '%__LINE__%', '%__TIMESTAMP__%', '%__METHOD_NAME__%', '%__CURL_EXAMPLE__%', '%__CURL_STRING__%'];
-            $replace = [$example['hash'], $example['line_no'], date('Y-m-d H:i:s'), $methodName, $curlExample, $curlString];
+            $search  = ['%__TAG__%', '%__LINE__%', '%__METHOD_NAME__%', '%__CURL_EXAMPLE__%', '%__CURL_STRING__%'];
+            $replace = [$example['hash'], $example['line_no'], $methodName, $curlExample, $curlString];
             $skel    = file_get_contents('./skeletons/method.skel');
             $method  = str_replace($search, $replace, $skel);
             $class   = str_replace('// %__METHOD__%', $method, $class);

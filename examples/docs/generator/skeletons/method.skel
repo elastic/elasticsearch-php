@@ -1,7 +1,6 @@
     /**
      * Tag:  %__TAG__%
      * Line: %__LINE__%
-     * Date: %__TIMESTAMP__%
      */
     public function %__METHOD_NAME__%()
     {

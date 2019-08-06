@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeohashgridAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/geohashgrid-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeohashgridAggregation extends SimpleExamplesTester {
     /**
      * Tag:  71af0fec59d37477c850d47730d3f286
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL21_71af0fec59d37477c850d47730d3f286()
     {
@@ -54,7 +54,7 @@ class GeohashgridAggregation extends SimpleExamplesTester {
         // {"index":{"_id":5}}
         // {"location": "48.861111,2.336389", "name": "Musée du Louvre"}
         // {"index":{"_id":6}}
-        // {"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+        // {"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}
         // POST /museums/_search?size=0
         // {
         //     "aggregations" : {
@@ -90,7 +90,7 @@ class GeohashgridAggregation extends SimpleExamplesTester {
               . '{"index":{"_id":5}}'
               . '{"location": "48.861111,2.336389", "name": "Musée du Louvre"}'
               . '{"index":{"_id":6}}'
-              . '{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}'
+              . '{"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}'
               . 'POST /museums/_search?size=0'
               . '{'
               . '    "aggregations" : {'
@@ -109,7 +109,7 @@ class GeohashgridAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9f0c6a8c6381bb0cb81a3070dd2bf2f2
      * Line: 94
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL94_9f0c6a8c6381bb0cb81a3070dd2bf2f2()
     {
@@ -171,7 +171,7 @@ class GeohashgridAggregation extends SimpleExamplesTester {
     /**
      * Tag:  36f61e038014f92466cd83d7b007e16b
      * Line: 126
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL126_36f61e038014f92466cd83d7b007e16b()
     {

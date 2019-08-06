@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ScriptedMetricAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/scripted-metric-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ScriptedMetricAggregation extends SimpleExamplesTester {
     /**
      * Tag:  20600097aa51aa3386536bdc681e92b6
      * Line: 9
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL9_20600097aa51aa3386536bdc681e92b6()
     {
@@ -41,7 +41,7 @@ class ScriptedMetricAggregation extends SimpleExamplesTester {
         //         "profit": {
         //             "scripted_metric": {
         //                 "init_script" : "state.transactions = []", \<1>
-        //                 "map_script" : "state.transactions.add(doc.type.value == 'sale' ? doc.amount.value : -1 * doc.amount.value)",
+        //                 "map_script" : "state.transactions.add(doc.type.value == \'sale\' ? doc.amount.value : -1 * doc.amount.value)",
         //                 "combine_script" : "double profit = 0; for (t in state.transactions) { profit += t } return profit",
         //                 "reduce_script" : "double profit = 0; for (a in states) { profit += a } return profit"
         //             }
@@ -59,7 +59,7 @@ class ScriptedMetricAggregation extends SimpleExamplesTester {
               . '        "profit": {'
               . '            "scripted_metric": {'
               . '                "init_script" : "state.transactions = []", \<1>'
-              . '                "map_script" : "state.transactions.add(doc.type.value == 'sale' ? doc.amount.value : -1 * doc.amount.value)",'
+              . '                "map_script" : "state.transactions.add(doc.type.value == \'sale\' ? doc.amount.value : -1 * doc.amount.value)",'
               . '                "combine_script" : "double profit = 0; for (t in state.transactions) { profit += t } return profit",'
               . '                "reduce_script" : "double profit = 0; for (a in states) { profit += a } return profit"'
               . '            }'
@@ -73,7 +73,7 @@ class ScriptedMetricAggregation extends SimpleExamplesTester {
     /**
      * Tag:  129ce418d8dd1f71087678725a0df19f
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL54_129ce418d8dd1f71087678725a0df19f()
     {
@@ -137,7 +137,7 @@ class ScriptedMetricAggregation extends SimpleExamplesTester {
     /**
      * Tag:  75e360d03fb416f0a65ca37c662c2e9c
      * Line: 149
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL149_75e360d03fb416f0a65ca37c662c2e9c()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TokenCount
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/token-count.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TokenCount extends SimpleExamplesTester {
     /**
      * Tag:  98c3d643f71c1fd71238ebb748e846e7
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_98c3d643f71c1fd71238ebb748e846e7()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Boost
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/boost.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Boost extends SimpleExamplesTester {
     /**
      * Tag:  dcef5a46104e2602a0b9f5d968f66f4d
      * Line: 8
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL8_dcef5a46104e2602a0b9f5d968f66f4d()
     {
@@ -69,7 +69,7 @@ class Boost extends SimpleExamplesTester {
     /**
      * Tag:  df827f97ecf543a1722003edbf277c01
      * Line: 34
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL34_df827f97ecf543a1722003edbf277c01()
     {
@@ -105,7 +105,7 @@ class Boost extends SimpleExamplesTester {
     /**
      * Tag:  36a07d7014cdd3d6cd9d97651e66e7ef
      * Line: 51
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL51_36a07d7014cdd3d6cd9d97651e66e7ef()
     {

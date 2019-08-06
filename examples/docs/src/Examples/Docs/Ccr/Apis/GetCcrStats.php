@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetCcrStats
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/get-ccr-stats.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetCcrStats extends SimpleExamplesTester {
     /**
      * Tag:  9b30a69fec54cf01f7af1b04a6e15239
      * Line: 39
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL39_9b30a69fec54cf01f7af1b04a6e15239()
     {
@@ -43,7 +43,7 @@ class GetCcrStats extends SimpleExamplesTester {
     /**
      * Tag:  9b30a69fec54cf01f7af1b04a6e15239
      * Line: 97
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL97_9b30a69fec54cf01f7af1b04a6e15239()
     {

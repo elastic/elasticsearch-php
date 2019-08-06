@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Reindex
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   docs/reindex.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  0cc991e3f7f8511a34730e154b3c5edc
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL16_0cc991e3f7f8511a34730e154b3c5edc()
     {
@@ -59,7 +59,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  9ebee1ff26ac0f91321d1d7596c05643
      * Line: 65
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL65_9ebee1ff26ac0f91321d1d7596c05643()
     {
@@ -95,7 +95,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  65adbf941edfe6efcfaec4754230ff47
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL86_65adbf941edfe6efcfaec4754230ff47()
     {
@@ -131,7 +131,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  8a104f3787e778cdde057d5e2f4eb919
      * Line: 106
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL106_8a104f3787e778cdde057d5e2f4eb919()
     {
@@ -167,7 +167,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  dfa9ebfd5216280a42312ea09f73d74d
      * Line: 128
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL128_dfa9ebfd5216280a42312ea09f73d74d()
     {
@@ -205,7 +205,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  764f9884b370cbdc82a1c5c42ed40ff3
      * Line: 148
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL148_764f9884b370cbdc82a1c5c42ed40ff3()
     {
@@ -249,7 +249,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  6f097c298a7abf4c032c4314920c49c8
      * Line: 172
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL172_6f097c298a7abf4c032c4314920c49c8()
     {
@@ -283,7 +283,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  52b2bfbdd78f8283b6f4891c48013237
      * Line: 197
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL197_52b2bfbdd78f8283b6f4891c48013237()
     {
@@ -319,7 +319,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  96064cf450ccd198ac03cd0c33d3be3d
      * Line: 218
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL218_96064cf450ccd198ac03cd0c33d3be3d()
     {
@@ -357,7 +357,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  e9c2e15b36372d5281c879d336322b6c
      * Line: 240
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL240_e9c2e15b36372d5281c879d336322b6c()
     {
@@ -393,7 +393,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  8871b8fcb6de4f0c7dff22798fb10fb7
      * Line: 261
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL261_8871b8fcb6de4f0c7dff22798fb10fb7()
     {
@@ -410,7 +410,7 @@ class Reindex extends SimpleExamplesTester {
         //     "version_type": "external"
         //   },
         //   "script": {
-        //     "source": "if (ctx._source.foo == 'bar') {ctx._version++; ctx._source.remove('foo')}",
+        //     "source": "if (ctx._source.foo == \'bar\') {ctx._version++; ctx._source.remove(\'foo\')}",
         //     "lang": "painless"
         //   }
         // }
@@ -426,7 +426,7 @@ class Reindex extends SimpleExamplesTester {
               . '    "version_type": "external"'
               . '  },'
               . '  "script": {'
-              . '    "source": "if (ctx._source.foo == 'bar') {ctx._version++; ctx._source.remove('foo')}",'
+              . '    "source": "if (ctx._source.foo == \'bar\') {ctx._version++; ctx._source.remove(\'foo\')}",'
               . '    "lang": "painless"'
               . '  }'
               . '}';
@@ -437,7 +437,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  78c96113ae4ed0054e581b17542528a7
      * Line: 334
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL334_78c96113ae4ed0054e581b17542528a7()
     {
@@ -483,7 +483,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  400e89eb46ead8e9c9e40f123fd5e590
      * Line: 358
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL358_400e89eb46ead8e9c9e40f123fd5e590()
     {
@@ -521,7 +521,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  b1efa1c51a34dd5ab5511b71a399f5b1
      * Line: 378
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL378_b1efa1c51a34dd5ab5511b71a399f5b1()
     {
@@ -557,7 +557,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  36b2778f23d0955255f52c075c4d213d
      * Line: 400
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL400_36b2778f23d0955255f52c075c4d213d()
     {
@@ -611,7 +611,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  64b9baa6d7556b960b29698f3383aa31
      * Line: 468
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL468_64b9baa6d7556b960b29698f3383aa31()
     {
@@ -663,7 +663,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  7f697eb436dfa3c30dfe610d8c32d132
      * Line: 500
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL500_7f697eb436dfa3c30dfe610d8c32d132()
     {
@@ -717,7 +717,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  973ff58c444e48580971b7203d304502
      * Line: 790
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL790_973ff58c444e48580971b7203d304502()
     {
@@ -735,7 +735,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  be3a6431d01846950dc1a39a7a6a1faa
      * Line: 855
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL855_be3a6431d01846950dc1a39a7a6a1faa()
     {
@@ -753,7 +753,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  18ddb7e7a4bcafd449df956e828ed7a8
      * Line: 877
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL877_18ddb7e7a4bcafd449df956e828ed7a8()
     {
@@ -771,7 +771,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  68738b4fd0dda177022be45be95b4c84
      * Line: 896
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL896_68738b4fd0dda177022be45be95b4c84()
     {
@@ -789,7 +789,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  1577e6e806b3283c9e99f1596d310754
      * Line: 918
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL918_1577e6e806b3283c9e99f1596d310754()
     {
@@ -815,7 +815,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  1216f8f7367df3aa823012cef310c08a
      * Line: 931
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL931_1216f8f7367df3aa823012cef310c08a()
     {
@@ -855,7 +855,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  cfc37446bd892d1ac42a3c8e8b204e6c
      * Line: 951
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL951_cfc37446bd892d1ac42a3c8e8b204e6c()
     {
@@ -873,7 +873,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  1b8655e6ba99fe39933c6eafe78728b7
      * Line: 996
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL996_1b8655e6ba99fe39933c6eafe78728b7()
     {
@@ -941,7 +941,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  3ae03ba3b56e5e287953094050766738
      * Line: 1030
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1030_3ae03ba3b56e5e287953094050766738()
     {
@@ -961,7 +961,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  cb01106bf524df5e0501d4c655c1aa7b
      * Line: 1060
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1060_cb01106bf524df5e0501d4c655c1aa7b()
     {
@@ -995,7 +995,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  e567e6dbf86300142573c73789c8fce4
      * Line: 1077
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1077_e567e6dbf86300142573c73789c8fce4()
     {
@@ -1013,7 +1013,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  9a4d5e41c52c20635d1fd9c6e13f6c7a
      * Line: 1182
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1182_9a4d5e41c52c20635d1fd9c6e13f6c7a()
     {
@@ -1037,7 +1037,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  973a3ff47fc4ce036ecd9bd363fef9f7
      * Line: 1199
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1199_973a3ff47fc4ce036ecd9bd363fef9f7()
     {
@@ -1054,7 +1054,7 @@ class Reindex extends SimpleExamplesTester {
         //   },
         //   "script": {
         //     "lang": "painless",
-        //     "source": "ctx._index = 'metricbeat-' + (ctx._index.substring('metricbeat-'.length(), ctx._index.length())) + '-1'"
+        //     "source": "ctx._index = \'metricbeat-\' + (ctx._index.substring(\'metricbeat-\'.length(), ctx._index.length())) + \'-1\'"
         //   }
         // }
         // end::973a3ff47fc4ce036ecd9bd363fef9f7[]
@@ -1069,7 +1069,7 @@ class Reindex extends SimpleExamplesTester {
               . '  },'
               . '  "script": {'
               . '    "lang": "painless",'
-              . '    "source": "ctx._index = 'metricbeat-' + (ctx._index.substring('metricbeat-'.length(), ctx._index.length())) + '-1'"'
+              . '    "source": "ctx._index = \'metricbeat-\' + (ctx._index.substring(\'metricbeat-\'.length(), ctx._index.length())) + \'-1\'"'
               . '  }'
               . '}';
 
@@ -1079,7 +1079,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  3b04cc894e6a47d57983484010feac0c
      * Line: 1220
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1220_3b04cc894e6a47d57983484010feac0c()
     {
@@ -1099,7 +1099,7 @@ class Reindex extends SimpleExamplesTester {
     /**
      * Tag:  8b33c9257041fabad8cea43fa049f98f
      * Line: 1236
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL1236_8b33c9257041fabad8cea43fa049f98f()
     {

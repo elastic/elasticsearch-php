@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StandardTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/standard-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StandardTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  88a08d0b15ef41324f5c23db533d47d1
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL13_88a08d0b15ef41324f5c23db533d47d1()
     {
@@ -35,14 +35,14 @@ class StandardTokenizer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "tokenizer": "standard",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::88a08d0b15ef41324f5c23db533d47d1[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "tokenizer": "standard",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion
@@ -51,7 +51,7 @@ class StandardTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  7375d4fe72c848ee3b0a799fda8bb0f0
      * Line: 138
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL138_7375d4fe72c848ee3b0a799fda8bb0f0()
     {
@@ -79,7 +79,7 @@ class StandardTokenizer extends SimpleExamplesTester {
         // POST my_index/_analyze
         // {
         //   "analyzer": "my_analyzer",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::7375d4fe72c848ee3b0a799fda8bb0f0[]
 
@@ -104,7 +104,7 @@ class StandardTokenizer extends SimpleExamplesTester {
               . 'POST my_index/_analyze'
               . '{'
               . '  "analyzer": "my_analyzer",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion

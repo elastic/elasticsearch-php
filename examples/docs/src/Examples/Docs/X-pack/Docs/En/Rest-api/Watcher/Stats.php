@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Stats
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/watcher/stats.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Stats extends SimpleExamplesTester {
     /**
      * Tag:  17266cee5eaaddf08e5534bf580a1910
      * Line: 74
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL74_17266cee5eaaddf08e5534bf580a1910()
     {
@@ -43,7 +43,7 @@ class Stats extends SimpleExamplesTester {
     /**
      * Tag:  3ed79871d956bfb2d6d2721d7272520c
      * Line: 103
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL103_3ed79871d956bfb2d6d2721d7272520c()
     {
@@ -61,7 +61,7 @@ class Stats extends SimpleExamplesTester {
     /**
      * Tag:  56b6b50b174a935d368301ebd717231d
      * Line: 111
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL111_56b6b50b174a935d368301ebd717231d()
     {
@@ -79,7 +79,7 @@ class Stats extends SimpleExamplesTester {
     /**
      * Tag:  6244204213f60edf2f23295f9059f2c9
      * Line: 156
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL156_6244204213f60edf2f23295f9059f2c9()
     {

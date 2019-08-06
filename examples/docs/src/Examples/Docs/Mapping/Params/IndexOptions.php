@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IndexOptions
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/index-options.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IndexOptions extends SimpleExamplesTester {
     /**
      * Tag:  3a24ebb542f657420fcd8fdf3f757ce6
      * Line: 37
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL37_3a24ebb542f657420fcd8fdf3f757ce6()
     {

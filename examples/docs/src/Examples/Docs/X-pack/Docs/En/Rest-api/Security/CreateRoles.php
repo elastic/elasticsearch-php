@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CreateRoles
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/create-roles.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CreateRoles extends SimpleExamplesTester {
     /**
      * Tag:  850a6d4aaf112ec1279260a2b7400a89
      * Line: 82
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL82_850a6d4aaf112ec1279260a2b7400a89()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DocvalueFields
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/docvalue-fields.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DocvalueFields extends SimpleExamplesTester {
     /**
      * Tag:  097a6bc1d76c3fc92fb299001d27896e
      * Line: 8
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL8_097a6bc1d76c3fc92fb299001d27896e()
     {
@@ -73,7 +73,7 @@ class DocvalueFields extends SimpleExamplesTester {
     /**
      * Tag:  1518ad2c540fd55f9df84bbe75c81606
      * Line: 36
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL36_1518ad2c540fd55f9df84bbe75c81606()
     {

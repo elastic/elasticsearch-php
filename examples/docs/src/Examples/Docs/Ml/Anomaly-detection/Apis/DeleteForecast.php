@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteForecast
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-forecast.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteForecast extends SimpleExamplesTester {
     /**
      * Tag:  eb4e43b47867b54214a8630172dd0e21
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL72_eb4e43b47867b54214a8630172dd0e21()
     {

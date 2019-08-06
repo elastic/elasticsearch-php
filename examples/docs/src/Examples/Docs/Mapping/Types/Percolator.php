@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Percolator
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/percolator.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  05c14dd0bda732cfa36f7fb88138d98e
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_05c14dd0bda732cfa36f7fb88138d98e()
     {
@@ -67,7 +67,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  dc1f917924b43416a9ec7f8c9505f885
      * Line: 41
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL41_dc1f917924b43416a9ec7f8c9505f885()
     {
@@ -99,7 +99,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  3eb4cdd4a799a117ac1ff5f02b18a512
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL72_3eb4cdd4a799a117ac1ff5f02b18a512()
     {
@@ -179,7 +179,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  f09817fd13ff3dce52eb79d0722409c3
      * Line: 118
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL118_f09817fd13ff3dce52eb79d0722409c3()
     {
@@ -273,7 +273,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  60cab62af1540db2ad3b696b0ee1d7a8
      * Line: 169
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL169_60cab62af1540db2ad3b696b0ee1d7a8()
     {
@@ -311,7 +311,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  360c4f373e72ba861584ee85bd218124
      * Line: 268
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL268_360c4f373e72ba861584ee85bd218124()
     {
@@ -375,7 +375,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  3e13c8a81f40a537eddc0b57633b45f8
      * Line: 302
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL302_3e13c8a81f40a537eddc0b57633b45f8()
     {
@@ -401,7 +401,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  7a2b9a7b2b6553a48bd4db60a939c0fc
      * Line: 340
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL340_7a2b9a7b2b6553a48bd4db60a939c0fc()
     {
@@ -439,7 +439,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  45813d971bfa890ffa2f51f3f480cce5
      * Line: 365
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL365_45813d971bfa890ffa2f51f3f480cce5()
     {
@@ -477,7 +477,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  a04a8d90f8245ff5f30a9983909faa1d
      * Line: 439
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL439_a04a8d90f8245ff5f30a9983909faa1d()
     {
@@ -575,7 +575,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  ed688d86eeaa4d7969acb0f574eb917f
      * Line: 508
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL508_ed688d86eeaa4d7969acb0f574eb917f()
     {
@@ -607,7 +607,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  d2f6040c058a9555dfa62bb42d896a8f
      * Line: 527
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL527_d2f6040c058a9555dfa62bb42d896a8f()
     {
@@ -645,7 +645,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  343dd09a8c76987e586858be3bdc51eb
      * Line: 590
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL590_343dd09a8c76987e586858be3bdc51eb()
     {
@@ -761,7 +761,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  bd7330af2609bdd8aa10958f5e640b93
      * Line: 666
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL666_bd7330af2609bdd8aa10958f5e640b93()
     {
@@ -793,7 +793,7 @@ class Percolator extends SimpleExamplesTester {
     /**
      * Tag:  4aa81a694266fb634904224d14cd9a87
      * Line: 686
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL686_4aa81a694266fb634904224d14cd9a87()
     {

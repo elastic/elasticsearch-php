@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Ip
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/ip.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Ip extends SimpleExamplesTester {
     /**
      * Tag:  ef38d941f9d914c095e729046a2e2d95
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_ef38d941f9d914c095e729046a2e2d95()
     {
@@ -85,7 +85,7 @@ class Ip extends SimpleExamplesTester {
     /**
      * Tag:  96d3e3ee5d410507ca6ffb64a7e3d88e
      * Line: 83
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL83_96d3e3ee5d410507ca6ffb64a7e3d88e()
     {
@@ -117,7 +117,7 @@ class Ip extends SimpleExamplesTester {
     /**
      * Tag:  f880cf334c8d355edc3abf196d9a8b67
      * Line: 98
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL98_f880cf334c8d355edc3abf196d9a8b67()
     {
@@ -149,7 +149,7 @@ class Ip extends SimpleExamplesTester {
     /**
      * Tag:  db5fe7de772a7607b8d104cc35a6bc6c
      * Line: 116
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL116_db5fe7de772a7607b8d104cc35a6bc6c()
     {

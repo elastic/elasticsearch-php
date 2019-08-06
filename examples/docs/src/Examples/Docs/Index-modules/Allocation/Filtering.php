@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Filtering
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   index-modules/allocation/filtering.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Filtering extends SimpleExamplesTester {
     /**
      * Tag:  dad2d4add751fde5c39475ca709cc14b
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL54_dad2d4add751fde5c39475ca709cc14b()
     {
@@ -49,7 +49,7 @@ class Filtering extends SimpleExamplesTester {
     /**
      * Tag:  b8b198ede3d08f315348e2a857e47773
      * Line: 68
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL68_b8b198ede3d08f315348e2a857e47773()
     {
@@ -75,7 +75,7 @@ class Filtering extends SimpleExamplesTester {
     /**
      * Tag:  28ac880057135e46b3b00c7f3976538c
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL110_28ac880057135e46b3b00c7f3976538c()
     {

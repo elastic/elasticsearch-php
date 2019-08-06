@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SignificanttextAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/significanttext-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SignificanttextAggregation extends SimpleExamplesTester {
     /**
      * Tag:  68f0c7c77b65bfdded348bbd397831b7
      * Line: 36
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL36_68f0c7c77b65bfdded348bbd397831b7()
     {
@@ -77,7 +77,7 @@ class SignificanttextAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d44ecc69090c0b2bc08a6cbc2e3467c5
      * Line: 151
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL151_d44ecc69090c0b2bc08a6cbc2e3467c5()
     {
@@ -127,7 +127,7 @@ class SignificanttextAggregation extends SimpleExamplesTester {
     /**
      * Tag:  805f5550b90e75aa5cc82b90d8c6c242
      * Line: 219
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL219_805f5550b90e75aa5cc82b90d8c6c242()
     {
@@ -189,7 +189,7 @@ class SignificanttextAggregation extends SimpleExamplesTester {
     /**
      * Tag:  5f4cab20671ebac9233812f9e35d9c8b
      * Line: 422
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL422_5f4cab20671ebac9233812f9e35d9c8b()
     {
@@ -241,7 +241,7 @@ class SignificanttextAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b3e6d6f7f6d65d1efb60ca7503a20b16
      * Line: 461
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL461_b3e6d6f7f6d65d1efb60ca7503a20b16()
     {

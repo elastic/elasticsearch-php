@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PutCalendar
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/put-calendar.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PutCalendar extends SimpleExamplesTester {
     /**
      * Tag:  e61b5abe85000cc954a42e2cd74f3a26
      * Line: 45
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL45_e61b5abe85000cc954a42e2cd74f3a26()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: BoostingQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/boosting-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class BoostingQuery extends SimpleExamplesTester {
     /**
      * Tag:  292e4c6567378fc7b70033b53b04ce12
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_292e4c6567378fc7b70033b53b04ce12()
     {

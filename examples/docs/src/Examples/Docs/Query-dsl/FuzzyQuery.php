@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FuzzyQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/fuzzy-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FuzzyQuery extends SimpleExamplesTester {
     /**
      * Tag:  d1e20f8f8c64f8e2cadea9e5c8376504
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_d1e20f8f8c64f8e2cadea9e5c8376504()
     {
@@ -53,7 +53,7 @@ class FuzzyQuery extends SimpleExamplesTester {
     /**
      * Tag:  f2f4631d427b04207285227d1ca6114d
      * Line: 32
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL32_f2f4631d427b04207285227d1ca6114d()
     {

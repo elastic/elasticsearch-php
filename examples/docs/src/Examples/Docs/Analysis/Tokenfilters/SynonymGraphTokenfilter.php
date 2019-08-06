@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SynonymGraphTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/synonym-graph-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  2f071d36aa4aff5a2fafb3dadaa38b82
      * Line: 23
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL23_2f071d36aa4aff5a2fafb3dadaa38b82()
     {
@@ -83,7 +83,7 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  3d253e5a0029bc96cce484302319b772
      * Line: 59
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL59_3d253e5a0029bc96cce484302319b772()
     {
@@ -151,7 +151,7 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  1a14fd905941ecbdbc943b05875afc6f
      * Line: 119
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL119_1a14fd905941ecbdbc943b05875afc6f()
     {
@@ -203,7 +203,7 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  f0d7d6d5c878211704d4a5f1b2f6a247
      * Line: 151
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL151_f0d7d6d5c878211704d4a5f1b2f6a247()
     {
@@ -220,9 +220,9 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
         //                         "type" : "synonym_graph",
         //                         "format" : "wordnet",
         //                         "synonyms" : [
-        //                             "s(100000001,1,'abstain',v,1,0).",
-        //                             "s(100000001,2,'refrain',v,1,0).",
-        //                             "s(100000001,3,'desist',v,1,0)."
+        //                             "s(100000001,1,\'abstain\',v,1,0).",
+        //                             "s(100000001,2,\'refrain\',v,1,0).",
+        //                             "s(100000001,3,\'desist\',v,1,0)."
         //                         ]
         //                     }
         //                 }
@@ -242,9 +242,9 @@ class SynonymGraphTokenfilter extends SimpleExamplesTester {
               . '                        "type" : "synonym_graph",'
               . '                        "format" : "wordnet",'
               . '                        "synonyms" : ['
-              . '                            "s(100000001,1,'abstain',v,1,0).",'
-              . '                            "s(100000001,2,'refrain',v,1,0).",'
-              . '                            "s(100000001,3,'desist',v,1,0)."'
+              . '                            "s(100000001,1,\'abstain\',v,1,0).",'
+              . '                            "s(100000001,2,\'refrain\',v,1,0).",'
+              . '                            "s(100000001,3,\'desist\',v,1,0)."'
               . '                        ]'
               . '                    }'
               . '                }'

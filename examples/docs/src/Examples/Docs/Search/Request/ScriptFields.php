@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ScriptFields
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/script-fields.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ScriptFields extends SimpleExamplesTester {
     /**
      * Tag:  68358f94e77b5dce7eb01679516bae69
      * Line: 8
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL8_68358f94e77b5dce7eb01679516bae69()
     {
@@ -41,13 +41,13 @@ class ScriptFields extends SimpleExamplesTester {
         //         "test1" : {
         //             "script" : {
         //                 "lang": "painless",
-        //                 "source": "doc['price'].value * 2"
+        //                 "source": "doc[\'price\'].value * 2"
         //             }
         //         },
         //         "test2" : {
         //             "script" : {
         //                 "lang": "painless",
-        //                 "source": "doc['price'].value * params.factor",
+        //                 "source": "doc[\'price\'].value * params.factor",
         //                 "params" : {
         //                     "factor"  : 2.0
         //                 }
@@ -66,13 +66,13 @@ class ScriptFields extends SimpleExamplesTester {
               . '        "test1" : {'
               . '            "script" : {'
               . '                "lang": "painless",'
-              . '                "source": "doc['price'].value * 2"'
+              . '                "source": "doc[\'price\'].value * 2"'
               . '            }'
               . '        },'
               . '        "test2" : {'
               . '            "script" : {'
               . '                "lang": "painless",'
-              . '                "source": "doc['price'].value * params.factor",'
+              . '                "source": "doc[\'price\'].value * params.factor",'
               . '                "params" : {'
               . '                    "factor"  : 2.0'
               . '                }'
@@ -87,7 +87,7 @@ class ScriptFields extends SimpleExamplesTester {
     /**
      * Tag:  34dd16c077e81b3744963b19a3dc9e49
      * Line: 45
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL45_34dd16c077e81b3744963b19a3dc9e49()
     {
@@ -101,7 +101,7 @@ class ScriptFields extends SimpleExamplesTester {
         //         },
         //         "script_fields" : {
         //             "test1" : {
-        //                 "script" : "params['_source']['message']"
+        //                 "script" : "params[\'_source\'][\'message\']"
         //             }
         //         }
         //     }
@@ -114,7 +114,7 @@ class ScriptFields extends SimpleExamplesTester {
               . '        },'
               . '        "script_fields" : {'
               . '            "test1" : {'
-              . '                "script" : "params['_source']['message']"'
+              . '                "script" : "params[\'_source\'][\'message\']"'
               . '            }'
               . '        }'
               . '    }';

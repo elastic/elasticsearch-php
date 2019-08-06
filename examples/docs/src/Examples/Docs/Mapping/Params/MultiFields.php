@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MultiFields
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/multi-fields.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MultiFields extends SimpleExamplesTester {
     /**
      * Tag:  5271f4ff29bb48838396e5a674664ee0
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL10_5271f4ff29bb48838396e5a674664ee0()
     {
@@ -123,7 +123,7 @@ class MultiFields extends SimpleExamplesTester {
     /**
      * Tag:  fc8097bdfb6f3a4017bf4186ccca8a84
      * Line: 75
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL75_fc8097bdfb6f3a4017bf4186ccca8a84()
     {

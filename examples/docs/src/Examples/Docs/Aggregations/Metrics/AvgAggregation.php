@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: AvgAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/avg-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class AvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d9d28e9e9d7021a72c983f8e79aa8c6c
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_d9d28e9e9d7021a72c983f8e79aa8c6c()
     {
@@ -53,7 +53,7 @@ class AvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d05bbafb8c88850879b5990119a96f5e
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL43_d05bbafb8c88850879b5990119a96f5e()
     {
@@ -93,7 +93,7 @@ class AvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c04f4a48d0cb550a879fdc93454852de
      * Line: 63
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL63_c04f4a48d0cb550a879fdc93454852de()
     {
@@ -139,7 +139,7 @@ class AvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  91994d98e766230911b3e659b3e51f17
      * Line: 88
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL88_91994d98e766230911b3e659b3e51f17()
     {
@@ -189,7 +189,7 @@ class AvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2ec33e09d6080723ee2013bad694f35a
      * Line: 117
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL117_2ec33e09d6080723ee2013bad694f35a()
     {

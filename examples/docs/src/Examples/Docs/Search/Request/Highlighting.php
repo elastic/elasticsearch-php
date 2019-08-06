@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Highlighting
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/highlighting.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  05e1088d2c04391203cc8eb3ab287b71
      * Line: 24
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL24_05e1088d2c04391203cc8eb3ab287b71()
     {
@@ -63,7 +63,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  3cc4e8b1e2aecac644ba52d34ca29422
      * Line: 280
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL280_3cc4e8b1e2aecac644ba52d34ca29422()
     {
@@ -111,7 +111,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  129cddb56fafef5cc454917a374eae1a
      * Line: 311
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL311_129cddb56fafef5cc454917a374eae1a()
     {
@@ -237,7 +237,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  9e502038aa4ebb9cb4df230c0c4a854e
      * Line: 380
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL380_9e502038aa4ebb9cb4df230c0c4a854e()
     {
@@ -275,7 +275,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  ee079a3f9eb529aac33f09be16747aa9
      * Line: 405
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL405_ee079a3f9eb529aac33f09be16747aa9()
     {
@@ -317,7 +317,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  a225bb439c204b20ed52a28e1dcd663b
      * Line: 427
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL427_a225bb439c204b20ed52a28e1dcd663b()
     {
@@ -359,7 +359,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  05ce63b83a89fddb63fd60c923811582
      * Line: 448
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL448_05ce63b83a89fddb63fd60c923811582()
     {
@@ -399,7 +399,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  87b697eb7340e9e52ca790922eca0066
      * Line: 473
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL473_87b697eb7340e9e52ca790922eca0066()
     {
@@ -437,7 +437,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  1e8b687c757981af3a9f005cfd2b4946
      * Line: 498
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL498_1e8b687c757981af3a9f005cfd2b4946()
     {
@@ -477,7 +477,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  a182c91923ad1e47cf502ea890c53015
      * Line: 532
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL532_a182c91923ad1e47cf502ea890c53015()
     {
@@ -529,7 +529,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  974bb1452f614f9a378a695fa9addd4e
      * Line: 562
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL562_974bb1452f614f9a378a695fa9addd4e()
     {
@@ -581,7 +581,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  4971d093f19f85e3c622f1e0257ff60f
      * Line: 590
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL590_4971d093f19f85e3c622f1e0257ff60f()
     {
@@ -633,7 +633,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  2859fb1a8139777dca087862a5b1c205
      * Line: 660
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL660_2859fb1a8139777dca087862a5b1c205()
     {
@@ -667,7 +667,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  e8446172481fb6298c04b4bdc3340f3f
      * Line: 690
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL690_e8446172481fb6298c04b4bdc3340f3f()
     {
@@ -705,7 +705,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  4ae1e4f88af2f9be50696e5a59466bb6
      * Line: 710
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL710_4ae1e4f88af2f9be50696e5a59466bb6()
     {
@@ -745,7 +745,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  62b15eac8c6d294da9114541fdfc527f
      * Line: 734
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL734_62b15eac8c6d294da9114541fdfc527f()
     {
@@ -785,7 +785,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  3d10eba5cac0069486bc3c2854d15689
      * Line: 761
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL761_3d10eba5cac0069486bc3c2854d15689()
     {
@@ -831,7 +831,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  5ea9da129ca70a5fe534f27a82d80b29
      * Line: 789
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL789_5ea9da129ca70a5fe534f27a82d80b29()
     {
@@ -869,7 +869,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  17a1e308761afd3282f13d44d7be008a
      * Line: 808
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL808_17a1e308761afd3282f13d44d7be008a()
     {
@@ -907,7 +907,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  146bfeeaa2ac4fc1352bf8d41097baa0
      * Line: 831
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL831_146bfeeaa2ac4fc1352bf8d41097baa0()
     {
@@ -955,7 +955,7 @@ class Highlighting extends SimpleExamplesTester {
     /**
      * Tag:  bc9bd39420f810edae72b9fb33a154fd
      * Line: 890
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL890_bc9bd39420f810edae72b9fb33a154fd()
     {

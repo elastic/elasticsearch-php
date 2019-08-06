@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PathhierarchyTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/pathhierarchy-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PathhierarchyTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  dc4dcfeae8a5f248639335c2c9809549
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_dc4dcfeae8a5f248639335c2c9809549()
     {
@@ -51,7 +51,7 @@ class PathhierarchyTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  fcc35d56dff0291bcf3663830ce99254
      * Line: 95
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL95_fcc35d56dff0291bcf3663830ce99254()
     {

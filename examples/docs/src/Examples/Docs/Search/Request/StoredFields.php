@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StoredFields
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/stored-fields.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StoredFields extends SimpleExamplesTester {
     /**
      * Tag:  2eeb3e55a7d3955e084bb369f1539009
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL13_2eeb3e55a7d3955e084bb369f1539009()
     {
@@ -55,7 +55,7 @@ class StoredFields extends SimpleExamplesTester {
     /**
      * Tag:  2af86a6ebbb834fbcf6fa7268f87a3a5
      * Line: 30
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL30_2af86a6ebbb834fbcf6fa7268f87a3a5()
     {
@@ -85,7 +85,7 @@ class StoredFields extends SimpleExamplesTester {
     /**
      * Tag:  ccec437aed7a10d9111724ffd929fe00
      * Line: 62
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL62_ccec437aed7a10d9111724ffd929fe00()
     {

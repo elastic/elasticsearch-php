@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IndexField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/index-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IndexField extends SimpleExamplesTester {
     /**
      * Tag:  e8146b1dda248705f7fb1fb6306d9d86
      * Line: 17
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL17_e8146b1dda248705f7fb1fb6306d9d86()
     {
@@ -67,7 +67,7 @@ class IndexField extends SimpleExamplesTester {
         //     "index_name": {
         //       "script": {
         //         "lang": "painless",
-        //         "source": "doc['_index']" \<4>
+        //         "source": "doc[\'_index\']" \<4>
         //       }
         //     }
         //   }
@@ -109,7 +109,7 @@ class IndexField extends SimpleExamplesTester {
               . '    "index_name": {'
               . '      "script": {'
               . '        "lang": "painless",'
-              . '        "source": "doc['_index']" \<4>'
+              . '        "source": "doc[\'_index\']" \<4>'
               . '      }'
               . '    }'
               . '  }'

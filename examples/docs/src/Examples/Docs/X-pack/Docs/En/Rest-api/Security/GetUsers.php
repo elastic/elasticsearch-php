@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetUsers
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/get-users.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetUsers extends SimpleExamplesTester {
     /**
      * Tag:  3924ee252581ebb96ac0e60046125ae8
      * Line: 41
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL41_3924ee252581ebb96ac0e60046125ae8()
     {
@@ -43,7 +43,7 @@ class GetUsers extends SimpleExamplesTester {
     /**
      * Tag:  bac6203259754d2f09c1ebeecc9ded5d
      * Line: 51
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL51_bac6203259754d2f09c1ebeecc9ded5d()
     {
@@ -83,7 +83,7 @@ class GetUsers extends SimpleExamplesTester {
     /**
      * Tag:  abdbc81e799e28c833556b1c29f03ba6
      * Line: 73
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL73_abdbc81e799e28c833556b1c29f03ba6()
     {

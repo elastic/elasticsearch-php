@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MatchQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/match-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  fa2fe60f570bd930d2891778c6efbfe6
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_fa2fe60f570bd930d2891778c6efbfe6()
     {
@@ -57,7 +57,7 @@ class MatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  6138d6919f3cbaaf61e1092f817d295c
      * Line: 42
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL42_6138d6919f3cbaaf61e1092f817d295c()
     {
@@ -95,7 +95,7 @@ class MatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  5043b83a89091fa00edb341ddf7ba370
      * Line: 87
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL87_5043b83a89091fa00edb341ddf7ba370()
     {
@@ -133,7 +133,7 @@ class MatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  0ac9916f47a2483b89c1416684af322a
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL110_0ac9916f47a2483b89c1416684af322a()
     {
@@ -173,7 +173,7 @@ class MatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  7f56755fb6c42f7e6203339a6d0cb6e6
      * Line: 138
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL138_7f56755fb6c42f7e6203339a6d0cb6e6()
     {

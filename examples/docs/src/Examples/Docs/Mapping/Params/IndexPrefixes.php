@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IndexPrefixes
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/index-prefixes.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IndexPrefixes extends SimpleExamplesTester {
     /**
      * Tag:  ff5d15a265855b1c11cb20ceef6a1b58
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_ff5d15a265855b1c11cb20ceef6a1b58()
     {
@@ -63,7 +63,7 @@ class IndexPrefixes extends SimpleExamplesTester {
     /**
      * Tag:  b19ec4a20c19082e5c40e3b1f28bfbcb
      * Line: 42
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL42_b19ec4a20c19082e5c40e3b1f28bfbcb()
     {

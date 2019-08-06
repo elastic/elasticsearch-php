@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteSnapshot
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-snapshot.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteSnapshot extends SimpleExamplesTester {
     /**
      * Tag:  1e08e054c761353f99211cd18e8ca47b
      * Line: 45
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL45_1e08e054c761353f99211cd18e8ca47b()
     {

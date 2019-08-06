@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StandardAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/standard-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StandardAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  6884454f57c3a41059037ea762f48d77
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_6884454f57c3a41059037ea762f48d77()
     {
@@ -35,14 +35,14 @@ class StandardAnalyzer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "analyzer": "standard",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::6884454f57c3a41059037ea762f48d77[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "analyzer": "standard",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion
@@ -51,7 +51,7 @@ class StandardAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  5af5d2999833b6b1fdcd84404751a7e3
      * Line: 153
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL153_5af5d2999833b6b1fdcd84404751a7e3()
     {
@@ -75,7 +75,7 @@ class StandardAnalyzer extends SimpleExamplesTester {
         // POST my_index/_analyze
         // {
         //   "analyzer": "my_english_analyzer",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::5af5d2999833b6b1fdcd84404751a7e3[]
 
@@ -96,7 +96,7 @@ class StandardAnalyzer extends SimpleExamplesTester {
               . 'POST my_index/_analyze'
               . '{'
               . '  "analyzer": "my_english_analyzer",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion
@@ -105,7 +105,7 @@ class StandardAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  ccf84c1e5e5602a9e841cb8f7e3bb29f
      * Line: 285
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL285_ccf84c1e5e5602a9e841cb8f7e3bb29f()
     {

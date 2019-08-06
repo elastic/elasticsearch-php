@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DatehistogramAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/datehistogram-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b789292f9cf63ce912e058c46d90ce20
      * Line: 107
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL107_b789292f9cf63ce912e058c46d90ce20()
     {
@@ -63,7 +63,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  73e5c88ad1488b213fb278ee1cb42289
      * Line: 127
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL127_73e5c88ad1488b213fb278ee1cb42289()
     {
@@ -101,7 +101,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  09ecba5814d71e4c44468575eada9878
      * Line: 203
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL203_09ecba5814d71e4c44468575eada9878()
     {
@@ -139,7 +139,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2bb2339ac055337abf753bddb7771659
      * Line: 222
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL222_2bb2339ac055337abf753bddb7771659()
     {
@@ -177,7 +177,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  8a355eb25d2a01ba62dc1a22dd46f46f
      * Line: 294
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL294_8a355eb25d2a01ba62dc1a22dd46f46f()
     {
@@ -217,7 +217,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  70f0aa5853697e265ef3b1df72940951
      * Line: 357
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL357_70f0aa5853697e265ef3b1df72940951()
     {
@@ -271,7 +271,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  8de3206f80e18185a5ad6481f4c2ee07
      * Line: 409
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL409_8de3206f80e18185a5ad6481f4c2ee07()
     {
@@ -311,7 +311,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  aa6bfe54e2436eb668091fe31c2fbf4d
      * Line: 478
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL478_aa6bfe54e2436eb668091fe31c2fbf4d()
     {
@@ -367,7 +367,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9524a9b7373fa4eb2905183b0e806962
      * Line: 540
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL540_9524a9b7373fa4eb2905183b0e806962()
     {
@@ -409,7 +409,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  39a6a038c4b551022afe83de0523634e
      * Line: 610
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL610_39a6a038c4b551022afe83de0523634e()
     {
@@ -449,7 +449,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6faf10a73f7d5fffbcb037bdb2cbaff8
      * Line: 644
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL644_6faf10a73f7d5fffbcb037bdb2cbaff8()
     {
@@ -463,7 +463,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
         //             "terms": {
         //                 "script": {
         //                     "lang": "painless",
-        //                     "source": "doc['date'].value.dayOfWeekEnum.value"
+        //                     "source": "doc[\'date\'].value.dayOfWeekEnum.value"
         //                 }
         //             }
         //         }
@@ -478,7 +478,7 @@ class DatehistogramAggregation extends SimpleExamplesTester {
               . '            "terms": {'
               . '                "script": {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['date'].value.dayOfWeekEnum.value"'
+              . '                    "source": "doc[\'date\'].value.dayOfWeekEnum.value"'
               . '                }'
               . '            }'
               . '        }'

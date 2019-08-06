@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SearchAsYouType
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/search-as-you-type.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SearchAsYouType extends SimpleExamplesTester {
     /**
      * Tag:  6f31f9cfe0dd741ccad4af62ba8f815e
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_6f31f9cfe0dd741ccad4af62ba8f815e()
     {
@@ -61,7 +61,7 @@ class SearchAsYouType extends SimpleExamplesTester {
     /**
      * Tag:  867e5fad9c57055712fe2b69fa69a97c
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL72_867e5fad9c57055712fe2b69fa69a97c()
     {
@@ -85,7 +85,7 @@ class SearchAsYouType extends SimpleExamplesTester {
     /**
      * Tag:  9bd25962f177e86dbc5a8030a420cc31
      * Line: 89
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL89_9bd25962f177e86dbc5a8030a420cc31()
     {
@@ -129,7 +129,7 @@ class SearchAsYouType extends SimpleExamplesTester {
     /**
      * Tag:  0ced86822f8c0a479af5e1fe28dfc2ec
      * Line: 151
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL151_0ced86822f8c0a479af5e1fe28dfc2ec()
     {

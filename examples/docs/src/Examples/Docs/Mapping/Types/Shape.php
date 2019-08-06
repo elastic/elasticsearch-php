@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Shape
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/shape.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  04409304cd13f4cfa8efbed87aea9b15
      * Line: 81
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL81_04409304cd13f4cfa8efbed87aea9b15()
     {
@@ -61,7 +61,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  a55bdc75b139d947d64b32dc9824e558
      * Line: 146
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL146_a55bdc75b139d947d64b32dc9824e558()
     {
@@ -91,7 +91,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  8fb11f30a609b13c1373ce4a26124159
      * Line: 160
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL160_8fb11f30a609b13c1373ce4a26124159()
     {
@@ -115,7 +115,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  bff745b32238691bae88de22530643cb
      * Line: 178
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL178_bff745b32238691bae88de22530643cb()
     {
@@ -145,7 +145,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  c4f62c66f967c6e0da3616957efbeccf
      * Line: 192
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL192_c4f62c66f967c6e0da3616957efbeccf()
     {
@@ -169,7 +169,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  567829f263dd472bf76500db05d2200a
      * Line: 209
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL209_567829f263dd472bf76500db05d2200a()
     {
@@ -203,7 +203,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  ae5f9956a525e976bfc37dcb4e7414ae
      * Line: 225
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL225_ae5f9956a525e976bfc37dcb4e7414ae()
     {
@@ -227,7 +227,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  4f869e56eb25586ac402ccfb00aa0359
      * Line: 238
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL238_4f869e56eb25586ac402ccfb00aa0359()
     {
@@ -263,7 +263,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  a5816a58c1fa769c23c6211ab449e6f3
      * Line: 255
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL255_a5816a58c1fa769c23c6211ab449e6f3()
     {
@@ -287,7 +287,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  1f1ccd9af526b2251bf960a85288fc97
      * Line: 278
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL278_1f1ccd9af526b2251bf960a85288fc97()
     {
@@ -323,7 +323,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  02da8c5d098d9e7cc263efac344a96de
      * Line: 299
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL299_02da8c5d098d9e7cc263efac344a96de()
     {
@@ -357,7 +357,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  577b09f45256ff855252d29e1d1cd433
      * Line: 315
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL315_577b09f45256ff855252d29e1d1cd433()
     {
@@ -381,7 +381,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  76c551d13c3d907ad6dc56b85bec76de
      * Line: 330
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL330_76c551d13c3d907ad6dc56b85bec76de()
     {
@@ -419,7 +419,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  9aeca1d56bb2ff0701587b269163311e
      * Line: 348
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL348_9aeca1d56bb2ff0701587b269163311e()
     {
@@ -443,7 +443,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  9d2464f0dce99d47f2699d953ee55b37
      * Line: 363
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL363_9d2464f0dce99d47f2699d953ee55b37()
     {
@@ -481,7 +481,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  e7f366d76e3e53b4c0c30f7b0c21fbc0
      * Line: 381
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL381_e7f366d76e3e53b4c0c30f7b0c21fbc0()
     {
@@ -505,7 +505,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  4b3ef0f1d3cb9598a3fb94c03948e9e2
      * Line: 396
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL396_4b3ef0f1d3cb9598a3fb94c03948e9e2()
     {
@@ -553,7 +553,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  72ef8c634b3594963f203d2b3631c12e
      * Line: 419
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL419_72ef8c634b3594963f203d2b3631c12e()
     {
@@ -577,7 +577,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  6dd3c5a716302fdd39fcf5c150b826bc
      * Line: 435
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL435_6dd3c5a716302fdd39fcf5c150b826bc()
     {
@@ -607,7 +607,7 @@ class Shape extends SimpleExamplesTester {
     /**
      * Tag:  70932f56df27fb502d2095fefcaa83d6
      * Line: 451
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL451_70932f56df27fb502d2095fefcaa83d6()
     {

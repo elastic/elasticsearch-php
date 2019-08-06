@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StatsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/matrix/stats-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  8ab89e635fcbc485d1728c13dfeeb1ae
      * Line: 39
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL39_8ab89e635fcbc485d1728c13dfeeb1ae()
     {
@@ -61,7 +61,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7ee2877f8f031b9a4e56a40b371421fb
      * Line: 123
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL123_7ee2877f8f031b9a4e56a40b371421fb()
     {

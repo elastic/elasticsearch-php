@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Boolean
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/boolean.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Boolean extends SimpleExamplesTester {
     /**
      * Tag:  1c1be1df747c9f8ecc9f82e980387d8f
      * Line: 22
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL22_1c1be1df747c9f8ecc9f82e980387d8f()
     {
@@ -85,7 +85,7 @@ class Boolean extends SimpleExamplesTester {
     /**
      * Tag:  636ec3c018ac15ec11caf6f3d835a08c
      * Line: 58
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL58_636ec3c018ac15ec11caf6f3d835a08c()
     {
@@ -113,7 +113,7 @@ class Boolean extends SimpleExamplesTester {
         //     "is_published": {
         //       "script": {
         //         "lang": "painless",
-        //         "source": "doc['is_published'].value"
+        //         "source": "doc[\'is_published\'].value"
         //       }
         //     }
         //   }
@@ -141,7 +141,7 @@ class Boolean extends SimpleExamplesTester {
               . '    "is_published": {'
               . '      "script": {'
               . '        "lang": "painless",'
-              . '        "source": "doc['is_published'].value"'
+              . '        "source": "doc[\'is_published\'].value"'
               . '      }'
               . '    }'
               . '  }'

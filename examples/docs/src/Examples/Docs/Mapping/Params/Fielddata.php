@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Fielddata
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/fielddata.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Fielddata extends SimpleExamplesTester {
     /**
      * Tag:  ef9111c1648d7820925f12e07d1346c5
      * Line: 58
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL58_ef9111c1648d7820925f12e07d1346c5()
     {
@@ -71,7 +71,7 @@ class Fielddata extends SimpleExamplesTester {
     /**
      * Tag:  a7c15fe6b5779c84ce9a34bf4b2a7ab7
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL86_a7c15fe6b5779c84ce9a34bf4b2a7ab7()
     {
@@ -105,7 +105,7 @@ class Fielddata extends SimpleExamplesTester {
     /**
      * Tag:  6a81d00f0d73bc5985e76b3cadab645e
      * Line: 120
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL120_6a81d00f0d73bc5985e76b3cadab645e()
     {

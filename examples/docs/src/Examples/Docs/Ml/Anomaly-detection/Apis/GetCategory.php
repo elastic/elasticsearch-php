@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetCategory
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/get-category.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetCategory extends SimpleExamplesTester {
     /**
      * Tag:  e8f1c9ee003d115ec8f55e57990df6e4
      * Line: 70
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL70_e8f1c9ee003d115ec8f55e57990df6e4()
     {

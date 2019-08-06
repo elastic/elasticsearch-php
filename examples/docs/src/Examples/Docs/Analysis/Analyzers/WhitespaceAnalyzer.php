@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: WhitespaceAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/whitespace-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class WhitespaceAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  262a778d754add491fbc9c721ac25bf0
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_262a778d754add491fbc9c721ac25bf0()
     {
@@ -35,14 +35,14 @@ class WhitespaceAnalyzer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "analyzer": "whitespace",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::262a778d754add491fbc9c721ac25bf0[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "analyzer": "whitespace",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion
@@ -51,7 +51,7 @@ class WhitespaceAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  31aed390c30bd4f42a5c56253695e53f
      * Line: 130
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL130_31aed390c30bd4f42a5c56253695e53f()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: HunspellTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/hunspell-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class HunspellTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  0af002734dd884f9385da6c3a4ca87a1
      * Line: 44
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL44_0af002734dd884f9385da6c3a4ca87a1()
     {

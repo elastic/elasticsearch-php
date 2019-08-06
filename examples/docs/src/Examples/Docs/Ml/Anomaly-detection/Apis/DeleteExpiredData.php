@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteExpiredData
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-expired-data.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteExpiredData extends SimpleExamplesTester {
     /**
      * Tag:  f2f09bc4723805c7aaabdc83c55100fa
      * Line: 36
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL36_f2f09bc4723805c7aaabdc83c55100fa()
     {

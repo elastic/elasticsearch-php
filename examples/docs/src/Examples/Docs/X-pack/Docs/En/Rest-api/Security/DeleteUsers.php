@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteUsers
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/delete-users.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteUsers extends SimpleExamplesTester {
     /**
      * Tag:  ffd63dd186ab81b893faec3b3358fa09
      * Line: 36
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL36_ffd63dd186ab81b893faec3b3358fa09()
     {

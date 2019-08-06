@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StopTransform
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   data-frames/apis/stop-transform.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StopTransform extends SimpleExamplesTester {
     /**
      * Tag:  a54a3affc99756ba9cc8b4860fd5206e
      * Line: 95
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL95_a54a3affc99756ba9cc8b4860fd5206e()
     {

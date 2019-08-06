@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PostUnfollow
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/post-unfollow.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PostUnfollow extends SimpleExamplesTester {
     /**
      * Tag:  f6d493650b4344f17297b568016fb445
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL35_f6d493650b4344f17297b568016fb445()
     {
@@ -43,7 +43,7 @@ class PostUnfollow extends SimpleExamplesTester {
     /**
      * Tag:  6a350a17701e8c8158407191f2718b66
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL72_6a350a17701e8c8158407191f2718b66()
     {

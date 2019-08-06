@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Slowlog
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   index-modules/slowlog.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Slowlog extends SimpleExamplesTester {
     /**
      * Tag:  fa0b341d790a4da480b47bf501835359
      * Line: 33
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL33_fa0b341d790a4da480b47bf501835359()
     {
@@ -65,7 +65,7 @@ class Slowlog extends SimpleExamplesTester {
     /**
      * Tag:  44a16db65121edaf099d944819356e2c
      * Line: 109
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL109_44a16db65121edaf099d944819356e2c()
     {

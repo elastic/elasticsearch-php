@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IprangeAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/iprange-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IprangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  01cc705f6074ab637cfbb9f92cf44e44
      * Line: 9
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL9_01cc705f6074ab637cfbb9f92cf44e44()
     {
@@ -71,7 +71,7 @@ class IprangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9f4ba6565d80e0964e177eaac9fb0614
      * Line: 59
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL59_9f4ba6565d80e0964e177eaac9fb0614()
     {
@@ -117,7 +117,7 @@ class IprangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c4db73a276175d57c6a9a0387e728028
      * Line: 113
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL113_c4db73a276175d57c6a9a0387e728028()
     {
@@ -165,7 +165,7 @@ class IprangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  fa8ee2094af36e7ec02233a4c7b008bc
      * Line: 162
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL162_fa8ee2094af36e7ec02233a4c7b008bc()
     {

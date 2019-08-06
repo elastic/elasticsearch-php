@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: KeepWordsTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/keep-words-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class KeepWordsTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  44cb20732770bb9a5f114a7517db774f
      * Line: 22
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL22_44cb20732770bb9a5f114a7517db774f()
     {

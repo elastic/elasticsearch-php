@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ConfiguringPkiRealm
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ../../x-pack/docs/en/security/authentication/configuring-pki-realm.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ConfiguringPkiRealm extends SimpleExamplesTester {
     /**
      * Tag:  70bbe14bc4d5a5d58e81ab2b02408817
      * Line: 140
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL140_70bbe14bc4d5a5d58e81ab2b02408817()
     {

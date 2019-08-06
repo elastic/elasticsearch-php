@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SearchAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/search-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SearchAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  60677e5144fed659e8417b7fa9964285
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_60677e5144fed659e8417b7fa9964285()
     {

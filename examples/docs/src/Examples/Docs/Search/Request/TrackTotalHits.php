@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TrackTotalHits
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/track-total-hits.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TrackTotalHits extends SimpleExamplesTester {
     /**
      * Tag:  32789ba30a73d8813b61c39619ad7d71
      * Line: 23
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL23_32789ba30a73d8813b61c39619ad7d71()
     {
@@ -59,7 +59,7 @@ class TrackTotalHits extends SimpleExamplesTester {
     /**
      * Tag:  e45cb729ed4a694b2d6cabaa55c9b5be
      * Line: 69
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL69_e45cb729ed4a694b2d6cabaa55c9b5be()
     {
@@ -93,7 +93,7 @@ class TrackTotalHits extends SimpleExamplesTester {
     /**
      * Tag:  d9e08bca979c7ba3a9581f69470bf914
      * Line: 145
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL145_d9e08bca979c7ba3a9581f69470bf914()
     {

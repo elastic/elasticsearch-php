@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SpanFirstQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/span-first-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SpanFirstQuery extends SimpleExamplesTester {
     /**
      * Tag:  020655381882d0721472a1581e06384a
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_020655381882d0721472a1581e06384a()
     {

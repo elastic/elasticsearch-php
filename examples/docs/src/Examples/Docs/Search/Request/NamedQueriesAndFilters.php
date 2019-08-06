@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: NamedQueriesAndFilters
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/named-queries-and-filters.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class NamedQueriesAndFilters extends SimpleExamplesTester {
     /**
      * Tag:  0aad4321e968effc6e6ef2b98c6c71a5
      * Line: 7
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL7_0aad4321e968effc6e6ef2b98c6c71a5()
     {

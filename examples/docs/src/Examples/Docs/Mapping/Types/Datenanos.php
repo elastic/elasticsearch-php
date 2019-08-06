@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Datenanos
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/date_nanos.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Datenanos extends SimpleExamplesTester {
     /**
      * Tag:  14dc06a4c28ffdc1f9dde97dc6838c1e
      * Line: 32
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL32_14dc06a4c28ffdc1f9dde97dc6838c1e()
     {
@@ -60,7 +60,7 @@ class Datenanos extends SimpleExamplesTester {
         //     "my_field" : {
         //       "script" : {
         //         "lang" : "painless",
-        //         "source" : "doc['date'].date.nanos" \<6>
+        //         "source" : "doc[\'date\'].date.nanos" \<6>
         //       }
         //     }
         //   }
@@ -104,7 +104,7 @@ class Datenanos extends SimpleExamplesTester {
               . '    "my_field" : {'
               . '      "script" : {'
               . '        "lang" : "painless",'
-              . '        "source" : "doc['date'].date.nanos" \<6>'
+              . '        "source" : "doc[\'date\'].date.nanos" \<6>'
               . '      }'
               . '    }'
               . '  }'

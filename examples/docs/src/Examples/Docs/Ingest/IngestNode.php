@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IngestNode
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/ingest-node.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  841306ff1ac69cceb5bf1c28e2f26dd3
      * Line: 186
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL186_841306ff1ac69cceb5bf1c28e2f26dd3()
     {
@@ -37,7 +37,7 @@ class IngestNode extends SimpleExamplesTester {
         //   "processors": [
         //     {
         //       "drop": {
-        //         "if": "ctx.network_name == 'Guest'"
+        //         "if": "ctx.network_name == \'Guest\'"
         //       }
         //     }
         //   ]
@@ -49,7 +49,7 @@ class IngestNode extends SimpleExamplesTester {
               . '  "processors": ['
               . '    {'
               . '      "drop": {'
-              . '        "if": "ctx.network_name == 'Guest'"'
+              . '        "if": "ctx.network_name == \'Guest\'"'
               . '      }'
               . '    }'
               . '  ]'
@@ -61,7 +61,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  027ee5302d967b530123886906c42a90
      * Line: 203
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL203_027ee5302d967b530123886906c42a90()
     {
@@ -85,7 +85,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  9a5f1f590791012d32d29605daf82135
      * Line: 246
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL246_9a5f1f590791012d32d29605daf82135()
     {
@@ -97,7 +97,7 @@ class IngestNode extends SimpleExamplesTester {
         //   "processors": [
         //     {
         //       "drop": {
-        //         "if": "ctx.network?.name == 'Guest'"
+        //         "if": "ctx.network?.name == \'Guest\'"
         //       }
         //     }
         //   ]
@@ -109,7 +109,7 @@ class IngestNode extends SimpleExamplesTester {
               . '  "processors": ['
               . '    {'
               . '      "drop": {'
-              . '        "if": "ctx.network?.name == 'Guest'"'
+              . '        "if": "ctx.network?.name == \'Guest\'"'
               . '      }'
               . '    }'
               . '  ]'
@@ -121,7 +121,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  f8a8b78caaf69d44c71c476ea2a178aa
      * Line: 263
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL263_f8a8b78caaf69d44c71c476ea2a178aa()
     {
@@ -149,7 +149,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  3eb75cee4c802d99bb526386349ee36b
      * Line: 279
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL279_3eb75cee4c802d99bb526386349ee36b()
     {
@@ -173,7 +173,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  089ca88d7fd064a474e156d773211bc5
      * Line: 342
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL342_089ca88d7fd064a474e156d773211bc5()
     {
@@ -190,7 +190,7 @@ class IngestNode extends SimpleExamplesTester {
         //     },
         //     {
         //       "drop": {
-        //         "if": "ctx.network?.name == 'Guest'"
+        //         "if": "ctx.network?.name == \'Guest\'"
         //       }
         //     }
         //   ]
@@ -207,7 +207,7 @@ class IngestNode extends SimpleExamplesTester {
               . '    },'
               . '    {'
               . '      "drop": {'
-              . '        "if": "ctx.network?.name == 'Guest'"'
+              . '        "if": "ctx.network?.name == \'Guest\'"'
               . '      }'
               . '    }'
               . '  ]'
@@ -219,7 +219,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  8f6cec77f890027ad2e01f06e1290e25
      * Line: 364
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL364_8f6cec77f890027ad2e01f06e1290e25()
     {
@@ -243,7 +243,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  3b54be0a1a020edb8943f063f05b5cd7
      * Line: 412
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL412_3b54be0a1a020edb8943f063f05b5cd7()
     {
@@ -255,7 +255,7 @@ class IngestNode extends SimpleExamplesTester {
         //   "processors": [
         //     {
         //       "drop": {
-        //         "if": "Collection tags = ctx.tags;if(tags != null){for (String tag : tags) {if (tag.toLowerCase().contains('prod')) { return false;}}} return true;"
+        //         "if": "Collection tags = ctx.tags;if(tags != null){for (String tag : tags) {if (tag.toLowerCase().contains(\'prod\')) { return false;}}} return true;"
         //       }
         //     }
         //   ]
@@ -267,7 +267,7 @@ class IngestNode extends SimpleExamplesTester {
               . '  "processors": ['
               . '    {'
               . '      "drop": {'
-              . '        "if": "Collection tags = ctx.tags;if(tags != null){for (String tag : tags) {if (tag.toLowerCase().contains('prod')) { return false;}}} return true;"'
+              . '        "if": "Collection tags = ctx.tags;if(tags != null){for (String tag : tags) {if (tag.toLowerCase().contains(\'prod\')) { return false;}}} return true;"'
               . '      }'
               . '    }'
               . '  ]'
@@ -279,7 +279,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  da19607976c3740945300c18e692bc49
      * Line: 458
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL458_da19607976c3740945300c18e692bc49()
     {
@@ -303,7 +303,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  784dcf96b4970ce6c90d999cdfc2ef0b
      * Line: 474
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL474_784dcf96b4970ce6c90d999cdfc2ef0b()
     {
@@ -327,7 +327,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  462b3cfb75b60b2df9e0567520aa9bf9
      * Line: 529
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL529_462b3cfb75b60b2df9e0567520aa9bf9()
     {
@@ -341,13 +341,13 @@ class IngestNode extends SimpleExamplesTester {
         //   "processors": [
         //     {
         //       "pipeline": {
-        //         "if": "ctx.service?.name == 'apache_httpd'",
+        //         "if": "ctx.service?.name == \'apache_httpd\'",
         //         "name": "httpd_pipeline"
         //       }
         //     },
         //     {
         //       "pipeline": {
-        //         "if": "ctx.service?.name == 'syslog'",
+        //         "if": "ctx.service?.name == \'syslog\'",
         //         "name": "syslog_pipeline"
         //       }
         //     },
@@ -367,13 +367,13 @@ class IngestNode extends SimpleExamplesTester {
               . '  "processors": ['
               . '    {'
               . '      "pipeline": {'
-              . '        "if": "ctx.service?.name == 'apache_httpd'",'
+              . '        "if": "ctx.service?.name == \'apache_httpd\'",'
               . '        "name": "httpd_pipeline"'
               . '      }'
               . '    },'
               . '    {'
               . '      "pipeline": {'
-              . '        "if": "ctx.service?.name == 'syslog'",'
+              . '        "if": "ctx.service?.name == \'syslog\'",'
               . '        "name": "syslog_pipeline"'
               . '      }'
               . '    },'
@@ -391,7 +391,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  fe2d94eba550076cc27ee21a711fdb5c
      * Line: 575
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL575_fe2d94eba550076cc27ee21a711fdb5c()
     {
@@ -431,7 +431,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  bfc92c930234ada7a3f394263b0deb1e
      * Line: 592
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL592_bfc92c930234ada7a3f394263b0deb1e()
     {
@@ -459,7 +459,7 @@ class IngestNode extends SimpleExamplesTester {
     /**
      * Tag:  2ad6189aef1ecbb52bf0ddbd4e7a80cb
      * Line: 643
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL643_2ad6189aef1ecbb52bf0ddbd4e7a80cb()
     {
@@ -471,7 +471,7 @@ class IngestNode extends SimpleExamplesTester {
         //   "processors": [
         //     {
         //       "set": {
-        //         "if": "ctx.href?.url != null && ctx.href.url.startsWith('http://')",
+        //         "if": "ctx.href?.url != null && ctx.href.url.startsWith(\'http://\')",
         //         "field": "href.insecure",
         //         "value": true
         //       }
@@ -485,7 +485,7 @@ class IngestNode extends SimpleExamplesTester {
               . '  "processors": ['
               . '    {'
               . '      "set": {'
-              . '        "if": "ctx.href?.url != null && ctx.href.url.startsWith('http://')",'
+              . '        "if": "ctx.href?.url != null && ctx.href.url.startsWith(\'http://\')",'
               . '        "field": "href.insecure",'
               . '        "value": true'
               . '      }'

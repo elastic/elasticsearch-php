@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteDatafeed
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-datafeed.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteDatafeed extends SimpleExamplesTester {
     /**
      * Tag:  8a12cd824404d74f098d854716a26899
      * Line: 46
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL46_8a12cd824404d74f098d854716a26899()
     {

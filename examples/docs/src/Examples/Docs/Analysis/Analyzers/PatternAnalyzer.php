@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PatternAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/pattern-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PatternAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  467833bd44b35a89a7fe0d7df5f253f1
      * Line: 26
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL26_467833bd44b35a89a7fe0d7df5f253f1()
     {
@@ -35,14 +35,14 @@ class PatternAnalyzer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "analyzer": "pattern",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::467833bd44b35a89a7fe0d7df5f253f1[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "analyzer": "pattern",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion
@@ -51,7 +51,7 @@ class PatternAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  314851d590d195015a76866b92cf6b32
      * Line: 179
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL179_314851d590d195015a76866b92cf6b32()
     {
@@ -105,7 +105,7 @@ class PatternAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  9e2f7b134ac7c5e7c0119866b7a96700
      * Line: 268
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL268_9e2f7b134ac7c5e7c0119866b7a96700()
     {
@@ -157,7 +157,7 @@ class PatternAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  f453e14bcf30853e57618bf12f83e148
      * Line: 388
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL388_f453e14bcf30853e57618bf12f83e148()
     {

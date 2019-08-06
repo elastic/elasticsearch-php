@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SimplepatternTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/simplepattern-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SimplepatternTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  9ffc049d5c5a570b90d913e92f910ee4
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL38_9ffc049d5c5a570b90d913e92f910ee4()
     {

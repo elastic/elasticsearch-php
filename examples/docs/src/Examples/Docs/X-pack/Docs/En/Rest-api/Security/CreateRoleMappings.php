@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CreateRoleMappings
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/create-role-mappings.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  23b062c157235246d7c347b9047b2435
      * Line: 104
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL104_23b062c157235246d7c347b9047b2435()
     {
@@ -63,7 +63,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  b176e0d428726705298184ef39ad5cb2
      * Line: 139
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL139_b176e0d428726705298184ef39ad5cb2()
     {
@@ -95,7 +95,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  e60b7f75ca806f2c74927c3d9409a986
      * Line: 153
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL153_e60b7f75ca806f2c74927c3d9409a986()
     {
@@ -127,7 +127,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  7a23a385a63c87cab58fd494870450fd
      * Line: 169
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL169_7a23a385a63c87cab58fd494870450fd()
     {
@@ -181,7 +181,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  5ad365ed9e1a3c26093a0f09666c133a
      * Line: 212
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL212_5ad365ed9e1a3c26093a0f09666c133a()
     {
@@ -223,7 +223,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  7e5faa551f2c95ffd627da352563d450
      * Line: 236
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL236_7e5faa551f2c95ffd627da352563d450()
     {
@@ -255,7 +255,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  b80e1f5b26bae4f3c2f8a604b7caaf17
      * Line: 252
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL252_b80e1f5b26bae4f3c2f8a604b7caaf17()
     {
@@ -293,7 +293,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  0d94d76b7f00d0459d1f8c962c144dcd
      * Line: 277
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL277_0d94d76b7f00d0459d1f8c962c144dcd()
     {
@@ -379,7 +379,7 @@ class CreateRoleMappings extends SimpleExamplesTester {
     /**
      * Tag:  50dc35d3d8705bd62aed20a15209476c
      * Line: 328
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL328_50dc35d3d8705bd62aed20a15209476c()
     {

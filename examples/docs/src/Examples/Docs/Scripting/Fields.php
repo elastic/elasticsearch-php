@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Fields
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   scripting/fields.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Fields extends SimpleExamplesTester {
     /**
      * Tag:  729f4abc0b4edaf6b58bd9e7b3fd5a8b
      * Line: 46
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL46_729f4abc0b4edaf6b58bd9e7b3fd5a8b()
     {
@@ -54,7 +54,7 @@ class Fields extends SimpleExamplesTester {
         //       "script_score": {
         //         "script": {
         //           "lang": "expression",
-        //           "source": "_score * doc['popularity']"
+        //           "source": "_score * doc[\'popularity\']"
         //         }
         //       }
         //     }
@@ -84,7 +84,7 @@ class Fields extends SimpleExamplesTester {
               . '      "script_score": {'
               . '        "script": {'
               . '          "lang": "expression",'
-              . '          "source": "_score * doc['popularity']"'
+              . '          "source": "_score * doc[\'popularity\']"'
               . '        }'
               . '      }'
               . '    }'
@@ -97,7 +97,7 @@ class Fields extends SimpleExamplesTester {
     /**
      * Tag:  0dfe9d6724c7bd11094bb4a0796e7ac7
      * Line: 91
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL91_0dfe9d6724c7bd11094bb4a0796e7ac7()
     {
@@ -114,7 +114,7 @@ class Fields extends SimpleExamplesTester {
         //     "sales_price": {
         //       "script": {
         //         "lang":   "expression",
-        //         "source": "doc['cost_price'] * markup",
+        //         "source": "doc[\'cost_price\'] * markup",
         //         "params": {
         //           "markup": 0.2
         //         }
@@ -134,7 +134,7 @@ class Fields extends SimpleExamplesTester {
               . '    "sales_price": {'
               . '      "script": {'
               . '        "lang":   "expression",'
-              . '        "source": "doc['cost_price'] * markup",'
+              . '        "source": "doc[\'cost_price\'] * markup",'
               . '        "params": {'
               . '          "markup": 0.2'
               . '        }'
@@ -149,7 +149,7 @@ class Fields extends SimpleExamplesTester {
     /**
      * Tag:  2a9c29afe23e30a68dd6e30ea22f5d42
      * Line: 174
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL174_2a9c29afe23e30a68dd6e30ea22f5d42()
     {
@@ -186,13 +186,13 @@ class Fields extends SimpleExamplesTester {
         //     "source": {
         //       "script": {
         //         "lang": "painless",
-        //         "source": "params._source.title + ' ' + params._source.first_name + ' ' + params._source.last_name" \<2>
+        //         "source": "params._source.title + \' \' + params._source.first_name + \' \' + params._source.last_name" \<2>
         //       }
         //     },
         //     "stored_fields": {
         //       "script": {
         //         "lang": "painless",
-        //         "source": "params._fields['first_name'].value + ' ' + params._fields['last_name'].value"
+        //         "source": "params._fields[\'first_name\'].value + \' \' + params._fields[\'last_name\'].value"
         //       }
         //     }
         //   }
@@ -229,13 +229,13 @@ class Fields extends SimpleExamplesTester {
               . '    "source": {'
               . '      "script": {'
               . '        "lang": "painless",'
-              . '        "source": "params._source.title + ' ' + params._source.first_name + ' ' + params._source.last_name" \<2>'
+              . '        "source": "params._source.title + \' \' + params._source.first_name + \' \' + params._source.last_name" \<2>'
               . '      }'
               . '    },'
               . '    "stored_fields": {'
               . '      "script": {'
               . '        "lang": "painless",'
-              . '        "source": "params._fields['first_name'].value + ' ' + params._fields['last_name'].value"'
+              . '        "source": "params._fields[\'first_name\'].value + \' \' + params._fields[\'last_name\'].value"'
               . '      }'
               . '    }'
               . '  }'

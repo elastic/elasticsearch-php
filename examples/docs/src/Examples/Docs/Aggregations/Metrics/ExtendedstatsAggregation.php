@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ExtendedstatsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/extendedstats-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b1c3e5c4a1a22ac329bbdec4d0de1082
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL11_b1c3e5c4a1a22ac329bbdec4d0de1082()
     {
@@ -55,7 +55,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  eb8df98231df40c61f5feef4946b1a92
      * Line: 59
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL59_eb8df98231df40c61f5feef4946b1a92()
     {
@@ -95,7 +95,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  83476d04b393850da0697e1bfae58b4a
      * Line: 93
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL93_83476d04b393850da0697e1bfae58b4a()
     {
@@ -109,7 +109,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
         //         "grades_stats" : {
         //             "extended_stats" : {
         //                 "script" : {
-        //                     "source" : "doc['grade'].value",
+        //                     "source" : "doc[\'grade\'].value",
         //                     "lang" : "painless"
         //                  }
         //              }
@@ -125,7 +125,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
               . '        "grades_stats" : {'
               . '            "extended_stats" : {'
               . '                "script" : {'
-              . '                    "source" : "doc['grade'].value",'
+              . '                    "source" : "doc[\'grade\'].value",'
               . '                    "lang" : "painless"'
               . '                 }'
               . '             }'
@@ -139,7 +139,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2cf036d054901b5d7b4a84780c320f2d
      * Line: 115
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL115_2cf036d054901b5d7b4a84780c320f2d()
     {
@@ -187,7 +187,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  533b447e1ca8c575e38ecd9b1917c17c
      * Line: 141
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL141_533b447e1ca8c575e38ecd9b1917c17c()
     {
@@ -239,7 +239,7 @@ class ExtendedstatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  44a7cf8482bdc3d1c11f4b3b35683b99
      * Line: 171
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL171_44a7cf8482bdc3d1c11f4b3b35683b99()
     {

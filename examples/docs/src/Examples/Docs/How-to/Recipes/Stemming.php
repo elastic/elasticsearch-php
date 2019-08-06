@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Stemming
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   how-to/recipes/stemming.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Stemming extends SimpleExamplesTester {
     /**
      * Tag:  397bdb40d0146102f1f4c6a35675e16a
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_397bdb40d0146102f1f4c6a35675e16a()
     {
@@ -117,7 +117,7 @@ class Stemming extends SimpleExamplesTester {
     /**
      * Tag:  bf2e6ea2bae621b9b2fee7003e891f86
      * Line: 59
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL59_bf2e6ea2bae621b9b2fee7003e891f86()
     {
@@ -151,7 +151,7 @@ class Stemming extends SimpleExamplesTester {
     /**
      * Tag:  3f94ed945ae6416a0eb372c2db14d7e0
      * Line: 120
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL120_3f94ed945ae6416a0eb372c2db14d7e0()
     {
@@ -185,7 +185,7 @@ class Stemming extends SimpleExamplesTester {
     /**
      * Tag:  26abfc49c238c2b5d259983ac38dbcee
      * Line: 179
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL179_26abfc49c238c2b5d259983ac38dbcee()
     {

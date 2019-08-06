@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: UpdateByQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   docs/update-by-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  a4a396cd07657b3977713fb3a742c41b
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL10_a4a396cd07657b3977713fb3a742c41b()
     {
@@ -43,7 +43,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  a4a396cd07657b3977713fb3a742c41b
      * Line: 69
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL69_a4a396cd07657b3977713fb3a742c41b()
     {
@@ -61,7 +61,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  52a87b81e4e0b6b11e23e85db1602a63
      * Line: 80
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL80_52a87b81e4e0b6b11e23e85db1602a63()
     {
@@ -93,7 +93,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  2fd69fb0538e4f36ac69a8b8f8bf5ae8
      * Line: 104
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL104_2fd69fb0538e4f36ac69a8b8f8bf5ae8()
     {
@@ -133,7 +133,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  cde4dddae5c06e7f1d38c9d933dbc7ac
      * Line: 152
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL152_cde4dddae5c06e7f1d38c9d933dbc7ac()
     {
@@ -151,7 +151,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  d8b115341da772a628a024e7d1644e73
      * Line: 162
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL162_d8b115341da772a628a024e7d1644e73()
     {
@@ -169,7 +169,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  54a770f053f3225ea0d1e34334232411
      * Line: 172
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL172_54a770f053f3225ea0d1e34334232411()
     {
@@ -187,7 +187,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  c4b278ba293abd0d02a0b5ad1a99f84a
      * Line: 182
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL182_c4b278ba293abd0d02a0b5ad1a99f84a()
     {
@@ -225,7 +225,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  7df191cc7f814e410a4ac7261065e6ef
      * Line: 360
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL360_7df191cc7f814e410a4ac7261065e6ef()
     {
@@ -243,7 +243,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  be3a6431d01846950dc1a39a7a6a1faa
      * Line: 420
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL420_be3a6431d01846950dc1a39a7a6a1faa()
     {
@@ -261,7 +261,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  18ddb7e7a4bcafd449df956e828ed7a8
      * Line: 441
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL441_18ddb7e7a4bcafd449df956e828ed7a8()
     {
@@ -279,7 +279,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  bdb30dd52d32f50994008f4f9c0da5f0
      * Line: 461
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL461_bdb30dd52d32f50994008f4f9c0da5f0()
     {
@@ -297,7 +297,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  0d664883151008b1051ef2c9ab2d0373
      * Line: 490
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL490_0d664883151008b1051ef2c9ab2d0373()
     {
@@ -311,7 +311,7 @@ class UpdateByQuery extends SimpleExamplesTester {
         //     "max": 2
         //   },
         //   "script": {
-        //     "source": "ctx._source['extra'] = 'test'"
+        //     "source": "ctx._source[\'extra\'] = \'test\'"
         //   }
         // }
         // POST twitter/_update_by_query
@@ -321,7 +321,7 @@ class UpdateByQuery extends SimpleExamplesTester {
         //     "max": 2
         //   },
         //   "script": {
-        //     "source": "ctx._source['extra'] = 'test'"
+        //     "source": "ctx._source[\'extra\'] = \'test\'"
         //   }
         // }
         // end::0d664883151008b1051ef2c9ab2d0373[]
@@ -333,7 +333,7 @@ class UpdateByQuery extends SimpleExamplesTester {
               . '    "max": 2'
               . '  },'
               . '  "script": {'
-              . '    "source": "ctx._source['extra'] = 'test'"'
+              . '    "source": "ctx._source[\'extra\'] = \'test\'"'
               . '  }'
               . '}'
               . 'POST twitter/_update_by_query'
@@ -343,7 +343,7 @@ class UpdateByQuery extends SimpleExamplesTester {
               . '    "max": 2'
               . '  },'
               . '  "script": {'
-              . '    "source": "ctx._source['extra'] = 'test'"'
+              . '    "source": "ctx._source[\'extra\'] = \'test\'"'
               . '  }'
               . '}';
 
@@ -353,7 +353,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  4acf902c2598b2558f34f20c1744c433
      * Line: 518
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL518_4acf902c2598b2558f34f20c1744c433()
     {
@@ -373,7 +373,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  ea02de2dbe05091fcb0dac72c8ba5f83
      * Line: 549
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL549_ea02de2dbe05091fcb0dac72c8ba5f83()
     {
@@ -383,7 +383,7 @@ class UpdateByQuery extends SimpleExamplesTester {
         // POST twitter/_update_by_query?refresh&slices=5
         // {
         //   "script": {
-        //     "source": "ctx._source['extra'] = 'test'"
+        //     "source": "ctx._source[\'extra\'] = \'test\'"
         //   }
         // }
         // end::ea02de2dbe05091fcb0dac72c8ba5f83[]
@@ -391,7 +391,7 @@ class UpdateByQuery extends SimpleExamplesTester {
         $curl = 'POST twitter/_update_by_query?refresh&slices=5'
               . '{'
               . '  "script": {'
-              . '    "source": "ctx._source['extra'] = 'test'"'
+              . '    "source": "ctx._source[\'extra\'] = \'test\'"'
               . '  }'
               . '}';
 
@@ -401,7 +401,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  025b54db0edc50c24ea48a2bd94366ad
      * Line: 563
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL563_025b54db0edc50c24ea48a2bd94366ad()
     {
@@ -419,7 +419,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  2fe28d9a91b3081a9ec4601af8fb7b1c
      * Line: 641
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL641_2fe28d9a91b3081a9ec4601af8fb7b1c()
     {
@@ -487,7 +487,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  abd4fc3ce7784413a56fe2dcfe2809b5
      * Line: 680
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL680_abd4fc3ce7784413a56fe2dcfe2809b5()
     {
@@ -519,7 +519,7 @@ class UpdateByQuery extends SimpleExamplesTester {
     /**
      * Tag:  97babc8d19ef0866774576716eb6d19e
      * Line: 709
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL709_97babc8d19ef0866774576716eb6d19e()
     {

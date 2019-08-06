@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MltQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/mlt-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MltQuery extends SimpleExamplesTester {
     /**
      * Tag:  32db70e5e08349aa254788ab4a2c4a51
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_32db70e5e08349aa254788ab4a2c4a51()
     {
@@ -63,7 +63,7 @@ class MltQuery extends SimpleExamplesTester {
     /**
      * Tag:  cba099b82792fa5ba7741d00483c2b47
      * Line: 39
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL39_cba099b82792fa5ba7741d00483c2b47()
     {
@@ -121,7 +121,7 @@ class MltQuery extends SimpleExamplesTester {
     /**
      * Tag:  33f77a3b80f33323faa091538220de2a
      * Line: 69
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL69_33f77a3b80f33323faa091538220de2a()
     {
@@ -141,7 +141,7 @@ class MltQuery extends SimpleExamplesTester {
         //                         "first": "Ben",
         //                         "last": "Grimm"
         //                     },
-        //                     "_doc": "You got no idea what I'd... what I'd give to be invisible."
+        //                     "_doc": "You got no idea what I\'d... what I\'d give to be invisible."
         //                   }
         //             },
         //             {
@@ -169,7 +169,7 @@ class MltQuery extends SimpleExamplesTester {
               . '                        "first": "Ben",'
               . '                        "last": "Grimm"'
               . '                    },'
-              . '                    "_doc": "You got no idea what I'd... what I'd give to be invisible."'
+              . '                    "_doc": "You got no idea what I\'d... what I\'d give to be invisible."'
               . '                  }'
               . '            },'
               . '            {'
@@ -189,7 +189,7 @@ class MltQuery extends SimpleExamplesTester {
     /**
      * Tag:  084b3e3ff6f22c1c9a56b79760f50b36
      * Line: 124
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL124_084b3e3ff6f22c1c9a56b79760f50b36()
     {

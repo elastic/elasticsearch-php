@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PhraseSuggest
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/suggesters/phrase-suggest.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PhraseSuggest extends SimpleExamplesTester {
     /**
      * Tag:  5566cff431570f522e1fc5475b2ed875
      * Line: 25
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL25_5566cff431570f522e1fc5475b2ed875()
     {
@@ -141,7 +141,7 @@ class PhraseSuggest extends SimpleExamplesTester {
     /**
      * Tag:  3b162509ed14eda44a9681cd1108fa39
      * Line: 84
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL84_3b162509ed14eda44a9681cd1108fa39()
     {
@@ -199,7 +199,7 @@ class PhraseSuggest extends SimpleExamplesTester {
     /**
      * Tag:  89a6b24618cafd60de1702a5b9f28a8d
      * Line: 226
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL226_89a6b24618cafd60de1702a5b9f28a8d()
     {
@@ -271,7 +271,7 @@ class PhraseSuggest extends SimpleExamplesTester {
     /**
      * Tag:  203c3bb334384bdfb11ff1101ccfba25
      * Line: 295
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL295_203c3bb334384bdfb11ff1101ccfba25()
     {
@@ -321,7 +321,7 @@ class PhraseSuggest extends SimpleExamplesTester {
     /**
      * Tag:  eb6d62f1d855a8e8fe9eab2656d47504
      * Line: 416
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL416_eb6d62f1d855a8e8fe9eab2656d47504()
     {

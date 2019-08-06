@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TypeField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/type-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TypeField extends SimpleExamplesTester {
     /**
      * Tag:  1e867a2d4e10e70350d458a473544022
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_1e867a2d4e10e70350d458a473544022()
     {
@@ -35,7 +35,7 @@ class TypeField extends SimpleExamplesTester {
         // # Example documents
         // PUT my_index/_doc/1?refresh=true
         // {
-        //   "text": "Document with type 'doc'"
+        //   "text": "Document with type \'doc\'"
         // }
         // GET my_index/_search
         // {
@@ -63,7 +63,7 @@ class TypeField extends SimpleExamplesTester {
         //     "type": {
         //       "script": {
         //         "lang": "painless",
-        //         "source": "doc['_type']" \<4>
+        //         "source": "doc[\'_type\']" \<4>
         //       }
         //     }
         //   }
@@ -73,7 +73,7 @@ class TypeField extends SimpleExamplesTester {
         $curl = '# Example documents'
               . 'PUT my_index/_doc/1?refresh=true'
               . '{'
-              . '  "text": "Document with type 'doc'"'
+              . '  "text": "Document with type \'doc\'"'
               . '}'
               . 'GET my_index/_search'
               . '{'
@@ -101,7 +101,7 @@ class TypeField extends SimpleExamplesTester {
               . '    "type": {'
               . '      "script": {'
               . '        "lang": "painless",'
-              . '        "source": "doc['_type']" \<4>'
+              . '        "source": "doc[\'_type\']" \<4>'
               . '      }'
               . '    }'
               . '  }'

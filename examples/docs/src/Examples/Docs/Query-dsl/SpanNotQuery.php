@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SpanNotQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/span-not-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SpanNotQuery extends SimpleExamplesTester {
     /**
      * Tag:  4a3b37cdf27279800355ccdef0e13128
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL13_4a3b37cdf27279800355ccdef0e13128()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeletePipeline
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/apis/delete-pipeline.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeletePipeline extends SimpleExamplesTester {
     /**
      * Tag:  a05925031c1bfbb10c4ef6e5b678e20a
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_a05925031c1bfbb10c4ef6e5b678e20a()
     {
@@ -43,7 +43,7 @@ class DeletePipeline extends SimpleExamplesTester {
     /**
      * Tag:  6ae6a398b979af8231cf6753a9a73f99
      * Line: 64
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL64_6ae6a398b979af8231cf6753a9a73f99()
     {

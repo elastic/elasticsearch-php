@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Scoring
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   how-to/recipes/scoring.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Scoring extends SimpleExamplesTester {
     /**
      * Tag:  a0f15dd7fcb07bc8543fe04c2907d4b9
      * Line: 125
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL125_a0f15dd7fcb07bc8543fe04c2907d4b9()
     {
@@ -40,7 +40,7 @@ class Scoring extends SimpleExamplesTester {
         //                 "match": { "body": "elasticsearch" }
         //             },
         //             "script" : {
-        //                 "source" : "_score * saturation(doc['pagerank'].value, 10)" \<1>
+        //                 "source" : "_score * saturation(doc[\'pagerank\'].value, 10)" \<1>
         //             }
         //         }
         //     }
@@ -55,7 +55,7 @@ class Scoring extends SimpleExamplesTester {
               . '                "match": { "body": "elasticsearch" }'
               . '            },'
               . '            "script" : {'
-              . '                "source" : "_score * saturation(doc['pagerank'].value, 10)" \<1>'
+              . '                "source" : "_score * saturation(doc[\'pagerank\'].value, 10)" \<1>'
               . '            }'
               . '        }'
               . '    }'
@@ -67,7 +67,7 @@ class Scoring extends SimpleExamplesTester {
     /**
      * Tag:  0dfa66a019712e413652c5eddd057ba8
      * Line: 171
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL171_0dfa66a019712e413652c5eddd057ba8()
     {

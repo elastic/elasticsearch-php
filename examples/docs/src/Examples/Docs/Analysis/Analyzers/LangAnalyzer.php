@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: LangAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/lang-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  137c62a4443bdd7d5b95a15022a9dc30
      * Line: 80
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL80_137c62a4443bdd7d5b95a15022a9dc30()
     {
@@ -109,7 +109,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  f7dc2fed08e57abda2c3e8a14f8eb098
      * Line: 130
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL130_f7dc2fed08e57abda2c3e8a14f8eb098()
     {
@@ -189,7 +189,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  01f50acf7998b24969f451e922d145eb
      * Line: 178
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL178_01f50acf7998b24969f451e922d145eb()
     {
@@ -269,7 +269,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  496d35c89dc991a1509f7e8fb93ade45
      * Line: 226
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL226_496d35c89dc991a1509f7e8fb93ade45()
     {
@@ -355,7 +355,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  13670d1534125831c2059eebd86d840c
      * Line: 277
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL277_13670d1534125831c2059eebd86d840c()
     {
@@ -435,7 +435,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d0378fe5e3aad05a2fd2e6e81213374f
      * Line: 325
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL325_d0378fe5e3aad05a2fd2e6e81213374f()
     {
@@ -515,7 +515,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d5f3be3b9edf0119fa19e5693cfac05a
      * Line: 373
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL373_d5f3be3b9edf0119fa19e5693cfac05a()
     {
@@ -607,7 +607,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d305110a8cabfbebd1e38d85559d1023
      * Line: 430
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL430_d305110a8cabfbebd1e38d85559d1023()
     {
@@ -683,7 +683,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  a28111cdd9b5aaea96c779cbfbf38780
      * Line: 476
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL476_a28111cdd9b5aaea96c779cbfbf38780()
     {
@@ -763,7 +763,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  ed85ed833bec7286a0dfbe64077c5715
      * Line: 524
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL524_ed85ed833bec7286a0dfbe64077c5715()
     {
@@ -843,7 +843,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  10d8b17e73d31dcd907de67327ed78a2
      * Line: 572
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL572_10d8b17e73d31dcd907de67327ed78a2()
     {
@@ -943,7 +943,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  81c7a392efd505b686eed978fb7d9d17
      * Line: 630
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL630_81c7a392efd505b686eed978fb7d9d17()
     {
@@ -1033,7 +1033,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  85f0e5e8ab91ceab63c21dbedd9f4037
      * Line: 683
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL683_85f0e5e8ab91ceab63c21dbedd9f4037()
     {
@@ -1113,7 +1113,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  e5498c139ce9053805c8931334ee324e
      * Line: 731
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL731_e5498c139ce9053805c8931334ee324e()
     {
@@ -1213,7 +1213,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  9606c271921cb800d5ea395b16d6ceaf
      * Line: 789
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL789_9606c271921cb800d5ea395b16d6ceaf()
     {
@@ -1293,7 +1293,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  187e8786e0a90f1f6278cf89b670de0a
      * Line: 837
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL837_187e8786e0a90f1f6278cf89b670de0a()
     {
@@ -1375,7 +1375,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  1f00e73c144603e97f6c14ab15fa1913
      * Line: 886
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL886_1f00e73c144603e97f6c14ab15fa1913()
     {
@@ -1463,7 +1463,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  af00a58d9171d32f6efe52d94e51e526
      * Line: 938
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL938_af00a58d9171d32f6efe52d94e51e526()
     {
@@ -1549,7 +1549,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  84108653e9e03b4edacd878ec870df77
      * Line: 989
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL989_84108653e9e03b4edacd878ec870df77()
     {
@@ -1629,7 +1629,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  eb5987b58dae90c3a8a1609410be0570
      * Line: 1038
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1038_eb5987b58dae90c3a8a1609410be0570()
     {
@@ -1709,7 +1709,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  160f39a50847bad0be4be1529a95e4ce
      * Line: 1086
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1086_160f39a50847bad0be4be1529a95e4ce()
     {
@@ -1821,7 +1821,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  00e0c964c79fcc1876ab957da2ffce82
      * Line: 1150
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1150_00e0c964c79fcc1876ab957da2ffce82()
     {
@@ -1923,7 +1923,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d983c1ea730eeabac9e914656d7c9be2
      * Line: 1209
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1209_d983c1ea730eeabac9e914656d7c9be2()
     {
@@ -2003,7 +2003,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  bb067c049331cc850a77b18bdfff81b5
      * Line: 1257
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1257_bb067c049331cc850a77b18bdfff81b5()
     {
@@ -2083,7 +2083,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  2731a8577ad734a732d784c5dcb1225d
      * Line: 1305
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1305_2731a8577ad734a732d784c5dcb1225d()
     {
@@ -2163,7 +2163,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d1a285aa244ec461d68f13e7078a33c0
      * Line: 1353
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1353_d1a285aa244ec461d68f13e7078a33c0()
     {
@@ -2243,7 +2243,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  584f502cf840134f2db5f39e2483ced1
      * Line: 1399
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1399_584f502cf840134f2db5f39e2483ced1()
     {
@@ -2323,7 +2323,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  1ba7afe23a26fe9ac7856d8c5bc1059d
      * Line: 1447
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1447_1ba7afe23a26fe9ac7856d8c5bc1059d()
     {
@@ -2403,7 +2403,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  d260225cf97e068ead2a8a6bb5aefd90
      * Line: 1496
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1496_d260225cf97e068ead2a8a6bb5aefd90()
     {
@@ -2483,7 +2483,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  320645d771e952af2a67bb7445c3688d
      * Line: 1544
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1544_320645d771e952af2a67bb7445c3688d()
     {
@@ -2567,7 +2567,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  327466380bcd55361973b4a96c6dccb2
      * Line: 1594
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1594_327466380bcd55361973b4a96c6dccb2()
     {
@@ -2647,7 +2647,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  f097c02541056f3c0fc855e7bbeef8a8
      * Line: 1642
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1642_f097c02541056f3c0fc855e7bbeef8a8()
     {
@@ -2727,7 +2727,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  103296e16b4233926ad1f07360385606
      * Line: 1690
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1690_103296e16b4233926ad1f07360385606()
     {
@@ -2817,7 +2817,7 @@ class LangAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  346f28d82acb5427c304aa574fea0008
      * Line: 1743
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL1743_346f28d82acb5427c304aa574fea0008()
     {

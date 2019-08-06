@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CompletionSuggest
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/suggesters/completion-suggest.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  b8718ca915bbb848925a5fb593a03e70
      * Line: 28
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL28_b8718ca915bbb848925a5fb593a03e70()
     {
@@ -67,7 +67,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  223787a2b80e132a22548768ccf7052d
      * Line: 85
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL85_223787a2b80e132a22548768ccf7052d()
     {
@@ -97,7 +97,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  5e9f3b7246f4549624fa5b9dd3719d75
      * Line: 112
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL112_5e9f3b7246f4549624fa5b9dd3719d75()
     {
@@ -139,7 +139,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  7c3414279d47e9c29105d061ed316ef8
      * Line: 134
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL134_7c3414279d47e9c29105d061ed316ef8()
     {
@@ -163,7 +163,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  7f951981bd8ed09e56aebeb13adb96ce
      * Line: 152
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL152_7f951981bd8ed09e56aebeb13adb96ce()
     {
@@ -201,7 +201,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  565ef4aad0c7765879325cc5d2e3c530
      * Line: 222
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL222_565ef4aad0c7765879325cc5d2e3c530()
     {
@@ -243,7 +243,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  b2a6fb1a94dd10bf594dafe727647e1d
      * Line: 314
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL314_b2a6fb1a94dd10bf594dafe727647e1d()
     {
@@ -283,7 +283,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  a4eac3c0bac550247e8c7d3f9bcaac1c
      * Line: 340
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL340_a4eac3c0bac550247e8c7d3f9bcaac1c()
     {
@@ -327,7 +327,7 @@ class CompletionSuggest extends SimpleExamplesTester {
     /**
      * Tag:  62280b8a1ec0c214b3110a2c42a55fce
      * Line: 399
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL399_62280b8a1ec0c214b3110a2c42a55fce()
     {

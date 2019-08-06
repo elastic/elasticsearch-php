@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: AutodatehistogramAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/autodatehistogram-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9f9123f67baff22429bca73f7cf48622
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL14_9f9123f67baff22429bca73f7cf48622()
     {
@@ -63,7 +63,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  941466b290eaa9a2685bbe32c73e887a
      * Line: 41
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL41_941466b290eaa9a2685bbe32c73e887a()
     {
@@ -103,7 +103,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  64b6ca54baf9dba659887051de87440b
      * Line: 123
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL123_64b6ca54baf9dba659887051de87440b()
     {
@@ -165,7 +165,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e16449c0f4eadb394761e9c2aff50fe6
      * Line: 190
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL190_e16449c0f4eadb394761e9c2aff50fe6()
     {
@@ -205,7 +205,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  00abcf63bffec42e5d2c15011e989b37
      * Line: 277
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL277_00abcf63bffec42e5d2c15011e989b37()
     {
@@ -245,7 +245,7 @@ class AutodatehistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  89fe7b404791770a2075f2870fd65c3e
      * Line: 301
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL301_89fe7b404791770a2075f2870fd65c3e()
     {

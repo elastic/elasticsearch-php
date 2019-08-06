@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Suggesters
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/suggesters.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Suggesters extends SimpleExamplesTester {
     /**
      * Tag:  626f8c4b3e2cd3d9beaa63a7f5799d7a
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL16_626f8c4b3e2cd3d9beaa63a7f5799d7a()
     {
@@ -73,7 +73,7 @@ class Suggesters extends SimpleExamplesTester {
     /**
      * Tag:  2533e4b36ae837eaecda08407ecb6383
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL43_2533e4b36ae837eaecda08407ecb6383()
     {
@@ -123,7 +123,7 @@ class Suggesters extends SimpleExamplesTester {
     /**
      * Tag:  5275842787967b6db876025f4a1c6942
      * Line: 119
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL119_5275842787967b6db876025f4a1c6942()
     {

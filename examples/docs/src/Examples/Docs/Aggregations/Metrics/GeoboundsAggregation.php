@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoboundsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/geobounds-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoboundsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  34cabdecfe9c2cb8dd929853882564eb
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_34cabdecfe9c2cb8dd929853882564eb()
     {
@@ -54,7 +54,7 @@ class GeoboundsAggregation extends SimpleExamplesTester {
         // {"index":{"_id":5}}
         // {"location": "48.861111,2.336389", "name": "Musée du Louvre"}
         // {"index":{"_id":6}}
-        // {"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+        // {"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}
         // POST /museums/_search?size=0
         // {
         //     "query" : {
@@ -93,7 +93,7 @@ class GeoboundsAggregation extends SimpleExamplesTester {
               . '{"index":{"_id":5}}'
               . '{"location": "48.861111,2.336389", "name": "Musée du Louvre"}'
               . '{"index":{"_id":6}}'
-              . '{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}'
+              . '{"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}'
               . 'POST /museums/_search?size=0'
               . '{'
               . '    "query" : {'

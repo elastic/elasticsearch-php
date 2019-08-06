@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SearchShards
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/search-shards.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SearchShards extends SimpleExamplesTester {
     /**
      * Tag:  49b137a1c0016face219bac3faf41996
      * Line: 17
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL17_49b137a1c0016face219bac3faf41996()
     {
@@ -43,7 +43,7 @@ class SearchShards extends SimpleExamplesTester {
     /**
      * Tag:  a44b7da0091ac75e5571475a4e99bb16
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL102_a44b7da0091ac75e5571475a4e99bb16()
     {

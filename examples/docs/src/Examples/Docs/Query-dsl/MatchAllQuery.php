@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MatchAllQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/match-all-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MatchAllQuery extends SimpleExamplesTester {
     /**
      * Tag:  09d617863a103c82fb4101e6165ea7fe
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_09d617863a103c82fb4101e6165ea7fe()
     {
@@ -53,7 +53,7 @@ class MatchAllQuery extends SimpleExamplesTester {
     /**
      * Tag:  75330ec1305d2beb0e2f34d2195464e2
      * Line: 24
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL24_75330ec1305d2beb0e2f34d2195464e2()
     {
@@ -81,7 +81,7 @@ class MatchAllQuery extends SimpleExamplesTester {
     /**
      * Tag:  81c9aa2678d6166a9662ddf2c011a6a5
      * Line: 41
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL41_81c9aa2678d6166a9662ddf2c011a6a5()
     {

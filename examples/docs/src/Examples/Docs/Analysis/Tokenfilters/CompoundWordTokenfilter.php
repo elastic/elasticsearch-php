@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CompoundWordTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/compound-word-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CompoundWordTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  349e77cfe54f857ccfdde0e47c2d7cd5
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL86_349e77cfe54f857ccfdde0e47c2d7cd5()
     {

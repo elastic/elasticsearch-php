@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeocentroidAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/geocentroid-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeocentroidAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d0cf6057bc87042819a7ac961d1b2273
      * Line: 9
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL9_d0cf6057bc87042819a7ac961d1b2273()
     {
@@ -54,7 +54,7 @@ class GeocentroidAggregation extends SimpleExamplesTester {
         // {"index":{"_id":5}}
         // {"location": "48.861111,2.336389", "city": "Paris", "name": "Musée du Louvre"}
         // {"index":{"_id":6}}
-        // {"location": "48.860000,2.327000", "city": "Paris", "name": "Musée d'Orsay"}
+        // {"location": "48.860000,2.327000", "city": "Paris", "name": "Musée d\'Orsay"}
         // POST /museums/_search?size=0
         // {
         //     "aggs" : {
@@ -89,7 +89,7 @@ class GeocentroidAggregation extends SimpleExamplesTester {
               . '{"index":{"_id":5}}'
               . '{"location": "48.861111,2.336389", "city": "Paris", "name": "Musée du Louvre"}'
               . '{"index":{"_id":6}}'
-              . '{"location": "48.860000,2.327000", "city": "Paris", "name": "Musée d'Orsay"}'
+              . '{"location": "48.860000,2.327000", "city": "Paris", "name": "Musée d\'Orsay"}'
               . 'POST /museums/_search?size=0'
               . '{'
               . '    "aggs" : {'
@@ -107,7 +107,7 @@ class GeocentroidAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6dec421bf327ecaf189109d9aaa35919
      * Line: 76
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL76_6dec421bf327ecaf189109d9aaa35919()
     {

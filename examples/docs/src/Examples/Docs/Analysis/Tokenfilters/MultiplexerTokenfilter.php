@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MultiplexerTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/multiplexer-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MultiplexerTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  c306212babadc14fa124b88fd8c43a6b
      * Line: 33
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL33_c306212babadc14fa124b88fd8c43a6b()
     {
@@ -79,7 +79,7 @@ class MultiplexerTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  fa9a3ef94470f3d9bd6500b65bf993d1
      * Line: 59
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL59_fa9a3ef94470f3d9bd6500b65bf993d1()
     {

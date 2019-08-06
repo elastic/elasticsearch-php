@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Similarity
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   index-modules/similarity.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  ce12fedff96537d4a5169724225f4287
      * Line: 22
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL22_ce12fedff96537d4a5169724225f4287()
     {
@@ -73,7 +73,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  528e5f1c345c3769248cc6889e8cf552
      * Line: 46
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL46_528e5f1c345c3769248cc6889e8cf552()
     {
@@ -101,7 +101,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  dfa16b7300d225e013f23625f44c087b
      * Line: 194
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL194_dfa16b7300d225e013f23625f44c087b()
     {
@@ -197,7 +197,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  5f8fb5513d4f725434db2f517ad4298f
      * Line: 361
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL361_5f8fb5513d4f725434db2f517ad4298f()
     {
@@ -263,7 +263,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  553d79817bb1333970e99507c37a159a
      * Line: 527
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL527_553d79817bb1333970e99507c37a159a()
     {
@@ -303,7 +303,7 @@ class Similarity extends SimpleExamplesTester {
     /**
      * Tag:  48de51de87a8ad9fd8b8db1ca25b85c1
      * Line: 548
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL548_48de51de87a8ad9fd8b8db1ca25b85c1()
     {

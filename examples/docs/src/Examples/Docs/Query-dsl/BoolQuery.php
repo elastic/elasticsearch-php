@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: BoolQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/bool-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class BoolQuery extends SimpleExamplesTester {
     /**
      * Tag:  06afce2955f9094d96d27067ebca32e8
      * Line: 36
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL36_06afce2955f9094d96d27067ebca32e8()
     {
@@ -89,7 +89,7 @@ class BoolQuery extends SimpleExamplesTester {
     /**
      * Tag:  f70a54cd9a9f4811bf962e469f2ca2ea
      * Line: 76
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL76_f70a54cd9a9f4811bf962e469f2ca2ea()
     {
@@ -129,7 +129,7 @@ class BoolQuery extends SimpleExamplesTester {
     /**
      * Tag:  fa88f6f5a7d728ec4f1d05244228cb09
      * Line: 96
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL96_fa88f6f5a7d728ec4f1d05244228cb09()
     {
@@ -175,7 +175,7 @@ class BoolQuery extends SimpleExamplesTester {
     /**
      * Tag:  162b5b693b713f0bfab1209d59443c46
      * Line: 120
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL120_162b5b693b713f0bfab1209d59443c46()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetCalendarEvent
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/get-calendar-event.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetCalendarEvent extends SimpleExamplesTester {
     /**
      * Tag:  39d6f575c9458d9c941364dfd0493fa0
      * Line: 90
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL90_39d6f575c9458d9c941364dfd0493fa0()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: WrapperQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/wrapper-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class WrapperQuery extends SimpleExamplesTester {
     /**
      * Tag:  6159a7d56e93e14a31fc06644c803a38
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL10_6159a7d56e93e14a31fc06644c803a38()
     {

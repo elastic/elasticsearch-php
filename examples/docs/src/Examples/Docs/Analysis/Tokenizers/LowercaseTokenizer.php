@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: LowercaseTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/lowercase-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class LowercaseTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  a99bc141066ef673e35f306157750ec9
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_a99bc141066ef673e35f306157750ec9()
     {
@@ -35,14 +35,14 @@ class LowercaseTokenizer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "tokenizer": "lowercase",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::a99bc141066ef673e35f306157750ec9[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "tokenizer": "lowercase",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion

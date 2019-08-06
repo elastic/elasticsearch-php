@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SerialDiffAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/serial-diff-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SerialDiffAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b4da132cb934c33d61e2b60988c6d4a3
      * Line: 64
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL64_b4da132cb934c33d61e2b60988c6d4a3()
     {

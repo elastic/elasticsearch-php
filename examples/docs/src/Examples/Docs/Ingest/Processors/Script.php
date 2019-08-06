@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Script
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/processors/script.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Script extends SimpleExamplesTester {
     /**
      * Tag:  c0c7926f235e6ccc7e9a827dcc85e602
      * Line: 50
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL50_c0c7926f235e6ccc7e9a827dcc85e602()
     {
@@ -39,8 +39,8 @@ class Script extends SimpleExamplesTester {
         //       {
         //         "script": {
         //           "source": """
-        //             ctx._index = 'my_index';
-        //             ctx._type = '_doc';
+        //             ctx._index = \'my_index\';
+        //             ctx._type = \'_doc\';
         //           """
         //         }
         //       }
@@ -55,8 +55,8 @@ class Script extends SimpleExamplesTester {
               . '      {'
               . '        "script": {'
               . '          "source": """'
-              . '            ctx._index = 'my_index';'
-              . '            ctx._type = '_doc';'
+              . '            ctx._index = \'my_index\';'
+              . '            ctx._type = \'_doc\';'
               . '          """'
               . '        }'
               . '      }'
@@ -69,7 +69,7 @@ class Script extends SimpleExamplesTester {
     /**
      * Tag:  cdc55ad88de55999fe2d79fd4781918b
      * Line: 71
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL71_cdc55ad88de55999fe2d79fd4781918b()
     {

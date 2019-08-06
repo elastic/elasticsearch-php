@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FromSize
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/from-size.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FromSize extends SimpleExamplesTester {
     /**
      * Tag:  9a26759ccbd338224ecaacf7c49ab08e
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL14_9a26759ccbd338224ecaacf7c49ab08e()
     {

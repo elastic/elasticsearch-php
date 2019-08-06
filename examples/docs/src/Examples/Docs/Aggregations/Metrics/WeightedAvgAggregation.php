@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: WeightedAvgAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/weighted-avg-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class WeightedAvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c15dead46d351f62cfc066f1ca1a24eb
      * Line: 55
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL55_c15dead46d351f62cfc066f1ca1a24eb()
     {
@@ -73,7 +73,7 @@ class WeightedAvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4c15a4b054c7d0aaaa17deaff853bb28
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL102_4c15a4b054c7d0aaaa17deaff853bb28()
     {
@@ -131,7 +131,7 @@ class WeightedAvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e88e8c78ed50936c8b7436c90b988ddf
      * Line: 153
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL153_e88e8c78ed50936c8b7436c90b988ddf()
     {
@@ -179,7 +179,7 @@ class WeightedAvgAggregation extends SimpleExamplesTester {
     /**
      * Tag:  cebfe0fed62091eb38b6348c89643f89
      * Line: 186
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL186_cebfe0fed62091eb38b6348c89643f89()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PercentileRankAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/percentile-rank-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  daaa9e0df859d764ca0a4a4ebcfbdb26
      * Line: 26
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL26_daaa9e0df859d764ca0a4a4ebcfbdb26()
     {
@@ -65,7 +65,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  156dd311073c8c825e608becf63ae7fe
      * Line: 71
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL71_156dd311073c8c825e608becf63ae7fe()
     {
@@ -107,7 +107,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c9ea558335446fc64006724cb72684e1
      * Line: 122
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL122_c9ea558335446fc64006724cb72684e1()
     {
@@ -123,7 +123,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
         //                 "values" : [500, 600],
         //                 "script" : {
         //                     "lang": "painless",
-        //                     "source": "doc['load_time'].value / params.timeUnit", \<1>
+        //                     "source": "doc[\'load_time\'].value / params.timeUnit", \<1>
         //                     "params" : {
         //                         "timeUnit" : 1000   \<2>
         //                     }
@@ -143,7 +143,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
               . '                "values" : [500, 600],'
               . '                "script" : {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['load_time'].value / params.timeUnit", \<1>'
+              . '                    "source": "doc[\'load_time\'].value / params.timeUnit", \<1>'
               . '                    "params" : {'
               . '                        "timeUnit" : 1000   \<2>'
               . '                    }'
@@ -159,7 +159,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  59bcc5d1ed0aac1aa949f84d80a4fa1d
      * Line: 151
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL151_59bcc5d1ed0aac1aa949f84d80a4fa1d()
     {
@@ -209,7 +209,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  214d704d18485ab75ef53aa9c0524590
      * Line: 187
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL187_214d704d18485ab75ef53aa9c0524590()
     {
@@ -255,7 +255,7 @@ class PercentileRankAggregation extends SimpleExamplesTester {
     /**
      * Tag:  77f575b0cc37dd7a2415cbf6417d3148
      * Line: 219
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL219_77f575b0cc37dd7a2415cbf6417d3148()
     {

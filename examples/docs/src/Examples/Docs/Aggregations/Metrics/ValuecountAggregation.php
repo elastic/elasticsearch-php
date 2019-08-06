@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ValuecountAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/valuecount-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ValuecountAggregation extends SimpleExamplesTester {
     /**
      * Tag:  5dd695679b5141d9142d3d30ba8d300a
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_5dd695679b5141d9142d3d30ba8d300a()
     {
@@ -53,7 +53,7 @@ class ValuecountAggregation extends SimpleExamplesTester {
     /**
      * Tag:  3722cb3705b6bc7f486969deace3dd83
      * Line: 44
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL44_3722cb3705b6bc7f486969deace3dd83()
     {
@@ -66,7 +66,7 @@ class ValuecountAggregation extends SimpleExamplesTester {
         //         "type_count" : {
         //             "value_count" : {
         //                 "script" : {
-        //                     "source" : "doc['type'].value"
+        //                     "source" : "doc[\'type\'].value"
         //                 }
         //             }
         //         }
@@ -80,7 +80,7 @@ class ValuecountAggregation extends SimpleExamplesTester {
               . '        "type_count" : {'
               . '            "value_count" : {'
               . '                "script" : {'
-              . '                    "source" : "doc['type'].value"'
+              . '                    "source" : "doc[\'type\'].value"'
               . '                }'
               . '            }'
               . '        }'
@@ -93,7 +93,7 @@ class ValuecountAggregation extends SimpleExamplesTester {
     /**
      * Tag:  213ab768f1b6a895e09403a0880e259a
      * Line: 64
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL64_213ab768f1b6a895e09403a0880e259a()
     {

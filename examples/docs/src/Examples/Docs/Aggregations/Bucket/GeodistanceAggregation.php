@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeodistanceAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/geodistance-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9bf956f9d3f27bb7b4e5a03af84d5da5
      * Line: 7
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL7_9bf956f9d3f27bb7b4e5a03af84d5da5()
     {
@@ -54,7 +54,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
         // {"index":{"_id":5}}
         // {"location": "48.861111,2.336389", "name": "Musée du Louvre"}
         // {"index":{"_id":6}}
-        // {"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+        // {"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}
         // POST /museums/_search?size=0
         // {
         //     "aggs" : {
@@ -95,7 +95,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
               . '{"index":{"_id":5}}'
               . '{"location": "48.861111,2.336389", "name": "Musée du Louvre"}'
               . '{"index":{"_id":6}}'
-              . '{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}'
+              . '{"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}'
               . 'POST /museums/_search?size=0'
               . '{'
               . '    "aggs" : {'
@@ -119,7 +119,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c78b80d080a58090583228421ac1553d
      * Line: 94
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL94_c78b80d080a58090583228421ac1553d()
     {
@@ -169,7 +169,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
     /**
      * Tag:  a5736ad3638c238e3b15c9fdaa1f29f7
      * Line: 121
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL121_a5736ad3638c238e3b15c9fdaa1f29f7()
     {
@@ -221,7 +221,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6b31f435607617d96b1dff3bf10c9d8c
      * Line: 149
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL149_6b31f435607617d96b1dff3bf10c9d8c()
     {
@@ -271,7 +271,7 @@ class GeodistanceAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c5afc3d716fdf8c0eefa4732e8a4b3ee
      * Line: 204
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL204_c5afc3d716fdf8c0eefa4732e8a4b3ee()
     {

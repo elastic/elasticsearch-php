@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Rest
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   sql/endpoints/rest.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  4870ece3455f2b5c34eccaa9492f3894
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_4870ece3455f2b5c34eccaa9492f3894()
     {
@@ -49,7 +49,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  b649c4dc7d187a27d2112f59e62cecea
      * Line: 111
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL111_b649c4dc7d187a27d2112f59e62cecea()
     {
@@ -75,7 +75,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  8b8c48b5fcfaaec794875537d3be2e62
      * Line: 137
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL137_8b8c48b5fcfaaec794875537d3be2e62()
     {
@@ -101,7 +101,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  92d82b9d1bda5a8ae1117d03413f4e67
      * Line: 173
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL173_92d82b9d1bda5a8ae1117d03413f4e67()
     {
@@ -127,7 +127,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  a972c38ee41dc899708825790a113cb8
      * Line: 200
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL200_a972c38ee41dc899708825790a113cb8()
     {
@@ -153,7 +153,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  d38b8ef18ca89eafb1e175ec9a393259
      * Line: 228
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL228_d38b8ef18ca89eafb1e175ec9a393259()
     {
@@ -179,7 +179,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  212042898296f208dbf957f33c07e3b2
      * Line: 283
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL283_212042898296f208dbf957f33c07e3b2()
     {
@@ -203,7 +203,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  cc5dfc9aa125e3fd03f523fc2c356f63
      * Line: 321
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL321_cc5dfc9aa125e3fd03f523fc2c356f63()
     {
@@ -227,7 +227,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  683da0a8624bc03c79a3db8ffab43f0b
      * Line: 351
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL351_683da0a8624bc03c79a3db8ffab43f0b()
     {
@@ -269,7 +269,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  c11dc94839b861235b4943f046e15997
      * Line: 390
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL390_c11dc94839b861235b4943f046e15997()
     {
@@ -297,7 +297,7 @@ class Rest extends SimpleExamplesTester {
     /**
      * Tag:  15089efd5a5a72234fdb91c111adb3c1
      * Line: 427
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL427_15089efd5a5a72234fdb91c111adb3c1()
     {

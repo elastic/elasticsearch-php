@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ConditionTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/condition-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ConditionTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  59fd7082698a6b12d028105456016a66
      * Line: 22
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL22_59fd7082698a6b12d028105456016a66()
     {
@@ -85,7 +85,7 @@ class ConditionTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  e20493a20d3992a97238b87c6930f08d
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL54_e20493a20d3992a97238b87c6930f08d()
     {

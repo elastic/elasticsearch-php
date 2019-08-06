@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PredicateTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/predicate-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PredicateTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  10338787b66a7f93270c3b88dd6197f8
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_10338787b66a7f93270c3b88dd6197f8()
     {
@@ -83,7 +83,7 @@ class PredicateTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  e20493a20d3992a97238b87c6930f08d
      * Line: 49
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL49_e20493a20d3992a97238b87c6930f08d()
     {

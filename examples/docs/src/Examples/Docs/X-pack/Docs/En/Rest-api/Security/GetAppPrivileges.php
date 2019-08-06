@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetAppPrivileges
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/get-app-privileges.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetAppPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  cd8006165ac64f1ef99af48e5a35a25b
      * Line: 54
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL54_cd8006165ac64f1ef99af48e5a35a25b()
     {
@@ -43,7 +43,7 @@ class GetAppPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  3b18e9de638ff0b1c7a1f1f6bf1c24f3
      * Line: 86
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL86_3b18e9de638ff0b1c7a1f1f6bf1c24f3()
     {
@@ -61,7 +61,7 @@ class GetAppPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  0ddf705317d9c5095b4a1419a2e3bace
      * Line: 94
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL94_0ddf705317d9c5095b4a1419a2e3bace()
     {

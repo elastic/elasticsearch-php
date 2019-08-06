@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: InvalidateTokens
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/invalidate-tokens.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  cee591c1fc70d4f180c623a3a6d07755
      * Line: 61
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL61_cee591c1fc70d4f180c623a3a6d07755()
     {
@@ -49,7 +49,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  da2bb6894d95489812b653be2feeeb5b
      * Line: 73
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL73_da2bb6894d95489812b653be2feeeb5b()
     {
@@ -75,7 +75,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  dbf9abc37899352751dab0ede62af2fd
      * Line: 87
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL87_dbf9abc37899352751dab0ede62af2fd()
     {
@@ -99,7 +99,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  e1337c6b76defd5a46d05220f9d9c9fc
      * Line: 101
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL101_e1337c6b76defd5a46d05220f9d9c9fc()
     {
@@ -127,7 +127,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  774740abbecda50b03d75dbff8cbe60f
      * Line: 115
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL115_774740abbecda50b03d75dbff8cbe60f()
     {
@@ -155,7 +155,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  0c6f9c9da75293fae69659ac1d6329de
      * Line: 131
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL131_0c6f9c9da75293fae69659ac1d6329de()
     {
@@ -179,7 +179,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  4bc4db44b8c74610b73f21a421099a13
      * Line: 145
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL145_4bc4db44b8c74610b73f21a421099a13()
     {
@@ -203,7 +203,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  0280247e0cf2e561c548f22c9fb31163
      * Line: 158
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL158_0280247e0cf2e561c548f22c9fb31163()
     {
@@ -227,7 +227,7 @@ class InvalidateTokens extends SimpleExamplesTester {
     /**
      * Tag:  6dd2a107bc64fd6f058fb17c21640649
      * Line: 171
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL171_6dd2a107bc64fd6f058fb17c21640649()
     {

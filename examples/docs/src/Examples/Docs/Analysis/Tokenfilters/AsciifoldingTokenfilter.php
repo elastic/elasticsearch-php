@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: AsciifoldingTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/asciifolding-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class AsciifoldingTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  0d4cb64eca426ac03110fdfd01367ee9
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL10_0d4cb64eca426ac03110fdfd01367ee9()
     {
@@ -67,7 +67,7 @@ class AsciifoldingTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  f0609100be8e9eb4af6cbc75d0c40ebe
      * Line: 32
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL32_f0609100be8e9eb4af6cbc75d0c40ebe()
     {

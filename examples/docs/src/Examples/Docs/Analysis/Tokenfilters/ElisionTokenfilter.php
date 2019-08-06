@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ElisionTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/elision-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ElisionTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  c0fa4f18231d7495c39b62bb4e56fe50
      * Line: 15
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL15_c0fa4f18231d7495c39b62bb4e56fe50()
     {

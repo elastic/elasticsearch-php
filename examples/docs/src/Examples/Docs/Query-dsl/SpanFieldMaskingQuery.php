@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SpanFieldMaskingQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/span-field-masking-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SpanFieldMaskingQuery extends SimpleExamplesTester {
     /**
      * Tag:  b59861ad84352fee3e78bc869ccbe8b0
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_b59861ad84352fee3e78bc869ccbe8b0()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: NestedAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/nested-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class NestedAggregation extends SimpleExamplesTester {
     /**
      * Tag:  53e6007f451ddf30074b3e26a4afdaad
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_53e6007f451ddf30074b3e26a4afdaad()
     {
@@ -69,7 +69,7 @@ class NestedAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e3d2300ad78b2d20c3a501a73db6bcac
      * Line: 33
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL33_e3d2300ad78b2d20c3a501a73db6bcac()
     {

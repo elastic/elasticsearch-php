@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: InnerHits
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/inner-hits.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class InnerHits extends SimpleExamplesTester {
     /**
      * Tag:  2a91e1fb8ad93a188fa9d77ec01bc431
      * Line: 87
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL87_2a91e1fb8ad93a188fa9d77ec01bc431()
     {
@@ -113,7 +113,7 @@ class InnerHits extends SimpleExamplesTester {
     /**
      * Tag:  983fbb78e57e8fe98db38cf2d217e943
      * Line: 211
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL211_983fbb78e57e8fe98db38cf2d217e943()
     {
@@ -211,7 +211,7 @@ class InnerHits extends SimpleExamplesTester {
     /**
      * Tag:  79feb4a0c0a21b7015a52f9736cd4683
      * Line: 325
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL325_79feb4a0c0a21b7015a52f9736cd4683()
     {
@@ -323,7 +323,7 @@ class InnerHits extends SimpleExamplesTester {
     /**
      * Tag:  3f5b5bee692e7d4b0992dc0a64e95a60
      * Line: 445
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL445_3f5b5bee692e7d4b0992dc0a64e95a60()
     {

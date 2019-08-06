@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PercentileAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/percentile-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9baaa0c37e787738507aceee7626c88b
      * Line: 28
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL28_9baaa0c37e787738507aceee7626c88b()
     {
@@ -63,7 +63,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4273ecf0448faf65b16952ada3d48a30
      * Line: 80
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL80_4273ecf0448faf65b16952ada3d48a30()
     {
@@ -103,7 +103,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e6f49e5325fe0e9b816a837bd3e65a7c
      * Line: 103
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL103_e6f49e5325fe0e9b816a837bd3e65a7c()
     {
@@ -143,7 +143,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  823b97820ce96abcc3a9292d14292849
      * Line: 172
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL172_823b97820ce96abcc3a9292d14292849()
     {
@@ -158,7 +158,7 @@ class PercentileAggregation extends SimpleExamplesTester {
         //             "percentiles" : {
         //                 "script" : {
         //                     "lang": "painless",
-        //                     "source": "doc['load_time'].value / params.timeUnit", \<1>
+        //                     "source": "doc[\'load_time\'].value / params.timeUnit", \<1>
         //                     "params" : {
         //                         "timeUnit" : 1000   \<2>
         //                     }
@@ -177,7 +177,7 @@ class PercentileAggregation extends SimpleExamplesTester {
               . '            "percentiles" : {'
               . '                "script" : {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['load_time'].value / params.timeUnit", \<1>'
+              . '                    "source": "doc[\'load_time\'].value / params.timeUnit", \<1>'
               . '                    "params" : {'
               . '                        "timeUnit" : 1000   \<2>'
               . '                    }'
@@ -193,7 +193,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  dae483a5a412dcf4c20161fea25a87ba
      * Line: 201
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL201_dae483a5a412dcf4c20161fea25a87ba()
     {
@@ -241,7 +241,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  829d345e5e15e371aeb820f4d62a1b2a
      * Line: 266
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL266_829d345e5e15e371aeb820f4d62a1b2a()
     {
@@ -285,7 +285,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  db17a10cf64c84bd2fc4ebb073e59cec
      * Line: 317
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL317_db17a10cf64c84bd2fc4ebb073e59cec()
     {
@@ -331,7 +331,7 @@ class PercentileAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e557ce02e192939944ebc6bae87e98a6
      * Line: 350
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL350_e557ce02e192939944ebc6bae87e98a6()
     {

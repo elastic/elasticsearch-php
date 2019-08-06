@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MultiMatchQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/multi-match-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  53b908c3432118c5a6e460f74d32006b
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_53b908c3432118c5a6e460f74d32006b()
     {
@@ -59,7 +59,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  6a1702dd50690cae833572e48a0ddf25
      * Line: 33
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL33_6a1702dd50690cae833572e48a0ddf25()
     {
@@ -93,7 +93,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  e30ea6e3823a139d7693d8cce1920a06
      * Line: 50
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL50_e30ea6e3823a139d7693d8cce1920a06()
     {
@@ -127,7 +127,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  5da6efd5b038ada64c9e853c88c1ec47
      * Line: 114
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL114_5da6efd5b038ada64c9e853c88c1ec47()
     {
@@ -165,7 +165,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  b0eaf67e5cce24ef8889bf20951ccec1
      * Line: 132
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL132_b0eaf67e5cce24ef8889bf20951ccec1()
     {
@@ -205,7 +205,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  e270f3f721a5712cd11a5ca03554f5b0
      * Line: 173
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL173_e270f3f721a5712cd11a5ca03554f5b0()
     {
@@ -243,7 +243,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  7b908b1189f076942de8cd497ff1fa59
      * Line: 216
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL216_7b908b1189f076942de8cd497ff1fa59()
     {
@@ -279,7 +279,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  6bbc613bd4f9aec1bbdbabf5db021d28
      * Line: 233
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL233_6bbc613bd4f9aec1bbdbabf5db021d28()
     {
@@ -319,7 +319,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  0e118857b815b62118a30c042f079db1
      * Line: 264
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL264_0e118857b815b62118a30c042f079db1()
     {
@@ -355,7 +355,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  33f148e3d8676de6cc52f58749898a13
      * Line: 281
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL281_33f148e3d8676de6cc52f58749898a13()
     {
@@ -393,7 +393,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  047266b0d20fdb62ebc72d51952c8f6d
      * Line: 348
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL348_047266b0d20fdb62ebc72d51952c8f6d()
     {
@@ -431,7 +431,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  ad0dcbc7fc619e952c8825b8f307b7b2
      * Line: 408
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL408_ad0dcbc7fc619e952c8825b8f307b7b2()
     {
@@ -473,7 +473,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  3cd50a789b8e1f0ebbbc53a8d7ecf656
      * Line: 447
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL447_3cd50a789b8e1f0ebbbc53a8d7ecf656()
     {
@@ -537,7 +537,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  179f0a3e84ff4bbac18787a018eabf89
      * Line: 482
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL482_179f0a3e84ff4bbac18787a018eabf89()
     {
@@ -575,7 +575,7 @@ class MultiMatchQuery extends SimpleExamplesTester {
     /**
      * Tag:  68721288dc9ad8aa1b55099b4d303051
      * Line: 535
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL535_68721288dc9ad8aa1b55099b4d303051()
     {

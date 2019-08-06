@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DaterangeAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/daterange-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DaterangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  a27c42ae4897ee6d2f6be3ddf80a8b3e
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL16_a27c42ae4897ee6d2f6be3ddf80a8b3e()
     {
@@ -71,7 +71,7 @@ class DaterangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  a6ef8cd8c8218d547727ffc5485bfbd7
      * Line: 79
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL79_a6ef8cd8c8218d547727ffc5485bfbd7()
     {
@@ -131,7 +131,7 @@ class DaterangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  901d66919e584515717bf78ab5ca2cbb
      * Line: 271
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL271_901d66919e584515717bf78ab5ca2cbb()
     {
@@ -179,7 +179,7 @@ class DaterangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  83721157085b4e5a8a5ed3ede88b3690
      * Line: 301
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL301_83721157085b4e5a8a5ed3ede88b3690()
     {
@@ -227,7 +227,7 @@ class DaterangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2d1c675b3cb93119219a13db93262c1e
      * Line: 351
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL351_2d1c675b3cb93119219a13db93262c1e()
     {

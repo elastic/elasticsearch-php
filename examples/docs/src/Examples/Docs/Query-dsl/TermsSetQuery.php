@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TermsSetQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/terms-set-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TermsSetQuery extends SimpleExamplesTester {
     /**
      * Tag:  f29bc8beaa219c21be3204e010f5a509
      * Line: 49
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL49_f29bc8beaa219c21be3204e010f5a509()
     {
@@ -73,7 +73,7 @@ class TermsSetQuery extends SimpleExamplesTester {
     /**
      * Tag:  6866beb749ef6dee19d2cb56edc0a9ab
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL86_6866beb749ef6dee19d2cb56edc0a9ab()
     {
@@ -101,7 +101,7 @@ class TermsSetQuery extends SimpleExamplesTester {
     /**
      * Tag:  f7bccd5a51a4000215767e9a6454327f
      * Line: 109
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL109_f7bccd5a51a4000215767e9a6454327f()
     {
@@ -129,7 +129,7 @@ class TermsSetQuery extends SimpleExamplesTester {
     /**
      * Tag:  c5040ac6dc2922f191113e7a5fd5a699
      * Line: 139
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL139_c5040ac6dc2922f191113e7a5fd5a699()
     {
@@ -167,7 +167,7 @@ class TermsSetQuery extends SimpleExamplesTester {
     /**
      * Tag:  cf2e6e604c67175398f6c217b9e86127
      * Line: 218
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL218_cf2e6e604c67175398f6c217b9e86127()
     {
@@ -181,7 +181,7 @@ class TermsSetQuery extends SimpleExamplesTester {
         //             "programming_languages": {
         //                 "terms": ["c++", "java", "php"],
         //                 "minimum_should_match_script": {
-        //                    "source": "Math.min(params.num_terms, doc['required_matches'].value)"
+        //                    "source": "Math.min(params.num_terms, doc[\'required_matches\'].value)"
         //                 },
         //                 "boost": 1.0
         //             }
@@ -197,7 +197,7 @@ class TermsSetQuery extends SimpleExamplesTester {
               . '            "programming_languages": {'
               . '                "terms": ["c++", "java", "php"],'
               . '                "minimum_should_match_script": {'
-              . '                   "source": "Math.min(params.num_terms, doc['required_matches'].value)"'
+              . '                   "source": "Math.min(params.num_terms, doc[\'required_matches\'].value)"'
               . '                },'
               . '                "boost": 1.0'
               . '            }'

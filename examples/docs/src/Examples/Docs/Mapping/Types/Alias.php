@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Alias
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/alias.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Alias extends SimpleExamplesTester {
     /**
      * Tag:  2716453454dbf9c6dde2ea6850a62214
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_2716453454dbf9c6dde2ea6850a62214()
     {
@@ -95,7 +95,7 @@ class Alias extends SimpleExamplesTester {
     /**
      * Tag:  a2dabdcbb661e7690166ae6d0de27e46
      * Line: 56
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL56_a2dabdcbb661e7690166ae6d0de27e46()
     {
@@ -113,7 +113,7 @@ class Alias extends SimpleExamplesTester {
     /**
      * Tag:  f6c9d72fa26cbedd0c3f9fa64a88c38a
      * Line: 88
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL88_f6c9d72fa26cbedd0c3f9fa64a88c38a()
     {

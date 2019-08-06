@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RangeQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/range-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RangeQuery extends SimpleExamplesTester {
     /**
      * Tag:  97bcd92ef148312d41e69f0d18284327
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_97bcd92ef148312d41e69f0d18284327()
     {
@@ -65,7 +65,7 @@ class RangeQuery extends SimpleExamplesTester {
     /**
      * Tag:  4466d410e06712c63328de4db249e6da
      * Line: 153
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL153_4466d410e06712c63328de4db249e6da()
     {
@@ -103,7 +103,7 @@ class RangeQuery extends SimpleExamplesTester {
     /**
      * Tag:  5d13a71fa7fda73b15111803b1c7cfd3
      * Line: 216
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL216_5d13a71fa7fda73b15111803b1c7cfd3()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TermsQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/terms-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TermsQuery extends SimpleExamplesTester {
     /**
      * Tag:  0c4ad860a485fe53d8140ad3ccd11dcf
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_0c4ad860a485fe53d8140ad3ccd11dcf()
     {
@@ -59,7 +59,7 @@ class TermsQuery extends SimpleExamplesTester {
     /**
      * Tag:  9e56d79ad9a02b642c361f0b85dd95d7
      * Line: 128
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL128_9e56d79ad9a02b642c361f0b85dd95d7()
     {
@@ -91,7 +91,7 @@ class TermsQuery extends SimpleExamplesTester {
     /**
      * Tag:  d3088d5fa59b3ab110f64fb4f9b0065c
      * Line: 147
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL147_d3088d5fa59b3ab110f64fb4f9b0065c()
     {
@@ -115,7 +115,7 @@ class TermsQuery extends SimpleExamplesTester {
     /**
      * Tag:  8c5977410335d58217e0626618ce6641
      * Line: 163
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL163_8c5977410335d58217e0626618ce6641()
     {
@@ -139,7 +139,7 @@ class TermsQuery extends SimpleExamplesTester {
     /**
      * Tag:  d1bcf2eb63a462bfdcf01a68e68d5b4a
      * Line: 191
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL191_d1bcf2eb63a462bfdcf01a68e68d5b4a()
     {

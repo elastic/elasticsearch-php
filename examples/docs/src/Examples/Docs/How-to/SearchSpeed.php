@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SearchSpeed
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   how-to/search-speed.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  12facf3617a41551ce2f0c4d005cb1c7
      * Line: 52
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL52_12facf3617a41551ce2f0c4d005cb1c7()
     {
@@ -77,7 +77,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  a008f42379930edc354b4074e0a33344
      * Line: 87
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL87_a008f42379930edc354b4074e0a33344()
     {
@@ -103,7 +103,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  a0a7557bb7e2aff7918557cd648f41af
      * Line: 99
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL99_a0a7557bb7e2aff7918557cd648f41af()
     {
@@ -149,7 +149,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  a4bae4d956bc0a663f42cfec36bf8e0b
      * Line: 123
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL123_a4bae4d956bc0a663f42cfec36bf8e0b()
     {
@@ -197,7 +197,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  7dedb148ff74912de81b8f8275f0d7f3
      * Line: 148
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL148_7dedb148ff74912de81b8f8275f0d7f3()
     {
@@ -233,7 +233,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  102c7de25d13c87cf28839ada9f63c95
      * Line: 192
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL192_102c7de25d13c87cf28839ada9f63c95()
     {
@@ -287,7 +287,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  17dd67a66c49f7eb618dd17430e48dfa
      * Line: 219
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL219_17dd67a66c49f7eb618dd17430e48dfa()
     {
@@ -333,7 +333,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  abc7a670a47516b58b6b07d7497b140c
      * Line: 253
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL253_abc7a670a47516b58b6b07d7497b140c()
     {
@@ -423,7 +423,7 @@ class SearchSpeed extends SimpleExamplesTester {
     /**
      * Tag:  971c7a36ee79f2b3aa82c64ea338de70
      * Line: 326
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL326_971c7a36ee79f2b3aa82c64ea338de70()
     {

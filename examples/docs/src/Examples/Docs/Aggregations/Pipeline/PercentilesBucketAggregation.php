@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PercentilesBucketAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/percentiles-bucket-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PercentilesBucketAggregation extends SimpleExamplesTester {
     /**
      * Tag:  cff65c0f9fbc53c26c60abe9fb7e4044
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL38_cff65c0f9fbc53c26c60abe9fb7e4044()
     {

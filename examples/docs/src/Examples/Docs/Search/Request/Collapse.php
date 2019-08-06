@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Collapse
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/collapse.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Collapse extends SimpleExamplesTester {
     /**
      * Tag:  032f67ced3e7d106f8722432ebbd94d3
      * Line: 9
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL9_032f67ced3e7d106f8722432ebbd94d3()
     {
@@ -67,7 +67,7 @@ class Collapse extends SimpleExamplesTester {
     /**
      * Tag:  63d36a10d9475be2e2fa73d2415e20e6
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL43_63d36a10d9475be2e2fa73d2415e20e6()
     {
@@ -119,7 +119,7 @@ class Collapse extends SimpleExamplesTester {
     /**
      * Tag:  4f20ca49fbaac83620d4cb23fd355f3b
      * Line: 77
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL77_4f20ca49fbaac83620d4cb23fd355f3b()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DiskUsage
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   how-to/disk-usage.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DiskUsage extends SimpleExamplesTester {
     /**
      * Tag:  e273060a675c959fd5f3cde27c8aff07
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_e273060a675c959fd5f3cde27c8aff07()
     {
@@ -63,7 +63,7 @@ class DiskUsage extends SimpleExamplesTester {
     /**
      * Tag:  c8568f4f02f75db9afd669880db98a16
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL35_c8568f4f02f75db9afd669880db98a16()
     {
@@ -101,7 +101,7 @@ class DiskUsage extends SimpleExamplesTester {
     /**
      * Tag:  1a5cd30017368fe4888454a13c6e8561
      * Line: 56
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL56_1a5cd30017368fe4888454a13c6e8561()
     {
@@ -139,7 +139,7 @@ class DiskUsage extends SimpleExamplesTester {
     /**
      * Tag:  ae3ae58724c413734b67a90a6ddb319f
      * Line: 77
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL77_ae3ae58724c413734b67a90a6ddb319f()
     {
@@ -179,7 +179,7 @@ class DiskUsage extends SimpleExamplesTester {
     /**
      * Tag:  597d456edfcb3d410954a3e9b5babf9a
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL110_597d456edfcb3d410954a3e9b5babf9a()
     {

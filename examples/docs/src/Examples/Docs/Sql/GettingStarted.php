@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GettingStarted
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   sql/getting-started.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GettingStarted extends SimpleExamplesTester {
     /**
      * Tag:  15f293688537c82d2bdebda916769fa4
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL10_15f293688537c82d2bdebda916769fa4()
     {
@@ -55,7 +55,7 @@ class GettingStarted extends SimpleExamplesTester {
     /**
      * Tag:  53b14d640c4c48a5e7ea86ddc26bee64
      * Line: 24
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL24_53b14d640c4c48a5e7ea86ddc26bee64()
     {
@@ -64,13 +64,13 @@ class GettingStarted extends SimpleExamplesTester {
         // TODO -- Implement Example
         // POST /_sql?format=txt
         // {
-        //     "query": "SELECT * FROM library WHERE release_date < '2000-01-01'"
+        //     "query": "SELECT * FROM library WHERE release_date < \'2000-01-01\'"
         // }
         // end::53b14d640c4c48a5e7ea86ddc26bee64[]
 
         $curl = 'POST /_sql?format=txt'
               . '{'
-              . '    "query": "SELECT * FROM library WHERE release_date < '2000-01-01'"'
+              . '    "query": "SELECT * FROM library WHERE release_date < \'2000-01-01\'"'
               . '}';
 
         // TODO -- make assertion

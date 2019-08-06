@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: LetterTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/letter-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class LetterTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  76448aaaaa2c352bb6e09d2f83a3fbb3
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL13_76448aaaaa2c352bb6e09d2f83a3fbb3()
     {
@@ -35,14 +35,14 @@ class LetterTokenizer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "tokenizer": "letter",
-        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+        //   "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."
         // }
         // end::76448aaaaa2c352bb6e09d2f83a3fbb3[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "tokenizer": "letter",'
-              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."'
+              . '  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog\'s bone."'
               . '}';
 
         // TODO -- make assertion

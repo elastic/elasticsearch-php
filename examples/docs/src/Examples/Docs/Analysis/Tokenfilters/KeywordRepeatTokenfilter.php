@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: KeywordRepeatTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/keyword-repeat-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class KeywordRepeatTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  9da83c9a2149bfc6fe215a612ae0a9aa
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_9da83c9a2149bfc6fe215a612ae0a9aa()
     {
@@ -81,7 +81,7 @@ class KeywordRepeatTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  757622a424b8445fee49746862a11b02
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL43_757622a424b8445fee49746862a11b02()
     {

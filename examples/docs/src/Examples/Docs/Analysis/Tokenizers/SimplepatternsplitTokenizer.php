@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SimplepatternsplitTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/simplepatternsplit-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SimplepatternsplitTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  5c28bb67716ed2bbe03c1d5d3733cb42
      * Line: 39
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL39_5c28bb67716ed2bbe03c1d5d3733cb42()
     {

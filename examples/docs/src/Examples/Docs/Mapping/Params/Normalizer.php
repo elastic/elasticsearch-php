@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Normalizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/normalizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Normalizer extends SimpleExamplesTester {
     /**
      * Tag:  4cd40113e0fc90c37976f28d7e4a2327
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_4cd40113e0fc90c37976f28d7e4a2327()
     {
@@ -143,7 +143,7 @@ class Normalizer extends SimpleExamplesTester {
     /**
      * Tag:  6f842819c50e8490080dd085e0c6aca3
      * Line: 124
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL124_6f842819c50e8490080dd085e0c6aca3()
     {

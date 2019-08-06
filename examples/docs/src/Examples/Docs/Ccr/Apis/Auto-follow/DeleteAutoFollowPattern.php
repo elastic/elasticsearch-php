@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteAutoFollowPattern
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/auto-follow/delete-auto-follow-pattern.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteAutoFollowPattern extends SimpleExamplesTester {
     /**
      * Tag:  2f2580ea420e1836d922fe48fa8ada97
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL35_2f2580ea420e1836d922fe48fa8ada97()
     {
@@ -43,7 +43,7 @@ class DeleteAutoFollowPattern extends SimpleExamplesTester {
     /**
      * Tag:  d4ef6ac034c4d42cb75d830ec69146e6
      * Line: 68
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL68_d4ef6ac034c4d42cb75d830ec69146e6()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Coerce
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/coerce.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Coerce extends SimpleExamplesTester {
     /**
      * Tag:  5c734d4a7252cc155f8dc90c4785f491
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_5c734d4a7252cc155f8dc90c4785f491()
     {
@@ -85,7 +85,7 @@ class Coerce extends SimpleExamplesTester {
     /**
      * Tag:  dad2db81c728827a782a3fefd3399849
      * Line: 60
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL60_dad2db81c728827a782a3fefd3399849()
     {

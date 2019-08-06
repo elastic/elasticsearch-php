@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: HasPrivileges
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/has-privileges.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class HasPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  9684e5fa8c22a07a372feb6fc1f5f7c0
      * Line: 64
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL64_9684e5fa8c22a07a372feb6fc1f5f7c0()
     {

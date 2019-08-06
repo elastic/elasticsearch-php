@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: EvaluateDfanalytics
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/df-analytics/apis/evaluate-dfanalytics.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class EvaluateDfanalytics extends SimpleExamplesTester {
     /**
      * Tag:  eae68412d998bc0f65b09711f007a4b7
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL72_eae68412d998bc0f65b09711f007a4b7()
     {

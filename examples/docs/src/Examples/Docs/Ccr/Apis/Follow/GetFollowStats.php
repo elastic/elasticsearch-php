@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetFollowStats
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/get-follow-stats.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetFollowStats extends SimpleExamplesTester {
     /**
      * Tag:  020c95db88ef356093f03be84893ddf9
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL38_020c95db88ef356093f03be84893ddf9()
     {
@@ -43,7 +43,7 @@ class GetFollowStats extends SimpleExamplesTester {
     /**
      * Tag:  8e43bb5b7946143e69d397bb81d87df0
      * Line: 209
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL209_8e43bb5b7946143e69d397bb81d87df0()
     {

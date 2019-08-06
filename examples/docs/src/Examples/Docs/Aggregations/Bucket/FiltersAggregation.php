@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FiltersAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/filters-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FiltersAggregation extends SimpleExamplesTester {
     /**
      * Tag:  188e6208cccb13027a5c1c95440841ee
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL11_188e6208cccb13027a5c1c95440841ee()
     {
@@ -83,7 +83,7 @@ class FiltersAggregation extends SimpleExamplesTester {
     /**
      * Tag:  3cd2f7f9096a8e8180f27b6c30e71840
      * Line: 74
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL74_3cd2f7f9096a8e8180f27b6c30e71840()
     {
@@ -127,7 +127,7 @@ class FiltersAggregation extends SimpleExamplesTester {
     /**
      * Tag:  21bb03ca9123de3237c1c76934f9f172
      * Line: 137
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL137_21bb03ca9123de3237c1c76934f9f172()
     {

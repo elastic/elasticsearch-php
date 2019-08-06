@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DynamicMapping
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/dynamic-mapping.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DynamicMapping extends SimpleExamplesTester {
     /**
      * Tag:  61c49cee90c6aa0eafbdd5cc03936e7d
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_61c49cee90c6aa0eafbdd5cc03936e7d()
     {

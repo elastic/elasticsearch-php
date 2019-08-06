@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FingerprintAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/fingerprint-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FingerprintAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  6490d89a4e43cac5e6b9bc19840d5478
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_6490d89a4e43cac5e6b9bc19840d5478()
     {
@@ -51,7 +51,7 @@ class FingerprintAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  2659ccd414867f3a5ee262c9b7cd3f1d
      * Line: 88
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL88_2659ccd414867f3a5ee262c9b7cd3f1d()
     {
@@ -103,7 +103,7 @@ class FingerprintAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  ce725697f93b3eebb3a266314568565a
      * Line: 160
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL160_ce725697f93b3eebb3a266314568565a()
     {

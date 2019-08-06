@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FieldNamesField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/field-names-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FieldNamesField extends SimpleExamplesTester {
     /**
      * Tag:  e4fc720e1f7f2f9a7edf48184fd4a0dd
      * Line: 24
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL24_e4fc720e1f7f2f9a7edf48184fd4a0dd()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: KeywordTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/keyword-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class KeywordTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  09a44b619a99f6bf3f01bd5e258fd22d
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_09a44b619a99f6bf3f01bd5e258fd22d()
     {

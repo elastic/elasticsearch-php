@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ThaiTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/thai-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ThaiTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  a1e5f3956f9a697e79478fc9a6e30e1f
      * Line: 17
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL17_a1e5f3956f9a697e79478fc9a6e30e1f()
     {

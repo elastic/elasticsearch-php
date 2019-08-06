@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FunctionScoreQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/function-score-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  a42f33e15b0995bb4b6058659bfdea85
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL19_a42f33e15b0995bb4b6058659bfdea85()
     {
@@ -63,7 +63,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  b4a0d0ed512dffc10ee53bca2feca49b
      * Line: 42
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL42_b4a0d0ed512dffc10ee53bca2feca49b()
     {
@@ -127,7 +127,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  ec473de07fe89bcbac1f8e278617fe46
      * Line: 139
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL139_ec473de07fe89bcbac1f8e278617fe46()
     {
@@ -143,7 +143,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
         //             },
         //             "script_score" : {
         //                 "script" : {
-        //                   "source": "Math.log(2 + doc['likes'].value)"
+        //                   "source": "Math.log(2 + doc[\'likes\'].value)"
         //                 }
         //             }
         //         }
@@ -160,7 +160,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
               . '            },'
               . '            "script_score" : {'
               . '                "script" : {'
-              . '                  "source": "Math.log(2 + doc['likes'].value)"'
+              . '                  "source": "Math.log(2 + doc[\'likes\'].value)"'
               . '                }'
               . '            }'
               . '        }'
@@ -173,7 +173,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  b68c85fe1b0d2f264dc0d1cbf530f319
      * Line: 171
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL171_b68c85fe1b0d2f264dc0d1cbf530f319()
     {
@@ -193,7 +193,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
         //                         "a": 5,
         //                         "b": 1.2
         //                     },
-        //                     "source": "params.a / Math.pow(params.b, doc['likes'].value)"
+        //                     "source": "params.a / Math.pow(params.b, doc[\'likes\'].value)"
         //                 }
         //             }
         //         }
@@ -214,7 +214,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
               . '                        "a": 5,'
               . '                        "b": 1.2'
               . '                    },'
-              . '                    "source": "params.a / Math.pow(params.b, doc['likes'].value)"'
+              . '                    "source": "params.a / Math.pow(params.b, doc[\'likes\'].value)"'
               . '                }'
               . '            }'
               . '        }'
@@ -227,7 +227,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  645c4c6e209719d3a4d25b1a629cb23b
      * Line: 238
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL238_645c4c6e209719d3a4d25b1a629cb23b()
     {
@@ -265,7 +265,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  8eaf4d5dd4ab1335deefa7749fdbbcc3
      * Line: 267
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL267_8eaf4d5dd4ab1335deefa7749fdbbcc3()
     {
@@ -307,7 +307,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  ec27afee074001b0e4e393611010842b
      * Line: 379
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL379_ec27afee074001b0e4e393611010842b()
     {
@@ -353,7 +353,7 @@ class FunctionScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  df17f920b0deab3529b98df88b781f55
      * Line: 577
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL577_df17f920b0deab3529b98df88b781f55()
     {

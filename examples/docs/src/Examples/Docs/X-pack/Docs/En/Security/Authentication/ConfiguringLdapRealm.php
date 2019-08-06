@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ConfiguringLdapRealm
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ../../x-pack/docs/en/security/authentication/configuring-ldap-realm.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ConfiguringLdapRealm extends SimpleExamplesTester {
     /**
      * Tag:  21e95d29bc37deb5689a654aa323b4ba
      * Line: 149
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL149_21e95d29bc37deb5689a654aa323b4ba()
     {
@@ -57,7 +57,7 @@ class ConfiguringLdapRealm extends SimpleExamplesTester {
     /**
      * Tag:  38ffa96674b5fd4042589af0ebb0437b
      * Line: 163
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL163_38ffa96674b5fd4042589af0ebb0437b()
     {

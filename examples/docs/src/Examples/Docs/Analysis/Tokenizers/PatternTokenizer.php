@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PatternTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/pattern-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PatternTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  1a6dbe5df488c4a16e2f1101ba8a25d9
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_1a6dbe5df488c4a16e2f1101ba8a25d9()
     {
@@ -35,14 +35,14 @@ class PatternTokenizer extends SimpleExamplesTester {
         // POST _analyze
         // {
         //   "tokenizer": "pattern",
-        //   "text": "The foo_bar_size's default is 5."
+        //   "text": "The foo_bar_size\'s default is 5."
         // }
         // end::1a6dbe5df488c4a16e2f1101ba8a25d9[]
 
         $curl = 'POST _analyze'
               . '{'
               . '  "tokenizer": "pattern",'
-              . '  "text": "The foo_bar_size's default is 5."'
+              . '  "text": "The foo_bar_size\'s default is 5."'
               . '}';
 
         // TODO -- make assertion
@@ -51,7 +51,7 @@ class PatternTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  448339a39d847c4cac57a325e23c2a5a
      * Line: 127
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL127_448339a39d847c4cac57a325e23c2a5a()
     {
@@ -113,7 +113,7 @@ class PatternTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  fa8d64d622b4d7fe3234924b4de4f0bf
      * Line: 217
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL217_fa8d64d622b4d7fe3234924b4de4f0bf()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: LimitTokenCountTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/limit-token-count-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class LimitTokenCountTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  fdd46bdb2b0b0b5f8e7e502291496db8
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_fdd46bdb2b0b0b5f8e7e502291496db8()
     {

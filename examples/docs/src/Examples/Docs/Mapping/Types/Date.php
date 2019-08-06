@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Date
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/date.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Date extends SimpleExamplesTester {
     /**
      * Tag:  645136747d37368a14ab34de8bd046c6
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL35_645136747d37368a14ab34de8bd046c6()
     {
@@ -81,7 +81,7 @@ class Date extends SimpleExamplesTester {
     /**
      * Tag:  e2a042c629429855c3bcaefffb26b7fa
      * Line: 77
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL77_e2a042c629429855c3bcaefffb26b7fa()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ContextSuggest
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/suggesters/context-suggest.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  46b3154afd9a05f1aadd726efdd9cf98
      * Line: 25
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL25_46b3154afd9a05f1aadd726efdd9cf98()
     {
@@ -135,7 +135,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  2e59a0f8721e27dd537566f4af7a568f
      * Line: 100
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL100_2e59a0f8721e27dd537566f4af7a568f()
     {
@@ -145,7 +145,7 @@ class ContextSuggest extends SimpleExamplesTester {
         // PUT place/_doc/1
         // {
         //     "suggest": {
-        //         "input": ["timmy's", "starbucks", "dunkin donuts"],
+        //         "input": ["timmy\'s", "starbucks", "dunkin donuts"],
         //         "contexts": {
         //             "place_type": ["cafe", "food"] \<1>
         //         }
@@ -156,7 +156,7 @@ class ContextSuggest extends SimpleExamplesTester {
         $curl = 'PUT place/_doc/1'
               . '{'
               . '    "suggest": {'
-              . '        "input": ["timmy's", "starbucks", "dunkin donuts"],'
+              . '        "input": ["timmy\'s", "starbucks", "dunkin donuts"],'
               . '        "contexts": {'
               . '            "place_type": ["cafe", "food"] \<1>'
               . '        }'
@@ -169,7 +169,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  d2a53c6c16ff2305830f64a3efd5f61d
      * Line: 118
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL118_d2a53c6c16ff2305830f64a3efd5f61d()
     {
@@ -178,14 +178,14 @@ class ContextSuggest extends SimpleExamplesTester {
         // TODO -- Implement Example
         // PUT place_path_category/_doc/1
         // {
-        //     "suggest": ["timmy's", "starbucks", "dunkin donuts"],
+        //     "suggest": ["timmy\'s", "starbucks", "dunkin donuts"],
         //     "cat": ["cafe", "food"] \<1>
         // }
         // end::d2a53c6c16ff2305830f64a3efd5f61d[]
 
         $curl = 'PUT place_path_category/_doc/1'
               . '{'
-              . '    "suggest": ["timmy's", "starbucks", "dunkin donuts"],'
+              . '    "suggest": ["timmy\'s", "starbucks", "dunkin donuts"],'
               . '    "cat": ["cafe", "food"] \<1>'
               . '}';
 
@@ -195,7 +195,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  8c3e9da5f412261477c032b33f36a3e9
      * Line: 140
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL140_8c3e9da5f412261477c032b33f36a3e9()
     {
@@ -241,7 +241,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  8ac73762800c9db1ae418bfc0bcfa65a
      * Line: 169
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL169_8ac73762800c9db1ae418bfc0bcfa65a()
     {
@@ -293,7 +293,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  182162241e42f16f5860ea26fdc52c7e
      * Line: 254
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL254_182162241e42f16f5860ea26fdc52c7e()
     {
@@ -303,7 +303,7 @@ class ContextSuggest extends SimpleExamplesTester {
         // PUT place/_doc/1
         // {
         //     "suggest": {
-        //         "input": "timmy's",
+        //         "input": "timmy\'s",
         //         "contexts": {
         //             "location": [
         //                 {
@@ -323,7 +323,7 @@ class ContextSuggest extends SimpleExamplesTester {
         $curl = 'PUT place/_doc/1'
               . '{'
               . '    "suggest": {'
-              . '        "input": "timmy's",'
+              . '        "input": "timmy\'s",'
               . '        "contexts": {'
               . '            "location": ['
               . '                {'
@@ -345,7 +345,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  bc79a8936474faf7de6d3c9872678176
      * Line: 284
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL284_bc79a8936474faf7de6d3c9872678176()
     {
@@ -397,7 +397,7 @@ class ContextSuggest extends SimpleExamplesTester {
     /**
      * Tag:  837c765a38fa0fd5f01b1559138469be
      * Line: 318
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL318_837c765a38fa0fd5f01b1559138469be()
     {

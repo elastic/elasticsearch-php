@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PutPipeline
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/apis/put-pipeline.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PutPipeline extends SimpleExamplesTester {
     /**
      * Tag:  e7e28812b86c5257bf48931d131409f0
      * Line: 7
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL7_e7e28812b86c5257bf48931d131409f0()
     {

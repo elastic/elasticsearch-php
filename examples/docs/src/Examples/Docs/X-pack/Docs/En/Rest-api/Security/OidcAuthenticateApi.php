@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: OidcAuthenticateApi
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/oidc-authenticate-api.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class OidcAuthenticateApi extends SimpleExamplesTester {
     /**
      * Tag:  95b341300d31db2f573905ebeac42d89
      * Line: 45
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL45_95b341300d31db2f573905ebeac42d89()
     {

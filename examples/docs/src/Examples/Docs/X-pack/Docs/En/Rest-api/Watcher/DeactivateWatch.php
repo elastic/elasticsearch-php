@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeactivateWatch
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/watcher/deactivate-watch.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeactivateWatch extends SimpleExamplesTester {
     /**
      * Tag:  e827a9040e137410d62d10bb3b3cbb71
      * Line: 35
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL35_e827a9040e137410d62d10bb3b3cbb71()
     {
@@ -43,7 +43,7 @@ class DeactivateWatch extends SimpleExamplesTester {
     /**
      * Tag:  f63f6343e74bd5c844854272e746de14
      * Line: 68
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL68_f63f6343e74bd5c844854272e746de14()
     {

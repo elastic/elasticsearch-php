@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: AvgBucketAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/avg-bucket-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class AvgBucketAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b3e8697874ed65ed6cb62f2568bcc55e
      * Line: 37
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL37_b3e8697874ed65ed6cb62f2568bcc55e()
     {

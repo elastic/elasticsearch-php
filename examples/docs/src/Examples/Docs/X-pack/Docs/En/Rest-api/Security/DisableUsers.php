@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DisableUsers
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/disable-users.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DisableUsers extends SimpleExamplesTester {
     /**
      * Tag:  bb293e1bdf0c6f6d9069eeb7edc9d399
      * Line: 42
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL42_bb293e1bdf0c6f6d9069eeb7edc9d399()
     {

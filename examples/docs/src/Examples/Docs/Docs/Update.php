@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Update
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   docs/update.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  381fced1882ca8337143e6bb180a5715
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_381fced1882ca8337143e6bb180a5715()
     {
@@ -51,7 +51,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  96de5703ba0bd43fd4ac239ec5408542
      * Line: 33
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL33_96de5703ba0bd43fd4ac239ec5408542()
     {
@@ -87,7 +87,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  4cd246e5c4c035a2cd4081ae9a3d54e5
      * Line: 52
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL52_4cd246e5c4c035a2cd4081ae9a3d54e5()
     {
@@ -123,7 +123,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  ac544eb247a29ca42aab13826ca88561
      * Line: 74
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL74_ac544eb247a29ca42aab13826ca88561()
     {
@@ -159,7 +159,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  eb30ba547e4a7b8f54f33ab259aca523
      * Line: 96
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL96_eb30ba547e4a7b8f54f33ab259aca523()
     {
@@ -168,13 +168,13 @@ class Update extends SimpleExamplesTester {
         // TODO -- Implement Example
         // POST test/_update/1
         // {
-        //     "script" : "ctx._source.new_field = 'value_of_new_field'"
+        //     "script" : "ctx._source.new_field = \'value_of_new_field\'"
         // }
         // end::eb30ba547e4a7b8f54f33ab259aca523[]
 
         $curl = 'POST test/_update/1'
               . '{'
-              . '    "script" : "ctx._source.new_field = 'value_of_new_field'"'
+              . '    "script" : "ctx._source.new_field = \'value_of_new_field\'"'
               . '}';
 
         // TODO -- make assertion
@@ -183,7 +183,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  58df61acbfb15b8ef0aaa18b81ae98a6
      * Line: 108
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL108_58df61acbfb15b8ef0aaa18b81ae98a6()
     {
@@ -192,13 +192,13 @@ class Update extends SimpleExamplesTester {
         // TODO -- Implement Example
         // POST test/_update/1
         // {
-        //     "script" : "ctx._source.remove('new_field')"
+        //     "script" : "ctx._source.remove(\'new_field\')"
         // }
         // end::58df61acbfb15b8ef0aaa18b81ae98a6[]
 
         $curl = 'POST test/_update/1'
               . '{'
-              . '    "script" : "ctx._source.remove('new_field')"'
+              . '    "script" : "ctx._source.remove(\'new_field\')"'
               . '}';
 
         // TODO -- make assertion
@@ -207,7 +207,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  98aeb275f829b5f7b8eb2147701565ff
      * Line: 122
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL122_98aeb275f829b5f7b8eb2147701565ff()
     {
@@ -217,7 +217,7 @@ class Update extends SimpleExamplesTester {
         // POST test/_update/1
         // {
         //     "script" : {
-        //         "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = 'delete' } else { ctx.op = 'none' }",
+        //         "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = \'delete\' } else { ctx.op = \'none\' }",
         //         "lang": "painless",
         //         "params" : {
         //             "tag" : "green"
@@ -229,7 +229,7 @@ class Update extends SimpleExamplesTester {
         $curl = 'POST test/_update/1'
               . '{'
               . '    "script" : {'
-              . '        "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = 'delete' } else { ctx.op = 'none' }",'
+              . '        "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = \'delete\' } else { ctx.op = \'none\' }",'
               . '        "lang": "painless",'
               . '        "params" : {'
               . '            "tag" : "green"'
@@ -243,7 +243,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  38c1d0f6668e9563c0827f839f9fa505
      * Line: 149
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL149_38c1d0f6668e9563c0827f839f9fa505()
     {
@@ -271,7 +271,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  38c1d0f6668e9563c0827f839f9fa505
      * Line: 170
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL170_38c1d0f6668e9563c0827f839f9fa505()
     {
@@ -299,7 +299,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  015294a400986295039e52ebc62033be
      * Line: 207
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL207_015294a400986295039e52ebc62033be()
     {
@@ -329,7 +329,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  0a958e486ede3f519d48431ab689eded
      * Line: 228
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL228_0a958e486ede3f519d48431ab689eded()
     {
@@ -371,7 +371,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  f9636d7ef1a45be4f36418c875cf6bef
      * Line: 255
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL255_f9636d7ef1a45be4f36418c875cf6bef()
     {
@@ -417,7 +417,7 @@ class Update extends SimpleExamplesTester {
     /**
      * Tag:  7cac05cb589f1614fd5b8589153bef06
      * Line: 285
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL285_7cac05cb589f1614fd5b8589153bef06()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PostForgetFollower
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/post-forget-follower.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PostForgetFollower extends SimpleExamplesTester {
     /**
      * Tag:  f4fdfe52ecba65eec6beb30d8deb8bbf
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL38_f4fdfe52ecba65eec6beb30d8deb8bbf()
     {
@@ -55,7 +55,7 @@ class PostForgetFollower extends SimpleExamplesTester {
     /**
      * Tag:  07c07f6d497b1a3012aa4320f830e09e
      * Line: 131
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL131_07c07f6d497b1a3012aa4320f830e09e()
     {

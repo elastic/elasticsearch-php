@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteWatch
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/watcher/delete-watch.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteWatch extends SimpleExamplesTester {
     /**
      * Tag:  2aa548b692fc2fe7b6f0d90eb8b2ae29
      * Line: 48
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL48_2aa548b692fc2fe7b6f0d90eb8b2ae29()
     {

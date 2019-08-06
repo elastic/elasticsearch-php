@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeotilegridAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/geotilegrid-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeotilegridAggregation extends SimpleExamplesTester {
     /**
      * Tag:  86f1e66bc101b3f22dc84d2aa172fd75
      * Line: 34
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL34_86f1e66bc101b3f22dc84d2aa172fd75()
     {
@@ -54,7 +54,7 @@ class GeotilegridAggregation extends SimpleExamplesTester {
         // {"index":{"_id":5}}
         // {"location": "48.861111,2.336389", "name": "Musée du Louvre"}
         // {"index":{"_id":6}}
-        // {"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+        // {"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}
         // POST /museums/_search?size=0
         // {
         //     "aggregations" : {
@@ -90,7 +90,7 @@ class GeotilegridAggregation extends SimpleExamplesTester {
               . '{"index":{"_id":5}}'
               . '{"location": "48.861111,2.336389", "name": "Musée du Louvre"}'
               . '{"index":{"_id":6}}'
-              . '{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}'
+              . '{"location": "48.860000,2.327000", "name": "Musée d\'Orsay"}'
               . 'POST /museums/_search?size=0'
               . '{'
               . '    "aggregations" : {'
@@ -109,7 +109,7 @@ class GeotilegridAggregation extends SimpleExamplesTester {
     /**
      * Tag:  57705815ad6bd50d91e58153ae75d3ca
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL110_57705815ad6bd50d91e58153ae75d3ca()
     {

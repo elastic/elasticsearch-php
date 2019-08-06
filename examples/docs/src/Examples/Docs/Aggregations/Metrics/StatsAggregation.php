@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StatsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/stats-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6f04f3c1afe94e03d26ff5966fd4b98d
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL11_6f04f3c1afe94e03d26ff5966fd4b98d()
     {
@@ -53,7 +53,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9ed80262680e67c629a08f6754a7c5c9
      * Line: 50
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL50_9ed80262680e67c629a08f6754a7c5c9()
     {
@@ -67,7 +67,7 @@ class StatsAggregation extends SimpleExamplesTester {
         //              "stats" : {
         //                  "script" : {
         //                      "lang": "painless",
-        //                      "source": "doc['grade'].value"
+        //                      "source": "doc[\'grade\'].value"
         //                  }
         //              }
         //          }
@@ -82,7 +82,7 @@ class StatsAggregation extends SimpleExamplesTester {
               . '             "stats" : {'
               . '                 "script" : {'
               . '                     "lang": "painless",'
-              . '                     "source": "doc['grade'].value"'
+              . '                     "source": "doc[\'grade\'].value"'
               . '                 }'
               . '             }'
               . '         }'
@@ -95,7 +95,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2ba8575100b37b85d0052d46a00ce4cd
      * Line: 71
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL71_2ba8575100b37b85d0052d46a00ce4cd()
     {
@@ -141,7 +141,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  1341888a2677cf6e1db11e6cab2dd8ce
      * Line: 96
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL96_1341888a2677cf6e1db11e6cab2dd8ce()
     {
@@ -191,7 +191,7 @@ class StatsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7371dcfe4adb43996f4c26684318302b
      * Line: 125
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL125_7371dcfe4adb43996f4c26684318302b()
     {

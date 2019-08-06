@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: OidcLogoutApi
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/oidc-logout-api.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class OidcLogoutApi extends SimpleExamplesTester {
     /**
      * Tag:  2a1eece9a59ac1773edcf0a932c26de0
      * Line: 34
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL34_2a1eece9a59ac1773edcf0a932c26de0()
     {

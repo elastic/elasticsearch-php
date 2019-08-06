@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetBucket
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/get-bucket.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetBucket extends SimpleExamplesTester {
     /**
      * Tag:  2c7fce4025e8e429e1ae8d50f5eb4b88
      * Line: 93
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL93_2c7fce4025e8e429e1ae8d50f5eb4b88()
     {

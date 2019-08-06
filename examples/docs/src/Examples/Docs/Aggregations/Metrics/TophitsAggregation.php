@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TophitsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/tophits-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TophitsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  12b4b34f9958ed157ac2d812d612cda6
      * Line: 36
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL36_12b4b34f9958ed157ac2d812d612cda6()
     {
@@ -97,7 +97,7 @@ class TophitsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  30db2702dd0071c72a090b8311d0db09
      * Line: 189
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL189_30db2702dd0071c72a090b8311d0db09()
     {
@@ -173,7 +173,7 @@ class TophitsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  2720c5e463876c415419c426697d15e4
      * Line: 243
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL243_2720c5e463876c415419c426697d15e4()
     {
@@ -219,7 +219,7 @@ class TophitsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6ac67f7e30219d85fcc68b99459a39a4
      * Line: 266
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL266_6ac67f7e30219d85fcc68b99459a39a4()
     {
@@ -231,7 +231,7 @@ class TophitsAggregation extends SimpleExamplesTester {
         //     "tags": ["car", "auto"],
         //     "comments": [
         //         {"username": "baddriver007", "comment": "This car could have better brakes"},
-        //         {"username": "dr_who", "comment": "Where's the autopilot? Can't find it"},
+        //         {"username": "dr_who", "comment": "Where\'s the autopilot? Can\'t find it"},
         //         {"username": "ilovemotorbikes", "comment": "This car has two extra wheels"}
         //     ]
         // }
@@ -242,7 +242,7 @@ class TophitsAggregation extends SimpleExamplesTester {
               . '    "tags": ["car", "auto"],'
               . '    "comments": ['
               . '        {"username": "baddriver007", "comment": "This car could have better brakes"},'
-              . '        {"username": "dr_who", "comment": "Where's the autopilot? Can't find it"},'
+              . '        {"username": "dr_who", "comment": "Where\'s the autopilot? Can\'t find it"},'
               . '        {"username": "ilovemotorbikes", "comment": "This car has two extra wheels"}'
               . '    ]'
               . '}';
@@ -253,7 +253,7 @@ class TophitsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  f1b8612151a660264fb62dc6c74b19be
      * Line: 283
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL283_f1b8612151a660264fb62dc6c74b19be()
     {

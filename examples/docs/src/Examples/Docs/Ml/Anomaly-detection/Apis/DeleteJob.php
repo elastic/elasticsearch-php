@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteJob
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-job.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteJob extends SimpleExamplesTester {
     /**
      * Tag:  3ac8b5234e9d53859245cf8ab0094ca5
      * Line: 63
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL63_3ac8b5234e9d53859245cf8ab0094ca5()
     {
@@ -43,7 +43,7 @@ class DeleteJob extends SimpleExamplesTester {
     /**
      * Tag:  ccec66fb20d5ede6c691e0890cfe402a
      * Line: 81
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL81_ccec66fb20d5ede6c691e0890cfe402a()
     {

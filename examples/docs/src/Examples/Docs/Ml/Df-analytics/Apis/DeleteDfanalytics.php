@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteDfanalytics
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/df-analytics/apis/delete-dfanalytics.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteDfanalytics extends SimpleExamplesTester {
     /**
      * Tag:  1c8b6768c4eefc76fcb38708152f561b
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL38_1c8b6768c4eefc76fcb38708152f561b()
     {

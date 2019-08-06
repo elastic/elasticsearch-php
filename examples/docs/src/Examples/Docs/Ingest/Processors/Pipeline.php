@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Pipeline
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/processors/pipeline.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Pipeline extends SimpleExamplesTester {
     /**
      * Tag:  8494d09c39e109a012094eb9d6ec52ac
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_8494d09c39e109a012094eb9d6ec52ac()
     {
@@ -65,7 +65,7 @@ class Pipeline extends SimpleExamplesTester {
     /**
      * Tag:  02c48d461536709c3fc8a0e8147c3787
      * Line: 48
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL48_02c48d461536709c3fc8a0e8147c3787()
     {
@@ -115,7 +115,7 @@ class Pipeline extends SimpleExamplesTester {
     /**
      * Tag:  88647e818ffcbe39e5cf627f5b9a676c
      * Line: 74
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL74_88647e818ffcbe39e5cf627f5b9a676c()
     {

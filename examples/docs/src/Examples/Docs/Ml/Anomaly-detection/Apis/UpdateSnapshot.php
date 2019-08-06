@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: UpdateSnapshot
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/update-snapshot.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class UpdateSnapshot extends SimpleExamplesTester {
     /**
      * Tag:  3b9c54604535d97e8368d47148aecc6f
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL54_3b9c54604535d97e8368d47148aecc6f()
     {

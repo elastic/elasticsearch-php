@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: QueryStringQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/query-string-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  81f09836772b03f6e7e8e7986409d67e
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_81f09836772b03f6e7e8e7986409d67e()
     {
@@ -59,7 +59,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  fe1dd67108b04e07d0832b539d4e0d99
      * Line: 28
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL28_fe1dd67108b04e07d0832b539d4e0d99()
     {
@@ -93,7 +93,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  f2d68493abd3ca430bd03a7f7f8d18f9
      * Line: 168
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL168_f2d68493abd3ca430bd03a7f7f8d18f9()
     {
@@ -127,7 +127,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  e17e8852ec3f31781e1364f4dffeb6d0
      * Line: 185
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL185_e17e8852ec3f31781e1364f4dffeb6d0()
     {
@@ -159,7 +159,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  a2a25aad1fea9a541b52ac613c78fb64
      * Line: 202
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL202_a2a25aad1fea9a541b52ac613c78fb64()
     {
@@ -195,7 +195,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  28aad2c5942bfb221c2bf1bbdc01658e
      * Line: 222
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL222_28aad2c5942bfb221c2bf1bbdc01658e()
     {
@@ -229,7 +229,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  db6cba451ba562abe953d09ad80cc15c
      * Line: 240
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL240_db6cba451ba562abe953d09ad80cc15c()
     {
@@ -261,7 +261,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  58b5003c0a53a39bf509aa3797aad471
      * Line: 275
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL275_58b5003c0a53a39bf509aa3797aad471()
     {
@@ -295,7 +295,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  f32f0c19b42de3b87dd764fe4ca17e7c
      * Line: 300
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL300_f32f0c19b42de3b87dd764fe4ca17e7c()
     {
@@ -331,7 +331,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  60ee33f3acfdd0fe6f288ac77312c780
      * Line: 329
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL329_60ee33f3acfdd0fe6f288ac77312c780()
     {
@@ -371,7 +371,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  be1bd47393646ac6bbee177d1cdb7738
      * Line: 356
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL356_be1bd47393646ac6bbee177d1cdb7738()
     {
@@ -413,7 +413,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  fdd38f0d248385a444c777e7acd97846
      * Line: 381
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL381_fdd38f0d248385a444c777e7acd97846()
     {
@@ -455,7 +455,7 @@ class QueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  6f21a878fee3b43c5332b81aaddbeac7
      * Line: 411
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL411_6f21a878fee3b43c5332b81aaddbeac7()
     {

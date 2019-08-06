@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Using
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   scripting/using.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Using extends SimpleExamplesTester {
     /**
      * Tag:  e62cf588bfc891504bbf933af86eed7c
      * Line: 24
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL24_e62cf588bfc891504bbf933af86eed7c()
     {
@@ -42,7 +42,7 @@ class Using extends SimpleExamplesTester {
         //     "my_doubled_field": {
         //       "script": {
         //         "lang":   "expression",
-        //         "source": "doc['my_field'] * multiplier",
+        //         "source": "doc[\'my_field\'] * multiplier",
         //         "params": {
         //           "multiplier": 2
         //         }
@@ -62,7 +62,7 @@ class Using extends SimpleExamplesTester {
               . '    "my_doubled_field": {'
               . '      "script": {'
               . '        "lang":   "expression",'
-              . '        "source": "doc['my_field'] * multiplier",'
+              . '        "source": "doc[\'my_field\'] * multiplier",'
               . '        "params": {'
               . '          "multiplier": 2'
               . '        }'
@@ -77,7 +77,7 @@ class Using extends SimpleExamplesTester {
     /**
      * Tag:  40a2bbc35a887d6c7dda3cca1fe7aa58
      * Line: 148
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL148_40a2bbc35a887d6c7dda3cca1fe7aa58()
     {
@@ -107,7 +107,7 @@ class Using extends SimpleExamplesTester {
     /**
      * Tag:  08e08feb514b24006e13f258d617d873
      * Line: 162
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL162_08e08feb514b24006e13f258d617d873()
     {
@@ -125,7 +125,7 @@ class Using extends SimpleExamplesTester {
     /**
      * Tag:  4484218a06e3bae623250cdaccac5dcb
      * Line: 171
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL171_4484218a06e3bae623250cdaccac5dcb()
     {
@@ -167,7 +167,7 @@ class Using extends SimpleExamplesTester {
     /**
      * Tag:  4061fd5ba7221ca85805ed14d59a6bc5
      * Line: 192
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL192_4061fd5ba7221ca85805ed14d59a6bc5()
     {

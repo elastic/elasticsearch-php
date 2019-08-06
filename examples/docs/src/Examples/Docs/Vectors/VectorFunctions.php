@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: VectorFunctions
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   vectors/vector-functions.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  d5fe26f952e93d08d427678ffdfdd2cd
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_d5fe26f952e93d08d427678ffdfdd2cd()
     {
@@ -89,7 +89,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  5ed03b6c95b31d2915c584aacd782eb6
      * Line: 57
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL57_5ed03b6c95b31d2915c584aacd782eb6()
     {
@@ -104,7 +104,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "cosineSimilarity(params.query_vector, doc['my_dense_vector']) + 1.0", \<1>
+        //         "source": "cosineSimilarity(params.query_vector, doc[\'my_dense_vector\']) + 1.0", \<1>
         //         "params": {
         //           "query_vector": [4, 3.4, -0.2]  \<2>
         //         }
@@ -122,7 +122,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "cosineSimilarity(params.query_vector, doc['my_dense_vector']) + 1.0", \<1>'
+              . '        "source": "cosineSimilarity(params.query_vector, doc[\'my_dense_vector\']) + 1.0", \<1>'
               . '        "params": {'
               . '          "query_vector": [4, 3.4, -0.2]  \<2>'
               . '        }'
@@ -137,7 +137,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  84502fcc20d08a68002cb004be7a2b20
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL86_84502fcc20d08a68002cb004be7a2b20()
     {
@@ -152,7 +152,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "cosineSimilaritySparse(params.query_vector, doc['my_sparse_vector']) + 1.0",
+        //         "source": "cosineSimilaritySparse(params.query_vector, doc[\'my_sparse_vector\']) + 1.0",
         //         "params": {
         //           "query_vector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}
         //         }
@@ -170,7 +170,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "cosineSimilaritySparse(params.query_vector, doc['my_sparse_vector']) + 1.0",'
+              . '        "source": "cosineSimilaritySparse(params.query_vector, doc[\'my_sparse_vector\']) + 1.0",'
               . '        "params": {'
               . '          "query_vector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}'
               . '        }'
@@ -185,7 +185,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  52ade18507911d36cb875daf9726412c
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL110_52ade18507911d36cb875daf9726412c()
     {
@@ -201,7 +201,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //       },
         //       "script": {
         //         "source": """
-        //           double value = dotProduct(params.query_vector, doc['my_dense_vector']);
+        //           double value = dotProduct(params.query_vector, doc[\'my_dense_vector\']);
         //           return sigmoid(1, Math.E, -value); \<1>
         //         """,
         //         "params": {
@@ -222,7 +222,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '      },'
               . '      "script": {'
               . '        "source": """'
-              . '          double value = dotProduct(params.query_vector, doc['my_dense_vector']);'
+              . '          double value = dotProduct(params.query_vector, doc[\'my_dense_vector\']);'
               . '          return sigmoid(1, Math.E, -value); \<1>'
               . '        """,'
               . '        "params": {'
@@ -239,7 +239,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  a33958dc12dfd4364d75c499652be433
      * Line: 139
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL139_a33958dc12dfd4364d75c499652be433()
     {
@@ -255,7 +255,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //       },
         //       "script": {
         //         "source": """
-        //           double value = dotProductSparse(params.query_vector, doc['my_sparse_vector']);
+        //           double value = dotProductSparse(params.query_vector, doc[\'my_sparse_vector\']);
         //           return sigmoid(1, Math.E, -value);
         //         """,
         //          "params": {
@@ -276,7 +276,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '      },'
               . '      "script": {'
               . '        "source": """'
-              . '          double value = dotProductSparse(params.query_vector, doc['my_sparse_vector']);'
+              . '          double value = dotProductSparse(params.query_vector, doc[\'my_sparse_vector\']);'
               . '          return sigmoid(1, Math.E, -value);'
               . '        """,'
               . '         "params": {'
@@ -293,7 +293,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  0bb1457dfc484885e8809fc02536b523
      * Line: 167
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL167_0bb1457dfc484885e8809fc02536b523()
     {
@@ -308,7 +308,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "1 / (1 + l1norm(params.queryVector, doc['my_dense_vector']))", \<1>
+        //         "source": "1 / (1 + l1norm(params.queryVector, doc[\'my_dense_vector\']))", \<1>
         //         "params": {
         //           "queryVector": [4, 3.4, -0.2]
         //         }
@@ -326,7 +326,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "1 / (1 + l1norm(params.queryVector, doc['my_dense_vector']))", \<1>'
+              . '        "source": "1 / (1 + l1norm(params.queryVector, doc[\'my_dense_vector\']))", \<1>'
               . '        "params": {'
               . '          "queryVector": [4, 3.4, -0.2]'
               . '        }'
@@ -341,7 +341,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  08843af9fc77104ef77d8c51a2b7c296
      * Line: 200
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL200_08843af9fc77104ef77d8c51a2b7c296()
     {
@@ -356,7 +356,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "1 / (1 + l1normSparse(params.queryVector, doc['my_sparse_vector']))",
+        //         "source": "1 / (1 + l1normSparse(params.queryVector, doc[\'my_sparse_vector\']))",
         //         "params": {
         //           "queryVector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}
         //         }
@@ -374,7 +374,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "1 / (1 + l1normSparse(params.queryVector, doc['my_sparse_vector']))",'
+              . '        "source": "1 / (1 + l1normSparse(params.queryVector, doc[\'my_sparse_vector\']))",'
               . '        "params": {'
               . '          "queryVector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}'
               . '        }'
@@ -389,7 +389,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  24b552802661be085433cf389ce80a40
      * Line: 225
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL225_24b552802661be085433cf389ce80a40()
     {
@@ -404,7 +404,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "1 / (1 + l2norm(params.queryVector, doc['my_dense_vector']))",
+        //         "source": "1 / (1 + l2norm(params.queryVector, doc[\'my_dense_vector\']))",
         //         "params": {
         //           "queryVector": [4, 3.4, -0.2]
         //         }
@@ -422,7 +422,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "1 / (1 + l2norm(params.queryVector, doc['my_dense_vector']))",'
+              . '        "source": "1 / (1 + l2norm(params.queryVector, doc[\'my_dense_vector\']))",'
               . '        "params": {'
               . '          "queryVector": [4, 3.4, -0.2]'
               . '        }'
@@ -437,7 +437,7 @@ class VectorFunctions extends SimpleExamplesTester {
     /**
      * Tag:  d9e8b9435e3a07b5d154b842a90c3d85
      * Line: 249
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL249_d9e8b9435e3a07b5d154b842a90c3d85()
     {
@@ -452,7 +452,7 @@ class VectorFunctions extends SimpleExamplesTester {
         //         "match_all": {}
         //       },
         //       "script": {
-        //         "source": "1 / (1 + l2normSparse(params.queryVector, doc['my_sparse_vector']))",
+        //         "source": "1 / (1 + l2normSparse(params.queryVector, doc[\'my_sparse_vector\']))",
         //         "params": {
         //           "queryVector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}
         //         }
@@ -470,7 +470,7 @@ class VectorFunctions extends SimpleExamplesTester {
               . '        "match_all": {}'
               . '      },'
               . '      "script": {'
-              . '        "source": "1 / (1 + l2normSparse(params.queryVector, doc['my_sparse_vector']))",'
+              . '        "source": "1 / (1 + l2normSparse(params.queryVector, doc[\'my_sparse_vector\']))",'
               . '        "params": {'
               . '          "queryVector": {"2": 0.5, "10" : 111.3, "50": -1.3, "113": 14.8, "4545": 156.0}'
               . '        }'

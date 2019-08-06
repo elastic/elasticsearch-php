@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: NullValue
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/null-value.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class NullValue extends SimpleExamplesTester {
     /**
      * Tag:  463e64093c0dfba910eb5b248085584f
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_463e64093c0dfba910eb5b248085584f()
     {

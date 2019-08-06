@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ChildrenAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/children-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9399cbbd133ec2b7aad2820fa617ae3a
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL13_9399cbbd133ec2b7aad2820fa617ae3a()
     {
@@ -67,7 +67,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
     /**
      * Tag:  dfdf82b8d99436582f150117695190b3
      * Line: 37
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL37_dfdf82b8d99436582f150117695190b3()
     {
@@ -109,7 +109,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e9fe3b53b5b6e1ff9566b5237c0fa513
      * Line: 58
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL58_e9fe3b53b5b6e1ff9566b5237c0fa513()
     {
@@ -127,7 +127,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
         //     "display_name": "Sam",
         //     "id": 48
         //   },
-        //   "body": "\<p>Unfortunately you're pretty much limited to FTP...",
+        //   "body": "\<p>Unfortunately you\'re pretty much limited to FTP...",
         //   "creation_date": "2009-05-04T13:45:37.030"
         // }
         // PUT child_example/_doc/3?routing=1&refresh
@@ -157,7 +157,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
               . '    "display_name": "Sam",'
               . '    "id": 48'
               . '  },'
-              . '  "body": "\<p>Unfortunately you're pretty much limited to FTP...",'
+              . '  "body": "\<p>Unfortunately you\'re pretty much limited to FTP...",'
               . '  "creation_date": "2009-05-04T13:45:37.030"'
               . '}'
               . 'PUT child_example/_doc/3?routing=1&refresh'
@@ -181,7 +181,7 @@ class ChildrenAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d5132d34ae922fa8e898889b627a1405
      * Line: 95
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL95_d5132d34ae922fa8e898889b627a1405()
     {

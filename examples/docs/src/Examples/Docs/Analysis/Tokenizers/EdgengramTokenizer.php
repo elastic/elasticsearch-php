@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: EdgengramTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/edgengram-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class EdgengramTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  a512e4dd8880ce0395937db1bab1d205
      * Line: 25
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL25_a512e4dd8880ce0395937db1bab1d205()
     {
@@ -51,7 +51,7 @@ class EdgengramTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  a61389da4033bd7b73a63ff2ee258125
      * Line: 106
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL106_a61389da4033bd7b73a63ff2ee258125()
     {
@@ -123,7 +123,7 @@ class EdgengramTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  b8893e8f2b1aea4b093e0c4f037cfff7
      * Line: 224
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL224_b8893e8f2b1aea4b093e0c4f037cfff7()
     {

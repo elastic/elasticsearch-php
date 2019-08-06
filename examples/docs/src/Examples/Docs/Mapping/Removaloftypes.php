@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Removaloftypes
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/removal_of_types.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  9ee37bb017ab2f08dc870d9b2f937819
      * Line: 456
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL456_9ee37bb017ab2f08dc870d9b2f937819()
     {
@@ -61,7 +61,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  21aedb3425f773979be01722661b6a89
      * Line: 472
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL472_21aedb3425f773979be01722661b6a89()
     {
@@ -93,7 +93,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  c81959a312a5715c52cacfe01cb0576e
      * Line: 487
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL487_c81959a312a5715c52cacfe01cb0576e()
     {
@@ -111,7 +111,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  ab1b1bdda7528003a08d6d5911081483
      * Line: 522
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL522_ab1b1bdda7528003a08d6d5911081483()
     {
@@ -135,7 +135,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  de8d7db07c3008039c7691955a553e4c
      * Line: 552
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL552_de8d7db07c3008039c7691955a553e4c()
     {
@@ -153,7 +153,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  f85d1cf4a5b9145632f585cd8c99e49d
      * Line: 566
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL566_f85d1cf4a5b9145632f585cd8c99e49d()
     {
@@ -183,7 +183,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  6dce46ae7f4da2467ea1e68cc9b67b31
      * Line: 584
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL584_6dce46ae7f4da2467ea1e68cc9b67b31()
     {
@@ -209,7 +209,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  b479466cd446f8112f491ce8810de43a
      * Line: 615
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL615_b479466cd446f8112f491ce8810de43a()
     {
@@ -235,7 +235,7 @@ class Removaloftypes extends SimpleExamplesTester {
     /**
      * Tag:  c6f5467904b8182d9203d98414a1bb76
      * Line: 659
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL659_c6f5467904b8182d9203d98414a1bb76()
     {

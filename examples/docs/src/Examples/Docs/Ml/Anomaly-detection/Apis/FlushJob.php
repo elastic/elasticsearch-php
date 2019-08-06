@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FlushJob
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/flush-job.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FlushJob extends SimpleExamplesTester {
     /**
      * Tag:  6a9931992ce1b0c2c2c82635d32f32cd
      * Line: 72
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL72_6a9931992ce1b0c2c2c82635d32f32cd()
     {
@@ -49,7 +49,7 @@ class FlushJob extends SimpleExamplesTester {
     /**
      * Tag:  3033133e8675524fd8f969db0625b62e
      * Line: 99
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL99_3033133e8675524fd8f969db0625b62e()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SpanMultiTermQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/span-multi-term-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SpanMultiTermQuery extends SimpleExamplesTester {
     /**
      * Tag:  a22f79d01a4a625840072024feb60b46
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_a22f79d01a4a625840072024feb60b46()
     {
@@ -61,7 +61,7 @@ class SpanMultiTermQuery extends SimpleExamplesTester {
     /**
      * Tag:  87ffa93d8de41fd0c3ea2f52378dab9c
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_87ffa93d8de41fd0c3ea2f52378dab9c()
     {

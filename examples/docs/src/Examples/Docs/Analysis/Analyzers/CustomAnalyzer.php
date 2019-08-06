@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CustomAnalyzer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/analyzers/custom-analyzer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CustomAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  ef2ea91fb3fa26c740bca994af85e150
      * Line: 55
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL55_ef2ea91fb3fa26c740bca994af85e150()
     {
@@ -91,7 +91,7 @@ class CustomAnalyzer extends SimpleExamplesTester {
     /**
      * Tag:  c729a5ef7a671154bb82e308d915cf9f
      * Line: 159
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL159_c729a5ef7a671154bb82e308d915cf9f()
     {
@@ -142,7 +142,7 @@ class CustomAnalyzer extends SimpleExamplesTester {
         // POST my_index/_analyze
         // {
         //   "analyzer": "my_custom_analyzer",
-        //   "text":     "I'm a :) person, and you?"
+        //   "text":     "I\'m a :) person, and you?"
         // }
         // end::c729a5ef7a671154bb82e308d915cf9f[]
 
@@ -190,7 +190,7 @@ class CustomAnalyzer extends SimpleExamplesTester {
               . 'POST my_index/_analyze'
               . '{'
               . '  "analyzer": "my_custom_analyzer",'
-              . '  "text":     "I'm a :) person, and you?"'
+              . '  "text":     "I\'m a :) person, and you?"'
               . '}';
 
         // TODO -- make assertion

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RoutingField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/routing-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RoutingField extends SimpleExamplesTester {
     /**
      * Tag:  b684073ea8d34359c290c663d2a5e798
      * Line: 15
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL15_b684073ea8d34359c290c663d2a5e798()
     {
@@ -51,7 +51,7 @@ class RoutingField extends SimpleExamplesTester {
     /**
      * Tag:  6817609dd2fcb73b9920327c5cf5ec77
      * Line: 34
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL34_6817609dd2fcb73b9920327c5cf5ec77()
     {
@@ -83,7 +83,7 @@ class RoutingField extends SimpleExamplesTester {
     /**
      * Tag:  134bdbfb50c81dd3c487514faabc81d3
      * Line: 55
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL55_134bdbfb50c81dd3c487514faabc81d3()
     {
@@ -115,7 +115,7 @@ class RoutingField extends SimpleExamplesTester {
     /**
      * Tag:  4f3089b403945e391f03280ae2f360a4
      * Line: 81
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL81_4f3089b403945e391f03280ae2f360a4()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SignificanttermsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/significantterms-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  290b845e59368e8aa8d1a56d7379afd0
      * Line: 68
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL68_290b845e59368e8aa8d1a56d7379afd0()
     {
@@ -63,7 +63,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b2af9784f8530a363ac6e9f95b39677d
      * Line: 129
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL129_b2af9784f8530a363ac6e9f95b39677d()
     {
@@ -105,7 +105,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  0868d8ac2fb5351e633184f897ee6866
      * Line: 207
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL207_0868d8ac2fb5351e633184f897ee6866()
     {
@@ -153,7 +153,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  09d4a753140ee5a9ab9f4fc09047b588
      * Line: 468
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL468_09d4a753140ee5a9ab9f4fc09047b588()
     {
@@ -191,7 +191,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  3fdaac87eb741a79f747633b5065323a
      * Line: 511
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL511_3fdaac87eb741a79f747633b5065323a()
     {
@@ -243,7 +243,7 @@ class SignificanttermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  11a21cd0b9d31da7eda77c9384a29208
      * Line: 570
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL570_11a21cd0b9d31da7eda77c9384a29208()
     {

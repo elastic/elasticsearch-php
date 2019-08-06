@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PutAppPrivileges
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/put-app-privileges.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PutAppPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  4ee31fd4ea6d18f32ec28b7fa433441d
      * Line: 79
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL79_4ee31fd4ea6d18f32ec28b7fa433441d()
     {
@@ -67,7 +67,7 @@ class PutAppPrivileges extends SimpleExamplesTester {
     /**
      * Tag:  ee90d1fb22b59d30da339d825303b912
      * Line: 125
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL125_ee90d1fb22b59d30da339d825303b912()
     {

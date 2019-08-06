@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoPoint
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/geo-point.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoPoint extends SimpleExamplesTester {
     /**
      * Tag:  f1b512400f2f7ca0b0f2e4bb45a8b2fe
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_f1b512400f2f7ca0b0f2e4bb45a8b2fe()
     {

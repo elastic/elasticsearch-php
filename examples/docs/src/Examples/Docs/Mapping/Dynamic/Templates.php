@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Templates
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/dynamic/templates.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  bb33e638fdeded7d721d9bbac2305fda
      * Line: 71
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL71_bb33e638fdeded7d721d9bbac2305fda()
     {
@@ -109,7 +109,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  4f54b88e05c7a62901062e9e0ed13e5a
      * Line: 125
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL125_4f54b88e05c7a62901062e9e0ed13e5a()
     {
@@ -169,7 +169,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  0b91c082258ce623cc716b679aace653
      * Line: 179
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL179_0b91c082258ce623cc716b679aace653()
     {
@@ -235,7 +235,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  be51ed37c8425d281a8153abe56b04cb
      * Line: 215
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL215_be51ed37c8425d281a8153abe56b04cb()
     {
@@ -273,7 +273,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  6873971eb4e4577d76d0a5bd7cd15ef9
      * Line: 241
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL241_6873971eb4e4577d76d0a5bd7cd15ef9()
     {
@@ -351,7 +351,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  87f85bb49d18f73d0eed0b704e05eb90
      * Line: 293
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL293_87f85bb49d18f73d0eed0b704e05eb90()
     {
@@ -397,7 +397,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  1a59fa2708ccb3a24c71e8306b81f17f
      * Line: 322
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL322_1a59fa2708ccb3a24c71e8306b81f17f()
     {
@@ -443,7 +443,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  3e60c0b29bd3931927e6f2ee7d2ed0ef
      * Line: 348
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL348_3e60c0b29bd3931927e6f2ee7d2ed0ef()
     {
@@ -503,7 +503,7 @@ class Templates extends SimpleExamplesTester {
     /**
      * Tag:  9a91f7d0bf52d6c582c62daef5c9d040
      * Line: 387
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL387_9a91f7d0bf52d6c582c62daef5c9d040()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetTokens
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/get-tokens.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetTokens extends SimpleExamplesTester {
     /**
      * Tag:  cee591c1fc70d4f180c623a3a6d07755
      * Line: 80
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL80_cee591c1fc70d4f180c623a3a6d07755()
     {
@@ -49,7 +49,7 @@ class GetTokens extends SimpleExamplesTester {
     /**
      * Tag:  e1337c6b76defd5a46d05220f9d9c9fc
      * Line: 115
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL115_e1337c6b76defd5a46d05220f9d9c9fc()
     {
@@ -77,7 +77,7 @@ class GetTokens extends SimpleExamplesTester {
     /**
      * Tag:  1873f8a8a291e6fcd6c1c83ea6928759
      * Line: 146
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL146_1873f8a8a291e6fcd6c1c83ea6928759()
     {

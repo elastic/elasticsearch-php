@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PutFollow
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/put-follow.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PutFollow extends SimpleExamplesTester {
     /**
      * Tag:  73646c12ad33a813ab2280f1dc83500e
      * Line: 26
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL26_73646c12ad33a813ab2280f1dc83500e()
     {
@@ -51,7 +51,7 @@ class PutFollow extends SimpleExamplesTester {
     /**
      * Tag:  c1f565c68d7bfce4a4251c7919444977
      * Line: 91
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL91_c1f565c68d7bfce4a4251c7919444977()
     {

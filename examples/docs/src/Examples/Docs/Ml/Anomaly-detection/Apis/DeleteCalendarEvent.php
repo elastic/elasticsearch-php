@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DeleteCalendarEvent
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/delete-calendar-event.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DeleteCalendarEvent extends SimpleExamplesTester {
     /**
      * Tag:  f6982ff80b9a64cd5fcac5b20908c906
      * Line: 47
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL47_f6982ff80b9a64cd5fcac5b20908c906()
     {

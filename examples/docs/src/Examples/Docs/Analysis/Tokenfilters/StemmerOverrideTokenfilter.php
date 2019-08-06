@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: StemmerOverrideTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/stemmer-override-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class StemmerOverrideTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  8995e7cf49c4d870aea334645b70ed13
      * Line: 22
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL22_8995e7cf49c4d870aea334645b70ed13()
     {
@@ -79,7 +79,7 @@ class StemmerOverrideTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  35e24a98b35cadd0b1b370ada79249e1
      * Line: 55
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL55_35e24a98b35cadd0b1b370ada79249e1()
     {

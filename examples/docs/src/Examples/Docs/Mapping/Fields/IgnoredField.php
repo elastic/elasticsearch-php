@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IgnoredField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/ignored-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IgnoredField extends SimpleExamplesTester {
     /**
      * Tag:  3fe0fb38f75d2a34fb1e6ac9bedbcdbc
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_3fe0fb38f75d2a34fb1e6ac9bedbcdbc()
     {
@@ -57,7 +57,7 @@ class IgnoredField extends SimpleExamplesTester {
     /**
      * Tag:  cf47cd4a39cd62a3ecad919e54a67bca
      * Line: 34
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL34_cf47cd4a39cd62a3ecad919e54a67bca()
     {

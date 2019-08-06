@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ScriptQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/script-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ScriptQuery extends SimpleExamplesTester {
     /**
      * Tag:  b3aa46565d98f8a6750c571bb1c1bb8c
      * Line: 15
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL15_b3aa46565d98f8a6750c571bb1c1bb8c()
     {
@@ -39,7 +39,7 @@ class ScriptQuery extends SimpleExamplesTester {
         //             "filter" : {
         //                 "script" : {
         //                     "script" : {
-        //                         "source": "doc['num1'].value > 1",
+        //                         "source": "doc[\'num1\'].value > 1",
         //                         "lang": "painless"
         //                      }
         //                 }
@@ -56,7 +56,7 @@ class ScriptQuery extends SimpleExamplesTester {
               . '            "filter" : {'
               . '                "script" : {'
               . '                    "script" : {'
-              . '                        "source": "doc['num1'].value > 1",'
+              . '                        "source": "doc[\'num1\'].value > 1",'
               . '                        "lang": "painless"'
               . '                     }'
               . '                }'
@@ -71,7 +71,7 @@ class ScriptQuery extends SimpleExamplesTester {
     /**
      * Tag:  c4459f98de5decb37b8c403885f4b226
      * Line: 53
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL53_c4459f98de5decb37b8c403885f4b226()
     {
@@ -85,7 +85,7 @@ class ScriptQuery extends SimpleExamplesTester {
         //             "filter" : {
         //                 "script" : {
         //                     "script" : {
-        //                         "source" : "doc['num1'].value > params.param1",
+        //                         "source" : "doc[\'num1\'].value > params.param1",
         //                         "lang"   : "painless",
         //                         "params" : {
         //                             "param1" : 5
@@ -105,7 +105,7 @@ class ScriptQuery extends SimpleExamplesTester {
               . '            "filter" : {'
               . '                "script" : {'
               . '                    "script" : {'
-              . '                        "source" : "doc['num1'].value > params.param1",'
+              . '                        "source" : "doc[\'num1\'].value > params.param1",'
               . '                        "lang"   : "painless",'
               . '                        "params" : {'
               . '                            "param1" : 5'

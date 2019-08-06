@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Prioritization
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   index-modules/allocation/prioritization.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Prioritization extends SimpleExamplesTester {
     /**
      * Tag:  8703f3b1b3895543abc36e2a7a0013d3
      * Line: 17
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL17_8703f3b1b3895543abc36e2a7a0013d3()
     {
@@ -69,7 +69,7 @@ class Prioritization extends SimpleExamplesTester {
     /**
      * Tag:  a425fcab60f603504becee7d001f0a4b
      * Line: 49
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL49_a425fcab60f603504becee7d001f0a4b()
     {

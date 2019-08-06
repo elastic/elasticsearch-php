@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: FieldCaps
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/field-caps.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class FieldCaps extends SimpleExamplesTester {
     /**
      * Tag:  8025830e885c7c0820157e399154a5e0
      * Line: 9
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL9_8025830e885c7c0820157e399154a5e0()
     {
@@ -43,7 +43,7 @@ class FieldCaps extends SimpleExamplesTester {
     /**
      * Tag:  614bd49400b6ebf47c5b12839dd1ecb8
      * Line: 17
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL17_614bd49400b6ebf47c5b12839dd1ecb8()
     {
@@ -61,7 +61,7 @@ class FieldCaps extends SimpleExamplesTester {
     /**
      * Tag:  a985e6b7b2ead9c3f30a9bc97d8b598e
      * Line: 65
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL65_a985e6b7b2ead9c3f30a9bc97d8b598e()
     {
@@ -79,7 +79,7 @@ class FieldCaps extends SimpleExamplesTester {
     /**
      * Tag:  4e931cfac74e46e221cf4a9ab88a182d
      * Line: 114
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL114_4e931cfac74e46e221cf4a9ab88a182d()
     {

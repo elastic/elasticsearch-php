@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: TermsAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/terms-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9a8995fd31351045d99c78e40444c8ea
      * Line: 57
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL57_9a8995fd31351045d99c78e40444c8ea()
     {
@@ -57,7 +57,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d50a3835bf5795ac73e58906a3413544
      * Line: 134
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL134_d50a3835bf5795ac73e58906a3413544()
     {
@@ -95,7 +95,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  35e8da9410b8432cf4095f2541ad7b1d
      * Line: 264
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL264_35e8da9410b8432cf4095f2541ad7b1d()
     {
@@ -135,7 +135,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6a4679531e64c492fce16dc12de6dcb0
      * Line: 342
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL342_6a4679531e64c492fce16dc12de6dcb0()
     {
@@ -173,7 +173,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  93f1bdd72e79827dcf9a34efa02fd977
      * Line: 360
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL360_93f1bdd72e79827dcf9a34efa02fd977()
     {
@@ -211,7 +211,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  71b5b2ba9557d0f296ff2de91727d2f6
      * Line: 380
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL380_71b5b2ba9557d0f296ff2de91727d2f6()
     {
@@ -255,7 +255,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  34efeade38445b2834749ced59782e25
      * Line: 401
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL401_34efeade38445b2834749ced59782e25()
     {
@@ -299,7 +299,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  dc15e2373e5ecbe09b4ea0858eb63d47
      * Line: 448
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL448_dc15e2373e5ecbe09b4ea0858eb63d47()
     {
@@ -353,7 +353,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  028f6d6ac2594e20b78b8a8f8cbad49d
      * Line: 476
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL476_028f6d6ac2594e20b78b8a8f8cbad49d()
     {
@@ -407,7 +407,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  527324766814561b75aaee853ede49a7
      * Line: 510
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL510_527324766814561b75aaee853ede49a7()
     {
@@ -445,7 +445,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  033778305d52746f5ce0a2a922c8e521
      * Line: 552
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL552_033778305d52746f5ce0a2a922c8e521()
     {
@@ -458,7 +458,7 @@ class TermsAggregation extends SimpleExamplesTester {
         //         "genres" : {
         //             "terms" : {
         //                 "script" : {
-        //                     "source": "doc['genre'].value",
+        //                     "source": "doc[\'genre\'].value",
         //                     "lang": "painless"
         //                 }
         //             }
@@ -473,7 +473,7 @@ class TermsAggregation extends SimpleExamplesTester {
               . '        "genres" : {'
               . '            "terms" : {'
               . '                "script" : {'
-              . '                    "source": "doc['genre'].value",'
+              . '                    "source": "doc[\'genre\'].value",'
               . '                    "lang": "painless"'
               . '                }'
               . '            }'
@@ -487,7 +487,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4646764bf09911fee7d58630c72d3137
      * Line: 588
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL588_4646764bf09911fee7d58630c72d3137()
     {
@@ -533,7 +533,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  a49169b4622918992411fab4ec48191b
      * Line: 611
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL611_a49169b4622918992411fab4ec48191b()
     {
@@ -547,7 +547,7 @@ class TermsAggregation extends SimpleExamplesTester {
         //             "terms" : {
         //                 "field" : "genre",
         //                 "script" : {
-        //                     "source" : "'Genre: ' +_value",
+        //                     "source" : "\'Genre: \' +_value",
         //                     "lang" : "painless"
         //                 }
         //             }
@@ -563,7 +563,7 @@ class TermsAggregation extends SimpleExamplesTester {
               . '            "terms" : {'
               . '                "field" : "genre",'
               . '                "script" : {'
-              . '                    "source" : "'Genre: ' +_value",'
+              . '                    "source" : "\'Genre: \' +_value",'
               . '                    "lang" : "painless"'
               . '                }'
               . '            }'
@@ -577,7 +577,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  0afaf1cad692e6201aa574c8feb6e622
      * Line: 638
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL638_0afaf1cad692e6201aa574c8feb6e622()
     {
@@ -617,7 +617,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  98b121bf47cebd85671a2cb519688d28
      * Line: 667
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL667_98b121bf47cebd85671a2cb519688d28()
     {
@@ -667,7 +667,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  5d9d7b84e2fec7ecd832145cbb951cf1
      * Line: 697
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL697_5d9d7b84e2fec7ecd832145cbb951cf1()
     {
@@ -735,7 +735,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7f28f8ae8fcdbd807dadde0b5b007a6d
      * Line: 790
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL790_7f28f8ae8fcdbd807dadde0b5b007a6d()
     {
@@ -789,7 +789,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  cd5bc5bf7cd58d7b1492c9c298b345f6
      * Line: 822
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL822_cd5bc5bf7cd58d7b1492c9c298b345f6()
     {
@@ -845,7 +845,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  774d715155cd13713e6e327adf6ce328
      * Line: 874
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL874_774d715155cd13713e6e327adf6ce328()
     {
@@ -883,7 +883,7 @@ class TermsAggregation extends SimpleExamplesTester {
     /**
      * Tag:  f085fb032dae56a3b104ab874eaea2ad
      * Line: 900
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL900_f085fb032dae56a3b104ab874eaea2ad()
     {

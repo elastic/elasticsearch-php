@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: BucketScriptAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/bucket-script-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class BucketScriptAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c2d90e1c88ff5b1857ed4a5b169c9689
      * Line: 45
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL45_c2d90e1c88ff5b1857ed4a5b169c9689()
     {

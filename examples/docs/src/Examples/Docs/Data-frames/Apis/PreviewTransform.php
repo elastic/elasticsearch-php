@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PreviewTransform
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   data-frames/apis/preview-transform.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PreviewTransform extends SimpleExamplesTester {
     /**
      * Tag:  681a67458b6ee3b0ec96ca017c363770
      * Line: 71
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL71_681a67458b6ee3b0ec96ca017c363770()
     {

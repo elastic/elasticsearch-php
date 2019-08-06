@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ScriptScoreQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/script-score-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ScriptScoreQuery extends SimpleExamplesTester {
     /**
      * Tag:  eb35bef392e0957d609f1a26481e048d
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_eb35bef392e0957d609f1a26481e048d()
     {
@@ -40,7 +40,7 @@ class ScriptScoreQuery extends SimpleExamplesTester {
         //                 "match": { "message": "elasticsearch" }
         //             },
         //             "script" : {
-        //                 "source" : "doc['likes'].value / 10 "
+        //                 "source" : "doc[\'likes\'].value / 10 "
         //             }
         //         }
         //      }
@@ -55,7 +55,7 @@ class ScriptScoreQuery extends SimpleExamplesTester {
               . '                "match": { "message": "elasticsearch" }'
               . '            },'
               . '            "script" : {'
-              . '                "source" : "doc['likes'].value / 10 "'
+              . '                "source" : "doc[\'likes\'].value / 10 "'
               . '            }'
               . '        }'
               . '     }'

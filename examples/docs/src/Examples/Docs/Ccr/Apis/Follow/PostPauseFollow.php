@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PostPauseFollow
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/post-pause-follow.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PostPauseFollow extends SimpleExamplesTester {
     /**
      * Tag:  483d669ec0768bc4e275a568c6164704
      * Line: 31
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL31_483d669ec0768bc4e275a568c6164704()
     {
@@ -43,7 +43,7 @@ class PostPauseFollow extends SimpleExamplesTester {
     /**
      * Tag:  d3263afc69b6f969b9bbd8738cd07b97
      * Line: 65
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL65_d3263afc69b6f969b9bbd8738cd07b97()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: UaxurlemailTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/uaxurlemail-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class UaxurlemailTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  d12df43ffcdcd937bae9b26fb475e239
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_d12df43ffcdcd937bae9b26fb475e239()
     {
@@ -51,7 +51,7 @@ class UaxurlemailTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  1125986e8e55028ff4c10b5e6c7bbebb
      * Line: 94
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL94_1125986e8e55028ff4c10b5e6c7bbebb()
     {

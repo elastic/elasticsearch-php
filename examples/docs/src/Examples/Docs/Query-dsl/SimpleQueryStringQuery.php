@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SimpleQueryStringQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/simple-query-string-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SimpleQueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  0d49474511b236bc89e768c8ee91adf1
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL13_0d49474511b236bc89e768c8ee91adf1()
     {
@@ -61,7 +61,7 @@ class SimpleQueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  521aa59ae56681fd59ac5840cba6b6c5
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL110_521aa59ae56681fd59ac5840cba6b6c5()
     {
@@ -95,7 +95,7 @@ class SimpleQueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  f4563bc7d16d5026f94e8a69699de6e7
      * Line: 145
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL145_f4563bc7d16d5026f94e8a69699de6e7()
     {
@@ -129,7 +129,7 @@ class SimpleQueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  f686f52decb1d57356d42920f46d4d85
      * Line: 166
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL166_f686f52decb1d57356d42920f46d4d85()
     {
@@ -163,7 +163,7 @@ class SimpleQueryStringQuery extends SimpleExamplesTester {
     /**
      * Tag:  2e602d7fbad46132358f921dff7d1a26
      * Line: 211
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL211_2e602d7fbad46132358f921dff7d1a26()
     {

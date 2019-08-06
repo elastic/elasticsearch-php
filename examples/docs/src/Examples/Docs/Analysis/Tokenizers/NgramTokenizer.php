@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: NgramTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/ngram-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class NgramTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  39963032d423e2f20f53c4621b6ca3c6
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_39963032d423e2f20f53c4621b6ca3c6()
     {
@@ -51,7 +51,7 @@ class NgramTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  9efcafd1f28490fd658d88df7d93c66c
      * Line: 211
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL211_9efcafd1f28490fd658d88df7d93c66c()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: EagerGlobalOrdinals
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/eager-global-ordinals.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class EagerGlobalOrdinals extends SimpleExamplesTester {
     /**
      * Tag:  f7682345a4e36a4c6e553902039a9410
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL38_f7682345a4e36a4c6e553902039a9410()
     {
@@ -59,7 +59,7 @@ class EagerGlobalOrdinals extends SimpleExamplesTester {
     /**
      * Tag:  9c9221059c06dd26041a95b93ec9b6df
      * Line: 77
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL77_9c9221059c06dd26041a95b93ec9b6df()
     {

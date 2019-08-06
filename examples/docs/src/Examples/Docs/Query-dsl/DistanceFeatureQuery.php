@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DistanceFeatureQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/distance-feature-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DistanceFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  b81a7b5f5ef19553f9cd49196f31018c
      * Line: 37
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL37_b81a7b5f5ef19553f9cd49196f31018c()
     {
@@ -73,7 +73,7 @@ class DistanceFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  b0d3f839237fabf8cdc2221734c668ad
      * Line: 63
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL63_b0d3f839237fabf8cdc2221734c668ad()
     {
@@ -125,7 +125,7 @@ class DistanceFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  1e2c5cef7a3f254c71a33865eb4d7569
      * Line: 100
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL100_1e2c5cef7a3f254c71a33865eb4d7569()
     {
@@ -179,7 +179,7 @@ class DistanceFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  57a3e8d2ca64e37e90d658c4cd935399
      * Line: 130
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL130_57a3e8d2ca64e37e90d658c4cd935399()
     {

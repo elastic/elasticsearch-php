@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: HasChildQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/has-child-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class HasChildQuery extends SimpleExamplesTester {
     /**
      * Tag:  10239a59784c3069e0d9399d3f9a7008
      * Line: 31
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL31_10239a59784c3069e0d9399d3f9a7008()
     {
@@ -67,7 +67,7 @@ class HasChildQuery extends SimpleExamplesTester {
     /**
      * Tag:  a204ff3396082b32175371c7ed8b9394
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL54_a204ff3396082b32175371c7ed8b9394()
     {
@@ -111,7 +111,7 @@ class HasChildQuery extends SimpleExamplesTester {
     /**
      * Tag:  d7b459941dc32d790ade80a0f5712560
      * Line: 143
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL143_d7b459941dc32d790ade80a0f5712560()
     {
@@ -126,7 +126,7 @@ class HasChildQuery extends SimpleExamplesTester {
         //             "query" : {
         //                 "function_score" : {
         //                     "script_score": {
-        //                         "script": "_score * doc['click_count'].value"
+        //                         "script": "_score * doc[\'click_count\'].value"
         //                     }
         //                 }
         //             },
@@ -144,7 +144,7 @@ class HasChildQuery extends SimpleExamplesTester {
               . '            "query" : {'
               . '                "function_score" : {'
               . '                    "script_score": {'
-              . '                        "script": "_score * doc['click_count'].value"'
+              . '                        "script": "_score * doc[\'click_count\'].value"'
               . '                    }'
               . '                }'
               . '            },'

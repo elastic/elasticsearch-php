@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MatchBoolPrefixQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/match-bool-prefix-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MatchBoolPrefixQuery extends SimpleExamplesTester {
     /**
      * Tag:  79c7e8a98c47fad3e96c654d34aa049a
      * Line: 13
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL13_79c7e8a98c47fad3e96c654d34aa049a()
     {
@@ -57,7 +57,7 @@ class MatchBoolPrefixQuery extends SimpleExamplesTester {
     /**
      * Tag:  effc6b4784aca12691de5d5782c0384b
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_effc6b4784aca12691de5d5782c0384b()
     {
@@ -97,7 +97,7 @@ class MatchBoolPrefixQuery extends SimpleExamplesTester {
     /**
      * Tag:  953aab6cbd12a4f034cf02bf34d62a72
      * Line: 61
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL61_953aab6cbd12a4f034cf02bf34d62a72()
     {

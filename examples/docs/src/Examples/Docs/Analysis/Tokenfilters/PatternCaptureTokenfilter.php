@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PatternCaptureTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/pattern-capture-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PatternCaptureTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  f733b25cd4c448b226bb76862974eef2
      * Line: 48
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL48_f733b25cd4c448b226bb76862974eef2()
     {
@@ -87,7 +87,7 @@ class PatternCaptureTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  080c34d8151d02b760571e3a2899fa97
      * Line: 89
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL89_080c34d8151d02b760571e3a2899fa97()
     {

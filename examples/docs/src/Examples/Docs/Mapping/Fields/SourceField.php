@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SourceField
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/fields/source-field.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SourceField extends SimpleExamplesTester {
     /**
      * Tag:  50246e04b49dab320409b95526e6e34c
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_50246e04b49dab320409b95526e6e34c()
     {
@@ -57,7 +57,7 @@ class SourceField extends SimpleExamplesTester {
     /**
      * Tag:  b557f114e21dbc6f531d4e7621a08e8f
      * Line: 86
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL86_b557f114e21dbc6f531d4e7621a08e8f()
     {

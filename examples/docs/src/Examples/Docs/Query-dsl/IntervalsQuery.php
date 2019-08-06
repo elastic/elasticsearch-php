@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IntervalsQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/intervals-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  5d59e61b35103a17e262a625503f896b
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_5d59e61b35103a17e262a625503f896b()
     {
@@ -101,7 +101,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  7471e97aaaf21c3a200abdd89f15c3cc
      * Line: 175
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL175_7471e97aaaf21c3a200abdd89f15c3cc()
     {
@@ -157,7 +157,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  2de6885bacb8769b8f22dce253c96b0c
      * Line: 226
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL226_2de6885bacb8769b8f22dce253c96b0c()
     {
@@ -207,7 +207,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  e2a22c6fd58cc0becf4c383134a08f8b
      * Line: 257
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL257_e2a22c6fd58cc0becf4c383134a08f8b()
     {
@@ -261,7 +261,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  5f79c42b0f74fdf71359cef82843fad3
      * Line: 293
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL293_5f79c42b0f74fdf71359cef82843fad3()
     {
@@ -321,7 +321,7 @@ class IntervalsQuery extends SimpleExamplesTester {
     /**
      * Tag:  e7811867397b305efbbe8925d8a01c1a
      * Line: 327
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL327_e7811867397b305efbbe8925d8a01c1a()
     {

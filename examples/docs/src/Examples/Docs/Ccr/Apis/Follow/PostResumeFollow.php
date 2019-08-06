@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PostResumeFollow
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/post-resume-follow.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PostResumeFollow extends SimpleExamplesTester {
     /**
      * Tag:  109db8ff7b715aca98de8ef1ab7e44ab
      * Line: 40
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL40_109db8ff7b715aca98de8ef1ab7e44ab()
     {
@@ -47,7 +47,7 @@ class PostResumeFollow extends SimpleExamplesTester {
     /**
      * Tag:  824fded1f9db28906ae7e85ae8de9bd0
      * Line: 83
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL83_824fded1f9db28906ae7e85ae8de9bd0()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SumAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/sum-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  43159621ffaa30dbfd60459a5e7b8e54
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_43159621ffaa30dbfd60459a5e7b8e54()
     {
@@ -67,7 +67,7 @@ class SumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4b5f2bd0db1a94614f4d2e46a5159bd2
      * Line: 50
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL50_4b5f2bd0db1a94614f4d2e46a5159bd2()
     {
@@ -121,7 +121,7 @@ class SumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  49a4032ac0cbc413b47660bcf998ef5f
      * Line: 77
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL77_49a4032ac0cbc413b47660bcf998ef5f()
     {
@@ -181,7 +181,7 @@ class SumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  82a2031f77972b713f75ed05c4bd9815
      * Line: 110
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL110_82a2031f77972b713f75ed05c4bd9815()
     {
@@ -237,7 +237,7 @@ class SumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  a78c3f4389502fe2dbd1cd10a017d1ed
      * Line: 143
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL143_a78c3f4389502fe2dbd1cd10a017d1ed()
     {

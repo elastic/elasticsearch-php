@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CardinalityAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/cardinality-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
     /**
      * Tag:  826140cdd3d5fe9a728239605c6dc71a
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL11_826140cdd3d5fe9a728239605c6dc71a()
     {
@@ -61,7 +61,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
     /**
      * Tag:  edbd54e71e56f3a5617aa012b100aa0f
      * Line: 46
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL46_edbd54e71e56f3a5617aa012b100aa0f()
     {
@@ -99,7 +99,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
     /**
      * Tag:  ef3a3e292e9e74d42703555178ed5fb6
      * Line: 187
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL187_ef3a3e292e9e74d42703555178ed5fb6()
     {
@@ -113,7 +113,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
         //             "cardinality" : {
         //                 "script": {
         //                     "lang": "painless",
-        //                     "source": "doc['type'].value + ' ' + doc['promoted'].value"
+        //                     "source": "doc[\'type\'].value + \' \' + doc[\'promoted\'].value"
         //                 }
         //             }
         //         }
@@ -128,7 +128,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
               . '            "cardinality" : {'
               . '                "script": {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['type'].value + ' ' + doc['promoted'].value"'
+              . '                    "source": "doc[\'type\'].value + \' \' + doc[\'promoted\'].value"'
               . '                }'
               . '            }'
               . '        }'
@@ -141,7 +141,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
     /**
      * Tag:  6969b29883eefa552475ae1837dc5f96
      * Line: 208
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL208_6969b29883eefa552475ae1837dc5f96()
     {
@@ -189,7 +189,7 @@ class CardinalityAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7d86ff090cbd87f144edb72e949470b3
      * Line: 236
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL236_7d86ff090cbd87f144edb72e949470b3()
     {

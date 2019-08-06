@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetTransformStats
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   data-frames/apis/get-transform-stats.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetTransformStats extends SimpleExamplesTester {
     /**
      * Tag:  148bef7f7b2a9c1c2011e4d018c4ae50
      * Line: 105
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL105_148bef7f7b2a9c1c2011e4d018c4ae50()
     {
@@ -43,7 +43,7 @@ class GetTransformStats extends SimpleExamplesTester {
     /**
      * Tag:  d4a2862678b5ef99ec596de1927c3944
      * Line: 115
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL115_d4a2862678b5ef99ec596de1927c3944()
     {

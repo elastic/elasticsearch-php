@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PatternReplaceCharfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/charfilters/pattern-replace-charfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PatternReplaceCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  2b8ba109999fc87712433cea92c99ebe
      * Line: 51
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL51_2b8ba109999fc87712433cea92c99ebe()
     {
@@ -95,7 +95,7 @@ class PatternReplaceCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  1e1f0d83b1ca672396341af5dcfd2603
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL102_1e1f0d83b1ca672396341af5dcfd2603()
     {
@@ -187,7 +187,7 @@ class PatternReplaceCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  32afaee3f1326785b4009ff48576d42f
      * Line: 205
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL205_32afaee3f1326785b4009ff48576d42f()
     {

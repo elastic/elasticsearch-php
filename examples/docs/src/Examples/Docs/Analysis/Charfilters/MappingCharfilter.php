@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MappingCharfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/charfilters/mapping-charfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MappingCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  f9518803f0368e326ce2f46bd213bde9
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL35_f9518803f0368e326ce2f46bd213bde9()
     {
@@ -115,7 +115,7 @@ class MappingCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  8d5c32d86f00cf27d3f52a5fc493ea30
      * Line: 109
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL109_8d5c32d86f00cf27d3f52a5fc493ea30()
     {
@@ -149,7 +149,7 @@ class MappingCharfilter extends SimpleExamplesTester {
         // POST my_index/_analyze
         // {
         //   "analyzer": "my_analyzer",
-        //   "text": "I'm delighted about it :("
+        //   "text": "I\'m delighted about it :("
         // }
         // end::8d5c32d86f00cf27d3f52a5fc493ea30[]
 
@@ -180,7 +180,7 @@ class MappingCharfilter extends SimpleExamplesTester {
               . 'POST my_index/_analyze'
               . '{'
               . '  "analyzer": "my_analyzer",'
-              . '  "text": "I'm delighted about it :("'
+              . '  "text": "I\'m delighted about it :("'
               . '}';
 
         // TODO -- make assertion

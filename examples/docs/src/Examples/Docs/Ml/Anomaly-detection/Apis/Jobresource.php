@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Jobresource
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/jobresource.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Jobresource extends SimpleExamplesTester {
     /**
      * Tag:  07daeea2d56f43ae1229860111dae8af
      * Line: 361
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL361_07daeea2d56f43ae1229860111dae8af()
     {

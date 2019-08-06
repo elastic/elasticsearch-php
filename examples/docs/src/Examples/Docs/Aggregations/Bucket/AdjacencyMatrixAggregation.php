@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: AdjacencyMatrixAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/adjacency-matrix-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class AdjacencyMatrixAggregation extends SimpleExamplesTester {
     /**
      * Tag:  f88cdb3a962bb6f305f4a7ccc07bc0b0
      * Line: 32
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL32_f88cdb3a962bb6f305f4a7ccc07bc0b0()
     {

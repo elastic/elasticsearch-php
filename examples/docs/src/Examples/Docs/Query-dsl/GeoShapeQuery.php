@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoShapeQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/geo-shape-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoShapeQuery extends SimpleExamplesTester {
     /**
      * Tag:  183be708fc91109008109b5ed44c8b08
      * Line: 29
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL29_183be708fc91109008109b5ed44c8b08()
     {
@@ -77,7 +77,7 @@ class GeoShapeQuery extends SimpleExamplesTester {
     /**
      * Tag:  129975da094b6b93cc8fcc4042d47913
      * Line: 57
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL57_129975da094b6b93cc8fcc4042d47913()
     {
@@ -135,7 +135,7 @@ class GeoShapeQuery extends SimpleExamplesTester {
     /**
      * Tag:  0e941a8309c3743972b8f5a8d9d9ada6
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL102_0e941a8309c3743972b8f5a8d9d9ada6()
     {

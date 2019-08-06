@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoDistanceQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/geo-distance-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  b4ef55e48f137e8f67f82b42a047c8f6
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_b4ef55e48f137e8f67f82b42a047c8f6()
     {
@@ -87,7 +87,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  4639a1bbd12710d5f01f1aaadce09a3e
      * Line: 46
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL46_4639a1bbd12710d5f01f1aaadce09a3e()
     {
@@ -141,7 +141,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  6fc37ccf570ff7e35b7b0bd4bacb8abd
      * Line: 79
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL79_6fc37ccf570ff7e35b7b0bd4bacb8abd()
     {
@@ -195,7 +195,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  926fff8330fc3008f62b9de34f385a57
      * Line: 109
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL109_926fff8330fc3008f62b9de34f385a57()
     {
@@ -243,7 +243,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  f878546633c6bcc30edcdcf520a20eba
      * Line: 136
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL136_f878546633c6bcc30edcdcf520a20eba()
     {
@@ -291,7 +291,7 @@ class GeoDistanceQuery extends SimpleExamplesTester {
     /**
      * Tag:  48a40f20b752a8120cf020bda041adca
      * Line: 160
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL160_48a40f20b752a8120cf020bda041adca()
     {

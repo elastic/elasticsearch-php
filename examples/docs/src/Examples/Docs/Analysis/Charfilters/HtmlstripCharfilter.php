@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: HtmlstripCharfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/charfilters/htmlstrip-charfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class HtmlstripCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  d6de3491f5787f739d5cd8c2ff3dddfa
      * Line: 12
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL12_d6de3491f5787f739d5cd8c2ff3dddfa()
     {
@@ -53,7 +53,7 @@ class HtmlstripCharfilter extends SimpleExamplesTester {
     /**
      * Tag:  426f95b13a5b6042b5273d74ad8ee708
      * Line: 75
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL75_426f95b13a5b6042b5273d74ad8ee708()
     {

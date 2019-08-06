@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MaxAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/max-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MaxAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9498a707be49e14dad801db6b6824e34
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL16_9498a707be49e14dad801db6b6824e34()
     {
@@ -53,7 +53,7 @@ class MaxAggregation extends SimpleExamplesTester {
     /**
      * Tag:  736fc5448b66962ceef1e6d5948ef691
      * Line: 52
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL52_736fc5448b66962ceef1e6d5948ef691()
     {
@@ -93,7 +93,7 @@ class MaxAggregation extends SimpleExamplesTester {
     /**
      * Tag:  b5e782e309a2a10db272414e8483d8dc
      * Line: 73
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL73_b5e782e309a2a10db272414e8483d8dc()
     {
@@ -139,7 +139,7 @@ class MaxAggregation extends SimpleExamplesTester {
     /**
      * Tag:  23fdba37454d6d7abf6bfbb4fd01692f
      * Line: 101
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL101_23fdba37454d6d7abf6bfbb4fd01692f()
     {
@@ -187,7 +187,7 @@ class MaxAggregation extends SimpleExamplesTester {
     /**
      * Tag:  41518c094db4a5b03cca3b21497f79cf
      * Line: 129
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL129_41518c094db4a5b03cca3b21497f79cf()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ConfiguringActiveDirectoryRealm
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ../../x-pack/docs/en/security/authentication/configuring-active-directory-realm.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ConfiguringActiveDirectoryRealm extends SimpleExamplesTester {
     /**
      * Tag:  21e95d29bc37deb5689a654aa323b4ba
      * Line: 188
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL188_21e95d29bc37deb5689a654aa323b4ba()
     {
@@ -57,7 +57,7 @@ class ConfiguringActiveDirectoryRealm extends SimpleExamplesTester {
     /**
      * Tag:  bd0d30a7683037e1ebadd163514765d4
      * Line: 202
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL202_bd0d30a7683037e1ebadd163514765d4()
     {

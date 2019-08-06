@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ParentJoin
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/parent-join.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  59a6a91a43e92b9f7035eadae9e1b8b9
      * Line: 14
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL14_59a6a91a43e92b9f7035eadae9e1b8b9()
     {
@@ -67,7 +67,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  3a9297c0898dfe7b38da82635b7dc1ff
      * Line: 39
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL39_3a9297c0898dfe7b38da82635b7dc1ff()
     {
@@ -111,7 +111,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  fcfe9592f9c8a59fe2b2110246b9a462
      * Line: 65
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL65_fcfe9592f9c8a59fe2b2110246b9a462()
     {
@@ -147,7 +147,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  1d13c92896ed8a8bd273773481c90a3c
      * Line: 92
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL92_1d13c92896ed8a8bd273773481c90a3c()
     {
@@ -195,7 +195,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  a5e3a4c6dbda1f1cd7f22720ef362de2
      * Line: 160
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL160_a5e3a4c6dbda1f1cd7f22720ef362de2()
     {
@@ -225,7 +225,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  26fe7b3c9aeab972725b6d708cc6df22
      * Line: 268
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL268_26fe7b3c9aeab972725b6d708cc6df22()
     {
@@ -251,7 +251,7 @@ class ParentJoin extends SimpleExamplesTester {
         //   "script_fields": {
         //     "parent": {
         //       "script": {
-        //          "source": "doc['my_join_field#question']" \<3>
+        //          "source": "doc[\'my_join_field#question\']" \<3>
         //       }
         //     }
         //   }
@@ -277,7 +277,7 @@ class ParentJoin extends SimpleExamplesTester {
               . '  "script_fields": {'
               . '    "parent": {'
               . '      "script": {'
-              . '         "source": "doc['my_join_field#question']" \<3>'
+              . '         "source": "doc[\'my_join_field#question\']" \<3>'
               . '      }'
               . '    }'
               . '  }'
@@ -289,7 +289,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  e0b414b45460d424ab838b5136492fa1
      * Line: 322
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL322_e0b414b45460d424ab838b5136492fa1()
     {
@@ -333,7 +333,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  2c090fe7ec7b66b3f5c178d71c46323b
      * Line: 344
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL344_2c090fe7ec7b66b3f5c178d71c46323b()
     {
@@ -357,7 +357,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  bc358cfd219faf9353cb65820981a0df
      * Line: 359
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL359_bc358cfd219faf9353cb65820981a0df()
     {
@@ -399,7 +399,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  1cc03b9715d9a3f876f7b7bb7fe66394
      * Line: 387
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL387_1cc03b9715d9a3f876f7b7bb7fe66394()
     {
@@ -443,7 +443,7 @@ class ParentJoin extends SimpleExamplesTester {
     /**
      * Tag:  6eecf0fbf95d132beb0f49b3181da419
      * Line: 423
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL423_6eecf0fbf95d132beb0f49b3181da419()
     {

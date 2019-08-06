@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoBoundingBoxQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/geo-bounding-box-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  b4ef55e48f137e8f67f82b42a047c8f6
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL11_b4ef55e48f137e8f67f82b42a047c8f6()
     {
@@ -87,7 +87,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  49abe3273ac51f14cd4b5f1aaa7f6833
      * Line: 44
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL44_49abe3273ac51f14cd4b5f1aaa7f6833()
     {
@@ -151,7 +151,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  49abe3273ac51f14cd4b5f1aaa7f6833
      * Line: 99
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL99_49abe3273ac51f14cd4b5f1aaa7f6833()
     {
@@ -215,7 +215,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  2cbaaab829728c46359d2f68b71c446e
      * Line: 134
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL134_2cbaaab829728c46359d2f68b71c446e()
     {
@@ -267,7 +267,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  bbf04a7f7a8858e911d6a53fe88127b0
      * Line: 162
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL162_bbf04a7f7a8858e911d6a53fe88127b0()
     {
@@ -319,7 +319,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  417dcb29f5547d4de9d75d8b6a7a53c8
      * Line: 188
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL188_417dcb29f5547d4de9d75d8b6a7a53c8()
     {
@@ -369,7 +369,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  d84695e3db2c92cd3faebf729e482bf0
      * Line: 213
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL213_d84695e3db2c92cd3faebf729e482bf0()
     {
@@ -421,7 +421,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  32ffcae9e1d13df0b7295c349d9145ec
      * Line: 248
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL248_32ffcae9e1d13df0b7295c349d9145ec()
     {
@@ -459,7 +459,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  370750b2f51bd097f4578e5b105babdf
      * Line: 278
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL278_370750b2f51bd097f4578e5b105babdf()
     {
@@ -515,7 +515,7 @@ class GeoBoundingBoxQuery extends SimpleExamplesTester {
     /**
      * Tag:  15eee00f09d2290e0f350d420029906e
      * Line: 328
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL328_15eee00f09d2290e0f350d420029906e()
     {

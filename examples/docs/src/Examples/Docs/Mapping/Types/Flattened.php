@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Flattened
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/flattened.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Flattened extends SimpleExamplesTester {
     /**
      * Tag:  8aa74aee3dcf4b34028e4c5e1c1ed27b
      * Line: 37
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL37_8aa74aee3dcf4b34028e4c5e1c1ed27b()
     {
@@ -91,7 +91,7 @@ class Flattened extends SimpleExamplesTester {
     /**
      * Tag:  169b39bb889ecd47541bed3e48725488
      * Line: 76
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL76_169b39bb889ecd47541bed3e48725488()
     {
@@ -119,7 +119,7 @@ class Flattened extends SimpleExamplesTester {
     /**
      * Tag:  2f4a55dfeba8851b306ef9c1b216ef54
      * Line: 88
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL88_2f4a55dfeba8851b306ef9c1b216ef54()
     {

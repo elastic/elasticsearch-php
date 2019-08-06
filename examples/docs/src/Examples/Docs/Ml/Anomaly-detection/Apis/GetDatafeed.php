@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetDatafeed
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/get-datafeed.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetDatafeed extends SimpleExamplesTester {
     /**
      * Tag:  d7b3862eb61595fc02d64d5f6ed60c88
      * Line: 89
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL89_d7b3862eb61595fc02d64d5f6ed60c88()
     {

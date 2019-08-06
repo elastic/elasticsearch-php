@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CumulativeSumAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/cumulative-sum-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CumulativeSumAggregation extends SimpleExamplesTester {
     /**
      * Tag:  1ae73d3fcc39bef9ddc654bb82d5d239
      * Line: 35
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL35_1ae73d3fcc39bef9ddc654bb82d5d239()
     {

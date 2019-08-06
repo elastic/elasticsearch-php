@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SetUpgradeMode
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/set-upgrade-mode.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SetUpgradeMode extends SimpleExamplesTester {
     /**
      * Tag:  ae4aa368617637a390074535df86e64b
      * Line: 78
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL78_ae4aa368617637a390074535df86e64b()
     {
@@ -43,7 +43,7 @@ class SetUpgradeMode extends SimpleExamplesTester {
     /**
      * Tag:  8e9e7dc5fad2b2b8e74ab4dc225d9c53
      * Line: 103
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL103_8e9e7dc5fad2b2b8e74ab4dc225d9c53()
     {

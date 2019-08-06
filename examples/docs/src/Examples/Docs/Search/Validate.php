@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Validate
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/validate.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  a0a6e4abbf0a5d064d06d06ddc585f4c
      * Line: 8
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL8_a0a6e4abbf0a5d064d06d06ddc585f4c()
     {
@@ -51,7 +51,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  6bdf94c025faf346013a70e3473d5f87
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL21_6bdf94c025faf346013a70e3473d5f87()
     {
@@ -69,7 +69,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  1a0ce57a5e6d73765601de98a5d60d80
      * Line: 62
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL62_1a0ce57a5e6d73765601de98a5d60d80()
     {
@@ -115,7 +115,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  9989c7860423519c7357936a73c2a5ce
      * Line: 89
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL89_9989c7860423519c7357936a73c2a5ce()
     {
@@ -149,7 +149,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  b5cd0cc45db5f2fba30ac310630ad172
      * Line: 112
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL112_b5cd0cc45db5f2fba30ac310630ad172()
     {
@@ -183,7 +183,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  fd74d7518bab5f1dbc1fed588b9bc2a6
      * Line: 152
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL152_fd74d7518bab5f1dbc1fed588b9bc2a6()
     {
@@ -221,7 +221,7 @@ class Validate extends SimpleExamplesTester {
     /**
      * Tag:  d253135ac0a4b3b04531b1a5d2a19279
      * Line: 199
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL199_d253135ac0a4b3b04531b1a5d2a19279()
     {

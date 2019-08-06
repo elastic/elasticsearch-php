@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RankFeatures
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/rank-features.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RankFeatures extends SimpleExamplesTester {
     /**
      * Tag:  17867d05695ddeaee5d5aea2263ac589
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_17867d05695ddeaee5d5aea2263ac589()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ChargroupTokenizer
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenizers/chargroup-tokenizer.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ChargroupTokenizer extends SimpleExamplesTester {
     /**
      * Tag:  f8cafb1a08bc9b2dd5239f99d4e93f4c
      * Line: 26
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL26_f8cafb1a08bc9b2dd5239f99d4e93f4c()
     {

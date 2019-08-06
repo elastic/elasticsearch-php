@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ExistsQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/exists-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ExistsQuery extends SimpleExamplesTester {
     /**
      * Tag:  3342c69b2c2303247217532956fcce85
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_3342c69b2c2303247217532956fcce85()
     {
@@ -57,7 +57,7 @@ class ExistsQuery extends SimpleExamplesTester {
     /**
      * Tag:  43af86de5e49aa06070092fffc138208
      * Line: 57
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL57_43af86de5e49aa06070092fffc138208()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IndexBoost
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/index-boost.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IndexBoost extends SimpleExamplesTester {
     /**
      * Tag:  393c6b7a2e8c3381530c41ff2f7c4991
      * Line: 11
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL11_393c6b7a2e8c3381530c41ff2f7c4991()
     {
@@ -55,7 +55,7 @@ class IndexBoost extends SimpleExamplesTester {
     /**
      * Tag:  fb8a4322825d26c4e7b41bd763b3d392
      * Line: 26
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL26_fb8a4322825d26c4e7b41bd763b3d392()
     {

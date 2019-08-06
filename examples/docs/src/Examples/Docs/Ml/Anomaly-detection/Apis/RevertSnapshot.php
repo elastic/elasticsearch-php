@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RevertSnapshot
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/revert-snapshot.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RevertSnapshot extends SimpleExamplesTester {
     /**
      * Tag:  f28c58902bdefd9e2b36001e8d682d35
      * Line: 63
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL63_f28c58902bdefd9e2b36001e8d682d35()
     {

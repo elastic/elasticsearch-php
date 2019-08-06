@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DiversifiedSamplerAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/diversified-sampler-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DiversifiedSamplerAggregation extends SimpleExamplesTester {
     /**
      * Tag:  3344c3478f1e8bbbef683757638a34f4
      * Line: 30
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL30_3344c3478f1e8bbbef683757638a34f4()
     {
@@ -89,7 +89,7 @@ class DiversifiedSamplerAggregation extends SimpleExamplesTester {
     /**
      * Tag:  07afce825c09de17a3d73a02b17a0a97
      * Line: 96
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL96_07afce825c09de17a3d73a02b17a0a97()
     {
@@ -110,7 +110,7 @@ class DiversifiedSamplerAggregation extends SimpleExamplesTester {
         //                 "max_docs_per_value" : 3,
         //                 "script" : {
         //                     "lang": "painless",
-        //                     "source": "doc['tags'].hashCode()"
+        //                     "source": "doc[\'tags\'].hashCode()"
         //                 }
         //             },
         //             "aggs": {
@@ -140,7 +140,7 @@ class DiversifiedSamplerAggregation extends SimpleExamplesTester {
               . '                "max_docs_per_value" : 3,'
               . '                "script" : {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['tags'].hashCode()"'
+              . '                    "source": "doc[\'tags\'].hashCode()"'
               . '                }'
               . '            },'
               . '            "aggs": {'

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Rescore
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/request/rescore.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Rescore extends SimpleExamplesTester {
     /**
      * Tag:  829a40d484c778a8c58340c7bf09e1d8
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL43_829a40d484c778a8c58340c7bf09e1d8()
     {
@@ -93,7 +93,7 @@ class Rescore extends SimpleExamplesTester {
     /**
      * Tag:  7d7855afd9882a665bbabda810f94f61
      * Line: 91
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL91_7d7855afd9882a665bbabda810f94f61()
     {

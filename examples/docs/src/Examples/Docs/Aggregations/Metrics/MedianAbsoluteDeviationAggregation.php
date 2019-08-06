@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MedianAbsoluteDeviationAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/median-absolute-deviation-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
     /**
      * Tag:  25ed47fcb890fcf8d8518ae067362d18
      * Line: 28
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL28_25ed47fcb890fcf8d8518ae067362d18()
     {
@@ -73,7 +73,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
     /**
      * Tag:  9d662fc9f943c287b7144f5e4e2ae358
      * Line: 88
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL88_9d662fc9f943c287b7144f5e4e2ae358()
     {
@@ -113,7 +113,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
     /**
      * Tag:  bb964122f7d31b2f17c299d47ab3bdf3
      * Line: 118
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL118_bb964122f7d31b2f17c299d47ab3bdf3()
     {
@@ -128,7 +128,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
         //       "median_absolute_deviation": {
         //         "script": {
         //           "lang": "painless",
-        //           "source": "doc['rating'].value * params.scaleFactor",
+        //           "source": "doc[\'rating\'].value * params.scaleFactor",
         //           "params": {
         //             "scaleFactor": 2
         //           }
@@ -147,7 +147,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
               . '      "median_absolute_deviation": {'
               . '        "script": {'
               . '          "lang": "painless",'
-              . '          "source": "doc['rating'].value * params.scaleFactor",'
+              . '          "source": "doc[\'rating\'].value * params.scaleFactor",'
               . '          "params": {'
               . '            "scaleFactor": 2'
               . '          }'
@@ -163,7 +163,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
     /**
      * Tag:  920362adc347f4268b29751d638b2e87
      * Line: 143
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL143_920362adc347f4268b29751d638b2e87()
     {
@@ -211,7 +211,7 @@ class MedianAbsoluteDeviationAggregation extends SimpleExamplesTester {
     /**
      * Tag:  87f854393d715aabf4d45e90a8eb74ce
      * Line: 174
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL174_87f854393d715aabf4d45e90a8eb74ce()
     {

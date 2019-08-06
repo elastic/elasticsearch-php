@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GeoShape
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/types/geo-shape.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  3fef996cf6795e881918ffedc273c642
      * Line: 219
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL219_3fef996cf6795e881918ffedc273c642()
     {
@@ -61,7 +61,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  f851d1be5d5e5fe5455ba81344d01133
      * Line: 308
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL308_f851d1be5d5e5fe5455ba81344d01133()
     {
@@ -91,7 +91,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  d673a2c008015ac6f754661ae336131c
      * Line: 322
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL322_d673a2c008015ac6f754661ae336131c()
     {
@@ -115,7 +115,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  21a9348800406e09b8bdaab192245096
      * Line: 340
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL340_21a9348800406e09b8bdaab192245096()
     {
@@ -145,7 +145,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  48625e23b05d33977451cde7b98b634a
      * Line: 354
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL354_48625e23b05d33977451cde7b98b634a()
     {
@@ -169,7 +169,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  1d6ee162260a21f6e4597eadbea88650
      * Line: 374
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL374_1d6ee162260a21f6e4597eadbea88650()
     {
@@ -203,7 +203,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  18c34a2c5820e330a125dfddf2624c69
      * Line: 390
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL390_18c34a2c5820e330a125dfddf2624c69()
     {
@@ -227,7 +227,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  f83e3ea198f6e87046aab2c5dea60d61
      * Line: 403
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL403_f83e3ea198f6e87046aab2c5dea60d61()
     {
@@ -263,7 +263,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  00eb71b03b73e605da6368041a64a8ad
      * Line: 420
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL420_00eb71b03b73e605da6368041a64a8ad()
     {
@@ -287,7 +287,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  4c42c8835876a2271e7ba63d6bd3149f
      * Line: 448
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL448_4c42c8835876a2271e7ba63d6bd3149f()
     {
@@ -323,7 +323,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  60294ea29c96c432047d4fffcb3cc8b4
      * Line: 468
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL468_60294ea29c96c432047d4fffcb3cc8b4()
     {
@@ -359,7 +359,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  2eca42af76c6ddc657fca3948f3865bd
      * Line: 489
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL489_2eca42af76c6ddc657fca3948f3865bd()
     {
@@ -393,7 +393,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  f1e1f4f37194a899e7056d0782804790
      * Line: 505
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL505_f1e1f4f37194a899e7056d0782804790()
     {
@@ -417,7 +417,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  c4ba19b62e87ed837dc6f1f9fe184244
      * Line: 520
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL520_c4ba19b62e87ed837dc6f1f9fe184244()
     {
@@ -455,7 +455,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  117096e1830e7acedf38bd6a92a9c8b4
      * Line: 538
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL538_117096e1830e7acedf38bd6a92a9c8b4()
     {
@@ -479,7 +479,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  4be91bb5ac3a1b83b767a060c58e0b12
      * Line: 553
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL553_4be91bb5ac3a1b83b767a060c58e0b12()
     {
@@ -517,7 +517,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  9290410340f0e66e67fa96aacc83bbdc
      * Line: 571
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL571_9290410340f0e66e67fa96aacc83bbdc()
     {
@@ -541,7 +541,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  a99750fb5d296fa8df97ee71a34c698c
      * Line: 586
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL586_a99750fb5d296fa8df97ee71a34c698c()
     {
@@ -589,7 +589,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  71bb89f56d847b636a050c553c0cd0a7
      * Line: 609
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL609_71bb89f56d847b636a050c553c0cd0a7()
     {
@@ -613,7 +613,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  f893fffd649507119d0a9afd98a0cf87
      * Line: 626
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL626_f893fffd649507119d0a9afd98a0cf87()
     {
@@ -643,7 +643,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  65208190e9640cb4ca67271f1694814d
      * Line: 642
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL642_65208190e9640cb4ca67271f1694814d()
     {
@@ -667,7 +667,7 @@ class GeoShape extends SimpleExamplesTester {
     /**
      * Tag:  76039c2fd422a6bb6340848cc0a78bbd
      * Line: 660
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL660_76039c2fd422a6bb6340848cc0a78bbd()
     {

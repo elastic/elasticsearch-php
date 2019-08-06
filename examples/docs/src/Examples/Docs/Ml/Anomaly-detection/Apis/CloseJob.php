@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: CloseJob
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/close-job.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class CloseJob extends SimpleExamplesTester {
     /**
      * Tag:  cf6e928ae9efc2b9f59aa1ccb4605bee
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL102_cf6e928ae9efc2b9f59aa1ccb4605bee()
     {

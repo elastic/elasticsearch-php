@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: BucketSortAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/bucket-sort-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class BucketSortAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7881659b181997486731d92712fbdca9
      * Line: 51
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL51_7881659b181997486731d92712fbdca9()
     {
@@ -95,7 +95,7 @@ class BucketSortAggregation extends SimpleExamplesTester {
     /**
      * Tag:  541c4f4fb5959cf88423196e51c7e0ef
      * Line: 139
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL139_541c4f4fb5959cf88423196e51c7e0ef()
     {

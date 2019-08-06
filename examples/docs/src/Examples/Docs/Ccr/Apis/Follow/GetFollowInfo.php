@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetFollowInfo
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/follow/get-follow-info.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetFollowInfo extends SimpleExamplesTester {
     /**
      * Tag:  b2440b492149b705ef107137fdccb0c2
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL38_b2440b492149b705ef107137fdccb0c2()
     {
@@ -43,7 +43,7 @@ class GetFollowInfo extends SimpleExamplesTester {
     /**
      * Tag:  a520168c1c8b454a8f102d6a13027c73
      * Line: 142
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL142_a520168c1c8b454a8f102d6a13027c73()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PrefixQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/prefix-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PrefixQuery extends SimpleExamplesTester {
     /**
      * Tag:  81514791349e0e79ac565160e42889c0
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_81514791349e0e79ac565160e42889c0()
     {
@@ -61,7 +61,7 @@ class PrefixQuery extends SimpleExamplesTester {
     /**
      * Tag:  32ea547cefa2976c8c3c2eb45a2a4ff4
      * Line: 54
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL54_32ea547cefa2976c8c3c2eb45a2a4ff4()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RankFeatureQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/rank-feature-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  e2750d69bcb6d4c7e16e704cd0fb3530
      * Line: 57
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL57_e2750d69bcb6d4c7e16e704cd0fb3530()
     {
@@ -75,7 +75,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  c786505cf972dd41bd0cbb6ebcf939e9
      * Line: 83
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL83_c786505cf972dd41bd0cbb6ebcf939e9()
     {
@@ -159,7 +159,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  fd0cd8ecd03468726b59a605eea06d75
      * Line: 130
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL130_fd0cd8ecd03468726b59a605eea06d75()
     {
@@ -241,7 +241,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  309f0721145b5c656338a02459c3ff1e
      * Line: 236
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL236_309f0721145b5c656338a02459c3ff1e()
     {
@@ -279,7 +279,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  0c05c66cfe3a2169b1ec1aba77e26db2
      * Line: 257
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL257_0c05c66cfe3a2169b1ec1aba77e26db2()
     {
@@ -313,7 +313,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  e89bf0d893b7bf43c2d9b44db6cfe21b
      * Line: 279
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL279_e89bf0d893b7bf43c2d9b44db6cfe21b()
     {
@@ -351,7 +351,7 @@ class RankFeatureQuery extends SimpleExamplesTester {
     /**
      * Tag:  9e3c28d5820c38ea117eb2e9a5061089
      * Line: 306
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL306_9e3c28d5820c38ea117eb2e9a5061089()
     {

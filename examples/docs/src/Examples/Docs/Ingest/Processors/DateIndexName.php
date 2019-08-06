@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DateIndexName
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ingest/processors/date-index-name.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DateIndexName extends SimpleExamplesTester {
     /**
      * Tag:  83c8cce0372677857609a2e80e8eb1c4
      * Line: 20
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL20_83c8cce0372677857609a2e80e8eb1c4()
     {
@@ -67,7 +67,7 @@ class DateIndexName extends SimpleExamplesTester {
     /**
      * Tag:  9f3f1b6bd431f6fa40fc17ce9a5a89b8
      * Line: 41
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL41_9f3f1b6bd431f6fa40fc17ce9a5a89b8()
     {
@@ -91,7 +91,7 @@ class DateIndexName extends SimpleExamplesTester {
     /**
      * Tag:  44f672df54c28327070b4ca09999718c
      * Line: 78
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL78_44f672df54c28327070b4ca09999718c()
     {

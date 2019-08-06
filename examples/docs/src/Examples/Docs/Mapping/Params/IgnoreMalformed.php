@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: IgnoreMalformed
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   mapping/params/ignore-malformed.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class IgnoreMalformed extends SimpleExamplesTester {
     /**
      * Tag:  56af112ba65955f3ca5ef61a199c0daa
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL16_56af112ba65955f3ca5ef61a199c0daa()
     {
@@ -89,7 +89,7 @@ class IgnoreMalformed extends SimpleExamplesTester {
     /**
      * Tag:  835faff0d2e8874b7b9693376fa7fc57
      * Line: 60
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL60_835faff0d2e8874b7b9693376fa7fc57()
     {

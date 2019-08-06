@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: KeepTypesTokenfilter
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   analysis/tokenfilters/keep-types-tokenfilter.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class KeepTypesTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  928923befcb84cdcace229b027fd281f
      * Line: 21
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL21_928923befcb84cdcace229b027fd281f()
     {
@@ -79,7 +79,7 @@ class KeepTypesTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  b425b2194294437ac21df0b5606fb3d2
      * Line: 47
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL47_b425b2194294437ac21df0b5606fb3d2()
     {
@@ -105,7 +105,7 @@ class KeepTypesTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  1658d704f26a06e8f37c6430361c3f26
      * Line: 82
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL82_1658d704f26a06e8f37c6430361c3f26()
     {
@@ -161,7 +161,7 @@ class KeepTypesTokenfilter extends SimpleExamplesTester {
     /**
      * Tag:  4d5ded2eede9a987df094dc4a91893d7
      * Line: 109
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL109_4d5ded2eede9a987df094dc4a91893d7()
     {

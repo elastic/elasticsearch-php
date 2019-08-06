@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetAutoFollowPattern
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   ccr/apis/auto-follow/get-auto-follow-pattern.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetAutoFollowPattern extends SimpleExamplesTester {
     /**
      * Tag:  5e124875d97c27362ae858160ae1c6d5
      * Line: 43
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL43_5e124875d97c27362ae858160ae1c6d5()
     {
@@ -43,7 +43,7 @@ class GetAutoFollowPattern extends SimpleExamplesTester {
     /**
      * Tag:  d56a9d89282df56adbbc34b91390ac17
      * Line: 49
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL49_d56a9d89282df56adbbc34b91390ac17()
     {
@@ -61,7 +61,7 @@ class GetAutoFollowPattern extends SimpleExamplesTester {
     /**
      * Tag:  79f33e05b203eb46eef7958fbc95ef77
      * Line: 83
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL83_79f33e05b203eb46eef7958fbc95ef77()
     {

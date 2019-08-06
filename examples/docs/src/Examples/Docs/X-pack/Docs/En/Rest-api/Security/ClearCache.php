@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ClearCache
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/clear-cache.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ClearCache extends SimpleExamplesTester {
     /**
      * Tag:  a5e2b3588258430f2e595abda98e3943
      * Line: 42
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL42_a5e2b3588258430f2e595abda98e3943()
     {
@@ -43,7 +43,7 @@ class ClearCache extends SimpleExamplesTester {
     /**
      * Tag:  c1409f591a01589638d9b00436ce42c0
      * Line: 50
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL50_c1409f591a01589638d9b00436ce42c0()
     {
@@ -61,7 +61,7 @@ class ClearCache extends SimpleExamplesTester {
     /**
      * Tag:  00272f75a6afea91f8554ef7cda0c1f2
      * Line: 59
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL59_00272f75a6afea91f8554ef7cda0c1f2()
     {

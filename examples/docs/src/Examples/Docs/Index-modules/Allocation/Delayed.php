@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: Delayed
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   index-modules/allocation/delayed.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class Delayed extends SimpleExamplesTester {
     /**
      * Tag:  17e6f3fac556f08a78f7a876e71acb89
      * Line: 40
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL40_17e6f3fac556f08a78f7a876e71acb89()
     {
@@ -53,7 +53,7 @@ class Delayed extends SimpleExamplesTester {
     /**
      * Tag:  a38f29375eabd0103f8d7c00b17bb0ab
      * Line: 83
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL83_a38f29375eabd0103f8d7c00b17bb0ab()
     {
@@ -71,7 +71,7 @@ class Delayed extends SimpleExamplesTester {
     /**
      * Tag:  25d40d3049e57e2bb70c2c5b88bd7b87
      * Line: 96
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL96_25d40d3049e57e2bb70c2c5b88bd7b87()
     {

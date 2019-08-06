@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MinAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/metrics/min-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MinAggregation extends SimpleExamplesTester {
     /**
      * Tag:  bbd52c02b078e650f1a871f7fe7ff343
      * Line: 16
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL16_bbd52c02b078e650f1a871f7fe7ff343()
     {
@@ -53,7 +53,7 @@ class MinAggregation extends SimpleExamplesTester {
     /**
      * Tag:  27cf2556b606f91d1fe3db3d7b6fd21a
      * Line: 53
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL53_27cf2556b606f91d1fe3db3d7b6fd21a()
     {
@@ -93,7 +93,7 @@ class MinAggregation extends SimpleExamplesTester {
     /**
      * Tag:  f76eb7821cb7855339ffcaab3460d934
      * Line: 74
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL74_f76eb7821cb7855339ffcaab3460d934()
     {
@@ -139,7 +139,7 @@ class MinAggregation extends SimpleExamplesTester {
     /**
      * Tag:  57ec3af2f4b3ce90722de51efc9d2cf1
      * Line: 102
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL102_57ec3af2f4b3ce90722de51efc9d2cf1()
     {
@@ -187,7 +187,7 @@ class MinAggregation extends SimpleExamplesTester {
     /**
      * Tag:  05161bf816a98dd2a57b8cd2a3d39db4
      * Line: 130
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL130_05161bf816a98dd2a57b8cd2a3d39db4()
     {

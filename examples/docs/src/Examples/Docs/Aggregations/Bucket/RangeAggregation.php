@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: RangeAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/range-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e84a496049274a0fed24e319da7a864c
      * Line: 10
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL10_e84a496049274a0fed24e319da7a864c()
     {
@@ -71,7 +71,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d637c754aec195a1df39cafca49cbe7e
      * Line: 68
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL68_d637c754aec195a1df39cafca49cbe7e()
     {
@@ -119,7 +119,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4d147b4a4dabef9b0a8a13cbe8174e09
      * Line: 122
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL122_4d147b4a4dabef9b0a8a13cbe8174e09()
     {
@@ -167,7 +167,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  bdf31f63d0941a4183ceae1cc2342c39
      * Line: 181
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL181_bdf31f63d0941a4183ceae1cc2342c39()
     {
@@ -181,7 +181,7 @@ class RangeAggregation extends SimpleExamplesTester {
         //             "range" : {
         //                 "script" : {
         //                     "lang": "painless",
-        //                     "source": "doc['price'].value"
+        //                     "source": "doc[\'price\'].value"
         //                 },
         //                 "ranges" : [
         //                     { "to" : 100 },
@@ -201,7 +201,7 @@ class RangeAggregation extends SimpleExamplesTester {
               . '            "range" : {'
               . '                "script" : {'
               . '                    "lang": "painless",'
-              . '                    "source": "doc['price'].value"'
+              . '                    "source": "doc[\'price\'].value"'
               . '                },'
               . '                "ranges" : ['
               . '                    { "to" : 100 },'
@@ -219,7 +219,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4c9c453c92431a05b413bfc0163104b4
      * Line: 206
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL206_4c9c453c92431a05b413bfc0163104b4()
     {
@@ -249,7 +249,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  7a6d758654eecbc3a1a76744b4de0a23
      * Line: 221
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL221_7a6d758654eecbc3a1a76744b4de0a23()
     {
@@ -305,7 +305,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  022956b81fa70e72b56c66be16d0e982
      * Line: 282
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL282_022956b81fa70e72b56c66be16d0e982()
     {
@@ -363,7 +363,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  3b52f4f7ea4abfa6db6bf54199b15f53
      * Line: 313
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL313_3b52f4f7ea4abfa6db6bf54199b15f53()
     {
@@ -419,7 +419,7 @@ class RangeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  4547c455375eeda5ad9f74b40d4fa61b
      * Line: 395
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL395_4547c455375eeda5ad9f74b40d4fa61b()
     {

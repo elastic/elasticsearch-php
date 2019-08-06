@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: PercolateQuery
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:53
  *
  * @source   query-dsl/percolate-query.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  e79bff3fe9fe9d8732e0b034f17a03c5
      * Line: 18
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL18_e79bff3fe9fe9d8732e0b034f17a03c5()
     {
@@ -67,7 +67,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  25843127c07257bf09154920779d3055
      * Line: 47
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL47_25843127c07257bf09154920779d3055()
     {
@@ -99,7 +99,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  4ef2837148b6b23e2eb0a11d14ccae80
      * Line: 63
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL63_4ef2837148b6b23e2eb0a11d14ccae80()
     {
@@ -137,7 +137,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  4e4e6a2e173cc20c00cca1a06166a687
      * Line: 162
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL162_4e4e6a2e173cc20c00cca1a06166a687()
     {
@@ -183,7 +183,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  2d417d4eea299b45f384af7303252611
      * Line: 203
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL203_2d417d4eea299b45f384af7303252611()
     {
@@ -243,7 +243,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  fe0b180951e143d4c624d9fbf677b884
      * Line: 290
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL290_fe0b180951e143d4c624d9fbf677b884()
     {
@@ -267,7 +267,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  6736f6e4e04379918a21e7c223c08cf9
      * Line: 322
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL322_6736f6e4e04379918a21e7c223c08cf9()
     {
@@ -305,7 +305,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  f33cfd0350f5f474362aa6f2e03f734f
      * Line: 359
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL359_f33cfd0350f5f474362aa6f2e03f734f()
     {
@@ -337,7 +337,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  1ae1587dfc299b9f3f57d3da0dbc9a3b
      * Line: 375
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL375_1ae1587dfc299b9f3f57d3da0dbc9a3b()
     {
@@ -369,7 +369,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  a8852f083978b748b93b87ff7fa7b15b
      * Line: 391
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL391_a8852f083978b748b93b87ff7fa7b15b()
     {
@@ -417,7 +417,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  3bbf150f4ae5c8e53beb6d6ae6f07775
      * Line: 488
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL488_3bbf150f4ae5c8e53beb6d6ae6f07775()
     {
@@ -487,7 +487,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  6163e92fa93136a1907f820e8d57db45
      * Line: 582
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL582_6163e92fa93136a1907f820e8d57db45()
     {
@@ -557,7 +557,7 @@ class PercolateQuery extends SimpleExamplesTester {
     /**
      * Tag:  9501e6c8e95c21838653ea15b9b7ed5f
      * Line: 688
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:53
      */
     public function testExampleL688_9501e6c8e95c21838653ea15b9b7ed5f()
     {

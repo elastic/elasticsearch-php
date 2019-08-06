@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: MultiSearch
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   search/multi-search.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class MultiSearch extends SimpleExamplesTester {
     /**
      * Tag:  05af5eab63bf98d0078dfe661cd81124
      * Line: 65
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL65_05af5eab63bf98d0078dfe661cd81124()
     {
@@ -55,7 +55,7 @@ class MultiSearch extends SimpleExamplesTester {
     /**
      * Tag:  a914be2ff7dd0cbdec0257f0ad50b625
      * Line: 113
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL113_a914be2ff7dd0cbdec0257f0ad50b625()
     {
@@ -81,7 +81,7 @@ class MultiSearch extends SimpleExamplesTester {
     /**
      * Tag:  28e66ff0ecdd71cb1426880115eab5dd
      * Line: 128
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL128_28e66ff0ecdd71cb1426880115eab5dd()
     {
@@ -123,7 +123,7 @@ class MultiSearch extends SimpleExamplesTester {
     /**
      * Tag:  72e72cb3aa1b10b903d8cadcaddf7d10
      * Line: 147
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL147_72e72cb3aa1b10b903d8cadcaddf7d10()
     {
@@ -165,7 +165,7 @@ class MultiSearch extends SimpleExamplesTester {
     /**
      * Tag:  8b4c8f395c0a6f952a42051a0d357154
      * Line: 168
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL168_8b4c8f395c0a6f952a42051a0d357154()
     {

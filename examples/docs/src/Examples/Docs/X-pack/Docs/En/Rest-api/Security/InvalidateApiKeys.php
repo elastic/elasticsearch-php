@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: InvalidateApiKeys
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/invalidate-api-keys.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  0aff04881be21eea45375ec4f4f50e66
      * Line: 51
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL51_0aff04881be21eea45375ec4f4f50e66()
     {
@@ -49,7 +49,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  01cc9dac719f2612a48cc1b23db7cd54
      * Line: 77
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL77_01cc9dac719f2612a48cc1b23db7cd54()
     {
@@ -73,7 +73,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  f388e571224dd6850f8c9f9f08fca3da
      * Line: 90
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL90_f388e571224dd6850f8c9f9f08fca3da()
     {
@@ -97,7 +97,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  dde283eab92608e7bfbfa09c6482a12e
      * Line: 103
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL103_dde283eab92608e7bfbfa09c6482a12e()
     {
@@ -121,7 +121,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  e7d819634d765cde269e2669e2dc677f
      * Line: 116
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL116_e7d819634d765cde269e2669e2dc677f()
     {
@@ -145,7 +145,7 @@ class InvalidateApiKeys extends SimpleExamplesTester {
     /**
      * Tag:  6c927313867647e0ef3cd3a37cb410cc
      * Line: 129
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL129_6c927313867647e0ef3cd3a37cb410cc()
     {

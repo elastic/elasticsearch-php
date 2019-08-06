@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: GetOverallBuckets
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ml/anomaly-detection/apis/get-overall-buckets.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class GetOverallBuckets extends SimpleExamplesTester {
     /**
      * Tag:  e48e7da65c2b32d724fd7e3bfa175c6f
      * Line: 111
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL111_e48e7da65c2b32d724fd7e3bfa175c6f()
     {
@@ -51,7 +51,7 @@ class GetOverallBuckets extends SimpleExamplesTester {
     /**
      * Tag:  405db6f3a01eceacfaa8b0ed3e4b3ac2
      * Line: 157
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL157_405db6f3a01eceacfaa8b0ed3e4b3ac2()
     {

@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: DerivativeAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/pipeline/derivative-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class DerivativeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  469bc2e7b9e65b3b1e38a547f63bd2f9
      * Line: 38
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL38_469bc2e7b9e65b3b1e38a547f63bd2f9()
     {
@@ -89,7 +89,7 @@ class DerivativeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  d683ed8c4a72f82200bbad0c3921e427
      * Line: 132
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL132_d683ed8c4a72f82200bbad0c3921e427()
     {
@@ -163,7 +163,7 @@ class DerivativeAggregation extends SimpleExamplesTester {
     /**
      * Tag:  8553b0c396e9de7d841fcc6373e017e2
      * Line: 232
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL232_8553b0c396e9de7d841fcc6373e017e2()
     {

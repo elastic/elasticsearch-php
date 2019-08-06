@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: ClearRolesCache
  *
- * Date: 2019-08-05 08:49:20
+ * Date: 2019-08-06 06:59:54
  *
  * @source   ../../x-pack/docs/en/rest-api/security/clear-roles-cache.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class ClearRolesCache extends SimpleExamplesTester {
     /**
      * Tag:  ee577c4c7cc723e99569ea2d1137adba
      * Line: 39
-     * Date: 2019-08-05 08:49:20
+     * Date: 2019-08-06 06:59:54
      */
     public function testExampleL39_ee577c4c7cc723e99569ea2d1137adba()
     {

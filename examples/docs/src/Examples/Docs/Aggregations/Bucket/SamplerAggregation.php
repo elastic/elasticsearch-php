@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: SamplerAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/sampler-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class SamplerAggregation extends SimpleExamplesTester {
     /**
      * Tag:  28035a0e2a874f1b6739badf82a0ecc6
      * Line: 19
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL19_28035a0e2a874f1b6739badf82a0ecc6()
     {
@@ -87,7 +87,7 @@ class SamplerAggregation extends SimpleExamplesTester {
     /**
      * Tag:  279f7af39b62c7d278f9f10b1f107dc0
      * Line: 89
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL89_279f7af39b62c7d278f9f10b1f107dc0()
     {

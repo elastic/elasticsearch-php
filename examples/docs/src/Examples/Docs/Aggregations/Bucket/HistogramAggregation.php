@@ -12,7 +12,7 @@ use Elasticsearch\Examples\Docs\Testers\SimpleExamplesTester;
  *
  * Class: HistogramAggregation
  *
- * Date: 2019-08-05 08:49:19
+ * Date: 2019-08-06 06:56:02
  *
  * @source   aggregations/bucket/histogram-aggregation.asciidoc
  * @category Elasticsearch\Examples\Docs
@@ -25,7 +25,7 @@ class HistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  322e1a8842fc5924b972a9a32c29c17a
      * Line: 23
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL23_322e1a8842fc5924b972a9a32c29c17a()
     {
@@ -63,7 +63,7 @@ class HistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  0003e4064d004a341c193ddd5d82a07f
      * Line: 82
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL82_0003e4064d004a341c193ddd5d82a07f()
     {
@@ -103,7 +103,7 @@ class HistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  c72bd866a7e21907fa71f1067371db55
      * Line: 158
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL158_c72bd866a7e21907fa71f1067371db55()
     {
@@ -155,7 +155,7 @@ class HistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  e0bba0f00a589933499493390a9a0517
      * Line: 201
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL201_e0bba0f00a589933499493390a9a0517()
     {
@@ -195,7 +195,7 @@ class HistogramAggregation extends SimpleExamplesTester {
     /**
      * Tag:  271c55d9a421dbc794caa0ebaead95e3
      * Line: 261
-     * Date: 2019-08-05 08:49:19
+     * Date: 2019-08-06 06:56:02
      */
     public function testExampleL261_271c55d9a421dbc794caa0ebaead95e3()
     {

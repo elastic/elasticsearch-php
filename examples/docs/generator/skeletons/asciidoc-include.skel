@@ -1,4 +1,4 @@
 [source,php]
 ----
-include::./%__FILEPATH__%[tag=%__TAG__%]
+include::./%__FILEPATH__%[tag=%__TAG__%,indent=0]
 ----

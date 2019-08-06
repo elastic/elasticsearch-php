@@ -4,8 +4,6 @@
 // Elasticsearch B.V licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information
 
-require_once 'helpers.php';
-
 if ($argc != 2) {
     print(sprintf("%s <report file>\n", $argv[0]));
     exit(2);

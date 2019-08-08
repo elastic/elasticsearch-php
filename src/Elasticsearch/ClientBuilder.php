@@ -337,20 +337,6 @@ class ClientBuilder
     }
 
     /**
-     * Set the APIKey for Authenication
-     *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
-     *
-     * @param string $apiKey
-     */
-    public function setApiKeyAuthentication(string $apiKey)
-    {
-        $this->connectionParams['client']['headers']['Authorization'] = ['ApiKey ' . $apiKey];
-
-        return $this;
-    }
-
-    /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
@@ -358,9 +344,11 @@ class ClientBuilder
      * @param string $id
      * @param string $apiKey
      */
-    public function setApiKeyPairAuthentication(string $id, string $apiKey)
+    public function setApiKey(string $id, string $apiKey)
     {
-        $this->setApiKeyAuthentication(base64_encode($id . ':' . $apiKey));
+        $this->connectionParams['client']['headers']['Authorization'] = [
+            'ApiKey ' . base64_encode($id . ':' . $apiKey)
+        ];
 
         return $this;
     }

@@ -339,6 +339,8 @@ class ClientBuilder
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
+     * <i>APIKey will have precedence over Basic Authentication</i>
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
      *
      * @param string $id
@@ -350,12 +352,29 @@ class ClientBuilder
             'ApiKey ' . base64_encode($id . ':' . $apiKey)
         ];
 
+        // Remove Basic Auth Credentials if set
+        unset($this->connectionParams['client']['curl'][CURLOPT_HTTPAUTH]);
+        unset($this->connectionParams['client']['curl'][CURLOPT_USERPWD]);
+
         return $this;
     }
 
-    public function setConnectionParams(array $params): ClientBuilder
+    /**
+     * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+     *
+     * @param string $username
+     * @param string $password
+     */
+    public function setBasicAuthentication(string $username, string $password)
     {
-        $this->connectionParams = $params;
+        if(isset($this->connectionParams['client']['curl']) === false) {
+            $this->connectionParams['client']['curl'] = [];
+        }
+
+        $this->connectionParams['client']['curl'] += [
+            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+            CURLOPT_USERPWD  => $username.':'.$password
+        ];
 
         return $this;
     }
@@ -386,6 +405,13 @@ class ClientBuilder
                 ],
             ]
         ]);
+
+        return $this;
+    }
+
+    public function setConnectionParams(array $params): ClientBuilder
+    {
+        $this->connectionParams = $params;
 
         return $this;
     }

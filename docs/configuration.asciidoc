@@ -95,7 +95,8 @@ If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic
 [source,php]
 ----
 $client = ClientBuilder::create()
-            ->setElasticCloudId('<elastic-cloud-id>', '<username>', '<secure-password>') <1>, <2>
+            ->setElasticCloudId('<elastic-cloud-id>')  <1>
+            ->setBasicAuthentication('<username>', '<secure-password>') <2>
             ->build();
 ----
 <1> Your Cloud ID provided by the Elastic Cloud platform
@@ -105,7 +106,7 @@ $client = ClientBuilder::create()
 ----
 $client = ClientBuilder::create()
             ->setElasticCloudId('<elastic-cloud-id>') <1>
-            ->setApiKeyPairAuthentication('<id>', '<api_key>') <2>
+            ->setApiKey('<id>', '<api_key>') <2>
             ->build();
 ----
 <1> Your Cloud ID provided by the Elastic Cloud platform
@@ -267,7 +268,7 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on 
+For more details, please see the dedicated page on
 <<connection_pool,configuring connection pools>>.
 
 === Setting the Connection Selector

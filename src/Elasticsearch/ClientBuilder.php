@@ -6,6 +6,7 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Common\Exceptions\ElasticCloudIdParseException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -17,7 +18,6 @@ use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
-use Elasticsearch\Helper\ElasticCloudIdParser;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
@@ -375,30 +375,20 @@ class ClientBuilder
     /**
      * Set Elastic Cloud ID to connect to Elastic Cloud
      *
-     * <b>No authentication is provided</b>
-     *
-     * - set Hostname
-     * - set best practices for the connection
+     * @link  https://elastic.co/cloud
      *
      * @param string $cloudId
-     * @param string $username, optional if using Basic Authentication
-     * @param string $password, optional if using Basic Authentication
      */
-    public function setElasticCloudId(string $cloudId, ?string $username = null, ?string $password = null)
+    public function setElasticCloudId(string $cloudId)
     {
-        $cloud = new ElasticCloudIdParser($cloudId);
-        $hosts = [
+        // Register the Hosts array
+        $this->setHosts([
             [
-                'host'   => $cloud->getClusterDns(),
+                'host'   => $this->parseElasticCloudId($cloudId),
                 'port'   => '',
                 'scheme' => 'https',
-                'user'   => $username,
-                'pass'   => $password,
             ]
-        ];
-
-        // Register the Hosts array
-        $this->setHosts($hosts);
+        ]);
 
         // Merge best practices for the connection
         $this->setConnectionParams([
@@ -691,5 +681,27 @@ class ClientBuilder
         }
 
         return $host;
+    }
+
+    /**
+     * Parse the Elastic Cloud Params from the CloudId
+     *
+     * @param string $cloudId
+     *
+     * @return string
+     *
+     * @throws ElasticCloudIdParseException
+     */
+    private function parseElasticCloudId(string $cloudId): string
+    {
+        try {
+            list($name, $encoded) = explode(':', $cloudId);
+            list($uri, $uuids)    = explode('$', base64_decode($encoded));
+            list($es,)            = explode(':', $uuids);
+
+            return $es . '.' . $uri;
+        } catch (\Throwable $t) {
+            throw new ElasticCloudIdParseException('could not parse the Cloud ID:' . $cloudId);
+        }
     }
 }

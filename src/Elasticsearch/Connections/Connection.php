@@ -112,6 +112,11 @@ class Connection implements ConnectionInterface
 
     private $lastRequest = array();
 
+    /**
+     * @var string
+     */
+    private $OSVersion = null;
+
     public function __construct(
         callable $handler,
         array $hostDetails,
@@ -145,8 +150,8 @@ class Connection implements ConnectionInterface
         $this->headers['User-Agent'] = [sprintf(
             "elasticsearch-php/%s (%s %s; PHP %s)",
             Client::VERSION,
-            php_uname("s"),
-            php_uname("r"),
+            PHP_OS,
+            $this->getOSVersion(),
             phpversion()
         )];
 
@@ -541,6 +546,22 @@ class Connection implements ConnectionInterface
         }
 
         return $exception;
+    }
+
+    /**
+     * Get the OS version using php_uname if available
+     * otherwise it returns an empty string
+     *
+     * @see  https://github.com/elastic/elasticsearch-php/issues/922
+     */
+    private function getOSVersion(): string
+    {
+        if ($this->OSVersion === null) {
+            $this->OSVersion = strpos(strtolower(ini_get('disable_functions')), 'php_uname') !== false
+                ? ''
+                : php_uname("r");
+        }
+        return $this->OSVersion;
     }
 
     /**

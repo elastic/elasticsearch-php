@@ -367,7 +367,7 @@ class ClientBuilder
      */
     public function setBasicAuthentication(string $username, string $password)
     {
-        if(isset($this->connectionParams['client']['curl']) === false) {
+        if (isset($this->connectionParams['client']['curl']) === false) {
             $this->connectionParams['client']['curl'] = [];
         }
 

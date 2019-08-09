@@ -7,6 +7,7 @@ namespace Elasticsearch;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Common\Exceptions\ElasticCloudIdParseException;
+use Elasticsearch\Common\Exceptions\AuthenticationConfigException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -334,22 +335,22 @@ class ClientBuilder
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
-     * <i>APIKey will have precedence over Basic Authentication</i>
-     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
      *
      * @param string $id
      * @param string $apiKey
+     *
+     * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
      */
     public function setApiKey(string $id, string $apiKey)
     {
+        if (isset($this->connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === true) {
+            throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
+        }
+
         $this->connectionParams['client']['headers']['Authorization'] = [
             'ApiKey ' . base64_encode($id . ':' . $apiKey)
         ];
-
-        // Remove Basic Auth Credentials if set
-        unset($this->connectionParams['client']['curl'][CURLOPT_HTTPAUTH]);
-        unset($this->connectionParams['client']['curl'][CURLOPT_USERPWD]);
 
         return $this;
     }
@@ -359,9 +360,15 @@ class ClientBuilder
      *
      * @param string $username
      * @param string $password
+     *
+     * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
      */
     public function setBasicAuthentication(string $username, string $password)
     {
+        if (isset($this->connectionParams['client']['headers']['Authorization']) === true) {
+            throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
+        }
+
         if (isset($this->connectionParams['client']['curl']) === false) {
             $this->connectionParams['client']['curl'] = [];
         }

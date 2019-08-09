@@ -127,11 +127,6 @@ class ClientBuilder
      */
     private $sslVerification = null;
 
-    /**
-     * @var null|string
-     */
-    private $apiKey = null;
-
     public static function create(): ClientBuilder
     {
         return new static();

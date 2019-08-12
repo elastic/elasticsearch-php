@@ -6,6 +6,8 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Common\Exceptions\ElasticCloudIdParseException;
+use Elasticsearch\Common\Exceptions\AuthenticationConfigException;
 use Elasticsearch\ConnectionPool\AbstractConnectionPool;
 use Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
@@ -330,6 +332,82 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+     *
+     * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
+     */
+    public function setApiKey(string $id, string $apiKey): ClientBuilder
+    {
+        if (isset($this->connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === true) {
+            throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
+        }
+
+        $this->connectionParams['client']['headers']['Authorization'] = [
+            'ApiKey ' . base64_encode($id . ':' . $apiKey)
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
+     */
+    public function setBasicAuthentication(string $username, string $password): ClientBuilder
+    {
+        if (isset($this->connectionParams['client']['headers']['Authorization']) === true) {
+            throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
+        }
+
+        if (isset($this->connectionParams['client']['curl']) === false) {
+            $this->connectionParams['client']['curl'] = [];
+        }
+
+        $this->connectionParams['client']['curl'] += [
+            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+            CURLOPT_USERPWD  => $username.':'.$password
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Set Elastic Cloud ID to connect to Elastic Cloud
+     *
+     * @link  https://elastic.co/cloud
+     *
+     * @param string $cloudId
+     */
+    public function setElasticCloudId(string $cloudId): ClientBuilder
+    {
+        // Register the Hosts array
+        $this->setHosts([
+            [
+                'host'   => $this->parseElasticCloudId($cloudId),
+                'port'   => '',
+                'scheme' => 'https',
+            ]
+        ]);
+
+        // Merge best practices for the connection
+        $this->setConnectionParams([
+            'client' => [
+                'curl' => [
+                    CURLOPT_ENCODING => 1,
+                ],
+            ]
+        ]);
+
+        return $this;
+    }
+
     public function setConnectionParams(array $params): ClientBuilder
     {
         $this->connectionParams = $params;
@@ -565,6 +643,7 @@ class ClientBuilder
                 $this->logger->error("Could not parse host: ".print_r($host, true));
                 throw new RuntimeException("Could not parse host: ".print_r($host, true));
             }
+
             $connections[] = $this->connectionFactory->create($host);
         }
 
@@ -615,5 +694,27 @@ class ClientBuilder
         }
 
         return $host;
+    }
+
+    /**
+     * Parse the Elastic Cloud Params from the CloudId
+     *
+     * @param string $cloudId
+     *
+     * @return string
+     *
+     * @throws ElasticCloudIdParseException
+     */
+    private function parseElasticCloudId(string $cloudId): string
+    {
+        try {
+            list($name, $encoded) = explode(':', $cloudId);
+            list($uri, $uuids)    = explode('$', base64_decode($encoded));
+            list($es,)            = explode(':', $uuids);
+
+            return $es . '.' . $uri;
+        } catch (\Throwable $t) {
+            throw new ElasticCloudIdParseException('could not parse the Cloud ID:' . $cloudId);
+        }
     }
 }

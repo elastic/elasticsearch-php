@@ -24,6 +24,18 @@ $client = ClientBuilder::create()
 Credentials are provided per-host, which allows each host to have their own set of credentials.  All requests sent to the
 cluster will use the appropriate credentials depending on the node being talked to.
 
+=== ApiKey Authentication
+
+If your Elasticsearch cluster is secured by API keys as described https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html[here], you can use these values to connect the client with your cluster, as illustrated in the following code snippet.
+
+[source,php]
+----
+$client = ClientBuilder::create()
+                    ->setApiKey('id', 'api_key') <1>
+                    ->build();
+----
+<1> ApiKey pair of `id` and `api_key` from the create API key response.
+
 === SSL Encryption
 
 Configuring SSL is a little more complex.  You need to identify if your certificate has been signed by a public

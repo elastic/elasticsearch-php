@@ -129,7 +129,11 @@ class Connection implements ConnectionInterface
             $this->transportSchema = $hostDetails['scheme'];
         }
 
-        if (isset($hostDetails['user']) && isset($hostDetails['pass'])) {
+        // Only Set the Basic if API Key is not set and setBasicAuthentication was not called prior
+        if (isset($connectionParams['client']['headers']['Authorization']) === false
+                && isset($connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === false
+                && isset($hostDetails['user'])
+                && isset($hostDetails['pass'])) {
             $connectionParams['client']['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }

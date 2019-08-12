@@ -88,6 +88,30 @@ $client = ClientBuilder::create()           // Instantiate a new ClientBuilder
 Only the `host` parameter is required for each configured host.  If not provided, the default port is `9200`.  The default
 scheme is `http`.
 
+=== Connect to Elastic Cloud
+
+If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic authentication or ApiKey authentication to connect to it.
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setElasticCloudId('<elastic-cloud-id>')  <1>
+            ->setBasicAuthentication('<username>', '<secure-password>') <2>
+            ->build();
+----
+<1> Your Cloud ID provided by the Elastic Cloud platform
+<2> Your basic authentication credentials
+
+[source,php]
+----
+$client = ClientBuilder::create()
+            ->setElasticCloudId('<elastic-cloud-id>') <1>
+            ->setApiKey('<id>', '<api_key>') <2>
+            ->build();
+----
+<1> Your Cloud ID provided by the Elastic Cloud platform
+<2> Your ApiKey pair as described https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/security.html[here]
+
 === Authorization and Encryption
 
 For details about HTTP Authorization and SSL encryption, see
@@ -244,7 +268,7 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on 
+For more details, please see the dedicated page on
 <<connection_pool,configuring connection pools>>.
 
 === Setting the Connection Selector

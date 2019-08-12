@@ -6,3 +6,6 @@ parameters:
         - '#Variable (.*) in isset\(\) always exists and is not nullable.#'
         - '#Constant JSON_THROW_ON_ERROR not found#'
         - '#class JsonException#'
+        -
+            message: '#is not subtype of Throwable#'
+            path: %currentWorkingDirectory%/src/Elasticsearch/ClientBuilder.php

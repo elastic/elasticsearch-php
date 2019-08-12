@@ -337,12 +337,9 @@ class ClientBuilder
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
      *
-     * @param string $id
-     * @param string $apiKey
-     *
      * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
      */
-    public function setApiKey(string $id, string $apiKey)
+    public function setApiKey(string $id, string $apiKey): ClientBuilder
     {
         if (isset($this->connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === true) {
             throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
@@ -363,7 +360,7 @@ class ClientBuilder
      *
      * @throws Elasticsearch\Common\Exceptions\AuthenticationConfigException
      */
-    public function setBasicAuthentication(string $username, string $password)
+    public function setBasicAuthentication(string $username, string $password): ClientBuilder
     {
         if (isset($this->connectionParams['client']['headers']['Authorization']) === true) {
             throw new AuthenticationConfigException("You can't use APIKey - and Basic Authenication together.");
@@ -388,7 +385,7 @@ class ClientBuilder
      *
      * @param string $cloudId
      */
-    public function setElasticCloudId(string $cloudId)
+    public function setElasticCloudId(string $cloudId): ClientBuilder
     {
         // Register the Hosts array
         $this->setHosts([

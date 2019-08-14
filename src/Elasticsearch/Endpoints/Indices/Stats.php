@@ -68,7 +68,10 @@ class Stats extends AbstractEndpoint
             'groups',
             'level',
             'types',
-            'include_segment_file_sizes'
+            'include_segment_file_sizes',
+            'include_unloaded_segments',
+            'expand_wildcards',
+            'forbid_closed_indices'
         ];
     }
 

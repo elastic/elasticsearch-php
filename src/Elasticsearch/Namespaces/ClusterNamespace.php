@@ -16,16 +16,24 @@ namespace Elasticsearch\Namespaces;
 class ClusterNamespace extends AbstractNamespace
 {
     /**
-     * $params['index']                      = (string) Limit the information returned to a specific index
-     *        ['level']                      = (enum) Specify the level of detail for returned information
-     *        ['local']                      = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout']             = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']                    = (time) Explicit operation timeout
-     *        ['wait_for_active_shards']     = (number) Wait until the specified number of shards is active
-     *        ['wait_for_nodes']             = (number) Wait until the specified number of nodes is available
-     *        ['wait_for_relocating_shards'] = (number) Wait until the specified number of relocating shards is finished
-     *        ['wait_for_status']            = (enum) Wait until cluster is in a specific state
+     * Endpoint: cluster.health
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
+     *
+     * $params[
+     *   'index'                           => '(list) Limit the information returned to a specific index',
+     *   'expand_wildcards'                => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)',
+     *   'level'                           => '(enum) Specify the level of detail for returned information (Options = cluster,indices,shards) (Default = cluster)',
+     *   'local'                           => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'master_timeout'                  => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'                         => '(time) Explicit operation timeout',
+     *   'wait_for_active_shards'          => '(string) Wait until the specified number of shards is active',
+     *   'wait_for_nodes'                  => '(string) Wait until the specified number of nodes is available',
+     *   'wait_for_events'                 => '(enum) Wait until all currently queued events with the given priority are processed (Options = immediate,urgent,high,normal,low,languid)',
+     *   'wait_for_no_relocating_shards'   => '(boolean) Whether to wait until there are no relocating shards in the cluster',
+     *   'wait_for_no_initializing_shards' => '(boolean) Whether to wait until there are no initializing shards in the cluster',
+     *   'wait_for_status'                 => '(enum) Wait until cluster is in a specific state (Options = green,yellow,red)',
+     * ]
      * @return callable|array
      */
     public function health(array $params = [])
@@ -48,11 +56,19 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['dry_run']         = (boolean) Simulate the operation only and return the resulting state
-     *        ['filter_metadata'] = (boolean) Don't return cluster state metadata (default: false)
-     *        ['body']            = (boolean) Don't return cluster state metadata (default: false)
-     *        ['explain']         = (boolean) Return an explanation of why the commands can or cannot be executed
+     * Endpoint: cluster.reroute
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
+     *
+     * $params[
+     *   'body'           => '(string) The definition of `commands` to perform (`move`, `cancel`, `allocate`)',
+     *   'dry_run'        => '(boolean) Simulate the operation only and return the resulting state',
+     *   'explain'        => '(boolean) Return an explanation of why the commands can or cannot be executed',
+     *   'retry_failed'   => '(boolean) Retries allocation of shards that are blocked due to too many subsequent allocation failures',
+     *   'metric'         => '(list) Limit the information returned to the specified metrics. Defaults to all but metadata (Options = _all,blocks,metadata,nodes,routing_table,master_node,version)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function reroute(array $params = [])
@@ -75,15 +91,22 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['filter_blocks']          = (boolean) Do not return information about blocks
-     *        ['filter_index_templates'] = (boolean) Do not return information about index templates
-     *        ['filter_indices']         = (list) Limit returned metadata information to specific indices
-     *        ['filter_metadata']        = (boolean) Do not return information about indices metadata
-     *        ['filter_nodes']           = (boolean) Do not return information about nodes
-     *        ['filter_routing_table']   = (boolean) Do not return information about shard allocation (`routing_table` and `routing_nodes`)
-     *        ['local']                  = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout']         = (time) Specify timeout for connection to master
+     * Endpoint: cluster.state
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
+     *
+     * $params[
+     *   'index'                     => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'metric'                    => '(list) Limit the information returned to the specified metrics',
+     *   'local'                     => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'master_timeout'            => '(time) Specify timeout for connection to master',
+     *   'flat_settings'             => '(boolean) Return settings in flat format (default: false)',
+     *   'wait_for_metadata_version' => '(number) Wait for the metadata version to be equal or greater than the specified metadata version',
+     *   'wait_for_timeout'          => '(time) The maximum time to wait for wait_for_metadata_version before timing out',
+     *   'ignore_unavailable'        => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'          => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'          => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
      * @return callable|array
      */
     public function state(array $params = [])
@@ -108,9 +131,15 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['flat_settings']          = (boolean) Return settings in flat format (default: false)
-     *        ['human'] = (boolean) Whether to return time and byte values in human-readable format.
+     * Endpoint: cluster.stats
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
+     *
+     * $params[
+     *   'node_id'       => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'flat_settings' => '(boolean) Return settings in flat format (default: false)',
+     *   'timeout'       => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function stats(array $params = [])
@@ -133,8 +162,16 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['body'] = ()
+     * Endpoint: cluster.put_settings
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
+     *
+     * $params[
+     *   'body'           => '(string) The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart). (Required)',
+     *   'flat_settings'  => '(boolean) Return settings in flat format (default: false)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function putSettings(array $params = [])
@@ -157,6 +194,16 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
+     * Endpoint: cluster.get_settings
+     *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
+     *
+     * $params[
+     *   'flat_settings'    => '(boolean) Return settings in flat format (default: false)',
+     *   'master_timeout'   => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'          => '(time) Explicit operation timeout',
+     *   'include_defaults' => '(boolean) Whether to return all default clusters setting. (Default = false)',
+     * ]
      * @return callable|array
      */
     public function getSettings(array $params = [])
@@ -176,9 +223,14 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
-     *        ['master_timeout']  = (time) Specify timeout for connection to master
+     * Endpoint: cluster.pending_tasks
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
+     *
+     * $params[
+     *   'local'          => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'master_timeout' => '(time) Specify timeout for connection to master',
+     * ]
      * @return callable|array
      */
     public function pendingTasks(array $params = [])
@@ -198,8 +250,15 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['include_yes_decisions'] = (bool) Return 'YES' decisions in explanation (default: false)
+     * Endpoint: cluster.allocation_explain
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
+     *
+     * $params[
+     *   'body'                  => '(string) The index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'',
+     *   'include_yes_decisions' => '(boolean) Return 'YES' decisions in explanation (default: false)',
+     *   'include_disk_info'     => '(boolean) Return information about disk usage and shard sizes (default: false)',
+     * ]
      * @return callable|array
      */
     public function allocationExplain(array $params = [])
@@ -222,6 +281,10 @@ class ClusterNamespace extends AbstractNamespace
     }
 
     /**
+     * Endpoint: cluster.remote_info
+     *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
+     *
      * @return callable|array
      */
     public function remoteInfo(array $params = [])

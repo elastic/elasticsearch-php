@@ -19,8 +19,15 @@ use Elasticsearch\Endpoints\Tasks\Get;
 class TasksNamespace extends AbstractNamespace
 {
     /**
-     * $params['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
+     * Endpoint: tasks.get
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     *
+     * $params[
+     *   'task_id'             => '(string) Return the task with specified id (node_id:task_number) (Required)',
+     *   'wait_for_completion' => '(boolean) Wait for the matching tasks to complete (default: false)',
+     *   'timeout'             => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function get(array $params = [])
@@ -43,14 +50,19 @@ class TasksNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['actions'] = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
-     *        ['parent_node'] = (string) Cancel tasks with specified parent node
-     *        ['parent_task'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
-     *        ['detailed'] = (bool) Return detailed task information (default: false)
-     *        ['wait_for_completion'] = (bool) Wait for the matching tasks to complete (default: false)
-     *        ['group_by'] = (enum) Group tasks by nodes or parent/child relationships
+     * Endpoint: tasks.list
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     *
+     * $params[
+     *   'nodes'               => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'actions'             => '(list) A comma-separated list of actions that should be returned. Leave empty to return all.',
+     *   'detailed'            => '(boolean) Return detailed task information (default: false)',
+     *   'parent_task_id'      => '(string) Return tasks with specified parent task id (node_id:task_number). Set to -1 to return all.',
+     *   'wait_for_completion' => '(boolean) Wait for the matching tasks to complete (default: false)',
+     *   'group_by'            => '(enum) Group tasks by nodes or parent/child relationships (Options = nodes,parents,none) (Default = nodes)',
+     *   'timeout'             => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function tasksList(array $params = [])
@@ -71,11 +83,16 @@ class TasksNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['actions'] = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
-     *        ['parent_node'] = (string) Cancel tasks with specified parent node
-     *        ['parent_task'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+     * Endpoint: tasks.cancel
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     *
+     * $params[
+     *   'task_id'        => '(string) Cancel the task with specified task id (node_id:task_number)',
+     *   'nodes'          => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'actions'        => '(list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.',
+     *   'parent_task_id' => '(string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.',
+     * ]
      * @return callable|array
      */
     public function cancel(array $params = [])

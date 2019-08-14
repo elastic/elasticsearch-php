@@ -68,6 +68,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     private static $skippedTests = [
     ];
 
+    private static $skippedTestNames = [
+        'test distance_feature query on date_nanos type'
+    ];
+
     private static $skippedTestsIfPhpLessThan = [
     ];
     /**
@@ -976,6 +980,11 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             // Extract test name
             if (preg_match('/"([^"]+)"/', $documentString, $matches)) {
                 $testName = $matches[1];
+
+                if (in_array($testName, static::$skippedTestNames)) {
+                    continue;
+                }
+
                 // Skip YAML parsing if test is signed to be skipped and if PHP is < version specified
                 // To prevent YAML parse error, e.g. empty property
                 if (array_key_exists("$fileName#$testName", static::$skippedTestsIfPhpLessThan)) {

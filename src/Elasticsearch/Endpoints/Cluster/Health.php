@@ -31,6 +31,7 @@ class Health extends AbstractEndpoint
     public function getParamWhitelist(): array
     {
         return [
+            'expand_wildcards',
             'level',
             'local',
             'master_timeout',

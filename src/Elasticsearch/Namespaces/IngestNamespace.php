@@ -22,9 +22,15 @@ use Elasticsearch\Endpoints\Ingest\Simulate;
 class IngestNamespace extends AbstractNamespace
 {
     /**
-     * $params['master_timeout']             = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']                    = (time) Explicit operation timeout
+     * Endpoint: ingest.delete_pipeline
      *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
+     *
+     * $params[
+     *   'id'             => '(string) Pipeline ID (Required)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function deletePipeline(array $params = [])
@@ -47,8 +53,14 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * Endpoint: ingest.get_pipeline
      *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
+     *
+     * $params[
+     *   'id'             => '(string) Comma separated list of pipeline ids. Wildcards supported',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     * ]
      * @return callable|array
      */
     public function getPipeline(array $params = [])
@@ -71,9 +83,16 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout']             = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']                    = (time) Explicit operation timeout
+     * Endpoint: ingest.put_pipeline
      *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
+     *
+     * $params[
+     *   'body'           => '(string) The ingest definition (Required)',
+     *   'id'             => '(string) Pipeline ID (Required)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function putPipeline(array $params = [])
@@ -98,8 +117,15 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['verbose'] = (bool) Verbose mode. Display data output for each processor in executed pipeline
+     * Endpoint: ingest.simulate
      *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
+     *
+     * $params[
+     *   'body'    => '(string) The simulate definition (Required)',
+     *   'id'      => '(string) Pipeline ID',
+     *   'verbose' => '(boolean) Verbose mode. Display data output for each processor in executed pipeline (Default = false)',
+     * ]
      * @return callable|array
      */
     public function simulate(array $params = [])
@@ -124,6 +150,10 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
+     * Endpoint: ingest.processor_grok
+     *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
+     *
      * @return callable|array
      */
     public function processorGrok(array $params = [])

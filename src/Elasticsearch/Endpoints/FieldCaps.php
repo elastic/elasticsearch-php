@@ -35,7 +35,8 @@ class FieldCaps extends AbstractEndpoint
             'fields',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'include_unmapped'
         ];
     }
 

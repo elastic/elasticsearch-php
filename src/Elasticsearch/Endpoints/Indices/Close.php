@@ -38,7 +38,8 @@ class Close extends AbstractEndpoint
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'wait_for_active_shards'
         ];
     }
 

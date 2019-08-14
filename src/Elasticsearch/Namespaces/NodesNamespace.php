@@ -16,22 +16,23 @@ namespace Elasticsearch\Namespaces;
 class NodesNamespace extends AbstractNamespace
 {
     /**
-     * $params['fields']        = (list) A comma-separated list of fields for `fielddata` metric (supports wildcards)
-     *        ['metric_family'] = (enum) Limit the information returned to a certain metric family
-     *        ['metric']        = (enum) Limit the information returned for `indices` family to a specific metric
-     *        ['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['all']           = (boolean) Return all available information
-     *        ['clear']         = (boolean) Reset the default level of detail
-     *        ['fs']            = (boolean) Return information about the filesystem
-     *        ['http']          = (boolean) Return information about HTTP
-     *        ['indices']       = (boolean) Return information about indices
-     *        ['jvm']           = (boolean) Return information about the JVM
-     *        ['network']       = (boolean) Return information about network
-     *        ['os']            = (boolean) Return information about the operating system
-     *        ['process']       = (boolean) Return information about the Elasticsearch process
-     *        ['thread_pool']   = (boolean) Return information about the thread pool
-     *        ['transport']     = (boolean) Return information about transport
+     * Endpoint: nodes.stats
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
+     *
+     * $params[
+     *   'metric'                     => '(list) Limit the information returned to the specified metrics',
+     *   'index_metric'               => '(list) Limit the information returned for `indices` metric to the specific index metrics. Isn't used if `indices` (or `all`) metric isn't specified.',
+     *   'node_id'                    => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'completion_fields'          => '(list) A comma-separated list of fields for `fielddata` and `suggest` index metric (supports wildcards)',
+     *   'fielddata_fields'           => '(list) A comma-separated list of fields for `fielddata` index metric (supports wildcards)',
+     *   'fields'                     => '(list) A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)',
+     *   'groups'                     => '(boolean) A comma-separated list of search groups for `search` index metric',
+     *   'level'                      => '(enum) Return indices stats aggregated at index, node or shard level (Options = indices,node,shards) (Default = node)',
+     *   'types'                      => '(list) A comma-separated list of document types for the `indexing` index metric',
+     *   'timeout'                    => '(time) Explicit operation timeout',
+     *   'include_segment_file_sizes' => '(boolean) Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested) (Default = false)',
+     * ]
      * @return callable|array
      */
     public function stats(array $params = [])
@@ -58,10 +59,15 @@ class NodesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['metric']        = (list) A comma-separated list of metrics you wish returned. Leave empty to return all.
-     *        ['timeout']       = (time) Explicit operation timeout
+     * Endpoint: nodes.usage
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html
+     *
+     * $params[
+     *   'metric'  => '(list) Limit the information returned to the specified metrics',
+     *   'node_id' => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'timeout' => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function usage(array $params = [])
@@ -85,11 +91,16 @@ class NodesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['metric']        = (list) A comma-separated list of metrics you wish returned. Leave empty to return all.
-     *        ['flat_settings'] = (boolean) Return settings in flat format (default: false)
-     *        ['human']         = (boolean) Whether to return time and byte values in human-readable format.
+     * Endpoint: nodes.info
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
+     *
+     * $params[
+     *   'node_id'       => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'metric'        => '(list) A comma-separated list of metrics you wish returned. Leave empty to return all.',
+     *   'flat_settings' => '(boolean) Return settings in flat format (default: false)',
+     *   'timeout'       => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function info(array $params = [])
@@ -113,12 +124,19 @@ class NodesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id']   = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     *        ['interval']  = (time) The interval for the second sampling of threads
-     *        ['snapshots'] = (number) Number of samples of thread stacktrace (default: 10)
-     *        ['threads']   = (number) Specify the number of threads to provide information for (default: 3)
-     *        ['type']      = (enum) The type to sample (default: cpu)
+     * Endpoint: nodes.hot_threads
      *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html
+     *
+     * $params[
+     *   'node_id'             => '(list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes',
+     *   'interval'            => '(time) The interval for the second sampling of threads',
+     *   'snapshots'           => '(number) Number of samples of thread stacktrace (default: 10)',
+     *   'threads'             => '(number) Specify the number of threads to provide information for (default: 3)',
+     *   'ignore_idle_threads' => '(boolean) Don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true)',
+     *   'type'                => '(enum) The type to sample (default: cpu) (Options = cpu,wait,block)',
+     *   'timeout'             => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function hotThreads(array $params = [])
@@ -141,8 +159,14 @@ class NodesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['node_id']   = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * Endpoint: nodes.reload_secure_settings
      *
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
+     *
+     * $params[
+     *   'node_id' => '(list) A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.',
+     *   'timeout' => '(time) Explicit operation timeout',
+     * ]
      * @return callable|array
      */
     public function reloadSecureSettings(array $params = [])

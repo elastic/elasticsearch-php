@@ -1,3 +1,20 @@
+## Release 7.2.0
+
+- Updated the API endpoints for working with Elasticsearch 7.2.0:
+    - added `wait_for_active_shards` parameter to `indices.close` API;
+    - added `expand_wildcards` parameter to `cluster.health` API;
+    - added include_unloaded_segments`, `expand_wildcards`, `forbid_closed_indices`
+      parameters to `indices.stats` API.
+  [[27d721b]](https://github.com/elastic/elasticsearch-php/pull/933/commits/27d721ba44b8c199388650c5a1c8bd69757229aa)
+- Updated the phpdoc parameters for all the API endpoints
+  [[27d721b]](https://github.com/elastic/elasticsearch-php/pull/933/commits/27d721ba44b8c199388650c5a1c8bd69757229aa)  
+- Improved the Travis CI speed using cache feature with composer
+  [#929](https://github.com/elastic/elasticsearch-php/pull/929)
+- Fixed `php_uname()` usage checking if it is disabled
+  [#927](https://github.com/elastic/elasticsearch-php/pull/927)
+- Added support of Elastic Cloud ID and API key authentication
+  [#923](https://github.com/elastic/elasticsearch-php/pull/923)
+
 ## Release 7.1.1
 
 - Fixed `ClientBuilder::setSSLVerification()` to accept string or boolean

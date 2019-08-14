@@ -29,7 +29,8 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 7.0, < 8.0         | 7.0                      |
+| >= 7.2, < 8.0         | 7.2                      |
+| >= 7.0, < 7.2         | 7.0                      |
 | >= 6.6, < 7.0         | 6.7.x                    |
 | >= 6.0, < 6.6         | 6.5.x                    |
 | >= 5.0, < 6.0         | 5.0                      |
@@ -37,7 +38,8 @@ Version Matrix
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 7.x, use Elasticsearch-PHP 7.0 branch.
+ - If you are using Elasticsearch 7.2+, use Elasticsearch-PHP 7.2 branch.
+ - If you are using Elasticsearch 7.0 to 7.1, use Elasticsearch-PHP 7.0 branch.
  - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
  - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.

@@ -30,9 +30,14 @@ matrix:
       env: ES_VERSION="7.2.1"
     - php: 7.3
       env: ES_VERSION="7.3.0"
+    - php: 7.4snapshot
+      env: ES_VERSION="7.2.1"
+    - php: 7.4snapshot
+      env: ES_VERSION="7.3.0"
   allow_failures:
     - php: 7.3
       env: ES_VERSION="7.3.0"
+    - php: 7.4snapshot
 
 env:
   global:

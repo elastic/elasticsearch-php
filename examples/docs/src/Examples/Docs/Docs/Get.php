@@ -140,22 +140,24 @@ class Get extends SimpleExamplesTester {
     {
         $client = $this->getClient();
         // tag::913770050ebbf3b9b549a899bc11060a[]
-        // TODO -- Implement Example
-        // PUT twitter
-        // {
-        //    "mappings": {
-        //        "properties": {
-        //           "counter": {
-        //              "type": "integer",
-        //              "store": false
-        //           },
-        //           "tags": {
-        //              "type": "keyword",
-        //              "store": true
-        //           }
-        //        }
-        //    }
-        // }
+        $params = [
+            'index' => 'twitter',
+            'body'  => [
+                'mappings' => [
+                    'properties' => [
+                        'counter' => [
+                            'type'  => 'integer',
+                            'store' => false,
+                        ],
+                        'tags' => [
+                            'type'  => 'keyword',
+                            'store' => true,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $response = $client->indices()->putMapping($params);
         // end::913770050ebbf3b9b549a899bc11060a[]
 
         $curl = 'PUT twitter'

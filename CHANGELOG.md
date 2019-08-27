@@ -1,4 +1,16 @@
-## Release 7.2.0
+## Release 7.2.1
+
+- Reintroduced `Elasticsearch\Namespaces\IndicesNamespace::getAliases()` as proxy
+  to `IndicesNamespace::getAlias()` to prevent BC breaks. The `getAliases()` is
+  marked as deprecated and it will be removed from `elasticsearch-php 8.0`
+  [#943](https://github.com/elastic/elasticsearch-php/pull/943)
+
+### Docs
+
+- Fixed missing put mapping code snippet in code examples
+  [#938](https://github.com/elastic/elasticsearch-php/pull/938)
+  
+# Release 7.2.0
 
 - Updated the API endpoints for working with Elasticsearch 7.2.0:
     - added `wait_for_active_shards` parameter to `indices.close` API;

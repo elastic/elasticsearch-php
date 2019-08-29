@@ -687,10 +687,10 @@ class IndicesNamespace extends AbstractNamespace
     /**
      * Alias function to getAlias()
      *
-     * @deprecated added to prevent BC break introduced in 7.2.0
+     * @deprecated added to prevent BC break introduced in 7.2.0 and 7.2.1
      * @see https://github.com/elastic/elasticsearch-php/issues/940
      */
-    public function getAliases(array $params)
+    public function getAliases(array $params = [])
     {
         return $this->getAlias($params);
     }

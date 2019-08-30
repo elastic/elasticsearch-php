@@ -1,3 +1,9 @@
+## Release 7.2.2
+
+- Reintroduced the optional parameter in `Elasticsearch\Namespaces\IndicesNamespace::getAliases()`.
+  This fixes the BC break introduced in 7.2.0 and 7.2.1.
+  [#947](https://github.com/elastic/elasticsearch-php/pull/)
+
 ## Release 7.2.1
 
 - Reintroduced `Elasticsearch\Namespaces\IndicesNamespace::getAliases()` as proxy
@@ -9,7 +15,7 @@
 
 - Fixed missing put mapping code snippet in code examples
   [#938](https://github.com/elastic/elasticsearch-php/pull/938)
-  
+
 # Release 7.2.0
 
 - Updated the API endpoints for working with Elasticsearch 7.2.0:

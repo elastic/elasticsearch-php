@@ -54,7 +54,7 @@ class Transport
      * @param int                                   $retries
      * @param bool                                  $sniffOnStart
      * @param ConnectionPool\AbstractConnectionPool $connectionPool
-     * @param \Psr\Log\LoggerInterface              $log            Monolog logger object
+     * @param \Psr\Log\LoggerInterface              $log
      */
     public function __construct(int $retries, AbstractConnectionPool $connectionPool, LoggerInterface $log, bool $sniffOnStart = false)
     {

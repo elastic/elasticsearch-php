@@ -48,7 +48,7 @@ class Transport
      * @param int $retries
      * @param bool $sniffOnStart
      * @param ConnectionPool\AbstractConnectionPool $connectionPool
-     * @param \Psr\Log\LoggerInterface $log    Monolog logger object
+     * @param \Psr\Log\LoggerInterface $log
      */
 	// @codingStandardsIgnoreStart
 	// "Arguments with default values must be at the end of the argument list" - cannot change the interface

@@ -212,31 +212,6 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *
-     * @param array $params Associative array of parameters
-     *
-     * @return array
-     */
-    public function snapshotIndex($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callable $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Elasticsearch\Endpoints\Indices\Gateway\Snapshot $endpoint */
-        $endpoint = $endpointBuilder('Indices\Gateway\Snapshot');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
      * $params['index']          = (string) The name of the source index to shrink
      *        ['target']         = (string) The name of the target index to shrink into
      *        ['timeout']        = (time) Explicit operation timeout

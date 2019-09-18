@@ -686,7 +686,7 @@ class ClientBuilder
 
     private function prependMissingScheme(string $host): string
     {
-        if (!filter_var($host, FILTER_VALIDATE_URL)) {
+        if (!preg_match("/^https?:\/\//", $host)) {
             $host = 'http://' . $host;
         }
 

@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
-use Elasticsearch;
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Tests\ClientBuilder\DummyLogger;
+use Psr\Log\LogLevel;
 
 /**
  * Class ClientTest
@@ -18,22 +21,64 @@ use Elasticsearch;
  */
 class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 {
-    public function testCustomQueryParams()
+    public function setUp()
     {
-        $client = Elasticsearch\ClientBuilder::create()
+        if (empty(getenv('ES_TEST_HOST'))) {
+            $this->markTestSkipped('I cannot execute integration test without ES_TEST_HOST env');
+        }
+    }
+
+    public function testLogRequestSuccessHasInfoNotEmpty()
+    {
+        $logger = new DummyLogger();
+        $client = ClientBuilder::create()
             ->setHosts([getenv('ES_TEST_HOST')])
+            ->setLogger($logger)
             ->build();
 
-        $getParams = [
-            'index' => 'test',
-            'type' => 'test',
-            'id' => 1,
-            'parent' => 'abc',
-            'custom' => ['customToken' => 'abc', 'otherToken' => 123],
-            'client' => ['ignore' => 400]
-        ];
-        $exists = $client->exists($getParams);
+        $result = $client->info();
 
-        $this->assertFalse((bool) $exists);
+        $this->assertNotEmpty($this->getLevelOutput(LogLevel::INFO, $logger->output));
+    }
+
+    public function testLogRequestSuccessHasPortInInfo()
+    {
+        $logger = new DummyLogger();
+        $client = ClientBuilder::create()
+            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setLogger($logger)
+            ->build();
+
+        $result = $client->info();
+
+        $this->assertContains('"port"', $this->getLevelOutput(LogLevel::INFO, $logger->output));
+    }
+
+    public function testLogRequestFailHasWarning()
+    {
+        $logger = new DummyLogger();
+        $client = ClientBuilder::create()
+            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setLogger($logger)
+            ->build();
+
+        try {
+            $result = $client->get([
+                'index' => 'foo',
+                'id' => 'bar'
+            ]);
+        } catch (Missing404Exception $e) {
+            $this->assertNotEmpty($this->getLevelOutput(LogLevel::WARNING, $logger->output));
+        }
+    }
+
+    private function getLevelOutput(string $level, array $output): string
+    {
+        foreach ($output as $out) {
+            if (false !== strpos($out, $level)) {
+                return $out;
+            }
+        }
+        return '';
     }
 }

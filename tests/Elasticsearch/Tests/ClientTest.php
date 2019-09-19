@@ -312,6 +312,17 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(9200, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
         $this->assertSame("user:pass", $host->getUserPass());
+        
+        $client = Elasticsearch\ClientBuilder::create()->setHosts(
+            [
+            'https://user:pass@the_foo.com:9200'
+            ]
+        )->build();
+        $host = $client->transport->getConnection();
+        $this->assertSame("the_foo.com", $host->getHost());
+        $this->assertSame(9200, $host->getPort());
+        $this->assertSame("https", $host->getTransportSchema());
+        $this->assertSame("user:pass", $host->getUserPass());
     }
 
     public function testExtendedHosts()
@@ -417,7 +428,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             // good
         }
 
-        // Underscore host, questionably legal, but inline method would break
+        // Underscore host, questionably legal
         $client = Elasticsearch\ClientBuilder::create()->setHosts(
             [
             [

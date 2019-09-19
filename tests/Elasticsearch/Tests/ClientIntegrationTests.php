@@ -6,7 +6,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Tests\ClientBuilder\DummyLogger;
+use Elasticsearch\Tests\ClientBuilder\ArrayLogger;
 use Psr\Log\LogLevel;
 
 /**
@@ -26,40 +26,38 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
         if (empty(getenv('ES_TEST_HOST'))) {
             $this->markTestSkipped('I cannot execute integration test without ES_TEST_HOST env');
         }
+        $this->logger = new ArrayLogger();
     }
 
     public function testLogRequestSuccessHasInfoNotEmpty()
     {
-        $logger = new DummyLogger();
         $client = ClientBuilder::create()
             ->setHosts([getenv('ES_TEST_HOST')])
-            ->setLogger($logger)
+            ->setLogger($this->logger)
             ->build();
 
         $result = $client->info();
 
-        $this->assertNotEmpty($this->getLevelOutput(LogLevel::INFO, $logger->output));
+        $this->assertNotEmpty($this->getLevelOutput(LogLevel::INFO, $this->logger->output));
     }
 
     public function testLogRequestSuccessHasPortInInfo()
     {
-        $logger = new DummyLogger();
         $client = ClientBuilder::create()
             ->setHosts([getenv('ES_TEST_HOST')])
-            ->setLogger($logger)
+            ->setLogger($this->logger)
             ->build();
 
         $result = $client->info();
 
-        $this->assertContains('"port"', $this->getLevelOutput(LogLevel::INFO, $logger->output));
+        $this->assertContains('"port"', $this->getLevelOutput(LogLevel::INFO, $this->logger->output));
     }
 
     public function testLogRequestFailHasWarning()
     {
-        $logger = new DummyLogger();
         $client = ClientBuilder::create()
             ->setHosts([getenv('ES_TEST_HOST')])
-            ->setLogger($logger)
+            ->setLogger($this->logger)
             ->build();
 
         try {
@@ -68,7 +66,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
                 'id' => 'bar'
             ]);
         } catch (Missing404Exception $e) {
-            $this->assertNotEmpty($this->getLevelOutput(LogLevel::WARNING, $logger->output));
+            $this->assertNotEmpty($this->getLevelOutput(LogLevel::WARNING, $this->logger->output));
         }
     }
 

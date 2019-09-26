@@ -249,6 +249,15 @@ abstract class AbstractEndpoint
     {
         // Extract out client options, then start transforming
         if (isset($params['client']) === true) {
+            // Check if the opaqueId is populated and add the header
+            if (isset($params['client']['opaqueId']) === true) {
+                if (isset($params['client']['headers']) === false) {
+                    $params['client']['headers'] = [];
+                }
+                $params['client']['headers']['x-opaque-id'] = [trim($params['client']['opaqueId'])];
+                unset($params['client']['opaqueId']);
+            }
+
             $this->options['client'] = $params['client'];
             unset($params['client']);
         }
@@ -261,15 +270,6 @@ abstract class AbstractEndpoint
             } else {
                 $this->options['client']['ignore'] = [$ignore];
             }
-        }
-
-        // Check if the opaqueId is populated and add the header
-        if (isset($params['opaqueId']) === true) {
-            if (isset($this->options['client']['headers']) === false) {
-                $this->options['client']['headers'] = [];
-            }
-            $this->options['client']['headers']['x-opaque-id'] = [trim($params['opaqueId'])];
-            unset($params['opaqueId']);
         }
     }
 

@@ -46,7 +46,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testOpaqueIdInHeaders()
     {
-        $params = ['opaqueId' => 'test_id_' . rand(1000, 9999)];
+        $params = ['client' => ['opaqueId' => 'test_id_' . rand(1000, 9999)]];
         $this->endpoint->setParams($params);
 
         $options = $this->endpoint->getOptions();
@@ -54,7 +54,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('headers', $options['client']);
         $this->assertArrayHasKey('x-opaque-id', $options['client']['headers']);
         $this->assertNotEmpty($options['client']['headers']['x-opaque-id']);
-        $this->assertEquals($params['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
+        $this->assertEquals($params['client']['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
     }
 
 }

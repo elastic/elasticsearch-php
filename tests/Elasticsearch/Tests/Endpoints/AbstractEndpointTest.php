@@ -10,6 +10,11 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 {
     private $endpoint;
 
+    protected function setUp()
+    {
+        $this->endpoint = $this->getMockForAbstractClass(AbstractEndpoint::class);
+    }
+
     public static function invalidParameters(): array
     {
         return [
@@ -20,6 +25,8 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider invalidParameters
+     *
+     * @covers AbstractEndpoint::setParams
      */
     public function testInvalidParamsCauseErrorsWhenProvidedToSetParams(array $params)
     {
@@ -32,8 +39,22 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->endpoint->setParams($params);
     }
 
-    protected function setUp()
+    /**
+     * @covers AbstractEndpoint::setParams
+     * @covers AbstractEndpoint::extractOptions
+     * @covers AbstractEndpoint::getOptions
+     */
+    public function testOpaqueIdInHeaders()
     {
-        $this->endpoint = $this->getMockForAbstractClass(AbstractEndpoint::class);
+        $params = ['opaqueId' => 'test_id_' . rand(1000, 9999)];
+        $this->endpoint->setParams($params);
+
+        $options = $this->endpoint->getOptions();
+        $this->assertArrayHasKey('client', $options);
+        $this->assertArrayHasKey('headers', $options['client']);
+        $this->assertArrayHasKey('x-opaque-id', $options['client']['headers']);
+        $this->assertNotEmpty($options['client']['headers']['x-opaque-id']);
+        $this->assertEquals($params['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
     }
+
 }

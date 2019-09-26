@@ -225,7 +225,7 @@ abstract class AbstractEndpoint
 
         $whitelist = array_merge(
             $this->getParamWhitelist(),
-            [ 'pretty', 'human', 'error_trace', 'source', 'filter_path' ]
+            [ 'pretty', 'human', 'error_trace', 'source', 'filter_path', 'opaqueId' ]
         );
 
         $invalid = array_diff(array_keys($params), $whitelist);
@@ -261,6 +261,15 @@ abstract class AbstractEndpoint
             } else {
                 $this->options['client']['ignore'] = [$ignore];
             }
+        }
+
+        // Check if the opaqueId is populated and add the header
+        if (isset($params['opaqueId']) === true) {
+            if (isset($this->options['client']['headers']) === false) {
+                $this->options['client']['headers'] = [];
+            }
+            $this->options['client']['headers']['x-opaque-id'] = [trim($params['opaqueId'])];
+            unset($params['opaqueId']);
         }
     }
 

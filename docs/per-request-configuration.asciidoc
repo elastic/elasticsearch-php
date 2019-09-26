@@ -4,6 +4,32 @@
 There are several configurations that can be set on a per-request basis, rather than at a connection- or client-level.
 These are specified as part of the request associative array.
 
+
+=== Request Identification
+
+You can enrich your requests against Elasticsearch with an identifier string, that allows you to discover this identifier
+in https://www.elastic.co/guide/en/elasticsearch/reference/7.4/logging.html#deprecation-logging[deprecation logs], to support you with
+https://www.elastic.co/guide/en/elasticsearch/reference/7.4/index-modules-slowlog.html#_identifying_search_slow_log_origin[identifying search slow log origin]
+or to help with https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html#_identifying_running_tasks[identifying running tasks].
+
+
+[source,php]
+----
+$client = ClientBuilder::create()->build();
+
+$params = [
+    'index' => 'test',
+    'id'    => 1,
+    'client' => [
+        'opaqueId' => 'app17@dc06.eu_user1234', <1>
+    ]
+];
+$response = $client->get($params);
+
+----
+<1> This will populate the `X-Opaque-Id` header with the value `app17@dc06_user1234_1234`
+
+
 === Ignoring exceptions
 The library attempts to throw exceptions for common problems.  These exceptions match the HTTP response code provided
 by Elasticsearch.  For example, attempting to GET a nonexistent document will throw a `MissingDocument404Exception`.

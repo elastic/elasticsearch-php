@@ -56,5 +56,4 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($options['client']['headers']['x-opaque-id']);
         $this->assertEquals($params['client']['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
     }
-
 }

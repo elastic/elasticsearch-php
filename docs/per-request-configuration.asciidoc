@@ -27,7 +27,7 @@ $params = [
 $response = $client->get($params);
 
 ----
-<1> This will populate the `X-Opaque-Id` header with the value `app17@dc06_user1234_1234`
+<1> This will populate the `X-Opaque-Id` header with the value `app17@dc06.eu_user1234`
 
 
 === Ignoring exceptions

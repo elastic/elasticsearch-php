@@ -1,3 +1,14 @@
+## Release 7.3.0
+
+- Added support for simplified access to the `X-Opaque-Id` header
+  [#952](https://github.com/elastic/elasticsearch-php/pull/952)
+- Added the HTTP port in the log messages
+  [#950](https://github.com/elastic/elasticsearch-php/pull/950)
+- Fixed hostname with underscore (ClientBuilder::prependMissingScheme)
+  [#949](https://github.com/elastic/elasticsearch-php/pull/949)
+- Removed unused Monolog in ClientBuilder
+  [#948](https://github.com/elastic/elasticsearch-php/pull/948)
+  
 ## Release 7.2.2
 
 - Reintroduced the optional parameter in `Elasticsearch\Namespaces\IndicesNamespace::getAliases()`.

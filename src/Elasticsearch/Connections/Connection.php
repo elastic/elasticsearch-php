@@ -374,6 +374,7 @@ class Connection implements ConnectionInterface
             array(
                 'method'    => $request['http_method'],
                 'uri'       => $response['effective_url'],
+                'port'      => $response['transfer_stats']['primary_port'],
                 'headers'   => $request['headers'],
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],
@@ -408,11 +409,13 @@ class Connection implements ConnectionInterface
     public function logRequestFail(array $request, array $response, \Exception $exception): void
     {
         $this->log->debug('Request Body', array($request['body']));
+        
         $this->log->warning(
             'Request Failure:',
             array(
                 'method'    => $request['http_method'],
                 'uri'       => $response['effective_url'],
+                'port'      => $response['transfer_stats']['primary_port'],
                 'headers'   => $request['headers'],
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],

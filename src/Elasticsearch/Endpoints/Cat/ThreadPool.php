@@ -18,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 class ThreadPool extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     protected $threadPoolPatterns;
 
     public function setThreadPoolPatterns(?string $threadPoolPatterns): ThreadPool

@@ -18,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     private $taskId;
 
     public function setTaskId(?string $taskId): Get

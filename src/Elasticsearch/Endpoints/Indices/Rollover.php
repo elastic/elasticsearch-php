@@ -18,7 +18,13 @@ use Elasticsearch\Common\Exceptions;
  */
 class Rollover extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     private $alias;
+    /**
+     * @var string
+     */
     private $newIndex;
 
     public function setAlias(?string $alias): Rollover

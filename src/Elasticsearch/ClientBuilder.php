@@ -56,6 +56,9 @@ class ClientBuilder
      */
     private $connectionFactory;
 
+    /**
+     * @var callable
+     */
     private $handler;
 
     /**

@@ -110,6 +110,9 @@ class Connection implements ConnectionInterface
      */
     private $failedPings = 0;
 
+    /**
+     * @var mixed[]
+     */
     private $lastRequest = array();
 
     /**

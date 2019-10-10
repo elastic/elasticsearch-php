@@ -9,6 +9,9 @@ use Elasticsearch\Common\Exceptions;
 
 class StatusEndpointTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \Elasticsearch\Endpoints\Snapshot\Status
+     */
     private $endpoint;
 
     protected function setUp()

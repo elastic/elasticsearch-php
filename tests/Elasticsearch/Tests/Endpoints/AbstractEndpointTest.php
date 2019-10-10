@@ -8,6 +8,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \Elasticsearch\Endpoints\AbstractEndpoint&\PHPUnit\Framework\MockObject\MockObject
+     */
     private $endpoint;
 
     protected function setUp()

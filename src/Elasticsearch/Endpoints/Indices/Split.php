@@ -19,6 +19,9 @@ use Elasticsearch\Common\Exceptions;
 class Split extends AbstractEndpoint
 {
 
+    /**
+     * @var string
+     */
     private $target;
 
     /**

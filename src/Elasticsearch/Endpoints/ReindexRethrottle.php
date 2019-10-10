@@ -17,6 +17,9 @@ use Elasticsearch\Common\Exceptions\RuntimeException;
  */
 class ReindexRethrottle extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     protected $taskId;
 
     public function setTaskId(?string $taskId): ReindexRethrottle

@@ -17,6 +17,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Templates extends AbstractEndpoint
 {
+    /**
+     * @var string|null
+     */
     private $name;
 
     public function setName(?string $name): Templates

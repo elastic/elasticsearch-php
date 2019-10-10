@@ -18,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Snapshots extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     private $repository;
 
     public function setRepository(?string $repository): Snapshots

@@ -17,6 +17,9 @@ use Elasticsearch\Common\Exceptions;
  */
 class UpdateByQueryRethrottle extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     protected $taskId;
 
     public function setTaskId(?string $taskId): UpdateByQueryRethrottle

@@ -1,48 +1,30 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Tasks;
 
-use Elasticsearch\Common\Exceptions;
+
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Cancel
+ * Elasticsearch API name tasks.cancel
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Tasks
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Cancel extends AbstractEndpoint
 {
-    private $taskId;
-
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
-     */
-    public function setTaskId(?string $taskId): Cancel
-    {
-        if (isset($taskId) !== true) {
-            return $this;
-        }
-
-        $this->taskId = $taskId;
-
-        return $this;
-    }
-
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function getURI(): string
     {
-        $taskId = $this->taskId ?? null;
+        $task_id = $this->task_id ?? null;
 
-        if (isset($taskId)) {
-            return "/_tasks/$taskId/_cancel";
+        if (isset($task_id)) {
+            return "/_tasks/$task_id/_cancel";
         }
         return "/_tasks/_cancel";
     }
@@ -60,4 +42,15 @@ class Cancel extends AbstractEndpoint
     {
         return 'POST';
     }
+    
+    public function setTaskId($task_id): Cancel
+    {
+        if (isset($task_id) !== true) {
+            return $this;
+        }
+        $this->task_id = $task_id;
+
+        return $this;
+    }
+
 }

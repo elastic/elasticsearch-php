@@ -1,17 +1,19 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
+
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Shards
+ * Elasticsearch API name cat.shards
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
@@ -24,7 +26,6 @@ class Shards extends AbstractEndpoint
         if (isset($index)) {
             return "/_cat/shards/$index";
         }
-
         return "/_cat/shards";
     }
 
@@ -38,6 +39,7 @@ class Shards extends AbstractEndpoint
             'h',
             'help',
             's',
+            'time',
             'v'
         ];
     }
@@ -46,4 +48,5 @@ class Shards extends AbstractEndpoint
     {
         return 'GET';
     }
+    
 }

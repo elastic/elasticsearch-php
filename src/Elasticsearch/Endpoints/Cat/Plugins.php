@@ -1,17 +1,19 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
+
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Health
+ * Class Plugins
+ * Elasticsearch API name cat.plugins
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
@@ -19,6 +21,7 @@ class Plugins extends AbstractEndpoint
 {
     public function getURI(): string
     {
+
         return "/_cat/plugins";
     }
 
@@ -39,4 +42,5 @@ class Plugins extends AbstractEndpoint
     {
         return 'GET';
     }
+    
 }

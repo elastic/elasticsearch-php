@@ -1,0 +1,20 @@
+
+    public function setBody($body): :endpoint
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        if (is_array($body) === true || $body instanceof Traversable) {
+            foreach ($body as $item) {
+                $this->body .= $this->serializer->serialize($item) . "\n";
+            }
+        } elseif (is_string($body)) {
+            $this->body = $body;
+            if (substr($body, -1) != "\n") {
+                $this->body .= "\n";
+            }
+        } else {
+            throw new InvalidArgumentException("Body must be an array, traversable object or string");
+        }
+        return $this;
+    }

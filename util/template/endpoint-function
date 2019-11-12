@@ -1,0 +1,10 @@
+:apidoc
+    public function :endpoint(array $params = [])
+    {
+:extract
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder(':EndpointClass');
+        $endpoint->setParams($params);
+:setparam
+        return $this->performRequest($endpoint);
+    }

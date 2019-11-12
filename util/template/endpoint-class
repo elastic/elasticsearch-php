@@ -1,0 +1,37 @@
+<?php
+declare(strict_types = 1);
+
+namespace Elasticsearch\Endpoints:namespace;
+
+:use-namespace
+use Elasticsearch\Endpoints\AbstractEndpoint;
+
+/**
+ * Class :endpoint
+ * Elasticsearch API name :apiname
+ * Generated running $ php util/GenerateEndpoints.php :version
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Endpoints:namespace
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elastic.co
+ */
+class :endpoint extends AbstractEndpoint
+{
+    public function getURI(): string
+    {
+:uri
+    }
+
+    public function getParamWhitelist(): array
+    {
+        return [:params];
+    }
+
+    public function getMethod(): string
+    {
+        return :method;
+    }
+    :set-parts
+}

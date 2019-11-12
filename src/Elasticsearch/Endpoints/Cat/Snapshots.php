@@ -1,43 +1,31 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Snapshots
+ * Elasticsearch API name cat.snapshots
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Snapshots extends AbstractEndpoint
 {
-    private $repository;
-
-    public function setRepository(?string $repository): Snapshots
-    {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
-        $this->repository = $repository;
-
-        return $this;
-    }
-
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
+
         if (isset($repository)) {
             return "/_cat/snapshots/$repository";
         }
-
         return "/_cat/snapshots";
     }
 
@@ -50,6 +38,7 @@ class Snapshots extends AbstractEndpoint
             'h',
             'help',
             's',
+            'time',
             'v'
         ];
     }
@@ -58,4 +47,18 @@ class Snapshots extends AbstractEndpoint
     {
         return 'GET';
     }
+    
+    public function setRepository($repository): Snapshots
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+        if (is_array($repository) === true) {
+            $repository = implode(",", $repository);
+        }
+        $this->repository = $repository;
+
+        return $this;
+    }
+
 }

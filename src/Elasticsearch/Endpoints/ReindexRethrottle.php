@@ -1,13 +1,15 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Reindex
+ * Class ReindexRethrottle
+ * Elasticsearch API name reindex_rethrottle
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -17,14 +19,14 @@ use Elasticsearch\Common\Exceptions\RuntimeException;
  */
 class ReindexRethrottle extends AbstractEndpoint
 {
-    protected $taskId;
-
-    public function setTaskId(?string $taskId): ReindexRethrottle
+    public function getURI(): string
     {
-        if ($taskId !== null) {
-            $this->taskId = $taskId;
+        $task_id = $this->task_id ?? null;
+
+        if (isset($task_id)) {
+            return "/_reindex/$task_id/_rethrottle";
         }
-        return $this;
+        throw new RuntimeException('Missing parameter for the endpoint reindex_rethrottle');
     }
 
     public function getParamWhitelist(): array
@@ -34,18 +36,19 @@ class ReindexRethrottle extends AbstractEndpoint
         ];
     }
 
-    public function getURI(): string
-    {
-        if (!isset($this->taskId)) {
-            throw new RuntimeException(
-                'task_id is required for ReindexRethrottle'
-            );
-        }
-        return "/_reindex/{$this->taskId}/_rethrottle";
-    }
-
     public function getMethod(): string
     {
         return 'POST';
     }
+    
+    public function setTaskId($task_id): ReindexRethrottle
+    {
+        if (isset($task_id) !== true) {
+            return $this;
+        }
+        $this->task_id = $task_id;
+
+        return $this;
+    }
+
 }

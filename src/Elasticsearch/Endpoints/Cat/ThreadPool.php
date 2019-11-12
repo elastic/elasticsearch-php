@@ -1,38 +1,30 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
+
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class ThreadPool
+ * Elasticsearch API name cat.thread_pool
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-
 class ThreadPool extends AbstractEndpoint
 {
-    protected $threadPoolPatterns;
-
-    public function setThreadPoolPatterns(?string $threadPoolPatterns): ThreadPool
-    {
-        if ($threadPoolPatterns !== null) {
-            $this->threadPoolPatterns = $threadPoolPatterns;
-        }
-        return $this;
-    }
-
     public function getURI(): string
     {
-        $threadPoolPatterns = $this->threadPoolPatterns ?? null;
-        if (isset($threadPoolPatterns)) {
-            return "/_cat/thread_pool/$threadPoolPatterns";
+        $thread_pool_patterns = $this->thread_pool_patterns ?? null;
+
+        if (isset($thread_pool_patterns)) {
+            return "/_cat/thread_pool/$thread_pool_patterns";
         }
         return "/_cat/thread_pool";
     }
@@ -55,4 +47,18 @@ class ThreadPool extends AbstractEndpoint
     {
         return 'GET';
     }
+    
+    public function setThreadPoolPatterns($thread_pool_patterns): ThreadPool
+    {
+        if (isset($thread_pool_patterns) !== true) {
+            return $this;
+        }
+        if (is_array($thread_pool_patterns) === true) {
+            $thread_pool_patterns = implode(",", $thread_pool_patterns);
+        }
+        $this->thread_pool_patterns = $thread_pool_patterns;
+
+        return $this;
+    }
+
 }

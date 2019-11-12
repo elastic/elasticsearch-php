@@ -60,16 +60,16 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * @var array A mapping for endpoint when there is a reserved keywords for the method / namespace name
      */
     private static $endpointMapping = [
-        'tasks' => [
-            'list' => ['tasksList', 'tasks'],
-        ],
     ];
 
     private static $skippedTests = [
     ];
 
     private static $skippedTestNames = [
-        'test distance_feature query on date_nanos type'
+        'test distance_feature query on date_nanos type',
+        'cluster health with closed index (pre 7.2.0)',
+        'PUT mapping with typeless API on an index that has types', //
+        'Test cat indices output for closed index (pre 7.2.0)' // regex issue in cat.indices/10_basic.yml
     ];
 
     private static $skippedTestsIfPhpLessThan = [
@@ -262,7 +262,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             return $this->operationLessThanOrEqual($operation->{$operationName}, $lastOperationResult, $context, $testName);
         }
 
-        if ('t' === $operationName) {
+        if ('lt' === $operationName) {
             return $this->operationLessThan($operation->{$operationName}, $lastOperationResult, $context, $testName);
         }
 
@@ -579,6 +579,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
                     }
                 }
                 break;
+            case 'Basic':
+                // Fix issue converting "中文" in unicode
+                $match = is_string($match) ? utf8_decode($match) : $match;
+                break;
         }
 
         $expected = $this->replaceWithContext(current($operation), $context);
@@ -609,7 +613,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function operationGreaterThanOrEqual($operation, $lastOperationResult, &$context, string $testName)
     {
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
-        $expected = current($operation);
+        $expected = $context[current($operation)] ?? current($operation);
 
         $this->assertGreaterThanOrEqual($expected, $value, 'Failed to gte in test ' . $testName);
 
@@ -626,7 +630,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function operationGreaterThan($operation, $lastOperationResult, &$context, string $testName)
     {
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
-        $expected = current($operation);
+        $expected = $context[current($operation)] ?? current($operation);
 
         $this->assertGreaterThan($expected, $value, 'Failed to gt in test ' . $testName);
 
@@ -643,7 +647,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function operationLessThanOrEqual($operation, $lastOperationResult, &$context, string $testName)
     {
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
-        $expected = current($operation);
+        $expected = $context[current($operation)] ?? current($operation);
 
         $this->assertLessThanOrEqual($expected, $value, 'Failed to lte in test ' . $testName);
 
@@ -660,7 +664,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function operationLessThan($operation, $lastOperationResult, &$context, string $testName)
     {
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
-        $expected = current($operation);
+        $expected = $context[current($operation)] ?? current($operation);
 
         $this->assertLessThan($expected, $value, 'Failed to lt in test ' . $testName);
 
@@ -736,17 +740,25 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             if (isset($version[0]) && $version[0] == 'all') {
                 static::markTestSkipped(sprintf('Skip test "%s", as all versions should be skipped (%s)', $testName, $operation->reason));
             }
-
-            if (!isset($version[0]) || $version[0] === "") {
-                $version[0] = ~PHP_INT_MAX;
+            if (isset($version[0]) && !empty($version[0])) {
+                if (version_compare(static::$esVersion, $version[0], '<')) {
+                    static::markTestSkipped(sprintf(
+                        "Skip test %s, as ES version %s should be skipped (%s)",
+                        $testName,
+                        static::$esVersion,
+                        $operation->reason
+                    ));
+                }
             }
-
-            if (!isset($version[1]) || $version[1] === "") {
-                $version[1] = PHP_INT_MAX;
-            }
-
-            if (version_compare(static::$esVersion, (string)$version[0], '>=')  && version_compare(static::$esVersion, (string)$version[1], '<=')) {
-                static::markTestSkipped(sprintf('Skip test "%s", as version %s should be skipped (%s)', $testName, static::$esVersion, $operation->reason));
+            if (isset($version[1]) && !empty($version[1])) {
+                if (version_compare(static::$esVersion, $version[1], '>')) {
+                    static::markTestSkipped(sprintf(
+                        "Skip test %s, as ES version %s should be skipped (%s)",
+                        $testName,
+                        static::$esVersion,
+                        $operation->reason
+                    ));
+                }
             }
         }
 

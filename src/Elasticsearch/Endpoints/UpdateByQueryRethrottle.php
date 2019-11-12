@@ -1,46 +1,33 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class UpdateByQueryRethrottle
+ * Elasticsearch API name update_by_query_rethrottle
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
  * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elasticsearch.org
+ * @link     http://elastic.co
  */
 class UpdateByQueryRethrottle extends AbstractEndpoint
 {
-    protected $taskId;
-
-    public function setTaskId(?string $taskId): UpdateByQueryRethrottle
-    {
-        if ($taskId !== null) {
-            $this->taskId = $taskId;
-        }
-        return $this;
-    }
-
-    /**
-     * @throws Exceptions\RuntimeException
-     * @return string
-     */
     public function getURI(): string
     {
-        if (!isset($this->taskId)) {
-            throw new Exceptions\RuntimeException(
-                'task_id is required for UpdateByQueryRethrottle'
-            );
-        }
-        return "/_update_by_query/{$this->taskId}/_rethrottle";
-    }
+        $task_id = $this->task_id ?? null;
 
+        if (isset($task_id)) {
+            return "/_update_by_query/$task_id/_rethrottle";
+        }
+        throw new RuntimeException('Missing parameter for the endpoint update_by_query_rethrottle');
+    }
 
     public function getParamWhitelist(): array
     {
@@ -53,4 +40,15 @@ class UpdateByQueryRethrottle extends AbstractEndpoint
     {
         return 'POST';
     }
+    
+    public function setTaskId($task_id): UpdateByQueryRethrottle
+    {
+        if (isset($task_id) !== true) {
+            return $this;
+        }
+        $this->task_id = $task_id;
+
+        return $this;
+    }
+
 }

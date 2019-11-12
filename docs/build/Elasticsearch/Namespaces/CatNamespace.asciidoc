@@ -6,6 +6,7 @@
 
 
 Class CatNamespace
+Generated running $ php util/GenerateEndpoints.php 7.4.2
 
 
 *Methods*
@@ -15,23 +16,23 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_CatNamespacealiases_aliases,`aliases()`>>
 * <<Elasticsearch_Namespaces_CatNamespaceallocation_allocation,`allocation()`>>
 * <<Elasticsearch_Namespaces_CatNamespacecount_count,`count()`>>
+* <<Elasticsearch_Namespaces_CatNamespacefielddata_fielddata,`fielddata()`>>
 * <<Elasticsearch_Namespaces_CatNamespacehealth_health,`health()`>>
 * <<Elasticsearch_Namespaces_CatNamespacehelp_help,`help()`>>
 * <<Elasticsearch_Namespaces_CatNamespaceindices_indices,`indices()`>>
 * <<Elasticsearch_Namespaces_CatNamespacemaster_master,`master()`>>
+* <<Elasticsearch_Namespaces_CatNamespacenodeattrs_nodeattrs,`nodeattrs()`>>
 * <<Elasticsearch_Namespaces_CatNamespacenodes_nodes,`nodes()`>>
-* <<Elasticsearch_Namespaces_CatNamespacenodeAttrs_nodeAttrs,`nodeAttrs()`>>
 * <<Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks,`pendingTasks()`>>
+* <<Elasticsearch_Namespaces_CatNamespaceplugins_plugins,`plugins()`>>
 * <<Elasticsearch_Namespaces_CatNamespacerecovery_recovery,`recovery()`>>
 * <<Elasticsearch_Namespaces_CatNamespacerepositories_repositories,`repositories()`>>
+* <<Elasticsearch_Namespaces_CatNamespacesegments_segments,`segments()`>>
 * <<Elasticsearch_Namespaces_CatNamespaceshards_shards,`shards()`>>
 * <<Elasticsearch_Namespaces_CatNamespacesnapshots_snapshots,`snapshots()`>>
-* <<Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool,`threadPool()`>>
-* <<Elasticsearch_Namespaces_CatNamespacefielddata_fielddata,`fielddata()`>>
-* <<Elasticsearch_Namespaces_CatNamespaceplugins_plugins,`plugins()`>>
-* <<Elasticsearch_Namespaces_CatNamespacesegments_segments,`segments()`>>
 * <<Elasticsearch_Namespaces_CatNamespacetasks_tasks,`tasks()`>>
 * <<Elasticsearch_Namespaces_CatNamespacetemplates_templates,`templates()`>>
+* <<Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool,`threadPool()`>>
 
 
 
@@ -41,12 +42,13 @@ The class defines the following methods:
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['name']   = (list) A comma-separated list of alias names to return
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']  = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['h']      = (list) Comma-separated list of column names to display
+$params['help']   = (boolean) Return help information (Default = false)
+$params['s']      = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -66,13 +68,15 @@ $response = $client->cat()->aliases($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['body']  = (array) Request body
+$params['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -92,12 +96,12 @@ $response = $client->cat()->allocation($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['index']  = (list) A comma-separated list of index names to limit the returned information
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['h']      = (list) Comma-separated list of column names to display
+$params['help']   = (boolean) Return help information (Default = false)
+$params['s']      = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -111,19 +115,45 @@ $response = $client->cat()->count($params);
 
 
 
+[[Elasticsearch_Namespaces_CatNamespacefielddata_fielddata]]
+.`fielddata()`
+****
+[source,php]
+----
+/*
+$params['fields'] = (list) A comma-separated list of fields to return the fielddata size
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['bytes']  = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['h']      = (list) Comma-separated list of column names to display
+$params['help']   = (boolean) Return help information (Default = false)
+$params['s']      = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->fielddata($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_CatNamespacehealth_health]]
 .`health()`
 ****
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['ts']             = (bool) Set to false to disable timestamping
-       ['body']  = (array) Request body
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['h']      = (list) Comma-separated list of column names to display
+$params['help']   = (boolean) Return help information (Default = false)
+$params['s']      = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']   = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['ts']     = (boolean) Set to false to disable timestamping (Default = true)
+$params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -143,8 +173,8 @@ $response = $client->cat()->health($params);
 [source,php]
 ----
 /*
-$params['help'] = (bool) Return help information
-       ['body']  = (array) Request body
+$params['help'] = (boolean) Return help information (Default = false)
+$params['s']    = (list) Comma-separated list of column names or column aliases to sort by
 */
 
 $params = [
@@ -164,14 +194,19 @@ $response = $client->cat()->help($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['pri']            = (bool) Set to true to return stats only for primary shards
-       ['body']  = (array) Request body
+$params['index']                     = (list) A comma-separated list of index names to limit the returned information
+$params['format']                    = (string) a short version of the Accept header, e.g. json, yaml
+$params['bytes']                     = (enum) The unit in which to display byte values (Options = b,k,m,g)
+$params['local']                     = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout']            = (time) Explicit operation timeout for connection to master node
+$params['h']                         = (list) Comma-separated list of column names to display
+$params['health']                    = (enum) A health status ("green", "yellow", or "red" to filter only indices matching the specified health status (Options = green,yellow,red)
+$params['help']                      = (boolean) Return help information (Default = false)
+$params['pri']                       = (boolean) Set to true to return stats only for primary shards (Default = false)
+$params['s']                         = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']                      = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']                         = (boolean) Verbose mode. Display column headers (Default = false)
+$params['include_unloaded_segments'] = (boolean) If set to true segment stats will include stats for segments that are not currently loaded into memory (Default = false)
 */
 
 $params = [
@@ -191,12 +226,13 @@ $response = $client->cat()->indices($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -210,18 +246,48 @@ $response = $client->cat()->master($params);
 
 
 
+[[Elasticsearch_Namespaces_CatNamespacenodeattrs_nodeattrs]]
+.`nodeattrs()`
+****
+[source,php]
+----
+/*
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->nodeattrs($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_CatNamespacenodes_nodes]]
 .`nodes()`
 ****
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['full_id']        = (boolean) Return the full node ID instead of the shortened version (default: false)
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -235,43 +301,20 @@ $response = $client->cat()->nodes($params);
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacenodeAttrs_nodeAttrs]]
-.`nodeAttrs()`
-****
-[source,php]
-----
-/*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->cat()->nodeAttrs($params);
-----
-****
-
-
-
 [[Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks]]
 .`pendingTasks()`
 ****
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -285,19 +328,48 @@ $response = $client->cat()->pendingTasks($params);
 
 
 
+[[Elasticsearch_Namespaces_CatNamespaceplugins_plugins]]
+.`plugins()`
+****
+[source,php]
+----
+/*
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->plugins($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_CatNamespacerecovery_recovery]]
 .`recovery()`
 ****
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['body']  = (array) Request body
+$params['index']       = (list) Comma-separated list or wildcard expression of index names to limit the returned information
+$params['format']      = (string) a short version of the Accept header, e.g. json, yaml
+$params['active_only'] = (boolean) If `true`, the response only includes ongoing shard recoveries (Default = false)
+$params['bytes']       = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['detailed']    = (boolean) If `true`, the response includes detailed information about shard recoveries (Default = false)
+$params['h']           = (list) Comma-separated list of column names to display
+$params['help']        = (boolean) Return help information (Default = false)
+$params['s']           = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']        = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -317,12 +389,13 @@ $response = $client->cat()->recovery($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (Default = false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -336,19 +409,48 @@ $response = $client->cat()->repositories($params);
 
 
 
+[[Elasticsearch_Namespaces_CatNamespacesegments_segments]]
+.`segments()`
+****
+[source,php]
+----
+/*
+$params['index']  = (list) A comma-separated list of index names to limit the returned information
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['bytes']  = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['h']      = (list) Comma-separated list of column names to display
+$params['help']   = (boolean) Return help information (Default = false)
+$params['s']      = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->segments($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_CatNamespaceshards_shards]]
 .`shards()`
 ****
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['body']  = (array) Request body
+$params['index']          = (list) A comma-separated list of index names to limit the returned information
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -368,14 +470,15 @@ $response = $client->cat()->shards($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['repository']     = (string) Name of repository from which to fetch the snapshot information
-       ['body']  = (array) Request body
+$params['repository']         = (list) Name of repository from which to fetch the snapshot information
+$params['format']             = (string) a short version of the Accept header, e.g. json, yaml
+$params['ignore_unavailable'] = (boolean) Set to true to ignore unavailable snapshots (Default = false)
+$params['master_timeout']     = (time) Explicit operation timeout for connection to master node
+$params['h']                  = (list) Comma-separated list of column names to display
+$params['help']               = (boolean) Return help information (Default = false)
+$params['s']                  = (list) Comma-separated list of column names or column aliases to sort by
+$params['time']               = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+$params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -389,119 +492,15 @@ $response = $client->cat()->snapshots($params);
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool]]
-.`threadPool()`
-****
-[source,php]
-----
-/*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['full_id']        = (bool) Enables displaying the complete node ids
-       ['size']           = (enum) The multiplier in which to display values ([ "", "k", "m", "g", "t", "p" ])
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->cat()->threadPool($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_CatNamespacefielddata_fielddata]]
-.`fielddata()`
-****
-[source,php]
-----
-/*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['fields']         = (list) A comma-separated list of fields to return the fielddata size
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->cat()->fielddata($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_CatNamespaceplugins_plugins]]
-.`plugins()`
-****
-[source,php]
-----
-/*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->cat()->plugins($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_CatNamespacesegments_segments]]
-.`segments()`
-****
-[source,php]
-----
-/*
-$params['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->cat()->segments($params);
-----
-****
-
-
-
 [[Elasticsearch_Namespaces_CatNamespacetasks_tasks]]
 .`tasks()`
 ****
 [source,php]
 ----
 /*
-$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
-       ['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-       ['format']         = (string) a short version of the Accept header, e.g. json, yaml
-       ['actions']        = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
-       ['body']  = (array) Request body
+$params['format']      = (string) a short version of the Accept header, e.g. json, yaml
+$params['node_id']     = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+$params['actions']     = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
 */
 
 $params = [
@@ -521,13 +520,14 @@ $response = $client->cat()->tasks($params);
 [source,php]
 ----
 /*
-$params['local']          = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['h']              = (list) Comma-separated list of column names to display
-       ['help']           = (bool) Return help information
-       ['v']              = (bool) Verbose mode. Display column headers
-       ['bytes']          = (enum) The unit in which to display byte values
-       ['body']  = (array) Request body
+$params['name']           = (string) A pattern that returned template names must match
+$params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['h']              = (list) Comma-separated list of column names to display
+$params['help']           = (boolean) Return help information (Default = false)
+$params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
 */
 
 $params = [
@@ -536,6 +536,34 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cat()->templates($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool]]
+.`threadPool()`
+****
+[source,php]
+----
+/*
+$params['thread_pool_patterns'] = (list) A comma-separated list of regular-expressions to filter the thread pools in the output
+$params['format']               = (string) a short version of the Accept header, e.g. json, yaml
+$params['size']                 = (enum) The multiplier in which to display values (Options = ,k,m,g,t,p)
+$params['local']                = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['master_timeout']       = (time) Explicit operation timeout for connection to master node
+$params['h']                    = (list) Comma-separated list of column names to display
+$params['help']                 = (boolean) Return help information (Default = false)
+$params['s']                    = (list) Comma-separated list of column names or column aliases to sort by
+$params['v']                    = (boolean) Verbose mode. Display column headers (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cat()->threadPool($params);
 ----
 ****
 

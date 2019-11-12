@@ -1,14 +1,15 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class FlushSynced
+ * Elasticsearch API name indices.flush_synced
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -21,6 +22,7 @@ class FlushSynced extends AbstractEndpoint
     public function getURI(): string
     {
         $index = $this->index ?? null;
+
         if (isset($index)) {
             return "/$index/_flush/synced";
         }
@@ -40,4 +42,5 @@ class FlushSynced extends AbstractEndpoint
     {
         return 'POST';
     }
+    
 }

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch;
@@ -21,7 +20,6 @@ use Elasticsearch\Namespaces\IngestNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
 use Elasticsearch\Namespaces\SnapshotNamespace;
 use Elasticsearch\Namespaces\TasksNamespace;
-
 
 /**
  * Class Client
@@ -121,7 +119,7 @@ class Client
      * $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
      * $params['body']                   = (array) The operation definition and data (action-data pairs), separated by newlines (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html
      */
@@ -140,12 +138,11 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['scroll_id'] = DEPRECATED (list) A comma-separated list of scroll IDs to clear
      * $params['body']      = (array) A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#_clear_scroll_api
      */
@@ -162,8 +159,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
      * $params['type']               = DEPRECATED (list) A comma-separated list of types to restrict the results
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -182,7 +178,7 @@ class Client
      * $params['terminate_after']    = (number) The maximum count for each shard, upon reaching which the query execution will terminate early
      * $params['body']               = (array) A query to restrict the results specified with the Query DSL (optional)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html
      */
@@ -201,8 +197,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -215,7 +210,7 @@ class Client
      * $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
      * $params['body']                   = (array) The document (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
      */
@@ -236,8 +231,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']                     = (string) The document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -250,7 +244,7 @@ class Client
      * $params['version']                = (number) Explicit version number for concurrency control
      * $params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte,force)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html
      */
@@ -269,8 +263,7 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyze_wildcard']       = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
@@ -307,7 +300,7 @@ class Client
      * $params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
      * $params['body']                   = (array) The search definition using the Query DSL (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html
      */
@@ -326,12 +319,11 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html
      */
@@ -346,13 +338,12 @@ class Client
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']             = (string) Script ID
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
@@ -367,8 +358,7 @@ class Client
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document (use `_all` to fetch the first document matching the ID across all types)
@@ -383,7 +373,7 @@ class Client
      * $params['version']          = (number) Explicit version number for concurrency control
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
@@ -420,7 +410,7 @@ class Client
      * $params['version']          = (number) Explicit version number for concurrency control
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
@@ -461,7 +451,7 @@ class Client
      * $params['_source_includes'] = (list) A list of fields to extract and return from the _source field
      * $params['body']             = (array) The query definition using the Query DSL
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html
      */
@@ -482,8 +472,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      * $params['fields']             = (list) A comma-separated list of field names
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -491,7 +480,7 @@ class Client
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
      * $params['include_unmapped']   = (boolean) Indicates whether unmapped fields should be included in the response. (Default = false)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html
      */
@@ -506,8 +495,7 @@ class Client
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document (use `_all` to fetch the first document matching the ID across all types)
@@ -522,7 +510,7 @@ class Client
      * $params['version']          = (number) Explicit version number for concurrency control
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
@@ -541,12 +529,11 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']             = (string) Script ID
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
@@ -561,8 +548,7 @@ class Client
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document; deprecated and optional starting with 7.0
@@ -576,7 +562,7 @@ class Client
      * $params['version']          = (number) Explicit version number for concurrency control
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
@@ -595,8 +581,7 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']                     = (string) Document ID
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -612,7 +597,7 @@ class Client
      * $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
      * $params['body']                   = (array) The document (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
      */
@@ -633,10 +618,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
      */
@@ -649,8 +633,7 @@ class Client
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']            = (string) The name of the index
      * $params['type']             = DEPRECATED (string) The type of the document
      * $params['stored_fields']    = (list) A comma-separated list of stored fields to return in the response
@@ -663,7 +646,7 @@ class Client
      * $params['_source_includes'] = (list) A list of fields to extract and return from the _source field
      * $params['body']             = (array) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index and type is provided in the URL. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html
      */
@@ -682,8 +665,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                         = (list) A comma-separated list of index names to use as default
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to use as default
      * $params['search_type']                   = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
@@ -695,7 +677,7 @@ class Client
      * $params['ccs_minimize_roundtrips']       = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
      * $params['body']                          = (array) The request definitions (metadata-search request definition pairs), separated by newlines (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html
      */
@@ -714,8 +696,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                   = (list) A comma-separated list of index names to use as default
      * $params['type']                    = DEPRECATED (list) A comma-separated list of document types to use as default
      * $params['search_type']             = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
@@ -724,7 +705,7 @@ class Client
      * $params['rest_total_hits_as_int']  = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                    = (array) The request definitions (metadata-search request definition pairs), separated by newlines (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
      */
@@ -743,8 +724,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']            = (string) The index in which the document resides.
      * $params['type']             = DEPRECATED (string) The type of the document.
      * $params['ids']              = (list) A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
@@ -761,7 +741,7 @@ class Client
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      * $params['body']             = (array) Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html
      */
@@ -780,10 +760,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
      */
@@ -807,7 +786,7 @@ class Client
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) The document (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
@@ -826,15 +805,14 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
      * $params['body']               = (array) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-rank-eval.html
      *
@@ -854,8 +832,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
@@ -866,7 +843,7 @@ class Client
      * $params['max_docs']               = (number) Maximum number of documents to process (default: all documents)
      * $params['body']                   = (array) The search definition using the Query DSL and the prototype for the index request. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
      */
@@ -881,12 +858,11 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
      */
@@ -901,12 +877,11 @@ class Client
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']   = (string) The id of the stored search template
      * $params['body'] = (array) The search definition template and its params
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html#_validating_templates
      */
@@ -923,11 +898,10 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['body'] = (array) The script to execute
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html
      *
@@ -945,14 +919,13 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['scroll_id']              = DEPRECATED (string) The scroll ID
      * $params['scroll']                 = (time) Specify how long a consistent view of the index should be maintained for scrolled search
      * $params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                   = (array) The scroll ID if not passed by URL or query parameter.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll
      */
@@ -969,8 +942,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                         = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyzer']                      = (string) The analyzer to use for the query string
@@ -1017,7 +989,7 @@ class Client
      * $params['rest_total_hits_as_int']        = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                          = (array) The search definition using the Query DSL
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
      */
@@ -1036,8 +1008,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
      * $params['routing']            = (string) Specific routing value
@@ -1046,7 +1017,7 @@ class Client
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html
      */
@@ -1061,8 +1032,7 @@ class Client
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -1079,7 +1049,7 @@ class Client
      * $params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                   = (array) The search definition template and its params (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html
      */
@@ -1098,8 +1068,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']            = (string) The index in which the document resides. (Required)
      * $params['id']               = (string) The id of the document, when not specified a doc param should be supplied.
      * $params['type']             = DEPRECATED (string) The type of the document.
@@ -1116,7 +1085,7 @@ class Client
      * $params['version_type']     = (enum) Specific version type (Options = internal,external,external_gte,force)
      * $params['body']             = (array) Define parameters and or supply a document to get termvectors for. See documentation.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html
      */
@@ -1137,8 +1106,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -1155,7 +1123,7 @@ class Client
      * $params['if_primary_term']        = (number) only perform the update operation if the last operation that has changed the document has the specified primary term
      * $params['body']                   = (array) The request definition requires either `script` or partial `doc` (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html
      */
@@ -1176,8 +1144,7 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyzer']               = (string) The analyzer to use for the query string
@@ -1217,7 +1184,7 @@ class Client
      * $params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
      * $params['body']                   = (array) The search definition using the Query DSL
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html
      */
@@ -1236,12 +1203,11 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
      */
@@ -1257,7 +1223,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
 
     public function cat(): CatNamespace
     {

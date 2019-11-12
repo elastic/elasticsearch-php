@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class RankEval extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -42,7 +42,7 @@ class RankEval extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): RankEval
     {
         if (isset($body) !== true) {
@@ -52,5 +52,4 @@ class RankEval extends AbstractEndpoint
 
         return $this;
     }
-
 }

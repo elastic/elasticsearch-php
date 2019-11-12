@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class SearchShards extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -45,5 +45,4 @@ class SearchShards extends AbstractEndpoint
     {
         return 'GET';
     }
-    
 }

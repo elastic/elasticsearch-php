@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Nodes;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class HotThreads extends AbstractEndpoint
 {
+    protected $node_id;
+
     public function getURI(): string
     {
         $node_id = $this->node_id ?? null;
@@ -45,7 +46,7 @@ class HotThreads extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setNodeId($node_id): HotThreads
     {
         if (isset($node_id) !== true) {
@@ -58,5 +59,4 @@ class HotThreads extends AbstractEndpoint
 
         return $this;
     }
-
 }

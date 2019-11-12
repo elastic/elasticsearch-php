@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class SearchTemplate extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -58,7 +58,7 @@ class SearchTemplate extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): SearchTemplate
     {
         if (isset($body) !== true) {
@@ -68,5 +68,4 @@ class SearchTemplate extends AbstractEndpoint
 
         return $this;
     }
-
 }

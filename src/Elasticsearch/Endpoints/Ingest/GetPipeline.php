@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Ingest;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class GetPipeline extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $id = $this->id ?? null;
@@ -40,7 +40,7 @@ class GetPipeline extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setId($id): GetPipeline
     {
         if (isset($id) !== true) {
@@ -50,5 +50,4 @@ class GetPipeline extends AbstractEndpoint
 
         return $this;
     }
-
 }

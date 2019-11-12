@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Tasks;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Cancel extends AbstractEndpoint
 {
+    protected $task_id;
+
     public function getURI(): string
     {
         $task_id = $this->task_id ?? null;
@@ -42,7 +43,7 @@ class Cancel extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setTaskId($task_id): Cancel
     {
         if (isset($task_id) !== true) {
@@ -52,5 +53,4 @@ class Cancel extends AbstractEndpoint
 
         return $this;
     }
-
 }

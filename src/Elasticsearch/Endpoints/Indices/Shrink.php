@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Shrink extends AbstractEndpoint
 {
+    protected $target;
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -44,7 +46,7 @@ class Shrink extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): Shrink
     {
         if (isset($body) !== true) {
@@ -64,5 +66,4 @@ class Shrink extends AbstractEndpoint
 
         return $this;
     }
-
 }

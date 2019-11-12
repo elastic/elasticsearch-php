@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Index extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -65,7 +66,7 @@ class Index extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Index
     {
         if (isset($body) !== true) {
@@ -85,5 +86,4 @@ class Index extends AbstractEndpoint
 
         return $this;
     }
-
 }

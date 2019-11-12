@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutSettings extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -38,7 +38,7 @@ class PutSettings extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutSettings
     {
         if (isset($body) !== true) {
@@ -48,5 +48,4 @@ class PutSettings extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints:namespace;
-
 :use-namespace
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class :endpoint extends AbstractEndpoint
 {
+:properties
     public function getURI(): string
     {
 :uri
@@ -33,5 +33,4 @@ class :endpoint extends AbstractEndpoint
     {
         return :method;
     }
-    :set-parts
-}
+:set-parts}

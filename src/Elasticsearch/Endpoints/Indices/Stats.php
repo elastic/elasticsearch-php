@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Stats extends AbstractEndpoint
 {
+    protected $metric;
+
     public function getURI(): string
     {
         $metric = $this->metric ?? null;
@@ -56,7 +57,7 @@ class Stats extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setMetric($metric): Stats
     {
         if (isset($metric) !== true) {
@@ -69,5 +70,4 @@ class Stats extends AbstractEndpoint
 
         return $this;
     }
-
 }

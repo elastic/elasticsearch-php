@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeleteScript extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $id = $this->id ?? null;
@@ -41,7 +42,7 @@ class DeleteScript extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setId($id): DeleteScript
     {
         if (isset($id) !== true) {
@@ -51,5 +52,4 @@ class DeleteScript extends AbstractEndpoint
 
         return $this;
     }
-
 }

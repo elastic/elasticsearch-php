@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ExistsAlias extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         if (isset($this->name) !== true) {
@@ -49,7 +51,7 @@ class ExistsAlias extends AbstractEndpoint
     {
         return 'HEAD';
     }
-    
+
     public function setName($name): ExistsAlias
     {
         if (isset($name) !== true) {
@@ -62,5 +64,4 @@ class ExistsAlias extends AbstractEndpoint
 
         return $this;
     }
-
 }

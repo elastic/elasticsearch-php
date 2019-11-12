@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Scroll extends AbstractEndpoint
 {
+    protected $scroll_id;
+
     public function getURI(): string
     {
         $scroll_id = $this->scroll_id ?? null;
@@ -45,7 +46,7 @@ class Scroll extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): Scroll
     {
         if (isset($body) !== true) {
@@ -65,5 +66,4 @@ class Scroll extends AbstractEndpoint
 
         return $this;
     }
-
 }

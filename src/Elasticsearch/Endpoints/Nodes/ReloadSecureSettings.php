@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Nodes;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ReloadSecureSettings extends AbstractEndpoint
 {
+    protected $node_id;
+
     public function getURI(): string
     {
         $node_id = $this->node_id ?? null;
@@ -40,7 +41,7 @@ class ReloadSecureSettings extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setNodeId($node_id): ReloadSecureSettings
     {
         if (isset($node_id) !== true) {
@@ -53,5 +54,4 @@ class ReloadSecureSettings extends AbstractEndpoint
 
         return $this;
     }
-
 }

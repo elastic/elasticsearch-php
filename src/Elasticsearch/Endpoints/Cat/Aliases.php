@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Aliases extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         $name = $this->name ?? null;
@@ -45,7 +46,7 @@ class Aliases extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setName($name): Aliases
     {
         if (isset($name) !== true) {
@@ -58,5 +59,4 @@ class Aliases extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -19,6 +19,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Delete extends AbstractEndpoint
 {
+    protected $repository;
+    protected $snapshot;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -41,7 +44,7 @@ class Delete extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setRepository($repository): Delete
     {
         if (isset($repository) !== true) {
@@ -61,5 +64,4 @@ class Delete extends AbstractEndpoint
 
         return $this;
     }
-
 }

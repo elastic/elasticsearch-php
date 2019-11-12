@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutSettings extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -46,7 +46,7 @@ class PutSettings extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutSettings
     {
         if (isset($body) !== true) {
@@ -56,5 +56,4 @@ class PutSettings extends AbstractEndpoint
 
         return $this;
     }
-
 }

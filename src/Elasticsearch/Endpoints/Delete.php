@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Delete extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->id) !== true) {
@@ -62,7 +63,7 @@ class Delete extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setId($id): Delete
     {
         if (isset($id) !== true) {
@@ -72,5 +73,4 @@ class Delete extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Termvectors extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -66,7 +67,7 @@ class Termvectors extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): Termvectors
     {
         if (isset($body) !== true) {
@@ -86,5 +87,4 @@ class Termvectors extends AbstractEndpoint
 
         return $this;
     }
-
 }

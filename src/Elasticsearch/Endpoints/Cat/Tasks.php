@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Tasks extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -45,5 +45,4 @@ class Tasks extends AbstractEndpoint
     {
         return 'GET';
     }
-    
 }

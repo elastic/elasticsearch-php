@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class CleanupRepository extends AbstractEndpoint
 {
+    protected $repository;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -41,7 +43,7 @@ class CleanupRepository extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setRepository($repository): CleanupRepository
     {
         if (isset($repository) !== true) {
@@ -51,5 +53,4 @@ class CleanupRepository extends AbstractEndpoint
 
         return $this;
     }
-
 }

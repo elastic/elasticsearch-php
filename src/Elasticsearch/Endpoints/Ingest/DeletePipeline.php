@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeletePipeline extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $id = $this->id ?? null;
@@ -41,7 +42,7 @@ class DeletePipeline extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setId($id): DeletePipeline
     {
         if (isset($id) !== true) {
@@ -51,5 +52,4 @@ class DeletePipeline extends AbstractEndpoint
 
         return $this;
     }
-
 }

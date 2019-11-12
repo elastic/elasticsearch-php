@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ReindexRethrottle extends AbstractEndpoint
 {
+    protected $task_id;
+
     public function getURI(): string
     {
         $task_id = $this->task_id ?? null;
@@ -40,7 +42,7 @@ class ReindexRethrottle extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setTaskId($task_id): ReindexRethrottle
     {
         if (isset($task_id) !== true) {
@@ -50,5 +52,4 @@ class ReindexRethrottle extends AbstractEndpoint
 
         return $this;
     }
-
 }

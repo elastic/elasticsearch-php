@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Nodes;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Usage extends AbstractEndpoint
 {
+    protected $node_id;
+    protected $metric;
+
     public function getURI(): string
     {
         $node_id = $this->node_id ?? null;
@@ -47,7 +49,7 @@ class Usage extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setNodeId($node_id): Usage
     {
         if (isset($node_id) !== true) {
@@ -73,5 +75,4 @@ class Usage extends AbstractEndpoint
 
         return $this;
     }
-
 }

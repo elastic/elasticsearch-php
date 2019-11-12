@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeleteByQueryRethrottle extends AbstractEndpoint
 {
+    protected $task_id;
+
     public function getURI(): string
     {
         $task_id = $this->task_id ?? null;
@@ -40,7 +42,7 @@ class DeleteByQueryRethrottle extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setTaskId($task_id): DeleteByQueryRethrottle
     {
         if (isset($task_id) !== true) {
@@ -50,5 +52,4 @@ class DeleteByQueryRethrottle extends AbstractEndpoint
 
         return $this;
     }
-
 }

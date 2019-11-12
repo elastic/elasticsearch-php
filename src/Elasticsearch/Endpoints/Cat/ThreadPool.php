@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ThreadPool extends AbstractEndpoint
 {
+    protected $thread_pool_patterns;
+
     public function getURI(): string
     {
         $thread_pool_patterns = $this->thread_pool_patterns ?? null;
@@ -47,7 +48,7 @@ class ThreadPool extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setThreadPoolPatterns($thread_pool_patterns): ThreadPool
     {
         if (isset($thread_pool_patterns) !== true) {
@@ -60,5 +61,4 @@ class ThreadPool extends AbstractEndpoint
 
         return $this;
     }
-
 }

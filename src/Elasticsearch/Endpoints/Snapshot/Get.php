@@ -19,6 +19,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
+    protected $repository;
+    protected $snapshot;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -43,7 +46,7 @@ class Get extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setRepository($repository): Get
     {
         if (isset($repository) !== true) {
@@ -66,5 +69,4 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 }

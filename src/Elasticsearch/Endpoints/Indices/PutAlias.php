@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutAlias extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -49,7 +51,7 @@ class PutAlias extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutAlias
     {
         if (isset($body) !== true) {
@@ -69,5 +71,4 @@ class PutAlias extends AbstractEndpoint
 
         return $this;
     }
-
 }

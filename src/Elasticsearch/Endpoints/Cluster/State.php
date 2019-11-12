@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class State extends AbstractEndpoint
 {
+    protected $metric;
+
     public function getURI(): string
     {
         $metric = $this->metric ?? null;
@@ -51,7 +52,7 @@ class State extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setMetric($metric): State
     {
         if (isset($metric) !== true) {
@@ -64,5 +65,4 @@ class State extends AbstractEndpoint
 
         return $this;
     }
-
 }

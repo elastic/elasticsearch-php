@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Update extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->id) !== true) {
@@ -65,7 +66,7 @@ class Update extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Update
     {
         if (isset($body) !== true) {
@@ -85,5 +86,4 @@ class Update extends AbstractEndpoint
 
         return $this;
     }
-
 }

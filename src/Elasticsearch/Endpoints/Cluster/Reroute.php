@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Reroute extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -41,7 +41,7 @@ class Reroute extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Reroute
     {
         if (isset($body) !== true) {
@@ -51,5 +51,4 @@ class Reroute extends AbstractEndpoint
 
         return $this;
     }
-
 }

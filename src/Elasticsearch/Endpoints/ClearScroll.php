@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ClearScroll extends AbstractEndpoint
 {
+    protected $scroll_id;
+
     public function getURI(): string
     {
         $scroll_id = $this->scroll_id ?? null;
@@ -43,7 +44,7 @@ class ClearScroll extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setBody($body): ClearScroll
     {
         if (isset($body) !== true) {
@@ -66,5 +67,4 @@ class ClearScroll extends AbstractEndpoint
 
         return $this;
     }
-
 }

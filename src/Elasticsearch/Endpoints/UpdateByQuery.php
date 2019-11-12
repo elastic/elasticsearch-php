@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class UpdateByQuery extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -83,7 +84,7 @@ class UpdateByQuery extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): UpdateByQuery
     {
         if (isset($body) !== true) {
@@ -93,5 +94,4 @@ class UpdateByQuery extends AbstractEndpoint
 
         return $this;
     }
-
 }

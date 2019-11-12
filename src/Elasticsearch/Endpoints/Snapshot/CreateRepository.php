@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class CreateRepository extends AbstractEndpoint
 {
+    protected $repository;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -42,7 +44,7 @@ class CreateRepository extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): CreateRepository
     {
         if (isset($body) !== true) {
@@ -62,5 +64,4 @@ class CreateRepository extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutMapping extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -55,7 +56,7 @@ class PutMapping extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutMapping
     {
         if (isset($body) !== true) {
@@ -65,5 +66,4 @@ class PutMapping extends AbstractEndpoint
 
         return $this;
     }
-
 }

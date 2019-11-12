@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ExistsTemplate extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         $name = $this->name ?? null;
@@ -42,7 +44,7 @@ class ExistsTemplate extends AbstractEndpoint
     {
         return 'HEAD';
     }
-    
+
     public function setName($name): ExistsTemplate
     {
         if (isset($name) !== true) {
@@ -55,5 +57,4 @@ class ExistsTemplate extends AbstractEndpoint
 
         return $this;
     }
-
 }

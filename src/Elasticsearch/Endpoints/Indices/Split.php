@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Split extends AbstractEndpoint
 {
+    protected $target;
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -44,7 +46,7 @@ class Split extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): Split
     {
         if (isset($body) !== true) {
@@ -64,5 +66,4 @@ class Split extends AbstractEndpoint
 
         return $this;
     }
-
 }

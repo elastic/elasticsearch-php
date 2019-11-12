@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class RemoteInfo extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -36,5 +36,4 @@ class RemoteInfo extends AbstractEndpoint
     {
         return 'GET';
     }
-    
 }

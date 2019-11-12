@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutPipeline extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $id = $this->id ?? null;
@@ -41,7 +42,7 @@ class PutPipeline extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutPipeline
     {
         if (isset($body) !== true) {
@@ -61,5 +62,4 @@ class PutPipeline extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PutTemplate extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         $name = $this->name ?? null;
@@ -45,7 +47,7 @@ class PutTemplate extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): PutTemplate
     {
         if (isset($body) !== true) {
@@ -65,5 +67,4 @@ class PutTemplate extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Reindex extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -43,7 +43,7 @@ class Reindex extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Reindex
     {
         if (isset($body) !== true) {
@@ -53,5 +53,4 @@ class Reindex extends AbstractEndpoint
 
         return $this;
     }
-
 }

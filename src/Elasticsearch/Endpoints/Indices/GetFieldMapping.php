@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class GetFieldMapping extends AbstractEndpoint
 {
+    protected $fields;
+
     public function getURI(): string
     {
         if (isset($this->fields) !== true) {
@@ -61,7 +63,7 @@ class GetFieldMapping extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setFields($fields): GetFieldMapping
     {
         if (isset($fields) !== true) {
@@ -74,5 +76,4 @@ class GetFieldMapping extends AbstractEndpoint
 
         return $this;
     }
-
 }

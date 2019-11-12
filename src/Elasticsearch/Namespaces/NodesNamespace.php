@@ -26,7 +26,7 @@ class NodesNamespace extends AbstractNamespace
      * $params['type']                = (enum) The type to sample (default: cpu) (Options = cpu,wait,block)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html
      */
@@ -41,14 +41,13 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeId($node_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['metric']        = (list) A comma-separated list of metrics you wish returned. Leave empty to return all.
      * $params['flat_settings'] = (boolean) Return settings in flat format (default: false)
      * $params['timeout']       = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
      */
@@ -65,12 +64,11 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setMetric($metric);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['node_id'] = (list) A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.
      * $params['timeout'] = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
      */
@@ -85,8 +83,7 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setNodeId($node_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['node_id']                    = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['metric']                     = (list) Limit the information returned to the specified metrics
      * $params['index_metric']               = (list) Limit the information returned for `indices` metric to the specific index metrics. Isn't used if `indices` (or `all`) metric isn't specified.
@@ -99,7 +96,7 @@ class NodesNamespace extends AbstractNamespace
      * $params['timeout']                    = (time) Explicit operation timeout
      * $params['include_segment_file_sizes'] = (boolean) Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested) (Default = false)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
      */
@@ -118,13 +115,12 @@ class NodesNamespace extends AbstractNamespace
         $endpoint->setIndexMetric($index_metric);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['node_id'] = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['metric']  = (list) Limit the information returned to the specified metrics
      * $params['timeout'] = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html
      */
@@ -142,5 +138,4 @@ class NodesNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
-
 }

@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeleteTemplate extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         $name = $this->name ?? null;
@@ -41,7 +43,7 @@ class DeleteTemplate extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setName($name): DeleteTemplate
     {
         if (isset($name) !== true) {
@@ -51,5 +53,4 @@ class DeleteTemplate extends AbstractEndpoint
 
         return $this;
     }
-
 }

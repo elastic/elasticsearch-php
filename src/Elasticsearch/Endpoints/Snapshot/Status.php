@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Snapshot;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Status extends AbstractEndpoint
 {
+    protected $repository;
+    protected $snapshot;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -45,7 +47,7 @@ class Status extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setRepository($repository): Status
     {
         if (isset($repository) !== true) {
@@ -68,5 +70,4 @@ class Status extends AbstractEndpoint
 
         return $this;
     }
-
 }

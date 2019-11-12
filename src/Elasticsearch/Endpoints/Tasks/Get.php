@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
+    protected $task_id;
+
     public function getURI(): string
     {
         $task_id = $this->task_id ?? null;
@@ -41,7 +43,7 @@ class Get extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setTaskId($task_id): Get
     {
         if (isset($task_id) !== true) {
@@ -51,5 +53,4 @@ class Get extends AbstractEndpoint
 
         return $this;
     }
-
 }

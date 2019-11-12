@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class UpdateAliases extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -37,7 +37,7 @@ class UpdateAliases extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): UpdateAliases
     {
         if (isset($body) !== true) {
@@ -47,5 +47,4 @@ class UpdateAliases extends AbstractEndpoint
 
         return $this;
     }
-
 }

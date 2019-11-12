@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ExistsSource extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->id) !== true) {
@@ -63,7 +64,7 @@ class ExistsSource extends AbstractEndpoint
     {
         return 'HEAD';
     }
-    
+
     public function setId($id): ExistsSource
     {
         if (isset($id) !== true) {
@@ -73,5 +74,4 @@ class ExistsSource extends AbstractEndpoint
 
         return $this;
     }
-
 }

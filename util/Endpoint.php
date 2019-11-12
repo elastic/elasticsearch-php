@@ -41,6 +41,7 @@ class Endpoint
     protected $requiredParts = [];
     protected $useNamespace = [];
     private $addedPartInDoc = [];
+    private $properties = [];
 
     /**
      * @param $fileName name of the file with the API specification
@@ -172,6 +173,7 @@ class Endpoint
         $class = str_replace(':endpoint', $this->getClassName(), $class);
         $class = str_replace(':version', $this->version, $class);
         $class = str_replace(':use-namespace', $this->getNamespaces(), $class);
+        $class = str_replace(':properties', $this->getProperties(), $class);
 
         return str_replace(':apiname', $this->apiName, $class);
     }
@@ -335,7 +337,10 @@ class Endpoint
 
     private function getNamespaces(): string
     {
-        return implode("\n", $this->useNamespace);
+        if (empty($this->useNamespace)) {
+            return '';
+        }
+        return "\n" . implode("\n", $this->useNamespace);
     }
 
     private function getSetPartList(string $param): string
@@ -343,7 +348,7 @@ class Endpoint
         $setPart = file_get_contents(self::SET_PART_LIST_TEMPLATE);
         $setPart = str_replace(':endpoint', $this->getClassName(), $setPart);
         $setPart = str_replace(':part', $param, $setPart);
-
+        $this->addProperty($param);
         return str_replace(':Part', $this->normalizeName($param), $setPart);
     }
 
@@ -352,7 +357,7 @@ class Endpoint
         $setPart = file_get_contents(self::SET_PART_TEMPLATE);
         $setPart = str_replace(':endpoint', $this->getClassName(), $setPart);
         $setPart = str_replace(':part', $param, $setPart);
-
+        $this->addProperty($param);
         return str_replace(':Part', $this->normalizeName($param), $setPart);
     }
 
@@ -362,6 +367,21 @@ class Endpoint
         $this->addNamespace('Elasticsearch\Common\Exceptions\InvalidArgumentException');
 
         return str_replace(':endpoint', $this->getClassName(), $setPart);
+    }
+
+    protected function addProperty(string $name)
+    {
+        if (!in_array($name, ['body', 'type', 'index', 'id'])) {
+            $this->properties[$name] = sprintf("    protected \$%s;", $name);
+        }
+    }
+
+    protected function getProperties(): string
+    {
+        if (empty($this->properties)) {
+            return '';
+        }
+        return implode("\n", $this->properties) . "\n";
     }
 
     protected function normalizeName(string $name): string
@@ -389,7 +409,7 @@ class Endpoint
         $result .= $this->extractParamsDescription($space);
         $result .= $this->extractBodyDescription($space);
         $result .= "     *\n";
-        $result .= "     * @param \$params array Associative array of parameters\n";
+        $result .= "     * @param array \$params Associative array of parameters\n";
         $result .= sprintf("     * @return %s\n", $this->getMethod() === ['HEAD'] ? 'bool' : 'array');
 
         if (isset($this->content['documentation']['url'])) {

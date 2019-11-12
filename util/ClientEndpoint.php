@@ -36,7 +36,7 @@ class ClientEndpoint extends NamespaceEndpoint
         $class = file_get_contents(self::CLIENT_CLASS_TEMPLATE);
         // use Namespace
         $useNamespace = '';
-        foreach($this->namespace as $name) {
+        foreach ($this->namespace as $name) {
             if (empty($name)) {
                 continue;
             }
@@ -46,7 +46,7 @@ class ClientEndpoint extends NamespaceEndpoint
 
         // new Namespace
         $newNamespace = '';
-        foreach($this->namespace as $name) {
+        foreach ($this->namespace as $name) {
             if (empty($name)) {
                 continue;
             }
@@ -59,7 +59,7 @@ class ClientEndpoint extends NamespaceEndpoint
 
         // Properties
         $properties = '';
-        foreach($this->namespace as $name) {
+        foreach ($this->namespace as $name) {
             if (empty($name)) {
                 continue;
             }
@@ -72,14 +72,14 @@ class ClientEndpoint extends NamespaceEndpoint
 
         // Endpoints
         $endpoints = '';
-        foreach($this->endpoints as $endpoint) {
+        foreach ($this->endpoints as $endpoint) {
             $endpoints .= $this->renderEndpoint($endpoint);
         }
         $class = str_replace(':endpoints', $endpoints, $class);
 
         // Namespace functions
         $functions = '';
-        foreach($this->namespace as $name) {
+        foreach ($this->namespace as $name) {
             if (empty($name)) {
                 continue;
             }

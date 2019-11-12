@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Stats extends AbstractEndpoint
 {
+    protected $node_id;
+
     public function getURI(): string
     {
         $node_id = $this->node_id ?? null;
@@ -41,7 +42,7 @@ class Stats extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setNodeId($node_id): Stats
     {
         if (isset($node_id) !== true) {
@@ -54,5 +55,4 @@ class Stats extends AbstractEndpoint
 
         return $this;
     }
-
 }

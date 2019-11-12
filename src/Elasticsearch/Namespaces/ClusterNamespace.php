@@ -22,7 +22,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['include_disk_info']     = (boolean) Return information about disk usage and shard sizes (default: false)
      * $params['body']                  = (array) The index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
      */
@@ -37,14 +37,13 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['flat_settings']    = (boolean) Return settings in flat format (default: false)
      * $params['master_timeout']   = (time) Explicit operation timeout for connection to master node
      * $params['timeout']          = (time) Explicit operation timeout
      * $params['include_defaults'] = (boolean) Whether to return all default clusters setting. (Default = false)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
@@ -57,8 +56,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['index']                           = (list) Limit the information returned to a specific index
      * $params['expand_wildcards']                = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)
      * $params['level']                           = (enum) Specify the level of detail for returned information (Options = cluster,indices,shards) (Default = cluster)
@@ -72,7 +70,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['wait_for_no_initializing_shards'] = (boolean) Whether to wait until there are no initializing shards in the cluster
      * $params['wait_for_status']                 = (enum) Wait until cluster is in a specific state (Options = green,yellow,red)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
      */
@@ -87,12 +85,11 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
      */
@@ -105,14 +102,13 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['body']           = (array) The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart). (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
@@ -127,10 +123,9 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
      */
@@ -143,8 +138,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['dry_run']        = (boolean) Simulate the operation only and return the resulting state
      * $params['explain']        = (boolean) Return an explanation of why the commands can or cannot be executed
      * $params['retry_failed']   = (boolean) Retries allocation of shards that are blocked due to too many subsequent allocation failures
@@ -153,7 +147,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['body']           = (array) The definition of `commands` to perform (`move`, `cancel`, `allocate`)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
      */
@@ -168,8 +162,7 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['metric']                    = (list) Limit the information returned to the specified metrics
      * $params['index']                     = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      * $params['local']                     = (boolean) Return local information, do not retrieve the state from master node (default: false)
@@ -181,7 +174,7 @@ class ClusterNamespace extends AbstractNamespace
      * $params['allow_no_indices']          = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
      */
@@ -198,13 +191,12 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['flat_settings'] = (boolean) Return settings in flat format (default: false)
      * $params['timeout']       = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
      */
@@ -220,5 +212,4 @@ class ClusterNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
-
 }

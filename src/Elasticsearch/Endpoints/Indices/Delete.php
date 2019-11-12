@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Delete extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -44,5 +45,4 @@ class Delete extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
 }

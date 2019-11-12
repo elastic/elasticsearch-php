@@ -19,6 +19,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Restore extends AbstractEndpoint
 {
+    protected $repository;
+    protected $snapshot;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -42,7 +45,7 @@ class Restore extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Restore
     {
         if (isset($body) !== true) {
@@ -72,5 +75,4 @@ class Restore extends AbstractEndpoint
 
         return $this;
     }
-
 }

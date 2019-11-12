@@ -23,7 +23,7 @@ class TasksNamespace extends AbstractNamespace
      * $params['actions']        = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
      * $params['parent_task_id'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
@@ -38,13 +38,12 @@ class TasksNamespace extends AbstractNamespace
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['task_id']             = (string) Return the task with specified id (node_id:task_number)
      * $params['wait_for_completion'] = (boolean) Wait for the matching tasks to complete (default: false)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
@@ -59,8 +58,7 @@ class TasksNamespace extends AbstractNamespace
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['nodes']               = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['actions']             = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
      * $params['detailed']            = (boolean) Return detailed task information (default: false)
@@ -69,7 +67,7 @@ class TasksNamespace extends AbstractNamespace
      * $params['group_by']            = (enum) Group tasks by nodes or parent/child relationships (Options = nodes,parents,none) (Default = nodes)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
@@ -83,5 +81,4 @@ class TasksNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
-
 }

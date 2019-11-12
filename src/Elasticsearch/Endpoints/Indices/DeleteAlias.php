@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeleteAlias extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -49,7 +51,7 @@ class DeleteAlias extends AbstractEndpoint
     {
         return 'DELETE';
     }
-    
+
     public function setName($name): DeleteAlias
     {
         if (isset($name) !== true) {
@@ -62,5 +64,4 @@ class DeleteAlias extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ScriptsPainlessExecute extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -36,7 +36,7 @@ class ScriptsPainlessExecute extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): ScriptsPainlessExecute
     {
         if (isset($body) !== true) {
@@ -46,5 +46,4 @@ class ScriptsPainlessExecute extends AbstractEndpoint
 
         return $this;
     }
-
 }

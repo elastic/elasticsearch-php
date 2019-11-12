@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -47,5 +48,4 @@ class Get extends AbstractEndpoint
     {
         return 'GET';
     }
-    
 }

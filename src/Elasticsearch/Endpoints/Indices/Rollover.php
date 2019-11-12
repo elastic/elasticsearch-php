@@ -19,6 +19,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Rollover extends AbstractEndpoint
 {
+    protected $alias;
+    protected $new_index;
+
     public function getURI(): string
     {
         if (isset($this->alias) !== true) {
@@ -50,7 +53,7 @@ class Rollover extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): Rollover
     {
         if (isset($body) !== true) {
@@ -80,5 +83,4 @@ class Rollover extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Allocation extends AbstractEndpoint
 {
+    protected $node_id;
+
     public function getURI(): string
     {
         $node_id = $this->node_id ?? null;
@@ -47,7 +48,7 @@ class Allocation extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setNodeId($node_id): Allocation
     {
         if (isset($node_id) !== true) {
@@ -60,5 +61,4 @@ class Allocation extends AbstractEndpoint
 
         return $this;
     }
-
 }

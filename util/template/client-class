@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch;
@@ -15,7 +14,6 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 :use-namespaces
-
 /**
  * Class Client
  *

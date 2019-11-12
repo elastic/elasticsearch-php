@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class AllocationExplain extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
 
@@ -37,7 +37,7 @@ class AllocationExplain extends AbstractEndpoint
     {
         return isset($this->body) ? 'POST' : 'GET';
     }
-    
+
     public function setBody($body): AllocationExplain
     {
         if (isset($body) !== true) {
@@ -47,5 +47,4 @@ class AllocationExplain extends AbstractEndpoint
 
         return $this;
     }
-
 }

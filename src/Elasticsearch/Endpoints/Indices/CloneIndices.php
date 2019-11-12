@@ -19,6 +19,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class CloneIndices extends AbstractEndpoint
 {
+    protected $target;
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -43,7 +45,7 @@ class CloneIndices extends AbstractEndpoint
     {
         return 'PUT';
     }
-    
+
     public function setBody($body): CloneIndices
     {
         if (isset($body) !== true) {
@@ -63,5 +65,4 @@ class CloneIndices extends AbstractEndpoint
 
         return $this;
     }
-
 }

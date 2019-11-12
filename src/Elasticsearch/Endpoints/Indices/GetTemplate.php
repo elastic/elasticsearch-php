@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class GetTemplate extends AbstractEndpoint
 {
+    protected $name;
+
     public function getURI(): string
     {
         $name = $this->name ?? null;
@@ -43,7 +44,7 @@ class GetTemplate extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setName($name): GetTemplate
     {
         if (isset($name) !== true) {
@@ -56,5 +57,4 @@ class GetTemplate extends AbstractEndpoint
 
         return $this;
     }
-
 }

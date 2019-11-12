@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Snapshots extends AbstractEndpoint
 {
+    protected $repository;
+
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
@@ -47,7 +48,7 @@ class Snapshots extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setRepository($repository): Snapshots
     {
         if (isset($repository) !== true) {
@@ -60,5 +61,4 @@ class Snapshots extends AbstractEndpoint
 
         return $this;
     }
-
 }

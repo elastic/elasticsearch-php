@@ -22,7 +22,7 @@ class IngestNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
      */
@@ -37,12 +37,11 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']             = (string) Comma separated list of pipeline ids. Wildcards supported
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
      */
@@ -57,10 +56,9 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
      */
@@ -73,14 +71,13 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']             = (string) Pipeline ID
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['body']           = (array) The ingest definition (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
      */
@@ -97,13 +94,12 @@ class IngestNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-    /**
+    }    /**
      * $params['id']      = (string) Pipeline ID
      * $params['verbose'] = (boolean) Verbose mode. Display data output for each processor in executed pipeline (Default = false)
      * $params['body']    = (array) The simulate definition (Required)
      *
-     * @param $params array Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
      */
@@ -121,5 +117,4 @@ class IngestNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
-
 }

@@ -19,6 +19,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class DeleteByQuery extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         if (isset($this->index) !== true) {
@@ -80,7 +81,7 @@ class DeleteByQuery extends AbstractEndpoint
     {
         return 'POST';
     }
-    
+
     public function setBody($body): DeleteByQuery
     {
         if (isset($body) !== true) {
@@ -90,5 +91,4 @@ class DeleteByQuery extends AbstractEndpoint
 
         return $this;
     }
-
 }

@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
 
-
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
@@ -19,6 +18,8 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Fielddata extends AbstractEndpoint
 {
+    protected $fields;
+
     public function getURI(): string
     {
         $fields = $this->fields ?? null;
@@ -46,7 +47,7 @@ class Fielddata extends AbstractEndpoint
     {
         return 'GET';
     }
-    
+
     public function setFields($fields): Fielddata
     {
         if (isset($fields) !== true) {
@@ -59,5 +60,4 @@ class Fielddata extends AbstractEndpoint
 
         return $this;
     }
-
 }

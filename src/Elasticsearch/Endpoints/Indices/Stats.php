@@ -33,8 +33,8 @@ class Stats extends AbstractEndpoint
             return $this;
         }
 
-        if (is_array($metric)) {
-            $metric = implode(",", $metric);
+        if (\is_array($metric)) {
+            $metric = \implode(",", $metric);
         }
 
         $this->metric = $metric;

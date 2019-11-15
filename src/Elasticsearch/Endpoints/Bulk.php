@@ -36,13 +36,13 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
             return $this;
         }
 
-        if (is_array($body) === true || $body instanceof Traversable) {
+        if (\is_array($body) === true || $body instanceof Traversable) {
             foreach ($body as $item) {
                 $this->body .= $this->serializer->serialize($item) . "\n";
             }
-        } elseif (is_string($body)) {
+        } elseif (\is_string($body)) {
             $this->body = $body;
-            if (substr($body, -1) != "\n") {
+            if (\substr($body, -1) != "\n") {
                 $this->body .= "\n";
             }
         } else {

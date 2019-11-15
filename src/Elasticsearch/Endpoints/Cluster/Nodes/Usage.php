@@ -31,8 +31,8 @@ class Usage extends AbstractNodesEndpoint
             return $this;
         }
 
-        if (is_array($metric) === true) {
-            $metric = implode(",", $metric);
+        if (\is_array($metric) === true) {
+            $metric = \implode(",", $metric);
         }
 
         $this->metric = $metric;

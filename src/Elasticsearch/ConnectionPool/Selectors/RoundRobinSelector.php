@@ -29,7 +29,7 @@ class RoundRobinSelector implements SelectorInterface
      */
     public function select(array $connections): ConnectionInterface
     {
-        $returnConnection = $connections[$this->current % count($connections)];
+        $returnConnection = $connections[$this->current % \count($connections)];
 
         $this->current += 1;
 

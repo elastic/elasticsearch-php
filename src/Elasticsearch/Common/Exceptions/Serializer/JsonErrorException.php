@@ -45,7 +45,7 @@ class JsonErrorException extends \Exception implements ElasticsearchException
     public function __construct($code, $input, $result, $previous = null)
     {
         if (isset(self::$messages[$code]) !== true) {
-            throw new \InvalidArgumentException(sprintf('Encountered unknown JSON error code: [%d]', $code));
+            throw new \InvalidArgumentException(\sprintf('Encountered unknown JSON error code: [%d]', $code));
         }
 
         parent::__construct(self::$messages[$code], $code, $previous);

@@ -40,12 +40,12 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
             return $this;
         }
 
-        if (!(is_array($nodeID) === true || is_string($nodeID) === true)) {
+        if (!(\is_array($nodeID) === true || \is_string($nodeID) === true)) {
             throw new InvalidArgumentException("invalid node_id");
         }
 
-        if (is_array($nodeID) === true) {
-            $nodeID = implode(',', $nodeID);
+        if (\is_array($nodeID) === true) {
+            $nodeID = \implode(',', $nodeID);
         }
 
         $this->nodeID = $nodeID;

@@ -108,7 +108,7 @@ class SearchHitIterator implements Iterator, \Countable
      */
     public function valid(): bool
     {
-        return is_array($this->current_hit_data);
+        return \is_array($this->current_hit_data);
     }
 
     /**

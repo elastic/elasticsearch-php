@@ -151,12 +151,12 @@ class Connection implements ConnectionInterface
         }
 
         // Add the User-Agent using the format: <client-repo-name>/<client-version> (metadata-values)
-        $this->headers['User-Agent'] = [sprintf(
+        $this->headers['User-Agent'] = [\sprintf(
             "elasticsearch-php/%s (%s %s; PHP %s)",
             Client::VERSION,
             PHP_OS,
             $this->getOSVersion(),
-            phpversion()
+            \phpversion()
         )];
 
         $host = $hostDetails['host'];
@@ -192,8 +192,8 @@ class Connection implements ConnectionInterface
             $body = $this->serializer->serialize($body);
         }
 
-        if (isset($options['client']['headers']) && is_array($options['client']['headers'])) {
-            $this->headers = array_merge($this->headers, $options['client']['headers']);
+        if (isset($options['client']['headers']) && \is_array($options['client']['headers'])) {
+            $this->headers = \array_merge($this->headers, $options['client']['headers']);
         }
 
         $request = [
@@ -201,7 +201,7 @@ class Connection implements ConnectionInterface
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            'headers'     => array_merge(
+            'headers'     => \array_merge(
                 [
                 'Host'  => [$this->host]
                 ],
@@ -209,7 +209,7 @@ class Connection implements ConnectionInterface
             )
         ];
 
-        $request = array_replace_recursive($request, $this->connectionParams, $options);
+        $request = \array_replace_recursive($request, $this->connectionParams, $options);
 
         // RingPHP does not like if client is empty
         if (empty($request['client'])) {
@@ -296,7 +296,7 @@ class Connection implements ConnectionInterface
                         $this->logWarning($request, $response);
                     }
                     if (isset($response['body']) === true) {
-                        $response['body'] = stream_get_contents($response['body']);
+                        $response['body'] = \stream_get_contents($response['body']);
                         $this->lastRequest['response']['body'] = $response['body'];
                     }
 
@@ -304,7 +304,7 @@ class Connection implements ConnectionInterface
                         $ignore = $request['client']['ignore'] ?? [];
                         // Skip 404 if succeeded true in the body (e.g. clear_scroll)
                         $body = $response['body'] ?? '';
-                        if (strpos($body, '"succeeded":true') !== false) {
+                        if (\strpos($body, '"succeeded":true') !== false) {
                              $ignore[] = 404;
                         }
                         $this->process4xxError($request, $response, $ignore);
@@ -328,7 +328,7 @@ class Connection implements ConnectionInterface
     private function getURI(string $uri, ?array $params): string
     {
         if (isset($params) === true && !empty($params)) {
-            array_walk(
+            \array_walk(
                 $params,
                 function (&$value, &$key) {
                     if ($value === true) {
@@ -339,7 +339,7 @@ class Connection implements ConnectionInterface
                 }
             );
 
-            $uri .= '?' . http_build_query($params);
+            $uri .= '?' . \http_build_query($params);
         }
 
         if ($this->path !== null) {
@@ -492,14 +492,14 @@ class Connection implements ConnectionInterface
     {
         $this->failedPings = 0;
         $this->isAlive = true;
-        $this->lastPing = time();
+        $this->lastPing = \time();
     }
 
     public function markDead(): void
     {
         $this->isAlive = false;
         $this->failedPings += 1;
-        $this->lastPing = time();
+        $this->lastPing = \time();
     }
 
     public function getLastPing(): int
@@ -564,9 +564,9 @@ class Connection implements ConnectionInterface
     private function getOSVersion(): string
     {
         if ($this->OSVersion === null) {
-            $this->OSVersion = strpos(strtolower(ini_get('disable_functions')), 'php_uname') !== false
+            $this->OSVersion = \strpos(\strtolower(\ini_get('disable_functions')), 'php_uname') !== false
                 ? ''
-                : php_uname("r");
+                : \php_uname("r");
         }
         return $this->OSVersion;
     }
@@ -576,13 +576,13 @@ class Connection implements ConnectionInterface
      */
     private function buildCurlCommand(string $method, string $uri, ?string $body): string
     {
-        if (strpos($uri, '?') === false) {
+        if (\strpos($uri, '?') === false) {
             $uri .= '?pretty=true';
         } else {
-            str_replace('?', '?pretty=true', $uri);
+            \str_replace('?', '?pretty=true', $uri);
         }
 
-        $curlCommand = 'curl -X' . strtoupper($method);
+        $curlCommand = 'curl -X' . \strtoupper($method);
         $curlCommand .= " '" . $uri . "'";
 
         if (isset($body) === true && $body !== '') {
@@ -602,16 +602,16 @@ class Connection implements ConnectionInterface
 */
         $exception = $this->tryDeserialize400Error($response);
 
-        if (array_search($response['status'], $ignore) !== false) {
+        if (\array_search($response['status'], $ignore) !== false) {
             return null;
         }
 
         // if responseBody is not string, we convert it so it can be used as Exception message
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
+        if (!\is_string($responseBody)) {
+            $responseBody = \json_encode($responseBody);
         }
 
-        if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
+        if ($statusCode === 400 && \strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
@@ -619,7 +619,7 @@ class Connection implements ConnectionInterface
             $exception = new Missing404Exception($responseBody, $statusCode);
         } elseif ($statusCode === 409) {
             $exception = new Conflict409Exception($responseBody, $statusCode);
-        } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
+        } elseif ($statusCode === 400 && \strpos($responseBody, 'script_lang not supported') !== false) {
             $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
         } elseif ($statusCode === 408) {
             $exception = new RequestTimeout408Exception($responseBody, $statusCode);
@@ -646,15 +646,15 @@ class Connection implements ConnectionInterface
         $this->log->error($exceptionText);
         $this->log->error($exception->getTraceAsString());
 
-        if (array_search($statusCode, $ignore) !== false) {
+        if (\array_search($statusCode, $ignore) !== false) {
             return null;
         }
 
-        if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
+        if ($statusCode === 500 && \strpos($responseBody, "RoutingMissingException") !== false) {
             $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
-        } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
+        } elseif ($statusCode === 500 && \preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
             $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
-        } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
+        } elseif ($statusCode === 500 && \strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         } else {
             $exception = new ServerErrorResponseException($responseBody, $statusCode);
@@ -678,7 +678,7 @@ class Connection implements ConnectionInterface
     private function tryDeserializeError(array $response, string $errorClass): ElasticsearchException
     {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
-        if (is_array($error) === true) {
+        if (\is_array($error) === true) {
             // 2.0 structured exceptions
             if (isset($error['error']['reason']) === true) {
                 // Try to use root cause first (only grabs the first root cause)
@@ -691,13 +691,13 @@ class Connection implements ConnectionInterface
                     $type = $error['error']['type'];
                 }
                 // added json_encode to convert into a string
-                $original = new $errorClass(json_encode($response['body']), $response['status']);
+                $original = new $errorClass(\json_encode($response['body']), $response['status']);
 
                 return new $errorClass("$type: $cause", (int) $response['status'], $original);
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
                 // added json_encode to convert into a string
-                $original = new $errorClass(json_encode($response['body']), $response['status']);
+                $original = new $errorClass(\json_encode($response['body']), $response['status']);
 
                 return new $errorClass($error['error'], (int) $response['status'], $original);
             }
@@ -705,13 +705,13 @@ class Connection implements ConnectionInterface
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
             // added json_encode to convert into a string
-            return new $errorClass(json_encode($response['body']), (int) $response['status']);
+            return new $errorClass(\json_encode($response['body']), (int) $response['status']);
         }
 
         // if responseBody is not string, we convert it so it can be used as Exception message
         $responseBody = $response['body'];
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
+        if (!\is_string($responseBody)) {
+            $responseBody = \json_encode($responseBody);
         }
 
         // <2.0 "i just blew up" nonstructured exception

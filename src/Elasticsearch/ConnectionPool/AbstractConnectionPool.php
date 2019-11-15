@@ -71,7 +71,7 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
         if (isset($connectionPoolParams['randomizeHosts']) === true
             && $connectionPoolParams['randomizeHosts'] === true
         ) {
-            shuffle($connections);
+            \shuffle($connections);
         }
 
         $this->connections          = $connections;

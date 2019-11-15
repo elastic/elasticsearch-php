@@ -31,14 +31,14 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
 
         $this->setConnectionPoolParams($connectionPoolParams);
-        $this->nextSniff = time() + $this->sniffingInterval;
+        $this->nextSniff = \time() + $this->sniffingInterval;
     }
 
     public function nextConnection(bool $force = false): ConnectionInterface
     {
         $this->sniff($force);
 
-        $size = count($this->connections);
+        $size = \count($this->connections);
         while ($size--) {
             /**
  * @var Connection $connection
@@ -63,11 +63,11 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
 
     private function sniff(bool $force = false)
     {
-        if ($force === false && $this->nextSniff >= time()) {
+        if ($force === false && $this->nextSniff >= \time()) {
             return;
         }
 
-        $total = count($this->connections);
+        $total = \count($this->connections);
 
         while ($total--) {
             /**
@@ -105,7 +105,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
 
         $nodes = $this->parseClusterState($connection->getTransportSchema(), $response);
 
-        if (count($nodes) === 0) {
+        if (\count($nodes) === 0) {
             return false;
         }
 
@@ -119,7 +119,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
             $this->connections[] = $this->connectionFactory->create($nodeDetails);
         }
 
-        $this->nextSniff = time() + $this->sniffingInterval;
+        $this->nextSniff = \time() + $this->sniffingInterval;
 
         return true;
     }
@@ -132,7 +132,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
 
         foreach ($nodeInfo['nodes'] as $node) {
             if (isset($node['http']) === true && isset($node['http']['publish_address']) === true) {
-                if (preg_match($pattern, $node['http']['publish_address'], $match) === 1) {
+                if (\preg_match($pattern, $node['http']['publish_address'], $match) === 1) {
                     $hosts[] = array(
                         'host' => $match[1],
                         'port' => (int) $match[2],

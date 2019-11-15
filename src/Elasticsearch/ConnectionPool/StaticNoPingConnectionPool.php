@@ -32,7 +32,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
 
     public function nextConnection(bool $force = false): ConnectionInterface
     {
-        $total = count($this->connections);
+        $total = \count($this->connections);
         while ($total--) {
             /**
  * @var Connection $connection
@@ -56,12 +56,12 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
 
     private function readyToRevive(Connection $connection): bool
     {
-        $timeout = min(
-            $this->pingTimeout * pow(2, $connection->getPingFailures()),
+        $timeout = \min(
+            $this->pingTimeout * \pow(2, $connection->getPingFailures()),
             $this->maxPingTimeout
         );
 
-        if ($connection->getLastPing() + $timeout < time()) {
+        if ($connection->getLastPing() + $timeout < \time()) {
             return true;
         } else {
             return false;

@@ -35,7 +35,7 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
     {
         $skipped = [];
 
-        $total = count($this->connections);
+        $total = \count($this->connections);
         while ($total--) {
             /**
  * @var Connection $connection
@@ -73,12 +73,12 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
 
     private function readyToRevive(Connection $connection): bool
     {
-        $timeout = min(
-            $this->pingTimeout * pow(2, $connection->getPingFailures()),
+        $timeout = \min(
+            $this->pingTimeout * \pow(2, $connection->getPingFailures()),
             $this->maxPingTimeout
         );
 
-        if ($connection->getLastPing() + $timeout < time()) {
+        if ($connection->getLastPing() + $timeout < \time()) {
             return true;
         } else {
             return false;

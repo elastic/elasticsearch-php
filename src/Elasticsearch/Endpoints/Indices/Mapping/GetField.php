@@ -32,8 +32,8 @@ class GetField extends AbstractEndpoint
             return $this;
         }
 
-        if (is_array($fields) === true) {
-            $fields = implode(",", $fields);
+        if (\is_array($fields) === true) {
+            $fields = \implode(",", $fields);
         }
 
         $this->fields = $fields;

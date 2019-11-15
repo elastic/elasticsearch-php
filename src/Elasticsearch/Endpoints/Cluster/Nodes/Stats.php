@@ -39,8 +39,8 @@ class Stats extends AbstractNodesEndpoint
             return $this;
         }
 
-        if (is_array($metric) === true) {
-            $metric = implode(",", $metric);
+        if (\is_array($metric) === true) {
+            $metric = \implode(",", $metric);
         }
 
         $this->metric = $metric;
@@ -57,8 +57,8 @@ class Stats extends AbstractNodesEndpoint
             return $this;
         }
 
-        if (is_array($indexMetric) === true) {
-            $indexMetric = implode(",", $indexMetric);
+        if (\is_array($indexMetric) === true) {
+            $indexMetric = \implode(",", $indexMetric);
         }
 
         $this->indexMetric = $indexMetric;

@@ -1737,9 +1737,9 @@ class Client
      */
     public function extractArgument(array &$params, string $arg)
     {
-        if (array_key_exists($arg, $params) === true) {
+        if (\array_key_exists($arg, $params) === true) {
             $value = $params[$arg];
-            $value = is_object($value) ? (array) $value : $value;
+            $value = \is_object($value) ? (array) $value : $value;
             unset($params[$arg]);
             return $value;
         } else {
@@ -1753,14 +1753,14 @@ class Client
             throw new InvalidArgumentException("$name cannot be null.");
         }
 
-        if (is_string($var)) {
-            if (strlen($var) === 0) {
+        if (\is_string($var)) {
+            if (\strlen($var) === 0) {
                 throw new InvalidArgumentException("$name cannot be an empty string");
             }
         }
 
-        if (is_array($var)) {
-            if (strlen(implode("", $var)) === 0) {
+        if (\is_array($var)) {
+            if (\strlen(\implode("", $var)) === 0) {
                 throw new InvalidArgumentException("$name cannot be an array of empty strings");
             }
         }

@@ -42,7 +42,7 @@ class StickyRoundRobinSelector implements SelectorInterface
         }
 
         $this->currentCounter += 1;
-        $this->current = $this->currentCounter % count($connections);
+        $this->current = $this->currentCounter % \count($connections);
 
         return $connections[$this->current];
     }

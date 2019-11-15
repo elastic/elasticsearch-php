@@ -24,6 +24,6 @@ class RandomSelector implements SelectorInterface
      */
     public function select(array $connections): ConnectionInterface
     {
-        return $connections[array_rand($connections)];
+        return $connections[\array_rand($connections)];
     }
 }

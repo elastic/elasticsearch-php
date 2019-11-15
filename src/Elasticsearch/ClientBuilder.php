@@ -175,14 +175,14 @@ class ClientBuilder
         $builder = new self;
         foreach ($config as $key => $value) {
             $method = "set$key";
-            if (method_exists($builder, $method)) {
+            if (\method_exists($builder, $method)) {
                 $builder->$method($value);
                 unset($config[$key]);
             }
         }
 
-        if ($quiet === false && count($config) > 0) {
-            $unknown = implode(array_keys($config));
+        if ($quiet === false && \count($config) > 0) {
+            $unknown = \implode(\array_keys($config));
             throw new RuntimeException("Unknown parameters provided: $unknown");
         }
         return $builder->build();
@@ -194,9 +194,9 @@ class ClientBuilder
     public static function defaultHandler(array $multiParams = [], array $singleParams = []): callable
     {
         $future = null;
-        if (extension_loaded('curl')) {
-            $config = array_merge([ 'mh' => curl_multi_init() ], $multiParams);
-            if (function_exists('curl_reset')) {
+        if (\extension_loaded('curl')) {
+            $config = \array_merge([ 'mh' => \curl_multi_init() ], $multiParams);
+            if (\function_exists('curl_reset')) {
                 $default = new CurlHandler($singleParams);
                 $future = new CurlMultiHandler($config);
             } else {
@@ -214,8 +214,8 @@ class ClientBuilder
      */
     public static function multiHandler(array $params = []): CurlMultiHandler
     {
-        if (function_exists('curl_multi_init')) {
-            return new CurlMultiHandler(array_merge([ 'mh' => curl_multi_init() ], $params));
+        if (\function_exists('curl_multi_init')) {
+            return new CurlMultiHandler(\array_merge([ 'mh' => \curl_multi_init() ], $params));
         } else {
             throw new \RuntimeException('CurlMulti handler requires cURL.');
         }
@@ -226,7 +226,7 @@ class ClientBuilder
      */
     public static function singleHandler(): CurlHandler
     {
-        if (function_exists('curl_reset')) {
+        if (\function_exists('curl_reset')) {
             return new CurlHandler();
         } else {
             throw new \RuntimeException('CurlSingle handler requires cURL.');
@@ -246,10 +246,10 @@ class ClientBuilder
      */
     public function setConnectionPool($connectionPool, array $args = []): ClientBuilder
     {
-        if (is_string($connectionPool)) {
+        if (\is_string($connectionPool)) {
             $this->connectionPool = $connectionPool;
             $this->connectionPoolArgs = $args;
-        } elseif (is_object($connectionPool)) {
+        } elseif (\is_object($connectionPool)) {
             $this->connectionPool = $connectionPool;
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object extending AbstractConnectionPool");
@@ -343,7 +343,7 @@ class ClientBuilder
         }
 
         $this->connectionParams['client']['headers']['Authorization'] = [
-            'ApiKey ' . base64_encode($id . ':' . $apiKey)
+            'ApiKey ' . \base64_encode($id . ':' . $apiKey)
         ];
 
         return $this;
@@ -470,7 +470,7 @@ class ClientBuilder
     {
         $this->buildLoggers();
 
-        if (is_null($this->handler)) {
+        if (\is_null($this->handler)) {
             $this->handler = ClientBuilder::defaultHandler();
         }
 
@@ -485,7 +485,7 @@ class ClientBuilder
             $sslOptions['verify'] = $this->sslVerification;
         }
 
-        if (!is_null($sslOptions)) {
+        if (!\is_null($sslOptions)) {
             $sslHandler = function (callable $handler, array $sslOptions) {
                 return function (array $request) use ($handler, $sslOptions) {
                     // Add our custom headers
@@ -500,14 +500,14 @@ class ClientBuilder
             $this->handler = $sslHandler($this->handler, $sslOptions);
         }
 
-        if (is_null($this->serializer)) {
+        if (\is_null($this->serializer)) {
             $this->serializer = new SmartSerializer();
-        } elseif (is_string($this->serializer)) {
+        } elseif (\is_string($this->serializer)) {
             $this->serializer = new $this->serializer;
         }
 
-        if (is_null($this->connectionFactory)) {
-            if (is_null($this->connectionParams)) {
+        if (\is_null($this->connectionFactory)) {
+            if (\is_null($this->connectionParams)) {
                 $this->connectionParams = [];
             }
 
@@ -526,19 +526,19 @@ class ClientBuilder
             $this->connectionFactory = new ConnectionFactory($this->handler, $this->connectionParams, $this->serializer, $this->logger, $this->tracer);
         }
 
-        if (is_null($this->hosts)) {
+        if (\is_null($this->hosts)) {
             $this->hosts = $this->getDefaultHost();
         }
 
-        if (is_null($this->selector)) {
+        if (\is_null($this->selector)) {
             $this->selector = new RoundRobinSelector();
-        } elseif (is_string($this->selector)) {
+        } elseif (\is_string($this->selector)) {
             $this->selector = new $this->selector;
         }
 
         $this->buildTransport();
 
-        if (is_null($this->endpoint)) {
+        if (\is_null($this->endpoint)) {
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($serializer) {
@@ -569,11 +569,11 @@ class ClientBuilder
 
     private function buildLoggers(): void
     {
-        if (is_null($this->logger)) {
+        if (\is_null($this->logger)) {
             $this->logger = new NullLogger();
         }
 
-        if (is_null($this->tracer)) {
+        if (\is_null($this->tracer)) {
             $this->tracer = new NullLogger();
         }
     }
@@ -582,14 +582,14 @@ class ClientBuilder
     {
         $connections = $this->buildConnectionsFromHosts($this->hosts);
 
-        if (is_string($this->connectionPool)) {
+        if (\is_string($this->connectionPool)) {
             $this->connectionPool = new $this->connectionPool(
                 $connections,
                 $this->selector,
                 $this->connectionFactory,
                 $this->connectionPoolArgs
             );
-        } elseif (is_null($this->connectionPool)) {
+        } elseif (\is_null($this->connectionPool)) {
             $this->connectionPool = new StaticNoPingConnectionPool(
                 $connections,
                 $this->selector,
@@ -598,20 +598,20 @@ class ClientBuilder
             );
         }
 
-        if (is_null($this->retries)) {
-            $this->retries = count($connections);
+        if (\is_null($this->retries)) {
+            $this->retries = \count($connections);
         }
 
-        if (is_null($this->transport)) {
+        if (\is_null($this->transport)) {
             $this->transport = new Transport($this->retries, $this->connectionPool, $this->logger, $this->sniffOnStart);
         }
     }
 
     private function parseStringOrObject($arg, &$destination, $interface): void
     {
-        if (is_string($arg)) {
+        if (\is_string($arg)) {
             $destination = new $arg;
-        } elseif (is_object($arg)) {
+        } elseif (\is_object($arg)) {
             $destination = $arg;
         } else {
             throw new InvalidArgumentException("Serializer must be a class path or instantiated object implementing $interface");
@@ -631,14 +631,14 @@ class ClientBuilder
     {
         $connections = [];
         foreach ($hosts as $host) {
-            if (is_string($host)) {
+            if (\is_string($host)) {
                 $host = $this->prependMissingScheme($host);
                 $host = $this->extractURIParts($host);
-            } elseif (is_array($host)) {
+            } elseif (\is_array($host)) {
                 $host = $this->normalizeExtendedHost($host);
             } else {
-                $this->logger->error("Could not parse host: ".print_r($host, true));
-                throw new RuntimeException("Could not parse host: ".print_r($host, true));
+                $this->logger->error("Could not parse host: ".\print_r($host, true));
+                throw new RuntimeException("Could not parse host: ".\print_r($host, true));
             }
 
             $connections[] = $this->connectionFactory->create($host);
@@ -653,8 +653,8 @@ class ClientBuilder
     private function normalizeExtendedHost(array $host): array
     {
         if (isset($host['host']) === false) {
-            $this->logger->error("Required 'host' was not defined in extended format: ".print_r($host, true));
-            throw new RuntimeException("Required 'host' was not defined in extended format: ".print_r($host, true));
+            $this->logger->error("Required 'host' was not defined in extended format: ".\print_r($host, true));
+            throw new RuntimeException("Required 'host' was not defined in extended format: ".\print_r($host, true));
         }
 
         if (isset($host['scheme']) === false) {
@@ -671,7 +671,7 @@ class ClientBuilder
      */
     private function extractURIParts(string $host): array
     {
-        $parts = parse_url($host);
+        $parts = \parse_url($host);
 
         if ($parts === false) {
             throw new InvalidArgumentException("Could not parse URI");
@@ -686,7 +686,7 @@ class ClientBuilder
 
     private function prependMissingScheme(string $host): string
     {
-        if (!preg_match("/^https?:\/\//", $host)) {
+        if (!\preg_match("/^https?:\/\//", $host)) {
             $host = 'http://' . $host;
         }
 
@@ -705,9 +705,9 @@ class ClientBuilder
     private function parseElasticCloudId(string $cloudId): string
     {
         try {
-            list($name, $encoded) = explode(':', $cloudId);
-            list($uri, $uuids)    = explode('$', base64_decode($encoded));
-            list($es,)            = explode(':', $uuids);
+            list($name, $encoded) = \explode(':', $cloudId);
+            list($uri, $uuids)    = \explode('$', \base64_decode($encoded));
+            list($es,)            = \explode(':', $uuids);
 
             return $es . '.' . $uri;
         } catch (\Throwable $t) {

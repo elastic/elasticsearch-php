@@ -27,7 +27,7 @@ class Rollover extends AbstractEndpoint
             return $this;
         }
 
-        $this->alias = urlencode($alias);
+        $this->alias = \urlencode($alias);
         return $this;
     }
 
@@ -37,7 +37,7 @@ class Rollover extends AbstractEndpoint
             return $this;
         }
 
-        $this->newIndex = urlencode($newIndex);
+        $this->newIndex = \urlencode($newIndex);
         return $this;
     }
 

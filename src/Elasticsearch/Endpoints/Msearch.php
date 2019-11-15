@@ -35,7 +35,7 @@ class Msearch extends AbstractEndpoint
             return $this;
         }
 
-        if (is_array($body) === true) {
+        if (\is_array($body) === true) {
             $bulkBody = "";
             foreach ($body as $item) {
                 $bulkBody .= $this->serializer->serialize($item)."\n";

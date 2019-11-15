@@ -60,7 +60,7 @@ class ClearScroll extends AbstractEndpoint
         if (isset($this->body)) {
             return $this->body;
         }
-        if (is_array($this->scrollId)) {
+        if (\is_array($this->scrollId)) {
             return ['scroll_id' => $this->scrollId];
         }
         return ['scroll_id' => [$this->scrollId]];

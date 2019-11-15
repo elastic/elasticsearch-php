@@ -39,7 +39,7 @@ abstract class AbstractNamespace
      */
     public function extractArgument(array &$params, string $arg)
     {
-        if (array_key_exists($arg, $params) === true) {
+        if (\array_key_exists($arg, $params) === true) {
             $val = $params[$arg];
             unset($params[$arg]);
             return $val;

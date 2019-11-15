@@ -139,7 +139,7 @@ class Transport
     {
         $response = null;
         $async = isset($options['client']['future']) ? $options['client']['future'] : null;
-        if (is_null($async) || $async === false) {
+        if (\is_null($async) || $async === false) {
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);

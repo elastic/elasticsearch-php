@@ -117,12 +117,12 @@ abstract class AbstractEndpoint
             return $this;
         }
 
-        if (is_array($index) === true) {
-            $index = array_map('trim', $index);
-            $index = implode(",", $index);
+        if (\is_array($index) === true) {
+            $index = \array_map('trim', $index);
+            $index = \implode(",", $index);
         }
 
-        $this->index = urlencode($index);
+        $this->index = \urlencode($index);
 
         return $this;
     }
@@ -145,12 +145,12 @@ abstract class AbstractEndpoint
             return $this;
         }
 
-        if (is_array($type) === true) {
-            $type = array_map('trim', $type);
-            $type = implode(",", $type);
+        if (\is_array($type) === true) {
+            $type = \array_map('trim', $type);
+            $type = \implode(",", $type);
         }
 
-        $this->type = urlencode($type);
+        $this->type = \urlencode($type);
 
         return $this;
     }
@@ -166,11 +166,11 @@ abstract class AbstractEndpoint
             return $this;
         }
 
-        if (is_int($docID)) {
+        if (\is_int($docID)) {
             $docID = (string) $docID;
         }
 
-        $this->id = urlencode($docID);
+        $this->id = \urlencode($docID);
 
         return $this;
     }
@@ -189,9 +189,9 @@ abstract class AbstractEndpoint
         $uri[] = $this->getOptionalIndex();
         $uri[] = $this->getOptionalType();
         $uri[] = $endpoint;
-        $uri =  array_filter($uri);
+        $uri =  \array_filter($uri);
 
-        return '/' . implode('/', $uri);
+        return '/' . \implode('/', $uri);
     }
 
     private function getOptionalIndex(): string
@@ -223,20 +223,20 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge(
+        $whitelist = \array_merge(
             $this->getParamWhitelist(),
             [ 'pretty', 'human', 'error_trace', 'source', 'filter_path', 'opaqueId' ]
         );
 
-        $invalid = array_diff(array_keys($params), $whitelist);
-        if (count($invalid) > 0) {
-            sort($invalid);
-            sort($whitelist);
+        $invalid = \array_diff(\array_keys($params), $whitelist);
+        if (\count($invalid) > 0) {
+            \sort($invalid);
+            \sort($whitelist);
             throw new UnexpectedValueException(
-                sprintf(
-                    (count($invalid) > 1 ? '"%s" are not valid parameters.' : '"%s" is not a valid parameter.').' Allowed parameters are "%s"',
-                    implode('", "', $invalid),
-                    implode('", "', $whitelist)
+                \sprintf(
+                    (\count($invalid) > 1 ? '"%s" are not valid parameters.' : '"%s" is not a valid parameter.').' Allowed parameters are "%s"',
+                    \implode('", "', $invalid),
+                    \implode('", "', $whitelist)
                 )
             );
         }
@@ -254,7 +254,7 @@ abstract class AbstractEndpoint
                 if (isset($params['client']['headers']) === false) {
                     $params['client']['headers'] = [];
                 }
-                $params['client']['headers']['x-opaque-id'] = [trim($params['client']['opaqueId'])];
+                $params['client']['headers']['x-opaque-id'] = [\trim($params['client']['opaqueId'])];
                 unset($params['client']['opaqueId']);
             }
 
@@ -263,9 +263,9 @@ abstract class AbstractEndpoint
         }
         $ignore = isset($this->options['client']['ignore']) ? $this->options['client']['ignore'] : null;
         if (isset($ignore) === true) {
-            if (is_string($ignore)) {
-                $this->options['client']['ignore'] = explode(",", $ignore);
-            } elseif (is_array($ignore)) {
+            if (\is_string($ignore)) {
+                $this->options['client']['ignore'] = \explode(",", $ignore);
+            } elseif (\is_array($ignore)) {
                 $this->options['client']['ignore'] = $ignore;
             } else {
                 $this->options['client']['ignore'] = [$ignore];
@@ -288,9 +288,9 @@ abstract class AbstractEndpoint
     private function convertArraysToStrings(array $params): array
     {
         foreach ($params as $key => &$value) {
-            if (!($key === 'client' || $key == 'custom') && is_array($value) === true) {
+            if (!($key === 'client' || $key == 'custom') && \is_array($value) === true) {
                 if ($this->isNestedArray($value) !== true) {
-                    $value = implode(",", $value);
+                    $value = \implode(",", $value);
                 }
             }
         }
@@ -301,7 +301,7 @@ abstract class AbstractEndpoint
     private function isNestedArray(array $a): bool
     {
         foreach ($a as $v) {
-            if (is_array($v)) {
+            if (\is_array($v)) {
                 return true;
             }
         }

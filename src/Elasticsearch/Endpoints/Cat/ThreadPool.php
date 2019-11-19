@@ -18,22 +18,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ThreadPool extends AbstractEndpoint
 {
-<<<<<<< HEAD
     protected $thread_pool_patterns;
-=======
-    /**
-     * @var string
-     */
-    protected $threadPoolPatterns;
-
-    public function setThreadPoolPatterns(?string $threadPoolPatterns): ThreadPool
-    {
-        if ($threadPoolPatterns !== null) {
-            $this->threadPoolPatterns = $threadPoolPatterns;
-        }
-        return $this;
-    }
->>>>>>> elasticsearch-php/master
 
     public function getURI(): string
     {

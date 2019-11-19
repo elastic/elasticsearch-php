@@ -37,4 +37,6 @@ include::breaking-changes.asciidoc[]
 
 include::community.asciidoc[]
 
+include::experimental-beta-apis.asciidoc[]
+
 include::build/classes.asciidoc[]

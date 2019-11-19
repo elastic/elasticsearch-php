@@ -6,8 +6,6 @@
 - When `delete` with an empty `id` an `Elasticsearch\Common\Exceptions\RuntimeException\Missing404Exception`
   exception is thrown. Previously it was a `Elasticsearch\Common\Exceptions\RuntimeException\InvalidArgumentException`.
 
-
-
 # 7.0
 
 - Requirement of PHP 7.1 instead of 7.0 that is not supported since 1 Jan 2019.

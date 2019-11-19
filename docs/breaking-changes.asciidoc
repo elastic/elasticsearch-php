@@ -1,6 +1,13 @@
 [[breaking_changes]]
 == Breaking changes from 6.x
 
+### E_USER_DEPRECATED notice when using deprecated parameters
+
+Starting from elasticsearch-php 7.4.0, we generate a PHP [E_USER_DEPRECATED](https://www.php.net/manual/en/errorfunc.constants.php)
+notice every time you use a deprecated parameters for Elasticsearch.
+We decided to add this notice to facilitate the code refactoring with the
+new API specification of Elasticsearch (e.g. the usage of typeless APIs, see below).
+
 ### Moving from types to typeless APIs in Elasticsearch 7.0
 
 Elasticsearch 7.0 deprecated APIs that accept types, introduced new typeless

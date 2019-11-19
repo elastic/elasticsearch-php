@@ -32,7 +32,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.4.2';
+    const VERSION = '7.4.0';
 
     /**
      * @var Transport
@@ -123,7 +123,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html
      */
-
     public function bulk(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -138,7 +137,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['scroll_id'] = DEPRECATED (list) A comma-separated list of scroll IDs to clear
      * $params['body']      = (array) A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
      *
@@ -146,7 +147,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#_clear_scroll_api
      */
-
     public function clearScroll(array $params = [])
     {
         $scroll_id = $this->extractArgument($params, 'scroll_id');
@@ -159,7 +159,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
      * $params['type']               = DEPRECATED (list) A comma-separated list of types to restrict the results
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -182,7 +184,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html
      */
-
     public function count(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -197,7 +198,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -214,7 +217,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
      */
-
     public function create(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -231,7 +233,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['id']                     = (string) The document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -248,7 +252,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html
      */
-
     public function delete(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -263,7 +266,9 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyze_wildcard']       = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
@@ -304,7 +309,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html
      */
-
     public function deleteByQuery(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -319,7 +323,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
@@ -327,7 +333,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html
      */
-
     public function deleteByQueryRethrottle(array $params = [])
     {
         $task_id = $this->extractArgument($params, 'task_id');
@@ -338,7 +343,9 @@ class Client
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['id']             = (string) Script ID
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['master_timeout'] = (time) Specify timeout for connection to master
@@ -347,7 +354,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
-
     public function deleteScript(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -358,7 +364,9 @@ class Client
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document (use `_all` to fetch the first document matching the ID across all types)
@@ -377,7 +385,6 @@ class Client
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
-
     public function exists(array $params = []): bool
     {
         $id = $this->extractArgument($params, 'id');
@@ -396,6 +403,7 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
+    
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -414,7 +422,6 @@ class Client
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
-
     public function existsSource(array $params = []): bool
     {
         $id = $this->extractArgument($params, 'id');
@@ -433,6 +440,7 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
+
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -455,7 +463,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html
      */
-
     public function explain(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -472,7 +479,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      * $params['fields']             = (list) A comma-separated list of field names
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -484,7 +493,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html
      */
-
     public function fieldCaps(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -495,7 +503,9 @@ class Client
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document (use `_all` to fetch the first document matching the ID across all types)
@@ -514,7 +524,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
-
     public function get(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -529,7 +538,9 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['id']             = (string) Script ID
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
@@ -537,7 +548,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
-
     public function getScript(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -548,7 +558,9 @@ class Client
         $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document; deprecated and optional starting with 7.0
@@ -566,7 +578,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
      */
-
     public function getSource(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -581,7 +592,9 @@ class Client
         $endpoint->setType($type);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']                     = (string) Document ID
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -601,7 +614,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
      */
-
     public function index(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -618,13 +630,14 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      *
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
      */
-
     public function info(array $params = [])
     {
 
@@ -633,7 +646,9 @@ class Client
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['index']            = (string) The name of the index
      * $params['type']             = DEPRECATED (string) The type of the document
      * $params['stored_fields']    = (list) A comma-separated list of stored fields to return in the response
@@ -650,7 +665,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html
      */
-
     public function mget(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -665,7 +679,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']                         = (list) A comma-separated list of index names to use as default
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to use as default
      * $params['search_type']                   = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
@@ -681,7 +697,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html
      */
-
     public function msearch(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -696,7 +711,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']                   = (list) A comma-separated list of index names to use as default
      * $params['type']                    = DEPRECATED (list) A comma-separated list of document types to use as default
      * $params['search_type']             = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
@@ -709,7 +726,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
      */
-
     public function msearchTemplate(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -724,7 +740,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']            = (string) The index in which the document resides.
      * $params['type']             = DEPRECATED (string) The type of the document.
      * $params['ids']              = (list) A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
@@ -745,7 +763,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html
      */
-
     public function mtermvectors(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -760,13 +777,14 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      *
      * @param array $params Associative array of parameters
      * @return bool
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
      */
-
     public function ping(array $params = []): bool
     {
 
@@ -779,6 +797,7 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
+
     /**
      * $params['id']             = (string) Script ID (Required)
      * $params['context']        = (string) Script context
@@ -790,7 +809,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      */
-
     public function putScript(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -805,7 +823,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
@@ -819,7 +839,6 @@ class Client
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
      */
-
     public function rankEval(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -832,7 +851,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
@@ -847,7 +868,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
      */
-
     public function reindex(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
@@ -858,7 +878,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
@@ -866,7 +888,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
      */
-
     public function reindexRethrottle(array $params = [])
     {
         $task_id = $this->extractArgument($params, 'task_id');
@@ -877,7 +898,9 @@ class Client
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']   = (string) The id of the stored search template
      * $params['body'] = (array) The search definition template and its params
      *
@@ -885,7 +908,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html#_validating_templates
      */
-
     public function renderSearchTemplate(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -898,7 +920,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+
+    /**
      * $params['body'] = (array) The script to execute
      *
      * @param array $params Associative array of parameters
@@ -908,7 +932,6 @@ class Client
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
      */
-
     public function scriptsPainlessExecute(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
@@ -919,7 +942,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['scroll_id']              = DEPRECATED (string) The scroll ID
      * $params['scroll']                 = (time) Specify how long a consistent view of the index should be maintained for scrolled search
      * $params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
@@ -929,7 +954,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll
      */
-
     public function scroll(array $params = [])
     {
         $scroll_id = $this->extractArgument($params, 'scroll_id');
@@ -942,7 +966,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']                         = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyzer']                      = (string) The analyzer to use for the query string
@@ -993,7 +1019,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
      */
-
     public function search(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -1008,7 +1033,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
      * $params['routing']            = (string) Specific routing value
@@ -1021,7 +1048,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html
      */
-
     public function searchShards(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -1032,7 +1058,9 @@ class Client
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -1053,7 +1081,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html
      */
-
     public function searchTemplate(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -1068,7 +1095,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']            = (string) The index in which the document resides. (Required)
      * $params['id']               = (string) The id of the document, when not specified a doc param should be supplied.
      * $params['type']             = DEPRECATED (string) The type of the document.
@@ -1089,7 +1118,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html
      */
-
     public function termvectors(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -1106,7 +1134,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
@@ -1127,7 +1157,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html
      */
-
     public function update(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
@@ -1144,7 +1173,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
      * $params['analyzer']               = (string) The analyzer to use for the query string
@@ -1188,7 +1219,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html
      */
-
     public function updateByQuery(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -1203,7 +1233,9 @@ class Client
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    
+    /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
      *
@@ -1211,7 +1243,6 @@ class Client
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
      */
-
     public function updateByQueryRethrottle(array $params = [])
     {
         $task_id = $this->extractArgument($params, 'task_id');
@@ -1228,31 +1259,36 @@ class Client
     {
         return $this->cat;
     }
+
     public function cluster(): ClusterNamespace
     {
         return $this->cluster;
     }
+
     public function indices(): IndicesNamespace
     {
         return $this->indices;
     }
+
     public function ingest(): IngestNamespace
     {
         return $this->ingest;
     }
+
     public function nodes(): NodesNamespace
     {
         return $this->nodes;
     }
+
     public function snapshot(): SnapshotNamespace
     {
         return $this->snapshot;
     }
+
     public function tasks(): TasksNamespace
     {
         return $this->tasks;
     }
-
 
     /**
      * Catchall for registered namespaces

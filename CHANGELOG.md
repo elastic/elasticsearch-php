@@ -1,6 +1,19 @@
 ## Release 7.4.0
 
-
+- Added the code generation for endpoints and namespaces based on
+  the [REST API specification](https://github.com/elastic/elasticsearch/tree/v7.4.2/rest-api-spec/src/main/resources/rest-api-spec/api)
+  of Elasticsearch. This tool is available in `util/GenerateEndpoints.php`.
+  [#966](https://github.com/elastic/elasticsearch-php/pull/966)
+- Fixed the asciidoc [endpoints documentation](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/ElasticsearchPHP_Endpoints.html) based on the code generation 
+  using [Sami](https://github.com/FriendsOfPHP/Sami) project
+  [#966](https://github.com/elastic/elasticsearch-php/pull/966)
+- All the `experimental` and `beta` APIs are now signed with
+  a `@note` tag in the phpdoc section (e.g. [$client->rankEval()](https://github.com/elastic/elasticsearch-php/blob/master/src/Elasticsearch/Client.php)). For more information read the [experimental and beta APIs](docs/experimental-beta-apis.asciidoc)
+  section in the documentation.
+  [#966](https://github.com/elastic/elasticsearch-php/pull/966)
+- Removed `AlreadyExpiredException` since it has been removed
+  from Elasticsearch with https://github.com/elastic/elasticsearch/pull/24857
+  [#954](https://github.com/elastic/elasticsearch-php/pull/954)
 
 ## Release 7.3.0
 

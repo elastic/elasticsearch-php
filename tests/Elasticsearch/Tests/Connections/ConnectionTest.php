@@ -12,8 +12,17 @@ use Psr\Log\LoggerInterface;
 
 class ConnectionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
+     */
     private $logger;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
+     */
     private $trace;
+    /**
+     * @var \Elasticsearch\Serializers\SerializerInterface&\PHPUnit\Framework\MockObject\MockObject
+     */
     private $serializer;
 
     protected function setUp()

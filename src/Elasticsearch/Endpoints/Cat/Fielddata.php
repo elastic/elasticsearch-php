@@ -17,6 +17,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Fielddata extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     private $fields;
 
     public function setFields(?string $fields): Fielddata

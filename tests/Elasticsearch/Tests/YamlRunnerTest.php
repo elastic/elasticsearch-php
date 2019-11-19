@@ -65,13 +65,22 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         ],
     ];
 
+    /**
+     * @var mixed[]
+     */
     private static $skippedTests = [
     ];
 
+    /**
+     * @var string[]
+     */
     private static $skippedTestNames = [
         'test distance_feature query on date_nanos type'
     ];
 
+    /**
+     * @var mixed[]
+     */
     private static $skippedTestsIfPhpLessThan = [
     ];
     /**

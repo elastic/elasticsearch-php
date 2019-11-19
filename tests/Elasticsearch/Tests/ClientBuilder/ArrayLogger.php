@@ -8,6 +8,9 @@ use Psr\Log\LogLevel;
 
 class ArrayLogger implements LoggerInterface
 {
+    /**
+     * @var mixed[]
+     */
     public $output = [];
 
     public function emergency($message, array $context = array())

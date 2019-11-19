@@ -18,6 +18,9 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Cancel extends AbstractEndpoint
 {
+    /**
+     * @var string
+     */
     private $taskId;
 
     /**

@@ -18,7 +18,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Templates extends AbstractEndpoint
 {
+<<<<<<< HEAD
     protected $name;
+=======
+    /**
+     * @var string|null
+     */
+    private $name;
+
+    public function setName(?string $name): Templates
+    {
+        $this->name = $name;
+        return $this;
+    }
+>>>>>>> elasticsearch-php/master
 
     public function getURI(): string
     {

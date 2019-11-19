@@ -27,6 +27,9 @@ class JsonErrorException extends \Exception implements ElasticsearchException
      */
     private $result;
 
+    /**
+     * @var string[]
+     */
     private static $messages = array(
         JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
         JSON_ERROR_STATE_MISMATCH => 'Invalid or malformed JSON',

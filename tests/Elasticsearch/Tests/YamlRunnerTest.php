@@ -62,9 +62,15 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     private static $endpointMapping = [
     ];
 
+    /**
+     * @var mixed[]
+     */
     private static $skippedTests = [
     ];
 
+    /**
+     * @var string[]
+     */
     private static $skippedTestNames = [
         'test distance_feature query on date_nanos type',
         'cluster health with closed index (pre 7.2.0)',
@@ -72,6 +78,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         'Test cat indices output for closed index (pre 7.2.0)' // regex issue in cat.indices/10_basic.yml
     ];
 
+    /**
+     * @var mixed[]
+     */
     private static $skippedTestsIfPhpLessThan = [
     ];
     /**

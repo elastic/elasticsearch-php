@@ -18,7 +18,25 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Snapshots extends AbstractEndpoint
 {
+<<<<<<< HEAD
     protected $repository;
+=======
+    /**
+     * @var string
+     */
+    private $repository;
+
+    public function setRepository(?string $repository): Snapshots
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+
+        $this->repository = $repository;
+
+        return $this;
+    }
+>>>>>>> elasticsearch-php/master
 
     public function getURI(): string
     {

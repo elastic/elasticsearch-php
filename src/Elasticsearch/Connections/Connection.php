@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Elasticsearch\Connections;
 
 use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
 use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
@@ -110,6 +109,9 @@ class Connection implements ConnectionInterface
      */
     private $failedPings = 0;
 
+    /**
+     * @var mixed[]
+     */
     private $lastRequest = array();
 
     /**
@@ -611,9 +613,7 @@ class Connection implements ConnectionInterface
             $responseBody = json_encode($responseBody);
         }
 
-        if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
-            $exception = new AlreadyExpiredException($responseBody, $statusCode);
-        } elseif ($statusCode === 403) {
+        if ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
             $exception = new Missing404Exception($responseBody, $statusCode);

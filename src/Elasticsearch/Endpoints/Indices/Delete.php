@@ -1,34 +1,33 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Delete
+ * Elasticsearch API name indices.delete
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Delete extends AbstractEndpoint
 {
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
+
     public function getURI(): string
     {
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Delete'
-            );
+        $index = $this->index ?? null;
+
+        if (isset($index)) {
+            return "/$index";
         }
-        return "/{$this->index}";
+        throw new RuntimeException('Missing parameter for the endpoint indices.delete');
     }
 
     public function getParamWhitelist(): array

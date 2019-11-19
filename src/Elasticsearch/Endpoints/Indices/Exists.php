@@ -1,34 +1,33 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Exists
+ * Elasticsearch API name indices.exists
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Exists extends AbstractEndpoint
 {
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
+
     public function getURI(): string
     {
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Exists'
-            );
+        $index = $this->index ?? null;
+
+        if (isset($index)) {
+            return "/$index";
         }
-        return "/{$this->index}";
+        throw new RuntimeException('Missing parameter for the endpoint indices.exists');
     }
 
     public function getParamWhitelist(): array

@@ -1,3 +1,7 @@
+## Release 7.4.0
+
+
+
 ## Release 7.3.0
 
 - Added support for simplified access to the `X-Opaque-Id` header

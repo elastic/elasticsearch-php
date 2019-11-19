@@ -1,57 +1,38 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Serializers\SerializerInterface;
+use Traversable;
 
 /**
  * Class MsearchTemplate
+ * Elasticsearch API name msearch_template
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class MsearchTemplate extends AbstractEndpoint
 {
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-    }
-
-    /**
-     * @param array|string $body
-     */
-    public function setBody($body): MsearchTemplate
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-        if (is_array($body) === true) {
-            $bulkBody = "";
-            foreach ($body as $item) {
-                $bulkBody .= $this->serializer->serialize($item)."\n";
-            }
-            $body = $bulkBody;
-        }
-
-        $this->body = $body;
-
-        return $this;
     }
 
     public function getURI(): string
     {
         $index = $this->index ?? null;
         $type = $this->type ?? null;
+        if (isset($type)) {
+            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+        }
 
         if (isset($index) && isset($type)) {
             return "/$index/$type/_msearch/template";
@@ -68,25 +49,32 @@ class MsearchTemplate extends AbstractEndpoint
             'search_type',
             'typed_keys',
             'max_concurrent_searches',
-            'rest_total_hits_as_int',
-            'ccs_minimize_roundtrips'
+            'rest_total_hits_as_int'
         ];
-    }
-
-    /**
-     * @throws RuntimeException
-     */
-    public function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new RuntimeException('Body is required for MSearch');
-        }
-
-        return $this->body;
     }
 
     public function getMethod(): string
     {
-        return 'POST';
+        return isset($this->body) ? 'POST' : 'GET';
+    }
+    
+    public function setBody($body): MsearchTemplate
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        if (is_array($body) === true || $body instanceof Traversable) {
+            foreach ($body as $item) {
+                $this->body .= $this->serializer->serialize($item) . "\n";
+            }
+        } elseif (is_string($body)) {
+            $this->body = $body;
+            if (substr($body, -1) != "\n") {
+                $this->body .= "\n";
+            }
+        } else {
+            throw new InvalidArgumentException("Body must be an array, traversable object or string");
+        }
+        return $this;
     }
 }

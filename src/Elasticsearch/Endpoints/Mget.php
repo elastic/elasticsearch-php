@@ -1,37 +1,31 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Mget
+ * Elasticsearch API name mget
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Mget extends AbstractEndpoint
 {
-    public function setBody($body): Mget
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-        $this->body = $body;
-
-        return $this;
-    }
 
     public function getURI(): string
     {
         $index = $this->index ?? null;
         $type = $this->type ?? null;
+        if (isset($type)) {
+            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+        }
 
         if (isset($index) && isset($type)) {
             return "/$index/$type/_mget";
@@ -39,7 +33,7 @@ class Mget extends AbstractEndpoint
         if (isset($index)) {
             return "/$index/_mget";
         }
-        return '/_mget';
+        return "/_mget";
     }
 
     public function getParamWhitelist(): array
@@ -56,20 +50,18 @@ class Mget extends AbstractEndpoint
         ];
     }
 
-    /**
-     * @throws RuntimeException
-     */
-    public function getBody()
-    {
-        if (isset($this->body) !== true) {
-            throw new RuntimeException('Body is required for MGet');
-        }
-
-        return $this->body;
-    }
-
     public function getMethod(): string
     {
         return isset($this->body) ? 'POST' : 'GET';
+    }
+
+    public function setBody($body): Mget
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
     }
 }

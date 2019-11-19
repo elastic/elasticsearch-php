@@ -1,49 +1,54 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Exists
+ * Elasticsearch API name exists
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Exists extends AbstractEndpoint
 {
-    /**
-     * @throws RuntimeException
-     */
+
     public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new RuntimeException(
-                'id is required for Exists'
-            );
-        }
-        if (isset($this->index) !== true) {
-            throw new RuntimeException(
-                'index is required for Exists'
+                'id is required for exists'
             );
         }
         $id = $this->id;
+        if (isset($this->index) !== true) {
+            throw new RuntimeException(
+                'index is required for exists'
+            );
+        }
         $index = $this->index;
-        $type = $this->type ?? '_doc';
+        $type = $this->type ?? null;
+        if (isset($type)) {
+            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+        }
 
-        return "/$index/$type/$id";
+        if (isset($type)) {
+            return "/$index/$type/$id";
+        }
+        return "/$index/_doc/$id";
     }
 
     public function getParamWhitelist(): array
     {
         return [
             'stored_fields',
-            'parent',
             'preference',
             'realtime',
             'refresh',
@@ -59,5 +64,15 @@ class Exists extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'HEAD';
+    }
+
+    public function setId($id): Exists
+    {
+        if (isset($id) !== true) {
+            return $this;
+        }
+        $this->id = $id;
+
+        return $this;
     }
 }

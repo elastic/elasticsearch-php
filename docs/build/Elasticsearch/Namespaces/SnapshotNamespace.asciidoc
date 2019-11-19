@@ -6,12 +6,14 @@
 
 
 Class SnapshotNamespace
+Generated running $ php util/GenerateEndpoints.php 7.4.2
 
 
 *Methods*
 
 The class defines the following methods:
 
+* <<Elasticsearch_Namespaces_SnapshotNamespacecleanupRepository_cleanupRepository,`cleanupRepository()`>>
 * <<Elasticsearch_Namespaces_SnapshotNamespacecreate_create,`create()`>>
 * <<Elasticsearch_Namespaces_SnapshotNamespacecreateRepository_createRepository,`createRepository()`>>
 * <<Elasticsearch_Namespaces_SnapshotNamespacedelete_delete,`delete()`>>
@@ -24,15 +26,39 @@ The class defines the following methods:
 
 
 
+[[Elasticsearch_Namespaces_SnapshotNamespacecleanupRepository_cleanupRepository]]
+.`cleanupRepository()`
+****
+[source,php]
+----
+/*
+$params['repository']     = (string) A repository name
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['timeout']        = (time) Explicit operation timeout
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->snapshot()->cleanupRepository($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_SnapshotNamespacecreate_create]]
 .`create()`
 ****
 [source,php]
 ----
 /*
-$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
-       ['body']  = (array) Request body
+$params['repository']          = (string) A repository name
+$params['snapshot']            = (string) A snapshot name
+$params['master_timeout']      = (time) Explicit operation timeout for connection to master node
+$params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
+$params['body']                = (array) The snapshot definition
 */
 
 $params = [
@@ -52,9 +78,11 @@ $response = $client->snapshot()->create($params);
 [source,php]
 ----
 /*
+$params['repository']     = (string) A repository name
 $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
+$params['timeout']        = (time) Explicit operation timeout
+$params['verify']         = (boolean) Whether to verify the repository after creation
+$params['body']           = (array) The repository definition (Required)
 */
 
 $params = [
@@ -74,8 +102,9 @@ $response = $client->snapshot()->createRepository($params);
 [source,php]
 ----
 /*
+$params['repository']     = (string) A repository name
+$params['snapshot']       = (string) A snapshot name
 $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['body']  = (array) Request body
 */
 
 $params = [
@@ -95,9 +124,9 @@ $response = $client->snapshot()->delete($params);
 [source,php]
 ----
 /*
+$params['repository']     = (list) A comma-separated list of repository names
 $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
+$params['timeout']        = (time) Explicit operation timeout
 */
 
 $params = [
@@ -117,8 +146,11 @@ $response = $client->snapshot()->deleteRepository($params);
 [source,php]
 ----
 /*
-$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['body']  = (array) Request body
+$params['repository']         = (string) A repository name
+$params['snapshot']           = (list) A comma-separated list of snapshot names
+$params['master_timeout']     = (time) Explicit operation timeout for connection to master node
+$params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
+$params['verbose']            = (boolean) Whether to show verbose snapshot info or only show the basic info found in the repository index blob
 */
 
 $params = [
@@ -138,9 +170,9 @@ $response = $client->snapshot()->get($params);
 [source,php]
 ----
 /*
+$params['repository']     = (list) A comma-separated list of repository names
 $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
 */
 
 $params = [
@@ -160,9 +192,11 @@ $response = $client->snapshot()->getRepository($params);
 [source,php]
 ----
 /*
-$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['wait_for_completion'] = (bool) Should this request wait until the operation has completed before returning
-       ['body']  = (array) Request body
+$params['repository']          = (string) A repository name
+$params['snapshot']            = (string) A snapshot name
+$params['master_timeout']      = (time) Explicit operation timeout for connection to master node
+$params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
+$params['body']                = (array) Details of what to restore
 */
 
 $params = [
@@ -182,8 +216,10 @@ $response = $client->snapshot()->restore($params);
 [source,php]
 ----
 /*
-$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['body']  = (array) Request body
+$params['repository']         = (string) A repository name
+$params['snapshot']           = (list) A comma-separated list of snapshot names
+$params['master_timeout']     = (time) Explicit operation timeout for connection to master node
+$params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
 */
 
 $params = [
@@ -203,9 +239,9 @@ $response = $client->snapshot()->status($params);
 [source,php]
 ----
 /*
+$params['repository']     = (string) A repository name
 $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
+$params['timeout']        = (time) Explicit operation timeout
 */
 
 $params = [

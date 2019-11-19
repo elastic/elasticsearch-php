@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
@@ -8,32 +7,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Allocation
+ * Elasticsearch API name cat.allocation
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Allocation extends AbstractEndpoint
 {
-    /**
-     * A comma-separated list of node IDs or names to limit the returned information
-     *
-     * @var string
-     */
-    private $node_id;
-
-    public function setNodeId(?string $node_id): Allocation
-    {
-        if (isset($node_id) !== true) {
-            return $this;
-        }
-
-        $this->node_id = $node_id;
-
-        return $this;
-    }
+    protected $node_id;
 
     public function getURI(): string
     {
@@ -42,7 +27,6 @@ class Allocation extends AbstractEndpoint
         if (isset($node_id)) {
             return "/_cat/allocation/$node_id";
         }
-
         return "/_cat/allocation";
     }
 
@@ -63,5 +47,18 @@ class Allocation extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
+    }
+
+    public function setNodeId($node_id): Allocation
+    {
+        if (isset($node_id) !== true) {
+            return $this;
+        }
+        if (is_array($node_id) === true) {
+            $node_id = implode(",", $node_id);
+        }
+        $this->node_id = $node_id;
+
+        return $this;
     }
 }

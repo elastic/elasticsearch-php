@@ -1,0 +1,21 @@
+<?php
+declare(strict_types = 1);
+
+namespace Elasticsearch\Namespaces;
+
+use Elasticsearch\Namespaces\AbstractNamespace;
+
+/**
+ * Class :namespace
+ * Generated running $ php util/GenerateEndpoints.php :version
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch\Namespaces
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elastic.co
+ */
+class :namespace extends AbstractNamespace
+{
+:endpoints
+}

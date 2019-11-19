@@ -17,18 +17,14 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1
-      env: ES_VERSION="7.3.2"
+      env: ES_VERSION="7.4.2"
     - php: 7.2
-      env: ES_VERSION="7.3.2"
+      env: ES_VERSION="7.4.2"
     - php: 7.3
-      env: ES_VERSION="7.3.2"
-    - php: 7.3
-      env: ES_VERSION="7.2.1"
+      env: ES_VERSION="7.4.2"
     - php: 7.3
       env: ES_VERSION="8.0.0-SNAPSHOT"
   allow_failures:
-    - php: 7.3
-      env: ES_VERSION="7.2.1"  
     - php: 7.3
       env: ES_VERSION="8.0.0-SNAPSHOT"
 

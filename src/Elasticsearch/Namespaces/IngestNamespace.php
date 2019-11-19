@@ -1,172 +1,119 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
-use Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
-use Elasticsearch\Endpoints\Ingest\Simulate;
+use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class IngestNamespace
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\IngestNamespace
- * @author   Zachary Tong <zach@elastic.co>
+ * @package  Elasticsearch\Namespaces
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class IngestNamespace extends AbstractNamespace
 {
     /**
-     * Endpoint: ingest.delete_pipeline
+     * $params['id']             = (string) Pipeline ID
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
      *
+     * @param array $params Associative array of parameters
+     * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
-     *
-     * $params[
-     *   'id'             => '(string) Pipeline ID (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'timeout'        => '(time) Explicit operation timeout',
-     * ]
-     * @return callable|array
      */
+
     public function deletePipeline(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var Delete $endpoint
-*/
-        $endpoint = $endpointBuilder('Ingest\Pipeline\Delete');
-        $endpoint->setID($id);
+        $endpoint = $endpointBuilder('Ingest\DeletePipeline');
         $endpoint->setParams($params);
+        $endpoint->setId($id);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: ingest.get_pipeline
+    }    /**
+     * $params['id']             = (string) Comma separated list of pipeline ids. Wildcards supported
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
+     * @param array $params Associative array of parameters
+     * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
-     *
-     * $params[
-     *   'id'             => '(string) Comma separated list of pipeline ids. Wildcards supported',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     * ]
-     * @return callable|array
      */
+
     public function getPipeline(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Ingest\GetPipeline');
+        $endpoint->setParams($params);
+        $endpoint->setId($id);
 
-        /**
- * @var Get $endpoint
-*/
-        $endpoint = $endpointBuilder('Ingest\Pipeline\Get');
-        $endpoint->setID($id);
+        return $this->performRequest($endpoint);
+    }    /**
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
+     */
+
+    public function processorGrok(array $params = [])
+    {
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Ingest\ProcessorGrok');
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: ingest.put_pipeline
+    }    /**
+     * $params['id']             = (string) Pipeline ID
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
+     * $params['body']           = (array) The ingest definition (Required)
      *
+     * @param array $params Associative array of parameters
+     * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
-     *
-     * $params[
-     *   'body'           => '(string) The ingest definition (Required)',
-     *   'id'             => '(string) Pipeline ID (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'timeout'        => '(time) Explicit operation timeout',
-     * ]
-     * @return callable|array
      */
+
     public function putPipeline(array $params = [])
     {
-        $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var Put $endpoint
-*/
-        $endpoint = $endpointBuilder('Ingest\Pipeline\Put');
-        $endpoint->setID($id)
-            ->setBody($body)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Ingest\PutPipeline');
+        $endpoint->setParams($params);
+        $endpoint->setId($id);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: ingest.simulate
+    }    /**
+     * $params['id']      = (string) Pipeline ID
+     * $params['verbose'] = (boolean) Verbose mode. Display data output for each processor in executed pipeline (Default = false)
+     * $params['body']    = (array) The simulate definition (Required)
      *
+     * @param array $params Associative array of parameters
+     * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
-     *
-     * $params[
-     *   'body'    => '(string) The simulate definition (Required)',
-     *   'id'      => '(string) Pipeline ID',
-     *   'verbose' => '(boolean) Verbose mode. Display data output for each processor in executed pipeline (Default = false)',
-     * ]
-     * @return callable|array
      */
+
     public function simulate(array $params = [])
     {
-        $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var Simulate $endpoint
-*/
         $endpoint = $endpointBuilder('Ingest\Simulate');
-        $endpoint->setID($id)
-            ->setBody($body)
-            ->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: ingest.processor_grok
-     *
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
-     *
-     * @return callable|array
-     */
-    public function processorGrok(array $params = [])
-    {
-        /**
- * @var callable $endpointBuilder
-*/
-        $endpointBuilder = $this->endpoints;
-
-        /**
- * @var ProcessorGrok $endpoint
-*/
-        $endpoint = $endpointBuilder('Ingest\ProcessorGrok');
+        $endpoint->setParams($params);
+        $endpoint->setId($id);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
     }

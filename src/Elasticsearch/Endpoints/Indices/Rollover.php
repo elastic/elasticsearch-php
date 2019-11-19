@@ -1,74 +1,39 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Rollover
+ * Elasticsearch API name indices.rollover
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Rollover extends AbstractEndpoint
 {
-    /**
-     * @var string
-     */
-    private $alias;
-    /**
-     * @var string
-     */
-    private $newIndex;
-
-    public function setAlias(?string $alias): Rollover
-    {
-        if ($alias === null) {
-            return $this;
-        }
-
-        $this->alias = urlencode($alias);
-        return $this;
-    }
-
-    public function setNewIndex(?string $newIndex): Rollover
-    {
-        if ($newIndex === null) {
-            return $this;
-        }
-
-        $this->newIndex = urlencode($newIndex);
-        return $this;
-    }
-
-    public function setBody($body): Rollover
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-
-        $this->body = $body;
-
-        return $this;
-    }
+    protected $alias;
+    protected $new_index;
 
     public function getURI(): string
     {
         if (isset($this->alias) !== true) {
-            throw new Exceptions\RuntimeException(
-                'alias name is required for Rollover'
+            throw new RuntimeException(
+                'alias is required for rollover'
             );
         }
         $alias = $this->alias;
-        $newIndex = $this->newIndex ?? null;
-        if (isset($newIndex)) {
-            return "/$alias/_rollover/$newIndex";
+        $new_index = $this->new_index ?? null;
+
+        if (isset($new_index)) {
+            return "/$alias/_rollover/$new_index";
         }
         return "/$alias/_rollover";
     }
@@ -87,5 +52,35 @@ class Rollover extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'POST';
+    }
+
+    public function setBody($body): Rollover
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
+    }
+
+    public function setAlias($alias): Rollover
+    {
+        if (isset($alias) !== true) {
+            return $this;
+        }
+        $this->alias = $alias;
+
+        return $this;
+    }
+
+    public function setNewIndex($new_index): Rollover
+    {
+        if (isset($new_index) !== true) {
+            return $this;
+        }
+        $this->new_index = $new_index;
+
+        return $this;
     }
 }

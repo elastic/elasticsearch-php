@@ -1,11 +1,14 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
+use Elasticsearch\Endpoints\AbstractEndpoint;
+
 /**
- * Class Reindex
+ * Class RankEval
+ * Elasticsearch API name rank_eval
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -16,6 +19,16 @@ namespace Elasticsearch\Endpoints;
 class RankEval extends AbstractEndpoint
 {
 
+    public function getURI(): string
+    {
+        $index = $this->index ?? null;
+
+        if (isset($index)) {
+            return "/$index/_rank_eval";
+        }
+        return "/_rank_eval";
+    }
+
     public function getParamWhitelist(): array
     {
         return [
@@ -25,26 +38,16 @@ class RankEval extends AbstractEndpoint
         ];
     }
 
-    public function getURI(): string
-    {
-        $index = $this->index ?? null;
-        if (isset($index)) {
-            return "/$index/_rank_eval";
-        }
-        return '/_rank_eval';
-    }
-
     public function getMethod(): string
     {
-        return 'POST';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 
-    public function setBody($body): Reindex
+    public function setBody($body): RankEval
     {
         if (isset($body) !== true) {
             return $this;
         }
-
         $this->body = $body;
 
         return $this;

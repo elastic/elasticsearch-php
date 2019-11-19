@@ -1,41 +1,35 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Get
+ * Elasticsearch API name indices.get
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Get
- * @author   Zachary Tong <zach@elastic.co>
+ * @package  Elasticsearch\Endpoints\Indices
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Get extends AbstractEndpoint
 {
-    private $feature;
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function getURI(): string
     {
-        if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
-                'index is required for Get'
-            );
+        $index = $this->index ?? null;
+
+        if (isset($index)) {
+            return "/$index";
         }
-        return "/{$this->index}";
+        throw new RuntimeException('Missing parameter for the endpoint indices.get');
     }
 
-    /**
-     * @return string[]
-     */
     public function getParamWhitelist(): array
     {
         return [

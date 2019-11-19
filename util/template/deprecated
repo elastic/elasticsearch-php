@@ -1,0 +1,3 @@
+        if (isset($:part)) {
+            trigger_error(':msg', E_USER_DEPRECATED);
+        }

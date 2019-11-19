@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
@@ -8,15 +7,18 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Health
+ * Elasticsearch API name cluster.health
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cluster
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Health extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
         $index = $this->index ?? null;
@@ -24,7 +26,6 @@ class Health extends AbstractEndpoint
         if (isset($index)) {
             return "/_cluster/health/$index";
         }
-
         return "/_cluster/health";
     }
 

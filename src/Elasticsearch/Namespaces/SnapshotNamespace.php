@@ -1,320 +1,245 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
 
+use Elasticsearch\Namespaces\AbstractNamespace;
+
 /**
  * Class SnapshotNamespace
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\SnapshotNamespace
- * @author   Zachary Tong <zach@elastic.co>
+ * @package  Elasticsearch\Namespaces
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class SnapshotNamespace extends AbstractNamespace
 {
     /**
-     * Endpoint: snapshot.create
+     * $params['repository']     = (string) A repository name
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'body'                => '(string) The snapshot definition',
-     *   'repository'          => '(string) A repository name (Required)',
-     *   'snapshot'            => '(string) A snapshot name (Required)',
-     *   'master_timeout'      => '(time) Explicit operation timeout for connection to master node',
-     *   'wait_for_completion' => '(boolean) Should this request wait until the operation has completed before returning (Default = false)',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
+    public function cleanupRepository(array $params = [])
+    {
+        $repository = $this->extractArgument($params, 'repository');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Snapshot\CleanupRepository');
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+
+        return $this->performRequest($endpoint);
+    }    /**
+     * $params['repository']          = (string) A repository name
+     * $params['snapshot']            = (string) A snapshot name
+     * $params['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     * $params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
+     * $params['body']                = (array) The snapshot definition
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     */
+
     public function create(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
         $body = $this->extractArgument($params, 'body');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Create $endpoint
-*/
         $endpoint = $endpointBuilder('Snapshot\Create');
-        $endpoint->setRepository($repository)
-            ->setSnapshot($snapshot)
-            ->setParams($params)
-            ->setBody($body);
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($snapshot);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.create_repository
+    }    /**
+     * $params['repository']     = (string) A repository name
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
+     * $params['verify']         = (boolean) Whether to verify the repository after creation
+     * $params['body']           = (array) The repository definition (Required)
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'body'           => '(string) The repository definition (Required)',
-     *   'repository'     => '(string) A repository name (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'timeout'        => '(time) Explicit operation timeout',
-     *   'verify'         => '(boolean) Whether to verify the repository after creation',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function createRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $body = $this->extractArgument($params, 'body');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Repository\Create $endpoint
-*/
-        $endpoint = $endpointBuilder('Snapshot\Repository\Create');
-        $endpoint->setRepository($repository)
-            ->setBody($body)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Snapshot\CreateRepository');
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.delete
+    }    /**
+     * $params['repository']     = (string) A repository name
+     * $params['snapshot']       = (string) A snapshot name
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'     => '(string) A repository name (Required)',
-     *   'snapshot'       => '(string) A snapshot name (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function delete(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Delete $endpoint
-*/
         $endpoint = $endpointBuilder('Snapshot\Delete');
-        $endpoint->setRepository($repository)
-            ->setSnapshot($snapshot)
-            ->setParams($params);
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.delete_repository
+    }    /**
+     * $params['repository']     = (list) A comma-separated list of repository names
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'     => '(list) A comma-separated list of repository names (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'timeout'        => '(time) Explicit operation timeout',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function deleteRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Repository\Delete $endpoint
-*/
-        $endpoint = $endpointBuilder('Snapshot\Repository\Delete');
-        $endpoint->setRepository($repository)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Snapshot\DeleteRepository');
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.get
+    }    /**
+     * $params['repository']         = (string) A repository name
+     * $params['snapshot']           = (list) A comma-separated list of snapshot names
+     * $params['master_timeout']     = (time) Explicit operation timeout for connection to master node
+     * $params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
+     * $params['verbose']            = (boolean) Whether to show verbose snapshot info or only show the basic info found in the repository index blob
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'         => '(string) A repository name (Required)',
-     *   'snapshot'           => '(list) A comma-separated list of snapshot names (Required)',
-     *   'master_timeout'     => '(time) Explicit operation timeout for connection to master node',
-     *   'ignore_unavailable' => '(boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown',
-     *   'verbose'            => '(boolean) Whether to show verbose snapshot info or only show the basic info found in the repository index blob',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function get(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint
-*/
         $endpoint = $endpointBuilder('Snapshot\Get');
-        $endpoint->setRepository($repository)
-            ->setSnapshot($snapshot)
-            ->setParams($params);
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.get_repository
+    }    /**
+     * $params['repository']     = (list) A comma-separated list of repository names
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'     => '(list) A comma-separated list of repository names',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'local'          => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function getRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Repository\Get $endpoint
-*/
-        $endpoint = $endpointBuilder('Snapshot\Repository\Get');
-        $endpoint->setRepository($repository)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Snapshot\GetRepository');
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.restore
+    }    /**
+     * $params['repository']          = (string) A repository name
+     * $params['snapshot']            = (string) A snapshot name
+     * $params['master_timeout']      = (time) Explicit operation timeout for connection to master node
+     * $params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
+     * $params['body']                = (array) Details of what to restore
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'body'                => '(string) Details of what to restore',
-     *   'repository'          => '(string) A repository name (Required)',
-     *   'snapshot'            => '(string) A snapshot name (Required)',
-     *   'master_timeout'      => '(time) Explicit operation timeout for connection to master node',
-     *   'wait_for_completion' => '(boolean) Should this request wait until the operation has completed before returning (Default = false)',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function restore(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
         $body = $this->extractArgument($params, 'body');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Restore $endpoint
-*/
         $endpoint = $endpointBuilder('Snapshot\Restore');
-        $endpoint->setRepository($repository)
-            ->setSnapshot($snapshot)
-            ->setParams($params)
-            ->setBody($body);
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($snapshot);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.status
+    }    /**
+     * $params['repository']         = (string) A repository name
+     * $params['snapshot']           = (list) A comma-separated list of snapshot names
+     * $params['master_timeout']     = (time) Explicit operation timeout for connection to master node
+     * $params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'         => '(string) A repository name',
-     *   'snapshot'           => '(list) A comma-separated list of snapshot names',
-     *   'master_timeout'     => '(time) Explicit operation timeout for connection to master node',
-     *   'ignore_unavailable' => '(boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function status(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
         $snapshot = $this->extractArgument($params, 'snapshot');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Status $endpoint
-*/
         $endpoint = $endpointBuilder('Snapshot\Status');
-        $endpoint->setRepository($repository)
-            ->setSnapshot($snapshot)
-            ->setParams($params);
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }
-
-    /**
-     * Endpoint: snapshot.verify_repository
+    }    /**
+     * $params['repository']     = (string) A repository name
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
-     *
-     * $params[
-     *   'repository'     => '(string) A repository name (Required)',
-     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
-     *   'timeout'        => '(time) Explicit operation timeout',
-     * ]
-     * @return callable|array
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
+
     public function verifyRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
 
-        /**
- * @var callable $endpointBuilder
-*/
         $endpointBuilder = $this->endpoints;
-
-        /**
- * @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint
-*/
-        $endpoint = $endpointBuilder('Snapshot\Repository\Verify');
-        $endpoint->setRepository($repository)
-            ->setParams($params);
+        $endpoint = $endpointBuilder('Snapshot\VerifyRepository');
+        $endpoint->setParams($params);
+        $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
     }

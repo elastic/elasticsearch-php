@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cat;
@@ -8,38 +7,29 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Templates
+ * Elasticsearch API name cat.templates
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Templates extends AbstractEndpoint
 {
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    public function setName(?string $name): Templates
-    {
-        $this->name = $name;
-        return $this;
-    }
+    protected $name;
 
     public function getURI(): string
     {
         $name = $this->name ?? null;
+
         if (isset($name)) {
             return "/_cat/templates/$name";
         }
         return "/_cat/templates";
     }
 
-    /**
-     * @return string[]
-     */
     public function getParamWhitelist(): array
     {
         return [
@@ -56,5 +46,15 @@ class Templates extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
+    }
+
+    public function setName($name): Templates
+    {
+        if (isset($name) !== true) {
+            return $this;
+        }
+        $this->name = $name;
+
+        return $this;
     }
 }

@@ -85,8 +85,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('index cannot be null.');
+        $this->expectException(Elasticsearch\Common\Exceptions\RuntimeException::class);
+        $this->expectExceptionMessage('index is required for delete');
 
         $client->delete(
             [
@@ -116,8 +116,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('id cannot be null.');
+        $this->expectException(Elasticsearch\Common\Exceptions\RuntimeException::class);
+        $this->expectExceptionMessage('id is required for delete');
 
         $client->delete(
             [
@@ -132,8 +132,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('index cannot be an empty string');
+        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
 
         $client->delete(
             [
@@ -163,8 +162,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('id cannot be an empty string');
+        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
 
         $client->delete(
             [
@@ -179,8 +177,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('index cannot be an array of empty strings');
+        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
 
         $client->delete(
             [
@@ -195,8 +192,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\InvalidArgumentException::class);
-        $this->expectExceptionMessage('index cannot be an array of empty strings');
+        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
 
         $client->delete(
             [
@@ -312,7 +308,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(9200, $host->getPort());
         $this->assertSame("https", $host->getTransportSchema());
         $this->assertSame("user:pass", $host->getUserPass());
-        
+
         $client = Elasticsearch\ClientBuilder::create()->setHosts(
             [
             'https://user:pass@the_foo.com:9200'

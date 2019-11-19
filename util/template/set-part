@@ -1,0 +1,10 @@
+
+    public function set:Part($:part): :endpoint
+    {
+        if (isset($:part) !== true) {
+            return $this;
+        }
+        $this->:part = $:part;
+
+        return $this;
+    }

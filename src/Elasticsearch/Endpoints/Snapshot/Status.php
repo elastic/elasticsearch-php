@@ -1,68 +1,32 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Snapshot;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
 
 /**
  * Class Status
+ * Elasticsearch API name snapshot.status
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Snapshot
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Status extends AbstractEndpoint
 {
-    /**
-     * A comma-separated list of repository names
-     *
-     * @var string
-     */
-    private $repository;
+    protected $repository;
+    protected $snapshot;
 
-    /**
-     * A comma-separated list of snapshot names
-     *
-     * @var string
-     */
-    private $snapshot;
-
-    public function setRepository(?string $repository): Status
-    {
-        if (isset($repository) !== true) {
-            return $this;
-        }
-
-        $this->repository = $repository;
-
-        return $this;
-    }
-
-    public function setSnapshot(?string $snapshot): Status
-    {
-        if (isset($snapshot) !== true) {
-            return $this;
-        }
-
-        $this->snapshot = $snapshot;
-
-        return $this;
-    }
-
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function getURI(): string
     {
         $repository = $this->repository ?? null;
-        $snapshot   = $this->snapshot ?? null;
+        $snapshot = $this->snapshot ?? null;
 
-        if (isset($snapshot) && isset($repository)) {
+        if (isset($repository) && isset($snapshot)) {
             return "/_snapshot/$repository/$snapshot/_status";
         }
         if (isset($repository)) {
@@ -82,5 +46,28 @@ class Status extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
+    }
+
+    public function setRepository($repository): Status
+    {
+        if (isset($repository) !== true) {
+            return $this;
+        }
+        $this->repository = $repository;
+
+        return $this;
+    }
+
+    public function setSnapshot($snapshot): Status
+    {
+        if (isset($snapshot) !== true) {
+            return $this;
+        }
+        if (is_array($snapshot) === true) {
+            $snapshot = implode(",", $snapshot);
+        }
+        $this->snapshot = $snapshot;
+
+        return $this;
     }
 }

@@ -1,53 +1,43 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Create
+ * Elasticsearch API name create
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Create extends AbstractEndpoint
 {
-    public function setBody($body): Create
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
 
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @throws RuntimeException
-     * @return string
-     */
     public function getURI(): string
     {
-        if (isset($this->index) !== true) {
-            throw new RuntimeException(
-                'index is required for Create'
-            );
-        }
         if (isset($this->id) !== true) {
             throw new RuntimeException(
-                'id is required for Create'
+                'id is required for create'
             );
         }
-
-        $id    = $this->id;
+        $id = $this->id;
+        if (isset($this->index) !== true) {
+            throw new RuntimeException(
+                'index is required for create'
+            );
+        }
         $index = $this->index;
-        $type  = $this->type ?? null;
+        $type = $this->type ?? null;
+        if (isset($type)) {
+            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+        }
 
         if (isset($type)) {
             return "/$index/$type/$id/_create";
@@ -59,7 +49,6 @@ class Create extends AbstractEndpoint
     {
         return [
             'wait_for_active_shards',
-            'parent',
             'refresh',
             'routing',
             'timeout',
@@ -74,15 +63,23 @@ class Create extends AbstractEndpoint
         return 'PUT';
     }
 
-    /**
-     * @throws RuntimeException
-     */
-    public function getBody()
+    public function setBody($body): Create
     {
-        if (isset($this->body) !== true) {
-            throw new RuntimeException('Document body must be set for create request');
-        } else {
-            return $this->body;
+        if (isset($body) !== true) {
+            return $this;
         }
+        $this->body = $body;
+
+        return $this;
+    }
+
+    public function setId($id): Create
+    {
+        if (isset($id) !== true) {
+            return $this;
+        }
+        $this->id = $id;
+
+        return $this;
     }
 }

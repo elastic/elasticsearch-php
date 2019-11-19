@@ -1,3 +1,13 @@
+# 7.4
+
+- Using a deprecated parameter is notified triggering a [E_USER_DEPRECATED](https://www.php.net/manual/en/errorfunc.constants.php)
+  error (e.g. using the `type` parameter will generate a `Specifying types in urls has been deprecated`
+  deprecation message).
+- When `delete` with an empty `id` an `Elasticsearch\Common\Exceptions\RuntimeException\Missing404Exception`
+  exception is thrown. Previously it was a `Elasticsearch\Common\Exceptions\RuntimeException\InvalidArgumentException`.
+
+
+
 # 7.0
 
 - Requirement of PHP 7.1 instead of 7.0 that is not supported since 1 Jan 2019.

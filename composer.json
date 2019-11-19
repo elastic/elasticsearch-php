@@ -40,7 +40,8 @@
   "autoload-dev": {
     "psr-4": {
       "Elasticsearch\\Tests\\": "tests/Elasticsearch/Tests/",
-      "Elasticsearch\\IntegrationTests\\": "tests/Elasticsearch/IntegrationTests/"
+      "Elasticsearch\\IntegrationTests\\": "tests/Elasticsearch/IntegrationTests/",
+      "Elasticsearch\\Util\\": "util/"
     }
   },
   "config": {

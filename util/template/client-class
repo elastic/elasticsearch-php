@@ -1,0 +1,115 @@
+<?php
+declare(strict_types = 1);
+
+namespace Elasticsearch;
+
+use Elasticsearch\Common\Exceptions\BadMethodCallException;
+use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Elasticsearch\Common\Exceptions\TransportException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Namespaces\AbstractNamespace;
+use Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use Elasticsearch\Namespaces\BooleanRequestWrapper;
+:use-namespaces
+/**
+ * Class Client
+ *
+ * @category Elasticsearch
+ * @package  Elasticsearch
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
+ * @link     http://elastic.co
+ */
+class Client
+{
+    const VERSION = ':version';
+
+    /**
+     * @var Transport
+     */
+    public $transport;
+
+    /**
+     * @var array
+     */
+    protected $params;
+
+    /**
+     * @var callable
+     */
+    protected $endpoints;
+
+    /**
+     * @var NamespaceBuilderInterface[]
+     */
+    protected $registeredNamespaces = [];
+
+:namespace_properties
+
+    /**
+     * Client constructor
+     *
+     * @param Transport           $transport
+     * @param callable            $endpoint
+     * @param AbstractNamespace[] $registeredNamespaces
+     */
+    public function __construct(Transport $transport, callable $endpoint, array $registeredNamespaces)
+    {
+        $this->transport = $transport;
+        $this->endpoints = $endpoint;
+:new-namespaces
+        $this->registeredNamespaces = $registeredNamespaces;
+    }
+
+:endpoints
+
+:functions
+
+    /**
+     * Catchall for registered namespaces
+     *
+     * @return object
+     * @throws BadMethodCallException if the namespace cannot be found
+     */
+    public function __call(string $name, array $arguments)
+    {
+        if (isset($this->registeredNamespaces[$name])) {
+            return $this->registeredNamespaces[$name];
+        }
+        throw new BadMethodCallException("Namespace [$name] not found");
+    }
+
+    /**
+     * @return null|mixed
+     */
+    public function extractArgument(array &$params, string $arg)
+    {
+        if (array_key_exists($arg, $params) === true) {
+            $value = $params[$arg];
+            $value = is_object($value) ? (array) $value : $value;
+            unset($params[$arg]);
+            return $value;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @return callable|array
+     */
+    private function performRequest(AbstractEndpoint $endpoint)
+    {
+        $promise =  $this->transport->performRequest(
+            $endpoint->getMethod(),
+            $endpoint->getURI(),
+            $endpoint->getParams(),
+            $endpoint->getBody(),
+            $endpoint->getOptions()
+        );
+
+        return $this->transport->resultOrFuture($promise, $endpoint->getOptions());
+    }
+}

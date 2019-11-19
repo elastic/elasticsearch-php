@@ -39,13 +39,17 @@ The {{ class_type(class) }} defines the following methods:
 {% if class.shortname != "ClientBuilder" %}
 [[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
 .`{{ method.name }}()`
+{% if method.tags('note') %}
+{% for note in method.tags('note') %}
+*NOTE:* {{ note|join(' ') }}
+{% endfor %}
+{% endif %}
 ****
 [source,php]
 ----
 /*
 {% if method.shortdesc %}
 {{ method.shortdesc|raw }}
-       ['body']  = (array) Request body
 {% endif %}
 */
 
@@ -66,7 +70,6 @@ $response = {{ get_namespace(class) }}->{{ method.name }}({{ param_list(method)|
 /*
 {% if method.shortdesc %}
     {{ method.shortdesc|raw }}
-    ['body']  = (array) Request body
 {% endif %}
 */
 

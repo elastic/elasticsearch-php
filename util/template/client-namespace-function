@@ -1,0 +1,4 @@
+    public function :name(): :namespace
+    {
+        return $this->:name;
+    }

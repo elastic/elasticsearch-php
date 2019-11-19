@@ -1,61 +1,43 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class UpdateByQuery
+ * Elasticsearch API name update_by_query
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints *
- * @author   Zachary Tong <zachary.tong@elasticsearch.com>
+ * @package  Elasticsearch\Endpoints
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elasticsearch.org
+ * @link     http://elastic.co
  */
 class UpdateByQuery extends AbstractEndpoint
 {
-    /**
-     * @throws Exceptions\InvalidArgumentException
-     */
-    public function setBody($body): UpdateByQuery
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
 
-        if (is_array($body) !== true) {
-            throw new Exceptions\InvalidArgumentException(
-                'Body must be an array'
-            );
-        }
-        $this->body = $body;
-
-        return $this;
-    }
-
-
-    /**
-     * @throws Exceptions\RuntimeException
-     * @return string
-     */
     public function getURI(): string
     {
-        if (!isset($this->index)) {
-            throw new Exceptions\RuntimeException(
-                'index is required for UpdateByQuery'
+        if (isset($this->index) !== true) {
+            throw new RuntimeException(
+                'index is required for update_by_query'
             );
         }
         $index = $this->index;
         $type = $this->type ?? null;
         if (isset($type)) {
+            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+        }
+
+        if (isset($type)) {
             return "/$index/$type/_update_by_query";
         }
         return "/$index/_update_by_query";
     }
-
 
     public function getParamWhitelist(): array
     {
@@ -78,6 +60,7 @@ class UpdateByQuery extends AbstractEndpoint
             'search_type',
             'search_timeout',
             'size',
+            'max_docs',
             'sort',
             '_source',
             '_source_excludes',
@@ -100,5 +83,15 @@ class UpdateByQuery extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'POST';
+    }
+
+    public function setBody($body): UpdateByQuery
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
     }
 }

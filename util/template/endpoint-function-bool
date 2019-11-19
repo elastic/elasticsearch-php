@@ -1,0 +1,13 @@
+:apidoc
+    public function :endpoint(array $params = []): bool
+    {
+:extract
+        // manually make this verbose so we can check status code
+        $params['client']['verbose'] = true;
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder(':EndpointClass');
+        $endpoint->setParams($params);
+:setparam
+        return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
+    }

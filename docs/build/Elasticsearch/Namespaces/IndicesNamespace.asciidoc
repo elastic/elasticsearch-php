@@ -6,739 +6,51 @@
 
 
 Class IndicesNamespace
+Generated running $ php util/GenerateEndpoints.php 7.4.2
 
 
 *Methods*
 
 The class defines the following methods:
 
-* <<Elasticsearch_Namespaces_IndicesNamespaceexists_exists,`exists()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceget_get,`get()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacesegments_segments,`segments()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate,`deleteTemplate()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacedelete_delete,`delete()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacestats_stats,`stats()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings,`putSettings()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacesnapshotIndex_snapshotIndex,`snapshotIndex()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink,`shrink()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping,`getMapping()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping,`getFieldMapping()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceflush_flush,`flush()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced,`flushSynced()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh,`refresh()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery,`recovery()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType,`existsType()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias,`putAlias()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate,`putTemplate()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery,`validateQuery()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias,`getAlias()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping,`putMapping()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacedeleteMapping_deleteMapping,`deleteMapping()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate,`getTemplate()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate,`existsTemplate()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacecreate_create,`create()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceforceMerge_forceMerge,`forceMerge()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias,`deleteAlias()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceopen_open,`open()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceanalyze_analyze,`analyze()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceclearCache_clearCache,`clearCache()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases,`updateAliases()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases,`getAliases()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias,`existsAlias()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacestatus_status,`status()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings,`getSettings()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceclone_clone,`clone()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceclose_close,`close()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceseal_seal,`seal()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade,`upgrade()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacecreate_create,`create()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacedelete_delete,`delete()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias,`deleteAlias()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate,`deleteTemplate()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceexists_exists,`exists()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias,`existsAlias()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate,`existsTemplate()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType,`existsType()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceflush_flush,`flush()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced,`flushSynced()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceforcemerge_forcemerge,`forcemerge()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceget_get,`get()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias,`getAlias()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping,`getFieldMapping()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping,`getMapping()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings,`getSettings()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate,`getTemplate()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacegetUpgrade_getUpgrade,`getUpgrade()`>>
-* <<Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores,`shardStores()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceopen_open,`open()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias,`putAlias()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping,`putMapping()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings,`putSettings()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate,`putTemplate()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery,`recovery()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh,`refresh()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacerollover_rollover,`rollover()`>>
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceexists_exists]]
-.`exists()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of indices to check (Required)
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->exists($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceget_get]]
-.`get()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of indices to check (Required)
-       ['feature'] = (list) A comma-separated list of features to return
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->get($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacesegments_segments]]
-.`segments()`
-****
-[source,php]
-----
-/*
-$params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['operation_threading'] = () TODO: ?
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->segments($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate]]
-.`deleteTemplate()`
-****
-[source,php]
-----
-/*
-$params['name']    = (string) The name of the template (Required)
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->deleteTemplate($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacedelete_delete]]
-.`delete()`
-****
-[source,php]
-----
-/*
-$params['index']   = (list) A comma-separated list of indices to delete; use `_all` or empty string to delete all indices
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->delete($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacestats_stats]]
-.`stats()`
-****
-[source,php]
-----
-/*
-$params['fields']         = (boolean) A comma-separated list of fields for `fielddata` metric (supports wildcards)
-       ['index']          = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['indexing_types'] = (list) A comma-separated list of document types to include in the `indexing` statistics
-       ['metric_family']  = (enum) Limit the information returned to a specific metric
-       ['search_groups']  = (list) A comma-separated list of search groups to include in the `search` statistics
-       ['all']            = (boolean) Return all available information
-       ['clear']          = (boolean) Reset the default level of detail
-       ['docs']           = (boolean) Return information about indexed and deleted documents
-       ['fielddata']      = (boolean) Return information about field data
-       ['filter_cache']   = (boolean) Return information about filter cache
-       ['flush']          = (boolean) Return information about flush operations
-       ['get']            = (boolean) Return information about get operations
-       ['groups']         = (boolean) A comma-separated list of search groups for `search` statistics
-       ['id_cache']       = (boolean) Return information about ID cache
-       ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-       ['indexing']       = (boolean) Return information about indexing operations
-       ['merge']          = (boolean) Return information about merge operations
-       ['refresh']        = (boolean) Return information about refresh operations
-       ['search']         = (boolean) Return information about search operations; use the `groups` parameter to include information for specific search groups
-       ['store']          = (boolean) Return information about the size of the index
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->stats($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings]]
-.`putSettings()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['body']  = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->putSettings($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacesnapshotIndex_snapshotIndex]]
-.`snapshotIndex()`
-****
-[source,php]
-----
-/*
-$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->snapshotIndex($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink]]
-.`shrink()`
-****
-[source,php]
-----
-/*
-$params['index']          = (string) The name of the source index to shrink
-       ['target']         = (string) The name of the target index to shrink into
-       ['timeout']        = (time) Explicit operation timeout
-       ['master_timeout'] = (time) Specify timeout for connection to master
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->shrink($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping]]
-.`getMapping()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['type']  = (list) A comma-separated list of document types
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getMapping($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping]]
-.`getFieldMapping()`
-****
-[source,php]
-----
-/*
-$params['index']            = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['type']             = (list) A comma-separated list of document types
-       ['field']            = (list) A comma-separated list of document fields
-       ['include_defaults'] = (bool) specifies default mapping values should be returned
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getFieldMapping($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceflush_flush]]
-.`flush()`
-****
-[source,php]
-----
-/*
-$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['force']              = (boolean) TODO: ?
-       ['full']               = (boolean) TODO: ?
-       ['refresh']            = (boolean) Refresh the index after performing the operation
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->flush($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced]]
-.`flushSynced()`
-****
-[source,php]
-----
-/*
-$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['force']              = (boolean) TODO: ?
-       ['full']               = (boolean) TODO: ?
-       ['refresh']            = (boolean) Refresh the index after performing the operation
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->flushSynced($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh]]
-.`refresh()`
-****
-[source,php]
-----
-/*
-$params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['operation_threading'] = () TODO: ?
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->refresh($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery]]
-.`recovery()`
-****
-[source,php]
-----
-/*
-$params['index']       = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['detailed']    = (bool) Whether to display detailed information about shard recovery
-       ['active_only'] = (bool) Display only those recoveries that are currently on-going
-       ['human']       = (bool) Whether to return time and byte values in human-readable format.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->recovery($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType]]
-.`existsType()`
-****
-[source,php]
-----
-/*
-$params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
-       ['type']               = (list) A comma-separated list of document types to check (Required)
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->existsType($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias]]
-.`putAlias()`
-****
-[source,php]
-----
-/*
-$params['index']   = (string) The name of the index with an alias
-       ['name']    = (string) The name of the alias to be created or updated
-       ['timeout'] = (time) Explicit timestamp for the document
-       ['body']    = (time) Explicit timestamp for the document
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->putAlias($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate]]
-.`putTemplate()`
-****
-[source,php]
-----
-/*
-$params['name']    = (string) The name of the template (Required)
-       ['order']   = (number) The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']    = (time) Explicit operation timeout
-       ['create']  = (bool) Whether the index template should only be added if new or can also replace an existing one
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->putTemplate($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery]]
-.`validateQuery()`
-****
-[source,php]
-----
-/*
-$params['index']               = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-       ['type']                = (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
-       ['explain']             = (boolean) Return detailed information about the error
-       ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
-       ['operation_threading'] = () TODO: ?
-       ['source']              = (string) The URL-encoded query definition (instead of using the request body)
-       ['body']                = (string) The URL-encoded query definition (instead of using the request body)
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->validateQuery($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias]]
-.`getAlias()`
-****
-[source,php]
-----
-/*
-$params['name']           = (list) A comma-separated list of alias names to return (Required)
-       ['index']          = (list) A comma-separated list of index names to filter aliases
-       ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-       ['name']           = (list) A comma-separated list of alias names to return
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getAlias($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping]]
-.`putMapping()`
-****
-[source,php]
-----
-/*
-$params['index']            = (list) A comma-separated list of index names; use `_all` to perform the operation on all indices (Required)
-       ['type']             = (string) The name of the document type
-       ['ignore_conflicts'] = (boolean) Specify whether to ignore conflicts while updating the mapping (default: false)
-       ['timeout']          = (time) Explicit operation timeout
-       ['body']             = (time) Explicit operation timeout
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->putMapping($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteMapping_deleteMapping]]
-.`deleteMapping()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names; use `_all` for all indices (Required)
-       ['type']  = (string) The name of the document type to delete (Required)
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->deleteMapping($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate]]
-.`getTemplate()`
-****
-[source,php]
-----
-/*
-$params['name'] = (string) The name of the template (Required)
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getTemplate($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate]]
-.`existsTemplate()`
-****
-[source,php]
-----
-/*
-$params['name'] = (string) The name of the template (Required)
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->existsTemplate($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacecreate_create]]
-.`create()`
-****
-[source,php]
-----
-/*
-$params['index']   = (string) The name of the index (Required)
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']    = (time) Explicit operation timeout
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->create($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceforceMerge_forceMerge]]
-.`forceMerge()`
-****
-[source,php]
-----
-/*
-$params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
-       ['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
-       ['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
-       ['operation_threading']  = () TODO: ?
-       ['refresh']              = (boolean) Specify whether the index should be refreshed after performing the operation (default: true)
-       ['wait_for_merge']       = (boolean) Specify whether the request should block until the merge process is finished (default: true)
-       ['ignore_unavailable']   = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']     = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->forceMerge($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias]]
-.`deleteAlias()`
-****
-[source,php]
-----
-/*
-$params['index']   = (string) The name of the index with an alias (Required)
-       ['name']    = (string) The name of the alias to be deleted (Required)
-       ['timeout'] = (time) Explicit timestamp for the document
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->deleteAlias($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceopen_open]]
-.`open()`
-****
-[source,php]
-----
-/*
-$params['index']   = (string) The name of the index (Required)
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->open($params);
-----
-****
+* <<Elasticsearch_Namespaces_IndicesNamespacesegments_segments,`segments()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores,`shardStores()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink,`shrink()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacesplit_split,`split()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacestats_stats,`stats()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases,`updateAliases()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade,`upgrade()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery,`validateQuery()`>>
 
 
 
@@ -748,20 +60,8 @@ $response = $client->indices()->open($params);
 [source,php]
 ----
 /*
-$params['index']        = (string) The name of the index to scope the operation
-       ['analyzer']     = (string) The name of the analyzer to use
-       ['field']        = (string) Use the analyzer configured for this field (instead of passing the analyzer name)
-       ['filter']       = (list) A comma-separated list of filters to use for the analysis
-       ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
-       ['text']         = (string) The text on which the analysis should be performed (when request body is not used)
-       ['tokenizer']    = (string) The name of the tokenizer to use for the analysis
-       ['format']       = (enum) Format of the output
-       ['body']         = (enum) Format of the output
-       ['char_filter']  = (list) A comma-separated list of character filters to use for the analysis
-       ['explain']      = (bool) With `true`, outputs more advanced details. (default: false)
-       ['attributes']   = (list) A comma-separated list of token attributes to output, this parameter works only with `explain=true`
-       ['format']       = (enum) Format of the output (["detailed", "text"])
-       ['body']  = (array) Request body
+$params['index'] = (string) The name of the index to scope the operation
+$params['body']  = (array) Define analyzer/tokenizer parameters and the text on which the analysis should be performed
 */
 
 $params = [
@@ -782,19 +82,13 @@ $response = $client->indices()->analyze($params);
 ----
 /*
 $params['index']              = (list) A comma-separated list of index name to limit the operation
-       ['field_data']         = (boolean) Clear field data
-       ['fielddata']          = (boolean) Clear field data
-       ['fields']             = (list) A comma-separated list of fields to clear when using the `field_data` parameter (default: all)
-       ['filter']             = (boolean) Clear filter caches
-       ['filter_cache']       = (boolean) Clear filter caches
-       ['filter_keys']        = (boolean) A comma-separated list of keys to clear when using the `filter_cache` parameter (default: all)
-       ['id']                 = (boolean) Clear ID caches for parent/child
-       ['id_cache']           = (boolean) Clear ID caches for parent/child
-       ['recycler']           = (boolean) Clear the recycler cache
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
+$params['fielddata']          = (boolean) Clear field data
+$params['fields']             = (list) A comma-separated list of fields to clear when using the `fielddata` parameter (default: all)
+$params['query']              = (boolean) Clear query caches
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['request']            = (boolean) Clear request cache
 */
 
 $params = [
@@ -808,16 +102,17 @@ $response = $client->indices()->clearCache($params);
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases]]
-.`updateAliases()`
+[[Elasticsearch_Namespaces_IndicesNamespaceclone_clone]]
+.`clone()`
 ****
 [source,php]
 ----
 /*
-$params['index']   = (list) A comma-separated list of index names to filter aliases
-       ['timeout'] = (time) Explicit timestamp for the document
-       ['body']    = (time) Explicit timestamp for the document
-       ['body']  = (array) Request body
+$params['index']                  = (string) The name of the source index to clone
+$params['target']                 = (string) The name of the target index to clone into
+$params['timeout']                = (time) Explicit operation timeout
+$params['master_timeout']         = (time) Specify timeout for connection to master
+$params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the cloned index before the operation returns.
 */
 
 $params = [
@@ -825,100 +120,7 @@ $params = [
 ];
 
 $client = ClientBuilder::create()->build();
-$response = $client->indices()->updateAliases($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases]]
-.`getAliases()`
-****
-[source,php]
-----
-/*
-$params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
-       ['timeout'] = (time) Explicit timestamp for the document
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getAliases($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias]]
-.`existsAlias()`
-****
-[source,php]
-----
-/*
-$params['name']               = (list) A comma-separated list of alias names to return (Required)
-       ['index']              = (list) A comma-separated list of index names to filter aliases
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->existsAlias($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacestatus_status]]
-.`status()`
-****
-[source,php]
-----
-/*
-$params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
-       ['operation_threading'] = () TODO: ?
-       ['recovery']            = (boolean) Return information about shard recovery
-       ['snapshot']            = (boolean) TODO: ?
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->status($params);
-----
-****
-
-
-
-[[Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings]]
-.`getSettings()`
-****
-[source,php]
-----
-/*
-$params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['body']  = (array) Request body
-*/
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = $client->indices()->getSettings($params);
+$response = $client->indices()->clone($params);
 ----
 ****
 
@@ -930,9 +132,13 @@ $response = $client->indices()->getSettings($params);
 [source,php]
 ----
 /*
-$params['index']   = (string) The name of the index (Required)
-       ['timeout'] = (time) Explicit operation timeout
-       ['body']  = (array) Request body
+$params['index']                  = (list) A comma separated list of indices to close
+$params['timeout']                = (time) Explicit operation timeout
+$params['master_timeout']         = (time) Specify timeout for connection to master
+$params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
 */
 
 $params = [
@@ -946,14 +152,14 @@ $response = $client->indices()->close($params);
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceseal_seal]]
-.`seal()`
+[[Elasticsearch_Namespaces_IndicesNamespacecreate_create]]
+.`create()`
 ****
 [source,php]
 ----
 /*
-$params['index']   = (string) The name of the index
-       ['body']  = (array) Request body
+$params['index']                  = (string) The name of the index
+$params['include_type_name']      = (boolean) Whether a type should be expected in the body of the mappings.
 */
 
 $params = [
@@ -961,26 +167,190 @@ $params = [
 ];
 
 $client = ClientBuilder::create()->build();
-$response = $client->indices()->seal($params);
+$response = $client->indices()->create($params);
 ----
 ****
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade]]
-.`upgrade()`
+[[Elasticsearch_Namespaces_IndicesNamespacedelete_delete]]
+.`delete()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices
+$params['timeout']            = (time) Explicit operation timeout
+$params['master_timeout']     = (time) Specify timeout for connection to master
+$params['ignore_unavailable'] = (boolean) Ignore unavailable indexes (default: false)
+$params['allow_no_indices']   = (boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)
+$params['expand_wildcards']   = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->delete($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias]]
+.`deleteAlias()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names (supports wildcards); use `_all` for all indices (Required)
+$params['name']           = (list) A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices. (Required)
+$params['timeout']        = (time) Explicit timestamp for the document
+$params['master_timeout'] = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->deleteAlias($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate]]
+.`deleteTemplate()`
+****
+[source,php]
+----
+/*
+$params['name']           = (string) The name of the template
+$params['timeout']        = (time) Explicit operation timeout
+$params['master_timeout'] = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->deleteTemplate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceexists_exists]]
+.`exists()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['ignore_unavailable'] = (boolean) Ignore unavailable indexes (default: false)
+$params['allow_no_indices']   = (boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)
+$params['expand_wildcards']   = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)
+$params['flat_settings']      = (boolean) Return settings in flat format (default: false)
+$params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->exists($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias]]
+.`existsAlias()`
+****
+[source,php]
+----
+/*
+$params['name']               = (list) A comma-separated list of alias names to return (Required)
+$params['index']              = (list) A comma-separated list of index names to filter aliases
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->existsAlias($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate]]
+.`existsTemplate()`
+****
+[source,php]
+----
+/*
+$params['name']           = (list) The comma separated names of the index templates
+$params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->existsTemplate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType]]
+.`existsType()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices
+$params['type']               = DEPRECATED (list) A comma-separated list of document types to check
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->existsType($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceflush_flush]]
+.`flush()`
 ****
 [source,php]
 ----
 /*
 $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
-       ['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
-       ['refresh']            = (boolean) Refresh the index after performing the operation
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
+$params['force']              = (boolean) Whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal)
+$params['wait_if_ongoing']    = (boolean) If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.
 */
 
 $params = [
@@ -988,7 +358,208 @@ $params = [
 ];
 
 $client = ClientBuilder::create()->build();
-$response = $client->indices()->upgrade($params);
+$response = $client->indices()->flush($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced]]
+.`flushSynced()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->flushSynced($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceforcemerge_forcemerge]]
+.`forcemerge()`
+****
+[source,php]
+----
+/*
+$params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
+$params['ignore_unavailable']   = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']     = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
+$params['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->forcemerge($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceget_get]]
+.`get()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names
+$params['include_type_name']  = (boolean) Whether to add the type name to the response (default: false)
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['ignore_unavailable'] = (boolean) Ignore unavailable indexes (default: false)
+$params['allow_no_indices']   = (boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)
+$params['expand_wildcards']   = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)
+$params['flat_settings']      = (boolean) Return settings in flat format (default: false)
+$params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
+$params['master_timeout']     = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->get($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias]]
+.`getAlias()`
+****
+[source,php]
+----
+/*
+$params['name']               = (list) A comma-separated list of alias names to return
+$params['index']              = (list) A comma-separated list of index names to filter aliases
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getAlias($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping]]
+.`getFieldMapping()`
+****
+[source,php]
+----
+/*
+$params['fields']             = (list) A comma-separated list of fields (Required)
+$params['index']              = (list) A comma-separated list of index names
+$params['type']               = DEPRECATED (list) A comma-separated list of document types
+$params['include_type_name']  = (boolean) Whether a type should be returned in the body of the mappings.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getFieldMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping]]
+.`getMapping()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names
+$params['type']               = DEPRECATED (list) A comma-separated list of document types
+$params['include_type_name']  = (boolean) Whether to add the type name to the response (default: false)
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['master_timeout']     = (time) Specify timeout for connection to master
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings]]
+.`getSettings()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['name']               = (list) The name of the settings that should be included
+$params['master_timeout']     = (time) Specify timeout for connection to master
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open,closed)
+$params['flat_settings']      = (boolean) Return settings in flat format (default: false)
+$params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
+$params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getSettings($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate]]
+.`getTemplate()`
+****
+[source,php]
+----
+/*
+$params['name']              = (list) The comma separated names of the index templates
+$params['include_type_name'] = (boolean) Whether a type should be returned in the body of the mappings.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getTemplate($params);
 ----
 ****
 
@@ -1000,14 +571,10 @@ $response = $client->indices()->upgrade($params);
 [source,php]
 ----
 /*
-$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-       ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
-       ['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
-       ['refresh']            = (boolean) Refresh the index after performing the operation
-       ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
 */
 
 $params = [
@@ -1021,18 +588,227 @@ $response = $client->indices()->getUpgrade($params);
 
 
 
+[[Elasticsearch_Namespaces_IndicesNamespaceopen_open]]
+.`open()`
+****
+[source,php]
+----
+/*
+$params['index']                  = (list) A comma separated list of indices to open
+$params['timeout']                = (time) Explicit operation timeout
+$params['master_timeout']         = (time) Specify timeout for connection to master
+$params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = closed)
+$params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->open($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias]]
+.`putAlias()`
+****
+[source,php]
+----
+/*
+$params['index']          = (list) A comma-separated list of index names the alias should point to (supports wildcards); use `_all` to perform the operation on all indices. (Required)
+$params['name']           = (string) The name of the alias to be created or updated (Required)
+$params['timeout']        = (time) Explicit timestamp for the document
+$params['master_timeout'] = (time) Specify timeout for connection to master
+$params['body']           = (array) The settings for the alias, such as `routing` or `filter`
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->putAlias($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping]]
+.`putMapping()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->putMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings]]
+.`putSettings()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['master_timeout']     = (time) Specify timeout for connection to master
+$params['timeout']            = (time) Explicit operation timeout
+$params['preserve_existing']  = (boolean) Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['flat_settings']      = (boolean) Return settings in flat format (default: false)
+$params['body']               = (array) The index settings to be updated (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->putSettings($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate]]
+.`putTemplate()`
+****
+[source,php]
+----
+/*
+$params['name']              = (string) The name of the template
+$params['include_type_name'] = (boolean) Whether a type should be returned in the body of the mappings.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->putTemplate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery]]
+.`recovery()`
+****
+[source,php]
+----
+/*
+$params['index']       = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['detailed']    = (boolean) Whether to display detailed information about shard recovery (Default = false)
+$params['active_only'] = (boolean) Display only those recoveries that are currently on-going (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->recovery($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh]]
+.`refresh()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->refresh($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacerollover_rollover]]
+.`rollover()`
+****
+[source,php]
+----
+/*
+$params['alias']                  = (string) The name of the alias to rollover (Required)
+$params['new_index']              = (string) The name of the rollover index
+$params['include_type_name']      = (boolean) Whether a type should be included in the body of the mappings.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->rollover($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacesegments_segments]]
+.`segments()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['verbose']            = (boolean) Includes detailed memory usage by Lucene. (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->segments($params);
+----
+****
+
+
+
 [[Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores]]
 .`shardStores()`
 ****
 [source,php]
 ----
 /*
-$params['index']   = (string) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-       ['status']   = (list) A comma-separated list of statuses used to filter on shards to get store information for
-       ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-       ['allow_no_indices'] = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-       ['expand_wildcards'] = (boolean) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-       ['body']  = (array) Request body
+$params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['status']             = (list) A comma-separated list of statuses used to filter on shards to get store information for (Options = green,yellow,red,all)
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
 */
 
 $params = [
@@ -1046,17 +822,18 @@ $response = $client->indices()->shardStores($params);
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacerollover_rollover]]
-.`rollover()`
+[[Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink]]
+.`shrink()`
 ****
 [source,php]
 ----
 /*
-$params['newIndex']       = (string) The name of the rollover index
-       ['alias']          = (string) The name of the alias to rollover
-       ['timeout']        = (time) Explicit operation timeout
-       ['master_timeout'] = (time) Specify timeout for connection to master
-       ['body']  = (array) Request body
+$params['index']                  = (string) The name of the source index to shrink
+$params['target']                 = (string) The name of the target index to shrink into
+$params['copy_settings']          = (boolean) whether or not to copy settings from the source index (defaults to false)
+$params['timeout']                = (time) Explicit operation timeout
+$params['master_timeout']         = (time) Specify timeout for connection to master
+$params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the shrunken index before the operation returns.
 */
 
 $params = [
@@ -1064,7 +841,131 @@ $params = [
 ];
 
 $client = ClientBuilder::create()->build();
-$response = $client->indices()->rollover($params);
+$response = $client->indices()->shrink($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacesplit_split]]
+.`split()`
+****
+[source,php]
+----
+/*
+$params['index']                  = (string) The name of the source index to split
+$params['target']                 = (string) The name of the target index to split into
+$params['copy_settings']          = (boolean) whether or not to copy settings from the source index (defaults to false)
+$params['timeout']                = (time) Explicit operation timeout
+$params['master_timeout']         = (time) Specify timeout for connection to master
+$params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the shrunken index before the operation returns.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->split($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacestats_stats]]
+.`stats()`
+****
+[source,php]
+----
+/*
+$params['metric']                     = (list) Limit the information returned the specific metrics.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->stats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases]]
+.`updateAliases()`
+****
+[source,php]
+----
+/*
+$params['timeout']        = (time) Request timeout
+$params['master_timeout'] = (time) Specify timeout for connection to master
+$params['body']           = (array) The definition of `actions` to perform (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->updateAliases($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade]]
+.`upgrade()`
+****
+[source,php]
+----
+/*
+$params['index']                 = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+$params['allow_no_indices']      = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']      = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['ignore_unavailable']    = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['wait_for_completion']   = (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
+$params['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->upgrade($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery]]
+.`validateQuery()`
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
+$params['type']               = DEPRECATED (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
+$params['explain']            = (boolean) Return detailed information about the error
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['q']                  = (string) Query in the Lucene query string syntax
+$params['analyzer']           = (string) The analyzer to use for the query string
+$params['analyze_wildcard']   = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
+$params['default_operator']   = (enum) The default operator for query string query (AND or OR) (Options = AND,OR) (Default = OR)
+$params['df']                 = (string) The field to use as default where no field prefix is given in the query string
+$params['lenient']            = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+$params['rewrite']            = (boolean) Provide a more detailed explanation showing the actual Lucene query that will be executed.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->validateQuery($params);
 ----
 ****
 

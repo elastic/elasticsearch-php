@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Cluster;
@@ -7,18 +6,22 @@ namespace Elasticsearch\Endpoints\Cluster;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Pendingtasks
+ * Class PendingTasks
+ * Elasticsearch API name cluster.pending_tasks
+ * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cluster
- * @author   Zachary Tong <zach@elastic.co>
+ * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class PendingTasks extends AbstractEndpoint
 {
+
     public function getURI(): string
     {
+
         return "/_cluster/pending_tasks";
     }
 

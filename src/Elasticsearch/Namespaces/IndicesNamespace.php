@@ -435,7 +435,20 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+        
+    /**
+     * Alias function to getAlias()
+     *
+     * @deprecated added to prevent BC break introduced in 7.2.0
+     * @see https://github.com/elastic/elasticsearch-php/issues/940
+     */
+    public function getAliases(array $params = [])
+    {
+        return $this->getAlias($params);
+    }
+
+    /**
      * $params['fields']             = (list) A comma-separated list of fields (Required)
      * $params['index']              = (list) A comma-separated list of index names
      * $params['type']               = DEPRECATED (list) A comma-separated list of document types
@@ -450,7 +463,6 @@ class IndicesNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
      */
-
     public function getFieldMapping(array $params = [])
     {
         $fields = $this->extractArgument($params, 'fields');

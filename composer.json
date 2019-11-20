@@ -33,6 +33,9 @@
     "monolog/monolog": "Allows for client-level logging and tracing"
   },
   "autoload": {
+    "files": [
+      "src/autoload.php"
+    ],
     "psr-4": {
       "Elasticsearch\\": "src/Elasticsearch/"
     }

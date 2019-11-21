@@ -35,7 +35,7 @@ class PutMapping extends AbstractEndpoint
             return "/_mappings/$type";
         }
         if (isset($index)) {
-            return "$index/_mapping";
+            return "/$index/_mapping";
         }
         throw new RuntimeException('Missing parameter for the endpoint indices.put_mapping');
     }

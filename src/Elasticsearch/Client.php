@@ -32,7 +32,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.4.0';
+    const VERSION = '7.4.1';
 
     /**
      * @var Transport
@@ -58,31 +58,37 @@ class Client
      * @var CatNamespace
      */
     protected $cat;
+    
     /**
      * @var ClusterNamespace
      */
     protected $cluster;
+    
     /**
      * @var IndicesNamespace
      */
     protected $indices;
+    
     /**
      * @var IngestNamespace
      */
     protected $ingest;
+    
     /**
      * @var NodesNamespace
      */
     protected $nodes;
+    
     /**
      * @var SnapshotNamespace
      */
     protected $snapshot;
+    
     /**
      * @var TasksNamespace
      */
     protected $tasks;
-
+    
 
     /**
      * Client constructor
@@ -138,7 +144,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['scroll_id'] = DEPRECATED (list) A comma-separated list of scroll IDs to clear
      * $params['body']      = (array) A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
@@ -160,7 +165,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['index']              = (list) A comma-separated list of indices to restrict the results
      * $params['type']               = DEPRECATED (list) A comma-separated list of types to restrict the results
@@ -199,7 +203,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
@@ -234,7 +237,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['id']                     = (string) The document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
@@ -267,7 +269,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
@@ -324,7 +325,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
@@ -344,7 +344,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['id']             = (string) Script ID
      * $params['timeout']        = (time) Explicit operation timeout
@@ -365,7 +364,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -403,7 +401,6 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
-    
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -440,7 +437,6 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
-
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -480,7 +476,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      * $params['fields']             = (list) A comma-separated list of field names
@@ -504,7 +499,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -539,7 +533,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['id']             = (string) Script ID
      * $params['master_timeout'] = (time) Specify timeout for connection to master
@@ -559,7 +552,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
@@ -593,7 +585,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']                     = (string) Document ID
      * $params['index']                  = (string) The name of the index (Required)
@@ -631,7 +622,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      *
      * @param array $params Associative array of parameters
@@ -647,7 +637,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['index']            = (string) The name of the index
      * $params['type']             = DEPRECATED (string) The type of the document
@@ -680,7 +669,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']                         = (list) A comma-separated list of index names to use as default
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to use as default
@@ -712,7 +700,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']                   = (list) A comma-separated list of index names to use as default
      * $params['type']                    = DEPRECATED (list) A comma-separated list of document types to use as default
@@ -741,7 +728,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']            = (string) The index in which the document resides.
      * $params['type']             = DEPRECATED (string) The type of the document.
@@ -770,7 +756,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Mtermvectors');
+        $endpoint = $endpointBuilder('MTermVectors');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
         $endpoint->setType($type);
@@ -778,7 +764,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      *
      * @param array $params Associative array of parameters
@@ -797,7 +782,6 @@ class Client
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
-
     /**
      * $params['id']             = (string) Script ID (Required)
      * $params['context']        = (string) Script context
@@ -824,7 +808,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
@@ -852,7 +835,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
@@ -879,7 +861,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
@@ -899,7 +880,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']   = (string) The id of the stored search template
      * $params['body'] = (array) The search definition template and its params
@@ -921,7 +901,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     /**
      * $params['body'] = (array) The script to execute
      *
@@ -943,7 +922,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['scroll_id']              = DEPRECATED (string) The scroll ID
      * $params['scroll']                 = (time) Specify how long a consistent view of the index should be maintained for scrolled search
@@ -967,7 +945,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']                         = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                          = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
@@ -1034,7 +1011,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
@@ -1059,7 +1035,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
@@ -1096,7 +1071,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']            = (string) The index in which the document resides. (Required)
      * $params['id']               = (string) The id of the document, when not specified a doc param should be supplied.
@@ -1126,7 +1100,7 @@ class Client
         $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Termvectors');
+        $endpoint = $endpointBuilder('TermVectors');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
         $endpoint->setId($id);
@@ -1135,7 +1109,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['id']                     = (string) Document ID (Required)
      * $params['index']                  = (string) The name of the index (Required)
@@ -1174,7 +1147,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
@@ -1234,7 +1206,6 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-    
     /**
      * $params['task_id']             = (string) The task id to rethrottle
      * $params['requests_per_second'] = (number) The throttle to set on this request in floating sub-requests per second. -1 means set no throttle. (Required)
@@ -1254,37 +1225,30 @@ class Client
 
         return $this->performRequest($endpoint);
     }
-
     public function cat(): CatNamespace
     {
         return $this->cat;
     }
-
     public function cluster(): ClusterNamespace
     {
         return $this->cluster;
     }
-
     public function indices(): IndicesNamespace
     {
         return $this->indices;
     }
-
     public function ingest(): IngestNamespace
     {
         return $this->ingest;
     }
-
     public function nodes(): NodesNamespace
     {
         return $this->nodes;
     }
-
     public function snapshot(): SnapshotNamespace
     {
         return $this->snapshot;
     }
-
     public function tasks(): TasksNamespace
     {
         return $this->tasks;

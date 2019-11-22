@@ -7,7 +7,7 @@ use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Termvectors
+ * Class TermVectors
  * Elasticsearch API name termvectors
  * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
@@ -17,7 +17,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Termvectors extends AbstractEndpoint
+class TermVectors extends AbstractEndpoint
 {
 
     public function getURI(): string
@@ -68,7 +68,7 @@ class Termvectors extends AbstractEndpoint
         return isset($this->body) ? 'POST' : 'GET';
     }
 
-    public function setBody($body): Termvectors
+    public function setBody($body): TermVectors
     {
         if (isset($body) !== true) {
             return $this;
@@ -78,7 +78,7 @@ class Termvectors extends AbstractEndpoint
         return $this;
     }
 
-    public function setId($id): Termvectors
+    public function setId($id): TermVectors
     {
         if (isset($id) !== true) {
             return $this;

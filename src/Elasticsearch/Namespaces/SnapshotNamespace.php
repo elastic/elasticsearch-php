@@ -17,6 +17,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
  */
 class SnapshotNamespace extends AbstractNamespace
 {
+
     /**
      * $params['repository']     = (string) A repository name
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -26,7 +27,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function cleanupRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -37,7 +37,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']          = (string) A repository name
      * $params['snapshot']            = (string) A snapshot name
      * $params['master_timeout']      = (time) Explicit operation timeout for connection to master node
@@ -48,7 +49,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function create(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -63,7 +63,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']     = (string) A repository name
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
@@ -74,7 +75,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function createRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -87,7 +87,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']     = (string) A repository name
      * $params['snapshot']       = (string) A snapshot name
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -96,7 +97,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function delete(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -109,7 +109,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']     = (list) A comma-separated list of repository names
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
@@ -118,7 +119,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function deleteRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -129,7 +129,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']         = (string) A repository name
      * $params['snapshot']           = (list) A comma-separated list of snapshot names
      * $params['master_timeout']     = (time) Explicit operation timeout for connection to master node
@@ -140,7 +141,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function get(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -153,7 +153,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']     = (list) A comma-separated list of repository names
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
@@ -162,7 +163,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function getRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -173,7 +173,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']          = (string) A repository name
      * $params['snapshot']            = (string) A snapshot name
      * $params['master_timeout']      = (time) Explicit operation timeout for connection to master node
@@ -184,7 +185,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function restore(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -199,7 +199,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']         = (string) A repository name
      * $params['snapshot']           = (list) A comma-separated list of snapshot names
      * $params['master_timeout']     = (time) Explicit operation timeout for connection to master node
@@ -209,7 +210,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function status(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -222,7 +222,8 @@ class SnapshotNamespace extends AbstractNamespace
         $endpoint->setSnapshot($snapshot);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']     = (string) A repository name
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
@@ -231,7 +232,6 @@ class SnapshotNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
-
     public function verifyRepository(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');

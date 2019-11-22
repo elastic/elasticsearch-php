@@ -48,7 +48,6 @@ class Client
     protected $registeredNamespaces = [];
 
 :namespace_properties
-
     /**
      * Client constructor
      *
@@ -63,11 +62,8 @@ class Client
 :new-namespaces
         $this->registeredNamespaces = $registeredNamespaces;
     }
-
 :endpoints
-
 :functions
-
     /**
      * Catchall for registered namespaces
      *

@@ -66,7 +66,7 @@ class ClientEndpoint extends NamespaceEndpoint
             $prop = file_get_contents(self::PROPERTY_CLASS_TEMPLATE);
             $prop = str_replace(':namespace', ucfirst($name), $prop);
             $prop = str_replace(':var_namespace', $name, $prop);
-            $properties .= $prop;
+            $properties .= $prop . "\n";
         }
         $class = str_replace(':namespace_properties', $properties, $class);
 

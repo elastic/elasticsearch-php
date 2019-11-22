@@ -8,7 +8,6 @@
  * NOTE: This file will be removed with elasticsearch-php 8.0.0
  */
 
-class_alias('\Elasticsearch\Endpoints\Cat\Nodeattrs', '\Elasticsearch\Endpoints\Cat\NodeAttrs');
 class_alias('\Elasticsearch\Endpoints\Cluster\GetSettings', '\Elasticsearch\Endpoints\Cluster\Settings\Get');
 class_alias('\Elasticsearch\Endpoints\Cluster\PutSettings', '\Elasticsearch\Endpoints\Cluster\Settings\Put');
 class_alias('\Elasticsearch\Endpoints\Indices\DeleteAlias', '\Elasticsearch\Endpoints\Indices\Alias\Delete');
@@ -17,7 +16,6 @@ class_alias('\Elasticsearch\Endpoints\Indices\GetAlias', '\Elasticsearch\Endpoin
 class_alias('\Elasticsearch\Endpoints\Indices\PutAlias', '\Elasticsearch\Endpoints\Indices\Alias\Put');
 class_alias('\Elasticsearch\Endpoints\Indices\UpdateAliases', '\Elasticsearch\Endpoints\Indices\Aliases\Update');
 class_alias('\Elasticsearch\Endpoints\Indices\ClearCache', '\Elasticsearch\Endpoints\Indices\Cache\Clear');
-class_alias('\Elasticsearch\Endpoints\Indices\Forcemerge', '\Elasticsearch\Endpoints\Indices\ForceMerge');
 class_alias('\Elasticsearch\Endpoints\Indices\GetMapping', '\Elasticsearch\Endpoints\Indices\Mapping\Get');
 class_alias('\Elasticsearch\Endpoints\Indices\GetFieldMapping', '\Elasticsearch\Endpoints\Indices\Mapping\GetField');
 class_alias('\Elasticsearch\Endpoints\Indices\PutMapping', '\Elasticsearch\Endpoints\Indices\Mapping\Put');
@@ -35,7 +33,6 @@ class_alias('\Elasticsearch\Endpoints\Ingest\DeletePipeline', '\Elasticsearch\En
 class_alias('\Elasticsearch\Endpoints\Ingest\GetPipeline', '\Elasticsearch\Endpoints\Ingest\Pipeline\Get');
 class_alias('\Elasticsearch\Endpoints\Ingest\PutPipeline', '\Elasticsearch\Endpoints\Ingest\Pipeline\Put');
 class_alias('\Elasticsearch\Endpoints\Ingest\ProcessorGrok', '\Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok');
-class_alias('\Elasticsearch\Endpoints\Mtermvectors', '\Elasticsearch\Endpoints\MTermVectors');
 class_alias('\Elasticsearch\Endpoints\GetScript', '\Elasticsearch\Endpoints\Script\Get');
 class_alias('\Elasticsearch\Endpoints\PutScript', '\Elasticsearch\Endpoints\Script\Put');
 class_alias('\Elasticsearch\Endpoints\DeleteScript', '\Elasticsearch\Endpoints\Script\Delete');
@@ -46,4 +43,3 @@ class_alias('\Elasticsearch\Endpoints\Snapshot\VerifyRepository', '\Elasticsearc
 class_alias('\Elasticsearch\Endpoints\GetSource', '\Elasticsearch\Endpoints\Source\Get');
 class_alias('\Elasticsearch\Endpoints\ExistsSource', '\Elasticsearch\Endpoints\Source\Exists');
 class_alias('\Elasticsearch\Endpoints\Tasks\ListTasks', '\Elasticsearch\Endpoints\Tasks\TasksList');
-class_alias('\Elasticsearch\Endpoints\Termvectors', '\Elasticsearch\Endpoints\TermVectors');

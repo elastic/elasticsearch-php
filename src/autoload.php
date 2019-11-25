@@ -8,6 +8,8 @@
  * NOTE: This file will be removed with elasticsearch-php 8.0.0
  */
 
+class_alias('\Elasticsearch\Endpoints\Nodes\Info', '\Elasticsearch\Endpoints\Cluster\Nodes\Info');
+class_alias('\Elasticsearch\Endpoints\Nodes\Stats', '\Elasticsearch\Endpoints\Cluster\Nodes\Stats');
 class_alias('\Elasticsearch\Endpoints\Cluster\GetSettings', '\Elasticsearch\Endpoints\Cluster\Settings\Get');
 class_alias('\Elasticsearch\Endpoints\Cluster\PutSettings', '\Elasticsearch\Endpoints\Cluster\Settings\Put');
 class_alias('\Elasticsearch\Endpoints\Indices\DeleteAlias', '\Elasticsearch\Endpoints\Indices\Alias\Delete');

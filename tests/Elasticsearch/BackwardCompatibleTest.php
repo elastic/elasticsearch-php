@@ -50,6 +50,8 @@ class BackwardCompatibleTest extends \PHPUnit\Framework\TestCase
             ['\Elasticsearch\Endpoints\Cluster\RemoteInfo'],
             ['\Elasticsearch\Endpoints\Cluster\Stats'],
             ['\Elasticsearch\Endpoints\Cluster\AllocationExplain'],
+            ['\Elasticsearch\Endpoints\Cluster\Nodes\Info'],
+            ['Elasticsearch\Endpoints\Cluster\Nodes\Stats'],
             ['\Elasticsearch\Endpoints\ClearScroll'],
             ['\Elasticsearch\Endpoints\Script\Get'],
             ['\Elasticsearch\Endpoints\Script\Delete'],

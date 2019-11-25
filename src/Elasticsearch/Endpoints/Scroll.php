@@ -23,7 +23,7 @@ class Scroll extends AbstractEndpoint
     public function getURI(): string
     {
         $scroll_id = $this->scroll_id ?? null;
-        if (isset($scroll_id)) {
+        if (!isset($scroll_id)) {
             trigger_error('A scroll id can be quite large and should be specified as part of the body', E_USER_DEPRECATED);
         }
 

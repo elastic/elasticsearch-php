@@ -24,7 +24,7 @@ class Scroll extends AbstractEndpoint
     {
         $scroll_id = $this->scroll_id ?? null;
         if (isset($scroll_id)) {
-            trigger_error('A scroll id can be quite large and should be specified as part of the body', E_USER_DEPRECATED);
+            @trigger_error('A scroll id can be quite large and should be specified as part of the body', E_USER_DEPRECATED);
         }
 
         if (isset($scroll_id)) {

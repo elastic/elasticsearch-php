@@ -16,6 +16,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_TasksNamespacecancel_cancel,`cancel()`>>
 * <<Elasticsearch_Namespaces_TasksNamespaceget_get,`get()`>>
 * <<Elasticsearch_Namespaces_TasksNamespacelist_list,`list()`>>
+* <<Elasticsearch_Namespaces_TasksNamespacetasksList_tasksList,`tasksList()`>>
 
 
 
@@ -79,6 +80,26 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->tasks()->list($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_TasksNamespacetasksList_tasksList]]
+.`tasksList()`
+****
+[source,php]
+----
+/*
+Proxy function to list() to prevent BC break since 7.4.0
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->tasks()->tasksList($params);
 ----
 ****
 

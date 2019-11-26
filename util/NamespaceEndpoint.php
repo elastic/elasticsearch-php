@@ -38,8 +38,17 @@ class NamespaceEndpoint
         $class = str_replace(':namespace', ucfirst($this->name) . 'Namespace', $class);
 
         $endpoints = '';
-        foreach($this->endpoints as $endpoint) {
+        foreach ($this->endpoints as $endpoint) {
             $endpoints .= $this->renderEndpoint($endpoint);
+        }
+        // Fix for BC in 7.2.0
+        switch ($this->name) {
+            case 'indices':
+                $endpoints .= $this->getAliasesProxy();
+                break;
+            case 'tasks':
+                $endpoints .= $this->tasksListProxy();
+                break;
         }
         $class = str_replace(':endpoints', $endpoints, $class);
 
@@ -69,14 +78,8 @@ class NamespaceEndpoint
         );
 
         $code = str_replace(':apidoc', $endpoint->renderDocParams(), $code);
-        $lowerCamelCase = preg_replace_callback(
-            '/_(.?)/',
-            function($matches){
-                return strtoupper($matches[1]);
-            },
-            $endpoint->name
-        );
-        $code = str_replace(':endpoint', $lowerCamelCase, $code);
+        $code = str_replace(':endpoint', $this->getEndpointName($endpoint->name), $code);
+
         $extract = '';
         $setParams = '';
         foreach ($endpoint->getParts() as $part => $value) {
@@ -106,5 +109,47 @@ class NamespaceEndpoint
     protected function normalizeName(string $name): string
     {
         return str_replace('_', '', ucwords($name, '_'));
+    }
+
+    protected function getEndpointName(string $name): string
+    {
+        return preg_replace_callback(
+            '/_(.?)/',
+            function ($matches) {
+                return strtoupper($matches[1]);
+            },
+            $name
+        );
+    }
+
+    protected function getAliasesProxy(): string
+    {
+        return <<<'EOD'
+    
+    /**
+     * Alias function to getAlias()
+     *
+     * @deprecated added to prevent BC break introduced in 7.2.0
+     * @see https://github.com/elastic/elasticsearch-php/issues/940
+     */
+    public function getAliases(array $params = [])
+    {
+        return $this->getAlias($params);
+    }
+EOD;
+    }
+
+    protected function tasksListProxy(): string
+    {
+        return <<<'EOD'
+
+    /**
+     * Proxy function to list() to prevent BC break since 7.4.0
+     */
+    public function tasksList(array $params = [])
+    {
+        return $this->list($params);
+    }
+EOD;
     }
 }

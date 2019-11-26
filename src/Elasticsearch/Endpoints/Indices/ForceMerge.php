@@ -6,7 +6,7 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Forcemerge
+ * Class ForceMerge
  * Elasticsearch API name indices.forcemerge
  * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Forcemerge extends AbstractEndpoint
+class ForceMerge extends AbstractEndpoint
 {
 
     public function getURI(): string

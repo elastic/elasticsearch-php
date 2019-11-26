@@ -6,7 +6,7 @@ namespace Elasticsearch\Endpoints;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Mtermvectors
+ * Class MTermVectors
  * Elasticsearch API name mtermvectors
  * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Mtermvectors extends AbstractEndpoint
+class MTermVectors extends AbstractEndpoint
 {
 
     public function getURI(): string
@@ -59,7 +59,7 @@ class Mtermvectors extends AbstractEndpoint
         return isset($this->body) ? 'POST' : 'GET';
     }
 
-    public function setBody($body): Mtermvectors
+    public function setBody($body): MTermVectors
     {
         if (isset($body) !== true) {
             return $this;

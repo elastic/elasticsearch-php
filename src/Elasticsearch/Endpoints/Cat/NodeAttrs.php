@@ -6,7 +6,7 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Nodeattrs
+ * Class NodeAttrs
  * Elasticsearch API name cat.nodeattrs
  * Generated running $ php util/GenerateEndpoints.php 7.4.2
  *
@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Nodeattrs extends AbstractEndpoint
+class NodeAttrs extends AbstractEndpoint
 {
 
     public function getURI(): string

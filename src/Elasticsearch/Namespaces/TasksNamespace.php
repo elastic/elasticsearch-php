@@ -17,6 +17,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
  */
 class TasksNamespace extends AbstractNamespace
 {
+
     /**
      * $params['task_id']        = (string) Cancel the task with specified task id (node_id:task_number)
      * $params['nodes']          = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
@@ -27,7 +28,6 @@ class TasksNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
-
     public function cancel(array $params = [])
     {
         $task_id = $this->extractArgument($params, 'task_id');
@@ -38,7 +38,8 @@ class TasksNamespace extends AbstractNamespace
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['task_id']             = (string) Return the task with specified id (node_id:task_number)
      * $params['wait_for_completion'] = (boolean) Wait for the matching tasks to complete (default: false)
      * $params['timeout']             = (time) Explicit operation timeout
@@ -47,7 +48,6 @@ class TasksNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
-
     public function get(array $params = [])
     {
         $task_id = $this->extractArgument($params, 'task_id');
@@ -58,7 +58,8 @@ class TasksNamespace extends AbstractNamespace
         $endpoint->setTaskId($task_id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['nodes']               = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['actions']             = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
      * $params['detailed']            = (boolean) Return detailed task information (default: false)
@@ -71,7 +72,6 @@ class TasksNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
-
     public function list(array $params = [])
     {
 
@@ -80,5 +80,12 @@ class TasksNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
+    }
+    /**
+     * Proxy function to list() to prevent BC break since 7.4.0
+     */
+    public function tasksList(array $params = [])
+    {
+        return $this->list($params);
     }
 }

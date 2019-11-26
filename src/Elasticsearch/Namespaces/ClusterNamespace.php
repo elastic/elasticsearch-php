@@ -17,6 +17,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
  */
 class ClusterNamespace extends AbstractNamespace
 {
+
     /**
      * $params['include_yes_decisions'] = (boolean) Return 'YES' decisions in explanation (default: false)
      * $params['include_disk_info']     = (boolean) Return information about disk usage and shard sizes (default: false)
@@ -26,7 +27,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
      */
-
     public function allocationExplain(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
@@ -37,7 +37,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['flat_settings']    = (boolean) Return settings in flat format (default: false)
      * $params['master_timeout']   = (time) Explicit operation timeout for connection to master node
      * $params['timeout']          = (time) Explicit operation timeout
@@ -47,7 +48,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
-
     public function getSettings(array $params = [])
     {
 
@@ -56,7 +56,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']                           = (list) Limit the information returned to a specific index
      * $params['expand_wildcards']                = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)
      * $params['level']                           = (enum) Specify the level of detail for returned information (Options = cluster,indices,shards) (Default = cluster)
@@ -74,7 +75,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
      */
-
     public function health(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -85,7 +85,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
@@ -93,7 +94,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
      */
-
     public function pendingTasks(array $params = [])
     {
 
@@ -102,7 +102,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
@@ -112,7 +113,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
-
     public function putSettings(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
@@ -123,13 +123,13 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      *
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
      */
-
     public function remoteInfo(array $params = [])
     {
 
@@ -138,7 +138,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['dry_run']        = (boolean) Simulate the operation only and return the resulting state
      * $params['explain']        = (boolean) Return an explanation of why the commands can or cannot be executed
      * $params['retry_failed']   = (boolean) Retries allocation of shards that are blocked due to too many subsequent allocation failures
@@ -151,7 +152,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
      */
-
     public function reroute(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
@@ -162,7 +162,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['metric']                    = (list) Limit the information returned to the specified metrics
      * $params['index']                     = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
      * $params['local']                     = (boolean) Return local information, do not retrieve the state from master node (default: false)
@@ -178,7 +179,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
      */
-
     public function state(array $params = [])
     {
         $metric = $this->extractArgument($params, 'metric');
@@ -191,7 +191,8 @@ class ClusterNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['node_id']       = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['flat_settings'] = (boolean) Return settings in flat format (default: false)
      * $params['timeout']       = (time) Explicit operation timeout
@@ -200,7 +201,6 @@ class ClusterNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
      */
-
     public function stats(array $params = [])
     {
         $node_id = $this->extractArgument($params, 'node_id');

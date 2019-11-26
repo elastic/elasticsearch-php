@@ -17,6 +17,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
  */
 class CatNamespace extends AbstractNamespace
 {
+
     /**
      * $params['name']   = (list) A comma-separated list of alias names to return
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
@@ -30,7 +31,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html
      */
-
     public function aliases(array $params = [])
     {
         $name = $this->extractArgument($params, 'name');
@@ -41,7 +41,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['node_id']        = (list) A comma-separated list of node IDs or names to limit the returned information
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
@@ -56,7 +57,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-allocation.html
      */
-
     public function allocation(array $params = [])
     {
         $node_id = $this->extractArgument($params, 'node_id');
@@ -67,7 +67,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setNodeId($node_id);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']  = (list) A comma-separated list of index names to limit the returned information
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
      * $params['h']      = (list) Comma-separated list of column names to display
@@ -79,7 +80,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-count.html
      */
-
     public function count(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -90,7 +90,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['fields'] = (list) A comma-separated list of fields to return the fielddata size
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
      * $params['bytes']  = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
@@ -103,7 +104,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html
      */
-
     public function fielddata(array $params = [])
     {
         $fields = $this->extractArgument($params, 'fields');
@@ -114,7 +114,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setFields($fields);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
      * $params['h']      = (list) Comma-separated list of column names to display
      * $params['help']   = (boolean) Return help information (Default = false)
@@ -127,7 +128,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html
      */
-
     public function health(array $params = [])
     {
 
@@ -136,7 +136,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['help'] = (boolean) Return help information (Default = false)
      * $params['s']    = (list) Comma-separated list of column names or column aliases to sort by
      *
@@ -144,7 +145,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html
      */
-
     public function help(array $params = [])
     {
 
@@ -153,7 +153,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']                     = (list) A comma-separated list of index names to limit the returned information
      * $params['format']                    = (string) a short version of the Accept header, e.g. json, yaml
      * $params['bytes']                     = (enum) The unit in which to display byte values (Options = b,k,m,g)
@@ -172,7 +173,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html
      */
-
     public function indices(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -183,7 +183,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -196,7 +197,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html
      */
-
     public function master(array $params = [])
     {
 
@@ -205,7 +205,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -218,16 +219,16 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodeattrs.html
      */
-
     public function nodeattrs(array $params = [])
     {
 
         $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Cat\Nodeattrs');
+        $endpoint = $endpointBuilder('Cat\NodeAttrs');
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['full_id']        = (boolean) Return the full node ID instead of the shortened version (default: false)
@@ -243,7 +244,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodes.html
      */
-
     public function nodes(array $params = [])
     {
 
@@ -252,7 +252,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -266,7 +267,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html
      */
-
     public function pendingTasks(array $params = [])
     {
 
@@ -275,7 +275,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -288,7 +289,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html
      */
-
     public function plugins(array $params = [])
     {
 
@@ -297,7 +297,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']       = (list) Comma-separated list or wildcard expression of index names to limit the returned information
      * $params['format']      = (string) a short version of the Accept header, e.g. json, yaml
      * $params['active_only'] = (boolean) If `true`, the response only includes ongoing shard recoveries (Default = false)
@@ -313,7 +314,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html
      */
-
     public function recovery(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -324,7 +324,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (Default = false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
@@ -337,7 +338,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html
      */
-
     public function repositories(array $params = [])
     {
 
@@ -346,7 +346,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']  = (list) A comma-separated list of index names to limit the returned information
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
      * $params['bytes']  = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
@@ -359,7 +360,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html
      */
-
     public function segments(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -370,7 +370,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['index']          = (list) A comma-separated list of index names to limit the returned information
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
@@ -386,7 +387,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html
      */
-
     public function shards(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
@@ -397,7 +397,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['repository']         = (list) Name of repository from which to fetch the snapshot information
      * $params['format']             = (string) a short version of the Accept header, e.g. json, yaml
      * $params['ignore_unavailable'] = (boolean) Set to true to ignore unavailable snapshots (Default = false)
@@ -412,7 +413,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html
      */
-
     public function snapshots(array $params = [])
     {
         $repository = $this->extractArgument($params, 'repository');
@@ -423,7 +423,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setRepository($repository);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['format']      = (string) a short version of the Accept header, e.g. json, yaml
      * $params['node_id']     = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
      * $params['actions']     = (list) A comma-separated list of actions that should be returned. Leave empty to return all.
@@ -439,7 +440,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
-
     public function tasks(array $params = [])
     {
 
@@ -448,7 +448,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['name']           = (string) A pattern that returned template names must match
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
@@ -462,7 +463,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html
      */
-
     public function templates(array $params = [])
     {
         $name = $this->extractArgument($params, 'name');
@@ -473,7 +473,8 @@ class CatNamespace extends AbstractNamespace
         $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
-    }    /**
+    }
+    /**
      * $params['thread_pool_patterns'] = (list) A comma-separated list of regular-expressions to filter the thread pools in the output
      * $params['format']               = (string) a short version of the Accept header, e.g. json, yaml
      * $params['size']                 = (enum) The multiplier in which to display values (Options = ,k,m,g,t,p)
@@ -488,7 +489,6 @@ class CatNamespace extends AbstractNamespace
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html
      */
-
     public function threadPool(array $params = [])
     {
         $thread_pool_patterns = $this->extractArgument($params, 'thread_pool_patterns');

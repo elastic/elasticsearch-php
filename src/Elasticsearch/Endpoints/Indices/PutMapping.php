@@ -25,7 +25,7 @@ class PutMapping extends AbstractEndpoint
         $index = $this->index ?? null;
         $type = $this->type ?? null;
         if (isset($type)) {
-            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+            @trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
         }
 
         if (isset($index) && isset($type)) {

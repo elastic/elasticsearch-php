@@ -31,7 +31,7 @@ class Index extends AbstractEndpoint
         $id = $this->id ?? null;
         $type = $this->type ?? null;
         if (isset($type)) {
-            trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
+            @trigger_error('Specifying types in urls has been deprecated', E_USER_DEPRECATED);
         }
 
         if (isset($type) && isset($id)) {

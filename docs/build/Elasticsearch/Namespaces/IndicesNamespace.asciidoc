@@ -51,6 +51,7 @@ The class defines the following methods:
 * <<Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases,`updateAliases()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade,`upgrade()`>>
 * <<Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery,`validateQuery()`>>
+* <<Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases,`getAliases()`>>
 
 
 
@@ -966,6 +967,26 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->indices()->validateQuery($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases]]
+.`getAliases()`
+****
+[source,php]
+----
+/*
+Alias function to getAlias()
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->indices()->getAliases($params);
 ----
 ****
 

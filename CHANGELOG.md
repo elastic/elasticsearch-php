@@ -1,3 +1,18 @@
+## Release 7.4.1
+
+- We added the suppress operator `@` for the deprecation messages `@trigger_error()`.
+  With this approach we don't break existing application that convert PHP errors in Exception
+  (e.g. using Laravel with issue https://github.com/babenkoivan/scout-elasticsearch-driver/issues/297)
+  Using the `@` operator is still possible to intercept the deprecation message using
+  a custom error handler.
+  [#973](https://github.com/elastic/elasticsearch-php/pull/973)
+- Add missing leading slash in the URL of put mapping endpoint
+  [#970](https://github.com/elastic/elasticsearch-php/pull/970)
+- Fix pre 7.2 endpoint class name with aliases + reapply fix #947.
+  This PR solved the unexpected BC break introduce in 7.4.0 with the code
+  generation tool
+  [#968](https://github.com/elastic/elasticsearch-php/pull/968)
+
 ## Release 7.4.0
 
 - Added the code generation for endpoints and namespaces based on

@@ -24,7 +24,7 @@ matrix:
       env: ES_VERSION="7.4.2"
     - php: 7.3
       env: ES_VERSION="8.0.0-SNAPSHOT"
-    - php: 7.4psnapshot
+    - php: 7.4snapshot
       env: ES_VERSION="7.4.2"
     - php: 7.4snapshot
       env: ES_VERSION="8.0.0-SNAPSHOT"

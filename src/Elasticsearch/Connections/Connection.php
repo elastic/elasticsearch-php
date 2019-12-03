@@ -679,42 +679,27 @@ class Connection implements ConnectionInterface
     {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
-            // 2.0 structured exceptions
-            if (isset($error['error']['reason']) === true) {
-                // Try to use root cause first (only grabs the first root cause)
-                $root = $error['error']['root_cause'];
-                if (isset($root) && isset($root[0])) {
-                    $cause = $root[0]['reason'];
-                    $type = $root[0]['type'];
-                } else {
-                    $cause = $error['error']['reason'];
-                    $type = $error['error']['type'];
-                }
-                // added json_encode to convert into a string
-                $original = new $errorClass(json_encode($response['body']), $response['status']);
-
-                return new $errorClass("$type: $cause", (int) $response['status'], $original);
-            } elseif (isset($error['error']) === true) {
-                // <2.0 semi-structured exceptions
-                // added json_encode to convert into a string
-                $original = new $errorClass(json_encode($response['body']), $response['status']);
-
-                return new $errorClass($error['error'], (int) $response['status'], $original);
+            $root = $error['error']['root_cause'];
+            if (isset($root) && isset($root[0])) {
+                $cause = $root[0]['reason'];
+                $type = $root[0]['type'];
+            } else {
+                $cause = $error['error']['reason'];
+                $type = $error['error']['type'];
             }
-
-            // <2.0 "i just blew up" nonstructured exception
-            // $error is an array but we don't know the format, reuse the response body instead
             // added json_encode to convert into a string
-            return new $errorClass(json_encode($response['body']), (int) $response['status']);
+            $original = new $errorClass(json_encode($response['body']), $response['status']);
+
+            return new $errorClass("$type: $cause", (int) $response['status'], $original);
         }
 
+        // Response mangled or unexpected, just return the body
         // if responseBody is not string, we convert it so it can be used as Exception message
         $responseBody = $response['body'];
         if (!is_string($responseBody)) {
             $responseBody = json_encode($responseBody);
         }
 
-        // <2.0 "i just blew up" nonstructured exception
         return new $errorClass($responseBody);
     }
 }

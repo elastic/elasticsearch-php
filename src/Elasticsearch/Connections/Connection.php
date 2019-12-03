@@ -679,7 +679,7 @@ class Connection implements ConnectionInterface
     {
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
-            if (isset($error['error']) === false){
+            if (isset($error['error']) === false) {
                 // <2.0 "i just blew up" nonstructured exception
                 // $error is an array but we don't know the format, reuse the response body instead
                 // added json_encode to convert into a string

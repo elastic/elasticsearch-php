@@ -22,15 +22,11 @@ matrix:
       env: ES_VERSION="7.4.2"
     - php: 7.3
       env: ES_VERSION="7.4.2"
-    - php: 7.3
-      env: ES_VERSION="8.0.0-SNAPSHOT"
     - php: 7.4
       env: ES_VERSION="7.4.2"
     - php: 7.4
       env: ES_VERSION="8.0.0-SNAPSHOT"
   allow_failures:
-    - php: 7.3
-      env: ES_VERSION="8.0.0-SNAPSHOT"
     - php: 7.4
       env: ES_VERSION="8.0.0-SNAPSHOT"
 

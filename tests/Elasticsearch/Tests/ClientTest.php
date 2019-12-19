@@ -478,4 +478,16 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $result = $client->info($params);
         $this->assertInstanceOf(FutureArray::class, $result);
     }
+
+    public function testExtractArgumentIterable()
+    {
+        $client = Elasticsearch\ClientBuilder::create()->build();
+        // array iterator can be casted to array back, so make more real with IteratorIterator
+        $body = new \IteratorIterator(new \ArrayIterator([1, 2, 3]));
+        $params = ['body' => $body];
+        $argument = $client->extractArgument($params, 'body');
+        $this->assertEquals($body, $argument);
+        $this->assertCount(0, $params);
+        $this->assertInstanceOf(\IteratorIterator::class, $argument);
+    }
 }

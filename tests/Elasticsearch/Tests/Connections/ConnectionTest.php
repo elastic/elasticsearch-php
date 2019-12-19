@@ -6,9 +6,12 @@ namespace Elasticsearch\Tests\Connections;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Serializers\SmartSerializer;
 use Psr\Log\LoggerInterface;
+use ReflectionClass;
 
 class ConnectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -281,5 +284,37 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
         $this->assertContains('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
+    }
+
+    public function testTryDeserializeErrorWithMasterNotDiscoveredException()
+    {
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            function () {
+            },
+            $host,
+            [],
+            new SmartSerializer(),
+            $this->logger,
+            $this->trace
+        );
+
+        $reflection = new ReflectionClass(Connection::class);
+        $tryDeserializeError = $reflection->getMethod('tryDeserializeError');
+        $tryDeserializeError->setAccessible(true);
+
+        $body = '{"error":{"root_cause":[{"type":"master_not_discovered_exception","reason":null}],"type":"master_not_discovered_exception","reason":null},"status":503}';
+        $response = [ 
+            'transfer_stats' => [],
+            'status' => 503,
+            'body' => $body
+        ];
+
+        $result = $tryDeserializeError->invoke($connection, $response, ServerErrorResponseException::class);
+        $this->assertInstanceOf(ServerErrorResponseException::class, $result);
+        $this->assertContains('master_not_discovered_exception', $result->getMessage());
     }
 }

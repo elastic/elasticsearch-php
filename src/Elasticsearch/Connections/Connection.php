@@ -685,7 +685,6 @@ class Connection implements ConnectionInterface
                 // added json_encode to convert into a string
                 return new $errorClass(json_encode($response['body']), (int) $response['status']);
             }
-
             // 2.0 structured exceptions
             if (is_array($error['error']) && array_key_exists('reason', $error['error']) === true) {
                 // Try to use root cause first (only grabs the first root cause)
@@ -699,14 +698,31 @@ class Connection implements ConnectionInterface
                 }
                 // added json_encode to convert into a string
                 $original = new $errorClass(json_encode($response['body']), $response['status']);
-
                 return new $errorClass("$type: $cause", (int) $response['status'], $original);
             }
             // <2.0 semi-structured exceptions
             // added json_encode to convert into a string
             $original = new $errorClass(json_encode($response['body']), $response['status']);
-
             return new $errorClass($error['error'], (int) $response['status'], $original);
+            
+            // // 2.0 structured exceptions
+            // if (is_array($error['error'])) {
+            //     // Try to use root cause first (only grabs the first root cause)
+            //     $root = $error['error']['root_cause'];
+            //     if (isset($root) && isset($root[0])) {
+            //         $cause = $root[0]['reason'];
+            //         $type = $root[0]['type'];
+            //     } else {
+            //         $cause = $error['error']['reason'];
+            //         $type = $error['error']['type'];
+            //     }
+            // }
+            // // added json_encode to convert into a string
+            // $original = new $errorClass(json_encode($response['body']), $response['status']);
+
+            // return isset($cause) && isset($type) ?
+            //     new $errorClass("$type: $cause", (int) $response['status'], $original) : 
+            //     new $errorClass(json_encode($error['error']), (int) $response['status'], $original);
         }
 
         // if responseBody is not string, we convert it so it can be used as Exception message

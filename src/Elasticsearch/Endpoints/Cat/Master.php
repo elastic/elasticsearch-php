@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Master
  * Elasticsearch API name cat.master
- * Generated running $ php util/GenerateEndpoints.php 7.4.2
+ * Generated running $ php util/GenerateEndpoints.php 7.5.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat

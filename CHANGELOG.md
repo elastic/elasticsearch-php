@@ -1,3 +1,14 @@
+## Release 7.5.0
+
+- Fixed `Client::extractArgument` iterable casting to array;
+  this allows passing a `Traversable` body for some endpoints
+  (e.g. Bulk, Msearch, MsearchTemplate)
+  [#983](https://github.com/elastic/elasticsearch-php/pull/983)
+- Fixed the Response Exception if the `reason` field is null
+  [#980](https://github.com/elastic/elasticsearch-php/pull/980)
+- Added support for PHP 7.4
+  [#976](https://github.com/elastic/elasticsearch-php/pull/976)
+
 ## Release 7.4.1
 
 - We added the suppress operator `@` for the deprecation messages `@trigger_error()`.

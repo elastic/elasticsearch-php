@@ -11,7 +11,7 @@ use Traversable;
 /**
  * Class Msearch
  * Elasticsearch API name msearch
- * Generated running $ php util/GenerateEndpoints.php 7.4.2
+ * Generated running $ php util/GenerateEndpoints.php 7.5.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints

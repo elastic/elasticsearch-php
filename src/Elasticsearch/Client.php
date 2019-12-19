@@ -32,7 +32,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.4.1';
+    const VERSION = '7.5.0';
 
     /**
      * @var Transport
@@ -212,7 +212,7 @@ class Client
      * $params['routing']                = (string) Specific routing value
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['version']                = (number) Explicit version number for concurrency control
-     * $params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte,force)
+     * $params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte)
      * $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
      * $params['body']                   = (array) The document (Required)
      *
@@ -590,12 +590,12 @@ class Client
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-     * $params['op_type']                = (enum) Explicit operation type (Options = index,create) (Default = index)
+     * $params['op_type']                = (enum) Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID (Options = index,create)
      * $params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
      * $params['routing']                = (string) Specific routing value
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['version']                = (number) Explicit version number for concurrency control
-     * $params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte,force)
+     * $params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte)
      * $params['if_seq_no']              = (number) only perform the index operation if the last operation that has changed the document has the specified sequence number
      * $params['if_primary_term']        = (number) only perform the index operation if the last operation that has changed the document has the specified primary term
      * $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with

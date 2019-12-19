@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Restore
  * Elasticsearch API name snapshot.restore
- * Generated running $ php util/GenerateEndpoints.php 7.4.2
+ * Generated running $ php util/GenerateEndpoints.php 7.5.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Snapshot

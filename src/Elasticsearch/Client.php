@@ -1275,7 +1275,9 @@ class Client
     {
         if (array_key_exists($arg, $params) === true) {
             $value = $params[$arg];
-            $value = is_object($value) ? (array) $value : $value;
+            $value = (is_object($value) && !is_iterable($value)) ?
+                (array) $value :
+                $value;
             unset($params[$arg]);
             return $value;
         } else {

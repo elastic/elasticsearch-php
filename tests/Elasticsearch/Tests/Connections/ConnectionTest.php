@@ -286,6 +286,9 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertContains('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/977
+     */
     public function testTryDeserializeErrorWithMasterNotDiscoveredException()
     {
         $host = [

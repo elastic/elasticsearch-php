@@ -307,7 +307,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $tryDeserializeError->setAccessible(true);
 
         $body = '{"error":{"root_cause":[{"type":"master_not_discovered_exception","reason":null}],"type":"master_not_discovered_exception","reason":null},"status":503}';
-        $response = [ 
+        $response = [
             'transfer_stats' => [],
             'status' => 503,
             'body' => $body

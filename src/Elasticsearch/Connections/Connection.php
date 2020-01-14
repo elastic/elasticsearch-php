@@ -376,7 +376,7 @@ class Connection implements ConnectionInterface
             array(
                 'method'    => $request['http_method'],
                 'uri'       => $response['effective_url'],
-                'port'      => $response['transfer_stats']['primary_port'],
+                'port'      => $response['transfer_stats']['primary_port'] ?? '',
                 'headers'   => $request['headers'],
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],

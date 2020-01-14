@@ -396,14 +396,10 @@ class ClientBuilder
             ]
         ]);
 
-        // Merge best practices for the connection
-        $this->setConnectionParams([
-            'client' => [
-                'curl' => [
-                    CURLOPT_ENCODING => 1,
-                ],
-            ]
-        ]);
+        if (!isset($this->connectionParams['client']['curl'][CURLOPT_ENCODING])) {
+            // Merge best practices for the connection (enable gzip)
+            $this->connectionParams['client']['curl'][CURLOPT_ENCODING] = 'gzip';
+        }
 
         return $this;
     }

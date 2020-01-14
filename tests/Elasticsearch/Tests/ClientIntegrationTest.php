@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Tests\ClientBuilder\ArrayLogger;
 use Psr\Log\LogLevel;
@@ -19,7 +21,7 @@ use Psr\Log\LogLevel;
  * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link       http://elasticsearch.org
  */
-class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
+class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

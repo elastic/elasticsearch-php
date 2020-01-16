@@ -54,6 +54,9 @@ Documentation
 --------------
 [Full documentation can be found here.](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
+We also provide a code examples generator for PHP using the `util/GenerateDocExamples.php` script. This command parse the `util/alternative_report.spec.json` file produced from this [JSON specification](https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json) and it generates the PHP examples foreach digest value.
+The examples are stored in asciidoc format under `docs/examples` folder.
+
 Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).

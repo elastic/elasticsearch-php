@@ -1,3 +1,21 @@
+- [elasticsearch-php](#elasticsearch-php)
+  * [Features](#features)
+  * [Version Matrix](#version-matrix)
+  * [Documentation](#documentation)
+  * [Installation via Composer](#installation-via-composer)
+  * [PHP Version Requirement](#php-version-requirement)
+  * [Quickstart](#quickstart)
+    + [Index a document](#index-a-document)
+    + [Get a document](#get-a-document)
+    + [Search for a document](#search-for-a-document)
+    + [Delete a document](#delete-a-document)
+    + [Delete an index](#delete-an-index)
+    + [Create an index](#create-an-index)
+- [Unit Testing using Mock a Elastic Client](#unit-testing-using-mock-a-elastic-client)
+- [Wrap up](#wrap-up)
+  * [Available Licenses](#available-licenses)
+    + [Contributions](#contributions)
+
 elasticsearch-php
 =================
 

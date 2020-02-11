@@ -231,7 +231,7 @@ This window allows consistent paging even if there is background indexing/updati
 request with `scroll` enabled.  This returns a "page" of documents, and a scroll_id which is used to continue
 paginating through the hits.
 
-More details about scrolling can be found in the https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html[Link: reference documentation].
+More details about scrolling can be found in the https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll[Link: reference documentation].
 
 This is an example which can be used as a template for more advanced operations:
 

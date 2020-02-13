@@ -7,3 +7,6 @@ parameters:
         -
             message: '#is not subtype of Throwable#'
             path: %currentWorkingDirectory%/src/Elasticsearch/ClientBuilder.php
+        -
+            message: '#Unsafe usage of new static()#'
+            path: %currentWorkingDirectory%/src/Elasticsearch/ClientBuilder.php

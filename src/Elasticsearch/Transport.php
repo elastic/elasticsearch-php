@@ -143,7 +143,7 @@ class Transport
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
-        } 
+        }
         return $result;
     }
 

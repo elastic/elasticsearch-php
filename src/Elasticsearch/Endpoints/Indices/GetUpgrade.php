@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetUpgrade
  * Elasticsearch API name indices.get_upgrade
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices

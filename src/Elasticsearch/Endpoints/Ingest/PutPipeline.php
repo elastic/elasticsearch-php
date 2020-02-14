@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class PutPipeline
  * Elasticsearch API name ingest.put_pipeline
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ingest

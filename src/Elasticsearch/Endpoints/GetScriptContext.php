@@ -1,50 +1,39 @@
 <?php
 declare(strict_types = 1);
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class UpdateAliases
- * Elasticsearch API name indices.update_aliases
+ * Class GetScriptContext
+ * Elasticsearch API name get_script_context
  * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints
  * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class UpdateAliases extends AbstractEndpoint
+class GetScriptContext extends AbstractEndpoint
 {
 
     public function getURI(): string
     {
 
-        return "/_aliases";
+        return "/_script_context";
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            'timeout',
-            'master_timeout'
+            
         ];
     }
 
     public function getMethod(): string
     {
-        return 'POST';
-    }
-
-    public function setBody($body): UpdateAliases
-    {
-        if (isset($body) !== true) {
-            return $this;
-        }
-        $this->body = $body;
-
-        return $this;
+        return 'GET';
     }
 }

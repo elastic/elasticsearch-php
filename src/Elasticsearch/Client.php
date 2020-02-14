@@ -32,7 +32,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.5.1';
+    const VERSION = '7.6.0';
 
     /**
      * @var Transport
@@ -116,7 +116,7 @@ class Client
      * $params['index']                  = (string) Default index for items which don't provide one
      * $params['type']                   = DEPRECATED (string) Default document type for items which don't provide one
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-     * $params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+     * $params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
      * $params['routing']                = (string) Specific routing value
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['_source']                = (list) True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
@@ -242,7 +242,7 @@ class Client
      * $params['index']                  = (string) The name of the index (Required)
      * $params['type']                   = DEPRECATED (string) The type of the document
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-     * $params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+     * $params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
      * $params['routing']                = (string) Specific routing value
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['if_seq_no']              = (number) only perform the delete operation if the last operation that has changed the document has the specified sequence number
@@ -553,6 +553,40 @@ class Client
         return $this->performRequest($endpoint);
     }
     /**
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function getScriptContext(array $params = [])
+    {
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('GetScriptContext');
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function getScriptLanguages(array $params = [])
+    {
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('GetScriptLanguages');
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
      * $params['id']               = (string) The document ID (Required)
      * $params['index']            = (string) The name of the index (Required)
      * $params['type']             = DEPRECATED (string) The type of the document; deprecated and optional starting with 7.0
@@ -813,6 +847,7 @@ class Client
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['search_type']        = (enum) Search operation type (Options = query_then_fetch,dfs_query_then_fetch)
      * $params['body']               = (array) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition. (Required)
      *
      * @param array $params Associative array of parameters
@@ -836,7 +871,7 @@ class Client
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
+     * $params['refresh']                = (boolean) Should the affected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
      * $params['wait_for_completion']    = (boolean) Should the request should block until the reindex is complete. (Default = true)
@@ -1118,7 +1153,7 @@ class Client
      * $params['_source_excludes']       = (list) A list of fields to exclude from the returned _source field
      * $params['_source_includes']       = (list) A list of fields to extract and return from the _source field
      * $params['lang']                   = (string) The script language (default: painless)
-     * $params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+     * $params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
      * $params['retry_on_conflict']      = (number) Specify how many times should the operation be retried when a conflict occurs (default: 0)
      * $params['routing']                = (string) Specific routing value
      * $params['timeout']                = (time) Explicit operation timeout
@@ -1178,7 +1213,7 @@ class Client
      * $params['version']                = (boolean) Specify whether to return document version as part of a hit
      * $params['version_type']           = (boolean) Should the document increment the version number (internal) on hit or not (reindex)
      * $params['request_cache']          = (boolean) Specify if request cache should be used for this request or not, defaults to index level setting
-     * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
+     * $params['refresh']                = (boolean) Should the affected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
      * $params['scroll_size']            = (number) Size on the scroll request powering the update by query

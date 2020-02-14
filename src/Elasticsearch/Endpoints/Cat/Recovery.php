@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Recovery
  * Elasticsearch API name cat.recovery
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat

@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class IndicesNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -974,7 +974,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }
+    }    
     /**
      * Alias function to getAlias()
      *

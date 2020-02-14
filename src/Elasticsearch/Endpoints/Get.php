@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Get
  * Elasticsearch API name get
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints

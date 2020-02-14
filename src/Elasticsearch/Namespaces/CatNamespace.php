@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class CatNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -157,7 +157,7 @@ class CatNamespace extends AbstractNamespace
     /**
      * $params['index']                     = (list) A comma-separated list of index names to limit the returned information
      * $params['format']                    = (string) a short version of the Accept header, e.g. json, yaml
-     * $params['bytes']                     = (enum) The unit in which to display byte values (Options = b,k,m,g)
+     * $params['bytes']                     = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
      * $params['local']                     = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout']            = (time) Explicit operation timeout for connection to master node
      * $params['h']                         = (list) Comma-separated list of column names to display
@@ -232,7 +232,7 @@ class CatNamespace extends AbstractNamespace
      * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
      * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
      * $params['full_id']        = (boolean) Return the full node ID instead of the shortened version (default: false)
-     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['local']          = (boolean) Calculate the selected nodes using the local cluster state rather than the state from master node (default: false)
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)

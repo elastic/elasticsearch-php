@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetScript
  * Elasticsearch API name get_script
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints

@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class PutMapping
  * Elasticsearch API name indices.put_mapping
- * Generated running $ php util/GenerateEndpoints.php 7.5.0
+ * Generated running $ php util/GenerateEndpoints.php 7.6.0
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -31,11 +31,11 @@ class PutMapping extends AbstractEndpoint
         if (isset($index) && isset($type)) {
             return "/$index/$type/_mapping";
         }
-        if (isset($type)) {
-            return "/_mappings/$type";
-        }
         if (isset($index)) {
             return "/$index/_mapping";
+        }
+        if (isset($type)) {
+            return "/_mappings/$type";
         }
         throw new RuntimeException('Missing parameter for the endpoint indices.put_mapping');
     }

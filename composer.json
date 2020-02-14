@@ -12,21 +12,10 @@
         "name": "Enrico Zimuel"
     }
   ],
-  "repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/ezimuel/RingPHP"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ezimuel/streams"
-    }
-  ],
   "require": {
     "php": "^7.1",
     "ext-json": ">=1.3.7",
-    "guzzlehttp/ringphp": "dev-fork-elasticsearch@dev",
-    "guzzlehttp/streams": "dev-fork-elasticsearch@dev",
+    "ezimuel/ringphp": "@dev",
     "psr/log": "~1.0"
   },
   "require-dev": {

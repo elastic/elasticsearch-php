@@ -12,7 +12,6 @@
         "name": "Enrico Zimuel"
     }
   ],
-  "minimum-stability": "dev",
   "repositories": [
     {
         "type": "vcs",

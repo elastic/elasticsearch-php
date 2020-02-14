@@ -1,3 +1,14 @@
+## Release 7.5.1
+
+- Added `ClientBuilder::includePortInHostHeader()` to add the
+  `port` in the `Host` header. This fixes [#993](https://github.com/elastic/elasticsearch-php/issues/993).
+  By default the `port` is not included in the `Host` header.
+  [#997](https://github.com/elastic/elasticsearch-php/pull/997)
+- Replace abandoned packages: ringphp, streams and phpstan-shim 
+  [#996](https://github.com/elastic/elasticsearch-php/pull/996)
+- Fixed gzip compression when setting Cloud Id
+  [#986](https://github.com/elastic/elasticsearch-php/pull/986)
+
 ## Release 7.5.0
 
 - Fixed `Client::extractArgument` iterable casting to array;

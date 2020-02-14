@@ -38,7 +38,8 @@ before_install:
   - ./travis/run_es_docker.sh
 
 install:
-  - composer install --prefer-dist --no-interaction
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN} >/dev/null 2>&1; fi;
+  - composer install --prefer-dist --no-interaction >/dev/null 2>&1
 
 before_script:
   - if [ $TRAVIS_PHP_VERSION = '7.4' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi

@@ -25,7 +25,7 @@
   "require": {
     "php": "^7.1",
     "ext-json": ">=1.3.7",
-    "guzzlehttp/ringphp": "dev-fork-elasticsearch",
+    "guzzlehttp/ringphp": "dev-fork-elasticsearch as 1.1.1",
     "guzzlehttp/streams": "@dev",
     "psr/log": "~1.0"
   },

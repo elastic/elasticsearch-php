@@ -168,11 +168,6 @@ class Connection implements ConnectionInterface
         }
         $port = $hostDetails['port'];
 
-        if (isset($connectionParams['client']['port_in_header']) && $connectionParams['client']['port_in_header']) {
-            if (!in_array((int) $port, [80,443])) {
-                $host .= ":$port";
-            }
-        }
         $this->host             = $host;
         $this->path             = $path;
         $this->port             = $port;
@@ -203,6 +198,12 @@ class Connection implements ConnectionInterface
             $this->headers = array_merge($this->headers, $options['client']['headers']);
         }
 
+        $host = $this->host;
+        if (isset($this->connectionParams['client']['port_in_header']) && $this->connectionParams['client']['port_in_header']) {
+            if (!in_array((int) $this->port, [80,443])) {
+                $host .= ':' . $this->port;
+            }
+        }
         
         $request = [
             'http_method' => $method,
@@ -211,7 +212,7 @@ class Connection implements ConnectionInterface
             'body'        => $body,
             'headers'     => array_merge(
                 [
-                'Host'  => [$this->host]
+                'Host'  => [$host]
                 ],
                 $this->headers
             )

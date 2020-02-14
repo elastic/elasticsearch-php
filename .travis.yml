@@ -17,13 +17,13 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1
-      env: ES_VERSION="7.5.1"
+      env: ES_VERSION="7.5.2"
     - php: 7.2
-      env: ES_VERSION="7.5.1"
+      env: ES_VERSION="7.5.2"
     - php: 7.3
-      env: ES_VERSION="7.5.1"
+      env: ES_VERSION="7.5.2"
     - php: 7.4
-      env: ES_VERSION="7.5.1"
+      env: ES_VERSION="7.5.2"
     - php: 7.4
       env: ES_VERSION="8.0.0-SNAPSHOT"
   allow_failures:
@@ -38,7 +38,8 @@ before_install:
   - ./travis/run_es_docker.sh
 
 install:
-  - composer install --prefer-dist
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN} >/dev/null 2>&1; fi;
+  - composer install --prefer-dist --no-interaction >/dev/null 2>&1
 
 before_script:
   - if [ $TRAVIS_PHP_VERSION = '7.4' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
@@ -47,10 +48,7 @@ before_script:
 
 script:
   - if [ $TRAVIS_PHP_VERSION != '7.4' ]; then composer run-script phpcs; fi
-  - if [ $TRAVIS_PHP_VERSION = '7.1' ]; then composer run-script phpstan7.1; fi
-  - if [ $TRAVIS_PHP_VERSION = '7.2' ]; then composer run-script phpstan7.1; fi
-  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then composer run-script phpstan; fi
-  - if [ $TRAVIS_PHP_VERSION = '7.4' ]; then composer run-script phpstan; fi
+  - composer run-script phpstan
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
 

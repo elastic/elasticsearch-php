@@ -143,11 +143,8 @@ class Transport
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
-
-            return $result;
-        } elseif ($async === true || $async === 'lazy') {
-            return $result;
         }
+        return $result;
     }
 
     public function shouldRetry(array $request): bool

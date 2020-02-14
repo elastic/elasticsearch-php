@@ -974,7 +974,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
-    }    
+    }
     /**
      * Alias function to getAlias()
      *

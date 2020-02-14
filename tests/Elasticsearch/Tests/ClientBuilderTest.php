@@ -82,7 +82,6 @@ class ClientBuilderTest extends TestCase
 
     /**
      * @dataProvider getHttpPorts
-     * 
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
     public function testIncludePortInHostHeader(int $port, bool $included)

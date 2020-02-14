@@ -472,7 +472,6 @@ class ClientBuilder
 
     /**
      * Include the port in Host header
-     * 
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
     public function includePortInHostHeader(bool $enable): ClientBuilder
@@ -523,7 +522,7 @@ class ClientBuilder
         }
 
         $this->connectionParams['client']['port_in_header'] = $this->includePortInHostHeader;
-        
+
         if (is_null($this->connectionFactory)) {
             if (is_null($this->connectionParams)) {
                 $this->connectionParams = [];

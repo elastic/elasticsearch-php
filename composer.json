@@ -15,7 +15,8 @@
   "require": {
     "php": "^7.1",
     "ext-json": ">=1.3.7",
-    "ezimuel/ringphp": "@dev",
+    "ezimuel/ringphp": "master@dev",
+    "ezimuel/guzzlestreams": "master@dev",
     "psr/log": "~1.0"
   },
   "require-dev": {

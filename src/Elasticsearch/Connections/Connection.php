@@ -200,9 +200,7 @@ class Connection implements ConnectionInterface
 
         $host = $this->host;
         if (isset($this->connectionParams['client']['port_in_header']) && $this->connectionParams['client']['port_in_header']) {
-            if (!in_array((int) $this->port, [80,443])) {
-                $host .= ':' . $this->port;
-            }
+            $host .= ':' . $this->port;
         }
         
         $request = [

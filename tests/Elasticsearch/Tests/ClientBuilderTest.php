@@ -71,23 +71,13 @@ class ClientBuilderTest extends TestCase
         }
     }
 
-    public function getHttpPorts()
-    {
-        return [
-            [ 80, false ],  // not included since 80 is standard port for HTTP
-            [ 443, false ], // not included since 442 is standard port for HTTPS
-            [ 1234, true ]  // included since 1234 is not a standard port
-        ];
-    }
-
     /**
-     * @dataProvider getHttpPorts
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
-    public function testIncludePortInHostHeader(int $port, bool $included)
+    public function testIncludePortInHostHeader()
     {
         $host = "localhost";
-        $url = "localhost:$port";
+        $url = "$host:1234";
         $params = [
             'client' => [
                 'verbose' => true
@@ -106,14 +96,14 @@ class ClientBuilderTest extends TestCase
         } catch (ElasticsearchException $e) {
             $request = $client->transport->getLastConnection()->getLastRequestInfo();
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
-            $this->assertEquals($included ? $url : $host, $request['request']['headers']['Host'][0]);
+            $this->assertEquals($url, $request['request']['headers']['Host'][0]);
         }
     }
 
     /**
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
-    public function testNotIncludeStandardPortInHostHeaderAsDefault()
+    public function testNotIncludePortInHostHeaderAsDefault()
     {
         $host = "localhost";
         $url  = "$host:1234";
@@ -141,7 +131,7 @@ class ClientBuilderTest extends TestCase
     /**
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
-    public function testNotIncludeStandardPortInHostHeader()
+    public function testNotIncludePortInHostHeader()
     {
         $host = "localhost";
         $url  = "$host:1234";

@@ -44,7 +44,17 @@ $result = $git->run(
 );
 $files = explode("\n", $result);
 
-$endpointDir = __DIR__ . '/output/Endpoints/';
+$outputDir = __DIR__ . '/output';
+
+// Remove the output directory
+printf ("Removing %s folder\n", $outputDir);
+removeDirectory($outputDir);
+mkdir($outputDir);
+
+$endpointDir = "$outputDir/Endpoints/";
+printf ("Creating folder %s\n", $endpointDir);
+mkdir ($endpointDir);
+
 $countEndpoint = 0;
 $namespaces = [];
 
@@ -73,9 +83,12 @@ foreach ($files as $file) {
 }
 
 // Generate namespaces
-$namespaceDir = __DIR__ . '/output/Namespaces/';
+$namespaceDir = "$outputDir/Namespaces/";
+printf ("Creating folder %s\n", $namespaceDir);
+mkdir($namespaceDir);
+
 $countNamespace = 0;
-$clientFile = __DIR__ . '/output/Client.php';
+$clientFile = "$outputDir/Client.php";
 
 foreach ($namespaces as $name => $endpoints) {
     if (empty($name)) {
@@ -110,4 +123,18 @@ function print_usage_msg(): void
 {
     printf("Usage: php %s <ES_VERSION>\n", basename(__FILE__));
     printf("where <ES_VERSION> is the Elasticsearch version to check. The version must be >= 7.4.0.\n");
+}
+
+// Remove directory recursively
+function removeDirectory($directory)
+{
+    foreach(glob("{$directory}/*") as $file)
+    {
+        if(is_dir($file)) { 
+            removeDirectory($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($directory);
 }

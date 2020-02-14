@@ -128,6 +128,11 @@ class ClientBuilder
      */
     private $sslVerification = null;
 
+    /**
+     *  @var bool
+     */
+    private $includePortInHostHeader = false;
+
     public static function create(): ClientBuilder
     {
         return new static();
@@ -465,6 +470,17 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Include the port in Host header
+     * @see https://github.com/elastic/elasticsearch-php/issues/993
+     */
+    public function includePortInHostHeader(bool $enable): ClientBuilder
+    {
+        $this->includePortInHostHeader = $enable;
+
+        return $this;
+    }
+
     public function build(): Client
     {
         $this->buildLoggers();
@@ -504,6 +520,8 @@ class ClientBuilder
         } elseif (is_string($this->serializer)) {
             $this->serializer = new $this->serializer;
         }
+
+        $this->connectionParams['client']['port_in_header'] = $this->includePortInHostHeader;
 
         if (is_null($this->connectionFactory)) {
             if (is_null($this->connectionParams)) {

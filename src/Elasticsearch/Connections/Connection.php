@@ -198,6 +198,11 @@ class Connection implements ConnectionInterface
             $this->headers = array_merge($this->headers, $options['client']['headers']);
         }
 
+        $host = $this->host;
+        if (isset($this->connectionParams['client']['port_in_header']) && $this->connectionParams['client']['port_in_header']) {
+            $host .= ':' . $this->port;
+        }
+        
         $request = [
             'http_method' => $method,
             'scheme'      => $this->transportSchema,
@@ -205,7 +210,7 @@ class Connection implements ConnectionInterface
             'body'        => $body,
             'headers'     => array_merge(
                 [
-                'Host'  => [$this->host]
+                'Host'  => [$host]
                 ],
                 $this->headers
             )

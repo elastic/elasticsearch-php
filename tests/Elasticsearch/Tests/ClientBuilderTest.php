@@ -70,4 +70,90 @@ class ClientBuilderTest extends TestCase
             $this->assertNotContains('gzip', $request['request']['client']['curl']);
         }
     }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/993
+     */
+    public function testIncludePortInHostHeader()
+    {
+        $host = "localhost";
+        $url = "$host:1234";
+        $params = [
+            'client' => [
+                'verbose' => true
+            ]
+        ];
+        $client = ClientBuilder::create()
+            ->setConnectionParams($params)
+            ->setHosts([$url])
+            ->includePortInHostHeader(true)
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['Host'][0]));
+            $this->assertEquals($url, $request['request']['headers']['Host'][0]);
+        }
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/993
+     */
+    public function testNotIncludePortInHostHeaderAsDefault()
+    {
+        $host = "localhost";
+        $url  = "$host:1234";
+        $params = [
+            'client' => [
+                'verbose' => true
+            ]
+        ];
+        $client = ClientBuilder::create()
+            ->setConnectionParams($params)
+            ->setHosts([$url])
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['Host'][0]));
+            $this->assertEquals($host, $request['request']['headers']['Host'][0]);
+        }
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/993
+     */
+    public function testNotIncludePortInHostHeader()
+    {
+        $host = "localhost";
+        $url  = "$host:1234";
+        $params = [
+            'client' => [
+                'verbose' => true
+            ]
+        ];
+        $client = ClientBuilder::create()
+            ->setConnectionParams($params)
+            ->setHosts([$url])
+            ->includePortInHostHeader(false)
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['Host'][0]));
+            $this->assertEquals($host, $request['request']['headers']['Host'][0]);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 ## Release 7.5.1
 
+- Fixes port missing in log [#925](https://github.com/elastic/elasticsearch-php/issues/925)
+  [75e0888](https://github.com/elastic/elasticsearch-php/commit/125594b40d167ef1509b3ee49a3f93426390c426)
 - Added `ClientBuilder::includePortInHostHeader()` to add the
   `port` in the `Host` header. This fixes [#993](https://github.com/elastic/elasticsearch-php/issues/993).
   By default the `port` is not included in the `Host` header.

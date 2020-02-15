@@ -1,3 +1,9 @@
+## Release 7.6.1
+
+- Fixed issue with `guzzlehttp/ringphp` and `guzzle/streams`
+  using forks `ezimuel/ringphp` and `ezimuel/guzzlestreams`
+  [92a6a4a](https://github.com/elastic/elasticsearch-php/commit/92a6a4adda5eafd1823c7c9c386e2c7e5e75cd08)
+
 ## Release 7.6.0
 
 - Generated the new endpoints for Elasticsearch 7.6.0

@@ -46,6 +46,28 @@ $params = [
 $result = $client->scriptsPainlessExecute($params);
 ----
 
+- Get Script Context
+
+Returns all script contexts.
+
+[source,php]
+----
+$client = ClientBuilder::create()->build();
+
+$result = $client->getScriptContext();
+----
+
+- Get Script Languages
+
+Returns available script types, languages and contexts.
+
+[source,php]
+----
+$client = ClientBuilder::create()->build();
+
+$result = $client->getScriptLanguages();
+----
+
 === Beta
 
 There are no beta APIs in the current version of `elasticsearch-php`.

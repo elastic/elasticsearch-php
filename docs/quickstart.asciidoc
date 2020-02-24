@@ -64,7 +64,7 @@ print_r($response);
 
 The response that you get back indicates that the document was created in the 
 index that you specified. The response is an associative array containing a 
-decoded version of the JSON that Elasticsearch returns:
+decoded version of the JSON that {es} returns:
 
 [source,php]
 ----------------------------
@@ -97,7 +97,7 @@ print_r($response);
 
 
 The response contains metadata such as index, version, and so on as well as a 
-`_source` field, which is the original document you sent to Elasticsearch.
+`_source` field, which is the original document you sent to {es}.
 
 [source,php]
 ----------------------------
@@ -119,8 +119,8 @@ Array
 
 === Search for a document
 
-Searching is a hallmark of Elasticsearch, so let's perform a search.  We are 
-going to use the `match` query as a demonstration:
+Searching is a hallmark of {es}, so let's perform a search.  We are going to use 
+the `match` query as a demonstration:
 
 [source,php]
 ----------------------------
@@ -214,9 +214,9 @@ Array
 
 === Delete an index
 
-Due to the dynamic nature of Elasticsearch, the first document you added 
-automatically built an index with some default settings. Delete that index and 
-specify your own settings later:
+Due to the dynamic nature of {es}, the first document you added automatically 
+built an index with some default settings. Delete that index and specify your 
+own settings later:
 
 [source,php]
 ----------------------------
@@ -259,7 +259,7 @@ $response = $client->indices()->create($params);
 print_r($response);
 ----------------------------
 
-Elasticsearch now creates that index with your chosen settings and return an 
+{es} now creates that index with your chosen settings and return an 
 acknowledgement:
 
 [source,php]
@@ -274,8 +274,8 @@ Array
 === Wrap up
 
 That was just a crash-course overview of the client and it's syntax. If you are 
-familiar with Elasticsearch, you'll notice that the methods are named just like 
-REST endpoints.
+familiar with {es}, you'll notice that the methods are named just like REST 
+endpoints.
 
 You may also notice that the client is configured in a manner that facilitates 
 easy discovery via your IDE. All core actions are available under the `$client` 

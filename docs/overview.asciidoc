@@ -1,8 +1,8 @@
 [[overview]]
 == Overview
 
-This is the official PHP client for {es}. It is designed to be a low-level 
-client that does not stray from the REST API.
+This is the official PHP client for Elasticsearch. It is designed to be a 
+low-level client that does not stray from the REST API.
 
 All methods closely match the REST API, and furthermore, match the method 
 structure of other language clients (Ruby, Python, etc). We hope that this 

@@ -3,7 +3,7 @@
   "description": "PHP Client for Elasticsearch",
   "keywords": ["search","client", "elasticsearch"],
   "type": "library",
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Zachary Tong"
@@ -23,7 +23,7 @@
     "athletic/athletic": "~0.1",
     "symfony/yaml": "2.4.3 as 2.4.2",
     "satooshi/php-coveralls": "dev-master",
-    "mikey179/vfsStream": "~1.2",
+    "mikey179/vfsstream": "~1.2",
     "twig/twig": "1.*",
     "cpliakas/git-wrapper": "~1.0"
   },

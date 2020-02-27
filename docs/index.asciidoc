@@ -40,3 +40,5 @@ include::community.asciidoc[]
 include::experimental-beta-apis.asciidoc[]
 
 include::build/classes.asciidoc[]
+
+include::{asciidoc-dir}/../../shared/attributes.asciidoc[]

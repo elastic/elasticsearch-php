@@ -247,7 +247,7 @@ background indexing/updating/deleting. First, you execute a search request with
 used to continue paginating through the hits.
 
 More details about scrolling can be found in the 
-{ref}/search-request-body.html#request-body-search-scroll[reference documentation].
+{ref-7x}/search-request-body.html#request-body-search-scroll[reference documentation].
 
 This is an example which can be used as a template for more advanced operations:
 

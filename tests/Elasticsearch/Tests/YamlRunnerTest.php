@@ -108,12 +108,12 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      */
     public static function getHost(): string
     {
-        if (getenv('ES_TEST_HOST') !== false) {
-            return getenv('ES_TEST_HOST');
+        $host = Utility::getHost();
+        if (null == $host) {
+            echo 'Environment variable TEST_SUITE (oss, xpack) not defined.';
+            exit;
         }
-
-        echo 'Environment variable for elasticsearch test cluster (ES_TEST_HOST) not defined. Exiting yaml test';
-        exit;
+        return $host;
     }
 
     public static function setUpBeforeClass()

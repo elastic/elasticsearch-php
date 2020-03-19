@@ -2,6 +2,10 @@
 
 declare(strict_types = 1);
 
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Tests\Utility;
+use GitWrapper\GitWrapper;
+
 error_reporting(E_ALL | E_STRICT);
 
 // Set the default timezone. While this doesn't cause any tests to fail, PHP
@@ -19,13 +23,13 @@ echo "Base directory: ". dirname(__DIR__)."\n";
 // Include the composer autoloader
 $autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-$client = \Elasticsearch\ClientBuilder::fromConfig([
-	'hosts' => [$_SERVER['ES_TEST_HOST']]
+$client = ClientBuilder::fromConfig([
+	'hosts' => [Utility::getHost()]
 ]);
 $serverInfo = $client->info();
 var_dump($serverInfo);
 
-$gitWrapper = new \GitWrapper\GitWrapper();
+$gitWrapper = new GitWrapper();
 echo "Git cwd: ".dirname(__DIR__) . "/util/elasticsearch\n";
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 

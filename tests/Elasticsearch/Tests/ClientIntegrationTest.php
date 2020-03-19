@@ -23,10 +23,21 @@ use Psr\Log\LogLevel;
  */
 class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * ArrayLogger
+     */
+    private $logger;
+
+    /**
+     * @var string
+     */
+    private $host;
+
     public function setUp()
     {
-        if (empty(getenv('ES_TEST_HOST'))) {
-            $this->markTestSkipped('I cannot execute integration test without ES_TEST_HOST env');
+        $this->host = Utility::getHost();
+        if (null == $this->host) {
+            $this->markTestSkipped('I cannot execute integration test without TEST_SUITE env');
         }
         $this->logger = new ArrayLogger();
     }
@@ -34,7 +45,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
     public function testLogRequestSuccessHasInfoNotEmpty()
     {
         $client = ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setHosts([$this->host])
             ->setLogger($this->logger)
             ->build();
 
@@ -46,7 +57,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
     public function testLogRequestSuccessHasPortInInfo()
     {
         $client = ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setHosts([$this->host])
             ->setLogger($this->logger)
             ->build();
 
@@ -58,7 +69,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
     public function testLogRequestFailHasWarning()
     {
         $client = ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setHosts([$this->host])
             ->setLogger($this->logger)
             ->build();
 

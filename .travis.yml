@@ -17,22 +17,17 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.2
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.3
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.4
-      env: ES_VERSION="7.6.0"
-    - php: 7.4
-      env: ES_VERSION="8.0.0-SNAPSHOT"
-  allow_failures:
-    - php: 7.4
-      env: ES_VERSION="8.0.0-SNAPSHOT"
+      env: TEST_SUITE="oss"
 
 env:
   global:
-    - ES_TEST_HOST=http://localhost:9200
+    - STACK_VERSION="7.x-SNAPSHOT"
 
 before_install:
   - ./travis/run_es_docker.sh

@@ -7,7 +7,6 @@ use Elasticsearch\Tests\Utility;
 use GitWrapper\GitWrapper;
 
 error_reporting(E_ALL | E_STRICT);
-use Elasticsearch\Tests\Utility;
 
 // Set the default timezone. While this doesn't cause any tests to fail, PHP
 // complains if it is not set in 'date.timezone' of php.ini.

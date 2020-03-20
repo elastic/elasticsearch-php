@@ -29,7 +29,8 @@ class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
         $this->host = Utility::getHost();
         if (null == $this->host) {
             $this->markTestSkipped(sprintf(
-                "I cannot execute %s without TEST_SUITE env", __CLASS__
+                "I cannot execute %s without TEST_SUITE env",
+                __CLASS__
             ));
         }
     }

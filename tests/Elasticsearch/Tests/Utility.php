@@ -6,7 +6,7 @@ namespace Elasticsearch\Tests;
 
 class Utility
 {
-    static public function getHost(): ?string
+    public static function getHost(): ?string
     {
         switch (getenv('TEST_SUITE')) {
             case 'oss':

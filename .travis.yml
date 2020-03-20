@@ -1,5 +1,9 @@
 language: php
 
+os: linux
+
+dist: bionic
+
 cache:
   directories:
     - $HOME/.composer/cache
@@ -11,9 +15,7 @@ branches:
   except:
     - 0.4
 
-sudo: true
-
-matrix:
+jobs:
   fast_finish: true
   include:
     - php: 7.1

@@ -55,11 +55,8 @@
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src",
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests"
     ],
-    "phpstan7.1": [
-      "@php vendor/bin/phpstan analyse -c phpstan-src-71.neon src --level 2 --no-progress"
-    ],
     "phpstan": [
-      "@php vendor/bin/phpstan analyse -c phpstan-src.neon src --level 2 --no-progress"
+      "phpstan analyse src --level 2 --no-progress"
     ]
   }
 }

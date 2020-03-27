@@ -32,7 +32,7 @@ use Elasticsearch\Namespaces\TasksNamespace;
  */
 class Client
 {
-    const VERSION = '7.6.1';
+    const VERSION = '7.7';
 
     /**
      * @var Transport
@@ -171,7 +171,7 @@ class Client
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['ignore_throttled']   = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['min_score']          = (number) Include only documents with a specific `_score` value in the result
      * $params['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
      * $params['routing']            = (list) A comma-separated list of specific routing values
@@ -272,6 +272,7 @@ class Client
     /**
      * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
      * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     * $params['analyzer']               = (string) The analyzer to use for the query string
      * $params['analyze_wildcard']       = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
      * $params['default_operator']       = (enum) The default operator for query string query (AND or OR) (Options = AND,OR) (Default = OR)
      * $params['df']                     = (string) The field to use as default where no field prefix is given in the query string
@@ -279,7 +280,7 @@ class Client
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['conflicts']              = (enum) What to do when the delete by query hits version conflicts? (Options = abort,proceed) (Default = abort)
-     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['lenient']                = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
      * $params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
      * $params['q']                      = (string) Query in the Lucene query string syntax
@@ -303,7 +304,7 @@ class Client
      * $params['scroll_size']            = (number) Size on the scroll request powering the delete by query
      * $params['wait_for_completion']    = (boolean) Should the request should block until the delete by query is complete. (Default = true)
      * $params['requests_per_second']    = (number) The throttle for this request in sub-requests per second. -1 means no throttle. (Default = 0)
-     * $params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
+     * $params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)
      * $params['body']                   = (array) The search definition using the Query DSL (Required)
      *
      * @param array $params Associative array of parameters
@@ -481,7 +482,7 @@ class Client
      * $params['fields']             = (list) A comma-separated list of field names
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['include_unmapped']   = (boolean) Indicates whether unmapped fields should be included in the response. (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -709,7 +710,7 @@ class Client
      * $params['search_type']                   = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
      * $params['max_concurrent_searches']       = (number) Controls the maximum number of concurrent searches the multi search api will execute
      * $params['typed_keys']                    = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-     * $params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on it's rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint. (Default = 128)
+     * $params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
      * $params['max_concurrent_shard_requests'] = (number) The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests (Default = 5)
      * $params['rest_total_hits_as_int']        = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['ccs_minimize_roundtrips']       = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
@@ -741,6 +742,7 @@ class Client
      * $params['typed_keys']              = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
      * $params['max_concurrent_searches'] = (number) Controls the maximum number of concurrent searches the multi search api will execute
      * $params['rest_total_hits_as_int']  = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
+     * $params['ccs_minimize_roundtrips'] = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
      * $params['body']                    = (array) The request definitions (metadata-search request definition pairs), separated by newlines (Required)
      *
      * @param array $params Associative array of parameters
@@ -846,7 +848,7 @@ class Client
      * $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['search_type']        = (enum) Search operation type (Options = query_then_fetch,dfs_query_then_fetch)
      * $params['body']               = (array) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition. (Required)
      *
@@ -877,7 +879,7 @@ class Client
      * $params['wait_for_completion']    = (boolean) Should the request should block until the reindex is complete. (Default = true)
      * $params['requests_per_second']    = (number) The throttle to set on this request in sub-requests per second. -1 means no throttle. (Default = 0)
      * $params['scroll']                 = (time) Control how long to keep the search context alive (Default = 5m)
-     * $params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
+     * $params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)
      * $params['max_docs']               = (number) Maximum number of documents to process (default: all documents)
      * $params['body']                   = (array) The search definition using the Query DSL and the prototype for the index request. (Required)
      *
@@ -995,7 +997,7 @@ class Client
      * $params['ignore_unavailable']            = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['ignore_throttled']              = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
      * $params['allow_no_indices']              = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']              = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']              = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['lenient']                       = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
      * $params['preference']                    = (string) Specify the node or shard the operation should be performed on (default: random)
      * $params['q']                             = (string) Query in the Lucene query string syntax
@@ -1023,7 +1025,7 @@ class Client
      * $params['request_cache']                 = (boolean) Specify if request cache should be used for this request or not, defaults to index level setting
      * $params['batched_reduce_size']           = (number) The number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large. (Default = 512)
      * $params['max_concurrent_shard_requests'] = (number) The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests (Default = 5)
-     * $params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on it's rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint. (Default = 128)
+     * $params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
      * $params['rest_total_hits_as_int']        = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                          = (array) The search definition using the Query DSL
      *
@@ -1053,7 +1055,7 @@ class Client
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -1071,21 +1073,22 @@ class Client
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-     * $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
-     * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     * $params['ignore_throttled']       = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
-     * $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
-     * $params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
-     * $params['routing']                = (list) A comma-separated list of specific routing values
-     * $params['scroll']                 = (time) Specify how long a consistent view of the index should be maintained for scrolled search
-     * $params['search_type']            = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
-     * $params['explain']                = (boolean) Specify whether to return detailed information about score computation as part of a hit
-     * $params['profile']                = (boolean) Specify whether to profile the query execution
-     * $params['typed_keys']             = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-     * $params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
-     * $params['body']                   = (array) The search definition template and its params (Required)
+     * $params['index']                   = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+     * $params['type']                    = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+     * $params['ignore_unavailable']      = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     * $params['ignore_throttled']        = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
+     * $params['allow_no_indices']        = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     * $params['expand_wildcards']        = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+     * $params['preference']              = (string) Specify the node or shard the operation should be performed on (default: random)
+     * $params['routing']                 = (list) A comma-separated list of specific routing values
+     * $params['scroll']                  = (time) Specify how long a consistent view of the index should be maintained for scrolled search
+     * $params['search_type']             = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
+     * $params['explain']                 = (boolean) Specify whether to return detailed information about score computation as part of a hit
+     * $params['profile']                 = (boolean) Specify whether to profile the query execution
+     * $params['typed_keys']              = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+     * $params['rest_total_hits_as_int']  = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
+     * $params['ccs_minimize_roundtrips'] = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
+     * $params['body']                    = (array) The search definition template and its params (Required)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -1193,7 +1196,7 @@ class Client
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['conflicts']              = (enum) What to do when the update by query hits version conflicts? (Options = abort,proceed) (Default = abort)
-     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['lenient']                = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
      * $params['pipeline']               = (string) Ingest pipeline to set on index requests made by this action. (default: none)
      * $params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
@@ -1219,7 +1222,7 @@ class Client
      * $params['scroll_size']            = (number) Size on the scroll request powering the update by query
      * $params['wait_for_completion']    = (boolean) Should the request should block until the update by query operation is complete. (Default = true)
      * $params['requests_per_second']    = (number) The throttle to set on this request in sub-requests per second. -1 means no throttle. (Default = 0)
-     * $params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
+     * $params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)
      * $params['body']                   = (array) The search definition using the Query DSL
      *
      * @param array $params Associative array of parameters

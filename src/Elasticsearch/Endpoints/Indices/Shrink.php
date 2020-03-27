@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Shrink
  * Elasticsearch API name indices.shrink
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices

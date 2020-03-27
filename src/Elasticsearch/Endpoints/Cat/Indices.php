@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Indices
  * Elasticsearch API name cat.indices
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
@@ -43,7 +43,8 @@ class Indices extends AbstractEndpoint
             's',
             'time',
             'v',
-            'include_unloaded_segments'
+            'include_unloaded_segments',
+            'expand_wildcards'
         ];
     }
 

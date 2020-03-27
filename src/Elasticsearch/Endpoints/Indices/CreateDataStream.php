@@ -3,11 +3,12 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class PutSettings
- * Elasticsearch API name indices.put_settings
+ * Class CreateDataStream
+ * Elasticsearch API name indices.create_data_stream
  * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
@@ -16,29 +17,24 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class PutSettings extends AbstractEndpoint
+class CreateDataStream extends AbstractEndpoint
 {
+    protected $name;
 
     public function getURI(): string
     {
-        $index = $this->index ?? null;
+        $name = $this->name ?? null;
 
-        if (isset($index)) {
-            return "/$index/_settings";
+        if (isset($name)) {
+            return "/_data_stream/$name";
         }
-        return "/_settings";
+        throw new RuntimeException('Missing parameter for the endpoint indices.create_data_stream');
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            'master_timeout',
-            'timeout',
-            'preserve_existing',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards',
-            'flat_settings'
+            
         ];
     }
 
@@ -47,12 +43,22 @@ class PutSettings extends AbstractEndpoint
         return 'PUT';
     }
 
-    public function setBody($body): PutSettings
+    public function setBody($body): CreateDataStream
     {
         if (isset($body) !== true) {
             return $this;
         }
         $this->body = $body;
+
+        return $this;
+    }
+
+    public function setName($name): CreateDataStream
+    {
+        if (isset($name) !== true) {
+            return $this;
+        }
+        $this->name = $name;
 
         return $this;
     }

@@ -1,23 +1,23 @@
 <?php
 declare(strict_types = 1);
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Elasticsearch\Endpoints\Cluster;
 
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class ExistsTemplate
- * Elasticsearch API name indices.exists_template
+ * Class PutComponentTemplate
+ * Elasticsearch API name cluster.put_component_template
  * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Elasticsearch\Endpoints\Cluster
  * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class ExistsTemplate extends AbstractEndpoint
+class PutComponentTemplate extends AbstractEndpoint
 {
     protected $name;
 
@@ -26,32 +26,39 @@ class ExistsTemplate extends AbstractEndpoint
         $name = $this->name ?? null;
 
         if (isset($name)) {
-            return "/_template/$name";
+            return "/_component_template/$name";
         }
-        throw new RuntimeException('Missing parameter for the endpoint indices.exists_template');
+        throw new RuntimeException('Missing parameter for the endpoint cluster.put_component_template');
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            'flat_settings',
-            'master_timeout',
-            'local'
+            'create',
+            'timeout',
+            'master_timeout'
         ];
     }
 
     public function getMethod(): string
     {
-        return 'HEAD';
+        return 'PUT';
     }
 
-    public function setName($name): ExistsTemplate
+    public function setBody($body): PutComponentTemplate
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
+    }
+
+    public function setName($name): PutComponentTemplate
     {
         if (isset($name) !== true) {
             return $this;
-        }
-        if (is_array($name) === true) {
-            $name = implode(",", $name);
         }
         $this->name = $name;
 

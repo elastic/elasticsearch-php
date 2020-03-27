@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class CatNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -19,13 +19,14 @@ class CatNamespace extends AbstractNamespace
 {
 
     /**
-     * $params['name']   = (list) A comma-separated list of alias names to return
-     * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
-     * $params['local']  = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     * $params['h']      = (list) Comma-separated list of column names to display
-     * $params['help']   = (boolean) Return help information (Default = false)
-     * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
+     * $params['name']             = (list) A comma-separated list of alias names to return
+     * $params['format']           = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['local']            = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['h']                = (list) Comma-separated list of column names to display
+     * $params['help']             = (boolean) Return help information (Default = false)
+     * $params['s']                = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['v']                = (boolean) Verbose mode. Display column headers (Default = false)
+     * $params['expand_wildcards'] = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -165,9 +166,10 @@ class CatNamespace extends AbstractNamespace
      * $params['help']                      = (boolean) Return help information (Default = false)
      * $params['pri']                       = (boolean) Set to true to return stats only for primary shards (Default = false)
      * $params['s']                         = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']                      = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']                      = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                         = (boolean) Verbose mode. Display column headers (Default = false)
      * $params['include_unloaded_segments'] = (boolean) If set to true segment stats will include stats for segments that are not currently loaded into memory (Default = false)
+     * $params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -237,7 +239,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -260,7 +262,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -307,7 +309,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']           = (list) Comma-separated list of column names to display
      * $params['help']        = (boolean) Return help information (Default = false)
      * $params['s']           = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']        = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -380,7 +382,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -406,7 +408,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']                  = (list) Comma-separated list of column names to display
      * $params['help']               = (boolean) Return help information (Default = false)
      * $params['s']                  = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']               = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -433,7 +435,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']           = (list) Comma-separated list of column names to display
      * $params['help']        = (boolean) Return help information (Default = false)
      * $params['s']           = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']        = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters

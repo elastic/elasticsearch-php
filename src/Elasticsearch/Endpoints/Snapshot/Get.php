@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Get
  * Elasticsearch API name snapshot.get
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Snapshot

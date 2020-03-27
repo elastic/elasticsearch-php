@@ -6,8 +6,8 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class ShardStores
- * Elasticsearch API name indices.shard_stores
+ * Class GetDataStreams
+ * Elasticsearch API name indices.get_data_streams
  * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
@@ -16,31 +16,42 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class ShardStores extends AbstractEndpoint
+class GetDataStreams extends AbstractEndpoint
 {
+    protected $name;
 
     public function getURI(): string
     {
-        $index = $this->index ?? null;
+        $name = $this->name ?? null;
 
-        if (isset($index)) {
-            return "/$index/_shard_stores";
+        if (isset($name)) {
+            return "/_data_streams/$name";
         }
-        return "/_shard_stores";
+        return "/_data_streams";
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            'status',
-            'ignore_unavailable',
-            'allow_no_indices',
-            'expand_wildcards'
+            
         ];
     }
 
     public function getMethod(): string
     {
         return 'GET';
+    }
+
+    public function setName($name): GetDataStreams
+    {
+        if (isset($name) !== true) {
+            return $this;
+        }
+        if (is_array($name) === true) {
+            $name = implode(",", $name);
+        }
+        $this->name = $name;
+
+        return $this;
     }
 }

@@ -29,15 +29,21 @@ $version = 'v' . $ver;
 $gitWrapper = new GitWrapper();
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
-$git->run('fetch', ['--tags']);
+$git->run('fetch', ['--all']);
 $tags = explode("\n", $git->run('tag'));
 if (!in_array($version, $tags)) {
-    printf("Error: the version %s specified doesnot exist\n", $version);
-    exit(1);
+    $branches = explode("\n", $git->run('branch', ['-r']));
+    array_walk($branches, function(&$value, &$key) {
+        $value = trim($value);
+    });
+    $version = "origin/$ver";
+    if (!in_array($version, $branches)) {
+        printf("Error: the version %s specified doesnot exist\n", $version);
+        exit(1);
+    }
 }
 
 $git->run('checkout', [$version]);
-
 $result = $git->run(
     'ls-files',
     [ "rest-api-spec/src/main/resources/rest-api-spec/api/*.json" ]

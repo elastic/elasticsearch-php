@@ -32,7 +32,7 @@ depending on the node being talked to.
 === ApiKey Authentication
 
 If your {es} cluster is secured by API keys as described 
-{ref}/security-api-create-api-key.html[here], you can use these values to 
+{ref-7x}/security-api-create-api-key.html[here], you can use these values to 
 connect the client with your cluster, as illustrated in the following code 
 snippet.
 

@@ -1,5 +1,9 @@
 language: php
 
+os: linux
+
+dist: bionic
+
 cache:
   directories:
     - $HOME/.composer/cache
@@ -11,28 +15,21 @@ branches:
   except:
     - 0.4
 
-sudo: true
-
-matrix:
+jobs:
   fast_finish: true
   include:
     - php: 7.1
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.2
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.3
-      env: ES_VERSION="7.6.0"
+      env: TEST_SUITE="oss"
     - php: 7.4
-      env: ES_VERSION="7.6.0"
-    - php: 7.4
-      env: ES_VERSION="8.0.0-SNAPSHOT"
-  allow_failures:
-    - php: 7.4
-      env: ES_VERSION="8.0.0-SNAPSHOT"
+      env: TEST_SUITE="oss"
 
 env:
   global:
-    - ES_TEST_HOST=http://localhost:9200
+    - STACK_VERSION="7.x-SNAPSHOT"
 
 before_install:
   - ./travis/run_es_docker.sh
@@ -47,7 +44,7 @@ before_script:
   - php util/EnsureClusterAlive.php
 
 script:
-  - if [ $TRAVIS_PHP_VERSION != '7.4' ]; then composer run-script phpcs; fi
+  - composer run-script phpcs
   - composer run-script phpstan
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS

@@ -219,7 +219,7 @@ abstract class AbstractEndpoint
      */
     private function checkUserParams(array $params)
     {
-        if (isset($params) !== true) {
+        if (empty($params)) {
             return; //no params, just return.
         }
 

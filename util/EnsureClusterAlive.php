@@ -2,6 +2,9 @@
 
 declare(strict_types = 1);
 
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Tests\Utility;
+
 error_reporting(E_ALL | E_STRICT);
 
 // Set the default timezone. While this doesn't cause any tests to fail, PHP
@@ -17,8 +20,8 @@ if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
 // Include the composer autoloader
 $autoloader = require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$client = \Elasticsearch\ClientBuilder::fromConfig([
-    'hosts' => [$_SERVER['ES_TEST_HOST']]
+$client = ClientBuilder::fromConfig([
+    'hosts' => [Utility::getHost()]
 ]);
 
 $count = 0;

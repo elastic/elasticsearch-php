@@ -1,16 +1,20 @@
 [[per_request_configuration]]
 == Per-request configuration
 
-There are several configurations that can be set on a per-request basis, rather than at a connection- or client-level.
-These are specified as part of the request associative array.
+There are several configurations that can be set on a per-request basis, rather 
+than at a connection- or client-level. These are specified as part of the 
+request associative array.
 
 
 === Request Identification
 
-You can enrich your requests against Elasticsearch with an identifier string, that allows you to discover this identifier
-in https://www.elastic.co/guide/en/elasticsearch/reference/7.4/logging.html#deprecation-logging[deprecation logs], to support you with
+You can enrich your requests against {es} with an identifier string, that allows 
+you to discover this identifier in 
+https://www.elastic.co/guide/en/elasticsearch/reference/7.4/logging.html#deprecation-logging[deprecation logs], 
+to support you with 
 https://www.elastic.co/guide/en/elasticsearch/reference/7.4/index-modules-slowlog.html#_identifying_search_slow_log_origin[identifying search slow log origin]
-or to help with https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html#_identifying_running_tasks[identifying running tasks].
+or to help with 
+https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html#_identifying_running_tasks[identifying running tasks].
 
 
 [source,php]
@@ -27,20 +31,25 @@ $params = [
 $response = $client->get($params);
 
 ----
-<1> This will populate the `X-Opaque-Id` header with the value `app17@dc06.eu_user1234`
+<1> This populates the `X-Opaque-Id` header with the value 
+`app17@dc06.eu_user1234`.
 
 
 === Ignoring exceptions
-The library attempts to throw exceptions for common problems.  These exceptions match the HTTP response code provided
-by Elasticsearch.  For example, attempting to GET a nonexistent document will throw a `MissingDocument404Exception`.
 
-Exceptions are a useful and consistent way to deal with problems like missing documents, syntax errors, version
-conflicts, etc.  But sometimes you want to deal with the response body rather than catch exceptions (often useful
-in test suites).
+The library attempts to throw exceptions for common problems. These exceptions 
+match the HTTP response code provided by {es}. For example, attempting to GET a 
+nonexistent document will throw a `MissingDocument404Exception`.
 
-If you need that behavior, you can configure an `ignore` parameter.  This should be configured in the `client` parameter
-of the request array.  For example, this example will ignore the `MissingDocument404Exception`
-exception and instead return the JSON provided by Elasticsearch.
+Exceptions are a useful and consistent way to deal with problems like missing 
+documents, syntax errors, version conflicts, and so on. But sometimes you want 
+to deal with the response body rather than catch exceptions (often useful in 
+test suites).
+
+If you need that behavior, you can configure an `ignore` parameter. You can 
+configure it in the `client` parameter of the request array. For instance, the 
+example below ignores the `MissingDocument404Exception` exception and returns 
+the JSON provided by {es} instead.
 
 
 [source,php]
@@ -56,9 +65,10 @@ echo $client->get($params);
 
 > {"_index":"test_missing","_type":"_doc","_id":"1","found":false}
 ----
-<1> This will ignore just the 404 missing exception
+<1> This ignores the 404 missing exception.
 
-You can specify multiple HTTP status codes to ignore, by providing an array of values:
+You can specify multiple HTTP status codes to ignore by providing an array of 
+values:
 
 [source,php]
 ----
@@ -73,23 +83,26 @@ echo $client->get($params);
 > No handler found for uri [/test_missing/test/] and method [GET]
 
 ----
-<1> `ignore` also accepts an array of exceptions to ignore. In this example,
-the `BadRequest400Exception` is being ignored
+<1> `ignore` also accepts an array of exceptions to ignore. In this example, the 
+`BadRequest400Exception` is being ignored.
 
+It should be noted that the response is a string which may or may not be encoded 
+as JSON. In the first example, the response body is a complete JSON object which 
+could be decoded. In the second example, it was simply a string.
 
-It should be noted that the response is simply a string, which may or may not be encoded as JSON.  In the first example,
-the response body was a complete JSON object which could be decoded.  In the second example, it was simply a string.
+Since the client has no way of knowing what the exception response will contain, 
+no attempts to decode it are taken.
 
-Since the client has no way of knowing what the exception response will contain, no attempts to decode it are taken.
 
 === Providing custom query parameters
 
-Sometimes you need to provide custom query params, such as authentication tokens for a third-party plugin or proxy.
-All query parameters are white-listed in Elasticsearch-php, which is to protect you from specifying a param which is
-not accepted by Elasticsearch.
+Sometimes you need to provide custom query parameters, such as authentication 
+tokens for a third-party plugin or proxy. All query parameters are allow listed 
+in Elasticsearch-php, which is to protect you from specifying a parameter which 
+is not accepted by {es}.
 
-If you need custom parameters, you need to bypass this whitelisting mechanism.  To do so, add them to the `custom`
-parameter as an array of values:
+If you need custom parameters, you need to bypass this allow listing mechanism. 
+To do so, add them to the `custom` parameter as an array of values:
 
 [source,php]
 ----
@@ -98,10 +111,10 @@ $client = ClientBuilder::create()->build();
 $params = [
     'index'  => 'test',
     'id'     => 1,
-    'parent' => 'abc',              // white-listed Elasticsearch parameter
+    'parent' => 'abc',              // allowlisted Elasticsearch parameter
     'client' => [
         'custom' => [
-            'customToken' => 'abc', // user-defined, not white listed, not checked
+            'customToken' => 'abc', // user-defined, not allow listed, not checked
             'otherToken'  => 123
         ]
     ]
@@ -110,11 +123,12 @@ $exists = $client->exists($params);
 ----
 
 
-=== Increasing the Verbosity of responses
+=== Increasing the verbosity of responses
 
-By default, the client will only return the response body.  If you require more information (e.g. stats about the transfer,
-headers, status codes, etc), you can tell the client to return a more verbose response.  This is enabled via the
-`verbose` parameter in the client options.
+By default, the client only returns the response body. If you require more 
+information (for example, stats about the transfer, headers, status codes, and 
+so on), you can tell the client to return a more verbose response. This is 
+enabled via the `verbose` parameter in the client options.
 
 Without verbosity, all you see is the response body:
 
@@ -237,20 +251,25 @@ Array
 
 === Curl Timeouts
 
-It is possible to configure per-request curl timeouts via the `timeout` and `connect_timeout` parameters.  These
-control the client-side, curl timeouts.  The `connect_timeout` paramter controls how long curl should wait for the
-"connect" phase to finish, while the `timeout` parameter controls how long curl should wait for the entire request
-to finish.
+It is possible to configure per-request curl timeouts via the `timeout` and 
+`connect_timeout` parameters. These control the client-side, curl timeouts. The 
+`connect_timeout` paramter controls how long curl should wait for the "connect" 
+phase to finish, while the `timeout` parameter controls how long curl should 
+wait for the entire request to finish.
 
-If either timeout expires, curl will close the connection and return an error.  Both parameters should be specified
-in seconds.
+If either timeout expires, curl closes the connection and returns an error. Both 
+parameters should be specified in seconds.
 
-Note: client-side timeouts *do not* mean that Elasticsearch aborts the request.  Elasticsearch will continue executing
-the request until it completes.  In the case of a slow query or bulk request, the operation will continue executing
-"in the background", unknown to your client.  If your client kills connections rapidly with a timeout, only to immediately
-execute another request, it is possible to swamp the server with many connections because there is no "back-pressure" on the
-client.  In these situations, you will see the appropriate threadpool queue growing in size, and may start receiving
-`EsRejectedExecutionException` exceptions from Elasticsearch when the queue finally reaches capacity.
+Note: client-side timeouts *do not* mean that {es} aborts the request. {es} will 
+continue executing the request until it completes. In the case of a slow query 
+or bulk request, the operation continues executing "in the background", unknown 
+to your client. If your client kills connections rapidly with a timeout, only to 
+immediately execute another request, it is possible to swamp the server with 
+many connections because there is no "back-pressure" on the client. In these 
+situations, you will see the appropriate threadpool queue growing in size, and 
+may start receiving `EsRejectedExecutionException` exceptions from {es} when the 
+queue finally reaches capacity.
+
 
 [source,php]
 ----
@@ -267,10 +286,12 @@ $params = [
 $response = $client->get($params);
 ----
 
+
 === Enabling Future Mode
 
-The client supports asynchronous, batch processing of requests.  This is enabled (if your HTTP handler supports it) on
-a per-request basis via the `future` parameter in the client options:
+The client supports asynchronous, batch processing of requests. This is enabled 
+(if your HTTP handler supports it) on a per-request basis via the `future` 
+parameter in the client options:
 
 [source,php]
 ----
@@ -287,17 +308,19 @@ $future = $client->get($params);
 $results = $future->wait();       // resolve the future
 ----
 
-Future mode supports two options: `true` or `'lazy'`.  For more details about how asynchronous execution functions, and
-how to work with the results, see the dedicated page on <<future_mode>>.
+Future mode supports two options: `true` or `'lazy'`. For more details about how 
+asynchronous execution functions, and how to work with the results, see the 
+dedicated page on <<future_mode>>.
+
 
 === SSL Encryption
 
-Normally, you will specify SSL configurations when you create the client (see
-<<security>> for more details), since encryption typically
-applies to all requests. However, it is possible to configure on a per-request basis too if you need that functionality.
-For example, if you  need to use a self-signed cert on a specific request, you can specify it via the `verify` parameter
-in the client options:
-
+Normally, you specify SSL configurations when you create the client (see 
+<<security>> for more details), since encryption typically applies to all 
+requests. However, it is possible to configure on a per-request basis, too, if 
+you need that functionality. For example, if you need to use a self-signed cert 
+on a specific request, you can specify it via the `verify` parameter in the 
+client options:
 
 [source,php]
 ----

@@ -1,20 +1,25 @@
 [[configuration]]
 == Configuration
 
-Almost every aspect of the client is configurable.  Most users will only need to configure a few parameters to suit
-their needs, but it is possible to completely replace much of the internals if required.
+Almost every aspect of the client is configurable. Most users only need to 
+configure a few parameters to suit their needs, but it is possible to completely 
+replace much of the internals if required.
 
-Custom configuration is accomplished before the client is instantiated, through the ClientBuilder helper object.
-We'll walk through all the configuration options and show sample code to replace the various components.
+Custom configuration is accomplished before the client is instantiated, through 
+the ClientBuilder helper object. You can find all the configuration options and 
+check sample code that helps you replace the various components.
+
 
 === Inline Host Configuration
 
-The most common configuration is telling the client about your cluster: how many nodes, their addresses and ports.  If
-no hosts are specified, the client will attempt to connect to `localhost:9200`.
+The most common configuration is telling the client about your cluster: the 
+number of nodes, their addresses, and ports. If no hosts are specified, the 
+client will attempt to connect to `localhost:9200`.
 
-This behavior can be changed by using the `setHosts()` method on `ClientBuilder`.  The method accepts an array of values,
-each entry corresponding to one node in your cluster.  The format of the host can vary, depending on your needs (ip vs
-hostname, port, ssl, etc)
+This behavior can be changed by using the `setHosts()` method on 
+`ClientBuilder`. The method accepts an array of values, each entry corresponding 
+to one node in your cluster. The format of the host can vary, depending on your 
+needs (ip vs hostname, port, ssl, etc).
 
 [source,php]
 ----
@@ -31,8 +36,8 @@ $client = ClientBuilder::create()           // Instantiate a new ClientBuilder
                     ->build();              // Build the client object
 ----
 
-Notice that the `ClientBuilder` object allows chaining method calls for brevity.  It is also possible to call the methods
-individually:
+Notice that the `ClientBuilder` object allows chaining method calls for brevity. 
+It is also possible to call the methods individually:
 
 [source,php]
 ----
@@ -49,18 +54,25 @@ $clientBuilder->setHosts($hosts);           // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
 
+
 === Extended Host Configuration
 
-The client also supports an _extended_ host configuration syntax.  The inline configuration method relies on PHP's
-`filter_var()` and `parse_url()` methods to validate and extract the components of a URL.  Unfortunately, these built-in
-methods run into problems with certain edge-cases.  For example, `filter_var()` will not accept URL's that have underscores
-(which are questionably legal, depending on how you interpret the RFCs).  Similarly, `parse_url()` will choke if a
-Basic Auth's password contains special characters such as a pound sign (`#`) or question-marks (`?`).
+The client also supports an _extended_ host configuration syntax. The inline 
+configuration method relies on PHP's `filter_var()` and `parse_url()` methods to 
+validate and extract the components of a URL. Unfortunately, these built-in 
+methods run into problems with certain edge-cases. For example, `filter_var()` 
+will not accept URL's that have underscores (which are questionably legal, 
+depending on how you interpret the RFCs). Similarly, `parse_url()` will choke if 
+a Basic Auth's password contains special characters such as a pound sign (`#`) 
+or question-marks (`?`).
 
-For this reason, the client supports an extended host syntax which provides greater control over host initialization.
-None of the components are validated, so edge-cases like underscores domain names will not cause problems.
+For this reason, the client supports an extended host syntax which provides 
+greater control over host initialization. None of the components are validated, 
+so edge-cases like underscores domain names will not cause problems.
 
-The extended syntax is an array of parameters for each host. The structure of the parameter list is identical to the return values of a http://php.net/manual/en/function.parse-url.php#refsect1-function.parse-url-returnvalues[`parse_url()`] call:
+The extended syntax is an array of parameters for each host. The structure of 
+the parameter list is identical to the return values of a 
+http://php.net/manual/en/function.parse-url.php#refsect1-function.parse-url-returnvalues[`parse_url()`] call:
 
 [source,php]
 ----
@@ -85,12 +97,14 @@ $client = ClientBuilder::create()           // Instantiate a new ClientBuilder
                     ->build();              // Build the client object
 ----
 
-Only the `host` parameter is required for each configured host.  If not provided, the default port is `9200`.  The default
-scheme is `http`.
+Only the `host` parameter is required for each configured host. If not provided, 
+the default port is `9200`. The default scheme is `http`.
+
 
 === Connect to Elastic Cloud
 
-If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic authentication or ApiKey authentication to connect to it.
+If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic 
+authentication or ApiKey authentication to connect to it.
 
 [source,php]
 ----
@@ -112,18 +126,23 @@ $client = ClientBuilder::create()
 <1> Your Cloud ID provided by the Elastic Cloud platform
 <2> Your ApiKey pair as described https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/security.html[here]
 
+
 === Authorization and Encryption
 
-For details about HTTP Authorization and SSL encryption, see
+For details about HTTP Authorization and SSL encryption, see 
 <<security,Authorization and SSL>>.
+
 
 === Set retries
 
-By default, the client will retry `n` times, where `n = number of nodes` in your cluster.  A retry is only performed
-if the operation results in a "hard" exception: connection refusal, connection timeout, DNS lookup timeout, etc.  4xx and
-5xx errors are not considered retry'able events, since the node returns an operational response.
+By default, the client will retry `n` times, where `n = number of nodes` in your 
+cluster. A retry is only performed if the operation results in a "hard" 
+exception: connection refusal, connection timeout, DNS lookup timeout, etc. 4xx 
+and 5xx errors are not considered retriable events, since the node returns an 
+operational response.
 
-If you would like to disable retries, or change the number, you can do so with the `setRetries()` method:
+If you would like to disable retries, or change the number, you can do so with 
+the `setRetries()` method:
 
 [source,php]
 ----------------------------
@@ -133,13 +152,16 @@ $client = ClientBuilder::create()
                     ->build();
 ----------------------------
 
-When the client runs out of retries, it will throw the last exception that it received.  For example, if you have ten
-alive nodes, and `setRetries(5)`, the client will attempt to execute the command up to five times.  If all five nodes
-result in a connection timeout (for example), the client will throw an `OperationTimeoutException`.  Depending on the
-Connection Pool being used, these nodes may also be marked dead.
+When the client runs out of retries, it will throw the last exception that it 
+received. For example, if you have ten alive nodes, and `setRetries(5)`, the 
+client attempts to execute the command up to five times. If all five nodes 
+result in a connection timeout (for example), the client will throw an 
+`OperationTimeoutException`. Depending on the Connection Pool being used, these 
+nodes may also be marked dead.
 
-To help in identification, exceptions that are thrown due to max retries will wrap a `MaxRetriesException`.  For example,
-you can catch a specific curl exception then check if it wraps a MaxRetriesException using `getPrevious()`:
+To help in identification, exceptions that are thrown due to max retries wrap a 
+`MaxRetriesException`. For example, you can catch a specific curl exception then 
+check if it wraps a MaxRetriesException using `getPrevious()`:
 
 [source,php]
 ----
@@ -158,9 +180,10 @@ try {
 }
 ----
 
-Alternatively, all "hard" curl exceptions (`CouldNotConnectToHost`, `CouldNotResolveHostException`, `OperationTimeoutException`)
-extend the more general `TransportException`.  So you could instead catch the general `TransportException` and then
-check it's previous value:
+Alternatively, all "hard" curl exceptions (`CouldNotConnectToHost`, 
+`CouldNotResolveHostException`, `OperationTimeoutException`) extend the more 
+general `TransportException`. So you could instead catch the general 
+`TransportException` and then check it's previous value:
 
 [source,php]
 ----
@@ -182,11 +205,15 @@ try {
 
 [[enabling_logger]]
 === Enabling the Logger
-Elasticsearch-PHP supports logging, but it is not enabled by default for performance reasons.  If you wish to enable logging,
-you need to select a logging implementation, install it, then enable the logger in the Client.  The recommended logger
-is https://github.com/Seldaek/monolog[Monolog], but any logger that implements the `PSR/Log` interface will work.
 
-You might have noticed that Monolog was suggested during installation.  To begin using Monolog, add it to your `composer.json`:
+Elasticsearch-PHP supports logging, but it is not enabled by default for 
+performance reasons. If you wish to enable logging, you need to select a logging 
+implementation, install it, then enable the logger in the Client. The 
+recommended logger is https://github.com/Seldaek/monolog[Monolog], but any 
+logger that implements the `PSR/Log` interface works.
+
+You might have noticed that Monolog was suggested during installation. To begin 
+using Monolog, add it to your `composer.json`:
 
 [source,json]
 ----------------------------
@@ -199,14 +226,15 @@ You might have noticed that Monolog was suggested during installation.  To begin
 }
 ----------------------------
 
-And then update your composer installation:
+And then update your Composer installation:
 
 [source,shell]
 ----------------------------
 php composer.phar update
 ----------------------------
 
-Once Monolog (or another logger) is installed, you need to create a log object and inject it into the client:
+Once Monolog (or another logger) is installed, you need to create a log object 
+and inject it into the client:
 
 [source,php]
 ----
@@ -224,16 +252,21 @@ $client = ClientBuilder::create()       // Instantiate a new ClientBuilder
 
 === Configure the HTTP Handler
 
-Elasticsearch-PHP uses an interchangeable HTTP transport layer called https://github.com/guzzle/RingPHP/[RingPHP].  This
-allows the client to construct a generic HTTP request, then pass it to the transport layer to execute.  The actual execution
-details are hidden from the client and modular, so that you can choose from several HTTP handlers depending on your needs.
+Elasticsearch-PHP uses an interchangeable HTTP transport layer called 
+https://github.com/guzzle/RingPHP/[RingPHP]. This allows the client to construct 
+a generic HTTP request, then pass it to the transport layer to execute. The 
+actual execution details are hidden from the client and modular, so that you can 
+choose from several HTTP handlers depending on your needs.
 
-The default handler that the client uses is a combination handler.  When executing in synchronous mode, the handler
-uses `CurlHandler`, which executes single curl calls.  These are very fast for single requests.  When asynchronous (future)
-mode is enabled, the handler switches to `CurlMultiHandler`, which uses the curl_multi interface.  This involves a bit
-more overhead, but allows batches of HTTP requests to be processed in parallel.
+The default handler that the client uses is a combination handler. When 
+executing in synchronous mode, the handler uses `CurlHandler`, which executes 
+single curl calls. These are very fast for single requests. When asynchronous 
+(future) mode is enabled, the handler switches to `CurlMultiHandler`, which uses 
+the curl_multi interface. This involves a bit more overhead, but allows batches 
+of HTTP requests to be processed in parallel.
 
-You can configure the HTTP handler with one of several helper functions, or provide your own custom handler:
+You can configure the HTTP handler with one of several helper functions, or 
+provide your own custom handler:
 
 [source,php]
 ----
@@ -247,18 +280,22 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For details on creating your own custom Ring handler, please see the http://guzzle.readthedocs.org/en/latest/handlers.html[RingPHP Documentation]
+For details on creating your own custom Ring handler, please see the 
+http://guzzle.readthedocs.org/en/latest/handlers.html[RingPHP Documentation].
 
-The default handler is recommended in almost all cases.  This allows fast synchronous execution, while retaining flexibility
-to invoke parallel batches with async future mode.  You may consider using just the `singleHandler` if you know you will
-never need async capabilities, since it will save a small amount of overhead by reducing indirection.
+The default handler is recommended in almost all cases. This allows fast 
+synchronous execution, while retaining flexibility to invoke parallel batches 
+with async future mode. You may consider using just the `singleHandler` if you 
+know you will never need async capabilities, since it will save a small amount 
+of overhead by reducing indirection.
 
 
 === Setting the Connection Pool
 
-The client maintains a pool of connections, with each connection representing a node in your cluster.  There are several
-connection pool implementations available, and each has slightly different behavior (pinging vs no pinging, etc).
-Connection pools are configured via the `setConnectionPool()` method:
+The client maintains a pool of connections, with each connection representing a 
+node in your cluster. There are several connection pool implementations 
+available, and each has slightly different behavior (pinging vs no pinging, 
+etc). Connection pools are configured via the `setConnectionPool()` method:
 
 [source,php]
 ----
@@ -271,10 +308,12 @@ $client = ClientBuilder::create()
 For more details, please see the dedicated page on
 <<connection_pool,configuring connection pools>>.
 
+
 === Setting the Connection Selector
 
-The connection pool manages the connections to your cluster, but the Selector is the logic that decides which connection
-should be used for the next API request.  There are several selectors that you can choose from.  Selectors can be changed
+The connection pool manages the connections to your cluster, but the Selector is 
+the logic that decides which connection should be used for the next API request. 
+There are several selectors that you can choose from. Selectors can be changed 
 via the `setSelector()` method:
 
 [source,php]
@@ -285,18 +324,20 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-For more details, please see the dedicated page on
+For more details, please see the dedicated page on 
 <<selectors,configuring selectors>>.
 
 
 === Setting the Serializer
 
-Requests are given to the client in the form of associative arrays, but Elasticsearch expects JSON.  The Serializer's
-job is to serialize PHP objects into JSON.  It also de-serializes JSON back into PHP arrays.  This seems trivial, but
-there are a few edgecases which make it useful for the serializer to remain modular.
+Requests are given to the client in the form of associative arrays, but {es} 
+expects JSON. The Serializer's job is to serialize PHP objects into JSON. It 
+also de-serializes JSON back into PHP arrays. This seems trivial, but there are 
+a few edge-cases which make it useful for the Serializer to remain modular.
 
-The majority of people will never need to change the default serializer (`SmartSerializer`), but if you need to,
-it can be done via the `setSerializer()` method:
+The majority of people will never need to change the default Serializer 
+(`SmartSerializer`), but if you need to, it can be done via the 
+`setSerializer()` method:
 
 [source,php]
 ----
@@ -312,13 +353,16 @@ For more details, please see the dedicated page on
 
 === Setting a custom ConnectionFactory
 
-The ConnectionFactory instantiates new Connection objects when requested by the ConnectionPool.  A single Connection
-represents a single node.  Since the client hands actual networking work over to RingPHP, the Connection's main job is
-book-keeping:  Is this node alive?  Did it fail a ping request?  What is the host and port?
+The ConnectionFactory instantiates new Connection objects when requested by the 
+ConnectionPool. A single Connection represents a single node. Since the client 
+hands actual networking work over to RingPHP, the Connection's main job is 
+book-keeping: Is this node alive? Did it fail a ping request? What is the host 
+and port?
 
-There is little reason to provide your own ConnectionFactory, but if you need to do so, you need to supply an intact
-ConnectionFactory object to the `setConnectionFactory()` method.  The object should implement the `ConnectionFactoryInterface`
-interface.
+There is little reason to provide your own ConnectionFactory, but if you need to 
+do so, you need to supply an intact ConnectionFactory object to the 
+`setConnectionFactory()` method. The object should implement the 
+`ConnectionFactoryInterface` interface.
 
 [source,php]
 ----
@@ -360,15 +404,17 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-As you can see, if you decide to inject your own ConnectionFactory, you take over the responsibiltiy of wiring it correctly.
-The ConnectionFactory requires a working HTTP handler, serializer, logger and tracer.
+As you can see, if you decide to inject your own ConnectionFactory, you take 
+over the responsibility of wiring it correctly. The ConnectionFactory requires a 
+working HTTP handler, serializer, logger and tracer.
 
 
 === Set the Endpoint closure
 
-The client uses an Endpoint closure to dispatch API requests to the correct Endpoint object.  A namespace object will
-construct a new Endpoint via this closure, which means this is a handy location if you wish to extend the available set
-of API endpoints available
+The client uses an Endpoint closure to dispatch API requests to the correct 
+Endpoint object. A namespace object will construct a new Endpoint via this 
+closure, which means this is a handy location if you wish to extend the 
+available set of API endpoints available.
 
 For example, we could add a new endpoint like so:
 
@@ -397,19 +443,21 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-Obviously, by doing this you take responsibility that all existing endpoints still function correctly.  And you also
-assume the responsibility of correctly wiring the Transport and Serializer into each endpoint.
+Obviously, by doing this you take responsibility that all existing endpoints 
+still function correctly. And you also assume the responsibility of correctly 
+wiring the Transport and Serializer into each endpoint.
 
 
 === Building the client from a configuration hash
 
-To help ease automated building of the client, all configurations can be provided in a setting
-hash instead of calling the individual methods directly.  This functionality is exposed through
-the `ClientBuilder::FromConfig()` static method, which accepts an array of configurations
-and returns a fully built client.
+To help ease automated building of the client, all configurations can be 
+provided in a setting hash instead of calling the individual methods directly. 
+This functionality is exposed through the `ClientBuilder::FromConfig()` static 
+method, which accepts an array of configurations and returns a fully built 
+client.
 
-Array keys correspond to the method name, e.g. `retries` key corresponds to `setRetries()` method.
-
+Array keys correspond to the method name, for example `retries` key corresponds 
+to `setRetries()` method.
 
 [source,php]
 ----
@@ -424,10 +472,10 @@ $client = ClientBuilder::fromConfig($params);
 ----
 
 
-Unknown parameters will throw an exception, to help the user find potential problems.
-If this behavior is not desired (e.g. you are using the hash for other purposes, and may have
-keys unrelated to the Elasticsearch client), you can set $quiet = true in fromConfig() to
-silence the exceptions.
+Unknown parameters throw an exception, to help the user find potential problems. 
+If this behavior is not desired (for example, you are using the hash for other 
+purposes, and may have keys unrelated to the {es} client), you can set 
+$quiet = true in fromConfig() to silence the exceptions.
 
 [source,php]
 ----

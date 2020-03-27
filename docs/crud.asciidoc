@@ -1,5 +1,5 @@
 [[indexing_documents]]
-== Indexing Documents
+== Indexing documents
 
 IMPORTANT: Please note that mapping types will disappear from {es}, read more 
 {ref-7x}/removal-of-types.html[here]. If you migrated types from {es} 6 to 7, 

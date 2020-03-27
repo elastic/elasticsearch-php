@@ -8,6 +8,10 @@ class Utility
 {
     public static function getHost(): ?string
     {
+        $url = getenv('ELASTICSEARCH_URL');
+        if (false !== $url) {
+            return $url;
+        }
         switch (getenv('TEST_SUITE')) {
             case 'oss':
                 return 'http://localhost:9200';

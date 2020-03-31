@@ -2,6 +2,7 @@ elasticsearch-php
 =================
 
 [![Build Status](https://travis-ci.org/elastic/elasticsearch-php.svg?branch=master)](https://travis-ci.org/elastic/elasticsearch-php) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Felastic%2Felasticsearch-php.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Felastic%2Felasticsearch-php?ref=badge_shield)
 
 Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 
@@ -136,6 +137,9 @@ extension to be version 1.3.7 or higher.
 Quickstart
 ----
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Felastic%2Felasticsearch-php.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Felastic%2Felasticsearch-php?ref=badge_large)
 
 ### Index a document
 

@@ -21,6 +21,7 @@ use Traversable;
  */
 class Bulk extends AbstractEndpoint
 {
+
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;

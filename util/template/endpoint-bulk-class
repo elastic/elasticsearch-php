@@ -2,8 +2,7 @@
 declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints:namespace;
-
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+:use-namespace
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Serializers\SerializerInterface;
 use Traversable;
@@ -21,6 +20,7 @@ use Traversable;
  */
 class :endpoint extends AbstractEndpoint
 {
+:properties
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;

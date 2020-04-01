@@ -21,6 +21,7 @@ use Traversable;
  */
 class MsearchTemplate extends AbstractEndpoint
 {
+
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;

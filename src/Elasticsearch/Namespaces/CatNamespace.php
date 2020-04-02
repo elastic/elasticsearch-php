@@ -121,7 +121,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']      = (list) Comma-separated list of column names to display
      * $params['help']   = (boolean) Return help information (Default = false)
      * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']   = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']   = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['ts']     = (boolean) Set to false to disable timestamping (Default = true)
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
@@ -510,7 +510,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -535,7 +535,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']                  = (list) Comma-separated list of column names to display
      * $params['help']               = (boolean) Return help information (Default = false)
      * $params['s']                  = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']               = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -561,7 +561,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']             = (list) Comma-separated list of column names to display
      * $params['help']          = (boolean) Return help information (Default = false)
      * $params['s']             = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']          = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']          = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']             = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -589,7 +589,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -616,19 +616,19 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
      */
-    public function transform(array $params = [])
+    public function transforms(array $params = [])
     {
         $transform_id = $this->extractArgument($params, 'transform_id');
 
         $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Cat\Transform');
+        $endpoint = $endpointBuilder('Cat\Transforms');
         $endpoint->setParams($params);
         $endpoint->setTransformId($transform_id);
 

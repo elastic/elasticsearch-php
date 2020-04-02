@@ -23,6 +23,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -43,6 +44,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -63,6 +65,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -83,6 +86,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -104,6 +108,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -130,6 +135,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -154,6 +160,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -176,6 +183,7 @@ class RollupNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *

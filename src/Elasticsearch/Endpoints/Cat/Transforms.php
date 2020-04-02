@@ -6,8 +6,8 @@ namespace Elasticsearch\Endpoints\Cat;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class Transform
- * Elasticsearch API name cat.transform
+ * Class Transforms
+ * Elasticsearch API name cat.transforms
  * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class Transform extends AbstractEndpoint
+class Transforms extends AbstractEndpoint
 {
     protected $transform_id;
 
@@ -50,7 +50,7 @@ class Transform extends AbstractEndpoint
         return 'GET';
     }
 
-    public function setTransformId($transform_id): Transform
+    public function setTransformId($transform_id): Transforms
     {
         if (isset($transform_id) !== true) {
             return $this;

@@ -442,7 +442,7 @@ class Client
      * $params['refresh']                = (boolean) Should the effected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the delete by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-     * $params['scroll_size']            = (number) Size on the scroll request powering the delete by query
+     * $params['scroll_size']            = (number) Size on the scroll request powering the delete by query (Default = 100)
      * $params['wait_for_completion']    = (boolean) Should the request should block until the delete by query is complete. (Default = true)
      * $params['requests_per_second']    = (number) The throttle for this request in sub-requests per second. -1 means no throttle. (Default = 0)
      * $params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)
@@ -698,6 +698,7 @@ class Client
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -715,6 +716,7 @@ class Client
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -1360,7 +1362,7 @@ class Client
      * $params['refresh']                = (boolean) Should the affected indexes be refreshed?
      * $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-     * $params['scroll_size']            = (number) Size on the scroll request powering the update by query
+     * $params['scroll_size']            = (number) Size on the scroll request powering the update by query (Default = 100)
      * $params['wait_for_completion']    = (boolean) Should the request should block until the update by query operation is complete. (Default = true)
      * $params['requests_per_second']    = (number) The throttle to set on this request in sub-requests per second. -1 means no throttle. (Default = 0)
      * $params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)

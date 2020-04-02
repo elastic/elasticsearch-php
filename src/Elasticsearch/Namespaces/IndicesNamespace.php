@@ -561,7 +561,7 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']     = (time) Specify timeout for connection to master
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open,closed)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      * $params['flat_settings']      = (boolean) Return settings in flat format (default: false)
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
@@ -1045,12 +1045,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']         = (time) Specify timeout for connection to master
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = closed)
+     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = closed)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/freeze-index-api.html
      */
     public function freeze(array $params = [])
     {
@@ -1067,7 +1067,7 @@ class IndicesNamespace extends AbstractNamespace
      * $params['index']              = (list) A comma-separated list of index names to reload analyzers for
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -1090,12 +1090,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']         = (time) Specify timeout for connection to master
      * $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = closed)
+     * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = closed)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/frozen.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html
      */
     public function unfreeze(array $params = [])
     {

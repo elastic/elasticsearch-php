@@ -47,6 +47,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar.html
      */
     public function deleteCalendar(array $params = [])
     {
@@ -65,6 +66,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar-event.html
      */
     public function deleteCalendarEvent(array $params = [])
     {
@@ -85,6 +87,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar-job.html
      */
     public function deleteCalendarJob(array $params = [])
     {
@@ -154,6 +157,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-filter.html
      */
     public function deleteFilter(array $params = [])
     {
@@ -256,6 +260,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-apis.html
      */
     public function estimateModelMemory(array $params = [])
     {
@@ -371,6 +376,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html
      */
     public function forecast(array $params = [])
     {
@@ -426,6 +432,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar-event.html
      */
     public function getCalendarEvents(array $params = [])
     {
@@ -446,6 +453,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar.html
      */
     public function getCalendars(array $params = [])
     {
@@ -579,6 +587,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-filter.html
      */
     public function getFilters(array $params = [])
     {
@@ -592,7 +601,7 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['job_id']           = (string)
+     * $params['job_id']           = (string) Identifier for the anomaly detection job
      * $params['exclude_interim']  = (boolean) Exclude interim results
      * $params['from']             = (int) skips a number of influencers
      * $params['size']             = (int) specifies a max number of influencers to get
@@ -717,13 +726,13 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['job_id']          = (string)
+     * $params['job_id']          = (string) The ID of the job
      * $params['exclude_interim'] = (boolean) Exclude interim results
      * $params['from']            = (int) skips a number of records
      * $params['size']            = (int) specifies a max number of records to get
      * $params['start']           = (string) Start time filter for records
      * $params['end']             = (string) End time filter for records
-     * $params['record_score']    = (double)
+     * $params['record_score']    = (double) Returns records with anomaly scores greater or equal than this value
      * $params['sort']            = (string) Sort records by a particular field
      * $params['desc']            = (boolean) Set the sort direction
      * $params['body']            = (array) Record selection criteria
@@ -829,6 +838,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-calendar-event.html
      */
     public function postCalendarEvents(array $params = [])
     {
@@ -890,6 +900,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar.html
      */
     public function putCalendar(array $params = [])
     {
@@ -910,6 +921,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar-job.html
      */
     public function putCalendarJob(array $params = [])
     {
@@ -979,6 +991,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-filter.html
      */
     public function putFilter(array $params = [])
     {
@@ -1020,7 +1033,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see TODO
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -1208,6 +1221,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-filter.html
      */
     public function updateFilter(array $params = [])
     {

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Elasticsearch\Util;
 
 use Exception;
+use JsonException;
 
 class Endpoint
 {
@@ -128,7 +129,6 @@ class Endpoint
         } else {
             $class = file_get_contents(self::ENDPOINT_CLASS_TEMPLATE);
         }
-
         $class = str_replace(
             ':uri',
             $this->extractUrl($this->content['url']['paths']),
@@ -142,17 +142,18 @@ class Endpoint
         $class = str_replace(
             ':namespace',
             $this->namespace === ''
-                ? ucfirst($this->namespace)
-                : '\\' . ucfirst($this->namespace),
+                ? $this->normalizeName($this->namespace)
+                : '\\' . $this->normalizeName($this->namespace),
             $class
         );
 
+        // Set the HTTP method
+        $action = $this->getMethod();
         if (!empty($this->content['body']) &&
-            ($this->getMethod() === ['GET', 'POST'] || $this->getMethod() === ['POST', 'GET'])) {
+            ($action === ['GET', 'POST'] || $action === ['POST', 'GET'])) {
             $method = 'isset($this->body) ? \'POST\' : \'GET\'';
         } else {
-            $m = $this->getMethod();
-            $method = "'{$m[0]}'";
+            $method = sprintf("'%s'", reset($action));
         }
         $class = str_replace(':method', $method, $class);
 
@@ -187,7 +188,11 @@ class Endpoint
 
     public function getMethod(): array
     {
-        return $this->content['url']['paths'][0]['methods'];
+        $methods = $this->content['url']['paths'][0]['methods'];
+        foreach ($this->content['url']['paths'] as $path) {
+            $methods = array_intersect($methods, $path['methods']);
+        }
+        return $methods;
     }
 
     private function extractParameters(): string

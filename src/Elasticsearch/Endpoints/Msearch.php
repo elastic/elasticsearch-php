@@ -11,7 +11,7 @@ use Traversable;
 /**
  * Class Msearch
  * Elasticsearch API name msearch
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -21,6 +21,7 @@ use Traversable;
  */
 class Msearch extends AbstractEndpoint
 {
+
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;

@@ -35,7 +35,7 @@ class NamespaceEndpoint
             throw new Exception("No endpoints has been added. I cannot render the class");
         }
         $class = file_get_contents(static::NAMESPACE_CLASS_TEMPLATE);
-        $class = str_replace(':namespace', ucfirst($this->name) . 'Namespace', $class);
+        $class = str_replace(':namespace', $this->getNamespaceName() . 'Namespace', $class);
 
         $endpoints = '';
         foreach ($this->endpoints as $endpoint) {
@@ -101,14 +101,19 @@ class NamespaceEndpoint
         if (empty($endpoint->namespace)) {
             $endpointClass = $endpoint->getClassName();
         } else {
-            $endpointClass = ucfirst($endpoint->namespace) . '\\' . $endpoint->getClassName();
+            $endpointClass = NamespaceEndpoint::normalizeName($endpoint->namespace) . '\\' . $endpoint->getClassName();
         }
         return str_replace(':EndpointClass', $endpointClass, $code);
     }
 
-    protected function normalizeName(string $name): string
+    public static function normalizeName(string $name): string
     {
         return str_replace('_', '', ucwords($name, '_'));
+    }
+
+    public function getNamespaceName(): string
+    {
+        return $this->normalizeName($this->name);
     }
 
     protected function getEndpointName(string $name): string

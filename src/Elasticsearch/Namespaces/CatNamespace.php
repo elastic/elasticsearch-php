@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class CatNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -19,13 +19,14 @@ class CatNamespace extends AbstractNamespace
 {
 
     /**
-     * $params['name']   = (list) A comma-separated list of alias names to return
-     * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
-     * $params['local']  = (boolean) Return local information, do not retrieve the state from master node (default: false)
-     * $params['h']      = (list) Comma-separated list of column names to display
-     * $params['help']   = (boolean) Return help information (Default = false)
-     * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
+     * $params['name']             = (list) A comma-separated list of alias names to return
+     * $params['format']           = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['local']            = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     * $params['h']                = (list) Comma-separated list of column names to display
+     * $params['help']             = (boolean) Return help information (Default = false)
+     * $params['s']                = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['v']                = (boolean) Verbose mode. Display column headers (Default = false)
+     * $params['expand_wildcards'] = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -120,7 +121,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']      = (list) Comma-separated list of column names to display
      * $params['help']   = (boolean) Return help information (Default = false)
      * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']   = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']   = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['ts']     = (boolean) Set to false to disable timestamping (Default = true)
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
@@ -165,9 +166,10 @@ class CatNamespace extends AbstractNamespace
      * $params['help']                      = (boolean) Return help information (Default = false)
      * $params['pri']                       = (boolean) Set to true to return stats only for primary shards (Default = false)
      * $params['s']                         = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']                      = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']                      = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                         = (boolean) Verbose mode. Display column headers (Default = false)
      * $params['include_unloaded_segments'] = (boolean) If set to true segment stats will include stats for segments that are not currently loaded into memory (Default = false)
+     * $params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -237,7 +239,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -260,7 +262,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -307,7 +309,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']           = (list) Comma-separated list of column names to display
      * $params['help']        = (boolean) Return help information (Default = false)
      * $params['s']           = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']        = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -380,7 +382,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']              = (list) Comma-separated list of column names to display
      * $params['help']           = (boolean) Return help information (Default = false)
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']           = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -406,7 +408,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']                  = (list) Comma-separated list of column names to display
      * $params['help']               = (boolean) Return help information (Default = false)
      * $params['s']                  = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']               = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -433,7 +435,7 @@ class CatNamespace extends AbstractNamespace
      * $params['h']           = (list) Comma-separated list of column names to display
      * $params['help']        = (boolean) Return help information (Default = false)
      * $params['s']           = (list) Comma-separated list of column names or column aliases to sort by
-     * $params['time']        = (enum) The unit in which to display time values (Options = d (Days),h (Hours),m (Minutes),s (Seconds),ms (Milliseconds),micros (Microseconds),nanos (Nanoseconds))
+     * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
      * @param array $params Associative array of parameters
@@ -497,6 +499,138 @@ class CatNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Cat\ThreadPool');
         $endpoint->setParams($params);
         $endpoint->setThreadPoolPatterns($thread_pool_patterns);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['id']             = (string) The ID of the data frame analytics to fetch
+     * $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression matches no configs. (This includes `_all` string or when no configs have been specified)
+     * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+     * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['h']              = (list) Comma-separated list of column names to display
+     * $params['help']           = (boolean) Return help information (Default = false)
+     * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
+     * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html
+     */
+    public function mlDataFrameAnalytics(array $params = [])
+    {
+        $id = $this->extractArgument($params, 'id');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cat\MlDataFrameAnalytics');
+        $endpoint->setParams($params);
+        $endpoint->setId($id);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['datafeed_id']        = (string) The ID of the datafeeds stats to fetch
+     * $params['allow_no_datafeeds'] = (boolean) Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
+     * $params['format']             = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['h']                  = (list) Comma-separated list of column names to display
+     * $params['help']               = (boolean) Return help information (Default = false)
+     * $params['s']                  = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
+     * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html
+     */
+    public function mlDatafeeds(array $params = [])
+    {
+        $datafeed_id = $this->extractArgument($params, 'datafeed_id');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cat\MlDatafeeds');
+        $endpoint->setParams($params);
+        $endpoint->setDatafeedId($datafeed_id);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['job_id']        = (string) The ID of the jobs stats to fetch
+     * $params['allow_no_jobs'] = (boolean) Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+     * $params['bytes']         = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+     * $params['format']        = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['h']             = (list) Comma-separated list of column names to display
+     * $params['help']          = (boolean) Return help information (Default = false)
+     * $params['s']             = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['time']          = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
+     * $params['v']             = (boolean) Verbose mode. Display column headers (Default = false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html
+     */
+    public function mlJobs(array $params = [])
+    {
+        $job_id = $this->extractArgument($params, 'job_id');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cat\MlJobs');
+        $endpoint->setParams($params);
+        $endpoint->setJobId($job_id);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['model_id']       = (string) The ID of the trained models stats to fetch
+     * $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified) (Default = true)
+     * $params['from']           = (int) skips a number of trained models (Default = 0)
+     * $params['size']           = (int) specifies a max number of trained models to get (Default = 100)
+     * $params['bytes']          = (enum) The unit in which to display byte values (Options = b,k,kb,m,mb,g,gb,t,tb,p,pb)
+     * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['h']              = (list) Comma-separated list of column names to display
+     * $params['help']           = (boolean) Return help information (Default = false)
+     * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
+     * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html
+     */
+    public function mlTrainedModels(array $params = [])
+    {
+        $model_id = $this->extractArgument($params, 'model_id');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cat\MlTrainedModels');
+        $endpoint->setParams($params);
+        $endpoint->setModelId($model_id);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['transform_id']   = (string) The id of the transform for which to get stats. '_all' or '*' implies all transforms
+     * $params['from']           = (int) skips a number of transform configs, defaults to 0
+     * $params['size']           = (int) specifies a max number of transforms to get, defaults to 100
+     * $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
+     * $params['format']         = (string) a short version of the Accept header, e.g. json, yaml
+     * $params['h']              = (list) Comma-separated list of column names to display
+     * $params['help']           = (boolean) Return help information (Default = false)
+     * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
+     * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
+     * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
+     */
+    public function transforms(array $params = [])
+    {
+        $transform_id = $this->extractArgument($params, 'transform_id');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cat\Transforms');
+        $endpoint->setParams($params);
+        $endpoint->setTransformId($transform_id);
 
         return $this->performRequest($endpoint);
     }

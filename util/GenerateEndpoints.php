@@ -29,22 +29,30 @@ $version = 'v' . $ver;
 $gitWrapper = new GitWrapper();
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
-$git->run('fetch', ['--tags']);
+$git->run('fetch', ['--all']);
 $tags = explode("\n", $git->run('tag'));
 if (!in_array($version, $tags)) {
-    printf("Error: the version %s specified doesnot exist\n", $version);
-    exit(1);
+    $branches = explode("\n", $git->run('branch', ['-r']));
+    array_walk($branches, function(&$value, &$key) {
+        $value = trim($value);
+    });
+    $version = "origin/$ver";
+    if (!in_array($version, $branches)) {
+        printf("Error: the version %s specified doesnot exist\n", $version);
+        exit(1);
+    }
 }
 
 $git->run('checkout', [$version]);
-
 $result = $git->run(
     'ls-files',
-    [ "rest-api-spec/src/main/resources/rest-api-spec/api/*.json" ]
+    [
+        "rest-api-spec/src/main/resources/rest-api-spec/api/*.json",
+        "x-pack/plugin/src/test/resources/rest-api-spec/api/*.json"
+    ]
 );
 $files = explode("\n", $result);
-
-$outputDir = __DIR__ . '/output';
+$outputDir = __DIR__ . "/output/$ver";
 
 // Remove the output directory
 printf ("Removing %s folder\n", $outputDir);
@@ -67,7 +75,7 @@ foreach ($files as $file) {
 
     $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $ver);
 
-    $dir = $endpointDir . ucfirst($endpoint->namespace);
+    $dir = $endpointDir . NamespaceEndpoint::normalizeName($endpoint->namespace);
     if (!file_exists($dir)) {
         mkdir($dir);
     }
@@ -108,7 +116,7 @@ foreach ($namespaces as $name => $endpoints) {
         $namespace->addEndpoint($ep);
     }
     file_put_contents(
-        $namespaceDir . ucfirst($name) . 'Namespace.php',
+        $namespaceDir . $namespace->getNamespaceName() . 'Namespace.php',
         $namespace->renderClass()
     );
     $countNamespace++;
@@ -122,7 +130,7 @@ printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n.", $countEn
 function print_usage_msg(): void
 {
     printf("Usage: php %s <ES_VERSION>\n", basename(__FILE__));
-    printf("where <ES_VERSION> is the Elasticsearch version to check. The version must be >= 7.4.0.\n");
+    printf("where <ES_VERSION> is the Elasticsearch version to check (version must be >= 7.4.0).\n");
 }
 
 // Remove directory recursively

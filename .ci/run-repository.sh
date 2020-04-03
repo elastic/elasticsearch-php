@@ -4,7 +4,7 @@
 # STACK_VERSION -- version e.g Major.Minor.Patch(-Prelease)
 # TEST_SUITE -- which test suite to run: oss or xpack
 # ELASTICSEARCH_URL -- The url at which elasticsearch is reachable, a default is composed based on STACK_VERSION and TEST_SUITE
-# PHP_VERSION -- node js version (defined in test-matrix.yml, a default is hardcoded here)
+# PHP_VERSION -- PHP version (defined in test-matrix.yml, a default is hardcoded here)
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail

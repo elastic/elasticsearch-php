@@ -1,8 +1,8 @@
 ---
 - job:
-    name: elastic+elasticsearch-js+master
-    display-name: 'elastic / elasticsearch-js # master'
-    description: Testing the elasticsearch-js master branch.
+    name: elastic+elasticsearch-php+master
+    display-name: 'elastic / elasticsearch-php # master'
+    description: Testing the elasticsearch-php master branch.
     parameters:
     - string:
         name: branch_specifier

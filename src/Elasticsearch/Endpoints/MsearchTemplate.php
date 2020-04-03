@@ -11,7 +11,7 @@ use Traversable;
 /**
  * Class MsearchTemplate
  * Elasticsearch API name msearch_template
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -21,6 +21,7 @@ use Traversable;
  */
 class MsearchTemplate extends AbstractEndpoint
 {
+
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
@@ -49,7 +50,8 @@ class MsearchTemplate extends AbstractEndpoint
             'search_type',
             'typed_keys',
             'max_concurrent_searches',
-            'rest_total_hits_as_int'
+            'rest_total_hits_as_int',
+            'ccs_minimize_roundtrips'
         ];
     }
 

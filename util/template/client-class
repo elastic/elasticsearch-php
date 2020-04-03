@@ -16,6 +16,7 @@ use Elasticsearch\Namespaces\BooleanRequestWrapper;
 :use-namespaces
 /**
  * Class Client
+ * Generated running $ php util/GenerateEndpoints.php :version
  *
  * @category Elasticsearch
  * @package  Elasticsearch

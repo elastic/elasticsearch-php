@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeleteByQuery
  * Elasticsearch API name delete_by_query
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -42,6 +42,7 @@ class DeleteByQuery extends AbstractEndpoint
     public function getParamWhitelist(): array
     {
         return [
+            'analyzer',
             'analyze_wildcard',
             'default_operator',
             'df',

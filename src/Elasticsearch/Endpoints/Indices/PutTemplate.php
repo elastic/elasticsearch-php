@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class PutTemplate
  * Elasticsearch API name indices.put_template
- * Generated running $ php util/GenerateEndpoints.php 7.6.0
+ * Generated running $ php util/GenerateEndpoints.php 7.7
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -37,9 +37,7 @@ class PutTemplate extends AbstractEndpoint
             'include_type_name',
             'order',
             'create',
-            'timeout',
-            'master_timeout',
-            'flat_settings'
+            'master_timeout'
         ];
     }
 

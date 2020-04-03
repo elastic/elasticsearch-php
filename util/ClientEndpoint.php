@@ -40,7 +40,7 @@ class ClientEndpoint extends NamespaceEndpoint
             if (empty($name)) {
                 continue;
             }
-            $useNamespace .= sprintf("use Elasticsearch\Namespaces\%sNamespace;\n", ucfirst($name));
+            $useNamespace .= sprintf("use Elasticsearch\Namespaces\%sNamespace;\n", NamespaceEndpoint::normalizeName($name));
         }
         $class = str_replace(':use-namespaces', $useNamespace, $class);
 
@@ -50,9 +50,10 @@ class ClientEndpoint extends NamespaceEndpoint
             if (empty($name)) {
                 continue;
             }
+            $normNamespace = NamespaceEndpoint::normalizeName($name);
             $newName = file_get_contents(self::NEW_NAMESPACE_TEMPLATE);
-            $newName = str_replace(':namespace', ucfirst($name) . 'Namespace', $newName);
-            $newName = str_replace(':name', $name, $newName);
+            $newName = str_replace(':namespace',$normNamespace . 'Namespace', $newName);
+            $newName = str_replace(':name', lcfirst($normNamespace), $newName);
             $newNamespace .= $newName;
         }
         $class = str_replace(':new-namespaces', $newNamespace, $class);
@@ -63,9 +64,10 @@ class ClientEndpoint extends NamespaceEndpoint
             if (empty($name)) {
                 continue;
             }
+            $normNamespace = NamespaceEndpoint::normalizeName($name);
             $prop = file_get_contents(self::PROPERTY_CLASS_TEMPLATE);
-            $prop = str_replace(':namespace', ucfirst($name), $prop);
-            $prop = str_replace(':var_namespace', $name, $prop);
+            $prop = str_replace(':namespace', $normNamespace, $prop);
+            $prop = str_replace(':var_namespace', lcfirst($normNamespace), $prop);
             $properties .= $prop . "\n";
         }
         $class = str_replace(':namespace_properties', $properties, $class);
@@ -83,9 +85,10 @@ class ClientEndpoint extends NamespaceEndpoint
             if (empty($name)) {
                 continue;
             }
+            $normNamespace = NamespaceEndpoint::normalizeName($name);
             $func = file_get_contents(self::NAMESPACE_FUNC_TEMPLATE);
-            $func = str_replace(':namespace', ucfirst($name) . 'Namespace', $func);
-            $func = str_replace(':name', $name, $func);
+            $func = str_replace(':namespace', $normNamespace . 'Namespace', $func);
+            $func = str_replace(':name', lcfirst($normNamespace), $func);
             $functions .= $func;
         }
         $class = str_replace(':functions', $functions, $class);

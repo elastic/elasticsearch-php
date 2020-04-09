@@ -651,7 +651,7 @@ class ClientBuilder
         $parts = parse_url($host);
 
         if ($parts === false) {
-            throw new InvalidArgumentException("Could not parse URI");
+            throw new InvalidArgumentException(sprintf('Could not parse URI: "%s"', $host));
         }
 
         if (isset($parts['port']) !== true) {

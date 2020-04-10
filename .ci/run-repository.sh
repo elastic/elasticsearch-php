@@ -42,4 +42,4 @@ docker run \
   --name elasticsearch-php \
   --rm \
   elastic/elasticsearch-php 
-  $script_path/run-yaml-tests.sh
+  /bin/bash .ci/yaml-tests.sh

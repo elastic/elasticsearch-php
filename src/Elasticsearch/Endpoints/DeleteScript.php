@@ -42,14 +42,4 @@ class DeleteScript extends AbstractEndpoint
     {
         return 'DELETE';
     }
-
-    public function setId($id): DeleteScript
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

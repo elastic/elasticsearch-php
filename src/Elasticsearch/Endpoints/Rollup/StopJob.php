@@ -42,14 +42,4 @@ class StopJob extends AbstractEndpoint
     {
         return 'POST';
     }
-
-    public function setId($id): StopJob
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

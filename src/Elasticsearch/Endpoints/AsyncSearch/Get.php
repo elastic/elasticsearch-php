@@ -43,14 +43,4 @@ class Get extends AbstractEndpoint
     {
         return 'GET';
     }
-
-    public function setId($id): Get
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

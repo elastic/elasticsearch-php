@@ -49,14 +49,4 @@ class PutJob extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): PutJob
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

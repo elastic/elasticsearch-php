@@ -77,14 +77,4 @@ class TermVectors extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): TermVectors
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

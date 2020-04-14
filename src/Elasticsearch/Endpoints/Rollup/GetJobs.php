@@ -38,14 +38,4 @@ class GetJobs extends AbstractEndpoint
     {
         return 'GET';
     }
-
-    public function setId($id): GetJobs
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

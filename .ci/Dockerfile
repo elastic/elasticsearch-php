@@ -1,7 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 FROM php:${PHP_VERSION}
 
-# Create app directory
 WORKDIR /usr/src/app
 
 # Install git
@@ -14,8 +13,23 @@ RUN apt-get install -y \
         zip \
     && docker-php-ext-install zip
 
+# Print PHP version
+RUN php -v
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install prestissimo pluing for composer
-RUN composer global require hirak/prestissimo
+# Print composer version
+RUN composer --version
+
+COPY composer.json .
+
+# Install dependencies with composer
+RUN composer global require hirak/prestissimo && composer install
+
+COPY . .
+
+# Updating elasticsearch submodule
+RUN git submodule update --init --recursive
+
+CMD ["bash", ".ci/yaml-tests.sh"]

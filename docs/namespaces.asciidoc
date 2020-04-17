@@ -2,13 +2,13 @@
 == Namespaces
 
 The client has a number of "namespaces", which generally expose administrative
-functionality.  The namespaces correspond to the various administrative endpoints
-in Elasticsearch.  This is a complete list of namespaces:
+functionality. The namespaces correspond to the various administrative endpoints
+in {es}. This is a complete list of namespaces:
 
 
 [width="40%",options="header",frame="topbot"]
 |============================
-| Namespace  | Functionality
+| Namespace    | Functionality
 | `indices()`  | Index-centric stats and info
 | `nodes()`    | Node-centric stats and info
 | `cluster()`  | Cluster-centric stats and info
@@ -16,8 +16,8 @@ in Elasticsearch.  This is a complete list of namespaces:
 | `cat()`      | Access to the Cat API (which is generally used standalone from the command line
 |============================
 
-Some methods are available in several different namespaces, which give you
-the same information but grouped into different contexts.  To see how these
+Some methods are available in several different namespaces, which give you the 
+same information but grouped into different contexts. To see how these 
 namespaces work, let's look at the `_stats` output:
 
 
@@ -39,8 +39,8 @@ $response = $client->cluster()->stats();
 ----
 {zwsp} +
 
-As you can see, the same `stats()` call is made through three different
-namespaces.  Sometimes the methods require parameters.  These parameters work
+As you can see, the same `stats()` call is made through three different 
+namespaces. Sometimes the methods require parameters. These parameters work
 just like any other method in the library.
 
 For example, we can requests index stats about a specific index, or multiple
@@ -60,7 +60,7 @@ $response = $client->indices()->stats($params);
 ----
 {zwsp} +
 
-As another example, here is how you might add an alias to an existing index:
+The following example shows how you can add an alias to an existing index:
 
 [source,php]
 ----
@@ -77,6 +77,7 @@ $params['body'] = array(
 $client->indices()->updateAliases($params);
 ----
 
-Notice how both the `stats` calls and the updateAlias took a variety of parameters,
-each according to what the particular API requires.  The `stats` API only requires
-an index name(s), while the `updateAlias` requires a body of actions.
+Notice how both the `stats` calls and the updateAlias took a variety of 
+parameters, each according to what the particular API requires. The `stats` API 
+only requires an index name(s), while the `updateAlias` requires a body of 
+actions.

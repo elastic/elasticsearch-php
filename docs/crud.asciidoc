@@ -1,15 +1,21 @@
 [[indexing_documents]]
-== Indexing Documents
+== Indexing documents
 
-IMPORTANT: Please note that mapping types will disappear from Elasticsearch, read more https://www.elastic.co/guide/en/elasticsearch/reference/7.x/removal-of-types.html[here]. If you migrated types from Elasticsearch 6 to 7, you can address these with the `type` param.
+IMPORTANT: Please note that mapping types will disappear from {es}, read more 
+{ref-7x}/removal-of-types.html[here]. If you migrated types from {es} 6 to 7, 
+you can address these with the `type` param.
 
-When you add documents to Elasticsearch, you index JSON documents.  This maps naturally to PHP associative arrays, since
-they can easily be encoded in JSON.  Therefore, in Elasticsearch-PHP you create and pass associative arrays to the client
-for indexing.  There are several methods of ingesting data into Elasticsearch, which we will cover here.
+When you add documents to {es}, you index JSON documents. This maps naturally to 
+PHP associative arrays, since they can easily be encoded in JSON. Therefore, in 
+Elasticsearch-PHP you create and pass associative arrays to the client for 
+indexing. There are several methods of ingesting data into {es} which we cover 
+here.
+
 
 === Single document indexing
 
-When indexing a document, you can either provide an ID or let elasticsearch generate one for you.
+When indexing a document, you can either provide an ID or let {es} generate one 
+for you.
 
 {zwsp} +
 
@@ -40,7 +46,9 @@ $response = $client->index($params);
 ----
 {zwsp} +
 
-If you need to set other parameters, such as a `routing` value, you specify those in the array alongside the `index`, etc.  For example, let's set the routing and timestamp of this new document:
+If you need to set other parameters, such as a `routing` value, you specify 
+those in the array alongside the `index`, and others. For example, let's set the 
+routing and timestamp of this new document:
 
 .Additional parameters
 [source,php]
@@ -58,11 +66,14 @@ $response = $client->index($params);
 ----
 {zwsp} +
 
+
 === Bulk Indexing
 
-Elasticsearch also supports bulk indexing of documents.  The bulk API expects JSON action/metadata pairs, separated by
-newlines.  When constructing your documents in PHP, the process is similar.  You first create an action array object
-(e.g. `index` object), then you create a document body object.  This process repeats for all your documents.
+{es} also supports bulk indexing of documents. The bulk API expects JSON 
+action/metadata pairs, separated by newlines. When constructing your documents 
+in PHP, the process is similar. You first create an action array object (for 
+example, an `index` object), then you create a document body object. This 
+process repeats for all your documents.
 
 A simple example might look like this:
 
@@ -85,9 +96,9 @@ for($i = 0; $i < 100; $i++) {
 $responses = $client->bulk($params);
 ----
 
-In practice, you'll likely have more documents than you want to send in a single bulk request.  In that case, you need
-to batch up the requests and periodically send them:
-
+In practice, you'll likely have more documents than you want to send in a single 
+bulk request. In that case, you need to batch up the requests and periodically 
+send them:
 
 .Bulk indexing with batches
 [source,php]
@@ -126,11 +137,12 @@ if (!empty($params['body'])) {
 ----
 
 [[getting_documents]]
-== Getting Documents
+== Getting documents
 
-Elasticsearch provides realtime GETs of documents.  This means that as soon as the document has been indexed and your
-client receives an acknowledgement, you can immediately retrieve the document from any shard.  Get operations are
-performed by requesting a document by it's full `index/type/id` path:
+{es} provides realtime GETs of documents. This means that as soon as the 
+document is indexed and your client receives an acknowledgement, you can 
+immediately retrieve the document from any shard. Get operations are performed 
+by requesting a document by its full `index/type/id` path:
 
 [source,php]
 ----
@@ -145,15 +157,17 @@ $response = $client->get($params);
 {zwsp} +
 
 [[updating_documents]]
-== Updating Documents
+== Updating documents
 
-Updating a document allows you to either completely replace the contents of the existing document, or perform a partial
-update to just some fields (either changing an existing field, or adding new fields).
+Updating a document allows you to either completely replace the contents of the 
+existing document, or perform a partial update to just some fields (either 
+changing an existing field or adding new fields).
 
 === Partial document update
 
-If you want to partially update a document (e.g. change an existing field, or add a new one) you can do so by specifying
-the `doc` in the `body` parameter.  This will merge the fields in `doc` with the existing document
+If you want to partially update a document (for example, change an existing 
+field or add a new one) you can do so by specifying the `doc` in the `body` 
+parameter. This merges the fields in `doc` with the existing document.
 
 
 [source,php]
@@ -173,10 +187,12 @@ $response = $client->update($params);
 ----
 {zwsp} +
 
+
 === Scripted document update
 
-Sometimes you need to perform a scripted update, such as incrementing a counter or appending a new value to an array.
-To perform a scripted update, you need to provide a script and (usually) a set of parameters:
+Sometimes you need to perform a scripted update, such as incrementing a counter 
+or appending a new value to an array. To perform a scripted update, you need to 
+provide a script and usually a set of parameters:
 
 [source,php]
 ----
@@ -195,10 +211,12 @@ $response = $client->update($params);
 ----
 {zwsp} +
 
+
 === Upserts
 
-Upserts are "Update or Insert" operations.  This means an upsert will attempt to run your update script, but if the document
-does not exist (or the field you are trying to update doesn't exist), default values will be inserted instead.
+Upserts are "Update or Insert" operations. This means an upsert attempts to run 
+your update script, but if the document does not exist (or the field you are 
+trying to update doesn't exist), default values are inserted instead.
 
 [source,php]
 ----
@@ -222,10 +240,12 @@ $response = $client->update($params);
 ----
 {zwsp} +
 
+
 [[deleting_documents]]
 == Deleting documents
 
-Finally, you can delete documents by specifying their full `/index/_doc_/id` path:
+Finally, you can delete documents by specifying their full `/index/_doc_/id` 
+path:
 
 [source,php]
 ----

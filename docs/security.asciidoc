@@ -1,13 +1,16 @@
 [[security]]
 == Security
 
-The Elasticsearch-PHP client supports two security features: HTTP Authentication and SSL encryption.
+The Elasticsearch-PHP client supports two security features: HTTP Authentication 
+and SSL encryption.
+
 
 === HTTP Authentication
 
-If your Elasticsearch server is protected by HTTP Authentication, you need to provide the credentials to ES-PHP so
-that requests can be authenticated server-side.  Authentication credentials are provided as part of the host array
-when instantiating the client:
+If your {es} server is protected by HTTP Authentication, you need to provide the 
+credentials to ES-PHP so that requests can be authenticated server-side. 
+Authentication credentials are provided as part of the host array when 
+instantiating the client:
 
 [source,php]
 ----
@@ -21,12 +24,17 @@ $client = ClientBuilder::create()
                     ->build();
 ----
 
-Credentials are provided per-host, which allows each host to have their own set of credentials.  All requests sent to the
-cluster will use the appropriate credentials depending on the node being talked to.
+Credentials are provided per-host, which allows each host to have their own set 
+of credentials. All requests sent to the cluster use the appropriate credentials 
+depending on the node being talked to.
+
 
 === ApiKey Authentication
 
-If your Elasticsearch cluster is secured by API keys as described https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html[here], you can use these values to connect the client with your cluster, as illustrated in the following code snippet.
+If your {es} cluster is secured by API keys as described 
+{ref-7x}/security-api-create-api-key.html[here], you can use these values to 
+connect the client with your cluster, as illustrated in the following code 
+snippet.
 
 [source,php]
 ----
@@ -36,27 +44,33 @@ $client = ClientBuilder::create()
 ----
 <1> ApiKey pair of `id` and `api_key` from the create API key response.
 
+
 === SSL Encryption
 
-Configuring SSL is a little more complex.  You need to identify if your certificate has been signed by a public
-Certificate Authority (CA), or if it is a self-signed certificate.
+Configuring SSL is a little more complex. You need to identify if your 
+certificate has been signed by a public Certificate Authority (CA), or if it is 
+a self-signed certificate.
 
 [NOTE]
 .A note on libcurl version
 =================
-If you believe the client is configured to correctly use SSL, but it simply is not working, check your libcurl
-version.  On certain platforms, various features may or may not be available depending on version number of libcurl.
-For example, the `--cacert` option was not added to the OSX version of libcurl until version 7.37.1.  The `--cacert`
-option is equivalent to PHP's `CURLOPT_CAINFO` constant, meaning that custom certificate paths will not work on lower
-versions.
+If you believe the client is configured to correctly use SSL, but it simply is 
+not working, check your libcurl version. On certain platforms, various features 
+may or may not be available depending on version number of libcurl. For example, 
+the `--cacert` option was not added to the OSX version of libcurl until version 
+7.37.1. The `--cacert` option is equivalent to PHP's `CURLOPT_CAINFO` constant, 
+meaning that custom certificate paths will not work on lower versions.
 
-If you are encountering problems, update your libcurl version and/or check the http://curl.haxx.se/changes.html[curl changelog].
+If you are encountering problems, update your libcurl version and/or check the 
+http://curl.haxx.se/changes.html[curl changelog].
 =================
+
 
 ==== Public CA Certificates
 
-If your certificate has been signed by a public Certificate Authority and your server has up-to-date root certificates,
-you only need to use `https` in the host path.  The client will automatically verify SSL certificates:
+If your certificate has been signed by a public Certificate Authority and your 
+server has up-to-date root certificates, you only need to use `https` in the 
+host path. The client automatically verifies SSL certificates:
 
 [source,php]
 ----
@@ -71,10 +85,11 @@ $client = ClientBuilder::create()
 <1> Note that `https` is used, not `http`
 
 
-If your server has out-dated root certificates, you may need to use a certificate bundle.  For PHP clients, the best
-way is to use https://github.com/composer/ca-bundle[composer/ca-bundle].  Once installed, you need to tell the client to
-use your certificates instead of the system-wide bundle.  To do this, specify the path to verify:
-
+If your server has out-dated root certificates, you may need to use a 
+certificate bundle. For PHP clients, the best way is to use 
+https://github.com/composer/ca-bundle[composer/ca-bundle]. Once installed, you 
+need to tell the client to use your certificates instead of the system-wide 
+bundle. To do this, specify the path to verify:
 
 [source,php]
 ----
@@ -87,15 +102,18 @@ $client = ClientBuilder::create()
                     ->build();
 ----
 
+
 ==== Self-signed Certificates
 
-Self-signed certificates are certs that have not been signed by a public CA.  They are signed by your own organization.
-Self-signed certificates are often used for internal purposes, when you can securely spread the root certificate
-yourself.  It should not be used when being exposed to public consumers, since this leaves the client vulnerable to
-man-in-the-middle attacks.
+Self-signed certificates are certs that have not been signed by a public CA. 
+They are signed by your own organization. Self-signed certificates are often 
+used for internal purposes, when you can securely spread the root certificate
+yourself. It should not be used when being exposed to public consumers, since 
+this leaves the client vulnerable to man-in-the-middle attacks.
 
-If you are using a self-signed certificate, you need to provide the certificate to the client.  This is the same syntax
-as specifying a new root bundle, but instead you point to your certificate:
+If you are using a self-signed certificate, you need to provide the certificate 
+to the client. This is the same syntax as specifying a new root bundle, but 
+instead you point to your certificate:
 
 [source,php]
 ----
@@ -111,9 +129,10 @@ $client = ClientBuilder::create()
 
 === Using Authentication with SSL
 
-It is possible to use HTTP authentication with SSL.  Simply specify `https` in the URI, configure SSL settings as
-required and provide authentication credentials.  For example, this snippet will authenticate using Basic HTTP auth
-and a self-signed certificate:
+It is possible to use HTTP authentication with SSL. Simply specify `https` in 
+the URI, configure SSL settings as required and provide authentication 
+credentials. For example, this snippet authenticates using Basic HTTP auth and a 
+self-signed certificate:
 
 [source,php]
 ----

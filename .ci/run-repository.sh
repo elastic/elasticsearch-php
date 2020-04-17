@@ -22,6 +22,7 @@ echo -e "\033[34;1mINFO:\033[0m PHP_VERSION ${PHP_VERSION}\033[0m"
 echo -e "\033[1m>>>>> Build docker container >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 docker build \
+  --no-cache \
   --file .ci/Dockerfile \
   --tag elastic/elasticsearch-php \
   --build-arg PHP_VERSION=${PHP_VERSION} \
@@ -33,13 +34,13 @@ repo=$(realpath $(dirname $(realpath -s $0))/../)
 
 docker run \
   --network=${network_name} \
-  --env "STACK_VERSION=${STACK_VERSION}" \
-  --env "TEST_SUITE=${TEST_SUITE}" \
-  --env "PHP_VERSION=${PHP_VERSION}" \
-  --env "ELASTICSEARCH_URL=${ELASTICSEARCH_URL}" \
-  --volume $repo:/usr/src/app \
+  --workdir="/usr/src/app" \
+  --volume=${repo}/tests:/usr/src/app/tests \
+  --env STACK_VERSION=${STACK_VERSION} \
+  --env TEST_SUITE=${TEST_SUITE} \
+  --env PHP_VERSION=${PHP_VERSION} \
+  --env ELASTICSEARCH_URL=${ELASTICSEARCH_URL} \
   --ulimit nofile=65535:65535 \
   --name elasticsearch-php \
   --rm \
-  elastic/elasticsearch-php \
-  php util/RestSpecRunner.php && vendor/bin/phpunit -c phpunit-integration.xml --group sync
+  elastic/elasticsearch-php

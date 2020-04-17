@@ -832,9 +832,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $finder->files();
         $finder->name('*.yml');
 
-        // *.yaml files should be included until the library is ES 6.0+ only
-        //$finder->name('*.yaml');
-
         $filter = getenv('TEST_CASE') !== false ? getenv('TEST_CASE') : null;
 
         /**

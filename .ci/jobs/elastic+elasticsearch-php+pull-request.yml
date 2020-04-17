@@ -3,6 +3,7 @@
     name: elastic+elasticsearch-php+pull-request
     display-name: 'elastic / elasticsearch-php # pull-request'
     description: Testing of elasticsearch-php pull requests.
+    junit_results: "tests/*-junit.xml"
     scm:
     - git:
         branches:
@@ -16,4 +17,3 @@
         github-hooks: true
         status-context: clients-ci
         cancel-builds-on-update: true
-    publishers: []

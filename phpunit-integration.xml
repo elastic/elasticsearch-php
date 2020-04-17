@@ -23,4 +23,7 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="junit" target="tests/yaml-test-junit.xml"/>
+    </logging>
 </phpunit>

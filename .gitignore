@@ -32,3 +32,6 @@ util/cache/
 
 # Code coverage
 build
+
+# Junit test output
+tests/*-junit.xml

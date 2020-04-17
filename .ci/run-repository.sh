@@ -35,6 +35,7 @@ repo=$(realpath $(dirname $(realpath -s $0))/../)
 docker run \
   --network=${network_name} \
   --workdir="/usr/src/app" \
+  --volume=${repo}/tests:/usr/src/app/tests \
   --env STACK_VERSION=${STACK_VERSION} \
   --env TEST_SUITE=${TEST_SUITE} \
   --env PHP_VERSION=${PHP_VERSION} \

@@ -19,7 +19,7 @@ ticking.
 
 When the next request is sent to the client, nodes 1-9 are still considered 
 "dead", so they are skipped. The request is sent to the only known alive node 
-(#10), and if this node fails, a `NoNodesAvailableException` is returned. You 
+(#10), if this node fails, a `NoNodesAvailableException` is returned. You 
 will note this much less than the `retries` value, because `retries` only 
 applies to retries against alive nodes. In this case, only one node is known to 
 be alive, so `NoNodesAvailableException` is returned.

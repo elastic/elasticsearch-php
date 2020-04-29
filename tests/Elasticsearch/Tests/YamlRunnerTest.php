@@ -840,7 +840,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         foreach ($finder as $file) {
             $files = array_merge($files, $this->splitDocument($file, $path, $filter));
         }
-
         return $files;
     }
 

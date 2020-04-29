@@ -50,14 +50,4 @@ class ExecuteWatch extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): ExecuteWatch
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

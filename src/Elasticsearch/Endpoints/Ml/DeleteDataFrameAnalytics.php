@@ -41,14 +41,4 @@ class DeleteDataFrameAnalytics extends AbstractEndpoint
     {
         return 'DELETE';
     }
-
-    public function setId($id): DeleteDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

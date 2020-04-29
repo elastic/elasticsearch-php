@@ -46,6 +46,9 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function deleteComponentTemplate(array $params = [])
     {
@@ -66,6 +69,9 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function getComponentTemplate(array $params = [])
     {
@@ -153,6 +159,9 @@ class ClusterNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function putComponentTemplate(array $params = [])
     {

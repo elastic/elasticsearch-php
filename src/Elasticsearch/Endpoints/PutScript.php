@@ -61,16 +61,6 @@ class PutScript extends AbstractEndpoint
         return $this;
     }
 
-    public function setId($id): PutScript
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function setContext($context): PutScript
     {
         if (isset($context) !== true) {

@@ -39,14 +39,4 @@ class Delete extends AbstractEndpoint
     {
         return 'DELETE';
     }
-
-    public function setId($id): Delete
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

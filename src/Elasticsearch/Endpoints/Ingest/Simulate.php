@@ -50,14 +50,4 @@ class Simulate extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): Simulate
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

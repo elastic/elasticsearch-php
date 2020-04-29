@@ -53,14 +53,4 @@ class StopDataFrameAnalytics extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): StopDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

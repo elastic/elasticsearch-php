@@ -39,14 +39,4 @@ class DeleteJob extends AbstractEndpoint
     {
         return 'DELETE';
     }
-
-    public function setId($id): DeleteJob
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

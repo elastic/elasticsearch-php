@@ -47,14 +47,4 @@ class MlDataFrameAnalytics extends AbstractEndpoint
     {
         return 'GET';
     }
-
-    public function setId($id): MlDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

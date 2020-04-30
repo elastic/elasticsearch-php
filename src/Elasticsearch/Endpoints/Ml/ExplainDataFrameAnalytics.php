@@ -48,14 +48,4 @@ class ExplainDataFrameAnalytics extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): ExplainDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

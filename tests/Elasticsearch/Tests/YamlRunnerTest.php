@@ -588,10 +588,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
                     }
                 }
                 break;
-            case 'Basic':
-                // Fix issue converting "中文" in unicode
-                $match = is_string($match) ? utf8_decode($match) : $match;
-                break;
         }
 
         $expected = $this->replaceWithContext(current($operation), $context);
@@ -840,7 +836,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         foreach ($finder as $file) {
             $files = array_merge($files, $this->splitDocument($file, $path, $filter));
         }
-
         return $files;
     }
 

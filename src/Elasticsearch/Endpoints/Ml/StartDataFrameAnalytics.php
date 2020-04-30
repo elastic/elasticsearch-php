@@ -51,14 +51,4 @@ class StartDataFrameAnalytics extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): StartDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

@@ -49,14 +49,4 @@ class PutDataFrameAnalytics extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): PutDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

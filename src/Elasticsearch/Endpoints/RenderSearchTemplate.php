@@ -48,14 +48,4 @@ class RenderSearchTemplate extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): RenderSearchTemplate
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

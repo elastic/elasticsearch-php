@@ -1,3 +1,16 @@
+## Release 7.7.0
+
+- Removed setId() into endpoints, fixed `util/GenerateEndpoints.php`
+  [#1026](https://github.com/elastic/elasticsearch-php/pull/1026)
+- Fixes JsonErrorException with code instead of message
+  [#1022](https://github.com/elastic/elasticsearch-php/pull/1022)
+- Better exception message for Could not parse URI
+  [#1016](https://github.com/elastic/elasticsearch-php/pull/1016)
+- Added JUnit log for PHPUnit
+  [88b7e1c](https://github.com/elastic/elasticsearch-php/commit/88b7e1ce80a5a52c1d64d00c55fef77097bbd8a9)
+- Added the XPack endpoints
+  [763d91a](https://github.com/elastic/elasticsearch-php/commit/763d91a3d506075316b84a38b2bed7a098da5028)
+
 ## Release 7.6.1
 
 - Fixed issue with `guzzlehttp/ringphp` and `guzzle/streams`

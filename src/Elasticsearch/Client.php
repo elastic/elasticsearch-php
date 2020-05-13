@@ -53,7 +53,7 @@ use Elasticsearch\Namespaces\XpackNamespace;
  */
 class Client
 {
-    const VERSION = '7.7';
+    const VERSION = '7.7.0';
 
     /**
      * @var Transport

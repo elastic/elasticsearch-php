@@ -3,7 +3,7 @@
 elasticsearch-php
 =================
 
-[![Build Status](https://travis-ci.org/elastic/elasticsearch-php.svg?branch=master)](https://travis-ci.org/elastic/elasticsearch-php) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
+[![Build Status](https://clients-ci.elastic.co/buildStatus/icon?job=elastic%2Belasticsearch-php%2B7.x)](https://clients-ci.elastic.co/view/PHP/job/elastic+elasticsearch-php+7.x/) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
 
 Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 

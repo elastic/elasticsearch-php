@@ -132,7 +132,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
+        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
 
         $client->delete(
             [
@@ -177,7 +177,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
+        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
 
         $client->delete(
             [
@@ -192,7 +192,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         $client = ClientBuilder::create()->build();
 
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
+        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
 
         $client->delete(
             [

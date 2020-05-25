@@ -180,7 +180,7 @@ class ClientBuilder
      */
     public static function fromConfig(array $config, bool $quiet = false): Client
     {
-        $builder = new self;
+        $builder = new static;
         foreach ($config as $key => $value) {
             $method = "set$key";
             if (method_exists($builder, $method)) {

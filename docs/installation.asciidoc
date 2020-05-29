@@ -66,7 +66,7 @@ use `dev-master` in your production code.
 [source,shell]
 --------------------------
 curl -s http://getcomposer.org/installer | php
-php composer.phar install --no-dev
+php composer.phar install
 --------------------------
 +
 More information about 
@@ -87,15 +87,3 @@ Client instantiation is performed with a static helper function `create()`. This
 creates a ClientBuilder object, which helps you to set custom configurations. 
 When you are done configuring, call the `build()` method to generate a `Client` 
 object. For further info, consult the <<configuration>> section.
-
-=== --no-dev flag
-
-You'll notice that the installation command specified `--no-dev`. This prevents 
-Composer from installing various testing and development dependencies. For 
-average users, there is no need to install the test suite. In particular, the 
-development dependencies include a full copy of {es} so that tests can be run 
-against the REST specifications. This is a rather large download for 
-non-developers, hence the --no-dev flag.
-
-If you wish to contribute to the development of this library, just omit the 
-`--no-dev` flag to be able to run tests.

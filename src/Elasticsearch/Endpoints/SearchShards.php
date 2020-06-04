@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class SearchShards
  * Elasticsearch API name search_shards
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints

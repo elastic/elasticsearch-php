@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class UpdateAliases
  * Elasticsearch API name indices.update_aliases
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices

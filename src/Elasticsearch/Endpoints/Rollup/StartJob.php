@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class StartJob
  * Elasticsearch API name rollup.start_job
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Rollup

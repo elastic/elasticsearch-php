@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class StopTransform
  * Elasticsearch API name transform.stop_transform
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Transform

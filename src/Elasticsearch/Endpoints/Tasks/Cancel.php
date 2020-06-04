@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Cancel
  * Elasticsearch API name tasks.cancel
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Tasks
@@ -35,7 +35,8 @@ class Cancel extends AbstractEndpoint
         return [
             'nodes',
             'actions',
-            'parent_task_id'
+            'parent_task_id',
+            'wait_for_completion'
         ];
     }
 

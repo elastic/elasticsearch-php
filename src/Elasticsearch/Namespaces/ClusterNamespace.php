@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class ClusterNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -45,7 +45,7 @@ class ClusterNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -62,13 +62,55 @@ class ClusterNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
+     * $params['wait_for_removal'] = (boolean) Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list. (Default = true)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+     */
+    public function deleteVotingConfigExclusions(array $params = [])
+    {
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cluster\DeleteVotingConfigExclusions');
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (string) The name of the template
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *
+     * @param array $params Associative array of parameters
+     * @return bool
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function existsComponentTemplate(array $params = []): bool
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        // manually make this verbose so we can check status code
+        $params['client']['verbose'] = true;
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cluster\ExistsComponentTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
+    }
+    /**
      * $params['name']           = (list) The comma separated names of the component templates
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -150,6 +192,24 @@ class ClusterNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
+     * $params['node_ids']   = (string) A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
+     * $params['node_names'] = (string) A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
+     * $params['timeout']    = (time) Explicit operation timeout (Default = 30s)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+     */
+    public function postVotingConfigExclusions(array $params = [])
+    {
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Cluster\PostVotingConfigExclusions');
+        $endpoint->setParams($params);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
      * $params['name']           = (string) The name of the template
      * $params['create']         = (boolean) Whether the index template should only be added if new or can also replace an existing one (Default = false)
      * $params['timeout']        = (time) Explicit operation timeout
@@ -158,7 +218,7 @@ class ClusterNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *

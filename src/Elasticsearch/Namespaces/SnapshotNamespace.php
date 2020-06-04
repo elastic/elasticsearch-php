@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class SnapshotNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -25,7 +25,7 @@ class SnapshotNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
      */
     public function cleanupRepository(array $params = [])
     {
@@ -111,7 +111,7 @@ class SnapshotNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['repository']     = (list) A comma-separated list of repository names
+     * $params['repository']     = (list) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      *

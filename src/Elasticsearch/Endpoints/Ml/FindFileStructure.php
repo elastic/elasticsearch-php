@@ -11,7 +11,7 @@ use Traversable;
 /**
  * Class FindFileStructure
  * Elasticsearch API name ml.find_file_structure
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml

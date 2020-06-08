@@ -98,7 +98,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     private static $fatalFiles = [
         'search/110_field_collapsing.yml' => 'Temporary: parse error, malformed inline yaml',
         'search/190_index_prefix_search.yml' => 'bad yaml array syntax',
-        'search.aggregation/230_composite.yml' => 'bad yaml array syntax'
+        'search.aggregation/230_composite.yml' => 'bad yaml array syntax',
+        'nodes.reload_secure_settings/10_basic.yml' => 'Malformed inline YAML string'
     ];
 
     /**

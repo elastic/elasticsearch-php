@@ -25,7 +25,7 @@ RUN composer --version
 COPY composer.json .
 
 # Install dependencies with composer
-RUN composer global require hirak/prestissimo && composer install
+RUN composer install
 
 COPY . .
 

@@ -1,18 +1,16 @@
 [[experimental_and_beta_apis]]
 == Experimental and beta APIs
 
-The PHP client offers also `experimental` and `beta` APIs for Elasticsearch.
+The PHP client offers also `experimental` and `beta` APIs for {es}.
 
-The Elasticsearch API are marked using the following convention:
+The {es} APIs are marked using the following convention:
 
-- **Stable** APIs should be safe to use extensively in production. 
-  Any breaking changes to these APIs should only occur in major versions and
-  will be clearly documented in the breaking changes documentation for that
-  release.
-- **Beta** APIs are on track to become stable and permanent features.
-  Caution should be exercised in their use since it is possible we’d have to make
-  a breaking change to these APIs in a minor version, but we’ll avoid this
-  wherever possible.
+- **Stable** APIs should be safe to use extensively in production. Any breaking 
+  changes to these APIs should only occur in major versions and will be 
+  documented in the breaking changes documentation for that release.
+- **Beta** APIs are on track to become stable and permanent features. Use them 
+  with caution because it is possible that breaking changes are made to these 
+  APIs in a minor version.
 - **Experimental** APIs are just that - an experiment. An experimental API might
   have breaking changes in any future version, or it might even be removed
   entirely.
@@ -20,11 +18,13 @@ The Elasticsearch API are marked using the following convention:
 All the `experimental` and `beta` APIs are marked with a `@note` tag in the
 phpdoc section of the code.
 
+
 === Experimental
 
-The experimental APIs included in the current version of `elasticsearch-php` are:
+The experimental APIs included in the current version of `elasticsearch-php` 
+are:
 
-- [Ranking Evaluation](https://www.elastic.co/guide/en/elasticsearch/reference/7.4/search-rank-eval.html)
+- https://www.elastic.co/guide/en/elasticsearch/reference/7.4/search-rank-eval.html[Ranking Evaluation]
 
 [source,php]
 ----
@@ -35,7 +35,7 @@ $params = [
 $result = $client->rankEval($params);
 ----
 
-- [Painless Execute](https://www.elastic.co/guide/en/elasticsearch/painless/7.4/painless-execute-api.html)
+- https://www.elastic.co/guide/en/elasticsearch/painless/7.4/painless-execute-api.html[Painless Execute]
 
 [source,php]
 ----
@@ -67,6 +67,7 @@ $client = ClientBuilder::create()->build();
 
 $result = $client->getScriptLanguages();
 ----
+
 
 === Beta
 

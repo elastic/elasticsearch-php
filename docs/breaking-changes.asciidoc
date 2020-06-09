@@ -9,6 +9,20 @@ every time you use a deprecated parameters for {es}. We decided to add this
 notice to facilitate the code refactoring with the new API specification of {es} 
 (for example the usage of typeless APIs, see below).
 
+From 7.4.1, we mitigated the usage of E_USER_DEPRICATED warning by using the `@` 
+https://www.php.net/manual/en/language.operators.errorcontrol.php[operator]. The 
+operator suppresses the error message, however, it is still possible to catch it 
+by using a custom error handler:
+
+[source,php]
+----
+set_error_handler(function ($errno, $errstr) {
+    var_dump($errstr);
+}, E_USER_DEPRECATED);
+
+@trigger_error('Deprecation message here', E_USER_DEPRECATED);
+----
+
 
 ### Moving from types to typeless APIs in {es} 7.0
 

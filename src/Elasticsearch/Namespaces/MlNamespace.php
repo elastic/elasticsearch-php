@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class MlNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -103,8 +103,9 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['id']    = (string) The ID of the data frame analytics to delete
-     * $params['force'] = (boolean) True if the job should be forcefully deleted (Default = false)
+     * $params['id']      = (string) The ID of the data frame analytics to delete
+     * $params['force']   = (boolean) True if the job should be forcefully deleted (Default = false)
+     * $params['timeout'] = (time) Controls the time to wait until a job is deleted. Defaults to 1 minute
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -145,10 +146,12 @@ class MlNamespace extends AbstractNamespace
     }
     public function deleteExpiredData(array $params = [])
     {
+        $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
         $endpoint = $endpointBuilder('Ml\DeleteExpiredData');
         $endpoint->setParams($params);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
     }
@@ -1286,6 +1289,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
      */
     public function validate(array $params = [])
     {
@@ -1303,6 +1307,7 @@ class MlNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
+     * @see https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
      */
     public function validateDetector(array $params = [])
     {

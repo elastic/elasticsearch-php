@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetDataStreams
  * Elasticsearch API name indices.get_data_streams
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -46,9 +46,6 @@ class GetDataStreams extends AbstractEndpoint
     {
         if (isset($name) !== true) {
             return $this;
-        }
-        if (is_array($name) === true) {
-            $name = implode(",", $name);
         }
         $this->name = $name;
 

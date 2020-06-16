@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class TasksNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -19,10 +19,11 @@ class TasksNamespace extends AbstractNamespace
 {
 
     /**
-     * $params['task_id']        = (string) Cancel the task with specified task id (node_id:task_number)
-     * $params['nodes']          = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-     * $params['actions']        = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
-     * $params['parent_task_id'] = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+     * $params['task_id']             = (string) Cancel the task with specified task id (node_id:task_number)
+     * $params['nodes']               = (list) A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+     * $params['actions']             = (list) A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
+     * $params['parent_task_id']      = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
+     * $params['wait_for_completion'] = (boolean) Should the request block until the cancellation of the task and its descendant tasks is completed. Defaults to false
      *
      * @param array $params Associative array of parameters
      * @return array

@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class IndicesNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.8
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -239,6 +239,29 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function deleteIndexTemplate(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DeleteIndexTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (string) The name of the template
+     * $params['timeout']        = (time) Explicit operation timeout
+     * $params['master_timeout'] = (time) Specify timeout for connection to master
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      */
     public function deleteTemplate(array $params = [])
     {
@@ -303,6 +326,33 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         $endpoint->setName($name);
         $endpoint->setIndex($index);
+
+        return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
+    }
+    /**
+     * $params['name']           = (string) The name of the template
+     * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *
+     * @param array $params Associative array of parameters
+     * @return bool
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function existsIndexTemplate(array $params = []): bool
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        // manually make this verbose so we can check status code
+        $params['client']['verbose'] = true;
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\ExistsIndexTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
@@ -478,7 +528,7 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (list) The comma separated names of data streams
+     * $params['name'] = (string) The name or wildcard expression of the requested data streams
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -525,6 +575,30 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setFields($fields);
         $endpoint->setIndex($index);
         $endpoint->setType($type);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (list) The comma separated names of the index templates
+     * $params['flat_settings']  = (boolean) Return settings in flat format (default: false)
+     * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+     * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function getIndexTemplate(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\GetIndexTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
     }
@@ -671,6 +745,33 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\PutAlias');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
+        $endpoint->setName($name);
+        $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (string) The name of the template
+     * $params['create']         = (boolean) Whether the index template should only be added if new or can also replace an existing one (Default = false)
+     * $params['cause']          = (string) User defined reason for creating/updating the index template (Default = )
+     * $params['master_timeout'] = (time) Specify timeout for connection to master
+     * $params['body']           = (array) The template definition (Required)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function putIndexTemplate(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+        $body = $this->extractArgument($params, 'body');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\PutIndexTemplate');
+        $endpoint->setParams($params);
         $endpoint->setName($name);
         $endpoint->setBody($body);
 
@@ -897,6 +998,33 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
         $endpoint->setTarget($target);
+        $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (string) The name of the index (it must be a concrete index name)
+     * $params['create']         = (boolean) Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one (Default = false)
+     * $params['cause']          = (string) User defined reason for dry-run creating the new template for simulation purposes (Default = )
+     * $params['master_timeout'] = (time) Specify timeout for connection to master
+     * $params['body']           = (array) New index template definition, which will be included in the simulation, as if it already exists in the system
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function simulateIndexTemplate(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+        $body = $this->extractArgument($params, 'body');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\SimulateIndexTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);

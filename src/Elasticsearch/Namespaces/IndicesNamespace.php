@@ -1012,6 +1012,9 @@ class IndicesNamespace extends AbstractNamespace
      * @param array $params Associative array of parameters
      * @return array
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function simulateIndexTemplate(array $params = [])
     {

@@ -103,8 +103,9 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['id']    = (string) The ID of the data frame analytics to delete
-     * $params['force'] = (boolean) True if the job should be forcefully deleted (Default = false)
+     * $params['id']      = (string) The ID of the data frame analytics to delete
+     * $params['force']   = (boolean) True if the job should be forcefully deleted (Default = false)
+     * $params['timeout'] = (time) Controls the time to wait until a job is deleted. Defaults to 1 minute
      *
      * @param array $params Associative array of parameters
      * @return array

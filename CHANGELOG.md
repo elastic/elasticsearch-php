@@ -1,3 +1,12 @@
+## Release 7.8.0
+
+- Updated endpoints and namespaces for Elasticsearch 7.8
+  [f2a0828](https://github.com/elastic/elasticsearch-php/commit/f2a0828d5ee9d126ad63e2a1d43f70b4013845e2)
+- Improved documentation
+  [#1038](https://github.com/elastic/elasticsearch-php/pull/1038)
+  [#1027](https://github.com/elastic/elasticsearch-php/pull/1027)
+  [#1025](https://github.com/elastic/elasticsearch-php/pull/1025)
+
 ## Release 7.7.0
 
 - Removed setId() into endpoints, fixed `util/GenerateEndpoints.php`

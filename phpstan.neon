@@ -1,4 +1,6 @@
 parameters:
+    reportUnmatchedIgnoredErrors:
+        false
     ignoreErrors:
         - '#Unsafe usage of new static()#'
         - '#Call to static method performRequest\(\) on trait#'

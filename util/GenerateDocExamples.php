@@ -138,8 +138,10 @@ function prettyPrintArray(array $input, int $space): string
         } else {
             if (is_string($value)) {
                 $value = "'" . str_replace("'", "\'", $value) . "'";
-            } if (is_bool($value)) {
+            } elseif (is_bool($value)) {
                 $value = $value ? 'true' : 'false';
+            } elseif ($value === null) {
+                $value = 'null';
             }
             $output .= sprintf("%s,\n", $value);
         }
@@ -194,5 +196,5 @@ function removeAllFiles(string $folder): void
 function printUsageMsg(): void
 {
     printf("Usage: php %s <PATH_TO_JSON>\n", basename(__FILE__));
-    printf("where <PATH_TO_JSON> is the `alternatives_report.spec.json` path file\n");
+    printf("where <PATH_TO_JSON> is the parsed alternative report json file\n");
 }

@@ -1,0 +1,23 @@
+// mapping/types/nested.asciidoc:22
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'group' => 'fans',
+        'user' => [
+            [
+                'first' => 'John',
+                'last' => 'Smith',
+            ],
+            [
+                'first' => 'Alice',
+                'last' => 'White',
+            ],
+        ],
+    ],
+];
+$response = $client->index($params);
+----

@@ -1,0 +1,23 @@
+// docs/get.asciidoc:302
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'counter' => [
+                    'type' => 'integer',
+                    'store' => false,
+                ],
+                'tags' => [
+                    'type' => 'keyword',
+                    'store' => true,
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

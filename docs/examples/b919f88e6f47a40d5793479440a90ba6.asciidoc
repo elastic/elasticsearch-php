@@ -1,0 +1,98 @@
+// mapping/types/nested.asciidoc:85
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'user' => [
+                    'type' => 'nested',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'group' => 'fans',
+        'user' => [
+            [
+                'first' => 'John',
+                'last' => 'Smith',
+            ],
+            [
+                'first' => 'Alice',
+                'last' => 'White',
+            ],
+        ],
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'nested' => [
+                'path' => 'user',
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match' => [
+                                    'user.first' => 'Alice',
+                                ],
+                            ],
+                            [
+                                'match' => [
+                                    'user.last' => 'Smith',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'nested' => [
+                'path' => 'user',
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match' => [
+                                    'user.first' => 'Alice',
+                                ],
+                            ],
+                            [
+                                'match' => [
+                                    'user.last' => 'White',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'inner_hits' => [
+                    'highlight' => [
+                        'fields' => [
+                            'user.first' => [
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,14 @@
+// indices/update-settings.asciidoc:79
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'index' => [
+            'refresh_interval' => null,
+        ],
+    ],
+];
+$response = $client->indices()->putSettings($params);
+----

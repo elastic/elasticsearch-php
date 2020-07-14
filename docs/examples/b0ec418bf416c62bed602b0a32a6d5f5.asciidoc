@@ -1,0 +1,13 @@
+// indices/aliases.asciidoc:441
+
+[source, php]
+----
+$params = [
+    'index' => 'alias1',
+    'id' => '1',
+    'body' => [
+        'foo' => 'bar',
+    ],
+];
+$response = $client->index($params);
+----

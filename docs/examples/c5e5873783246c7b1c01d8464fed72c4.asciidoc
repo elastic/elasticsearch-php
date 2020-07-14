@@ -1,0 +1,10 @@
+// docs/delete.asciidoc:172
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'id' => '1',
+];
+$response = $client->delete($params);
+----

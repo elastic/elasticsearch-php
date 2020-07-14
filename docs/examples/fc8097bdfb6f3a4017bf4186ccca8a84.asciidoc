@@ -1,0 +1,56 @@
+// mapping/params/multi-fields.asciidoc:75
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'text' => [
+                    'type' => 'text',
+                    'fields' => [
+                        'english' => [
+                            'type' => 'text',
+                            'analyzer' => 'english',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'text' => 'quick brown fox',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'text' => 'quick brown foxes',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'multi_match' => [
+                'query' => 'quick brown foxes',
+                'fields' => [
+                    'text',
+                    'text.english',
+                ],
+                'type' => 'most_fields',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

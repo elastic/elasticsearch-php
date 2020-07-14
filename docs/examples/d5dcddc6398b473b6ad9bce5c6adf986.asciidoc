@@ -1,0 +1,13 @@
+// search/request/scroll.asciidoc:95
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'sort' => [
+            '_doc',
+        ],
+    ],
+];
+$response = $client->search($params);
+----

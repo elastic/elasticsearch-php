@@ -1,0 +1,9 @@
+// docs/delete-by-query.asciidoc:579
+
+[source, php]
+----
+$params = [
+    'task_id' => 'r1A2WoRbTwKZ516z6NEs5A:36619',
+];
+$response = $client->deleteByQueryRethrottle($params);
+----

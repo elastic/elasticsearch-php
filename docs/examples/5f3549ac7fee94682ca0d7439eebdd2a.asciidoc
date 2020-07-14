@@ -1,0 +1,18 @@
+// search/request/sort.asciidoc:211
+
+[source, php]
+----
+$params = [
+    'index' => 'index_long,index_double',
+    'body' => [
+        'sort' => [
+            [
+                'field' => [
+                    'numeric_type' => 'date_nanos',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

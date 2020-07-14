@@ -1,0 +1,20 @@
+// aggregations/bucket/datehistogram-aggregation.asciidoc:431
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'aggs' => [
+            'by_day' => [
+                'date_histogram' => [
+                    'field' => 'date',
+                    'calendar_interval' => 'day',
+                    'time_zone' => '-01:00',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

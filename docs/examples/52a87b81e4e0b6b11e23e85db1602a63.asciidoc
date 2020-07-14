@@ -1,0 +1,16 @@
+// docs/update-by-query.asciidoc:307
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'term' => [
+                'user' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->updateByQuery($params);
+----

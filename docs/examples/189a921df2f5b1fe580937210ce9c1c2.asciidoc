@@ -1,0 +1,18 @@
+// search.asciidoc:96
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'match_all' => [
+            ],
+        ],
+        'stats' => [
+            'group1',
+            'group2',
+        ],
+    ],
+];
+$response = $client->search($params);
+----

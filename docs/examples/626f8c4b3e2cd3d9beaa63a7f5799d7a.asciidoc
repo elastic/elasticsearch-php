@@ -1,0 +1,24 @@
+// search/suggesters.asciidoc:8
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'match' => [
+                'message' => 'tring out Elasticsearch',
+            ],
+        ],
+        'suggest' => [
+            'my-suggestion' => [
+                'text' => 'tring out Elasticsearch',
+                'term' => [
+                    'field' => 'message',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

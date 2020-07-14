@@ -1,0 +1,18 @@
+// search/request/sort.asciidoc:192
+
+[source, php]
+----
+$params = [
+    'index' => 'index_long',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'field' => [
+                    'type' => 'date_nanos',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

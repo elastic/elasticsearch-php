@@ -1,4 +1,4 @@
-// docs/reindex.asciidoc:359
+// docs/reindex.asciidoc:373
 
 [source, php]
 ----

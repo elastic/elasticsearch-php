@@ -1,0 +1,9 @@
+// cat/indices.asciidoc:100
+
+[source, php]
+----
+$params = [
+    'index' => 'twi*',
+];
+$response = $client->cat()->indices($params);
+----

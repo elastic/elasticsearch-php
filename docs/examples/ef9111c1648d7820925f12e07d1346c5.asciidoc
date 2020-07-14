@@ -1,0 +1,23 @@
+// mapping/params/fielddata.asciidoc:56
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'my_field' => [
+                    'type' => 'text',
+                    'fields' => [
+                        'keyword' => [
+                            'type' => 'keyword',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

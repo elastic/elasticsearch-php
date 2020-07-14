@@ -1,0 +1,18 @@
+// query-dsl/terms-query.asciidoc:127
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'color' => [
+                    'type' => 'keyword',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

@@ -1,0 +1,9 @@
+// api-conventions.asciidoc:386
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->indices()->getSettings($params);
+----

@@ -1,0 +1,19 @@
+// mapping/params/format.asciidoc:13
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'date' => [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

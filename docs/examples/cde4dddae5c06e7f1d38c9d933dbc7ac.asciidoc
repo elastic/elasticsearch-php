@@ -1,0 +1,9 @@
+// docs/update-by-query.asciidoc:326
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter,blog',
+];
+$response = $client->updateByQuery($params);
+----

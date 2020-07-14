@@ -1,0 +1,23 @@
+// indices/aliases.asciidoc:320
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'actions' => [
+            [
+                'add' => [
+                    'index' => 'test1',
+                    'alias' => 'alias2',
+                    'filter' => [
+                        'term' => [
+                            'user' => 'kimchy',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->updateAliases($params);
+----

@@ -1,0 +1,19 @@
+// indices/aliases.asciidoc:348
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'actions' => [
+            [
+                'add' => [
+                    'index' => 'test',
+                    'alias' => 'alias1',
+                    'routing' => '1',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->updateAliases($params);
+----

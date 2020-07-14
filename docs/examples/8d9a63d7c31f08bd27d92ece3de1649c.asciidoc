@@ -1,0 +1,35 @@
+// mapping/fields/id-field.asciidoc:12
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'text' => 'Document with ID 1',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'text' => 'Document with ID 2',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'terms' => [
+                '_id' => [
+                    '1',
+                    '2',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

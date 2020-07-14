@@ -1,0 +1,20 @@
+// docs/update-by-query.asciidoc:355
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'script' => [
+            'source' => 'ctx._source.likes++',
+            'lang' => 'painless',
+        ],
+        'query' => [
+            'term' => [
+                'user' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->updateByQuery($params);
+----

@@ -1,0 +1,39 @@
+// docs/delete-by-query.asciidoc:421
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'slice' => [
+            'id' => 0,
+            'max' => 2,
+        ],
+        'query' => [
+            'range' => [
+                'likes' => [
+                    'lt' => 10,
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->deleteByQuery($params);
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'slice' => [
+            'id' => 1,
+            'max' => 2,
+        ],
+        'query' => [
+            'range' => [
+                'likes' => [
+                    'lt' => 10,
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->deleteByQuery($params);
+----

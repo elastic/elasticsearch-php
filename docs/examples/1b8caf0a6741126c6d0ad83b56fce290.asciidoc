@@ -1,4 +1,4 @@
-// indices/templates.asciidoc:138
+// indices/templates.asciidoc:146
 
 [source, php]
 ----

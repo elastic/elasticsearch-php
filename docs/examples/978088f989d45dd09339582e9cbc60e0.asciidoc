@@ -1,0 +1,16 @@
+// api-conventions.asciidoc:88
+
+[source, php]
+----
+$params = [
+    'index' => '%3Clogstash-%7Bnow%2Fd%7D%3E',
+    'body' => [
+        'query' => [
+            'match' => [
+                'test' => 'data',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

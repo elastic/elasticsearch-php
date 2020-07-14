@@ -1,0 +1,14 @@
+// docs/update-by-query.asciidoc:593
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'script' => [
+            'source' => 'ctx._source[\'extra\'] = \'test\'',
+        ],
+    ],
+];
+$response = $client->updateByQuery($params);
+----

@@ -1,0 +1,29 @@
+// search/request/sort.asciidoc:597
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'track_scores' => true,
+        'sort' => [
+            [
+                'post_date' => [
+                    'order' => 'desc',
+                ],
+            ],
+            [
+                'name' => 'desc',
+            ],
+            [
+                'age' => 'desc',
+            ],
+        ],
+        'query' => [
+            'term' => [
+                'user' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

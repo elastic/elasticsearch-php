@@ -1,0 +1,60 @@
+// mapping/params/multi-fields.asciidoc:10
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'city' => [
+                    'type' => 'text',
+                    'fields' => [
+                        'raw' => [
+                            'type' => 'keyword',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'city' => 'New York',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'city' => 'York',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'match' => [
+                'city' => 'york',
+            ],
+        ],
+        'sort' => [
+            'city.raw' => 'asc',
+        ],
+        'aggs' => [
+            'Cities' => [
+                'terms' => [
+                    'field' => 'city.raw',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

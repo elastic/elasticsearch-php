@@ -1,0 +1,6 @@
+// cluster/health.asciidoc:36
+
+[source, php]
+----
+$response = $client->cluster()->health();
+----

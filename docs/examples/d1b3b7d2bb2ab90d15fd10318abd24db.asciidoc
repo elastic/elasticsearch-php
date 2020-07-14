@@ -1,0 +1,27 @@
+// search/request/sort.asciidoc:11
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'post_date' => [
+                    'type' => 'date',
+                ],
+                'user' => [
+                    'type' => 'keyword',
+                ],
+                'name' => [
+                    'type' => 'keyword',
+                ],
+                'age' => [
+                    'type' => 'integer',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

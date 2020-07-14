@@ -1,0 +1,20 @@
+// aggregations/bucket/datehistogram-aggregation.asciidoc:303
+
+[source, php]
+----
+$params = [
+    'index' => 'sales',
+    'body' => [
+        'aggs' => [
+            'sales_over_time' => [
+                'date_histogram' => [
+                    'field' => 'date',
+                    'calendar_interval' => '1M',
+                    'format' => 'yyyy-MM-dd',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

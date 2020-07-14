@@ -1,0 +1,35 @@
+// aggregations/bucket/datehistogram-aggregation.asciidoc:380
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'date' => '2015-10-01T00:30:00Z',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'date' => '2015-10-01T01:30:00Z',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'aggs' => [
+            'by_day' => [
+                'date_histogram' => [
+                    'field' => 'date',
+                    'calendar_interval' => 'day',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

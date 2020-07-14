@@ -1,0 +1,9 @@
+// indices/get-index.asciidoc:11
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->indices()->get($params);
+----

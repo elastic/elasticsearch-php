@@ -1,0 +1,19 @@
+// query-dsl/terms-query.asciidoc:19
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'terms' => [
+                'user' => [
+                    'kimchy',
+                    'elasticsearch',
+                ],
+                'boost' => 1,
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

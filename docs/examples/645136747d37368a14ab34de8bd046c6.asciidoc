@@ -1,0 +1,51 @@
+// mapping/types/date.asciidoc:35
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'date' => [
+                    'type' => 'date',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'date' => '2015-01-01',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'date' => '2015-01-01T12:10:30Z',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '3',
+    'body' => [
+        'date' => 1420070400001,
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'sort' => [
+            'date' => 'asc',
+        ],
+    ],
+];
+$response = $client->search($params);
+----

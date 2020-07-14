@@ -1,0 +1,9 @@
+// docs/update-by-query.asciidoc:606
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->search($params);
+----

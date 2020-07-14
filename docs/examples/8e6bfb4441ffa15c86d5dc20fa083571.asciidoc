@@ -1,0 +1,13 @@
+// setup/logging-config.asciidoc:155
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'transient' => [
+            'logger.org.elasticsearch.transport' => 'trace',
+        ],
+    ],
+];
+$response = $client->cluster()->putSettings($params);
+----

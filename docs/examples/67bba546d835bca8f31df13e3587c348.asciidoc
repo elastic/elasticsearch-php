@@ -1,0 +1,10 @@
+// indices/aliases.asciidoc:453
+
+[source, php]
+----
+$params = [
+    'index' => 'test',
+    'id' => '1',
+];
+$response = $client->get($params);
+----

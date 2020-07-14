@@ -1,0 +1,21 @@
+// search/request/scroll.asciidoc:268
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'slice' => [
+            'field' => 'date',
+            'id' => 0,
+            'max' => 10,
+        ],
+        'query' => [
+            'match' => [
+                'title' => 'elasticsearch',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

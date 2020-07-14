@@ -1,0 +1,18 @@
+// search/request/sort.asciidoc:180
+
+[source, php]
+----
+$params = [
+    'index' => 'index_double',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'field' => [
+                    'type' => 'date',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

@@ -1,0 +1,10 @@
+// docs/get.asciidoc:224
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'id' => '0',
+];
+$response = $client->get($params);
+----

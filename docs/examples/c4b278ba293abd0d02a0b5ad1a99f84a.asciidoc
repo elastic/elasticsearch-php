@@ -1,0 +1,24 @@
+// docs/update-by-query.asciidoc:396
+
+[source, php]
+----
+$params = [
+    'id' => 'set-foo',
+    'body' => [
+        'description' => 'sets foo',
+        'processors' => [
+            [
+                'set' => [
+                    'field' => 'foo',
+                    'value' => 'bar',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->ingest()->putPipeline($params);
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->updateByQuery($params);
+----

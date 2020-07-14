@@ -1,0 +1,19 @@
+// query-dsl/wildcard-query.asciidoc:21
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'wildcard' => [
+                'user' => [
+                    'value' => 'ki*y',
+                    'boost' => 1,
+                    'rewrite' => 'constant_score',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,35 @@
+// search/request/sort.asciidoc:94
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'product' => 'chocolate',
+        'price' => [
+            20,
+            4,
+        ],
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'body' => [
+        'query' => [
+            'term' => [
+                'product' => 'chocolate',
+            ],
+        ],
+        'sort' => [
+            [
+                'price' => [
+                    'order' => 'asc',
+                    'mode' => 'avg',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

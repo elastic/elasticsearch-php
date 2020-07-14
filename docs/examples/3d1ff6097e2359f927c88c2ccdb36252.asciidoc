@@ -1,0 +1,6 @@
+// setup/install/check-running.asciidoc:7
+
+[source, php]
+----
+$response = $client->info();
+----

@@ -1,0 +1,22 @@
+// query-dsl/function-score-query.asciidoc:380
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'function_score' => [
+                'gauss' => [
+                    'date' => [
+                        'origin' => '2013-09-17',
+                        'scale' => '10d',
+                        'offset' => '5d',
+                        'decay' => 0.5,
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

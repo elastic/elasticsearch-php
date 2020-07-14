@@ -1,0 +1,20 @@
+// query-dsl/regexp-query.asciidoc:23
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'regexp' => [
+                'user' => [
+                    'value' => 'k.*y',
+                    'flags' => 'ALL',
+                    'max_determinized_states' => 10000,
+                    'rewrite' => 'constant_score',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

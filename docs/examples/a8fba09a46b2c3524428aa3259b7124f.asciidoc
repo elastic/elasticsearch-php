@@ -1,0 +1,9 @@
+// indices/get-mapping.asciidoc:11
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->indices()->getMapping($params);
+----

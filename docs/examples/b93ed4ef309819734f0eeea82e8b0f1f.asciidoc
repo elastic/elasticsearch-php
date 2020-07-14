@@ -1,0 +1,27 @@
+// aggregations/bucket/filter-aggregation.asciidoc:9
+
+[source, php]
+----
+$params = [
+    'index' => 'sales',
+    'body' => [
+        'aggs' => [
+            't_shirts' => [
+                'filter' => [
+                    'term' => [
+                        'type' => 't-shirt',
+                    ],
+                ],
+                'aggs' => [
+                    'avg_price' => [
+                        'avg' => [
+                            'field' => 'price',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,18 @@
+// search/request/sort.asciidoc:153
+
+[source, php]
+----
+$params = [
+    'index' => 'index_long,index_double',
+    'body' => [
+        'sort' => [
+            [
+                'field' => [
+                    'numeric_type' => 'double',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

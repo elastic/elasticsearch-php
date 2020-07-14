@@ -1,0 +1,13 @@
+// search.asciidoc:72
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'transient' => [
+            'cluster.routing.use_adaptive_replica_selection' => false,
+        ],
+    ],
+];
+$response = $client->cluster()->putSettings($params);
+----

@@ -1,0 +1,9 @@
+// search/request/scroll.asciidoc:186
+
+[source, php]
+----
+$params = [
+    'scroll_id' => '_all',
+];
+$response = $client->clearScroll($params);
+----

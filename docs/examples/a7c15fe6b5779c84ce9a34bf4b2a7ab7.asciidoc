@@ -1,0 +1,17 @@
+// mapping/params/fielddata.asciidoc:84
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'properties' => [
+            'my_field' => [
+                'type' => 'text',
+                'fielddata' => true,
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->putMapping($params);
+----

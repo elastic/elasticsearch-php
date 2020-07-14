@@ -1,0 +1,13 @@
+// query-dsl/terms-query.asciidoc:160
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'color' => 'blue',
+    ],
+];
+$response = $client->index($params);
+----

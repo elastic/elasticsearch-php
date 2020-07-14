@@ -1,0 +1,9 @@
+// api-conventions.asciidoc:580
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->search($params);
+----

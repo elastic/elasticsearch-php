@@ -1,0 +1,23 @@
+// search/suggesters.asciidoc:127
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'suggest' => [
+            'text' => 'tring out Elasticsearch',
+            'my-suggest-1' => [
+                'term' => [
+                    'field' => 'message',
+                ],
+            ],
+            'my-suggest-2' => [
+                'term' => [
+                    'field' => 'user',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

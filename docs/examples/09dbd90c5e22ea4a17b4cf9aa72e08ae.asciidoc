@@ -1,0 +1,6 @@
+// api-conventions.asciidoc:231
+
+[source, php]
+----
+$response = $client->search();
+----

@@ -1,0 +1,19 @@
+// query-dsl/exists-query.asciidoc:56
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'bool' => [
+                'must_not' => [
+                    'exists' => [
+                        'field' => 'user',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

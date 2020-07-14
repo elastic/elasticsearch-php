@@ -1,0 +1,21 @@
+// aggregations/bucket/datehistogram-aggregation.asciidoc:669
+
+[source, php]
+----
+$params = [
+    'index' => 'sales',
+    'body' => [
+        'aggs' => [
+            'dayOfWeek' => [
+                'terms' => [
+                    'script' => [
+                        'lang' => 'painless',
+                        'source' => 'doc[\'date\'].value.dayOfWeekEnum.value',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

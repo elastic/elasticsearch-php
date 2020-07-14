@@ -1,0 +1,18 @@
+// query-dsl/nested-query.asciidoc:23
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'obj1' => [
+                    'type' => 'nested',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

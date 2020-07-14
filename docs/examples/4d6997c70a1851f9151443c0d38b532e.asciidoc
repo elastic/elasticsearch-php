@@ -1,0 +1,51 @@
+// mapping/types/array.asciidoc:42
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'id' => '1',
+    'body' => [
+        'message' => 'some arrays in this document...',
+        'tags' => [
+            'elasticsearch',
+            'wow',
+        ],
+        'lists' => [
+            [
+                'name' => 'prog_list',
+                'description' => 'programming list',
+            ],
+            [
+                'name' => 'cool_list',
+                'description' => 'cool stuff list',
+            ],
+        ],
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'id' => '2',
+    'body' => [
+        'message' => 'no arrays in this document...',
+        'tags' => 'elasticsearch',
+        'lists' => [
+            'name' => 'prog_list',
+            'description' => 'programming list',
+        ],
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'match' => [
+                'tags' => 'elasticsearch',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

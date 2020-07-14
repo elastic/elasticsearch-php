@@ -1,0 +1,18 @@
+// indices/aliases.asciidoc:12
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'actions' => [
+            [
+                'add' => [
+                    'index' => 'twitter',
+                    'alias' => 'alias1',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->updateAliases($params);
+----

@@ -1,0 +1,34 @@
+// query-dsl/nested-query.asciidoc:133
+
+[source, php]
+----
+$params = [
+    'index' => 'drivers',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'driver' => [
+                    'type' => 'nested',
+                    'properties' => [
+                        'last_name' => [
+                            'type' => 'text',
+                        ],
+                        'vehicle' => [
+                            'type' => 'nested',
+                            'properties' => [
+                                'make' => [
+                                    'type' => 'text',
+                                ],
+                                'model' => [
+                                    'type' => 'text',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

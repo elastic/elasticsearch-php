@@ -1,0 +1,25 @@
+// search.asciidoc:32
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'bool' => [
+                'must' => [
+                    'query_string' => [
+                        'query' => 'some query string here',
+                    ],
+                ],
+                'filter' => [
+                    'term' => [
+                        'user' => 'kimchy',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,9 @@
+// indices/aliases.asciidoc:394
+
+[source, php]
+----
+$params = [
+    'index' => 'alias2',
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,14 @@
+// indices/get-mapping.asciidoc:78
+
+[source, php]
+----
+$params = [
+    'index' => '*',
+];
+$response = $client->indices()->getMapping($params);
+$params = [
+    'index' => '_all',
+];
+$response = $client->indices()->getMapping($params);
+$response = $client->indices()->getMapping();
+----

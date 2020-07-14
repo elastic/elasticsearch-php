@@ -1,0 +1,28 @@
+// search/count.asciidoc:99
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'id' => '1',
+    'body' => [
+        'user' => 'kimchy',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->count($params);
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'term' => [
+                'user' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->count($params);
+----

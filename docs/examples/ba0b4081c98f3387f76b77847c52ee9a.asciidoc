@@ -1,0 +1,27 @@
+// indices/update-settings.asciidoc:169
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->indices()->close($params);
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'analysis' => [
+            'analyzer' => [
+                'content' => [
+                    'type' => 'custom',
+                    'tokenizer' => 'whitespace',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->putSettings($params);
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->indices()->open($params);
+----

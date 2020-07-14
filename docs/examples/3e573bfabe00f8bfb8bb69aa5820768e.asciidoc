@@ -1,0 +1,19 @@
+// docs/delete-by-query.asciidoc:456
+
+[source, php]
+----
+$response = $client->indices()->refresh();
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'range' => [
+                'likes' => [
+                    'lt' => 10,
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

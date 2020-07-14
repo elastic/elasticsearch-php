@@ -1,0 +1,16 @@
+// docs/get.asciidoc:366
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'id' => '2',
+    'body' => [
+        'counter' => 1,
+        'tags' => [
+            'white',
+        ],
+    ],
+];
+$response = $client->index($params);
+----

@@ -1,0 +1,18 @@
+// aggregations/metrics/valuecount-aggregation.asciidoc:13
+
+[source, php]
+----
+$params = [
+    'index' => 'sales',
+    'body' => [
+        'aggs' => [
+            'types_count' => [
+                'value_count' => [
+                    'field' => 'type',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

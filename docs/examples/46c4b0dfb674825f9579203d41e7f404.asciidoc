@@ -1,0 +1,18 @@
+// mapping/types/keyword.asciidoc:20
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'tags' => [
+                    'type' => 'keyword',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

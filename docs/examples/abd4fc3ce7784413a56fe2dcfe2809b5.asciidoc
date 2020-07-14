@@ -1,0 +1,16 @@
+// docs/update-by-query.asciidoc:700
+
+[source, php]
+----
+$params = [
+    'index' => 'test',
+    'body' => [
+        'query' => [
+            'match' => [
+                'flag' => 'foo',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

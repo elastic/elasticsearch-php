@@ -1,0 +1,22 @@
+// search/request/sort.asciidoc:369
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'sort' => [
+            [
+                'price' => [
+                    'unmapped_type' => 'long',
+                ],
+            ],
+        ],
+        'query' => [
+            'term' => [
+                'product' => 'chocolate',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,24 @@
+// search/request/sort.asciidoc:491
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'sort' => [
+            [
+                '_geo_distance' => [
+                    'pin.location' => 'drm3btev3e86',
+                    'order' => 'asc',
+                    'unit' => 'km',
+                ],
+            ],
+        ],
+        'query' => [
+            'term' => [
+                'user' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

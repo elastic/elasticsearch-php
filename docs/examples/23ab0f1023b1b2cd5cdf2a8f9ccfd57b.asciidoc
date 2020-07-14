@@ -1,0 +1,18 @@
+// indices/aliases.asciidoc:304
+
+[source, php]
+----
+$params = [
+    'index' => 'test1',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'user' => [
+                    'type' => 'keyword',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

@@ -1,0 +1,35 @@
+// query-dsl/nested-query.asciidoc:41
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'query' => [
+            'nested' => [
+                'path' => 'obj1',
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match' => [
+                                    'obj1.name' => 'blue',
+                                ],
+                            ],
+                            [
+                                'range' => [
+                                    'obj1.count' => [
+                                        'gt' => 5,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'score_mode' => 'avg',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,9 @@
+// search/count.asciidoc:7
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+];
+$response = $client->count($params);
+----

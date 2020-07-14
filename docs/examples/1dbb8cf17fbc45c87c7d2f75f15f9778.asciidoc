@@ -1,0 +1,6 @@
+// api-conventions.asciidoc:259
+
+[source, php]
+----
+$response = $client->cluster()->state();
+----

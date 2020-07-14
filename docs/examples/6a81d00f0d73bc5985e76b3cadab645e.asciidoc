@@ -1,0 +1,24 @@
+// mapping/params/fielddata.asciidoc:117
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'tag' => [
+                    'type' => 'text',
+                    'fielddata' => true,
+                    'fielddata_frequency_filter' => [
+                        'min' => 0.001,
+                        'max' => 0.1,
+                        'min_segment_size' => 500,
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

@@ -1,0 +1,17 @@
+// search/request/scroll.asciidoc:45
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'size' => 100,
+        'query' => [
+            'match' => [
+                'title' => 'elasticsearch',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

@@ -1,0 +1,50 @@
+// docs/update-by-query.asciidoc:662
+
+[source, php]
+----
+$params = [
+    'index' => 'test',
+    'body' => [
+        'mappings' => [
+            'dynamic' => false,
+            'properties' => [
+                'text' => [
+                    'type' => 'text',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'index' => 'test',
+    'body' => [
+        'text' => 'words words',
+        'flag' => 'bar',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'test',
+    'body' => [
+        'text' => 'words words',
+        'flag' => 'foo',
+    ],
+];
+$response = $client->index($params);
+$params = [
+    'index' => 'test',
+    'body' => [
+        'properties' => [
+            'text' => [
+                'type' => 'text',
+            ],
+            'flag' => [
+                'type' => 'text',
+                'analyzer' => 'keyword',
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->putMapping($params);
+----

@@ -1,0 +1,15 @@
+// docs/delete-by-query.asciidoc:356
+
+[source, php]
+----
+$params = [
+    'index' => 'twitter',
+    'body' => [
+        'query' => [
+            'match_all' => [
+            ],
+        ],
+    ],
+];
+$response = $client->deleteByQuery($params);
+----

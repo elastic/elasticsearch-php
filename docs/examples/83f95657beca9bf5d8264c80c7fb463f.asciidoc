@@ -1,0 +1,15 @@
+// query-dsl/match-phrase-query.asciidoc:11
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'query' => [
+            'match_phrase' => [
+                'message' => 'this is a test',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

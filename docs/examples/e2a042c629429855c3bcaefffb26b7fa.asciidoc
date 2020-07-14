@@ -1,0 +1,19 @@
+// mapping/types/date.asciidoc:77
+
+[source, php]
+----
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'mappings' => [
+            'properties' => [
+                'date' => [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

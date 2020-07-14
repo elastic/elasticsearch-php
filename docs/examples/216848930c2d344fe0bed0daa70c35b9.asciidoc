@@ -1,0 +1,6 @@
+// docs/delete-by-query.asciidoc:593
+
+[source, php]
+----
+$response = $client->tasks()->list();
+----

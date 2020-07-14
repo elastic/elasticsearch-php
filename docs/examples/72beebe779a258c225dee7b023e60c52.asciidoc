@@ -1,0 +1,10 @@
+// search/request/scroll.asciidoc:148
+
+[source, php]
+----
+$params = [
+    'metric' => 'indices',
+    'index_metric' => 'search',
+];
+$response = $client->nodes()->stats($params);
+----

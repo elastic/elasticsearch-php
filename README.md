@@ -28,6 +28,7 @@ Table of Contents
     + [Delete an index](#delete-an-index)
     + [Create an index](#create-an-index)
 - [Unit Testing using Mock a Elastic Client](#unit-testing-using-mock-a-elastic-client)
+- [Contributing](#contributing)
 - [Wrap up](#wrap-up)
   * [Available Licenses](#available-licenses)
     + [Contributions](#contributions)
@@ -44,7 +45,7 @@ Features
  - Option to use asynchronous future, which enables parallel execution of curl requests to multiple nodes
 
 
-**Note:** If you want to use [X-Pack](https://www.elastic.co/what-is/open-x-pack) API, you need to install an optional extension [elasticsearch/xpack](https://github.com/elastic/elasticsearch-x-pack-php).
+**Note:** [X-Pack](https://www.elastic.co/what-is/open-x-pack) endpoints are included from elasticsearch-php 7.7+.
 
 
 Version Matrix
@@ -52,9 +53,7 @@ Version Matrix
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
-| >= 7.4                | 7.4                      |
-| >= 7.2, < 7.4         | 7.2                      |
-| >= 7.0, < 7.2         | 7.0                      |
+| >= 7.x                | 7.x                      |
 | >= 6.6, < 7.0         | 6.7.x                    |
 | >= 6.0, < 6.6         | 6.5.x                    |
 | >= 5.0, < 6.0         | 5.0                      |
@@ -62,9 +61,7 @@ Version Matrix
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 7.4+ use Elasticsearch-PHP 7.4 branch.
- - If you are using Elasticsearch 7.2 to 7.3, use Elasticsearch-PHP 7.2 branch.
- - If you are using Elasticsearch 7.0 to 7.1, use Elasticsearch-PHP 7.0 branch.
+ - If you are using Elasticsearch 7.x you can use use Elasticsearch-PHP 7.x branch
  - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
  - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
@@ -415,6 +412,16 @@ $builder->setHandler($handler);
 $client = $builder->build();
 // Do a request and you'll get back the 'body' response above
 ```
+
+Contributing
+============
+
+If you want to contribute to this project you need to subscribe a [Contributor Agreement](https://www.elastic.co/contributor-agreement).
+If you want to send a PR for version `Y` please use the `Y.x` branch. For instance if you want to send a PR for **elasticsearch-php 7** use the `7.x` branch.
+
+Never send PR to `master` unless you want to contribute to the development version of the client (`master` represents the next major version).
+
+Each PR should include a **unit test** using [PHPUnit](https://phpunit.de/). If you are not familiar with PHPUnit you can have a look at this [reference](https://phpunit.readthedocs.io/en/7.0/). 
 
 Wrap up
 =======

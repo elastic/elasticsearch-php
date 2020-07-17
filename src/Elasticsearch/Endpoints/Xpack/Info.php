@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Info
  * Elasticsearch API name xpack.info
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Xpack
@@ -28,7 +28,8 @@ class Info extends AbstractEndpoint
     public function getParamWhitelist(): array
     {
         return [
-            'categories'
+            'categories',
+            'accept_enterprise'
         ];
     }
 

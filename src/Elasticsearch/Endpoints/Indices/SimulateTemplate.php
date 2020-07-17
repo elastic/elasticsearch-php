@@ -6,9 +6,9 @@ namespace Elasticsearch\Endpoints\Indices;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class GetDataStreams
- * Elasticsearch API name indices.get_data_streams
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Class SimulateTemplate
+ * Elasticsearch API name indices.simulate_template
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -16,7 +16,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class GetDataStreams extends AbstractEndpoint
+class SimulateTemplate extends AbstractEndpoint
 {
     protected $name;
 
@@ -25,24 +25,36 @@ class GetDataStreams extends AbstractEndpoint
         $name = $this->name ?? null;
 
         if (isset($name)) {
-            return "/_data_streams/$name";
+            return "/_index_template/_simulate/$name";
         }
-        return "/_data_streams";
+        return "/_index_template/_simulate";
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            
+            'create',
+            'cause',
+            'master_timeout'
         ];
     }
 
     public function getMethod(): string
     {
-        return 'GET';
+        return 'POST';
     }
 
-    public function setName($name): GetDataStreams
+    public function setBody($body): SimulateTemplate
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
+    }
+
+    public function setName($name): SimulateTemplate
     {
         if (isset($name) !== true) {
             return $this;

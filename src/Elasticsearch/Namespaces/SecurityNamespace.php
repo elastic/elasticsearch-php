@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class SecurityNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -52,6 +52,24 @@ class SecurityNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         $endpoint->setUsername($username);
         $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['application'] = (list) A comma-separated list of application names
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
+     */
+    public function clearCachedPrivileges(array $params = [])
+    {
+        $application = $this->extractArgument($params, 'application');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Security\ClearCachedPrivileges');
+        $endpoint->setParams($params);
+        $endpoint->setApplication($application);
 
         return $this->performRequest($endpoint);
     }

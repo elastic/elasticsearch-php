@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class IndicesNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -18,6 +18,32 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 class IndicesNamespace extends AbstractNamespace
 {
 
+    /**
+     * $params['index']              = (list) A comma separated list of indices to add a block to
+     * $params['block']              = (string) The block to add (one of read, write, read_only or metadata)
+     * $params['timeout']            = (time) Explicit operation timeout
+     * $params['master_timeout']     = (time) Specify timeout for connection to master
+     * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+     * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-blocks.html
+     */
+    public function addBlock(array $params = [])
+    {
+        $index = $this->extractArgument($params, 'index');
+        $block = $this->extractArgument($params, 'block');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\AddBlock');
+        $endpoint->setParams($params);
+        $endpoint->setIndex($index);
+        $endpoint->setBlock($block);
+
+        return $this->performRequest($endpoint);
+    }
     /**
      * $params['index'] = (string) The name of the index to scope the operation
      * $params['body']  = (array) Define analyzer/tokenizer parameters and the text on which the analysis should be performed
@@ -142,7 +168,7 @@ class IndicesNamespace extends AbstractNamespace
     }
     /**
      * $params['name'] = (string) The name of the data stream
-     * $params['body'] = (array) The data stream definition (Required)
+     * $params['body'] = (array) The data stream definition
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -161,6 +187,29 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         $endpoint->setName($name);
         $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']                  = (list) A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
+     * $params['expand_wildcards']      = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+     * $params['forbid_closed_indices'] = (boolean) If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices (Default = true)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function dataStreamsStats(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DataStreamsStats');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
     }
@@ -211,7 +260,7 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (string) The name of the data stream
+     * $params['name'] = (list) A comma-separated list of data streams to delete; use `*` to delete all data streams
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -528,7 +577,7 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (string) The name or wildcard expression of the requested data streams
+     * $params['name'] = (list) A comma-separated list of data streams to get; use `*` to get all data streams
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -537,12 +586,12 @@ class IndicesNamespace extends AbstractNamespace
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
      */
-    public function getDataStreams(array $params = [])
+    public function getDataStream(array $params = [])
     {
         $name = $this->extractArgument($params, 'name');
 
         $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\GetDataStreams');
+        $endpoint = $endpointBuilder('Indices\GetDataStream');
         $endpoint->setParams($params);
         $endpoint->setName($name);
 
@@ -786,6 +835,7 @@ class IndicesNamespace extends AbstractNamespace
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+     * $params['write_index_only']   = (boolean) When true, applies mappings only to the write index of an alias or data stream (Default = false)
      * $params['body']               = (array) The mapping definition (Required)
      *
      * @param array $params Associative array of parameters
@@ -898,6 +948,28 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Refresh');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']             = (list) A comma-separated list of names or wildcard expressions
+     * $params['expand_wildcards'] = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,hidden,none,all) (Default = open)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function resolveIndex(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\ResolveIndex');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
     }
@@ -1023,6 +1095,33 @@ class IndicesNamespace extends AbstractNamespace
 
         $endpointBuilder = $this->endpoints;
         $endpoint = $endpointBuilder('Indices\SimulateIndexTemplate');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+        $endpoint->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name']           = (string) The name of the index template
+     * $params['create']         = (boolean) Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one (Default = false)
+     * $params['cause']          = (string) User defined reason for dry-run creating the new template for simulation purposes (Default = )
+     * $params['master_timeout'] = (time) Specify timeout for connection to master
+     * $params['body']           = (array) New index template definition to be simulated, if no index template name is specified
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function simulateTemplate(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+        $body = $this->extractArgument($params, 'body');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\SimulateTemplate');
         $endpoint->setParams($params);
         $endpoint->setName($name);
         $endpoint->setBody($body);

@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class MlNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -144,13 +144,25 @@ class MlNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+    /**
+     * $params['job_id']              = (string) The ID of the job(s) to perform expired data hygiene for
+     * $params['requests_per_second'] = (number) The desired requests per second for the deletion processes.
+     * $params['timeout']             = (time) How long can the underlying delete processes run until they are canceled
+     * $params['body']                = (array) deleting expired data parameters
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-expired-data.html
+     */
     public function deleteExpiredData(array $params = [])
     {
+        $job_id = $this->extractArgument($params, 'job_id');
         $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
         $endpoint = $endpointBuilder('Ml\DeleteExpiredData');
         $endpoint->setParams($params);
+        $endpoint->setJobId($job_id);
         $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
@@ -373,9 +385,10 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['job_id']     = (string) The ID of the job to forecast for
-     * $params['duration']   = (time) The duration of the forecast
-     * $params['expires_in'] = (time) The time interval after which the forecast expires. Expired forecasts will be deleted at the first opportunity.
+     * $params['job_id']           = (string) The ID of the job to forecast for
+     * $params['duration']         = (time) The duration of the forecast
+     * $params['expires_in']       = (time) The time interval after which the forecast expires. Expired forecasts will be deleted at the first opportunity.
+     * $params['max_model_memory'] = (string) The max memory able to be used by the forecast. Default is 20mb.
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -472,11 +485,12 @@ class MlNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['job_id']      = (string) The name of the job (Required)
-     * $params['category_id'] = (long) The identifier of the category definition of interest
-     * $params['from']        = (int) skips a number of categories
-     * $params['size']        = (int) specifies a max number of categories to get
-     * $params['body']        = (array) Category selection details if not provided in URI
+     * $params['job_id']                = (string) The name of the job (Required)
+     * $params['category_id']           = (long) The identifier of the category definition of interest
+     * $params['from']                  = (int) skips a number of categories
+     * $params['size']                  = (int) specifies a max number of categories to get
+     * $params['partition_field_value'] = (string) Specifies the partition to retrieve categories for. This is optional, and should never be used for jobs where per-partition categorization is disabled.
+     * $params['body']                  = (array) Category selection details if not provided in URI
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -765,6 +779,7 @@ class MlNamespace extends AbstractNamespace
      * $params['from']                     = (int) skips a number of trained models (Default = 0)
      * $params['size']                     = (int) specifies a max number of trained models to get (Default = 100)
      * $params['tags']                     = (list) A comma-separated list of tags that the model must have.
+     * $params['for_export']               = (boolean) Omits fields that are illegal to set on model PUT (Default = false)
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -1190,6 +1205,30 @@ class MlNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Ml\StopDatafeed');
         $endpoint->setParams($params);
         $endpoint->setDatafeedId($datafeed_id);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['id']   = (string) The ID of the data frame analytics to update
+     * $params['body'] = (array) The data frame analytics settings to update (Required)
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/update-dfanalytics.html
+     *
+     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
+     */
+    public function updateDataFrameAnalytics(array $params = [])
+    {
+        $id = $this->extractArgument($params, 'id');
+        $body = $this->extractArgument($params, 'body');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Ml\UpdateDataFrameAnalytics');
+        $endpoint->setParams($params);
+        $endpoint->setId($id);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
     }

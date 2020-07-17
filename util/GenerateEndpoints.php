@@ -144,5 +144,7 @@ function removeDirectory($directory)
             unlink($file);
         }
     }
-    rmdir($directory);
+    if (is_dir($directory)) {
+        rmdir($directory);
+    }
 }

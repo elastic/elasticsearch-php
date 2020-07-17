@@ -283,9 +283,10 @@ while (isset($response['hits']['hits']) && count($response['hits']['hits']) > 0)
 
     // Execute a Scroll request and repeat
     $response = $client->scroll([
+        'body' => [
             'scroll_id' => $scroll_id,  //...using our previously obtained _scroll_id
             'scroll'    => '30s'        // and the same timeout window
         ]
-    );
+    ]);
 }
 ----

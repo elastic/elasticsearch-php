@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeleteDataStream
  * Elasticsearch API name indices.delete_data_stream
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -47,6 +47,9 @@ class DeleteDataStream extends AbstractEndpoint
     {
         if (isset($name) !== true) {
             return $this;
+        }
+        if (is_array($name) === true) {
+            $name = implode(",", $name);
         }
         $this->name = $name;
 

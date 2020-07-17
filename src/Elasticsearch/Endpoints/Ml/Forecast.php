@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Forecast
  * Elasticsearch API name ml.forecast
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml
@@ -35,7 +35,8 @@ class Forecast extends AbstractEndpoint
     {
         return [
             'duration',
-            'expires_in'
+            'expires_in',
+            'max_model_memory'
         ];
     }
 

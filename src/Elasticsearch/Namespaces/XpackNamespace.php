@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class XpackNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -19,7 +19,8 @@ class XpackNamespace extends AbstractNamespace
 {
 
     /**
-     * $params['categories'] = (list) Comma-separated list of info categories. Can be any of: build, license, features
+     * $params['categories']        = (list) Comma-separated list of info categories. Can be any of: build, license, features
+     * $params['accept_enterprise'] = (boolean) If an enterprise license is installed, return the type and mode as 'enterprise' (default: false)
      *
      * @param array $params Associative array of parameters
      * @return array

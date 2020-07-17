@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeleteDataFrameAnalytics
  * Elasticsearch API name ml.delete_data_frame_analytics
- * Generated running $ php util/GenerateEndpoints.php 7.8
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml
@@ -33,7 +33,8 @@ class DeleteDataFrameAnalytics extends AbstractEndpoint
     public function getParamWhitelist(): array
     {
         return [
-            'force'
+            'force',
+            'timeout'
         ];
     }
 

@@ -613,12 +613,10 @@ class Connection implements ConnectionInterface
             return null;
         }
 
-        // if responseBody is not string, we convert it so it can be used as Exception message
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
-        }
-
-        if ($statusCode === 403) {
+        if (empty($responseBody)) {
+            //Provide a generic error message when the server returns no response
+            $exception = new BadRequest400Exception("Unknown {$statusCode} error from elasticsearch server", $statusCode);
+        } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
             $exception = new Missing404Exception($responseBody, $statusCode);
@@ -629,6 +627,10 @@ class Connection implements ConnectionInterface
         } elseif ($statusCode === 408) {
             $exception = new RequestTimeout408Exception($responseBody, $statusCode);
         } else {
+            // if responseBody is not string, we convert it so it can be used as Exception message
+            if (!is_string($responseBody)) {
+                $responseBody = json_encode($responseBody);
+            }
             $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
 
@@ -655,13 +657,20 @@ class Connection implements ConnectionInterface
             return null;
         }
 
-        if ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
+        if (empty($responseBody)) {
+            //Provide a generic error message when the server returns no response
+            $exception = new ServerErrorResponseException("Unknown {$statusCode} error from elasticsearch server", $statusCode);
+        } elseif ($statusCode === 500 && strpos($responseBody, "RoutingMissingException") !== false) {
             $exception = new RoutingMissingException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && preg_match('/ActionRequestValidationException.+ no documents to get/', $responseBody) === 1) {
             $exception = new NoDocumentsToGetException($exception->getMessage(), $statusCode, $exception);
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         } else {
+            // if responseBody is not string, we convert it so it can be used as Exception message
+            if (!is_string($responseBody)) {
+                $responseBody = json_encode($responseBody);
+            }
             $exception = new ServerErrorResponseException($responseBody, $statusCode);
         }
 

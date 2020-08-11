@@ -7,13 +7,14 @@
 # Export the TEST_SUITE variable, eg. 'oss' or 'xpack' defaults to 'oss'.
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-# Version 1.1.0
+# Version 1.2.0
 # - Initial version of the run-elasticsearch.sh script
 # - Deleting the volume should not dependent on the container still running
 # - Fixed `ES_JAVA_OPTS` config
 # - Moved to STACK_VERSION and TEST_VERSION
 # - Refactored into functions and imports
 # - Support NUMBER_OF_NODES
+# - Added 5 retries on docker pull for fixing transient network errors
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
@@ -66,6 +67,17 @@ cert_validation_flags=""
 if [[ "$TEST_SUITE" == "xpack" ]]; then
   cert_validation_flags="--insecure --cacert /usr/share/elasticsearch/config/certs/ca.crt --resolve ${es_node_name}:443:127.0.0.1"
 fi
+
+# Pull the container, retry on failures up to 5 times with
+# short delays between each attempt. Fixes most transient network errors.
+docker_pull_attempts=0
+until [ "$docker_pull_attempts" -ge 5 ]
+do
+   docker pull docker.elastic.co/elasticsearch/"$elasticsearch_container" && break
+   docker_pull_attempts=$((docker_pull_attempts+1))
+   echo "Failed to pull image, retrying in 10 seconds (retry $docker_pull_attempts/5)..."
+   sleep 10
+done
 
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200

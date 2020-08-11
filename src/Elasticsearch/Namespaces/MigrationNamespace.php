@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class MigrationNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces

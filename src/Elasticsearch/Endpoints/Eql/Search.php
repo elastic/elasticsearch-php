@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Search
  * Elasticsearch API name eql.search
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Eql
@@ -33,7 +33,9 @@ class Search extends AbstractEndpoint
     public function getParamWhitelist(): array
     {
         return [
-            
+            'wait_for_completion_timeout',
+            'keep_on_completion',
+            'keep_alive'
         ];
     }
 

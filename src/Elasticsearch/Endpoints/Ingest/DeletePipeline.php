@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeletePipeline
  * Elasticsearch API name ingest.delete_pipeline
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ingest
@@ -41,15 +41,5 @@ class DeletePipeline extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'DELETE';
-    }
-
-    public function setId($id): DeletePipeline
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

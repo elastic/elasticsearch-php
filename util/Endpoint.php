@@ -168,7 +168,7 @@ class Endpoint
             }
         }
         foreach ($this->parts as $part => $value) {
-            if (in_array($part, ['type', 'index'])) {
+            if (in_array($part, ['type', 'index', 'id'])) {
                 continue;
             }
             if (isset($value['type']) && $value['type'] === 'list') {

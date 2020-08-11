@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Update
  * Elasticsearch API name update
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -73,16 +73,6 @@ class Update extends AbstractEndpoint
             return $this;
         }
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function setId($id): Update
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
 
         return $this;
     }

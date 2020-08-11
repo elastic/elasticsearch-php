@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetCategories
  * Elasticsearch API name ml.get_categories
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml
@@ -42,7 +42,8 @@ class GetCategories extends AbstractEndpoint
     {
         return [
             'from',
-            'size'
+            'size',
+            'partition_field_value'
         ];
     }
 

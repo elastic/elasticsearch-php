@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeleteScript
  * Elasticsearch API name delete_script
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -41,15 +41,5 @@ class DeleteScript extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'DELETE';
-    }
-
-    public function setId($id): DeleteScript
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

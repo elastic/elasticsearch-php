@@ -3,24 +3,44 @@
 
 ### E_USER_DEPRECATED notice when using deprecated parameters
 
-Starting from elasticsearch-php 7.4.0, we generate a PHP [E_USER_DEPRECATED](https://www.php.net/manual/en/errorfunc.constants.php)
-notice every time you use a deprecated parameters for Elasticsearch.
-We decided to add this notice to facilitate the code refactoring with the
-new API specification of Elasticsearch (e.g. the usage of typeless APIs, see below).
+Starting from elasticsearch-php 7.4.0, we generate a PHP 
+https://www.php.net/manual/en/errorfunc.constants.php[E_USER_DEPRECATED] notice 
+every time you use a deprecated parameters for {es}. We decided to add this 
+notice to facilitate the code refactoring with the new API specification of {es} 
+(for example the usage of typeless APIs, see below).
 
-### Moving from types to typeless APIs in Elasticsearch 7.0
+From 7.4.1, we mitigated the usage of E_USER_DEPRICATED warning by using the `@` 
+https://www.php.net/manual/en/language.operators.errorcontrol.php[operator]. The 
+operator suppresses the error message, however, it is still possible to catch it 
+by using a custom error handler:
 
-Elasticsearch 7.0 deprecated APIs that accept types, introduced new typeless
-APIs, and removed support for the _default_ mapping. Read [this](https://www.elastic.co/blog/moving-from-types-to-typeless-apis-in-elasticsearch-7-0)
+[source,php]
+----
+set_error_handler(function ($errno, $errstr) {
+    var_dump($errstr);
+}, E_USER_DEPRECATED);
+
+@trigger_error('Deprecation message here', E_USER_DEPRECATED);
+----
+
+
+### Moving from types to typeless APIs in {es} 7.0
+
+{es} 7.0 deprecated APIs that accept types, introduced new typeless APIs, and 
+removed support for the _default_ mapping. Read 
+https://www.elastic.co/blog/moving-from-types-to-typeless-apis-in-elasticsearch-7-0[this]
 blog post for more information.
+
 
 ### Type hint and return type
 
-Added type hints and return type declarations in all the code base, where possible.
-See PR [#897](https://github.com/elastic/elasticsearch-php/pull/897).
+Added type hints and return type declarations in all the code base where 
+possible. See PR https://github.com/elastic/elasticsearch-php/pull/897[#897].
+
 
 ### PHP 7.1+ Requirement
 
 We require using PHP 7.1+ for elasticsearch-php. PHP 7.0 is not supported since
-1st Jan 2019. See [PHP supported version](https://www.php.net/supported-versions.php) for
-more information.
+1st Jan 2019. Refer 
+https://www.php.net/supported-versions.php[PHP supported version] for more 
+information.

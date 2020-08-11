@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetSource
  * Elasticsearch API name get_source
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -63,15 +63,5 @@ class GetSource extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
-    }
-
-    public function setId($id): GetSource
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

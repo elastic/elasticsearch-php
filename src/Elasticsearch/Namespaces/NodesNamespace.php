@@ -7,7 +7,7 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 
 /**
  * Class NodesNamespace
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Namespaces
@@ -68,6 +68,7 @@ class NodesNamespace extends AbstractNamespace
     /**
      * $params['node_id'] = (list) A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.
      * $params['timeout'] = (time) Explicit operation timeout
+     * $params['body']    = (array) An object containing the password for the elasticsearch keystore
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -76,11 +77,13 @@ class NodesNamespace extends AbstractNamespace
     public function reloadSecureSettings(array $params = [])
     {
         $node_id = $this->extractArgument($params, 'node_id');
+        $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
         $endpoint = $endpointBuilder('Nodes\ReloadSecureSettings');
         $endpoint->setParams($params);
         $endpoint->setNodeId($node_id);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
     }

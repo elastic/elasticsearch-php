@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Simulate
  * Elasticsearch API name ingest.simulate
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ingest
@@ -47,16 +47,6 @@ class Simulate extends AbstractEndpoint
             return $this;
         }
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function setId($id): Simulate
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
 
         return $this;
     }

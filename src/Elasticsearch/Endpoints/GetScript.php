@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetScript
  * Elasticsearch API name get_script
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -40,15 +40,5 @@ class GetScript extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
-    }
-
-    public function setId($id): GetScript
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

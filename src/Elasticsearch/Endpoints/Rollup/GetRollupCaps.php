@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class GetRollupCaps
  * Elasticsearch API name rollup.get_rollup_caps
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Rollup
@@ -37,15 +37,5 @@ class GetRollupCaps extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
-    }
-
-    public function setId($id): GetRollupCaps
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

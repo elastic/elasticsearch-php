@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class StopDataFrameAnalytics
  * Elasticsearch API name ml.stop_data_frame_analytics
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml
@@ -50,16 +50,6 @@ class StopDataFrameAnalytics extends AbstractEndpoint
             return $this;
         }
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function setId($id): StopDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
 
         return $this;
     }

@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class StartJob
  * Elasticsearch API name rollup.start_job
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Rollup
@@ -38,15 +38,5 @@ class StartJob extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'POST';
-    }
-
-    public function setId($id): StartJob
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

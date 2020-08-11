@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Explain
  * Elasticsearch API name explain
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -74,16 +74,6 @@ class Explain extends AbstractEndpoint
             return $this;
         }
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function setId($id): Explain
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
 
         return $this;
     }

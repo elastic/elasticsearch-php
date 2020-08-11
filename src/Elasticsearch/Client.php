@@ -15,6 +15,7 @@ use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
 use Elasticsearch\Namespaces\CatNamespace;
 use Elasticsearch\Namespaces\ClusterNamespace;
+use Elasticsearch\Namespaces\DanglingIndicesNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Elasticsearch\Namespaces\IngestNamespace;
 use Elasticsearch\Namespaces\NodesNamespace;
@@ -33,6 +34,7 @@ use Elasticsearch\Namespaces\MigrationNamespace;
 use Elasticsearch\Namespaces\MlNamespace;
 use Elasticsearch\Namespaces\MonitoringNamespace;
 use Elasticsearch\Namespaces\RollupNamespace;
+use Elasticsearch\Namespaces\SearchableSnapshotsNamespace;
 use Elasticsearch\Namespaces\SecurityNamespace;
 use Elasticsearch\Namespaces\SlmNamespace;
 use Elasticsearch\Namespaces\SqlNamespace;
@@ -43,7 +45,7 @@ use Elasticsearch\Namespaces\XpackNamespace;
 
 /**
  * Class Client
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch
@@ -53,7 +55,7 @@ use Elasticsearch\Namespaces\XpackNamespace;
  */
 class Client
 {
-    const VERSION = '7.7';
+    const VERSION = '7.9';
 
     /**
      * @var Transport
@@ -84,6 +86,11 @@ class Client
      * @var ClusterNamespace
      */
     protected $cluster;
+    
+    /**
+     * @var DanglingIndicesNamespace
+     */
+    protected $danglingIndices;
     
     /**
      * @var IndicesNamespace
@@ -176,6 +183,11 @@ class Client
     protected $rollup;
     
     /**
+     * @var SearchableSnapshotsNamespace
+     */
+    protected $searchableSnapshots;
+    
+    /**
      * @var SecurityNamespace
      */
     protected $security;
@@ -224,6 +236,7 @@ class Client
         $this->endpoints = $endpoint;
         $this->cat = new CatNamespace($transport, $endpoint);
         $this->cluster = new ClusterNamespace($transport, $endpoint);
+        $this->danglingIndices = new DanglingIndicesNamespace($transport, $endpoint);
         $this->indices = new IndicesNamespace($transport, $endpoint);
         $this->ingest = new IngestNamespace($transport, $endpoint);
         $this->nodes = new NodesNamespace($transport, $endpoint);
@@ -242,6 +255,7 @@ class Client
         $this->ml = new MlNamespace($transport, $endpoint);
         $this->monitoring = new MonitoringNamespace($transport, $endpoint);
         $this->rollup = new RollupNamespace($transport, $endpoint);
+        $this->searchableSnapshots = new SearchableSnapshotsNamespace($transport, $endpoint);
         $this->security = new SecurityNamespace($transport, $endpoint);
         $this->slm = new SlmNamespace($transport, $endpoint);
         $this->sql = new SqlNamespace($transport, $endpoint);
@@ -625,6 +639,7 @@ class Client
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['include_unmapped']   = (boolean) Indicates whether unmapped fields should be included in the response. (Default = false)
+     * $params['body']               = (array) An index filter specified with the Query DSL
      *
      * @param array $params Associative array of parameters
      * @return array
@@ -633,11 +648,13 @@ class Client
     public function fieldCaps(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
 
         $endpointBuilder = $this->endpoints;
         $endpoint = $endpointBuilder('FieldCaps');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
+        $endpoint->setBody($body);
 
         return $this->performRequest($endpoint);
     }
@@ -1414,6 +1431,10 @@ class Client
     {
         return $this->cluster;
     }
+    public function danglingIndices(): DanglingIndicesNamespace
+    {
+        return $this->danglingIndices;
+    }
     public function indices(): IndicesNamespace
     {
         return $this->indices;
@@ -1485,6 +1506,10 @@ class Client
     public function rollup(): RollupNamespace
     {
         return $this->rollup;
+    }
+    public function searchableSnapshots(): SearchableSnapshotsNamespace
+    {
+        return $this->searchableSnapshots;
     }
     public function security(): SecurityNamespace
     {

@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class MlDataFrameAnalytics
  * Elasticsearch API name cat.ml_data_frame_analytics
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Cat
@@ -46,15 +46,5 @@ class MlDataFrameAnalytics extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'GET';
-    }
-
-    public function setId($id): MlDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

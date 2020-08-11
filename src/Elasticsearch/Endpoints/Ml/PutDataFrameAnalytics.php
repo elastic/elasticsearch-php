@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class PutDataFrameAnalytics
  * Elasticsearch API name ml.put_data_frame_analytics
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Ml
@@ -46,16 +46,6 @@ class PutDataFrameAnalytics extends AbstractEndpoint
             return $this;
         }
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function setId($id): PutDataFrameAnalytics
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
 
         return $this;
     }

@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class Delete
  * Elasticsearch API name async_search.delete
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\AsyncSearch
@@ -38,15 +38,5 @@ class Delete extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'DELETE';
-    }
-
-    public function setId($id): Delete
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

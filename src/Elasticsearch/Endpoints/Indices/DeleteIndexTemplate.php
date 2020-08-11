@@ -3,12 +3,13 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Endpoints\Indices;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
- * Class GetDataStreams
- * Elasticsearch API name indices.get_data_streams
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Class DeleteIndexTemplate
+ * Elasticsearch API name indices.delete_index_template
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -16,7 +17,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
-class GetDataStreams extends AbstractEndpoint
+class DeleteIndexTemplate extends AbstractEndpoint
 {
     protected $name;
 
@@ -25,30 +26,28 @@ class GetDataStreams extends AbstractEndpoint
         $name = $this->name ?? null;
 
         if (isset($name)) {
-            return "/_data_streams/$name";
+            return "/_index_template/$name";
         }
-        return "/_data_streams";
+        throw new RuntimeException('Missing parameter for the endpoint indices.delete_index_template');
     }
 
     public function getParamWhitelist(): array
     {
         return [
-            
+            'timeout',
+            'master_timeout'
         ];
     }
 
     public function getMethod(): string
     {
-        return 'GET';
+        return 'DELETE';
     }
 
-    public function setName($name): GetDataStreams
+    public function setName($name): DeleteIndexTemplate
     {
         if (isset($name) !== true) {
             return $this;
-        }
-        if (is_array($name) === true) {
-            $name = implode(",", $name);
         }
         $this->name = $name;
 

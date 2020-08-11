@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class PutMapping
  * Elasticsearch API name indices.put_mapping
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Indices
@@ -48,7 +48,8 @@ class PutMapping extends AbstractEndpoint
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards'
+            'expand_wildcards',
+            'write_index_only'
         ];
     }
 

@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class FieldCaps
  * Elasticsearch API name field_caps
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints
@@ -42,6 +42,16 @@ class FieldCaps extends AbstractEndpoint
 
     public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
+    }
+
+    public function setBody($body): FieldCaps
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
     }
 }

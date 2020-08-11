@@ -9,7 +9,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class DeleteJob
  * Elasticsearch API name rollup.delete_job
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Rollup
@@ -38,15 +38,5 @@ class DeleteJob extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'DELETE';
-    }
-
-    public function setId($id): DeleteJob
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
     }
 }

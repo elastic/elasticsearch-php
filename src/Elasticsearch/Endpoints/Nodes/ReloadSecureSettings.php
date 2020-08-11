@@ -8,7 +8,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 /**
  * Class ReloadSecureSettings
  * Elasticsearch API name nodes.reload_secure_settings
- * Generated running $ php util/GenerateEndpoints.php 7.7
+ * Generated running $ php util/GenerateEndpoints.php 7.9
  *
  * @category Elasticsearch
  * @package  Elasticsearch\Endpoints\Nodes
@@ -40,6 +40,16 @@ class ReloadSecureSettings extends AbstractEndpoint
     public function getMethod(): string
     {
         return 'POST';
+    }
+
+    public function setBody($body): ReloadSecureSettings
+    {
+        if (isset($body) !== true) {
+            return $this;
+        }
+        $this->body = $body;
+
+        return $this;
     }
 
     public function setNodeId($node_id): ReloadSecureSettings

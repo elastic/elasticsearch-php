@@ -52,14 +52,4 @@ class PutPipeline extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): PutPipeline
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

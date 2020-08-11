@@ -76,14 +76,4 @@ class Update extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): Update
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

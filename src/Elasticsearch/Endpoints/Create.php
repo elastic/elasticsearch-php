@@ -72,14 +72,4 @@ class Create extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): Create
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

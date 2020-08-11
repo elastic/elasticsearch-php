@@ -65,14 +65,4 @@ class Exists extends AbstractEndpoint
     {
         return 'HEAD';
     }
-
-    public function setId($id): Exists
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

@@ -1,3 +1,9 @@
+## Release 7.4.2
+
+- Fixed indexing fails for item IDs that contain slashes
+  [#1048](https://github.com/elastic/elasticsearch-php/issues/1048)
+  [#1017](https://github.com/elastic/elasticsearch-php/pull/1017)
+
 ## Release 7.4.1
 
 - We added the suppress operator `@` for the deprecation messages `@trigger_error()`.

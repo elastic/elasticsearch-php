@@ -76,14 +76,4 @@ class Index extends AbstractEndpoint
 
         return $this;
     }
-
-    public function setId($id): Index
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

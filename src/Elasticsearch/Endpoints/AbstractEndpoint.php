@@ -160,7 +160,7 @@ abstract class AbstractEndpoint
      *
      * @return $this
      */
-    public function setID($docID)
+    public function setId($docID)
     {
         if ($docID === null) {
             return $this;

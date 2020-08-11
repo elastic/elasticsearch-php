@@ -588,10 +588,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
                     }
                 }
                 break;
-            case 'Basic':
-                // Fix issue converting "中文" in unicode
-                $match = is_string($match) ? utf8_decode($match) : $match;
-                break;
         }
 
         $expected = $this->replaceWithContext(current($operation), $context);

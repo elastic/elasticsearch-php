@@ -42,14 +42,4 @@ class DeletePipeline extends AbstractEndpoint
     {
         return 'DELETE';
     }
-
-    public function setId($id): DeletePipeline
-    {
-        if (isset($id) !== true) {
-            return $this;
-        }
-        $this->id = $id;
-
-        return $this;
-    }
 }

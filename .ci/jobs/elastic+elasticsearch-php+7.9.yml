@@ -11,4 +11,4 @@
           &lt;commitId&gt;, etc.)
     triggers:
     - github
-    - timed: '@daily'
+    - timed: 'H */12 * * *'

@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 
 declare(strict_types = 1);
 
@@ -25,15 +39,6 @@ use GuzzleHttp\Ring\Client\Middleware;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-/**
- * Class ClientBuilder
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Common\Exceptions
- * @author   Zachary Tong <zach@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
- */
 class ClientBuilder
 {
     /**
@@ -129,7 +134,7 @@ class ClientBuilder
     private $sslVerification = null;
 
     /**
-     *  @var bool
+     * @var bool
      */
     private $includePortInHostHeader = false;
 
@@ -340,8 +345,6 @@ class ClientBuilder
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
-     *
      * @throws AuthenticationConfigException
      */
     public function setApiKey(string $id, string $apiKey): ClientBuilder
@@ -386,20 +389,20 @@ class ClientBuilder
     /**
      * Set Elastic Cloud ID to connect to Elastic Cloud
      *
-     * @link  https://elastic.co/cloud
-     *
      * @param string $cloudId
      */
     public function setElasticCloudId(string $cloudId): ClientBuilder
     {
         // Register the Hosts array
-        $this->setHosts([
+        $this->setHosts(
+            [
             [
                 'host'   => $this->parseElasticCloudId($cloudId),
                 'port'   => '',
                 'scheme' => 'https',
             ]
-        ]);
+            ]
+        );
 
         if (!isset($this->connectionParams['client']['curl'][CURLOPT_ENCODING])) {
             // Merge best practices for the connection (enable gzip)
@@ -461,7 +464,7 @@ class ClientBuilder
     }
 
     /**
-     *  @param bool|string $value
+     * @param bool|string $value
      */
     public function setSSLVerification($value = true): ClientBuilder
     {
@@ -472,6 +475,7 @@ class ClientBuilder
 
     /**
      * Include the port in Host header
+     *
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
     public function includePortInHostHeader(bool $enable): ClientBuilder

@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -8,12 +22,6 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 /**
  * Class CcrNamespace
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
- * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
  */
 class CcrNamespace extends AbstractNamespace
 {
@@ -21,9 +29,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) The name of the auto follow pattern.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html
      */
     public function deleteAutoFollowPattern(array $params = [])
     {
@@ -41,9 +49,9 @@ class CcrNamespace extends AbstractNamespace
      * $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before returning. Defaults to 0. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1) (Default = 0)
      * $params['body']                   = (array) The name of the leader index and other optional ccr related parameters (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html
      */
     public function follow(array $params = [])
     {
@@ -61,9 +69,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['index'] = (list) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
      */
     public function followInfo(array $params = [])
     {
@@ -79,9 +87,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['index'] = (list) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html
      */
     public function followStats(array $params = [])
     {
@@ -98,9 +106,9 @@ class CcrNamespace extends AbstractNamespace
      * $params['index'] = (string) the name of the leader index for which specified follower retention leases should be removed
      * $params['body']  = (array) the name and UUID of the follower index, the name of the cluster containing the follower index, and the alias from the perspective of that cluster for the remote cluster containing the leader index (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html
      */
     public function forgetFollower(array $params = [])
     {
@@ -118,9 +126,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) The name of the auto follow pattern.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
      */
     public function getAutoFollowPattern(array $params = [])
     {
@@ -136,9 +144,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) The name of the auto follow pattern that should pause discovering new indices to follow.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
      */
     public function pauseAutoFollowPattern(array $params = [])
     {
@@ -154,9 +162,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) The name of the follower index that should pause following its leader index.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
      */
     public function pauseFollow(array $params = [])
     {
@@ -173,9 +181,9 @@ class CcrNamespace extends AbstractNamespace
      * $params['name'] = (string) The name of the auto follow pattern.
      * $params['body'] = (array) The specification of the auto follow pattern (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html
      */
     public function putAutoFollowPattern(array $params = [])
     {
@@ -193,9 +201,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) The name of the auto follow pattern to resume discovering new indices to follow.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html
      */
     public function resumeAutoFollowPattern(array $params = [])
     {
@@ -212,9 +220,9 @@ class CcrNamespace extends AbstractNamespace
      * $params['index'] = (string) The name of the follow index to resume following.
      * $params['body']  = (array) The name of the leader index and other optional ccr related parameters
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
      */
     public function resumeFollow(array $params = [])
     {
@@ -241,9 +249,9 @@ class CcrNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) The name of the follower index that should be turned into a regular index.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
      */
     public function unfollow(array $params = [])
     {

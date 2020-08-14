@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -8,12 +22,6 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 /**
  * Class NodesNamespace
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
- * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
  */
 class NodesNamespace extends AbstractNamespace
 {
@@ -27,9 +35,9 @@ class NodesNamespace extends AbstractNamespace
      * $params['type']                = (enum) The type to sample (default: cpu) (Options = cpu,wait,block)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html
      */
     public function hotThreads(array $params = [])
     {
@@ -48,9 +56,9 @@ class NodesNamespace extends AbstractNamespace
      * $params['flat_settings'] = (boolean) Return settings in flat format (default: false)
      * $params['timeout']       = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
      */
     public function info(array $params = [])
     {
@@ -70,9 +78,9 @@ class NodesNamespace extends AbstractNamespace
      * $params['timeout'] = (time) Explicit operation timeout
      * $params['body']    = (array) An object containing the password for the elasticsearch keystore
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
      */
     public function reloadSecureSettings(array $params = [])
     {
@@ -100,9 +108,9 @@ class NodesNamespace extends AbstractNamespace
      * $params['timeout']                    = (time) Explicit operation timeout
      * $params['include_segment_file_sizes'] = (boolean) Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested) (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
      */
     public function stats(array $params = [])
     {
@@ -124,9 +132,9 @@ class NodesNamespace extends AbstractNamespace
      * $params['metric']  = (list) Limit the information returned to the specified metrics
      * $params['timeout'] = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html
      */
     public function usage(array $params = [])
     {

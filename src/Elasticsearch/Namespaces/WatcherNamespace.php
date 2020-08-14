@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -8,12 +22,6 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 /**
  * Class WatcherNamespace
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
- * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
  */
 class WatcherNamespace extends AbstractNamespace
 {
@@ -22,9 +30,9 @@ class WatcherNamespace extends AbstractNamespace
      * $params['watch_id']  = (string) Watch ID (Required)
      * $params['action_id'] = (list) A comma-separated list of the action ids to be acked
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
      */
     public function ackWatch(array $params = [])
     {
@@ -42,9 +50,9 @@ class WatcherNamespace extends AbstractNamespace
     /**
      * $params['watch_id'] = (string) Watch ID
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
      */
     public function activateWatch(array $params = [])
     {
@@ -60,9 +68,9 @@ class WatcherNamespace extends AbstractNamespace
     /**
      * $params['watch_id'] = (string) Watch ID
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
      */
     public function deactivateWatch(array $params = [])
     {
@@ -78,9 +86,9 @@ class WatcherNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) Watch ID
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
      */
     public function deleteWatch(array $params = [])
     {
@@ -98,9 +106,9 @@ class WatcherNamespace extends AbstractNamespace
      * $params['debug'] = (boolean) indicates whether the watch should execute in debug mode
      * $params['body']  = (array) Execution control
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
      */
     public function executeWatch(array $params = [])
     {
@@ -118,9 +126,9 @@ class WatcherNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) Watch ID
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
      */
     public function getWatch(array $params = [])
     {
@@ -141,9 +149,9 @@ class WatcherNamespace extends AbstractNamespace
      * $params['if_primary_term'] = (number) only update the watch if the last operation that has changed the watch has the specified primary term
      * $params['body']            = (array) The watch
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
      */
     public function putWatch(array $params = [])
     {
@@ -160,9 +168,9 @@ class WatcherNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
      */
     public function start(array $params = [])
     {
@@ -177,9 +185,9 @@ class WatcherNamespace extends AbstractNamespace
      * $params['metric']           = (list) Controls what additional stat metrics should be include in the response
      * $params['emit_stacktraces'] = (boolean) Emits stack traces of currently running watches
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
      */
     public function stats(array $params = [])
     {
@@ -194,9 +202,9 @@ class WatcherNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
      */
     public function stop(array $params = [])
     {

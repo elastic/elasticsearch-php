@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -8,12 +22,6 @@ use Elasticsearch\Namespaces\AbstractNamespace;
 /**
  * Class IlmNamespace
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
- * @author   Enrico Zimuel <enrico.zimuel@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
  */
 class IlmNamespace extends AbstractNamespace
 {
@@ -21,9 +29,9 @@ class IlmNamespace extends AbstractNamespace
     /**
      * $params['policy'] = (string) The name of the index lifecycle policy
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
      */
     public function deleteLifecycle(array $params = [])
     {
@@ -41,9 +49,9 @@ class IlmNamespace extends AbstractNamespace
      * $params['only_managed'] = (boolean) filters the indices included in the response to ones managed by ILM
      * $params['only_errors']  = (boolean) filters the indices included in the response to ones in an ILM error state, implies only_managed
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
      */
     public function explainLifecycle(array $params = [])
     {
@@ -59,9 +67,9 @@ class IlmNamespace extends AbstractNamespace
     /**
      * $params['policy'] = (string) The name of the index lifecycle policy
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html
      */
     public function getLifecycle(array $params = [])
     {
@@ -76,9 +84,9 @@ class IlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
      */
     public function getStatus(array $params = [])
     {
@@ -93,9 +101,9 @@ class IlmNamespace extends AbstractNamespace
      * $params['index'] = (string) The name of the index whose lifecycle step is to change
      * $params['body']  = (array) The new lifecycle step to move to
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html
      */
     public function moveToStep(array $params = [])
     {
@@ -114,9 +122,9 @@ class IlmNamespace extends AbstractNamespace
      * $params['policy'] = (string) The name of the index lifecycle policy
      * $params['body']   = (array) The lifecycle policy definition to register
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
      */
     public function putLifecycle(array $params = [])
     {
@@ -134,9 +142,9 @@ class IlmNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) The name of the index to remove policy on
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html
      */
     public function removePolicy(array $params = [])
     {
@@ -152,9 +160,9 @@ class IlmNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) The name of the indices (comma-separated) whose failed lifecycle step is to be retry
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html
      */
     public function retry(array $params = [])
     {
@@ -169,9 +177,9 @@ class IlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
      */
     public function start(array $params = [])
     {
@@ -184,9 +192,9 @@ class IlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
      */
     public function stop(array $params = [])
     {

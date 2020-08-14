@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 
 declare(strict_types = 1);
 
@@ -28,15 +42,6 @@ use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class AbstractConnection
- *
- * @category Elasticsearch
- * @package  Elasticsearch\Connections
- * @author   Zachary Tong <zach@elastic.co>
- * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link     http://elastic.co
- */
 class Connection implements ConnectionInterface
 {
     /**
@@ -65,8 +70,8 @@ class Connection implements ConnectionInterface
     protected $path;
 
     /**
-    * @var int
-    */
+     * @var int
+     */
     protected $port;
 
     /**
@@ -138,9 +143,10 @@ class Connection implements ConnectionInterface
 
         // Only Set the Basic if API Key is not set and setBasicAuthentication was not called prior
         if (isset($connectionParams['client']['headers']['Authorization']) === false
-                && isset($connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === false
-                && isset($hostDetails['user'])
-                && isset($hostDetails['pass'])) {
+            && isset($connectionParams['client']['curl'][CURLOPT_HTTPAUTH]) === false
+            && isset($hostDetails['user'])
+            && isset($hostDetails['pass'])
+        ) {
             $connectionParams['client']['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
             $connectionParams['client']['curl'][CURLOPT_USERPWD] = $hostDetails['user'].':'.$hostDetails['pass'];
         }
@@ -247,86 +253,89 @@ class Connection implements ConnectionInterface
             $this->lastRequest['request'] = $request;
 
             // Send the request using the wrapped handler.
-            $response =  Core::proxy($handler($request), function ($response) use ($connection, $transport, $request, $options) {
+            $response =  Core::proxy(
+                $handler($request),
+                function ($response) use ($connection, $transport, $request, $options) {
 
-                $this->lastRequest['response'] = $response;
+                    $this->lastRequest['response'] = $response;
 
-                if (isset($response['error']) === true) {
-                    if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
-                        $this->log->warning("Curl exception encountered.");
+                    if (isset($response['error']) === true) {
+                        if ($response['error'] instanceof ConnectException || $response['error'] instanceof RingException) {
+                            $this->log->warning("Curl exception encountered.");
 
-                        $exception = $this->getCurlRetryException($request, $response);
+                            $exception = $this->getCurlRetryException($request, $response);
 
-                        $this->logRequestFail($request, $response, $exception);
+                            $this->logRequestFail($request, $response, $exception);
 
-                        $node = $connection->getHost();
-                        $this->log->warning("Marking node $node dead.");
-                        $connection->markDead();
+                            $node = $connection->getHost();
+                            $this->log->warning("Marking node $node dead.");
+                            $connection->markDead();
 
-                        // If the transport has not been set, we are inside a Ping or Sniff,
-                        // so we don't want to retrigger retries anyway.
-                        //
-                        // TODO this could be handled better, but we are limited because connectionpools do not
-                        // have access to Transport.  Architecturally, all of this needs to be refactored
-                        if (isset($transport) === true) {
-                            $transport->connectionPool->scheduleCheck();
+                            // If the transport has not been set, we are inside a Ping or Sniff,
+                            // so we don't want to retrigger retries anyway.
+                            //
+                            // TODO this could be handled better, but we are limited because connectionpools do not
+                            // have access to Transport.  Architecturally, all of this needs to be refactored
+                            if (isset($transport) === true) {
+                                $transport->connectionPool->scheduleCheck();
 
-                            $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
-                            $shouldRetry = $transport->shouldRetry($request);
-                            $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
+                                $neverRetry = isset($request['client']['never_retry']) ? $request['client']['never_retry'] : false;
+                                $shouldRetry = $transport->shouldRetry($request);
+                                $shouldRetryText = ($shouldRetry) ? 'true' : 'false';
 
-                            $this->log->warning("Retries left? $shouldRetryText");
-                            if ($shouldRetry && !$neverRetry) {
-                                return $transport->performRequest(
-                                    $request['http_method'],
-                                    $request['uri'],
-                                    [],
-                                    $request['body'],
-                                    $options
-                                );
+                                $this->log->warning("Retries left? $shouldRetryText");
+                                if ($shouldRetry && !$neverRetry) {
+                                    return $transport->performRequest(
+                                        $request['http_method'],
+                                        $request['uri'],
+                                        [],
+                                        $request['body'],
+                                        $options
+                                    );
+                                }
                             }
-                        }
 
-                        $this->log->warning("Out of retries, throwing exception from $node");
-                        // Only throw if we run out of retries
-                        throw $exception;
+                            $this->log->warning("Out of retries, throwing exception from $node");
+                            // Only throw if we run out of retries
+                            throw $exception;
+                        } else {
+                            // Something went seriously wrong, bail
+                            $exception = new TransportException($response['error']->getMessage());
+                            $this->logRequestFail($request, $response, $exception);
+                            throw $exception;
+                        }
                     } else {
-                        // Something went seriously wrong, bail
-                        $exception = new TransportException($response['error']->getMessage());
-                        $this->logRequestFail($request, $response, $exception);
-                        throw $exception;
-                    }
-                } else {
-                    $connection->markAlive();
+                        $connection->markAlive();
 
-                    if (isset($response['headers']['Warning'])) {
-                        $this->logWarning($request, $response);
-                    }
-                    if (isset($response['body']) === true) {
-                        $response['body'] = stream_get_contents($response['body']);
-                        $this->lastRequest['response']['body'] = $response['body'];
-                    }
-
-                    if ($response['status'] >= 400 && $response['status'] < 500) {
-                        $ignore = $request['client']['ignore'] ?? [];
-                        // Skip 404 if succeeded true in the body (e.g. clear_scroll)
-                        $body = $response['body'] ?? '';
-                        if (strpos($body, '"succeeded":true') !== false) {
-                             $ignore[] = 404;
+                        if (isset($response['headers']['Warning'])) {
+                            $this->logWarning($request, $response);
                         }
-                        $this->process4xxError($request, $response, $ignore);
-                    } elseif ($response['status'] >= 500) {
-                        $ignore = $request['client']['ignore'] ?? [];
-                        $this->process5xxError($request, $response, $ignore);
+                        if (isset($response['body']) === true) {
+                            $response['body'] = stream_get_contents($response['body']);
+                            $this->lastRequest['response']['body'] = $response['body'];
+                        }
+
+                        if ($response['status'] >= 400 && $response['status'] < 500) {
+                            $ignore = $request['client']['ignore'] ?? [];
+                            // Skip 404 if succeeded true in the body (e.g. clear_scroll)
+                            $body = $response['body'] ?? '';
+                            if (strpos($body, '"succeeded":true') !== false) {
+                                 $ignore[] = 404;
+                            }
+                            $this->process4xxError($request, $response, $ignore);
+                        } elseif ($response['status'] >= 500) {
+                            $ignore = $request['client']['ignore'] ?? [];
+                            $this->process5xxError($request, $response, $ignore);
+                        }
+
+                        // No error, deserialize
+                        $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
                     }
+                    $this->logRequestSuccess($request, $response);
 
-                    // No error, deserialize
-                    $response['body'] = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
+                    return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
                 }
-                $this->logRequestSuccess($request, $response);
-
-                return isset($request['client']['verbose']) && $request['client']['verbose'] === true ? $response : $response['body'];
-            });
+            );
 
             return $response;
         };
@@ -369,8 +378,8 @@ class Connection implements ConnectionInterface
     /**
      * Log a successful request
      *
-     * @param array $request
-     * @param array $response
+     * @param  array $request
+     * @param  array $response
      * @return void
      */
     public function logRequestSuccess(array $request, array $response): void
@@ -407,8 +416,8 @@ class Connection implements ConnectionInterface
     /**
      * Log a failed request
      *
-     * @param array $request
-     * @param array $response
+     * @param array      $request
+     * @param array      $response
      * @param \Exception $exception
      *
      * @return void
@@ -566,7 +575,7 @@ class Connection implements ConnectionInterface
      * Get the OS version using php_uname if available
      * otherwise it returns an empty string
      *
-     * @see  https://github.com/elastic/elasticsearch-php/issues/922
+     * @see https://github.com/elastic/elasticsearch-php/issues/922
      */
     private function getOSVersion(): string
     {

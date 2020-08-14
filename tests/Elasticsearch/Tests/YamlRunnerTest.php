@@ -1,4 +1,18 @@
 <?php
+/**
+ * Elasticsearch PHP client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php/
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
+ * the GNU Lesser General Public License, Version 2.1, at your option.
+ * See the LICENSE file in the project root for more information.
+ */
+
 
 declare(strict_types = 1);
 
@@ -25,12 +39,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Class YamlRunnerTest
  *
- * @category   Tests
- * @package    Elasticsearch
  * @subpackage Tests
- * @author     Zachary Tong <zachary.tong@elasticsearch.com>
- * @license    http://www.apache.org/licenses/LICENSE-2.0 Apache2
- * @link       http://elasticsearch.org
  */
 class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 {
@@ -716,9 +725,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Skip an operation depending on Elasticsearch Version
      *
-     * @param \stdClass         &object              $operation
-     * @param array|string|null $lastOperationResult
-     * @param string            $testName
+     * @param \stdClass         &object $operation
+     * @param array|string|null         $lastOperationResult
+     * @param string                    $testName
      */
     public function operationSkip($operation, $lastOperationResult, string $testName)
     {
@@ -748,22 +757,26 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             }
             if (isset($version[0]) && !empty($version[0])) {
                 if (version_compare(static::$esVersion, $version[0], '<')) {
-                    static::markTestSkipped(sprintf(
-                        "Skip test %s, as ES version %s should be skipped (%s)",
-                        $testName,
-                        static::$esVersion,
-                        $operation->reason
-                    ));
+                    static::markTestSkipped(
+                        sprintf(
+                            "Skip test %s, as ES version %s should be skipped (%s)",
+                            $testName,
+                            static::$esVersion,
+                            $operation->reason
+                        )
+                    );
                 }
             }
             if (isset($version[1]) && !empty($version[1])) {
                 if (version_compare(static::$esVersion, $version[1], '>')) {
-                    static::markTestSkipped(sprintf(
-                        "Skip test %s, as ES version %s should be skipped (%s)",
-                        $testName,
-                        static::$esVersion,
-                        $operation->reason
-                    ));
+                    static::markTestSkipped(
+                        sprintf(
+                            "Skip test %s, as ES version %s should be skipped (%s)",
+                            $testName,
+                            static::$esVersion,
+                            $operation->reason
+                        )
+                    );
                 }
             }
         }

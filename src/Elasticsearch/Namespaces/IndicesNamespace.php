@@ -5,14 +5,13 @@
  * @link      https://github.com/elastic/elasticsearch-php/
  * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
- * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
- *
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1 
+ * 
  * Licensed to Elasticsearch B.V under one or more agreements.
  * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
  * the GNU Lesser General Public License, Version 2.1, at your option.
  * See the LICENSE file in the project root for more information.
  */
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -38,7 +37,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-blocks.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html
      */
     public function addBlock(array $params = [])
     {
@@ -176,53 +175,6 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (string) The name of the data stream
-     * $params['body'] = (array) The data stream definition
-     *
-     * @param array $params Associative array of parameters
-     * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
-     */
-    public function createDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-        $body = $this->extractArgument($params, 'body');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\CreateDataStream');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-        $endpoint->setBody($body);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
-     * $params['name']                  = (list) A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
-     * $params['expand_wildcards']      = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
-     * $params['forbid_closed_indices'] = (boolean) If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices (Default = true)
-     *
-     * @param array $params Associative array of parameters
-     * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
-     */
-    public function dataStreamsStats(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\DataStreamsStats');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
      * $params['index']              = (list) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices
      * $params['timeout']            = (time) Explicit operation timeout
      * $params['master_timeout']     = (time) Specify timeout for connection to master
@@ -264,27 +216,6 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\DeleteAlias');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
-        $endpoint->setName($name);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
-     * $params['name'] = (list) A comma-separated list of data streams to delete; use `*` to delete all data streams
-     *
-     * @param array $params Associative array of parameters
-     * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
-     */
-    public function deleteDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\DeleteDataStream');
-        $endpoint->setParams($params);
         $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
@@ -582,27 +513,6 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setParams($params);
         $endpoint->setName($name);
         $endpoint->setIndex($index);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
-     * $params['name'] = (list) A comma-separated list of data streams to get; use `*` to get all data streams
-     *
-     * @param array $params Associative array of parameters
-     * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
-     */
-    public function getDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\GetDataStream');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
     }
@@ -966,7 +876,7 @@ class IndicesNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
      *
@@ -1276,6 +1186,60 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
+     * $params['name'] = (string) The name of the data stream
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function createDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\CreateDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name'] = (list) A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function dataStreamsStats(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DataStreamsStats');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name'] = (list) A comma-separated list of data streams to delete; use `*` to delete all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function deleteDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DeleteDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
      * $params['index']                  = (string) The name of the index to freeze
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['master_timeout']         = (time) Specify timeout for connection to master
@@ -1296,6 +1260,24 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint = $endpointBuilder('Indices\Freeze');
         $endpoint->setParams($params);
         $endpoint->setIndex($index);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name'] = (list) A comma-separated list of data streams to get; use `*` to get all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function getDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\GetDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
 
         return $this->performRequest($endpoint);
     }
@@ -1343,7 +1325,7 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
+    }    
     /**
      * Alias function to getAlias()
      *

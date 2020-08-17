@@ -5,14 +5,13 @@
  * @link      https://github.com/elastic/elasticsearch-php/
  * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
- * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1
- *
+ * @license   https://www.gnu.org/licenses/lgpl-2.1.html GNU Lesser General Public License, Version 2.1 
+ * 
  * Licensed to Elasticsearch B.V under one or more agreements.
  * Elasticsearch B.V licenses this file to you under the Apache 2.0 License or
  * the GNU Lesser General Public License, Version 2.1, at your option.
  * See the LICENSE file in the project root for more information.
  */
-
 declare(strict_types = 1);
 
 namespace Elasticsearch\Namespaces;
@@ -35,9 +34,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-blocks.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html
      */
     public function addBlock(array $params = [])
     {
@@ -56,9 +55,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['index'] = (string) The name of the index to scope the operation
      * $params['body']  = (array) Define analyzer/tokenizer parameters and the text on which the analysis should be performed
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
      */
     public function analyze(array $params = [])
     {
@@ -83,9 +82,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['request']            = (boolean) Clear request cache
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html
      */
     public function clearCache(array $params = [])
     {
@@ -106,9 +105,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the cloned index before the operation returns.
      * $params['body']                   = (array) The configuration for the target index (`settings` and `aliases`)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html
      */
     public function clone(array $params = [])
     {
@@ -134,9 +133,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
      */
     public function close(array $params = [])
     {
@@ -157,9 +156,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']         = (time) Specify timeout for connection to master
      * $params['body']                   = (array) The configuration for the index (`settings` and `mappings`)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
      */
     public function create(array $params = [])
     {
@@ -175,51 +174,6 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (string) The name of the data stream
-     * $params['body'] = (array) The data stream definition
-     *
-     * @param  array $params Associative array of parameters
-     * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     */
-    public function createDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-        $body = $this->extractArgument($params, 'body');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\CreateDataStream');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-        $endpoint->setBody($body);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
-     * $params['name']                  = (list) A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
-     * $params['expand_wildcards']      = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
-     * $params['forbid_closed_indices'] = (boolean) If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices (Default = true)
-     *
-     * @param  array $params Associative array of parameters
-     * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     */
-    public function dataStreamsStats(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\DataStreamsStats');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
      * $params['index']              = (list) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices
      * $params['timeout']            = (time) Explicit operation timeout
      * $params['master_timeout']     = (time) Specify timeout for connection to master
@@ -227,9 +181,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)
      * $params['expand_wildcards']   = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html
      */
     public function delete(array $params = [])
     {
@@ -248,9 +202,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit timestamp for the document
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      */
     public function deleteAlias(array $params = [])
     {
@@ -266,35 +220,16 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (list) A comma-separated list of data streams to delete; use `*` to delete all data streams
-     *
-     * @param  array $params Associative array of parameters
-     * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     */
-    public function deleteDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\DeleteDataStream');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
      * $params['name']           = (string) The name of the template
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function deleteIndexTemplate(array $params = [])
     {
@@ -312,9 +247,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      */
     public function deleteTemplate(array $params = [])
     {
@@ -336,9 +271,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['flat_settings']      = (boolean) Return settings in flat format (default: false)
      * $params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html
      */
     public function exists(array $params = []): bool
     {
@@ -362,9 +297,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      */
     public function existsAlias(array $params = []): bool
     {
@@ -388,11 +323,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function existsIndexTemplate(array $params = []): bool
     {
@@ -414,9 +350,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      */
     public function existsTemplate(array $params = []): bool
     {
@@ -440,9 +376,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return bool
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html
      */
     public function existsType(array $params = []): bool
     {
@@ -468,9 +404,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
      */
     public function flush(array $params = [])
     {
@@ -489,9 +425,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-synced-flush-api.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-synced-flush-api.html
      */
     public function flushSynced(array $params = [])
     {
@@ -513,9 +449,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
      * $params['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html
      */
     public function forcemerge(array $params = [])
     {
@@ -539,9 +475,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
      * $params['master_timeout']     = (time) Specify timeout for connection to master
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html
      */
     public function get(array $params = [])
     {
@@ -562,9 +498,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      */
     public function getAlias(array $params = [])
     {
@@ -580,26 +516,6 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
-     * $params['name'] = (list) A comma-separated list of data streams to get; use `*` to get all data streams
-     *
-     * @param  array $params Associative array of parameters
-     * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
-     *
-     * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     */
-    public function getDataStream(array $params = [])
-    {
-        $name = $this->extractArgument($params, 'name');
-
-        $endpointBuilder = $this->endpoints;
-        $endpoint = $endpointBuilder('Indices\GetDataStream');
-        $endpoint->setParams($params);
-        $endpoint->setName($name);
-
-        return $this->performRequest($endpoint);
-    }
-    /**
      * $params['fields']             = (list) A comma-separated list of fields (Required)
      * $params['index']              = (list) A comma-separated list of index names
      * $params['type']               = DEPRECATED (list) A comma-separated list of document types
@@ -610,9 +526,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
      */
     public function getFieldMapping(array $params = [])
     {
@@ -635,11 +551,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function getIndexTemplate(array $params = [])
     {
@@ -662,9 +579,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']     = (time) Specify timeout for connection to master
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
      */
     public function getMapping(array $params = [])
     {
@@ -690,9 +607,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['include_defaults']   = (boolean) Whether to return all default setting for each of the indices. (Default = false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html
      */
     public function getSettings(array $params = [])
     {
@@ -714,9 +631,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']    = (time) Explicit operation timeout for connection to master node
      * $params['local']             = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      */
     public function getTemplate(array $params = [])
     {
@@ -735,9 +652,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
      */
     public function getUpgrade(array $params = [])
     {
@@ -759,9 +676,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = closed)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
      */
     public function open(array $params = [])
     {
@@ -781,9 +698,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) The settings for the alias, such as `routing` or `filter`
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      */
     public function putAlias(array $params = [])
     {
@@ -807,11 +724,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) The template definition (Required)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function putIndexTemplate(array $params = [])
     {
@@ -838,9 +756,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['write_index_only']   = (boolean) When true, applies mappings only to the write index of an alias or data stream (Default = false)
      * $params['body']               = (array) The mapping definition (Required)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html
      */
     public function putMapping(array $params = [])
     {
@@ -868,9 +786,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['flat_settings']      = (boolean) Return settings in flat format (default: false)
      * $params['body']               = (array) The index settings to be updated (Required)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
      */
     public function putSettings(array $params = [])
     {
@@ -893,9 +811,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout']    = (time) Specify timeout for connection to master
      * $params['body']              = (array) The template definition (Required)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      */
     public function putTemplate(array $params = [])
     {
@@ -915,9 +833,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['detailed']    = (boolean) Whether to display detailed information about shard recovery (Default = false)
      * $params['active_only'] = (boolean) Display only those recoveries that are currently on-going (Default = false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html
      */
     public function recovery(array $params = [])
     {
@@ -936,9 +854,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html
      */
     public function refresh(array $params = [])
     {
@@ -955,11 +873,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['name']             = (list) A comma-separated list of names or wildcard expressions
      * $params['expand_wildcards'] = (enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function resolveIndex(array $params = [])
     {
@@ -982,9 +901,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the newly created rollover index before the operation returns.
      * $params['body']                   = (array) The conditions that needs to be met for executing rollover
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html
      */
     public function rollover(array $params = [])
     {
@@ -1008,9 +927,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['verbose']            = (boolean) Includes detailed memory usage by Lucene. (Default = false)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
      */
     public function segments(array $params = [])
     {
@@ -1030,9 +949,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html
      */
     public function shardStores(array $params = [])
     {
@@ -1054,9 +973,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the shrunken index before the operation returns.
      * $params['body']                   = (array) The configuration for the target index (`settings` and `aliases`)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html
      */
     public function shrink(array $params = [])
     {
@@ -1080,11 +999,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) New index template definition, which will be included in the simulation, as if it already exists in the system
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function simulateIndexTemplate(array $params = [])
     {
@@ -1106,11 +1026,12 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) New index template definition to be simulated, if no index template name is specified
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
+     *
      */
     public function simulateTemplate(array $params = [])
     {
@@ -1134,9 +1055,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['wait_for_active_shards'] = (string) Set the number of active shards to wait for on the shrunken index before the operation returns.
      * $params['body']                   = (array) The configuration for the target index (`settings` and `aliases`)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html
      */
     public function split(array $params = [])
     {
@@ -1167,9 +1088,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']           = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      * $params['forbid_closed_indices']      = (boolean) If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices (Default = true)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html
      */
     public function stats(array $params = [])
     {
@@ -1189,9 +1110,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) The definition of `actions` to perform (Required)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      */
     public function updateAliases(array $params = [])
     {
@@ -1212,9 +1133,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['wait_for_completion']   = (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
      * $params['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
      */
     public function upgrade(array $params = [])
     {
@@ -1244,9 +1165,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['all_shards']         = (boolean) Execute validation on all shards instead of one random shard per index
      * $params['body']               = (array) The query definition specified with the Query DSL
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html
      */
     public function validateQuery(array $params = [])
     {
@@ -1264,6 +1185,60 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
+     * $params['name'] = (string) The name of the data stream
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function createDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\CreateDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name'] = (list) A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function dataStreamsStats(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DataStreamsStats');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
+     * $params['name'] = (list) A comma-separated list of data streams to delete; use `*` to delete all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function deleteDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\DeleteDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
      * $params['index']                  = (string) The name of the index to freeze
      * $params['timeout']                = (time) Explicit operation timeout
      * $params['master_timeout']         = (time) Specify timeout for connection to master
@@ -1272,9 +1247,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = closed)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/freeze-index-api.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/freeze-index-api.html
      */
     public function freeze(array $params = [])
     {
@@ -1288,14 +1263,32 @@ class IndicesNamespace extends AbstractNamespace
         return $this->performRequest($endpoint);
     }
     /**
+     * $params['name'] = (list) A comma-separated list of data streams to get; use `*` to get all data streams
+     *
+     * @param array $params Associative array of parameters
+     * @return array
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+     */
+    public function getDataStream(array $params = [])
+    {
+        $name = $this->extractArgument($params, 'name');
+
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder('Indices\GetDataStream');
+        $endpoint->setParams($params);
+        $endpoint->setName($name);
+
+        return $this->performRequest($endpoint);
+    }
+    /**
      * $params['index']              = (list) A comma-separated list of index names to reload analyzers for
      * $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
      * $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html
      */
     public function reloadSearchAnalyzers(array $params = [])
     {
@@ -1317,9 +1310,9 @@ class IndicesNamespace extends AbstractNamespace
      * $params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = closed)
      * $params['wait_for_active_shards'] = (string) Sets the number of active shards to wait for before the operation returns.
      *
-     * @param  array $params Associative array of parameters
+     * @param array $params Associative array of parameters
      * @return array
-     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html
      */
     public function unfreeze(array $params = [])
     {
@@ -1331,12 +1324,12 @@ class IndicesNamespace extends AbstractNamespace
         $endpoint->setIndex($index);
 
         return $this->performRequest($endpoint);
-    }
+    }    
     /**
      * Alias function to getAlias()
      *
      * @deprecated added to prevent BC break introduced in 7.2.0
-     * @see        https://github.com/elastic/elasticsearch-php/issues/940
+     * @see https://github.com/elastic/elasticsearch-php/issues/940
      */
     public function getAliases(array $params = [])
     {

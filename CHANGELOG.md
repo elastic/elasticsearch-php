@@ -1,3 +1,14 @@
+## Release 7.9.0
+
+- Updated endpoints and namespaces for Elasticsearch 7.9
+  [28bf0ed](https://github.com/elastic/elasticsearch-php/commit/28bf0ed6df6bc95f83f369509431d97907bfdeb0)
+- Moved `scroll_id` into `body` for search operations in the documentation
+  [#1052](https://github.com/elastic/elasticsearch-php/pull/1052)
+- Fixed PHP 7.4 preloading feature for autoload.php
+  [#1051](https://github.com/elastic/elasticsearch-php/pull/1051)
+- Improved message of JSON errors using `json_last_error_msg()`
+  [#1045](https://github.com/elastic/elasticsearch-php/pull/1045)
+
 ## Release 7.8.0
 
 - Updated endpoints and namespaces for Elasticsearch 7.8

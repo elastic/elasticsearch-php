@@ -23,15 +23,22 @@ jobs:
         tools: prestissimo
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   
+    - name: Configure sysctl limits
+      run: |
+        sudo swapoff -a
+        sudo sysctl -w vm.swappiness=1
+        sudo sysctl -w fs.file-max=262144
+        sudo sysctl -w vm.max_map_count=262144
 
-    - name: Install dependencies
-      uses: php-actions/composer@v2
-     
     - name: Runs Elasticsearch
       uses: elastic/elastic-github-actions/elasticsearch@master
       with:
         stack-version: 7.x-SNAPSHOT
-    
+
+    - name: Install dependencies
+      uses: php-actions/composer@v2
+
     - name: Unit tests
       run: |
         vendor/bin/phpunit --configure phpunit.xml.dist

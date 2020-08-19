@@ -37,17 +37,18 @@ jobs:
         stack-version: 7.x-SNAPSHOT
 
     - name: Install dependencies
-      uses: php-actions/composer@v2
+      run: |
+        composer install --prefer-dist
 
     - name: Unit tests
       run: |
-        vendor/bin/phpunit --configure phpunit.xml.dist
+        vendor/bin/phpunit -c phpunit.xml.dist
       env:
         TEST_SUITE: oss
 
     - name: Integration tests
       run: |
-        vendor/bin/phpunit --configure phpunit-integration-tests.xml
+        vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
         TEST_SUITE: oss
         

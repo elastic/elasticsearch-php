@@ -1,0 +1,46 @@
+name: PHP test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php-version: [7.1, 7.2, 7.3, 7.4]
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Use PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: prestissimo
+      env:
+        COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install dependencies
+      uses: php-actions/composer@v2
+     
+    - name: Runs Elasticsearch
+      uses: elastic/elastic-github-actions/elasticsearch@master
+      with:
+        stack-version: 7.x-SNAPSHOT
+    
+    - name: Unit tests
+      run: |
+        vendor/bin/phpunit --configure phpunit.xml.dist
+      env:
+        TEST_SUITE: oss
+
+    - name: Integration tests
+      run: |
+        vendor/bin/phpunit --configure phpunit-integration-tests.xml
+      env:
+        TEST_SUITE: oss
+        

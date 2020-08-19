@@ -29,6 +29,7 @@ use Psr\Log\LogLevel;
  * Class ClientTest
  *
  * @subpackage Tests
+ * @group Integration
  */
 class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 {
@@ -51,12 +52,21 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
         $this->logger = new ArrayLogger();
     }
 
-    public function testLogRequestSuccessHasInfoNotEmpty()
+    private function getClient(): Client
     {
         $client = ClientBuilder::create()
             ->setHosts([$this->host])
-            ->setLogger($this->logger)
-            ->build();
+            ->setLogger($this->logger);
+        
+        if (getenv('TEST_SUITE') === 'xpack') {
+            $client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
+        }    
+        return $client->build();
+    }
+
+    public function testLogRequestSuccessHasInfoNotEmpty()
+    {
+        $client = $this->getClient();
 
         $result = $client->info();
 
@@ -65,10 +75,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 
     public function testLogRequestSuccessHasPortInInfo()
     {
-        $client = ClientBuilder::create()
-            ->setHosts([$this->host])
-            ->setLogger($this->logger)
-            ->build();
+        $client = $this->getClient();
 
         $result = $client->info();
 
@@ -77,10 +84,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 
     public function testLogRequestFailHasWarning()
     {
-        $client = ClientBuilder::create()
-            ->setHosts([$this->host])
-            ->setLogger($this->logger)
-            ->build();
+        $client = $this->getClient();
 
         try {
             $result = $client->get([

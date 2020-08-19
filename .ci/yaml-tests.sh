@@ -4,4 +4,4 @@
 php util/RestSpecRunner.php
 
 # Run YAML tests
-vendor/bin/phpunit -c phpunit-integration.xml --group sync
+vendor/bin/phpunit -c phpunit-yaml-tests.xml

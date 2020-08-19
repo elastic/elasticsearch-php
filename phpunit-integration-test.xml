@@ -9,15 +9,15 @@
         beStrictAboutOutputDuringTests="true"
 >
     <testsuites>
-        <testsuite name="Unit tests">
+        <testsuite name="Integration tests">
             <directory>tests</directory>
             <exclude>tests/Elasticsearch/Tests/YamlRunnerTest.php</exclude>
         </testsuite>
     </testsuites>
     <groups>
-        <exclude>
+        <include>
             <group>Integration</group>
-        </exclude>
+        </include>
     </groups>
     <filter>
         <whitelist>

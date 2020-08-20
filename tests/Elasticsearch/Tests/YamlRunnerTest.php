@@ -159,7 +159,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         if (getenv('TEST_SUITE') === 'xpack') {
             $this->client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
         }
-        $this->client->build();
+        $this->client = $this->client->build();
     }
 
     public function tearDown()

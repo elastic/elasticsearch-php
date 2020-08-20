@@ -30,7 +30,7 @@ class Utility
             case 'oss':
                 return 'http://localhost:9200';
             case 'xpack':
-                return 'https://elastic:changeme@instance:9200';
+                return 'https://elastic:changeme@localhost:9200';
         }
         return null;
     }

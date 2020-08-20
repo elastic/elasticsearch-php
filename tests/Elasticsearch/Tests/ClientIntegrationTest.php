@@ -20,6 +20,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Tests\ClientBuilder\ArrayLogger;
@@ -94,6 +95,62 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
         } catch (Missing404Exception $e) {
             $this->assertNotEmpty($this->getLevelOutput(LogLevel::WARNING, $this->logger->output));
         }
+    }
+
+    public function testIndexCannotBeEmptyStringForDelete()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(Missing404Exception::class);
+
+        $client->delete(
+            [
+            'index' => '',
+            'id' => 'test'
+            ]
+        );
+    }
+
+    public function testIdCannotBeEmptyStringForDelete()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(BadRequest400Exception::class);
+
+        $client->delete(
+            [
+            'index' => 'test',
+            'id' => ''
+            ]
+        );
+    }
+
+    public function testIndexCannotBeArrayOfEmptyStringsForDelete()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(Missing404Exception::class);
+
+        $client->delete(
+            [
+            'index' => ['', '', ''],
+            'id' => 'test'
+            ]
+        );
+    }
+
+    public function testIndexCannotBeArrayOfNullsForDelete()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(Missing404Exception::class);
+
+        $client->delete(
+            [
+            'index' => [null, null, null],
+            'id' => 'test'
+            ]
+        );
     }
 
     private function getLevelOutput(string $level, array $output): string

@@ -106,21 +106,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testTypeCanBeNullForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
-
-        $client->delete(
-            [
-            'index' => 'test',
-            'type' => null,
-            'id' => 'test'
-            ]
-        );
-    }
-
     public function testIdCannotBeNullForDelete()
     {
         $client = ClientBuilder::create()->build();
@@ -131,83 +116,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $client->delete(
             [
             'index' => 'test',
-            'type' => 'test',
             'id' => null
-            ]
-        );
-    }
-
-    public function testIndexCannotBeEmptyStringForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
-
-        $client->delete(
-            [
-            'index' => '',
-            'type' => 'test',
-            'id' => 'test'
-            ]
-        );
-    }
-
-    public function testTypeCannotBeEmptyStringForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
-
-        $client->delete(
-            [
-            'index' => 'test',
-            'type' => '',
-            'id' => 'test'
-            ]
-        );
-    }
-
-    public function testIdCannotBeEmptyStringForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\BadRequest400Exception::class);
-
-        $client->delete(
-            [
-            'index' => 'test',
-            'type' => 'test',
-            'id' => ''
-            ]
-        );
-    }
-
-    public function testIndexCannotBeArrayOfEmptyStringsForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
-
-        $client->delete(
-            [
-            'index' => ['', '', ''],
-            'type' => 'test',
-            'id' => 'test'
-            ]
-        );
-    }
-
-    public function testIndexCannotBeArrayOfNullsForDelete()
-    {
-        $client = ClientBuilder::create()->build();
-
-        $this->expectException(Elasticsearch\Common\Exceptions\Missing404Exception::class);
-
-        $client->delete(
-            [
-            'index' => [null, null, null],
-            'type' => 'test',
-            'id' => 'test'
             ]
         );
     }

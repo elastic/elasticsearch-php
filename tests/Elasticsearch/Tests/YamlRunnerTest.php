@@ -135,11 +135,17 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($ch);
         curl_close($ch);
         if (false === $response) {
-            throw new \Exception('I cannot connect to ES');
+            throw new \Exception(sprintf(
+                "I cannot connect to ES: %d %s",
+                curl_errno($ch),
+                curl_error($ch)
+            ));
         }
         $response = json_decode($response, true);
         static::$esVersion = $response['version']['number'];
@@ -149,8 +155,11 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->client = Elasticsearch\ClientBuilder::create()
-            ->setHosts([self::getHost()])
-            ->build();
+            ->setHosts([self::getHost()]);
+        if (getenv('TEST_SUITE') === 'xpack') {
+            $this->client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
+        }
+        $this->client = $this->client->build();
     }
 
     public function tearDown()
@@ -725,9 +734,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     /**
      * Skip an operation depending on Elasticsearch Version
      *
-     * @param \stdClass         &object $operation
-     * @param array|string|null         $lastOperationResult
-     * @param string                    $testName
+     * @param \stdClass         &object              $operation
+     * @param array|string|null $lastOperationResult
+     * @param string            $testName
      */
     public function operationSkip($operation, $lastOperationResult, string $testName)
     {
@@ -757,26 +766,22 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             }
             if (isset($version[0]) && !empty($version[0])) {
                 if (version_compare(static::$esVersion, $version[0], '<')) {
-                    static::markTestSkipped(
-                        sprintf(
-                            "Skip test %s, as ES version %s should be skipped (%s)",
-                            $testName,
-                            static::$esVersion,
-                            $operation->reason
-                        )
-                    );
+                    static::markTestSkipped(sprintf(
+                        "Skip test %s, as ES version %s should be skipped (%s)",
+                        $testName,
+                        static::$esVersion,
+                        $operation->reason
+                    ));
                 }
             }
             if (isset($version[1]) && !empty($version[1])) {
                 if (version_compare(static::$esVersion, $version[1], '>')) {
-                    static::markTestSkipped(
-                        sprintf(
-                            "Skip test %s, as ES version %s should be skipped (%s)",
-                            $testName,
-                            static::$esVersion,
-                            $operation->reason
-                        )
-                    );
+                    static::markTestSkipped(sprintf(
+                        "Skip test %s, as ES version %s should be skipped (%s)",
+                        $testName,
+                        static::$esVersion,
+                        $operation->reason
+                    ));
                 }
             }
         }
@@ -834,7 +839,14 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     public function yamlProvider(): array
     {
         $this->yaml = new Yaml();
-        $path = __DIR__ . '/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test';
+        $testSuite = getenv('TEST_SUITE');
+        if ($testSuite === false) {
+            throw new \Exception("The TEST_SUITE env does not exist");
+        }
+        $path = $testSuite === 'oss'
+            ? __DIR__ . '/../../../util/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test'
+            : __DIR__ . '/../../../util/elasticsearch/x-pack/plugin/src/test/resources/rest-api-spec/test';
+    
         $files = [];
 
         $finder = new Finder();
@@ -1076,6 +1088,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($ch);
         curl_close($ch);
@@ -1084,6 +1098,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($ch);
         curl_close($ch);
@@ -1125,6 +1141,8 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($ch);
         if (false !== $response) {

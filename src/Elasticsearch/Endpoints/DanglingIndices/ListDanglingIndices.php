@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ListDanglingIndices
  * Elasticsearch API name dangling_indices.list_dangling_indices
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ListDanglingIndices extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutSettings
  * Elasticsearch API name cluster.put_settings
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutSettings extends AbstractEndpoint
 {

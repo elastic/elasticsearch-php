@@ -22,7 +22,6 @@ use Elasticsearch\Common\Exceptions\ElasticsearchException;
 
 /**
  * Class JsonErrorException
- *
  */
 class JsonErrorException extends \Exception implements ElasticsearchException
 {

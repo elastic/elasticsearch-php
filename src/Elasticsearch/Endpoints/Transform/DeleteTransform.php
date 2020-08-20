@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteTransform
  * Elasticsearch API name transform.delete_transform
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteTransform extends AbstractEndpoint
 {

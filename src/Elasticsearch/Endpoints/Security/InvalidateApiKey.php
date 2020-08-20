@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class InvalidateApiKey
  * Elasticsearch API name security.invalidate_api_key
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class InvalidateApiKey extends AbstractEndpoint
 {

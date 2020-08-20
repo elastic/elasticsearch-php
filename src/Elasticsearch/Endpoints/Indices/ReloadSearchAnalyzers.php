@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ReloadSearchAnalyzers
  * Elasticsearch API name indices.reload_search_analyzers
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ReloadSearchAnalyzers extends AbstractEndpoint
 {

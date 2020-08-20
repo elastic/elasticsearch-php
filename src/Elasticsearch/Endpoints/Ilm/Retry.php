@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Retry
  * Elasticsearch API name ilm.retry
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Retry extends AbstractEndpoint
 {

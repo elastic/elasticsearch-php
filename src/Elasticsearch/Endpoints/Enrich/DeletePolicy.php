@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeletePolicy
  * Elasticsearch API name enrich.delete_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeletePolicy extends AbstractEndpoint
 {

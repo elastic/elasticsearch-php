@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Freeze
  * Elasticsearch API name indices.freeze
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Freeze extends AbstractEndpoint
 {

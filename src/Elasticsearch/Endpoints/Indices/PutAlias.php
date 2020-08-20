@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutAlias
  * Elasticsearch API name indices.put_alias
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutAlias extends AbstractEndpoint
 {

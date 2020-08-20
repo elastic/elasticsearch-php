@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ClearCachedRoles
  * Elasticsearch API name security.clear_cached_roles
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ClearCachedRoles extends AbstractEndpoint
 {

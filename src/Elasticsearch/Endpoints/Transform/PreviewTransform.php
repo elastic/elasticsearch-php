@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PreviewTransform
  * Elasticsearch API name transform.preview_transform
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PreviewTransform extends AbstractEndpoint
 {

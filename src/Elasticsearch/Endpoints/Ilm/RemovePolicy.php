@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class RemovePolicy
  * Elasticsearch API name ilm.remove_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class RemovePolicy extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ClearCursor
  * Elasticsearch API name sql.clear_cursor
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ClearCursor extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class SimulateIndexTemplate
  * Elasticsearch API name indices.simulate_index_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class SimulateIndexTemplate extends AbstractEndpoint
 {

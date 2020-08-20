@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetMapping
  * Elasticsearch API name indices.get_mapping
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetMapping extends AbstractEndpoint
 {

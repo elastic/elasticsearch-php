@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetJobStats
  * Elasticsearch API name ml.get_job_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetJobStats extends AbstractEndpoint
 {

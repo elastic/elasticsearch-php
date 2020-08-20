@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Health
  * Elasticsearch API name cat.health
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Health extends AbstractEndpoint
 {

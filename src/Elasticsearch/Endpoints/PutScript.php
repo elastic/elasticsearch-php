@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutScript
  * Elasticsearch API name put_script
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutScript extends AbstractEndpoint
 {

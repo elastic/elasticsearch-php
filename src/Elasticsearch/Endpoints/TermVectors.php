@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class TermVectors
  * Elasticsearch API name termvectors
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class TermVectors extends AbstractEndpoint
 {

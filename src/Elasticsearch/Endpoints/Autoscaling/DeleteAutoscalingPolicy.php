@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteAutoscalingPolicy
  * Elasticsearch API name autoscaling.delete_autoscaling_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteAutoscalingPolicy extends AbstractEndpoint
 {

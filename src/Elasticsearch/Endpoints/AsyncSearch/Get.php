@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Get
  * Elasticsearch API name async_search.get
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Get extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ChangePassword
  * Elasticsearch API name security.change_password
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ChangePassword extends AbstractEndpoint
 {

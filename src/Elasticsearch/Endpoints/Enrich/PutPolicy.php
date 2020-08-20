@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutPolicy
  * Elasticsearch API name enrich.put_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutPolicy extends AbstractEndpoint
 {

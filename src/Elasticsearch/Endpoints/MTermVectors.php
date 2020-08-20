@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class MTermVectors
  * Elasticsearch API name mtermvectors
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class MTermVectors extends AbstractEndpoint
 {

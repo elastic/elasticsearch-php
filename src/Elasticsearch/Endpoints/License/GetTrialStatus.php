@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetTrialStatus
  * Elasticsearch API name license.get_trial_status
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetTrialStatus extends AbstractEndpoint
 {

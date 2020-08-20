@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteFilter
  * Elasticsearch API name ml.delete_filter
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteFilter extends AbstractEndpoint
 {

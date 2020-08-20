@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Split
  * Elasticsearch API name indices.split
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Split extends AbstractEndpoint
 {

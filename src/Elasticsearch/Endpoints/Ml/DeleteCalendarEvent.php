@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteCalendarEvent
  * Elasticsearch API name ml.delete_calendar_event
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteCalendarEvent extends AbstractEndpoint
 {

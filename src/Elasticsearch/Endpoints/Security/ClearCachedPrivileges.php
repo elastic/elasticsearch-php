@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ClearCachedPrivileges
  * Elasticsearch API name security.clear_cached_privileges
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ClearCachedPrivileges extends AbstractEndpoint
 {

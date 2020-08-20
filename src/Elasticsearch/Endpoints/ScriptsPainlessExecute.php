@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ScriptsPainlessExecute
  * Elasticsearch API name scripts_painless_execute
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ScriptsPainlessExecute extends AbstractEndpoint
 {

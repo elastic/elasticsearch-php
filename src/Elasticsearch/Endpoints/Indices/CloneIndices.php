@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class CloneIndices
  * Elasticsearch API name indices.clone
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class CloneIndices extends AbstractEndpoint
 {

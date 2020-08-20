@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class AddBlock
  * Elasticsearch API name indices.add_block
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class AddBlock extends AbstractEndpoint
 {

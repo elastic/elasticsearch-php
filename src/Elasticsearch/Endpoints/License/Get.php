@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Get
  * Elasticsearch API name license.get
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Get extends AbstractEndpoint
 {

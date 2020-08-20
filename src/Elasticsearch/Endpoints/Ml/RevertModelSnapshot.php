@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class RevertModelSnapshot
  * Elasticsearch API name ml.revert_model_snapshot
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class RevertModelSnapshot extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Allocation
  * Elasticsearch API name cat.allocation
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Allocation extends AbstractEndpoint
 {

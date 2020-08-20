@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Usage
  * Elasticsearch API name xpack.usage
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Usage extends AbstractEndpoint
 {

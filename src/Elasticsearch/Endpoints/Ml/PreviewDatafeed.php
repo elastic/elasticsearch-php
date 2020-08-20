@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PreviewDatafeed
  * Elasticsearch API name ml.preview_datafeed
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PreviewDatafeed extends AbstractEndpoint
 {

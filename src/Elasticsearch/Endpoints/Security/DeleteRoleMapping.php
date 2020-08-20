@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteRoleMapping
  * Elasticsearch API name security.delete_role_mapping
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteRoleMapping extends AbstractEndpoint
 {

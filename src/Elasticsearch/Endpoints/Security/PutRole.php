@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutRole
  * Elasticsearch API name security.put_role
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutRole extends AbstractEndpoint
 {

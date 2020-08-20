@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutRoleMapping
  * Elasticsearch API name security.put_role_mapping
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutRoleMapping extends AbstractEndpoint
 {

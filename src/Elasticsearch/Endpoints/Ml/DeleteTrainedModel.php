@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteTrainedModel
  * Elasticsearch API name ml.delete_trained_model
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteTrainedModel extends AbstractEndpoint
 {

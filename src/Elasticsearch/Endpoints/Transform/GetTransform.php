@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetTransform
  * Elasticsearch API name transform.get_transform
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetTransform extends AbstractEndpoint
 {

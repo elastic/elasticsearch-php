@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExistsIndexTemplate
  * Elasticsearch API name indices.exists_index_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExistsIndexTemplate extends AbstractEndpoint
 {

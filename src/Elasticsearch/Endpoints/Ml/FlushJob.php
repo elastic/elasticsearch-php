@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class FlushJob
  * Elasticsearch API name ml.flush_job
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class FlushJob extends AbstractEndpoint
 {

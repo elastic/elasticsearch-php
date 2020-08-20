@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetPrivileges
  * Elasticsearch API name security.get_privileges
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetPrivileges extends AbstractEndpoint
 {

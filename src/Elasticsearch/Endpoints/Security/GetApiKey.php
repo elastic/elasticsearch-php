@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetApiKey
  * Elasticsearch API name security.get_api_key
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetApiKey extends AbstractEndpoint
 {

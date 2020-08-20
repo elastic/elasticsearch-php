@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class OpenJob
  * Elasticsearch API name ml.open_job
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class OpenJob extends AbstractEndpoint
 {

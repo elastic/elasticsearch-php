@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ValidateQuery
  * Elasticsearch API name indices.validate_query
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ValidateQuery extends AbstractEndpoint
 {

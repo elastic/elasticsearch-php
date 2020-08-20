@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExistsComponentTemplate
  * Elasticsearch API name cluster.exists_component_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExistsComponentTemplate extends AbstractEndpoint
 {

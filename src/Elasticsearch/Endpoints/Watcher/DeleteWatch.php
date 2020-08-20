@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteWatch
  * Elasticsearch API name watcher.delete_watch
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteWatch extends AbstractEndpoint
 {

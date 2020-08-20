@@ -134,7 +134,7 @@ class ClientBuilder
     private $sslVerification = null;
 
     /**
-     *  @var bool
+     * @var bool
      */
     private $includePortInHostHeader = false;
 
@@ -345,7 +345,6 @@ class ClientBuilder
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
-         *
      * @throws AuthenticationConfigException
      */
     public function setApiKey(string $id, string $apiKey): ClientBuilder
@@ -390,19 +389,20 @@ class ClientBuilder
     /**
      * Set Elastic Cloud ID to connect to Elastic Cloud
      *
-         *
      * @param string $cloudId
      */
     public function setElasticCloudId(string $cloudId): ClientBuilder
     {
         // Register the Hosts array
-        $this->setHosts([
+        $this->setHosts(
+            [
             [
                 'host'   => $this->parseElasticCloudId($cloudId),
                 'port'   => '',
                 'scheme' => 'https',
             ]
-        ]);
+            ]
+        );
 
         if (!isset($this->connectionParams['client']['curl'][CURLOPT_ENCODING])) {
             // Merge best practices for the connection (enable gzip)
@@ -464,7 +464,7 @@ class ClientBuilder
     }
 
     /**
-     *  @param bool|string $value
+     * @param bool|string $value
      */
     public function setSSLVerification($value = true): ClientBuilder
     {
@@ -475,6 +475,7 @@ class ClientBuilder
 
     /**
      * Include the port in Host header
+     *
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
     public function includePortInHostHeader(bool $enable): ClientBuilder

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class AllocationExplain
  * Elasticsearch API name cluster.allocation_explain
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class AllocationExplain extends AbstractEndpoint
 {

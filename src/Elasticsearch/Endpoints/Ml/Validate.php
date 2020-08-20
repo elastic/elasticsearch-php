@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Validate
  * Elasticsearch API name ml.validate
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Validate extends AbstractEndpoint
 {

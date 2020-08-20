@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ForceMerge
  * Elasticsearch API name indices.forcemerge
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ForceMerge extends AbstractEndpoint
 {

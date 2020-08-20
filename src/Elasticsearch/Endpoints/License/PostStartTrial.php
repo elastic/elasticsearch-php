@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PostStartTrial
  * Elasticsearch API name license.post_start_trial
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PostStartTrial extends AbstractEndpoint
 {

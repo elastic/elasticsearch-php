@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetComponentTemplate
  * Elasticsearch API name cluster.get_component_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetComponentTemplate extends AbstractEndpoint
 {

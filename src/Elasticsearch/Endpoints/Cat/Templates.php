@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Templates
  * Elasticsearch API name cat.templates
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Templates extends AbstractEndpoint
 {

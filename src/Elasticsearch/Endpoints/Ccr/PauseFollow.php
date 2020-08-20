@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PauseFollow
  * Elasticsearch API name ccr.pause_follow
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PauseFollow extends AbstractEndpoint
 {

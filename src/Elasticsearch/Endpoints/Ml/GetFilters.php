@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetFilters
  * Elasticsearch API name ml.get_filters
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetFilters extends AbstractEndpoint
 {

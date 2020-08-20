@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeletePrivileges
  * Elasticsearch API name security.delete_privileges
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeletePrivileges extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class MlTrainedModels
  * Elasticsearch API name cat.ml_trained_models
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class MlTrainedModels extends AbstractEndpoint
 {

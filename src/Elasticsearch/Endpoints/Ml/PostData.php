@@ -26,7 +26,6 @@ use Traversable;
  * Class PostData
  * Elasticsearch API name ml.post_data
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PostData extends AbstractEndpoint
 {
@@ -89,5 +88,4 @@ class PostData extends AbstractEndpoint
 
         return $this;
     }
-
 }

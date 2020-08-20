@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ResolveIndex
  * Elasticsearch API name indices.resolve_index
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ResolveIndex extends AbstractEndpoint
 {

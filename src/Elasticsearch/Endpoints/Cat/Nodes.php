@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Nodes
  * Elasticsearch API name cat.nodes
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Nodes extends AbstractEndpoint
 {

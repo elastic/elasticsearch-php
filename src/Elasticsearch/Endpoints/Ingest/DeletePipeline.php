@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeletePipeline
  * Elasticsearch API name ingest.delete_pipeline
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeletePipeline extends AbstractEndpoint
 {

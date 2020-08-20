@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class CleanupRepository
  * Elasticsearch API name snapshot.cleanup_repository
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class CleanupRepository extends AbstractEndpoint
 {

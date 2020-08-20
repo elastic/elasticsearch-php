@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetFieldMapping
  * Elasticsearch API name indices.get_field_mapping
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetFieldMapping extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteDatafeed
  * Elasticsearch API name ml.delete_datafeed
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteDatafeed extends AbstractEndpoint
 {

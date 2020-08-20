@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExistsType
  * Elasticsearch API name indices.exists_type
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExistsType extends AbstractEndpoint
 {

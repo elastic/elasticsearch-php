@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class StopDatafeed
  * Elasticsearch API name ml.stop_datafeed
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class StopDatafeed extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class EnableUser
  * Elasticsearch API name security.enable_user
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class EnableUser extends AbstractEndpoint
 {

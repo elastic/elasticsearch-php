@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class CloseJob
  * Elasticsearch API name ml.close_job
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class CloseJob extends AbstractEndpoint
 {

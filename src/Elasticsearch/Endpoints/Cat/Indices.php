@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Indices
  * Elasticsearch API name cat.indices
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Indices extends AbstractEndpoint
 {

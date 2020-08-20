@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteLifecycle
  * Elasticsearch API name slm.delete_lifecycle
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteLifecycle extends AbstractEndpoint
 {

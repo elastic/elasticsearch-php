@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetCalendars
  * Elasticsearch API name ml.get_calendars
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetCalendars extends AbstractEndpoint
 {

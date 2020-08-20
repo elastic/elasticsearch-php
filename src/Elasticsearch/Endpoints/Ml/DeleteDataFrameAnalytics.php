@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteDataFrameAnalytics
  * Elasticsearch API name ml.delete_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteDataFrameAnalytics extends AbstractEndpoint
 {

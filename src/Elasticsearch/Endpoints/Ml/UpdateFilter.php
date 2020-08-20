@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class UpdateFilter
  * Elasticsearch API name ml.update_filter
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class UpdateFilter extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetUpgrade
  * Elasticsearch API name indices.get_upgrade
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetUpgrade extends AbstractEndpoint
 {

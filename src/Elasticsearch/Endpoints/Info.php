@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Info
  * Elasticsearch API name info
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Info extends AbstractEndpoint
 {

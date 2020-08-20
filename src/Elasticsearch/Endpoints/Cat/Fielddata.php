@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Fielddata
  * Elasticsearch API name cat.fielddata
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Fielddata extends AbstractEndpoint
 {

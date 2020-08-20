@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutDatafeed
  * Elasticsearch API name ml.put_datafeed
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutDatafeed extends AbstractEndpoint
 {

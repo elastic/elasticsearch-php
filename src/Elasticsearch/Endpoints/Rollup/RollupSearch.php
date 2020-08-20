@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class RollupSearch
  * Elasticsearch API name rollup.rollup_search
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class RollupSearch extends AbstractEndpoint
 {

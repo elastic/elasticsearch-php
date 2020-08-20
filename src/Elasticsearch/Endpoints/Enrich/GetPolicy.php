@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetPolicy
  * Elasticsearch API name enrich.get_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetPolicy extends AbstractEndpoint
 {

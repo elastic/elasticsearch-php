@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteForecast
  * Elasticsearch API name ml.delete_forecast
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteForecast extends AbstractEndpoint
 {

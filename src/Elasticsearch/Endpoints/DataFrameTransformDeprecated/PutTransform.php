@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutTransform
  * Elasticsearch API name data_frame_transform_deprecated.put_transform
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutTransform extends AbstractEndpoint
 {

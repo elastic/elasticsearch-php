@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutTrainedModel
  * Elasticsearch API name ml.put_trained_model
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutTrainedModel extends AbstractEndpoint
 {

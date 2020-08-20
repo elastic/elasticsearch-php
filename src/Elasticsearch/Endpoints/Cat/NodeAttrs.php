@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class NodeAttrs
  * Elasticsearch API name cat.nodeattrs
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class NodeAttrs extends AbstractEndpoint
 {

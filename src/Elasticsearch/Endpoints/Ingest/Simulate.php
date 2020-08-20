@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Simulate
  * Elasticsearch API name ingest.simulate
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Simulate extends AbstractEndpoint
 {

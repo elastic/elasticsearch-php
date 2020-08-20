@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Analyze
  * Elasticsearch API name indices.analyze
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Analyze extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetDataFrameAnalytics
  * Elasticsearch API name ml.get_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetDataFrameAnalytics extends AbstractEndpoint
 {

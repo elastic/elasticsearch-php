@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Cancel
  * Elasticsearch API name tasks.cancel
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Cancel extends AbstractEndpoint
 {

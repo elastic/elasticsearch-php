@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class VerifyRepository
  * Elasticsearch API name snapshot.verify_repository
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class VerifyRepository extends AbstractEndpoint
 {

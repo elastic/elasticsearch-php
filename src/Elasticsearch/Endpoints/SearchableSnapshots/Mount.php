@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Mount
  * Elasticsearch API name searchable_snapshots.mount
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Mount extends AbstractEndpoint
 {

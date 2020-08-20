@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetStats
  * Elasticsearch API name slm.get_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetStats extends AbstractEndpoint
 {

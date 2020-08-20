@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutWatch
  * Elasticsearch API name watcher.put_watch
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutWatch extends AbstractEndpoint
 {

@@ -25,7 +25,6 @@ use Traversable;
  * Class Bulk
  * Elasticsearch API name bulk
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Bulk extends AbstractEndpoint
 {
@@ -91,5 +90,4 @@ class Bulk extends AbstractEndpoint
         }
         return $this;
     }
-
 }

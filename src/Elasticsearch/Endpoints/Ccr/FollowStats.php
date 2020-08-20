@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class FollowStats
  * Elasticsearch API name ccr.follow_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class FollowStats extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Segments
  * Elasticsearch API name indices.segments
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Segments extends AbstractEndpoint
 {

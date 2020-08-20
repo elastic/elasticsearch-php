@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Forecast
  * Elasticsearch API name ml.forecast
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Forecast extends AbstractEndpoint
 {

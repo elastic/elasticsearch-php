@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExistsSource
  * Elasticsearch API name exists_source
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExistsSource extends AbstractEndpoint
 {

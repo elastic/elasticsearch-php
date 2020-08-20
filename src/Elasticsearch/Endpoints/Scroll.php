@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Scroll
  * Elasticsearch API name scroll
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Scroll extends AbstractEndpoint
 {

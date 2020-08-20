@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetScriptContext
  * Elasticsearch API name get_script_context
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetScriptContext extends AbstractEndpoint
 {

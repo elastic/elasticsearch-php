@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ProcessorGrok
  * Elasticsearch API name ingest.processor_grok
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ProcessorGrok extends AbstractEndpoint
 {

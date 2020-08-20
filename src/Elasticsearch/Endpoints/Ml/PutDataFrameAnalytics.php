@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutDataFrameAnalytics
  * Elasticsearch API name ml.put_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutDataFrameAnalytics extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutPrivileges
  * Elasticsearch API name security.put_privileges
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutPrivileges extends AbstractEndpoint
 {

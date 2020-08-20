@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Authenticate
  * Elasticsearch API name security.authenticate
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Authenticate extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetWatch
  * Elasticsearch API name watcher.get_watch
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetWatch extends AbstractEndpoint
 {

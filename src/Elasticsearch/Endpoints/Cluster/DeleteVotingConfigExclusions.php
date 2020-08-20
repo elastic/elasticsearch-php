@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteVotingConfigExclusions
  * Elasticsearch API name cluster.delete_voting_config_exclusions
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteVotingConfigExclusions extends AbstractEndpoint
 {

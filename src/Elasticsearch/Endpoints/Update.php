@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Update
  * Elasticsearch API name update
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Update extends AbstractEndpoint
 {

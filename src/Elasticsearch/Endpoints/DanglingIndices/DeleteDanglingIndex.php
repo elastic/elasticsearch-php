@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteDanglingIndex
  * Elasticsearch API name dangling_indices.delete_dangling_index
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteDanglingIndex extends AbstractEndpoint
 {

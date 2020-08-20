@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class MlJobs
  * Elasticsearch API name cat.ml_jobs
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class MlJobs extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DisableUser
  * Elasticsearch API name security.disable_user
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DisableUser extends AbstractEndpoint
 {

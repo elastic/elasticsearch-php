@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class CreateDataStream
  * Elasticsearch API name indices.create_data_stream
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class CreateDataStream extends AbstractEndpoint
 {

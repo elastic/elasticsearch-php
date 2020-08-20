@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class CreateRepository
  * Elasticsearch API name snapshot.create_repository
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class CreateRepository extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ForgetFollower
  * Elasticsearch API name ccr.forget_follower
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ForgetFollower extends AbstractEndpoint
 {

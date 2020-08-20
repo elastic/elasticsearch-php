@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutJob
  * Elasticsearch API name ml.put_job
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutJob extends AbstractEndpoint
 {

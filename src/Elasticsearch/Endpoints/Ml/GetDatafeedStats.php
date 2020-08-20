@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetDatafeedStats
  * Elasticsearch API name ml.get_datafeed_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetDatafeedStats extends AbstractEndpoint
 {

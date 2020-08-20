@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetCategories
  * Elasticsearch API name ml.get_categories
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetCategories extends AbstractEndpoint
 {

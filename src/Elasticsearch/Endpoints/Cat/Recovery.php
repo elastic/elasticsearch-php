@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Recovery
  * Elasticsearch API name cat.recovery
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Recovery extends AbstractEndpoint
 {

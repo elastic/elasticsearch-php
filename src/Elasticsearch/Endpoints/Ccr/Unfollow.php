@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Unfollow
  * Elasticsearch API name ccr.unfollow
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Unfollow extends AbstractEndpoint
 {

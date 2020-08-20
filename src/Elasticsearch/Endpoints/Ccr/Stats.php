@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Stats
  * Elasticsearch API name ccr.stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Stats extends AbstractEndpoint
 {

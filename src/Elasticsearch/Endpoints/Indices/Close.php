@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Close
  * Elasticsearch API name indices.close
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Close extends AbstractEndpoint
 {

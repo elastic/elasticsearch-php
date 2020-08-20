@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ResumeFollow
  * Elasticsearch API name ccr.resume_follow
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ResumeFollow extends AbstractEndpoint
 {

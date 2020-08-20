@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Delete
  * Elasticsearch API name license.delete
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Delete extends AbstractEndpoint
 {

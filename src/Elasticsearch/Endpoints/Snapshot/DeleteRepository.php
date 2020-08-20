@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteRepository
  * Elasticsearch API name snapshot.delete_repository
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteRepository extends AbstractEndpoint
 {

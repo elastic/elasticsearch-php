@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetJobs
  * Elasticsearch API name ml.get_jobs
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetJobs extends AbstractEndpoint
 {

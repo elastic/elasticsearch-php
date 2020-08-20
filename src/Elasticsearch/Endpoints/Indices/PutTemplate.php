@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutTemplate
  * Elasticsearch API name indices.put_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutTemplate extends AbstractEndpoint
 {

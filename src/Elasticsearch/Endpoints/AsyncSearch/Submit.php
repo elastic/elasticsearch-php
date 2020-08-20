@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Submit
  * Elasticsearch API name async_search.submit
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Submit extends AbstractEndpoint
 {

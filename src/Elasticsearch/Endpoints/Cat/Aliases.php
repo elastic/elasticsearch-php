@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Aliases
  * Elasticsearch API name cat.aliases
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Aliases extends AbstractEndpoint
 {

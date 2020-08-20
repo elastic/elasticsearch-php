@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetSettings
  * Elasticsearch API name indices.get_settings
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetSettings extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ListTasks
  * Elasticsearch API name tasks.list
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ListTasks extends AbstractEndpoint
 {

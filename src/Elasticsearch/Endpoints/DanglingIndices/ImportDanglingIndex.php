@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ImportDanglingIndex
  * Elasticsearch API name dangling_indices.import_dangling_index
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ImportDanglingIndex extends AbstractEndpoint
 {

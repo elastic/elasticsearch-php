@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetUser
  * Elasticsearch API name security.get_user
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetUser extends AbstractEndpoint
 {

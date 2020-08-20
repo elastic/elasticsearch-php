@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Snapshots
  * Elasticsearch API name cat.snapshots
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Snapshots extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutAutoFollowPattern
  * Elasticsearch API name ccr.put_auto_follow_pattern
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutAutoFollowPattern extends AbstractEndpoint
 {

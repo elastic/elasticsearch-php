@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class State
  * Elasticsearch API name cluster.state
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class State extends AbstractEndpoint
 {

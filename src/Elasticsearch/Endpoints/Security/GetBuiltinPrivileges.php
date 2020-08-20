@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetBuiltinPrivileges
  * Elasticsearch API name security.get_builtin_privileges
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetBuiltinPrivileges extends AbstractEndpoint
 {

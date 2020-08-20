@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PendingTasks
  * Elasticsearch API name cluster.pending_tasks
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PendingTasks extends AbstractEndpoint
 {

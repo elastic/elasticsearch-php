@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteJob
  * Elasticsearch API name rollup.delete_job
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteJob extends AbstractEndpoint
 {

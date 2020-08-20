@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PostStartBasic
  * Elasticsearch API name license.post_start_basic
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PostStartBasic extends AbstractEndpoint
 {

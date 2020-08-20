@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class StartDataFrameAnalytics
  * Elasticsearch API name ml.start_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class StartDataFrameAnalytics extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Reindex
  * Elasticsearch API name reindex
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Reindex extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetPipeline
  * Elasticsearch API name ingest.get_pipeline
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetPipeline extends AbstractEndpoint
 {

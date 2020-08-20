@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetModelSnapshots
  * Elasticsearch API name ml.get_model_snapshots
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetModelSnapshots extends AbstractEndpoint
 {

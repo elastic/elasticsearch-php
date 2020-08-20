@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Delete
  * Elasticsearch API name indices.delete
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Delete extends AbstractEndpoint
 {

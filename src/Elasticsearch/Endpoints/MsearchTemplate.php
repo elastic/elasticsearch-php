@@ -25,7 +25,6 @@ use Traversable;
  * Class MsearchTemplate
  * Elasticsearch API name msearch_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class MsearchTemplate extends AbstractEndpoint
 {
@@ -87,5 +86,4 @@ class MsearchTemplate extends AbstractEndpoint
         }
         return $this;
     }
-
 }

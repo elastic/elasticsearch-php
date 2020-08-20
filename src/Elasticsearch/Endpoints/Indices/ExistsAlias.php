@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExistsAlias
  * Elasticsearch API name indices.exists_alias
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExistsAlias extends AbstractEndpoint
 {

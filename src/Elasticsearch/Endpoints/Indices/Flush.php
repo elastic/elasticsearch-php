@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Flush
  * Elasticsearch API name indices.flush
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Flush extends AbstractEndpoint
 {

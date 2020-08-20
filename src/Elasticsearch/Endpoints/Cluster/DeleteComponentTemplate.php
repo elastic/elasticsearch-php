@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteComponentTemplate
  * Elasticsearch API name cluster.delete_component_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteComponentTemplate extends AbstractEndpoint
 {

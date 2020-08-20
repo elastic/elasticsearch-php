@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExecuteWatch
  * Elasticsearch API name watcher.execute_watch
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExecuteWatch extends AbstractEndpoint
 {

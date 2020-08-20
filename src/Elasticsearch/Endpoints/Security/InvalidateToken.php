@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class InvalidateToken
  * Elasticsearch API name security.invalidate_token
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class InvalidateToken extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class MoveToStep
  * Elasticsearch API name ilm.move_to_step
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class MoveToStep extends AbstractEndpoint
 {

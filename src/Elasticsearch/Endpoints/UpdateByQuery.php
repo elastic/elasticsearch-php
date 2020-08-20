@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class UpdateByQuery
  * Elasticsearch API name update_by_query
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class UpdateByQuery extends AbstractEndpoint
 {

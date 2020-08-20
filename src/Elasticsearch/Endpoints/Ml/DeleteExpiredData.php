@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteExpiredData
  * Elasticsearch API name ml.delete_expired_data
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteExpiredData extends AbstractEndpoint
 {

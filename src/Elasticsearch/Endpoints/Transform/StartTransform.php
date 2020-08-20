@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class StartTransform
  * Elasticsearch API name transform.start_transform
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class StartTransform extends AbstractEndpoint
 {

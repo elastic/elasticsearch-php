@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutLifecycle
  * Elasticsearch API name ilm.put_lifecycle
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutLifecycle extends AbstractEndpoint
 {

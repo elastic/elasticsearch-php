@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ShardStores
  * Elasticsearch API name indices.shard_stores
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ShardStores extends AbstractEndpoint
 {

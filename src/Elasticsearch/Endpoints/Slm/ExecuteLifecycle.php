@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ExecuteLifecycle
  * Elasticsearch API name slm.execute_lifecycle
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ExecuteLifecycle extends AbstractEndpoint
 {

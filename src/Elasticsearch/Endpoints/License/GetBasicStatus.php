@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetBasicStatus
  * Elasticsearch API name license.get_basic_status
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetBasicStatus extends AbstractEndpoint
 {

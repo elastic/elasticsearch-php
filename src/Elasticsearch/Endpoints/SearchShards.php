@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class SearchShards
  * Elasticsearch API name search_shards
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class SearchShards extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetAutoscalingPolicy
  * Elasticsearch API name autoscaling.get_autoscaling_policy
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetAutoscalingPolicy extends AbstractEndpoint
 {

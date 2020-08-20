@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Translate
  * Elasticsearch API name sql.translate
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Translate extends AbstractEndpoint
 {

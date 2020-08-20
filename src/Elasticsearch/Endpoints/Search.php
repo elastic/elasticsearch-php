@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Search
  * Elasticsearch API name search
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Search extends AbstractEndpoint
 {

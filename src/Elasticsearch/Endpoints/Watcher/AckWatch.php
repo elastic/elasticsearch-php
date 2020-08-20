@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class AckWatch
  * Elasticsearch API name watcher.ack_watch
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class AckWatch extends AbstractEndpoint
 {

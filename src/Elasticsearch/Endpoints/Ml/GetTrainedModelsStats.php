@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetTrainedModelsStats
  * Elasticsearch API name ml.get_trained_models_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetTrainedModelsStats extends AbstractEndpoint
 {

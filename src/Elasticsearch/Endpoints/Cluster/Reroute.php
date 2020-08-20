@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Reroute
  * Elasticsearch API name cluster.reroute
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Reroute extends AbstractEndpoint
 {

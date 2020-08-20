@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class RemoteInfo
  * Elasticsearch API name cluster.remote_info
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class RemoteInfo extends AbstractEndpoint
 {

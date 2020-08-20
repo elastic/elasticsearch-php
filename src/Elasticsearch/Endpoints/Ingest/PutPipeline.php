@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class PutPipeline
  * Elasticsearch API name ingest.put_pipeline
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class PutPipeline extends AbstractEndpoint
 {

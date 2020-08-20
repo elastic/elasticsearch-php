@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class UpdateDataFrameAnalytics
  * Elasticsearch API name ml.update_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class UpdateDataFrameAnalytics extends AbstractEndpoint
 {

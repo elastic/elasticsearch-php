@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetScript
  * Elasticsearch API name get_script
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetScript extends AbstractEndpoint
 {

@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Open
  * Elasticsearch API name indices.open
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Open extends AbstractEndpoint
 {

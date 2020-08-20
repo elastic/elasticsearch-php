@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ClearCache
  * Elasticsearch API name searchable_snapshots.clear_cache
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ClearCache extends AbstractEndpoint
 {

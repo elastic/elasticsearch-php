@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class RepositoryStats
  * Elasticsearch API name searchable_snapshots.repository_stats
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class RepositoryStats extends AbstractEndpoint
 {

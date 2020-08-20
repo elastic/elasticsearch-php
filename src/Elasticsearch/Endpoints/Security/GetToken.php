@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetToken
  * Elasticsearch API name security.get_token
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetToken extends AbstractEndpoint
 {

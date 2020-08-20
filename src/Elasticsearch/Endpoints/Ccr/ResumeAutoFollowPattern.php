@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ResumeAutoFollowPattern
  * Elasticsearch API name ccr.resume_auto_follow_pattern
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ResumeAutoFollowPattern extends AbstractEndpoint
 {

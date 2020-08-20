@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Create
  * Elasticsearch API name create
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Create extends AbstractEndpoint
 {

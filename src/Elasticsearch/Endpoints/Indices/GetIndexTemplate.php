@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetIndexTemplate
  * Elasticsearch API name indices.get_index_template
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetIndexTemplate extends AbstractEndpoint
 {

@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class GetRole
  * Elasticsearch API name security.get_role
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class GetRole extends AbstractEndpoint
 {

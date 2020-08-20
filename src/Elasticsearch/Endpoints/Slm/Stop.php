@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Stop
  * Elasticsearch API name slm.stop
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class Stop extends AbstractEndpoint
 {

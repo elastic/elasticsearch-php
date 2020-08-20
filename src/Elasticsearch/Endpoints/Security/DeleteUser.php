@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class DeleteUser
  * Elasticsearch API name security.delete_user
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class DeleteUser extends AbstractEndpoint
 {

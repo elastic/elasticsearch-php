@@ -22,7 +22,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class HotThreads
  * Elasticsearch API name nodes.hot_threads
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class HotThreads extends AbstractEndpoint
 {

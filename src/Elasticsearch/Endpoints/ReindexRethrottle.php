@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class ReindexRethrottle
  * Elasticsearch API name reindex_rethrottle
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class ReindexRethrottle extends AbstractEndpoint
 {

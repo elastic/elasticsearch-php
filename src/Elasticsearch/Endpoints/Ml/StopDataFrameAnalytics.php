@@ -23,7 +23,6 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  * Class StopDataFrameAnalytics
  * Elasticsearch API name ml.stop_data_frame_analytics
  * Generated running $ php util/GenerateEndpoints.php 7.9
- *
  */
 class StopDataFrameAnalytics extends AbstractEndpoint
 {

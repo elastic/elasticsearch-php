@@ -33,12 +33,12 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
      */
     private $searchResponse;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->searchResponse = Mockery::mock(SearchResponseIterator::class);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         Mockery::close();
     }
@@ -127,8 +127,8 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
         $responses = new SearchHitIterator($this->searchResponse);
         $i = 0;
         foreach ($responses as $key => $value) {
-            $this->assertEquals($i, $key);
-            $this->assertEquals("bar$i", $value['foo']);
+            $this->assertSame($i, $key);
+            $this->assertSame("bar$i", $value['foo']);
             $i++;
         }
     }

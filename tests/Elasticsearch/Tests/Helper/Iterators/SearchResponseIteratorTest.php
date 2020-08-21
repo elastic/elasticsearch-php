@@ -29,7 +29,7 @@ use Mockery as m;
 class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
@@ -178,6 +178,6 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             $count += count($response['hits']['hits']);
             $this->assertEquals($response['_scroll_id'], sprintf("scroll_id_%02d", ++$i));
         }
-        $this->assertEquals(3, $count);
+        $this->assertSame(3, $count);
     }
 }

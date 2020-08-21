@@ -32,7 +32,7 @@ use Mockery as m;
  */
 class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

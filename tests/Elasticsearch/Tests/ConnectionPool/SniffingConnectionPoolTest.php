@@ -38,7 +38,7 @@ class SniffingConnectionPoolTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

@@ -18,6 +18,9 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+
 class Utility
 {
     public static function getHost(): ?string
@@ -33,5 +36,15 @@ class Utility
                 return 'https://elastic:changeme@localhost:9200';
         }
         return null;
+    }
+
+    public static function getClient(): Client
+    {
+        $clientBuilder = ClientBuilder::create()
+            ->setHosts([self::getHost()]);
+        if (getenv('TEST_SUITE') === 'xpack') {
+            $clientBuilder->setSSLVerification(false);
+        }
+        return $clientBuilder->build();
     }
 }

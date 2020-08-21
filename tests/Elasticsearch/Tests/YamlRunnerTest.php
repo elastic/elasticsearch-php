@@ -62,7 +62,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      * @var string[] A list of supported features
      */
     private static $supportedFeatures = [
-        'stash_in_path', 'warnings', 'headers'
+        'stash_in_path', 'warnings', 'headers', 'contains'
     ];
 
     /**
@@ -154,12 +154,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $this->client = Elasticsearch\ClientBuilder::create()
-            ->setHosts([self::getHost()]);
-        if (getenv('TEST_SUITE') === 'xpack') {
-            $this->client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
-        }
-        $this->client = $this->client->build();
+        $this->client = Utility::getClient();
     }
 
     public function tearDown()
@@ -304,6 +299,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
         if ('skip' === $operationName) {
             return $this->operationSkip($operation->{$operationName}, $lastOperationResult, $testName);
+        }
+
+        if ('contains' === $operationName) {
+            return $this->operationContains($operation->{$operationName}, $lastOperationResult, $context, $testName);
         }
 
         self::markTestIncomplete(sprintf('Operation %s not supported for test "%s"', $operationName, $testName));
@@ -790,6 +789,24 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * Check if a field in the last operation contains a value
+     *
+     * @param object            $operation
+     * @param array|string|null $lastOperationResult
+     * @param array             $context
+     * @param string            $testName
+     */
+    public function operationContains($operation, $lastOperationResult, &$context, string $testName)
+    {
+        $value = $this->resolveValue($lastOperationResult, key($operation), $context);
+        $expected = current($operation);
+
+        $this->assertContains($expected, $value, 'Failed to contains in test ' . $testName);
+
+        return $lastOperationResult;
+    }
+
+    /**
      * Assert an expected error
      *
      * @param \Exception $exception
@@ -1065,10 +1082,10 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
                 $skip = true;
             }
 
-            if (!$skip && key($documentParsed) === 'setup') {
+            if (!$skip && is_array($documentParsed) && key($documentParsed) === 'setup') {
                 $setup = $documentParsed;
                 $setupSkip = $skip;
-            } elseif (!$teardown && key($documentParsed) === 'teardown') {
+            } elseif (!$teardown && is_array($documentParsed) && key($documentParsed) === 'teardown') {
                 $teardown = $documentParsed;
             } else {
                 $documentsParsed[] = [$documentParsed, $skip || $setupSkip, $setup, $teardown, $fileName];
@@ -1083,27 +1100,44 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
      */
     private function clean()
     {
-        $host = static::getHost();
-        $ch = curl_init($host."/*");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        // Delete all indices
+        $this->client->indices()->delete([
+            'index' => '*'
+        ]);
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+        // Delete all template
+        $this->client->indices()->deleteTemplate([
+            'name' => '*'
+        ]);
 
-        $ch = curl_init($host."/_template/*");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        if (getenv('TEST_SUITE') === 'xpack') {
+            # Get all roles
+            $roles = $this->client->security()->getRole();
+            # Delete custom roles (metadata._reserved = 0)
+            foreach ($roles as $role => $values) {
+                if ($values['metadata']['_reserved'] === 0) {
+                    $this->client->security()->deleteRole([
+                        'name' => $role
+                    ]);
+                }
+            }
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+            # Get all users
+            $users = $this->client->security()->getUser();
+            # Delete custom users (metadata._reserved = 0)
+            foreach ($users as $user => $values) {
+                if ($values['metadata']['_reserved'] === 0) {
+                    $this->client->security()->deleteUser([
+                        'username' => $user
+                    ]);
+                }
+            }
 
+            # Get all privileges
+            $privileges = $this->client->security()->getPrivileges();
+
+        }
+        
         $this->rmDirRecursively('/tmp/test_repo_create_1_loc');
         $this->rmDirRecursively('/tmp/test_repo_restore_1_loc');
         $this->rmDirRecursively('/tmp/test_cat_repo_1_loc');

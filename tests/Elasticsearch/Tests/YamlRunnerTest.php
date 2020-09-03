@@ -840,8 +840,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
         if (is_array($expected)) {
             $this->assertContains($expected, $value, 'Failed to contains in test ' . $testName);
-        } else {
-            
         }
         
         return $lastOperationResult;
@@ -1174,7 +1172,6 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
 
             # Get all privileges
             $privileges = $this->client->security()->getPrivileges();
-
         }
         
         $this->rmDirRecursively('/tmp/test_repo_create_1_loc');

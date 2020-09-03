@@ -26,9 +26,9 @@ if [ "$TEST_SUITE" = "oss" ]; then
     docker run --network esnet-oss --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://elasticsearch-oss:9200
 else
     repo=$(pwd)
-    testnodecrt="/travis/certs/testnode.crt"
-    testnodekey="/travis/certs/testnode.key"
-    cacrt="/travis/certs/ca.crt"
+    testnodecrt="/util/certs/testnode.crt"
+    testnodekey="/util/certs/testnode.key"
+    cacrt="/util/certs/ca.crt"
 
     docker pull docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     docker network create esnet;

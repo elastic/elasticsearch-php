@@ -24,8 +24,8 @@ generator/*
 util/elasticsearch/
 util/cache/
 
-# Sami docs generator
-/sami.phar
+# Doctum docs generator
+/doctum.phar
 
 # PHPUnit
 /phpunit.xml

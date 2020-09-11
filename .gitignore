@@ -32,6 +32,8 @@ util/cache/
 
 # Code coverage
 build
+# Do not ignore Doctum docs built files
+!/docs/build
 
 # Junit test output
 tests/*-junit.xml

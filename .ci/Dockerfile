@@ -1,9 +1,6 @@
 ARG PHP_VERSION=7.4-cli
 FROM php:${PHP_VERSION}
 
-ARG STACK_VERSION
-ARG TEST_SUITE
-
 WORKDIR /usr/src/app
 
 # Install git
@@ -39,8 +36,5 @@ COPY . .
 
 # Updating elasticsearch submodule
 RUN git submodule update --init --recursive
-
-# Generating the YAML tests
-RUN php util/build_tests.php ${STACK_VERSION} ${TEST_SUITE}
 
 CMD ["bash", ".ci/yaml-tests.sh"]

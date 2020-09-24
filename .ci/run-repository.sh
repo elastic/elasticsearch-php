@@ -26,8 +26,6 @@ docker build \
   --file .ci/Dockerfile \
   --tag elastic/elasticsearch-php \
   --build-arg PHP_VERSION=${PHP_VERSION} \
-  --build-arg STACK_VERSION=${STACK_VERSION} \
-  --build-arg TEST_SUITE=${TEST_SUITE} \
   .
 
 echo -e "\033[1m>>>>> Run test:integration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"

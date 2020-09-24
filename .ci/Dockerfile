@@ -1,6 +1,9 @@
 ARG PHP_VERSION=7.4-cli
 FROM php:${PHP_VERSION}
 
+ARG STACK_VERSION
+ARG TEST_SUITE
+
 WORKDIR /usr/src/app
 
 # Install git
@@ -11,7 +14,12 @@ RUN apt-get update && \
 RUN apt-get install -y \
         libzip-dev \
         zip \
-    && docker-php-ext-install zip
+        libyaml-dev \
+    && docker-php-ext-install zip 
+
+# Install yaml extension for PHP
+RUN pecl channel-update pecl.php.net
+RUN pecl install yaml && docker-php-ext-enable yaml
 
 # Print PHP version
 RUN php -v
@@ -31,5 +39,8 @@ COPY . .
 
 # Updating elasticsearch submodule
 RUN git submodule update --init --recursive
+
+# Generating the YAML tests
+RUN php util/build_tests.php ${STACK_VERSION} ${TEST_SUITE}
 
 CMD ["bash", ".ci/yaml-tests.sh"]

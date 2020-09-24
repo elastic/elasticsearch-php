@@ -10,6 +10,7 @@ function php_cs() {
         ->exclude('travis')
         ->exclude('util/cache')
         ->exclude('util/elasticsearch')
+        ->exclude('tests/Elasticsearch/Tests/Yaml')
         ->exclude('vendor')
         ->in(__DIR__);
 

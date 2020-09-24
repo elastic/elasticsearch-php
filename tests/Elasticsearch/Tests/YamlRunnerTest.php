@@ -838,9 +838,9 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $value = $this->resolveValue($lastOperationResult, key($operation), $context);
         $expected = current($operation);
 
-        if (is_array($expected)) {
+        //if (is_array($expected)) {
             $this->assertContains($expected, $value, 'Failed to contains in test ' . $testName);
-        }
+        //}
         
         return $lastOperationResult;
     }

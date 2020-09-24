@@ -1,0 +1,5 @@
+        if (is_array($response:value)) {
+            $this->assertCount(:expected, $response:value);
+        } elseif (is_string($response:value)) {
+            $this->assertEquals(:expected, $response:value);
+        }

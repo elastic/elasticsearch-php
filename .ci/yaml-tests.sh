@@ -4,4 +4,4 @@
 php util/RestSpecRunner.php
 
 # Run YAML tests
-vendor/bin/phpunit -c phpunit-yaml-tests.xml
+vendor/bin/phpunit -c "phpunit-yaml-${TEST_SUITE}-tests.xml"

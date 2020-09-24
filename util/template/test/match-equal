@@ -1,0 +1,4 @@
+        $this->assertEquals(
+            :expected, 
+            $response:value
+        );

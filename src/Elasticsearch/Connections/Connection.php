@@ -200,8 +200,9 @@ class Connection implements ConnectionInterface
             $body = $this->serializer->serialize($body);
         }
 
+        $headers = $this->headers;
         if (isset($options['client']['headers']) && is_array($options['client']['headers'])) {
-            $this->headers = array_merge($this->headers, $options['client']['headers']);
+            $headers = array_merge($this->headers, $options['client']['headers']);
         }
 
         $host = $this->host;
@@ -218,7 +219,7 @@ class Connection implements ConnectionInterface
                 [
                 'Host'  => [$host]
                 ],
-                $this->headers
+                $headers
             )
         ];
 

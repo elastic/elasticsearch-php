@@ -14,7 +14,7 @@
     </php>
     <testsuites>
         <testsuite name="Yaml tests">
-            <directory>tests/Elasticsearch/Tests/Yaml</directory>
+            <directory>tests/Elasticsearch/Tests/Yaml/Oss</directory>
         </testsuite>
     </testsuites>
     <groups>

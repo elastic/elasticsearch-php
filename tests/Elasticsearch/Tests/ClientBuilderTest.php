@@ -183,14 +183,14 @@ class ClientBuilderTest extends TestCase
     /**
      * @dataProvider getCloudIdExamples
      */
-    public function testSetCloudIdWithExplicitPortOnlyES_UUID(string $cloudId, string $url)
+    public function testSetCloudIdWithExplicitPortOnlyEsUuid(string $cloudId, string $url)
     {
         $client = ClientBuilder::create()
             ->setElasticCloudId($cloudId)
             ->build();
 
         $connection = $client->transport->getConnection();
-        
+
         $this->assertEquals($url, $connection->getHost());
     }
 }

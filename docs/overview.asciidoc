@@ -5,7 +5,7 @@ This is the official PHP client for {es}. It is designed to be a low-level
 client that does not stray from the REST API.
 
 All methods closely match the REST API, and furthermore, match the method 
-structure of other language clients (Ruby, Python, etc). We hope that this 
+structure of other language clients (Ruby, Python, and so on). We hope that this 
 consistency makes it easy to get started with a client and to seamlessly switch 
 from one language to the next with minimal effort.
 

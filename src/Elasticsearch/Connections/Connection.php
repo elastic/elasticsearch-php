@@ -37,6 +37,7 @@ use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
+use Exception;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
@@ -678,7 +679,7 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
-    private function convertBodyToString($body, int $statusCode, ElasticsearchException $exception) : string
+    private function convertBodyToString($body, int $statusCode, Exception $exception) : string
     {
         if (empty($body)) {
             return sprintf(

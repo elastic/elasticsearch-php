@@ -5,9 +5,9 @@ include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
 include::overview.asciidoc[]
 
-include::quickstart.asciidoc[]
-
 include::installation.asciidoc[]
+
+include::quickstart.asciidoc[]
 
 include::configuration.asciidoc[]
 

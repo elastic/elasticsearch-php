@@ -19,40 +19,42 @@ use GitWrapper\GitWrapper;
 use Elasticsearch\Util\ClientEndpoint;
 use Elasticsearch\Util\Endpoint;
 use Elasticsearch\Util\NamespaceEndpoint;
+use Elasticsearch\Tests\Utility;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$start = microtime(true);
-if (!isset($argv[1])) {
-    print_usage_msg();
-    exit(1);
-}
-if ($argv[1] < '7.3.0') {
-    printf("Error: the version must be >= 7.4.0\n");
-    exit(1);
-}
 
-$ver = $argv[1];
-$version = 'v' . $ver;
+
+removeDirectory(__DIR__ . '/../src/Elasticsearch/Endpoints', [
+    __DIR__ . '/../src/Elasticsearch/Endpoints/AbstractEndpoint.php',
+]);
+removeDirectory(__DIR__ . '/../src/Elasticsearch/Namespaces', [
+    __DIR__ . '/../src/Elasticsearch/Namespaces/AbstractNamespace.php',
+    __DIR__ . '/../src/Elasticsearch/Namespaces/BooleanRequestWrapper.php',
+    __DIR__ . '/../src/Elasticsearch/Namespaces/NamespaceBuilderInterface.php'
+]);
+
+die();
+printf ("Generating endpoints for Elasticsearch\n");
+printf ("---\n");
+
+$start = microtime(true);
+
+$client = Utility::getClient();
+
+$serverInfo = $client->info();
+$version = $serverInfo['version']['number'];
+$buildHash = $serverInfo['version']['build_hash']; 
+
+if (version_compare($version, '7.4.0', '<')) {
+    printf("Error: the ES version must be >= 7.4.0\n");
+    exit(1);
+}
 
 $gitWrapper = new GitWrapper();
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
-$git->run('fetch', ['--all']);
-$tags = explode("\n", $git->run('tag'));
-if (!in_array($version, $tags)) {
-    $branches = explode("\n", $git->run('branch', ['-r']));
-    array_walk($branches, function(&$value, &$key) {
-        $value = trim($value);
-    });
-    $version = "origin/$ver";
-    if (!in_array($version, $branches)) {
-        printf("Error: the version %s specified doesnot exist\n", $version);
-        exit(1);
-    }
-}
-
-$git->run('checkout', [$version]);
+$git->run('checkout', [$buildHash]);
 $result = $git->run(
     'ls-files',
     [
@@ -61,7 +63,7 @@ $result = $git->run(
     ]
 );
 $files = explode("\n", $result);
-$outputDir = __DIR__ . "/output/$ver";
+$outputDir = __DIR__ . "/output/$version";
 
 // Remove the output directory
 printf ("Removing %s folder\n", $outputDir);
@@ -82,7 +84,7 @@ foreach ($files as $file) {
     }
     printf("Generation %s...", basename($file));
 
-    $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $ver);
+    $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $version);
 
     $dir = $endpointDir . NamespaceEndpoint::normalizeName($endpoint->namespace);
     if (!file_exists($dir)) {
@@ -109,7 +111,7 @@ $clientFile = "$outputDir/Client.php";
 
 foreach ($namespaces as $name => $endpoints) {
     if (empty($name)) {
-        $clientEndpoint = new ClientEndpoint(array_keys($namespaces), $ver);
+        $clientEndpoint = new ClientEndpoint(array_keys($namespaces), $version);
         foreach ($endpoints as $ep) {
             $clientEndpoint->addEndpoint($ep);
         }
@@ -120,7 +122,7 @@ foreach ($namespaces as $name => $endpoints) {
         $countNamespace++;
         continue;
     }
-    $namespace = new NamespaceEndpoint($name, $ver);
+    $namespace = new NamespaceEndpoint($name, $version);
     foreach ($endpoints as $ep) {
         $namespace->addEndpoint($ep);
     }
@@ -131,9 +133,24 @@ foreach ($namespaces as $name => $endpoints) {
     $countNamespace++;
 }
 
+# Clean
 $end = microtime(true);
 printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n.", $countEndpoint, $countNamespace, $end - $start);
+printf ("---\n");
 
+printf("Backup Endpoints and Namespaces in /src");
+
+$file = Client::Version;
+
+$zip = new ZipArchive();
+$ret = $zip->open('application.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+if ($ret !== TRUE) {
+    printf('Failed with code %d', $ret);
+} else {
+    $options = array('add_path' => 'sources/', 'remove_all_path' => TRUE);
+    $zip->addGlob('*.{php,txt}', GLOB_BRACE, $options);
+    $zip->close();
+}
 // End
 
 function print_usage_msg(): void
@@ -143,17 +160,41 @@ function print_usage_msg(): void
 }
 
 // Remove directory recursively
-function removeDirectory($directory)
+function removeDirectory($directory, array $omit = [])
 {
     foreach(glob("{$directory}/*") as $file)
     {
         if(is_dir($file)) { 
-            removeDirectory($file);
+            if (!in_array($file, $omit)) {
+                //removeDirectory($file);
+                printf("Elimino directory %s\n", $file);
+            }
         } else {
-            unlink($file);
+            if (!in_array($file, $omit)) {
+                //unlink($file);
+                printf("Elimino file %s\n", $file);
+            }
         }
     }
-    if (is_dir($directory)) {
-        rmdir($directory);
+    if (is_dir($directory) && empty($omit)) {
+        //rmdir($directory);
+        printf("Elimino directory %s\n", $directory);
     }
 }
+
+# Copy files and directory recursively
+function copyAll(string $src, string $dst) { 
+    $dir = opendir($src); 
+    @mkdir($dst); 
+    while(false !== ( $file = readdir($dir)) ) { 
+        if (( $file != '.' ) && ( $file != '..' )) { 
+            if ( is_dir($src . '/' . $file) ) { 
+                copyAll($src . '/' . $file, $dst . '/' . $file); 
+            } 
+            else { 
+                copy($src . '/' . $file, $dst . '/' . $file); 
+            } 
+        } 
+    } 
+    closedir($dir); 
+} 

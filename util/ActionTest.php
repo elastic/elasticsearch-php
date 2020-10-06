@@ -47,6 +47,10 @@ class ActionTest
     const TEMPLATE_SET_VARIABLE       = __DIR__ . '/template/test/set-variable';
     const TEMPLATE_TRANSFORM_AND_SET  = __DIR__ . '/template/test/transform-and-set';
     const TEMPLATE_WARNINGS           = __DIR__ . '/template/test/warnings';
+    const TEMPLATE_GT                 = __DIR__ . '/template/test/gt';
+    const TEMPLATE_GTE                = __DIR__ . '/template/test/gte';
+    const TEMPLATE_LT                 = __DIR__ . '/template/test/lt';
+    const TEMPLATE_LTE                = __DIR__ . '/template/test/lte';
     const TAB14                 = '              ';
     const SUPPORTED_FEATURES    = ['xpack', 'no_xpack', 'headers', 'node_selector', 'warnings', 'catch_unauthorized', 'transform_and_set'];
 
@@ -322,6 +326,42 @@ class ActionTest
     private function teardown(array $actions)
     {
         return $this->do($actions);
+    }
+
+    private function gt(array $actions)
+    {
+        $key = key($actions);
+        return YamlTests::render(self::TEMPLATE_GT, [
+            ':expected' => $actions[$key],
+            ':value' => $this->convertResponseField($key)
+        ]);
+    }
+
+    private function gte(array $actions)
+    {
+        $key = key($actions);
+        return YamlTests::render(self::TEMPLATE_GTE, [
+            ':expected' => $actions[$key],
+            ':value' => $this->convertResponseField($key)
+        ]);
+    }
+
+    private function lt(array $actions)
+    {
+        $key = key($actions);
+        return YamlTests::render(self::TEMPLATE_LT, [
+            ':expected' => $actions[$key],
+            ':value' => $this->convertResponseField($key)
+        ]);
+    }
+
+    private function lte(array $actions)
+    {
+        $key = key($actions);
+        return YamlTests::render(self::TEMPLATE_LTE, [
+            ':expected' => $actions[$key],
+            ':value' => $this->convertResponseField($key)
+        ]);
     }
 
     /**

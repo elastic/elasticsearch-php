@@ -1,3 +1,12 @@
+## Release 7.9.1
+
+- Fixed using object instead of array in onFailure transport event
+  [#1066](https://github.com/elastic/elasticsearch-php/pull/1066)
+- Fixed reset custom header after endpoint call
+  [#1065](https://github.com/elastic/elasticsearch-php/pull/1065)
+- Show generic error messages when server returns no response
+  [#1056](https://github.com/elastic/elasticsearch-php/pull/1056)
+
 ## Release 7.9.0
 
 - Updated endpoints and namespaces for Elasticsearch 7.9

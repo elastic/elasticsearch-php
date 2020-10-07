@@ -419,9 +419,9 @@ class ActionTest
     private function convertDollarValueInVariable(string $value): string
     {
         foreach ($this->variables as $var) {
-            if (preg_match_all("/\\\$\{$var\}/", $value)) {
-                $value = str_replace('${'. $var .'}', "' . \$$var . '", $value);
-            } else {
+            $value = str_replace("\${{$var}}", "\$$var", $value);
+            $value = str_replace("'\$$var'", "\$$var", $value);
+            if (preg_match("/'[^']*\\\${$var}[^']*'/", $value)) {
                 $value = str_replace("\$$var", "' . \$$var . '", $value);
             }
         }

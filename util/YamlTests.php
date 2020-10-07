@@ -151,7 +151,9 @@ class YamlTests
                             $alreadyAssignedNames[] = $functionName;
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
-                            $skip = self::$testSuite === 'oss' ? self::SKIPPED_TEST_OSS : self::SKIPPED_TEST_XPACK;
+                            $skip = strtolower(self::$testSuite) === 'oss' 
+                                ? self::SKIPPED_TEST_OSS 
+                                : self::SKIPPED_TEST_XPACK;
                             if (isset($skip[$skippedTest])) {
                                 $functions .= self::render(
                                     self::TEMPLATE_FUNCTION_SKIPPED,

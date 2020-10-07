@@ -28,12 +28,11 @@ class RollupNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) The ID of the job to delete
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function deleteJob(array $params = [])
     {
@@ -49,12 +48,11 @@ class RollupNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all jobs
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function getJobs(array $params = [])
     {
@@ -70,12 +68,11 @@ class RollupNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) The ID of the index to check rollup capabilities on, or left blank for all jobs
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function getRollupCaps(array $params = [])
     {
@@ -91,12 +88,11 @@ class RollupNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) The rollup index or index pattern to obtain rollup capabilities from.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function getRollupIndexCaps(array $params = [])
     {
@@ -113,12 +109,11 @@ class RollupNamespace extends AbstractNamespace
      * $params['id']   = (string) The ID of the job to create
      * $params['body'] = (array) The job configuration (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function putJob(array $params = [])
     {
@@ -140,12 +135,11 @@ class RollupNamespace extends AbstractNamespace
      * $params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
      * $params['body']                   = (array) The search request body (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function rollupSearch(array $params = [])
     {
@@ -165,12 +159,11 @@ class RollupNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) The ID of the job to start
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function startJob(array $params = [])
     {
@@ -188,12 +181,11 @@ class RollupNamespace extends AbstractNamespace
      * $params['wait_for_completion'] = (boolean) True if the API should block until the job has fully stopped, false if should be executed async. Defaults to false.
      * $params['timeout']             = (time) Block for (at maximum) the specified duration while waiting for the job to stop.  Defaults to 30s.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function stopJob(array $params = [])
     {

@@ -40,9 +40,9 @@ class SqlNamespace extends AbstractNamespace
      * $params['format'] = (string) a short version of the Accept header, e.g. json, yaml
      * $params['body']   = (array) Use the `query` element to start a query. Use the `cursor` element to continue a query. (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest-overview.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-rest-overview.html
      */
     public function query(array $params = [])
     {
@@ -58,9 +58,9 @@ class SqlNamespace extends AbstractNamespace
     /**
      * $params['body'] = (array) Specify the query in the `query` element. (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate.html
      */
     public function translate(array $params = [])
     {

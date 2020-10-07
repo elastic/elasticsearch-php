@@ -28,12 +28,11 @@ class EqlNamespace extends AbstractNamespace
     /**
      * $params['id'] = (string) The async search ID
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
      *
      * @note This API is BETA and may change in ways that are not backwards compatible
-     *
      */
     public function delete(array $params = [])
     {
@@ -51,12 +50,11 @@ class EqlNamespace extends AbstractNamespace
      * $params['wait_for_completion_timeout'] = (time) Specify the time that the request should block waiting for the final response
      * $params['keep_alive']                  = (time) Update the time interval in which the results (partial or final) for this search will be available (Default = 5d)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
      *
      * @note This API is BETA and may change in ways that are not backwards compatible
-     *
      */
     public function get(array $params = [])
     {
@@ -76,12 +74,11 @@ class EqlNamespace extends AbstractNamespace
      * $params['keep_alive']                  = (time) Update the time interval in which the results (partial or final) for this search will be available (Default = 5d)
      * $params['body']                        = (array) Eql request body. Use the `query` to limit the query scope. (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
      *
      * @note This API is BETA and may change in ways that are not backwards compatible
-     *
      */
     public function search(array $params = [])
     {

@@ -1,0 +1,6 @@
+        $headers = $this->client->transport->getLastConnection()->getLastRequestInfo()['response']['headers'];
+        $this->assertTrue(isset($headers['Warning']));
+        $expectedHeaders = :expected;
+        foreach ($expectedHeaders as $expected) {
+            $this->assertStringContainsString($expected, $headers['Warning'][0]);
+        }

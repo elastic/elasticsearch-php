@@ -30,9 +30,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
      */
     public function cleanupRepository(array $params = [])
     {
@@ -52,9 +52,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
      * $params['body']                = (array) The snapshot definition
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function create(array $params = [])
     {
@@ -78,9 +78,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['verify']         = (boolean) Whether to verify the repository after creation
      * $params['body']           = (array) The repository definition (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function createRepository(array $params = [])
     {
@@ -100,9 +100,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['snapshot']       = (string) A snapshot name
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function delete(array $params = [])
     {
@@ -122,9 +122,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function deleteRepository(array $params = [])
     {
@@ -144,9 +144,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
      * $params['verbose']            = (boolean) Whether to show verbose snapshot info or only show the basic info found in the repository index blob
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function get(array $params = [])
     {
@@ -166,9 +166,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function getRepository(array $params = [])
     {
@@ -188,9 +188,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
      * $params['body']                = (array) Details of what to restore
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function restore(array $params = [])
     {
@@ -213,9 +213,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['master_timeout']     = (time) Explicit operation timeout for connection to master node
      * $params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function status(array $params = [])
     {
@@ -235,9 +235,9 @@ class SnapshotNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['timeout']        = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
      */
     public function verifyRepository(array $params = [])
     {

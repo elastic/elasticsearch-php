@@ -28,9 +28,9 @@ class SlmNamespace extends AbstractNamespace
     /**
      * $params['policy_id'] = (string) The id of the snapshot lifecycle policy to remove
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html
      */
     public function deleteLifecycle(array $params = [])
     {
@@ -46,9 +46,9 @@ class SlmNamespace extends AbstractNamespace
     /**
      * $params['policy_id'] = (string) The id of the snapshot lifecycle policy to be executed
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html
      */
     public function executeLifecycle(array $params = [])
     {
@@ -63,9 +63,9 @@ class SlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html
      */
     public function executeRetention(array $params = [])
     {
@@ -79,9 +79,9 @@ class SlmNamespace extends AbstractNamespace
     /**
      * $params['policy_id'] = (list) Comma-separated list of snapshot lifecycle policies to retrieve
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-policy.html
      */
     public function getLifecycle(array $params = [])
     {
@@ -96,9 +96,9 @@ class SlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/slm-api-get-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/slm-api-get-stats.html
      */
     public function getStats(array $params = [])
     {
@@ -111,9 +111,9 @@ class SlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html
      */
     public function getStatus(array $params = [])
     {
@@ -128,9 +128,9 @@ class SlmNamespace extends AbstractNamespace
      * $params['policy_id'] = (string) The id of the snapshot lifecycle policy
      * $params['body']      = (array) The snapshot lifecycle policy definition to register
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html
      */
     public function putLifecycle(array $params = [])
     {
@@ -147,9 +147,9 @@ class SlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
      */
     public function start(array $params = [])
     {
@@ -162,9 +162,9 @@ class SlmNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html
      */
     public function stop(array $params = [])
     {

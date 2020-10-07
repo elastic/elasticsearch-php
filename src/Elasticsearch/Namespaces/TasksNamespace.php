@@ -32,9 +32,9 @@ class TasksNamespace extends AbstractNamespace
      * $params['parent_task_id']      = (string) Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
      * $params['wait_for_completion'] = (boolean) Should the request block until the cancellation of the task and its descendant tasks is completed. Defaults to false
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
     public function cancel(array $params = [])
     {
@@ -52,9 +52,9 @@ class TasksNamespace extends AbstractNamespace
      * $params['wait_for_completion'] = (boolean) Wait for the matching tasks to complete (default: false)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
     public function get(array $params = [])
     {
@@ -76,9 +76,9 @@ class TasksNamespace extends AbstractNamespace
      * $params['group_by']            = (enum) Group tasks by nodes or parent/child relationships (Options = nodes,parents,none) (Default = nodes)
      * $params['timeout']             = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
     public function list(array $params = [])
     {

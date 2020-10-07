@@ -28,9 +28,9 @@ class MigrationNamespace extends AbstractNamespace
     /**
      * $params['index'] = (string) Index pattern
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
      */
     public function deprecations(array $params = [])
     {

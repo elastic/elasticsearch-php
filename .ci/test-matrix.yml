@@ -10,5 +10,6 @@ PHP_VERSION:
 
 TEST_SUITE:
   - oss
+  - xpack
 
 exclude: ~

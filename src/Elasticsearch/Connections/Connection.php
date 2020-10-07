@@ -37,6 +37,7 @@ use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
+use Exception;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
@@ -200,8 +201,9 @@ class Connection implements ConnectionInterface
             $body = $this->serializer->serialize($body);
         }
 
+        $headers = $this->headers;
         if (isset($options['client']['headers']) && is_array($options['client']['headers'])) {
-            $this->headers = array_merge($this->headers, $options['client']['headers']);
+            $headers = array_merge($this->headers, $options['client']['headers']);
         }
 
         $host = $this->host;
@@ -218,7 +220,7 @@ class Connection implements ConnectionInterface
                 [
                 'Host'  => [$host]
                 ],
-                $this->headers
+                $headers
             )
         ];
 
@@ -611,7 +613,6 @@ class Connection implements ConnectionInterface
     private function process4xxError(array $request, array $response, array $ignore): ?ElasticsearchException
     {
         $statusCode = $response['status'];
-        $responseBody = $response['body'];
 
         /**
  * @var \Exception $exception
@@ -621,12 +622,8 @@ class Connection implements ConnectionInterface
         if (array_search($response['status'], $ignore) !== false) {
             return null;
         }
-
-        // if responseBody is not string, we convert it so it can be used as Exception message
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
-        }
-
+        
+        $responseBody = $this->convertBodyToString($response['body'], $statusCode, $exception);
         if ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
@@ -671,12 +668,31 @@ class Connection implements ConnectionInterface
         } elseif ($statusCode === 500 && strpos($responseBody, 'NoShardAvailableActionException') !== false) {
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         } else {
-            $exception = new ServerErrorResponseException($responseBody, $statusCode);
+            $exception = new ServerErrorResponseException(
+                $this->convertBodyToString($responseBody, $statusCode, $exception),
+                $statusCode
+            );
         }
 
         $this->logRequestFail($request, $response, $exception);
 
         throw $exception;
+    }
+
+    private function convertBodyToString($body, int $statusCode, Exception $exception) : string
+    {
+        if (empty($body)) {
+            return sprintf(
+                "Unknown %d error from Elasticsearch %s",
+                $statusCode,
+                $exception->getMessage()
+            );
+        }
+        // if body is not string, we convert it so it can be used as Exception message
+        if (!is_string($body)) {
+            return json_encode($body);
+        }
+        return $body;
     }
 
     private function tryDeserialize400Error(array $response): ElasticsearchException

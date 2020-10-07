@@ -19,6 +19,9 @@ declare(strict_types = 1);
  * Class RegisteredNamespaceInterface
  */
 
+
+declare(strict_types = 1);
+
 namespace Elasticsearch\Namespaces;
 
 use Elasticsearch\Serializers\SerializerInterface;

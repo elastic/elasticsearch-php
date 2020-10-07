@@ -170,4 +170,27 @@ class ClientBuilderTest extends TestCase
             $this->assertEquals($host, $request['request']['headers']['Host'][0]);
         }
     }
+
+    public function getCloudIdExamples()
+    {
+        return [
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbTo5MjQzJGM2NjM3ZjMxMmM1MjQzY2RhN2RlZDZlOTllM2QyYzE5JA==', 'c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com:9243'],
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSRlN2RlOWYxMzQ1ZTQ0OTAyODNkOTAzYmU1YjZmOTE5ZSQ=', 'e7de9f1345e4490283d903be5b6f919e.westeurope.azure.elastic-cloud.com'],
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSQ4YWY3ZWUzNTQyMGY0NThlOTAzMDI2YjQwNjQwODFmMiQyMDA2MTU1NmM1NDA0OTg2YmZmOTU3ZDg0YTZlYjUxZg==', '8af7ee35420f458e903026b4064081f2.westeurope.azure.elastic-cloud.com']
+        ];
+    }
+
+    /**
+     * @dataProvider getCloudIdExamples
+     */
+    public function testSetCloudIdWithExplicitPortOnlyEsUuid(string $cloudId, string $url)
+    {
+        $client = ClientBuilder::create()
+            ->setElasticCloudId($cloudId)
+            ->build();
+
+        $connection = $client->transport->getConnection();
+
+        $this->assertEquals($url, $connection->getHost());
+    }
 }

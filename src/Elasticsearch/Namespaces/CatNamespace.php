@@ -35,9 +35,9 @@ class CatNamespace extends AbstractNamespace
      * $params['v']                = (boolean) Verbose mode. Display column headers (Default = false)
      * $params['expand_wildcards'] = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html
      */
     public function aliases(array $params = [])
     {
@@ -61,9 +61,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-allocation.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-allocation.html
      */
     public function allocation(array $params = [])
     {
@@ -84,9 +84,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-count.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-count.html
      */
     public function count(array $params = [])
     {
@@ -108,9 +108,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html
      */
     public function fielddata(array $params = [])
     {
@@ -132,9 +132,9 @@ class CatNamespace extends AbstractNamespace
      * $params['ts']     = (boolean) Set to false to disable timestamping (Default = true)
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html
      */
     public function health(array $params = [])
     {
@@ -149,9 +149,9 @@ class CatNamespace extends AbstractNamespace
      * $params['help'] = (boolean) Return help information (Default = false)
      * $params['s']    = (list) Comma-separated list of column names or column aliases to sort by
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html
      */
     public function help(array $params = [])
     {
@@ -178,9 +178,9 @@ class CatNamespace extends AbstractNamespace
      * $params['include_unloaded_segments'] = (boolean) If set to true segment stats will include stats for segments that are not currently loaded into memory (Default = false)
      * $params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html
      */
     public function indices(array $params = [])
     {
@@ -202,9 +202,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html
      */
     public function master(array $params = [])
     {
@@ -224,9 +224,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodeattrs.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodeattrs.html
      */
     public function nodeattrs(array $params = [])
     {
@@ -249,9 +249,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodes.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodes.html
      */
     public function nodes(array $params = [])
     {
@@ -272,9 +272,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html
      */
     public function pendingTasks(array $params = [])
     {
@@ -294,9 +294,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html
      */
     public function plugins(array $params = [])
     {
@@ -319,9 +319,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html
      */
     public function recovery(array $params = [])
     {
@@ -343,9 +343,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html
      */
     public function repositories(array $params = [])
     {
@@ -365,9 +365,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']      = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']      = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html
      */
     public function segments(array $params = [])
     {
@@ -392,9 +392,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html
      */
     public function shards(array $params = [])
     {
@@ -418,9 +418,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html
      */
     public function snapshots(array $params = [])
     {
@@ -445,9 +445,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']        = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']           = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
      */
     public function tasks(array $params = [])
     {
@@ -468,9 +468,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']              = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html
      */
     public function templates(array $params = [])
     {
@@ -494,9 +494,9 @@ class CatNamespace extends AbstractNamespace
      * $params['s']                    = (list) Comma-separated list of column names or column aliases to sort by
      * $params['v']                    = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html
      */
     public function threadPool(array $params = [])
     {
@@ -520,9 +520,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html
+     * @see    http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html
      */
     public function mlDataFrameAnalytics(array $params = [])
     {
@@ -545,9 +545,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']               = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']                  = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html
+     * @see    http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html
      */
     public function mlDatafeeds(array $params = [])
     {
@@ -571,9 +571,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']          = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']             = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html
+     * @see    http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html
      */
     public function mlJobs(array $params = [])
     {
@@ -599,9 +599,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html
      */
     public function mlTrainedModels(array $params = [])
     {
@@ -626,9 +626,9 @@ class CatNamespace extends AbstractNamespace
      * $params['time']           = (enum) The unit in which to display time values (Options = d,h,m,s,ms,micros,nanos)
      * $params['v']              = (boolean) Verbose mode. Display column headers (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
      */
     public function transforms(array $params = [])
     {

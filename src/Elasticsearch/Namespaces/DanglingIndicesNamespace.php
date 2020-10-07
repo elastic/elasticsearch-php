@@ -31,9 +31,9 @@ class DanglingIndicesNamespace extends AbstractNamespace
      * $params['timeout']          = (time) Explicit operation timeout
      * $params['master_timeout']   = (time) Specify timeout for connection to master
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
      */
     public function deleteDanglingIndex(array $params = [])
     {
@@ -52,9 +52,9 @@ class DanglingIndicesNamespace extends AbstractNamespace
      * $params['timeout']          = (time) Explicit operation timeout
      * $params['master_timeout']   = (time) Specify timeout for connection to master
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
      */
     public function importDanglingIndex(array $params = [])
     {
@@ -69,9 +69,9 @@ class DanglingIndicesNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
      */
     public function listDanglingIndices(array $params = [])
     {

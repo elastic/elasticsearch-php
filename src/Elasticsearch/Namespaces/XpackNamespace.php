@@ -29,9 +29,9 @@ class XpackNamespace extends AbstractNamespace
      * $params['categories']        = (list) Comma-separated list of info categories. Can be any of: build, license, features
      * $params['accept_enterprise'] = (boolean) If an enterprise license is installed, return the type and mode as 'enterprise' (default: false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
      */
     public function info(array $params = [])
     {
@@ -45,9 +45,9 @@ class XpackNamespace extends AbstractNamespace
     /**
      * $params['master_timeout'] = (time) Specify timeout for watch write operation
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
      */
     public function usage(array $params = [])
     {

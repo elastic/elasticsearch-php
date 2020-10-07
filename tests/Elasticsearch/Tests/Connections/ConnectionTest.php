@@ -334,4 +334,33 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ServerErrorResponseException::class, $result);
         $this->assertContains('master_not_discovered_exception', $result->getMessage());
     }
+
+    public function testHeaderClientParamIsResetAfterSent()
+    {
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            [],
+            new SmartSerializer(),
+            $this->logger,
+            $this->trace
+        );
+        
+        $options = [
+            'client' => [
+                'headers' => [
+                    'Foo' => [ 'Bar' ]
+                ]
+            ]
+        ];
+        
+        $headersBefore = $connection->getHeaders();
+        $result = $connection->performRequest('GET', '/', null, null, $options);
+        $headersAfter = $connection->getHeaders();
+        $this->assertEquals($headersBefore, $headersAfter);
+    }
 }

@@ -29,9 +29,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['transform_id'] = (string) The id of the transform to delete
      * $params['force']        = (boolean) When `true`, the transform is deleted regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be deleted.
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html
      */
     public function deleteTransform(array $params = [])
     {
@@ -50,9 +50,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['size']           = (int) specifies a max number of transforms to get, defaults to 100
      * $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html
      */
     public function getTransform(array $params = [])
     {
@@ -71,9 +71,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['size']           = (number) specifies a max number of transform stats to get, defaults to 100
      * $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html
      */
     public function getTransformStats(array $params = [])
     {
@@ -102,9 +102,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['defer_validation'] = (boolean) If validations should be deferred until transform starts, defaults to false.
      * $params['body']             = (array) The transform definition (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html
      */
     public function putTransform(array $params = [])
     {
@@ -123,9 +123,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['transform_id'] = (string) The id of the transform to start
      * $params['timeout']      = (time) Controls the time to wait for the transform to start
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
      */
     public function startTransform(array $params = [])
     {
@@ -146,9 +146,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['allow_no_match']      = (boolean) Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
      * $params['wait_for_checkpoint'] = (boolean) Whether to wait for the transform to reach a checkpoint before stopping. Default to false
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html
      */
     public function stopTransform(array $params = [])
     {
@@ -166,9 +166,9 @@ class TransformNamespace extends AbstractNamespace
      * $params['defer_validation'] = (boolean) If validations should be deferred until transform starts, defaults to false.
      * $params['body']             = (array) The update transform definition (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
      */
     public function updateTransform(array $params = [])
     {

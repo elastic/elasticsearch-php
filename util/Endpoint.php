@@ -12,6 +12,7 @@
  * the GNU Lesser General Public License, Version 2.1, at your option.
  * See the LICENSE file in the project root for more information.
  */
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Util;

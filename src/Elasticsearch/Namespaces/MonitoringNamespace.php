@@ -32,12 +32,11 @@ class MonitoringNamespace extends AbstractNamespace
      * $params['interval']           = (string) Collection interval (e.g., '10s' or '10000ms') of the payload
      * $params['body']               = (array) The operation definition and data (action-data pairs), separated by newlines (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function bulk(array $params = [])
     {

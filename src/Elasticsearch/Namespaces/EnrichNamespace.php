@@ -28,9 +28,9 @@ class EnrichNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) The name of the enrich policy
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html
      */
     public function deletePolicy(array $params = [])
     {
@@ -47,9 +47,9 @@ class EnrichNamespace extends AbstractNamespace
      * $params['name']                = (string) The name of the enrich policy
      * $params['wait_for_completion'] = (boolean) Should the request should block until the execution is complete. (Default = true)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
      */
     public function executePolicy(array $params = [])
     {
@@ -65,9 +65,9 @@ class EnrichNamespace extends AbstractNamespace
     /**
      * $params['name'] = (list) A comma-separated list of enrich policy names
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
      */
     public function getPolicy(array $params = [])
     {
@@ -84,9 +84,9 @@ class EnrichNamespace extends AbstractNamespace
      * $params['name'] = (string) The name of the enrich policy
      * $params['body'] = (array) The enrich policy to register (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
      */
     public function putPolicy(array $params = [])
     {

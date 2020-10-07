@@ -30,9 +30,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['include_disk_info']     = (boolean) Return information about disk usage and shard sizes (default: false)
      * $params['body']                  = (array) The index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
      */
     public function allocationExplain(array $params = [])
     {
@@ -50,12 +50,11 @@ class ClusterNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function deleteComponentTemplate(array $params = [])
     {
@@ -71,9 +70,9 @@ class ClusterNamespace extends AbstractNamespace
     /**
      * $params['wait_for_removal'] = (boolean) Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list. (Default = true)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
      */
     public function deleteVotingConfigExclusions(array $params = [])
     {
@@ -89,12 +88,11 @@ class ClusterNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return bool
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function existsComponentTemplate(array $params = []): bool
     {
@@ -115,12 +113,11 @@ class ClusterNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Explicit operation timeout for connection to master node
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function getComponentTemplate(array $params = [])
     {
@@ -139,9 +136,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['timeout']          = (time) Explicit operation timeout
      * $params['include_defaults'] = (boolean) Whether to return all default clusters setting. (Default = false)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
     public function getSettings(array $params = [])
     {
@@ -166,9 +163,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['wait_for_no_initializing_shards'] = (boolean) Whether to wait until there are no initializing shards in the cluster
      * $params['wait_for_status']                 = (enum) Wait until cluster is in a specific state (Options = green,yellow,red)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
      */
     public function health(array $params = [])
     {
@@ -185,9 +182,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
      */
     public function pendingTasks(array $params = [])
     {
@@ -203,9 +200,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['node_names'] = (string) A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
      * $params['timeout']    = (time) Explicit operation timeout (Default = 30s)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
      */
     public function postVotingConfigExclusions(array $params = [])
     {
@@ -223,12 +220,11 @@ class ClusterNamespace extends AbstractNamespace
      * $params['master_timeout'] = (time) Specify timeout for connection to master
      * $params['body']           = (array) The template definition (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function putComponentTemplate(array $params = [])
     {
@@ -249,9 +245,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['body']           = (array) The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart). (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
      */
     public function putSettings(array $params = [])
     {
@@ -266,9 +262,9 @@ class ClusterNamespace extends AbstractNamespace
     }
     /**
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
      */
     public function remoteInfo(array $params = [])
     {
@@ -288,9 +284,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['timeout']        = (time) Explicit operation timeout
      * $params['body']           = (array) The definition of `commands` to perform (`move`, `cancel`, `allocate`)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
      */
     public function reroute(array $params = [])
     {
@@ -315,9 +311,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['allow_no_indices']          = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
      * $params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
      */
     public function state(array $params = [])
     {
@@ -337,9 +333,9 @@ class ClusterNamespace extends AbstractNamespace
      * $params['flat_settings'] = (boolean) Return settings in flat format (default: false)
      * $params['timeout']       = (time) Explicit operation timeout
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
      */
     public function stats(array $params = [])
     {

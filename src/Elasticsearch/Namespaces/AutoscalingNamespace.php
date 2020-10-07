@@ -28,12 +28,11 @@ class AutoscalingNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) the name of the autoscaling policy
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function deleteAutoscalingPolicy(array $params = [])
     {
@@ -58,12 +57,11 @@ class AutoscalingNamespace extends AbstractNamespace
     /**
      * $params['name'] = (string) the name of the autoscaling policy
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function getAutoscalingPolicy(array $params = [])
     {
@@ -80,12 +78,11 @@ class AutoscalingNamespace extends AbstractNamespace
      * $params['name'] = (string) the name of the autoscaling policy
      * $params['body'] = (array) the specification of the autoscaling policy (Required)
      *
-     * @param array $params Associative array of parameters
+     * @param  array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
+     * @see    https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
      *
      * @note This API is EXPERIMENTAL and may be changed or removed completely in a future release
-     *
      */
     public function putAutoscalingPolicy(array $params = [])
     {

@@ -37,9 +37,8 @@ echo "Base directory: ". dirname(__DIR__)."\n";
 // Include the composer autoloader
 $autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-$client = ClientBuilder::fromConfig([
-    'hosts' => [Utility::getHost()]
-]);
+$client = Utility::getClient();
+
 $serverInfo = $client->info();
 var_dump($serverInfo);
 

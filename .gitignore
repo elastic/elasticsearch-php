@@ -23,6 +23,7 @@ generator/*
 # Elasticsearch related
 util/elasticsearch/
 util/cache/
+util/*.zip
 
 # Sami docs generator
 /sami.phar

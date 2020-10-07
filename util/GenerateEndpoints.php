@@ -16,6 +16,7 @@
 declare(strict_types = 1);
 
 use GitWrapper\GitWrapper;
+use Elasticsearch\Client;
 use Elasticsearch\Util\ClientEndpoint;
 use Elasticsearch\Util\Endpoint;
 use Elasticsearch\Util\NamespaceEndpoint;
@@ -23,25 +24,7 @@ use Elasticsearch\Tests\Utility;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-
-
-removeDirectory(__DIR__ . '/../src/Elasticsearch/Endpoints', [
-    __DIR__ . '/../src/Elasticsearch/Endpoints/AbstractEndpoint.php',
-]);
-removeDirectory(__DIR__ . '/../src/Elasticsearch/Namespaces', [
-    __DIR__ . '/../src/Elasticsearch/Namespaces/AbstractNamespace.php',
-    __DIR__ . '/../src/Elasticsearch/Namespaces/BooleanRequestWrapper.php',
-    __DIR__ . '/../src/Elasticsearch/Namespaces/NamespaceBuilderInterface.php'
-]);
-
-die();
-printf ("Generating endpoints for Elasticsearch\n");
-printf ("---\n");
-
-$start = microtime(true);
-
 $client = Utility::getClient();
-
 $serverInfo = $client->info();
 $version = $serverInfo['version']['number'];
 $buildHash = $serverInfo['version']['build_hash']; 
@@ -51,6 +34,21 @@ if (version_compare($version, '7.4.0', '<')) {
     exit(1);
 }
 
+$backupFileName = sprintf(
+    "%s/backup_endpoint_namespace_%s.zip", 
+    __DIR__,
+    Client::VERSION
+);
+
+printf ("Backup Endpoints and Namespaces in /src\n");
+backup($backupFileName);
+
+cleanFolders();
+
+$start = microtime(true);
+printf ("Generating endpoints for Elasticsearch\n");
+
+$success = true;
 $gitWrapper = new GitWrapper();
 $git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
 
@@ -63,16 +61,9 @@ $result = $git->run(
     ]
 );
 $files = explode("\n", $result);
-$outputDir = __DIR__ . "/output/$version";
-
-// Remove the output directory
-printf ("Removing %s folder\n", $outputDir);
-removeDirectory($outputDir);
-mkdir($outputDir);
+$outputDir = __DIR__ . "/../src/Elasticsearch/";
 
 $endpointDir = "$outputDir/Endpoints/";
-printf ("Creating folder %s\n", $endpointDir);
-mkdir ($endpointDir);
 
 $countEndpoint = 0;
 $namespaces = [];
@@ -82,18 +73,24 @@ foreach ($files as $file) {
     if (empty($file) || (basename($file) === '_common.json')) {
         continue;
     }
-    printf("Generation %s...", basename($file));
+    printf("Generating %s...", basename($file));
 
-    $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $version);
+    $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $version, $buildHash);
 
     $dir = $endpointDir . NamespaceEndpoint::normalizeName($endpoint->namespace);
     if (!file_exists($dir)) {
         mkdir($dir);
     }
+    $outputFile = sprintf("%s/%s.php", $dir, $endpoint->getClassName());
     file_put_contents(
-        sprintf("%s/%s.php", $dir, $endpoint->getClassName()),
+        $outputFile,
         $endpoint->renderClass()
     );
+    if (!isValidPhpSyntax($outputFile)) {
+        printf("Error: syntax error in %s\n", $outputFile);
+        $success = false;
+        break;
+    }
 
     printf("done\n");
 
@@ -101,17 +98,21 @@ foreach ($files as $file) {
     $countEndpoint++;
 }
 
+if (!$success) {
+    printf ("Roll back to the previous Endpoints and Namespace (ver. %s)\n", Client::VERSION);
+    cleanFolders();
+    restore($backupFileName);
+    exit(1);
+}
+
 // Generate namespaces
 $namespaceDir = "$outputDir/Namespaces/";
-printf ("Creating folder %s\n", $namespaceDir);
-mkdir($namespaceDir);
-
 $countNamespace = 0;
 $clientFile = "$outputDir/Client.php";
 
 foreach ($namespaces as $name => $endpoints) {
     if (empty($name)) {
-        $clientEndpoint = new ClientEndpoint(array_keys($namespaces), $version);
+        $clientEndpoint = new ClientEndpoint(array_keys($namespaces), $version, $buildHash);
         foreach ($endpoints as $ep) {
             $clientEndpoint->addEndpoint($ep);
         }
@@ -119,82 +120,136 @@ foreach ($namespaces as $name => $endpoints) {
             $clientFile,
             $clientEndpoint->renderClass()
         );
+        if (!isValidPhpSyntax($clientFile)) {
+            printf("Error: syntax error in %s\n", $clientFile);
+            $success = false;
+            break;
+        }
         $countNamespace++;
         continue;
     }
-    $namespace = new NamespaceEndpoint($name, $version);
+    $namespace = new NamespaceEndpoint($name, $version, $buildHash);
     foreach ($endpoints as $ep) {
         $namespace->addEndpoint($ep);
     }
+    $namespaceFile = $namespaceDir . $namespace->getNamespaceName() . 'Namespace.php';
     file_put_contents(
-        $namespaceDir . $namespace->getNamespaceName() . 'Namespace.php',
+        $namespaceFile,
         $namespace->renderClass()
     );
+    if (!isValidPhpSyntax($namespaceFile)) {
+        printf("Error: syntax error in %s\n", $namespaceFile);
+        $success = false;
+        break;
+    }
     $countNamespace++;
 }
 
-# Clean
 $end = microtime(true);
-printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n.", $countEndpoint, $countNamespace, $end - $start);
-printf ("---\n");
-
-printf("Backup Endpoints and Namespaces in /src");
-
-$file = Client::Version;
-
-$zip = new ZipArchive();
-$ret = $zip->open('application.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
-if ($ret !== TRUE) {
-    printf('Failed with code %d', $ret);
+if ($success) {
+    printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n.", $countEndpoint, $countNamespace, $end - $start);
 } else {
-    $options = array('add_path' => 'sources/', 'remove_all_path' => TRUE);
-    $zip->addGlob('*.{php,txt}', GLOB_BRACE, $options);
-    $zip->close();
-}
-// End
+    printf ("Roll back to the previous Endpoints and Namespace (ver. %s)\n", Client::VERSION);
+    cleanFolders();
+    restore($backupFileName);
+}  
 
-function print_usage_msg(): void
-{
-    printf("Usage: php %s <ES_VERSION>\n", basename(__FILE__));
-    printf("where <ES_VERSION> is the Elasticsearch version to check (version must be >= 7.4.0).\n");
-}
+/**
+ * FUNCTIONS
+ */
 
-// Remove directory recursively
-function removeDirectory($directory, array $omit = [])
+/**
+ * Remove a directory recursively
+ */
+ function removeDirectory($directory, array $omit = [])
 {
     foreach(glob("{$directory}/*") as $file)
     {
         if(is_dir($file)) { 
             if (!in_array($file, $omit)) {
-                //removeDirectory($file);
-                printf("Elimino directory %s\n", $file);
+                removeDirectory($file, $omit);
             }
         } else {
             if (!in_array($file, $omit)) {
-                //unlink($file);
-                printf("Elimino file %s\n", $file);
+                @unlink($file);
             }
         }
     }
-    if (is_dir($directory) && empty($omit)) {
-        //rmdir($directory);
-        printf("Elimino directory %s\n", $directory);
+    if (is_dir($directory)) {
+        @rmdir($directory);
     }
 }
 
-# Copy files and directory recursively
-function copyAll(string $src, string $dst) { 
-    $dir = opendir($src); 
-    @mkdir($dst); 
-    while(false !== ( $file = readdir($dir)) ) { 
-        if (( $file != '.' ) && ( $file != '..' )) { 
-            if ( is_dir($src . '/' . $file) ) { 
-                copyAll($src . '/' . $file, $dst . '/' . $file); 
-            } 
-            else { 
-                copy($src . '/' . $file, $dst . '/' . $file); 
-            } 
-        } 
-    } 
-    closedir($dir); 
-} 
+/**
+ * Remove Endpoints, Namespaces and Client in src/Elasticsearch
+ */
+function cleanFolders()
+{
+    removeDirectory(__DIR__ . '/../src/Elasticsearch/Endpoints', [
+        __DIR__ . '/../src/Elasticsearch/Endpoints/AbstractEndpoint.php',
+    ]);
+    removeDirectory(__DIR__ . '/../src/Elasticsearch/Namespaces', [
+        __DIR__ . '/../src/Elasticsearch/Namespaces/AbstractNamespace.php',
+        __DIR__ . '/../src/Elasticsearch/Namespaces/BooleanRequestWrapper.php',
+        __DIR__ . '/../src/Elasticsearch/Namespaces/NamespaceBuilderInterface.php'
+    ]);
+    @unlink(__DIR__ . '/../src/Elasticsearch/Client.php');
+}
+
+/**
+ * Backup Endpoints, Namespaces and Client in src/Elasticsearch
+ */
+function backup(string $fileName)
+{
+    $zip = new ZipArchive();
+    $result = $zip->open($fileName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    if ($result !== true) {
+        printf("Error opening the zip file %s: %s\n", $fileName, $result);
+        exit(1);
+    } else {
+        $zip->addFile(__DIR__ . '/../src/Elasticsearch/Client.php', 'Client.php');
+        $zip->addGlob(__DIR__ . '/../src/Elasticsearch/Namespaces/*.php', GLOB_BRACE, [ 
+            'remove_path' => __DIR__ . '/../src/Elasticsearch'
+        ]);
+        // Add the Endpoints (including subfolders)
+        foreach(glob(__DIR__ . '/../src/Elasticsearch/Endpoints/*') as $file) {
+            if (is_dir($file)) {
+                $zip->addGlob("$file/*.php", GLOB_BRACE, [ 
+                    'remove_path' => __DIR__ . '/../src/Elasticsearch'
+                ]);
+            } else {
+                $zip->addGlob("$file", GLOB_BRACE, [ 
+                    'remove_path' => __DIR__ . '/../src/Elasticsearch'
+                ]);
+            }
+        }
+        $zip->close();
+    }
+}
+
+/**
+ * Restore Endpoints, Namespaces and Client in src/Elasticsearch
+ */
+function restore(string $fileName)
+{
+    $zip = new ZipArchive();
+    $result = $zip->open($fileName);
+    if ($result !== true) {
+        printf("Error opening the zip file %s: %s\n", $fileName, $result);
+        exit(1);
+    }
+    $zip->extractTo(__DIR__ . '/../src/Elasticsearch');
+    $zip->close();
+}
+
+/**
+ * Check if the generated code has a valid PHP syntax
+ */
+function isValidPhpSyntax(string $filename): bool
+{
+    if (file_exists($filename)) {
+        $result = exec("php -l $filename");
+        return false !== strpos($result, "No syntax errors");
+    }
+    return false;
+}

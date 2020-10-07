@@ -7,6 +7,7 @@
          verbose="true"
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestsThatDoNotTestAnything="false"
 >
     <php>
         <!-- Disable E_USER_DEPRECATED setting E_ALL & ~E_USER_DEPRECATED-->

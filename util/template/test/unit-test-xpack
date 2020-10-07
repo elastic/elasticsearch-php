@@ -18,6 +18,7 @@ namespace :namespace;
 
 use PHPUnit\Framework\TestCase;
 use Elasticsearch\Tests\Utility;
+use stdClass;
 
 /**
  * YAML test for Elasticsearch

@@ -99,6 +99,7 @@ class ActionTest
                     $params = $this->adjustClientParams($value);
                     $params = var_export($params, true);
                     $params = $this->convertDollarValueInVariable($params); // replace '$var' or '${var}' in $var
+                    $params = $this->convertStdClass($params); // convert "stdClass::__set_state(array())" in "(object)[]"
                 }
                 $vars[':endpoint'] = $this->convertDotToArrow($key);
                 $vars[':params']   = str_replace("\n","\n" . self::TAB14, $params);
@@ -443,6 +444,15 @@ class ActionTest
         }
         
         return $regex;
+    }
+
+    /**
+     * Convert "stdClass::__set_state" into "(object) []"
+     * @see https://www.php.net/manual/en/function.var-export.php#refsect1-function.var-export-changelog
+     */
+    private function convertStdClass(string $value): string
+    {
+        return preg_replace("/stdClass::__set_state\(array\(\s+\)\)/", '(object) []', $value);
     }
 
     /**

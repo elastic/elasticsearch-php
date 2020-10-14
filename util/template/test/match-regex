@@ -1,4 +1,4 @@
         $this->assertRegExp(
-            :expected, 
+            ":expected", 
             $response:value
         );

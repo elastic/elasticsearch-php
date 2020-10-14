@@ -228,7 +228,7 @@ class ActionTest
         if (is_string($expected) && $this->isRegularExpression($expected)) {
             $vars[':expected'] = $this->convertJavaRegexToPhp($vars[':expected']);
             // Add /sx preg modifier to ignore whitespace
-            $vars[':expected'] = trim(substr($vars[':expected'], 0, -1)) . "sx'";
+            $vars[':expected'] .= "sx";
             return YamlTests::render(self::TEMPLATE_MATCH_REGEX, $vars);
         }
         if ($expected instanceof stdClass && empty(get_object_vars($expected))) {
@@ -437,10 +437,12 @@ class ActionTest
 
     private function convertJavaRegexToPhp(string $regex): string
     {
+        # remove the single quote from the beginning and end of a string
+        $regex = trim($regex, '\'');
         preg_match_all('/(\/\^?)(.+)(\$?\/)/sx', $regex, $matches);
         if (isset($matches[2][0])) {
             $matches[2][0] = str_replace('/', '\/', $matches[2][0]);
-            return sprintf("'%s%s%s'", $matches[1][0], $matches[2][0], $matches[3][0]);
+            return sprintf("%s%s%s", $matches[1][0], $matches[2][0], $matches[3][0]);
         }
         
         return $regex;

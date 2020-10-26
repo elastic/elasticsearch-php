@@ -347,15 +347,17 @@ class Connection implements ConnectionInterface
     private function getURI(string $uri, ?array $params): string
     {
         if (isset($params) === true && !empty($params)) {
-            array_walk(
-                $params,
-                function (&$value, &$key) {
+            $params = array_map(
+                function ($value) {
                     if ($value === true) {
-                        $value = 'true';
+                        return 'true';
                     } elseif ($value === false) {
-                        $value = 'false';
+                        return 'false';
                     }
-                }
+
+                    return $value;
+                },
+                $params
             );
 
             $uri .= '?' . http_build_query($params);

@@ -28,11 +28,12 @@ use function yaml_parse;
 
 class YamlTests
 {
-    const TEMPLATE_UNIT_TEST_OSS    = __DIR__ . '/template/test/unit-test-oss';
-    const TEMPLATE_UNIT_TEST_XPACK  = __DIR__ . '/template/test/unit-test-xpack';
-    const TEMPLATE_FUNCTION_TEST    = __DIR__ . '/template/test/function-test';
-    const TEMPLATE_FUNCTION_SKIPPED = __DIR__ . '/template/test/function-skipped';
-    const ELASTICSEARCH_GIT_URL     = 'https://github.com/elastic/elasticsearch/tree/%s/rest-api-spec/src/main/resources/rest-api-spec/test/%s';
+    const TEMPLATE_UNIT_TEST_OSS     = __DIR__ . '/template/test/unit-test-oss';
+    const TEMPLATE_UNIT_TEST_XPACK   = __DIR__ . '/template/test/unit-test-xpack';
+    const TEMPLATE_UNIT_TEST_SKIPPED = __DIR__ . '/template/test/unit-test-skipped';
+    const TEMPLATE_FUNCTION_TEST     = __DIR__ . '/template/test/function-test';
+    const TEMPLATE_FUNCTION_SKIPPED  = __DIR__ . '/template/test/function-skipped';
+    const ELASTICSEARCH_GIT_URL      = 'https://github.com/elastic/elasticsearch/tree/%s/rest-api-spec/src/main/resources/rest-api-spec/test/%s';
 
     const SKIPPED_TEST_OSS = [
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
@@ -41,12 +42,31 @@ class YamlTests
     ];
 
     const SKIPPED_TEST_XPACK = [
+        'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
         'License\_20_Put_LicenseTest::CurrentLicenseIsTrialMeansNotEligleToStartTrial' => 'License issue',
         'License\_20_Put_LicenseTest::MustAcknowledgeToStartBasic' => 'License issue',
         'License\_20_Put_LicenseTest::InstallingAndGettingLicenseWorks' => 'Invalid license',
         'License\_20_Put_LicenseTest::ShouldInstallAFeatureTypeLicense' => 'Invalid license',
         'License\_20_Put_LicenseTest::CanStartBasicLicenseIfDoNotAlreadyHaveBasic' => 'Invalid license',
-        'License\_30_Enterprise_LicenseTest::InstallingEnterpriseLicense' => 'Invalid license'
+        'License\_30_Enterprise_LicenseTest::InstallingEnterpriseLicense' => 'Invalid license',
+        'Ml\_Jobs_CrudTest::TestPutJobWithModel_memory_limitAsStringAndLazyOpen' => 'Memory limit',
+        'Ml\_Data_Frame_Analytics_CrudTest::TestPutClassificationGivenNum_top_classesIsLessThanZero' => 'No error catched',
+        'Ml\_Set_Upgrade_ModeTest::*' => 'Skipped all tests',
+        'Ml\_Filter_CrudTest::*' => 'Skipped all tests',
+        'Ml\_Inference_CrudTest::*' => 'Skipped all tests',
+        'Ml\_Inference_Stats_CrudTest::*' => 'Skipped all tests',
+        'Ml\_Ml_InfoTest::TestMlInfo' => 'response[\'limits\'][\'max_model_memory_limit\'] is not empty',
+        'Ml\_Delete_Expired_DataTest::TestDeleteExpiredDataWithJobId' => 'Substring mismatch',
+        'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
+        'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
+        'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'spanshop name already exists',
+        'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
+        'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
+        'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',
+        'UnsignedLong\_20_Null_ValueTest::*' => 'Skipped all tests',
+        'UnsignedLong\_30_Multi_FieldsTest::*' => 'Skipped all tests',
+        'UnsignedLong\_50_Script_ValuesTest::*' => 'Skipped all tests',
+        'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
     ];
 
     const PHP_RESERVED_WORDS     = [
@@ -134,6 +154,7 @@ class YamlTests
             $setup = '';
             $teardown = '';
             $alreadyAssignedNames = [];
+            $allSkipped = false;
             foreach ($value as $test) {
                 if (!is_array($test)) {
                     continue;
@@ -151,10 +172,20 @@ class YamlTests
                             $alreadyAssignedNames[] = $functionName;
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
+                            $skippedAllTest = sprintf("%s\\%s::*", $namespace, $testName);
                             $skip = strtolower(self::$testSuite) === 'oss' 
                                 ? self::SKIPPED_TEST_OSS 
                                 : self::SKIPPED_TEST_XPACK;
-                            if (isset($skip[$skippedTest])) {
+                            if (isset($skip[$skippedAllTest])) {
+                                $allSkipped = true;
+                                $functions .= self::render(
+                                    self::TEMPLATE_FUNCTION_SKIPPED,
+                                    [ 
+                                        ':name' => $functionName,
+                                        ':skipped_msg'  => $skip[$skippedAllTest] 
+                                    ]
+                                );
+                            } elseif (isset($skip[$skippedTest])) {
                                 $functions .= self::render(
                                     self::TEMPLATE_FUNCTION_SKIPPED,
                                     [ 
@@ -175,20 +206,33 @@ class YamlTests
                     }
                 }
             }
-            $test = self::render(
-                strtolower(self::$testSuite) === 'oss'
-                    ? self::TEMPLATE_UNIT_TEST_OSS
-                    : self::TEMPLATE_UNIT_TEST_XPACK,
-                [
-                    ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
-                    ':test-name' => $testName,
-                    ':tests'     => $functions,
-                    ':setup'     => $setup,
-                    ':teardown'  => $teardown,
-                    ':yamlfile'  => sprintf(self::ELASTICSEARCH_GIT_URL, self::$minorEsVersion, $yamlFileName),
-                    ':group'     => strtolower(self::$testSuite)
-                ]
-            );
+            if ($allSkipped) {
+                $test = self::render(
+                    self::TEMPLATE_UNIT_TEST_SKIPPED,
+                    [
+                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':test-name' => $testName,
+                        ':tests'     => $functions,
+                        ':yamlfile'  => sprintf(self::ELASTICSEARCH_GIT_URL, self::$minorEsVersion, $yamlFileName),
+                        ':group'     => strtolower(self::$testSuite)
+                    ]
+                );
+            } else {
+                $test = self::render(
+                    strtolower(self::$testSuite) === 'oss'
+                        ? self::TEMPLATE_UNIT_TEST_OSS
+                        : self::TEMPLATE_UNIT_TEST_XPACK,
+                    [
+                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':test-name' => $testName,
+                        ':tests'     => $functions,
+                        ':setup'     => $setup,
+                        ':teardown'  => $teardown,
+                        ':yamlfile'  => sprintf(self::ELASTICSEARCH_GIT_URL, self::$minorEsVersion, $yamlFileName),
+                        ':group'     => strtolower(self::$testSuite)
+                    ]
+                );
+            }
             file_put_contents($testDirName . '/' . $testName . '.php', $test);
             try {
                 eval(substr($test, 5)); // remove <?php header

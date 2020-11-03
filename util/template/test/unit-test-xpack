@@ -40,8 +40,7 @@ class :test-name extends TestCase
     {
         $this->yamlTearDown();
         Utility::removeYamlXPackUsers($this->client);
-        Utility::cleanYamlOssTest($this->client);
-        Utility::cleanYamlXpackTest($this->client);
+        Utility::cleanUpCluster($this->client);
     }
 
     private function yamlSetup()

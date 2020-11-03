@@ -60,6 +60,7 @@ else
       --env "xpack.security.transport.ssl.certificate=certs/testnode.crt" \
       --env 'indices.lifecycle.history_index_enabled=false' \
       --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt" \
+      --env "xpack.ml.max_model_memory_limit=2gb" \
       --volume "$repo$testnodecrt:/usr/share/elasticsearch/config/certs/testnode.crt" \
       --volume "$repo$testnodekey:/usr/share/elasticsearch/config/certs/testnode.key" \
       --volume "$repo$cacrt:/usr/share/elasticsearch/config/certs/ca.crt" \

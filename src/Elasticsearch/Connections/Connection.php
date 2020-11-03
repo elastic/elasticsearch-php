@@ -35,6 +35,7 @@ use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
+use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
 use Exception;
@@ -624,7 +625,9 @@ class Connection implements ConnectionInterface
         }
         
         $responseBody = $this->convertBodyToString($response['body'], $statusCode, $exception);
-        if ($statusCode === 403) {
+        if ($statusCode === 401) {
+            $exception = new Unauthorized401Exception($responseBody, $statusCode);
+        } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
             $exception = new Missing404Exception($responseBody, $statusCode);

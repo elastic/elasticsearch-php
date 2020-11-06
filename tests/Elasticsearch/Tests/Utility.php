@@ -24,6 +24,9 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class Utility
 {
+    /**
+     * Get the host URL based on ENV variables
+     */
     public static function getHost(): ?string
     {
         $url = getenv('ELASTICSEARCH_URL');
@@ -39,6 +42,9 @@ class Utility
         return null;
     }
 
+    /**
+     * Build a Client based on ENV variables
+     */
     public static function getClient(): Client
     {
         $clientBuilder = ClientBuilder::create()
@@ -55,43 +61,10 @@ class Utility
         }
         return $clientBuilder->build();
     }
- 
+
     /**
-     * Clean the YAML OSS test state
-     * 
-     * @see https://github.com/elastic/elasticsearch/tree/master/rest-api-spec/src/main/resources/rest-api-spec/test
+     * Create a "x_pack_rest_user" user, used by some XPack YAML tests
      */
-    public static function cleanYamlOssTest(Client $client): void
-    {
-        // Delete aliases
-        $result = $client->indices()->deleteAlias([
-            'index' => '_all',
-            'name' => '_all',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
-
-        // Delete indices
-        $client->indices()->delete([
-            'index' => '*',
-            'expand_wildcards' => 'all',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
-
-        // Delete templates
-        $client->indices()->deleteTemplate([
-            'name' => '*',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
-        
-        self::wipeSnapshots($client);
-    }
-
     public static function initYamlXPackUsers(Client $client): void
     {
         $client->security()->putUser([
@@ -103,6 +76,9 @@ class Utility
         ]);
     }
 
+    /**
+     * Remove the "x_pack_rest_user" user, used by some XPack YAML tests
+     */
     public static function removeYamlXPackUsers(Client $client): void
     {
         $client->security()->deleteUser([
@@ -110,92 +86,6 @@ class Utility
             'client' => [
                 'ignore' => 404
             ]
-        ]);
-    }
-    /**
-     * Clean the YAML XPack test state
-     */
-    public static function cleanYamlXpackTest(Client $client): void
-    { 
-        # Reset cluster configuration
-        $client->cluster()->putSettings([
-            'body' => [
-                'transient' => [
-                    'cluster.persistent_tasks.allocation.enable' => 'all',
-                    'xpack.ml.max_model_memory_limit' => '2g'
-                ]
-            ]
-        ]);
-
-        # Get all roles
-        $roles = $client->security()->getRole();
-        # Delete custom roles (metadata._reserved = 0)
-        foreach ($roles as $role => $values) {
-            if (isset($values['metadata']['_reserved']) && $values['metadata']['_reserved'] === 0) {
-                $client->security()->deleteRole([
-                    'name' => $role,
-                    'client' => [
-                        'ignore' => 404
-                    ]
-                ]);
-            }
-        }
-
-        # Get all users
-        $users = $client->security()->getUser();
-        # Delete custom users (metadata._reserved = 0)
-        foreach ($users as $user => $values) {
-            if (isset($values['metadata']['_reserved']) && $values['metadata']['_reserved'] === 0) {
-                $client->security()->deleteUser([
-                    'username' => $user,
-                    'client' => [
-                        'ignore' => 404
-                    ]
-                ]);
-            }
-        }
-
-        # Get all privileges
-        $privileges = $client->security()->getPrivileges();
-        # Delete all the privileges
-        foreach ($privileges as $app => $values) {
-            foreach ($values as $name => $data) {
-                $client->security()->deletePrivileges([
-                    'application' => $app,
-                    'name' => $name
-                ]);
-            }
-        }
-
-        self::deleteAllDatafeeds($client);
-        self::deleteAllJobs($client);
-        self::deleteAllDataFrameAnalytics($client);
-
-        self::wipeRollupJobs($client);
-        
-
-        # Cancel all tasks
-        $tasks = $client->tasks()->list();
-        if (isset($tasks['nodes'])) {
-            foreach ($tasks['nodes'] as $node => $value) {
-                foreach ($value['tasks'] as $id => $data) {
-                    $client->tasks()->cancel([
-                        'task_id' => $id,
-                        'wait_for_completion' => true
-                    ]);
-                }
-            }
-        }
-
-        # Remove policies
-        $client->ilm()->removePolicy([
-            'index' => '*'
-        ]); 
-
-        # Refresh index
-        $client->indices()->refresh([
-            'index' => '_all',
-            'expand_wildcards' => 'all',
         ]);
     }
 
@@ -210,78 +100,50 @@ class Utility
         self::waitForClusterStateUpdatesToFinish($client);
     }
 
-    /**
-     * Delete all the Datafeeds for XPack test suite
+     /**
+     * Delete the cluster
+     * 
+     * @see ESRestTestCase.java:wipeCluster()
      */
-    private static function deleteAllDatafeeds(Client $client): void
-    { 
-        $client->ml()->stopDatafeed([
-            'datafeed_id' => '_all',
-            'body' => [
-                'force' => true
-            ]
-        ]);
-        $dataFeeds = $client->ml()->getDatafeeds([
-            'datafeed_id' => '*'
-        ]);
-        if (isset($dataFeeds['datafeeds'])) {
-            foreach ($dataFeeds['datafeeds'] as $data) {
-                $client->ml()->deleteDatafeed([
-                    'datafeed_id' => $data['datafeed_id'],
-                    'body' => [
-                        'force' => true
-                    ]
-                ]);
-            }
-        }
-    }
-
-    /**
-     * Delete all the Jobs for XPack test suite
-     */
-    private static function deleteAllJobs(Client $client): void
+    private static function wipeCluster(Client $client): void
     {
-        $client->ml()->closeJob([
-            'job_id' => '_all',
-            'body' => [
-                'force' => true
-            ]
-        ]);
-        $jobs = $client->ml()->getJobs([
-            'job_id' => '*'
-        ]);
-        if (isset($jobs['jobs'])) {
-            foreach ($jobs['jobs'] as $job) {
-                $client->ml()->deleteJob([
-                    'job_id' => $job['job_id'],
-                    'body' => [
-                        'force' => true
-                    ]
-                ]);
-            }
+        if (getenv('TEST_SUITE') === 'xpack') {
+            self::wipeRollupJobs($client);
+            self::waitForPendingRollupTasks($client);
+            self::deleteAllSLMPolicies($client);  
         }
-    }
 
-    /**
-     * Delete all the DataFrame Analytics for XPack test suite
-     */
-    private static function deleteAllDataFrameAnalytics(Client $client): void
-    {
-        $client->ml()->stopDataFrameAnalytics([
-            'id' => '*',
-            'body' => [
-                'force' => true
-            ]
-        ]);
-        $dataFrame = $client->ml()->getDataFrameAnalytics([
-            'size' => 10000
-        ]);
-        if (isset($dataFrame['data_frame_analytics'])) {
-            foreach ($dataFrame['data_frame_analytics'] as $df) {
-                $client->ml()->deleteDataFrameAnalytics([
-                    'id' => $df['id']
-                ]);
-            }
+        self::wipeSnapshots($client);
+
+        if (getenv('TEST_SUITE') === 'xpack') {
+            self::wipeDataStreams($client);
+        }
+        
+        self::wipeAllindices($client);
+
+        if (getenv('TEST_SUITE') === 'xpack') {
+            self::wipeTemplateForXpack($client);
+        } else {
+            // Delete templates
+            $client->indices()->deleteTemplate([
+                'name' => '*'
+            ]);
+            // Delete index template
+            $client->indices()->deleteIndexTemplate([
+                'name' => '*'
+            ]);
+            // Delete component template
+            $client->cluster()->deleteComponentTemplate([
+                'name' => '*'
+            ]);
+        }
+
+        self::wipeClusterSettings($client);
+
+        if (getenv('TEST_SUITE') === 'xpack') {
+            self::deleteAllILMPolicies($client);
+            self::deleteAllAutoFollowPatterns($client);
+            self::deleteAllTasks($client);
         }
     }
 
@@ -339,68 +201,6 @@ class Utility
                     'ignore' => 404
                 ]
             ]);
-        }
-    }
-
-    /**
-     * Delete the cluster
-     * 
-     * @see ESRestTestCase.java:wipeCluster()
-     */
-    private static function wipeCluster(Client $client): void
-    {
-        if (getenv('TEST_SUITE') === 'xpack') {
-            self::wipeRollupJobs($client);
-            self::waitForPendingRollupTasks($client);
-
-            self::deleteAllSLMPolicies($client);  
-        }
-
-        self::wipeSnapshots($client);
-
-        if (getenv('TEST_SUITE') === 'xpack') {
-            self::wipeDataStreams($client);
-        }
-        
-        self::wipeAllindices($client);
-
-        if (getenv('TEST_SUITE') === 'xpack') {
-            self::wipeTemplateForXpack($client);
-        } else {
-            // Delete templates
-            $client->indices()->deleteTemplate([
-                'name' => '*'
-            ]);
-
-            // Delete index template
-            $client->indices()->deleteIndexTemplate([
-                'name' => '*'
-            ]);
-
-            // Delete component template
-            $client->cluster()->deleteComponentTemplate([
-                'name' => '*'
-            ]);
-        }
-
-        self::wipeClusterSettings($client);
-
-        if (getenv('TEST_SUITE') === 'xpack') {
-            self::deleteAllILMPolicies($client);
-            self::deleteAllAutoFollowPatterns($client);
-
-            # Cancel all tasks
-            $tasks = $client->tasks()->list();
-            if (isset($tasks['nodes'])) {
-                foreach ($tasks['nodes'] as $node => $value) {
-                    foreach ($value['tasks'] as $id => $data) {
-                        $client->tasks()->cancel([
-                            'task_id' => $id,
-                            'wait_for_completion' => true
-                        ]);
-                    }
-                }
-            }
         }
     }
 
@@ -526,27 +326,6 @@ class Utility
     }
 
     /**
-     * Delete all the templates
-     * 
-     * @see ESRestTestCase.java:wipeCluster()
-     */
-    private static function wipeTemplate(Client $client): void
-    {
-        $client->indices()->deleteTemplate([
-            'name' => '*'
-        ]);
-        try {
-            $client->indices()->deleteIndexTemplate([
-                'name' => '*'
-            ]);
-            $client->cluster()->deleteComponentTemplate([
-                'name' => '*'
-            ]);
-        } catch (Missing404Exception $e) {
-        }
-    }
-
-    /**
      * Reset the cluster settings
      * 
      * @see ESRestTestCase.java:wipeClusterSettings()
@@ -619,6 +398,23 @@ class Utility
     }
 
     /**
+     * A set of ILM policies that should be preserved between runs.
+     * 
+     * @see ESRestTestCase.java:preserveILMPolicyIds
+     */
+    private static function preserveILMPolicyIds(): array
+    {
+        return [
+            "ilm-history-ilm-policy", 
+            "slm-history-ilm-policy",
+            "watch-history-ilm-policy", 
+            "ml-size-based-ilm-policy", 
+            "logs", 
+            "metrics"
+        ];
+    }
+
+    /**
      * Delete all ILM policies
      * 
      * @see ESRestTestCase.java:deleteAllILMPolicies()
@@ -627,12 +423,19 @@ class Utility
     {
         $policies = $client->ilm()->getLifecycle();
         foreach ($policies as $policy => $value) {
-            $client->ilm()->deleteLifecycle([
-                'policy' => $policy
-            ]);
+            if (!in_array($policy, self::preserveILMPolicyIds())) {
+                $client->ilm()->deleteLifecycle([
+                    'policy' => $policy
+                ]);
+            }
         }
     }
 
+    /**
+     * Delete all CCR Auto Follow Patterns
+     * 
+     * @see ESRestTestCase.java:deleteAllAutoFollowPatterns()
+     */
     private static function deleteAllAutoFollowPatterns(Client $client): void
     {
         $patterns = $client->ccr()->getAutoFollowPattern();
@@ -643,6 +446,29 @@ class Utility
         }
     }
 
+    /**
+     * Delete all tasks
+     */
+    private static function deleteAllTasks(Client $client): void
+    {
+        $tasks = $client->tasks()->list();
+        if (isset($tasks['nodes'])) {
+            foreach ($tasks['nodes'] as $node => $value) {
+                foreach ($value['tasks'] as $id => $data) {
+                    $client->tasks()->cancel([
+                        'task_id' => $id,
+                        'wait_for_completion' => true
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Wait for Cluster state updates to finish
+     * 
+     * @see ESRestTestCase.java:waitForClusterStateUpdatesToFinish()
+     */
     private static function waitForClusterStateUpdatesToFinish(Client $client, int $timeout = 30): void
     {
         $start = time();

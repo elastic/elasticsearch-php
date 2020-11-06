@@ -352,11 +352,16 @@ class Utility
         if (getenv('TEST_SUITE') === 'xpack') {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);
+
+            self::deleteAllSLMPolicies($client);  
         }
-        self::deleteAllSLMPolicies($client);  
 
         self::wipeSnapshots($client);
-        self::wipeDataStreams($client);
+
+        if (getenv('TEST_SUITE') === 'xpack') {
+            self::wipeDataStreams($client);
+        }
+        
         self::wipeAllindices($client);
 
         if (getenv('TEST_SUITE') === 'xpack') {

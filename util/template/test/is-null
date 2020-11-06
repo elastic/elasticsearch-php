@@ -1,1 +1,5 @@
-        $this->assertNull($response:value);
+        if (isset($response:value)) {
+            $this->assertNull($response:value);
+        } else {
+            $this->assertTrue(true);
+        }

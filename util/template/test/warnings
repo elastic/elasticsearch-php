@@ -1,3 +1,4 @@
+        // check for warnings
         $headers = $this->client->transport->getLastConnection()->getLastRequestInfo()['response']['headers'];
         $this->assertTrue(isset($headers['Warning']));
         $expectedHeaders = :expected;

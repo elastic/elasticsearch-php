@@ -47,12 +47,22 @@ class ActionTest
     const TEMPLATE_SET_VARIABLE       = __DIR__ . '/template/test/set-variable';
     const TEMPLATE_TRANSFORM_AND_SET  = __DIR__ . '/template/test/transform-and-set';
     const TEMPLATE_WARNINGS           = __DIR__ . '/template/test/warnings';
+    const TEMPLATE_ALLOWED_WARNINGS   = __DIR__ . '/template/test/allowed-warnings';
     const TEMPLATE_GT                 = __DIR__ . '/template/test/gt';
     const TEMPLATE_GTE                = __DIR__ . '/template/test/gte';
     const TEMPLATE_LT                 = __DIR__ . '/template/test/lt';
     const TEMPLATE_LTE                = __DIR__ . '/template/test/lte';
     const TAB14                 = '              ';
-    const SUPPORTED_FEATURES    = ['xpack', 'no_xpack', 'headers', 'node_selector', 'warnings', 'catch_unauthorized', 'transform_and_set'];
+    const SUPPORTED_FEATURES    = [
+        'xpack', 
+        'no_xpack', 
+        'headers', 
+        'node_selector', 
+        'warnings', 
+        'catch_unauthorized', 
+        'transform_and_set',
+        'allowed_warnings'
+    ];
 
     private $headers = [];
     private $variables = [];
@@ -142,6 +152,13 @@ class ActionTest
     private function warnings(array $action, array &$vars)
     {
         $vars[':response-check'] .= YamlTests::render(self::TEMPLATE_WARNINGS, [
+            ':expected' => $action
+        ]);
+    }
+
+    private function allowed_warnings(array $action, array &$vars)
+    {
+        $vars[':response-check'] .= YamlTests::render(self::TEMPLATE_ALLOWED_WARNINGS, [
             ':expected' => $action
         ]);
     }

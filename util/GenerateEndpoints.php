@@ -40,10 +40,8 @@ $backupFileName = sprintf(
     Client::VERSION
 );
 
-printf ("Backup Endpoints and Namespaces in /src\n");
+printf ("Backup Endpoints and Namespaces in:\n%s\n", $backupFileName);
 backup($backupFileName);
-
-cleanFolders();
 
 $start = microtime(true);
 printf ("Generating endpoints for Elasticsearch\n");
@@ -61,9 +59,16 @@ $result = $git->run(
     ]
 );
 $files = explode("\n", $result);
-$outputDir = __DIR__ . "/../src/Elasticsearch/";
+
+$outputDir = __DIR__ . "/output";
+if (!file_exists($outputDir)) {
+    mkdir($outputDir);
+}
 
 $endpointDir = "$outputDir/Endpoints/";
+if (!file_exists($endpointDir)) {
+    mkdir($endpointDir);
+}
 
 $countEndpoint = 0;
 $namespaces = [];
@@ -88,8 +93,7 @@ foreach ($files as $file) {
     );
     if (!isValidPhpSyntax($outputFile)) {
         printf("Error: syntax error in %s\n", $outputFile);
-        $success = false;
-        break;
+        exit(1);
     }
 
     printf("done\n");
@@ -98,15 +102,12 @@ foreach ($files as $file) {
     $countEndpoint++;
 }
 
-if (!$success) {
-    printf ("Roll back to the previous Endpoints and Namespace (ver. %s)\n", Client::VERSION);
-    cleanFolders();
-    restore($backupFileName);
-    exit(1);
-}
-
 // Generate namespaces
 $namespaceDir = "$outputDir/Namespaces/";
+if (!file_exists($namespaceDir)) {
+    mkdir($namespaceDir);
+}
+
 $countNamespace = 0;
 $clientFile = "$outputDir/Client.php";
 
@@ -122,8 +123,7 @@ foreach ($namespaces as $name => $endpoints) {
         );
         if (!isValidPhpSyntax($clientFile)) {
             printf("Error: syntax error in %s\n", $clientFile);
-            $success = false;
-            break;
+            exit(1);
         }
         $countNamespace++;
         continue;
@@ -139,29 +139,32 @@ foreach ($namespaces as $name => $endpoints) {
     );
     if (!isValidPhpSyntax($namespaceFile)) {
         printf("Error: syntax error in %s\n", $namespaceFile);
-        $success = false;
-        break;
+        exit(1);
     }
     $countNamespace++;
 }
 
+$destDir = __DIR__ . "/../src/Elasticsearch";
+
+printf("Copying the generated files to %s\n", $destDir);
+cleanFolders();
+moveSubFolder($outputDir . "/Endpoints", $destDir . "/Endpoints");
+moveSubFolder($outputDir . "/Namespaces", $destDir . "/Namespaces");
+rename($outputDir . "/Client.php", $destDir . "/Client.php");
+
 $end = microtime(true);
-if ($success) {
-    printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n.", $countEndpoint, $countNamespace, $end - $start);
-} else {
-    printf ("Roll back to the previous Endpoints and Namespace (ver. %s)\n", Client::VERSION);
-    cleanFolders();
-    restore($backupFileName);
-}  
+printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n", $countEndpoint, $countNamespace, $end - $start);
+
+removeDirectory($outputDir);
 
 /**
- * FUNCTIONS
+ * ---------------------------------- FUNCTIONS ----------------------------------
  */
 
 /**
  * Remove a directory recursively
  */
- function removeDirectory($directory, array $omit = [])
+function removeDirectory($directory, array $omit = [])
 {
     foreach(glob("{$directory}/*") as $file)
     {
@@ -194,6 +197,16 @@ function cleanFolders()
         __DIR__ . '/../src/Elasticsearch/Namespaces/NamespaceBuilderInterface.php'
     ]);
     @unlink(__DIR__ . '/../src/Elasticsearch/Client.php');
+}
+
+/**
+ * Move subfolder
+ */
+function moveSubFolder(string $origin, string $destination)
+{
+    foreach (glob("{$origin}/*") as $file) {
+        rename($file, $destination . "/" . basename($file));
+    }
 }
 
 /**

@@ -38,7 +38,7 @@ class :test-name extends TestCase
     protected function tearDown(): void
     {
         $this->yamlTearDown();
-        Utility::cleanYamlOssTest($this->client);
+        Utility::cleanUpCluster($this->client);
     }
 
     private function yamlSetup()

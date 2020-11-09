@@ -193,4 +193,56 @@ class ClientBuilderTest extends TestCase
 
         $this->assertEquals($url, $connection->getHost());
     }
+
+    public function getConfig()
+    {
+        return [
+            [[
+                'hosts' => ['localhost:9200']
+            ]],
+            [[
+                'hosts'  => ['cloud:9200'],
+                'apiKey' => ['id-value', 'apikey-value']
+            ]],
+            [[
+                'hosts'  => ['cloud:9200'],
+                'basicAuthentication' => ['username-value', 'password-value']
+            ]]
+        ];
+    }
+
+    /**
+     * @dataProvider getConfig
+     * @see https://github.com/elastic/elasticsearch-php/issues/1074
+     */
+    public function testFromConfig(array $params)
+    {
+        $client = ClientBuilder::fromConfig($params);
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
+    public function testFromConfigQuiteTrueWithUnknownKey()
+    {
+        $client = ClientBuilder::fromConfig(
+            [
+                'hosts' => ['localhost:9200'],
+                'foo' => 'bar'
+            ],
+            true
+        );
+    }
+
+    /**
+     * @expectedException Elasticsearch\Common\Exceptions\RuntimeException
+     */
+    public function testFromConfigQuiteFalseWithUnknownKey()
+    {
+        $client = ClientBuilder::fromConfig(
+            [
+                'hosts' => ['localhost:9200'],
+                'foo' => 'bar'
+            ],
+            false
+        );
+    }
 }

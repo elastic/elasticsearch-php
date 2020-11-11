@@ -1,3 +1,13 @@
+## Release 7.10.0
+
+- Updated endpoints and namespaces for Elasticsearch 7.10
+  [3ceb748](https://github.com/elastic/elasticsearch-php/commit/3ceb7484a111aa20126168460c79f098c4fe0792)
+- Fixed ClientBuilder::fromConfig allowing multiple function
+  parameters (e.g. setApiKey)
+  [#1076](https://github.com/elastic/elasticsearch-php/pull/1076)
+- Refactored the YAML tests using generated PHPUnit code
+  [85fadc2](https://github.com/elastic/elasticsearch-php/commit/85fadc2bd4b2b309b19761a50ff13010d43a524d)
+
 ## Release 7.9.1
 
 - Fixed using object instead of array in onFailure transport event

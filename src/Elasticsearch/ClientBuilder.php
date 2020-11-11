@@ -189,8 +189,14 @@ class ClientBuilder
         $builder = new static;
         foreach ($config as $key => $value) {
             $method = "set$key";
-            if (method_exists($builder, $method)) {
-                $builder->$method($value);
+            $reflection = new ReflectionClass($builder);
+            if ($reflection->hasMethod($method)) {
+                $func = $reflection->getMethod($method);
+                if ($func->getNumberOfParameters() > 1) {
+                    $builder->$method(...$value);
+                } else {
+                    $builder->$method($value);
+                }
                 unset($config[$key]);
             }
         }

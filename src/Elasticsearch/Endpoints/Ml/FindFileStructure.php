@@ -86,5 +86,4 @@ class FindFileStructure extends AbstractEndpoint
         }
         return $this;
     }
-
 }

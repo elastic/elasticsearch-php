@@ -39,7 +39,7 @@ $response = $client->get($params);
 
 The library attempts to throw exceptions for common problems. These exceptions 
 match the HTTP response code provided by {es}. For example, attempting to GET a 
-nonexistent document will throw a `MissingDocument404Exception`.
+nonexistent document will throw a `Missing404Exception`.
 
 Exceptions are a useful and consistent way to deal with problems like missing 
 documents, syntax errors, version conflicts, and so on. But sometimes you want 
@@ -48,7 +48,7 @@ test suites).
 
 If you need that behavior, you can configure an `ignore` parameter. You can 
 configure it in the `client` parameter of the request array. For instance, the 
-example below ignores the `MissingDocument404Exception` exception and returns 
+example below ignores the `Missing404Exception` exception and returns 
 the JSON provided by {es} instead.
 
 

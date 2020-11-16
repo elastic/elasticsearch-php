@@ -190,7 +190,7 @@ class Connection implements ConnectionInterface
     /**
      * @param  string    $method
      * @param  string    $uri
-     * @param  array     $params
+     * @param  null|array   $params
      * @param  null      $body
      * @param  array     $options
      * @param  Transport $transport

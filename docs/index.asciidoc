@@ -7,7 +7,7 @@ include::overview.asciidoc[]
 
 include::installation.asciidoc[]
 
-include::quickstart.asciidoc[]
+include::connecting.asciidoc[]
 
 include::configuration.asciidoc[]
 

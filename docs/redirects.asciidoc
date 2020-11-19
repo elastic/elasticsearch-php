@@ -1,4 +1,4 @@
-"appendix",role="exclude",id="redirects"]
+["appendix",role="exclude",id="redirects"]
 = Deleted pages
 
 The following pages have moved or been deleted.

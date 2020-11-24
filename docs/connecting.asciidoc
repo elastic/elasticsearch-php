@@ -205,7 +205,7 @@ $client = ClientBuilder::create()
 [[client-usage]]
 === Usage 
 
-This section is a crash-course overview of the client and it's syntax. If you 
+This section is a crash-course overview of the client and its syntax. If you 
 are familiar with {es}, you'll notice that the methods are named just like REST 
 endpoints.
 

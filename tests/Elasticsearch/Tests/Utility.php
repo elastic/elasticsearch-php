@@ -119,7 +119,7 @@ class Utility
             self::wipeDataStreams($client);
         }
         
-        self::wipeAllindices($client);
+        self::wipeAllIndices($client);
 
         if (getenv('TEST_SUITE') === 'xpack') {
             self::wipeTemplateForXpack($client);
@@ -269,12 +269,12 @@ class Utility
     /**
      * Delete all indices
      * 
-     * @see ESRestTestCase.java:wipeAllindices()
+     * @see ESRestTestCase.java:wipeAllIndices()
      */
-    private static function wipeAllindices(Client $client): void
+    private static function wipeAllIndices(Client $client): void
     {
         $client->indices()->delete([
-            'index' => '*',
+            'index' => '*,-.ds-ilm-history-*',
             'expand_wildcards' => 'all',
             'client' => [
                 'ignore' => 404
@@ -392,6 +392,7 @@ class Utility
             case "synthetics-settings":
             case "synthetics-mappings":
             case ".snapshot-blob-cache":
+            case ".deprecation-indexing-template":
                 return true;
         }
         return false;

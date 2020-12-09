@@ -30,7 +30,7 @@ use Elasticsearch\Tests\Utility;
  */
 class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         static::markTestSkipped("All of Sniffing unit tests use outdated cluster state format, need to redo");
     }

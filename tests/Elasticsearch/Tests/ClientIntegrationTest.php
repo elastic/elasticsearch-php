@@ -44,7 +44,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
      */
     private $host;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->host = Utility::getHost();
         if (null == $this->host) {
@@ -58,10 +58,10 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
         $client = ClientBuilder::create()
             ->setHosts([$this->host])
             ->setLogger($this->logger);
-        
+
         if (getenv('TEST_SUITE') === 'xpack') {
             $client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
-        }    
+        }
         return $client->build();
     }
 
@@ -80,7 +80,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 
         $result = $client->info();
 
-        $this->assertContains('"port"', $this->getLevelOutput(LogLevel::INFO, $this->logger->output));
+        $this->assertStringContainsString('"port"', $this->getLevelOutput(LogLevel::INFO, $this->logger->output));
     }
 
     public function testLogRequestFailHasWarning()

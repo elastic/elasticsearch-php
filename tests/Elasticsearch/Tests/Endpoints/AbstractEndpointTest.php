@@ -27,7 +27,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
      */
     private $endpoint;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->endpoint = $this->getMockForAbstractClass(AbstractEndpoint::class);
     }

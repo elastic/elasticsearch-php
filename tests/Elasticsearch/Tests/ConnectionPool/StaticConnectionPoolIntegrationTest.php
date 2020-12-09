@@ -34,7 +34,7 @@ class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
      */
     private $host;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->host = Utility::getHost();
         if (null == $this->host) {

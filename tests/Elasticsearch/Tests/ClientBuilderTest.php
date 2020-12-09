@@ -21,6 +21,7 @@ namespace Elasticsearch\Tests;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Tests\ClientBuilder\DummyLogger;
 use PHPUnit\Framework\TestCase;
 
@@ -231,6 +232,7 @@ class ClientBuilderTest extends TestCase
      */
     public function testFromConfigQuiteFalseWithUnknownKey()
     {
+        $this->expectException(RuntimeException::class);
         $client = ClientBuilder::fromConfig(
             [
                 'hosts' => ['localhost:9200'],

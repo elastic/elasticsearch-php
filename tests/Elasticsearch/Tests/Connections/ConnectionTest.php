@@ -42,7 +42,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
      */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->trace = $this->createMock(LoggerInterface::class);
@@ -96,7 +96,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $headers = $connection->getHeaders();
 
         $this->assertArrayHasKey('User-Agent', $headers);
-        $this->assertContains('elasticsearch-php/'. Client::VERSION, $headers['User-Agent'][0]);
+        $this->assertStringContainsString('elasticsearch-php/'. Client::VERSION, $headers['User-Agent'][0]);
     }
 
     /**
@@ -125,7 +125,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $request = $connection->getLastRequestInfo()['request'];
 
         $this->assertArrayHasKey('User-Agent', $request['headers']);
-        $this->assertContains('elasticsearch-php/'. Client::VERSION, $request['headers']['User-Agent'][0]);
+        $this->assertStringContainsString('elasticsearch-php/'. Client::VERSION, $request['headers']['User-Agent'][0]);
     }
 
     /**
@@ -157,7 +157,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains('foo:bar', $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString('foo:bar', $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -191,7 +191,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('Authorization', $request['headers']);
         $this->assertArrayNotHasKey(CURLOPT_HTTPAUTH, $request['headers']);
-        $this->assertContains($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
+        $this->assertStringContainsString($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
     }
 
     /**
@@ -227,7 +227,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('Authorization', $request['headers']);
         $this->assertArrayNotHasKey(CURLOPT_HTTPAUTH, $request['headers']);
-        $this->assertContains($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
+        $this->assertStringContainsString($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
     }
 
     /**
@@ -261,7 +261,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains($params['client']['curl'][CURLOPT_USERPWD], $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString($params['client']['curl'][CURLOPT_USERPWD], $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -297,7 +297,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -332,7 +332,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $result = $tryDeserializeError->invoke($connection, $response, ServerErrorResponseException::class);
         $this->assertInstanceOf(ServerErrorResponseException::class, $result);
-        $this->assertContains('master_not_discovered_exception', $result->getMessage());
+        $this->assertStringContainsString('master_not_discovered_exception', $result->getMessage());
     }
 
     public function testHeaderClientParamIsResetAfterSent()

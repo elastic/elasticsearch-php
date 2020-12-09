@@ -33,7 +33,7 @@ use Mockery as m;
  */
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }

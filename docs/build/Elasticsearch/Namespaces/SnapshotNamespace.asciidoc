@@ -6,7 +6,7 @@
 
 
 Class SnapshotNamespace
-Generated running $ php util/GenerateEndpoints.php 7.4.2
+Generated running $ php util/GenerateEndpoints.php 7.9
 
 
 *Methods*
@@ -124,9 +124,7 @@ $response = $client->snapshot()->delete($params);
 [source,php]
 ----
 /*
-$params['repository']     = (list) A comma-separated list of repository names
-$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
-$params['timeout']        = (time) Explicit operation timeout
+$params['repository']     = (list) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
 */
 
 $params = [

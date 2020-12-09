@@ -1,0 +1,199 @@
+
+
+[[Elasticsearch_Namespaces_RollupNamespace]]
+=== Elasticsearch\Namespaces\RollupNamespace
+
+
+
+Class RollupNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_RollupNamespacedeleteJob_deleteJob,`deleteJob()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacegetJobs_getJobs,`getJobs()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacegetRollupCaps_getRollupCaps,`getRollupCaps()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacegetRollupIndexCaps_getRollupIndexCaps,`getRollupIndexCaps()`>>
+* <<Elasticsearch_Namespaces_RollupNamespaceputJob_putJob,`putJob()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacerollupSearch_rollupSearch,`rollupSearch()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacestartJob_startJob,`startJob()`>>
+* <<Elasticsearch_Namespaces_RollupNamespacestopJob_stopJob,`stopJob()`>>
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacedeleteJob_deleteJob]]
+.`deleteJob()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id'] = (string) The ID of the job to delete
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->deleteJob($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacegetJobs_getJobs]]
+.`getJobs()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id'] = (string) The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all jobs
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->getJobs($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacegetRollupCaps_getRollupCaps]]
+.`getRollupCaps()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id'] = (string) The ID of the index to check rollup capabilities on, or left blank for all jobs
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->getRollupCaps($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacegetRollupIndexCaps_getRollupIndexCaps]]
+.`getRollupIndexCaps()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The rollup index or index pattern to obtain rollup capabilities from.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->getRollupIndexCaps($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespaceputJob_putJob]]
+.`putJob()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id']   = (string) The ID of the job to create
+$params['body'] = (array) The job configuration (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->putJob($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacerollupSearch_rollupSearch]]
+.`rollupSearch()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['index']                  = (list) The indices or index-pattern(s) (containing rollup or regular data) that should be searched (Required)
+$params['type']                   = DEPRECATED (string) The doc type inside the index
+$params['typed_keys']             = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+$params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
+$params['body']                   = (array) The search request body (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->rollupSearch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacestartJob_startJob]]
+.`startJob()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id'] = (string) The ID of the job to start
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->startJob($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_RollupNamespacestopJob_stopJob]]
+.`stopJob()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['id']                  = (string) The ID of the job to stop
+$params['wait_for_completion'] = (boolean) True if the API should block until the job has fully stopped, false if should be executed async. Defaults to false.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup()->stopJob($params);
+----
+****
+
+

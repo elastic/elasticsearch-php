@@ -1,0 +1,112 @@
+
+
+[[Elasticsearch_Namespaces_SearchableSnapshotsNamespace]]
+=== Elasticsearch\Namespaces\SearchableSnapshotsNamespace
+
+
+
+Class SearchableSnapshotsNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SearchableSnapshotsNamespaceclearCache_clearCache,`clearCache()`>>
+* <<Elasticsearch_Namespaces_SearchableSnapshotsNamespacemount_mount,`mount()`>>
+* <<Elasticsearch_Namespaces_SearchableSnapshotsNamespacerepositoryStats_repositoryStats,`repositoryStats()`>>
+* <<Elasticsearch_Namespaces_SearchableSnapshotsNamespacestats_stats,`stats()`>>
+
+
+
+[[Elasticsearch_Namespaces_SearchableSnapshotsNamespaceclearCache_clearCache]]
+.`clearCache()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['index']              = (list) A comma-separated list of index names
+$params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->searchablesnapshots()->clearCache($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacemount_mount]]
+.`mount()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['repository']          = (string) The name of the repository containing the snapshot of the index to mount
+$params['snapshot']            = (string) The name of the snapshot of the index to mount
+$params['master_timeout']      = (time) Explicit operation timeout for connection to master node
+$params['wait_for_completion'] = (boolean) Should this request wait until the operation has completed before returning (Default = false)
+$params['body']                = (array) The restore configuration for mounting the snapshot as searchable (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->searchablesnapshots()->mount($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacerepositoryStats_repositoryStats]]
+.`repositoryStats()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['repository'] = (string) The repository for which to get the stats for
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->searchablesnapshots()->repositoryStats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacestats_stats]]
+.`stats()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['index'] = (list) A comma-separated list of index names
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->searchablesnapshots()->stats($params);
+----
+****
+
+

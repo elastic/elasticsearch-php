@@ -5,8 +5,6 @@
 
 
 
-Class ClientBuilder
-
 
 *Methods*
 
@@ -40,6 +38,7 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuildersetSSLCert_setSSLCert,`setSSLCert()`>>
 * <<Elasticsearch_ClientBuildersetSSLKey_setSSLKey,`setSSLKey()`>>
 * <<Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification,`setSSLVerification()`>>
+* <<Elasticsearch_ClientBuilderincludePortInHostHeader_includePortInHostHeader,`includePortInHostHeader()`>>
 * <<Elasticsearch_ClientBuilderbuild_build,`build()`>>
 * <<Elasticsearch_ClientBuilderinstantiate_instantiate,`instantiate()`>>
 
@@ -411,6 +410,20 @@ corresponds to setConnectionPool().
 [source,php]
 ----
 /*
+*/
+
+----
+****
+
+
+
+[[Elasticsearch_ClientBuilderincludePortInHostHeader_includePortInHostHeader]]
+.`includePortInHostHeader()`
+****
+[source,php]
+----
+/*
+    Include the port in Host header
 */
 
 ----

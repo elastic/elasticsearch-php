@@ -7,7 +7,7 @@ include::overview.asciidoc[]
 
 include::installation.asciidoc[]
 
-include::quickstart.asciidoc[]
+include::connecting.asciidoc[]
 
 include::configuration.asciidoc[]
 
@@ -25,8 +25,6 @@ include::search-operations.asciidoc[]
 
 include::namespaces.asciidoc[]
 
-include::security.asciidoc[]
-
 include::connection-pool.asciidoc[]
 
 include::selectors.asciidoc[]
@@ -43,4 +41,4 @@ include::experimental-beta-apis.asciidoc[]
 
 include::build/classes.asciidoc[]
 
-include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
+include::redirects.asciidoc[]

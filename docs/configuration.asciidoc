@@ -124,13 +124,13 @@ $client = ClientBuilder::create()
             ->build();
 ----
 <1> Your Cloud ID provided by the Elastic Cloud platform
-<2> Your ApiKey pair as described https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/security.html[here]
+<2> Your ApiKey pair as described <<authentication,here>>.
 
 
 === Authorization and Encryption
 
 For details about HTTP Authorization and SSL encryption, see 
-<<security,Authorization and SSL>>.
+<<authentication,Authorization and SSL>>.
 
 
 === Set retries

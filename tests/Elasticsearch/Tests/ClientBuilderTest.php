@@ -21,26 +21,21 @@ namespace Elasticsearch\Tests;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Tests\ClientBuilder\DummyLogger;
-use GuzzleHttp\Ring\Client\MockHandler;
 use PHPUnit\Framework\TestCase;
 
 class ClientBuilderTest extends TestCase
 {
-    /**
-     * @expectedException TypeError
-     */
     public function testClientBuilderThrowsExceptionForIncorrectLoggerClass()
     {
+        $this->expectException(\TypeError::class);
         ClientBuilder::create()->setLogger(new DummyLogger);
     }
 
-    /**
-     * @expectedException TypeError
-     */
     public function testClientBuilderThrowsExceptionForIncorrectTracerClass()
     {
+        $this->expectException(\TypeError::class);
         ClientBuilder::create()->setTracer(new DummyLogger);
     }
 
@@ -51,7 +46,7 @@ class ClientBuilderTest extends TestCase
             ->build();
 
         $this->assertInstanceOf(Client::class, $client);
-        
+
         try {
             $result = $client->info();
         } catch (ElasticsearchException $e) {
@@ -75,7 +70,7 @@ class ClientBuilderTest extends TestCase
             ->build();
 
         $this->assertInstanceOf(Client::class, $client);
-        
+
         try {
             $result = $client->info();
         } catch (ElasticsearchException $e) {
@@ -237,6 +232,7 @@ class ClientBuilderTest extends TestCase
      */
     public function testFromConfigQuiteFalseWithUnknownKey()
     {
+        $this->expectException(RuntimeException::class);
         $client = ClientBuilder::fromConfig(
             [
                 'hosts' => ['localhost:9200'],

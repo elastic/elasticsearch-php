@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.1, 7.2, 7.3, 7.4]
+        php-version: [7.1, 7.2, 7.3, 7.4, 8.0]
         os: [ubuntu-latest]
         es-version: [7.x-SNAPSHOT]
 
@@ -24,11 +24,11 @@ jobs:
         tools: prestissimo
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-   
+
     - name: Get composer cache directory
       id: composercache
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      
+
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
@@ -37,8 +37,14 @@ jobs:
         restore-keys: ${{ runner.os }}-composer-
 
     - name: Install dependencies
+      if: ${{ matrix.php-version != '8.0' }}
       run: |
         composer install --prefer-dist
+
+    - name: ignore ignore-platform-reqs if it is using php 8
+      if: ${{ matrix.php-version == '8.0' }}
+      run: |
+        composer install --prefer-dist --ignore-platform-reqs
 
     - name: PHP Coding Standards
       run: |
@@ -71,4 +77,3 @@ jobs:
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
         TEST_SUITE: oss
-        

@@ -23,9 +23,6 @@ trait BooleanRequestWrapper
      *
      * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
      *
-     * @throws Missing404Exception
-     * @throws RoutingMissingException
-     *
      * @return array|bool|callable
      */
     public static function performRequest(AbstractEndpoint $endpoint)

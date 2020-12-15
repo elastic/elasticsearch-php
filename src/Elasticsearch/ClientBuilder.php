@@ -137,6 +137,11 @@ class ClientBuilder
     /**
      * @var bool
      */
+    private $elasticMetaHeader = true;
+
+    /**
+     * @var bool
+     */
     private $includePortInHostHeader = false;
 
     public static function create(): ClientBuilder
@@ -481,6 +486,16 @@ class ClientBuilder
     }
 
     /**
+     * Set or disable the x-elastic-client-meta header
+     */
+    public function setElasticMetaHeader($value = true): ClientBuilder
+    {
+        $this->elasticMetaHeader = $value;
+
+        return $this;
+    }
+
+    /**
      * Include the port in Host header
      *
      * @see https://github.com/elastic/elasticsearch-php/issues/993
@@ -532,6 +547,7 @@ class ClientBuilder
             $this->serializer = new $this->serializer;
         }
 
+        $this->connectionParams['client']['x-elastic-client-meta']= $this->elasticMetaHeader;
         $this->connectionParams['client']['port_in_header'] = $this->includePortInHostHeader;
 
         if (is_null($this->connectionFactory)) {

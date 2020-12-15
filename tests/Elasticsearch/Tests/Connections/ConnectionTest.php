@@ -363,4 +363,67 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $headersAfter = $connection->getHeaders();
         $this->assertEquals($headersBefore, $headersAfter);
     }
+
+    /**
+     * Test if the x-elastic-client-meta header is sent if $params['client']['x-elastic-client-meta'] is true  
+     */
+    public function testElasticMetaClientHeaderIsSentWhenParameterIsTrue()
+    {
+        $params = [
+            'client' => [
+                'x-elastic-client-meta'=> true
+            ]
+        ];
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $params,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/');
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertArrayHasKey('x-elastic-client-meta', $request['headers']);
+        $this->assertEquals(
+            1,
+            preg_match(
+                '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                $request['headers']['x-elastic-client-meta'][0]
+            )
+        );
+    }
+
+    /**
+     * Test if the x-elastic-client-meta header is sent if $params['client']['x-elastic-client-meta'] is true  
+     */
+    public function testElasticMetaClientHeaderIsNotSentWhenParameterIsFalse()
+    {
+        $params = [
+            'client' => [
+                'x-elastic-client-meta'=> false
+            ]
+        ];
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $params,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/');
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertArrayNotHasKey('x-elastic-client-meta', $request['headers']);
+    }
 }

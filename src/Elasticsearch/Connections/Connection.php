@@ -169,6 +169,11 @@ class Connection implements ConnectionInterface
             phpversion()
         )];
 
+        // Add x-elastic-client-meta header, if enabled
+        if (isset($connectionParams['client']['x-elastic-client-meta']) && $connectionParams['client']['x-elastic-client-meta']) {
+            $this->headers['x-elastic-client-meta'] = [$this->getElasticMetaHeader($connectionParams)];
+        }
+
         $host = $hostDetails['host'];
         $path = null;
         if (isset($hostDetails['path']) === true) {
@@ -572,6 +577,28 @@ class Connection implements ConnectionInterface
         }
 
         return $exception;
+    }
+
+    /**
+     * Get the x-elastic-client-meta header
+     */
+    private function getElasticMetaHeader(array $connectionParams): string
+    {
+        $phpSemVersion = sprintf("%d.%d.%d", PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);
+        $clientMeta = sprintf(
+            "es=%s,php=%s,t=%s,a=%d",
+            Client::VERSION,
+            $phpSemVersion,
+            Client::VERSION,
+            isset($connectionParams['client']['future']) && $connectionParams['client']['future'] === 'lazy' ? 1 : 0
+        );
+        if (function_exists('curl_version')) {
+            $curlVersion = curl_version();
+            if (isset($curlVersion['version'])) {
+                $clientMeta .= sprintf(",c=%s", $curlVersion['version']);
+            }
+        }
+        return $clientMeta;
     }
 
     /**

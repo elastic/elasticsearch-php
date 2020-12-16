@@ -227,9 +227,6 @@ class ClientBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException Elasticsearch\Common\Exceptions\RuntimeException
-     */
     public function testFromConfigQuiteFalseWithUnknownKey()
     {
         $this->expectException(RuntimeException::class);

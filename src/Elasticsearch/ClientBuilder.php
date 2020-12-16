@@ -305,10 +305,6 @@ class ClientBuilder
 
     public function setLogger(LoggerInterface $logger): ClientBuilder
     {
-        if (!$logger instanceof LoggerInterface) {
-            throw new InvalidArgumentException('$logger must implement \Psr\Log\LoggerInterface!');
-        }
-
         $this->logger = $logger;
 
         return $this;
@@ -316,10 +312,6 @@ class ClientBuilder
 
     public function setTracer(LoggerInterface $tracer): ClientBuilder
     {
-        if (!$tracer instanceof LoggerInterface) {
-            throw new InvalidArgumentException('$tracer must implement \Psr\Log\LoggerInterface!');
-        }
-
         $this->tracer = $tracer;
 
         return $this;

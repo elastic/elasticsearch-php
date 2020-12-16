@@ -584,10 +584,11 @@ class Connection implements ConnectionInterface
      */
     private function getElasticMetaHeader(array $connectionParams): string
     {
+        $phpSemVersion = sprintf("%d.%d.%d", PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);
         $clientMeta = sprintf(
             "es=%s,php=%s,t=%s,a=%d",
             Client::VERSION,
-            phpversion(),
+            $phpSemVersion,
             Client::VERSION,
             isset($connectionParams['client']['future']) && $connectionParams['client']['future'] === 'lazy' ? 1 : 0
         );

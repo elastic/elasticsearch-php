@@ -130,7 +130,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $searchParams = [
             'index' => 'test',
-            'type' => 'test',
             'body' => [
                 'query' => [
                     'match_all' => []

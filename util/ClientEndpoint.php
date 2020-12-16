@@ -30,11 +30,13 @@ class ClientEndpoint extends NamespaceEndpoint
     protected $endpointNames = [];
     protected $namespace = [];
     protected $version; /* Elasticsearch version used to generate the class */
-
-    public function __construct(array $namespace, string $version)
+    protected $buildhash; /* Elasticsearch build hash used to generate the class */
+    
+    public function __construct(array $namespace, string $version, string $buildhash)
     {
         $this->namespace = $namespace;
         $this->version = $version;
+        $this->buildhash = $buildhash;
     }
 
     public function renderClass(): string
@@ -101,7 +103,9 @@ class ClientEndpoint extends NamespaceEndpoint
             $functions .= $func;
         }
         $class = str_replace(':functions', $functions, $class);
+        $class = str_replace(':version', $this->version, $class);
+        $class = str_replace(':buildhash', $this->buildhash, $class);
 
-        return str_replace(':version', $this->version, $class);
+        return $class;
     }
 }

@@ -1,0 +1,5 @@
+        $this->assertRegExp(
+            :regex, 
+            $response['error']['reason']
+        );
+

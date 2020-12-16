@@ -15,6 +15,8 @@ if [ "$TEST_SUITE" = "free" ]; then
     docker run \
       --rm \
       --publish 9200:9200 \
+      --ulimit nofile=65536:65536 \
+      --ulimit memlock=-1:-1 \
       --env "node.attr.testattr=test" \
       --env "path.repo=/tmp" \
       --env "repositories.url.allowed_urls=http://snapshot.*" \
@@ -30,9 +32,9 @@ if [ "$TEST_SUITE" = "free" ]; then
     docker run --network esnet --rm appropriate/curl --max-time 120 --retry 120 --retry-delay 1 --retry-connrefused --show-error --silent http://elasticsearch:9200
 else
     repo=$(pwd)
-    testnodecrt="/travis/certs/testnode.crt"
-    testnodekey="/travis/certs/testnode.key"
-    cacrt="/travis/certs/ca.crt"
+    testnodecrt="/util/certs/testnode.crt"
+    testnodekey="/util/certs/testnode.key"
+    cacrt="/util/certs/ca.crt"
 
     docker pull docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     docker network create esnet;
@@ -56,7 +58,9 @@ else
       --env "xpack.security.transport.ssl.enabled=true" \
       --env "xpack.security.transport.ssl.key=certs/testnode.key" \
       --env "xpack.security.transport.ssl.certificate=certs/testnode.crt" \
+      --env 'indices.lifecycle.history_index_enabled=false' \
       --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt" \
+      --env "xpack.ml.max_model_memory_limit=2gb" \
       --volume "$repo$testnodecrt:/usr/share/elasticsearch/config/certs/testnode.crt" \
       --volume "$repo$testnodekey:/usr/share/elasticsearch/config/certs/testnode.key" \
       --volume "$repo$cacrt:/usr/share/elasticsearch/config/certs/ca.crt" \

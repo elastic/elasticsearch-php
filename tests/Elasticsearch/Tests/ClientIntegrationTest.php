@@ -61,7 +61,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 
         if (getenv('TEST_SUITE') === 'platinum') {
             $client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
-        }    
+        }
         return $client->build();
     }
 
@@ -80,7 +80,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
 
         $result = $client->info();
 
-        $this->assertContains('"port"', $this->getLevelOutput(LogLevel::INFO, $this->logger->output));
+        $this->assertStringContainsString('"port"', $this->getLevelOutput(LogLevel::INFO, $this->logger->output));
     }
 
     public function testLogRequestFailHasWarning()

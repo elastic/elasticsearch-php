@@ -1,0 +1,4 @@
+        $this->markTestSkipped(sprintf(
+            "Skip test %s because it requires Elasticsearch OSS",
+            :testname
+        ));

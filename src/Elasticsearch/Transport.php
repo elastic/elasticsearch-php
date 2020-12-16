@@ -93,7 +93,7 @@ class Transport
      *
      * @throws Common\Exceptions\NoNodesAvailableException|\Exception
      */
-    public function performRequest(string $method, string $uri, array $params = null, $body = null, array $options = []): FutureArrayInterface
+    public function performRequest(string $method, string $uri, array $params = [], $body = null, array $options = []): FutureArrayInterface
     {
         try {
             $connection  = $this->getConnection();
@@ -114,7 +114,7 @@ class Transport
             $options,
             $this
         );
-
+        
         $future->promise()->then(
             //onSuccess
             function ($response) {
@@ -123,8 +123,9 @@ class Transport
             },
             //onFailure
             function ($response) {
+                $code = $response->getCode();
                 // Ignore 400 level errors, as that means the server responded just fine
-                if (!(isset($response['code']) && $response['code'] >=400 && $response['code'] < 500)) {
+                if ($code < 400 || $code >= 500) {
                     // Otherwise schedule a check
                     $this->connectionPool->scheduleCheck();
                 }

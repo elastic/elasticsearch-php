@@ -1,0 +1,1 @@
+        $this->assertFalse(isset(:value) && :value !== 0 && :value !== false && :value !== '');

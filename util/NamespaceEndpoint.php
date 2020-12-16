@@ -31,11 +31,13 @@ class NamespaceEndpoint
     protected $endpoints = [];
     protected $endpointNames = [];
     protected $version; /* Elasticsearch version used to generate the class */
+    protected $buildhash; /* Elasticsearch build hash used to generate the class */
 
-    public function __construct(string $name, string $version)
+    public function __construct(string $name, string $version, string $buildhash)
     {
         $this->name = $name;
         $this->version = $version;
+        $this->buildhash = $buildhash;
     }
 
     public function renderClass(): string
@@ -60,8 +62,10 @@ class NamespaceEndpoint
                 break;
         }
         $class = str_replace(':endpoints', $endpoints, $class);
+        $class = str_replace(':version', $this->version, $class);
+        $class = str_replace(':buildhash', $this->buildhash, $class);
 
-        return str_replace(':version', $this->version, $class);
+        return $class;
     }
 
     public function addEndpoint(Endpoint $endpoint): NamespaceEndpoint

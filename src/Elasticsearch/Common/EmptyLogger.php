@@ -26,7 +26,6 @@ use Psr\Log\LoggerInterface;
  *
  * Logger that doesn't do anything.  Similar to Monolog's NullHandler,
  * but avoids the overhead of partially loading Monolog
- *
  */
 class EmptyLogger extends AbstractLogger implements LoggerInterface
 {

@@ -13,6 +13,7 @@
  * See the LICENSE file in the project root for more information.
  */
 
+
 declare(strict_types = 1);
 
 namespace Elasticsearch\Common\Exceptions;
@@ -21,7 +22,6 @@ namespace Elasticsearch\Common\Exceptions;
  * BadMethodCallException
  *
  * Denote problems with a method call (e.g. incorrect number of arguments)
- *
  */
 class BadMethodCallException extends \BadMethodCallException implements ElasticsearchException
 {

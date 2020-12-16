@@ -1,0 +1,1 @@
+        $:var = base64_encode(:param);

@@ -1,3 +1,43 @@
+# Release 7.11.0
+
+- [#1089](https://github.com/elastic/elasticsearch-php/pull/1089) Added the `X-Elastic-Client-Meta` header which is used by Elastic Cloud
+  and can be disabled with `ClientBuilder::setElasticMetaHeader(false)`
+- [#1075](https://github.com/elastic/elasticsearch-php/pull/1075) Replaced `array_walk` with `array_map` in `Connection::getURI` for PHP 8
+  compatibility
+- [#1069](https://github.com/elastic/elasticsearch-php/pull/1069) Remove unnecessary `InvalidArgumentExceptions`
+- [#1063](https://github.com/elastic/elasticsearch-php/pull/1063) Introducing PHP 8 compatibility
+- [#1062](https://github.com/elastic/elasticsearch-php/pull/1062) Replace Sami by Doctum and fix `.gitignore`
+
+## Release 7.10.0
+
+- Updated endpoints and namespaces for Elasticsearch 7.10
+  [3ceb748](https://github.com/elastic/elasticsearch-php/commit/3ceb7484a111aa20126168460c79f098c4fe0792)
+- Fixed ClientBuilder::fromConfig allowing multiple function
+  parameters (e.g. setApiKey)
+  [#1076](https://github.com/elastic/elasticsearch-php/pull/1076)
+- Refactored the YAML tests using generated PHPUnit code
+  [85fadc2](https://github.com/elastic/elasticsearch-php/commit/85fadc2bd4b2b309b19761a50ff13010d43a524d)
+
+## Release 7.9.1
+
+- Fixed using object instead of array in onFailure transport event
+  [#1066](https://github.com/elastic/elasticsearch-php/pull/1066)
+- Fixed reset custom header after endpoint call
+  [#1065](https://github.com/elastic/elasticsearch-php/pull/1065)
+- Show generic error messages when server returns no response
+  [#1056](https://github.com/elastic/elasticsearch-php/pull/1056)
+
+## Release 7.9.0
+
+- Updated endpoints and namespaces for Elasticsearch 7.9
+  [28bf0ed](https://github.com/elastic/elasticsearch-php/commit/28bf0ed6df6bc95f83f369509431d97907bfdeb0)
+- Moved `scroll_id` into `body` for search operations in the documentation
+  [#1052](https://github.com/elastic/elasticsearch-php/pull/1052)
+- Fixed PHP 7.4 preloading feature for autoload.php
+  [#1051](https://github.com/elastic/elasticsearch-php/pull/1051)
+- Improved message of JSON errors using `json_last_error_msg()`
+  [#1045](https://github.com/elastic/elasticsearch-php/pull/1045)
+
 ## Release 7.8.0
 
 - Updated endpoints and namespaces for Elasticsearch 7.8

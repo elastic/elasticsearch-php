@@ -25,6 +25,9 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class Utility
 {
+    /**
+     * Get the host URL based on ENV variables
+     */
     public static function getHost(): ?string
     {
         $url = getenv('ELASTICSEARCH_URL');

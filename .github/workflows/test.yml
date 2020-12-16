@@ -21,7 +21,6 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        tools: prestissimo
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    

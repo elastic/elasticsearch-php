@@ -54,6 +54,7 @@ class Endpoint
     public $apiName;
     protected $content;
     protected $version;
+    protected $buildhash;
     protected $parts = [];
     protected $requiredParts = [];
     protected $useNamespace = [];
@@ -64,9 +65,14 @@ class Endpoint
      * @param $fileName name of the file with the API specification
      * @param $content content of the API specification in JSON
      * @param $version Elasticsearch version of the API specification
+     * @param $buildhash Elasticsearch build hash of the API specification
      */
-    public function __construct(string $fileName, string $content, string $version)
-    {
+    public function __construct(
+        string $fileName, 
+        string $content, 
+        string $version, 
+        string $buildhash
+    ) {
         $this->apiName = basename($fileName, '.json');
         $parts = explode('.', $this->apiName);
         if (count($parts) === 1) {
@@ -91,6 +97,7 @@ class Endpoint
         }
         $this->content = $this->content[$this->apiName];
         $this->version = $version;
+        $this->buildhash = $buildhash;
 
         $this->parts = $this->getPartsFromContent($this->content);
         $this->requiredParts = $this->getRequiredParts($this->content);
@@ -189,6 +196,7 @@ class Endpoint
         $class = str_replace(':set-parts', $parts, $class);
         $class = str_replace(':endpoint', $this->getClassName(), $class);
         $class = str_replace(':version', $this->version, $class);
+        $class = str_replace(':buildhash', $this->buildhash, $class);
         $class = str_replace(':use-namespace', $this->getNamespaces(), $class);
         $class = str_replace(':properties', $this->getProperties(), $class);
 

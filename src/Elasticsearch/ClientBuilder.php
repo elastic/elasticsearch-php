@@ -38,6 +38,7 @@ use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use ReflectionClass;
 
 class ClientBuilder
 {
@@ -134,7 +135,12 @@ class ClientBuilder
     private $sslVerification = null;
 
     /**
-     *  @var bool
+     * @var bool
+     */
+    private $elasticMetaHeader = true;
+
+    /**
+     * @var bool
      */
     private $includePortInHostHeader = false;
 
@@ -188,8 +194,14 @@ class ClientBuilder
         $builder = new static;
         foreach ($config as $key => $value) {
             $method = "set$key";
-            if (method_exists($builder, $method)) {
-                $builder->$method($value);
+            $reflection = new ReflectionClass($builder);
+            if ($reflection->hasMethod($method)) {
+                $func = $reflection->getMethod($method);
+                if ($func->getNumberOfParameters() > 1) {
+                    $builder->$method(...$value);
+                } else {
+                    $builder->$method($value);
+                }
                 unset($config[$key]);
             }
         }
@@ -337,7 +349,6 @@ class ClientBuilder
     /**
      * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
      *
-         *
      * @throws AuthenticationConfigException
      */
     public function setApiKey(string $id, string $apiKey): ClientBuilder
@@ -382,19 +393,20 @@ class ClientBuilder
     /**
      * Set Elastic Cloud ID to connect to Elastic Cloud
      *
-         *
      * @param string $cloudId
      */
     public function setElasticCloudId(string $cloudId): ClientBuilder
     {
         // Register the Hosts array
-        $this->setHosts([
+        $this->setHosts(
+            [
             [
                 'host'   => $this->parseElasticCloudId($cloudId),
                 'port'   => '',
                 'scheme' => 'https',
             ]
-        ]);
+            ]
+        );
 
         if (!isset($this->connectionParams['client']['curl'][CURLOPT_ENCODING])) {
             // Merge best practices for the connection (enable gzip)
@@ -456,7 +468,7 @@ class ClientBuilder
     }
 
     /**
-     *  @param bool|string $value
+     * @param bool|string $value
      */
     public function setSSLVerification($value = true): ClientBuilder
     {
@@ -466,7 +478,18 @@ class ClientBuilder
     }
 
     /**
+     * Set or disable the x-elastic-client-meta header
+     */
+    public function setElasticMetaHeader($value = true): ClientBuilder
+    {
+        $this->elasticMetaHeader = $value;
+
+        return $this;
+    }
+
+    /**
      * Include the port in Host header
+     *
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
     public function includePortInHostHeader(bool $enable): ClientBuilder
@@ -516,6 +539,7 @@ class ClientBuilder
             $this->serializer = new $this->serializer;
         }
 
+        $this->connectionParams['client']['x-elastic-client-meta']= $this->elasticMetaHeader;
         $this->connectionParams['client']['port_in_header'] = $this->includePortInHostHeader;
 
         if (is_null($this->connectionFactory)) {
@@ -555,7 +579,11 @@ class ClientBuilder
 
             $this->endpoint = function ($class) use ($serializer) {
                 $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
-                if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MsearchTemplate' || $class === 'MPercolate') {
+                
+                $reflection = new ReflectionClass($fullPath);
+                $constructor = $reflection->getConstructor();
+
+                if ($constructor && $constructor->getParameters()) {
                     return new $fullPath($serializer);
                 } else {
                     return new $fullPath();

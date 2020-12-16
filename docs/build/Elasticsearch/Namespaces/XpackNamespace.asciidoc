@@ -1,0 +1,60 @@
+
+
+[[Elasticsearch_Namespaces_XpackNamespace]]
+=== Elasticsearch\Namespaces\XpackNamespace
+
+
+
+Class XpackNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_XpackNamespaceinfo_info,`info()`>>
+* <<Elasticsearch_Namespaces_XpackNamespaceusage_usage,`usage()`>>
+
+
+
+[[Elasticsearch_Namespaces_XpackNamespaceinfo_info]]
+.`info()`
+****
+[source,php]
+----
+/*
+$params['categories']        = (list) Comma-separated list of info categories. Can be any of: build, license, features
+$params['accept_enterprise'] = (boolean) If an enterprise license is installed, return the type and mode as 'enterprise' (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->xpack()->info($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_XpackNamespaceusage_usage]]
+.`usage()`
+****
+[source,php]
+----
+/*
+$params['master_timeout'] = (time) Specify timeout for watch write operation
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->xpack()->usage($params);
+----
+****
+
+

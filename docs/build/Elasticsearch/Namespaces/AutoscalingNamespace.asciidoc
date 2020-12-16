@@ -1,0 +1,104 @@
+
+
+[[Elasticsearch_Namespaces_AutoscalingNamespace]]
+=== Elasticsearch\Namespaces\AutoscalingNamespace
+
+
+
+Class AutoscalingNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_AutoscalingNamespacedeleteAutoscalingPolicy_deleteAutoscalingPolicy,`deleteAutoscalingPolicy()`>>
+* <<Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingDecision_getAutoscalingDecision,`getAutoscalingDecision()`>>
+* <<Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingPolicy_getAutoscalingPolicy,`getAutoscalingPolicy()`>>
+* <<Elasticsearch_Namespaces_AutoscalingNamespaceputAutoscalingPolicy_putAutoscalingPolicy,`putAutoscalingPolicy()`>>
+
+
+
+[[Elasticsearch_Namespaces_AutoscalingNamespacedeleteAutoscalingPolicy_deleteAutoscalingPolicy]]
+.`deleteAutoscalingPolicy()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name'] = (string) the name of the autoscaling policy
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->autoscaling()->deleteAutoscalingPolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingDecision_getAutoscalingDecision]]
+.`getAutoscalingDecision()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->autoscaling()->getAutoscalingDecision($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingPolicy_getAutoscalingPolicy]]
+.`getAutoscalingPolicy()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name'] = (string) the name of the autoscaling policy
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->autoscaling()->getAutoscalingPolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_AutoscalingNamespaceputAutoscalingPolicy_putAutoscalingPolicy]]
+.`putAutoscalingPolicy()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name'] = (string) the name of the autoscaling policy
+$params['body'] = (array) the specification of the autoscaling policy (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->autoscaling()->putAutoscalingPolicy($params);
+----
+****
+
+

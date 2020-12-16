@@ -6,7 +6,7 @@
 
 
 Class ClusterNamespace
-Generated running $ php util/GenerateEndpoints.php 7.4.2
+Generated running $ php util/GenerateEndpoints.php 7.9
 
 
 *Methods*
@@ -14,9 +14,15 @@ Generated running $ php util/GenerateEndpoints.php 7.4.2
 The class defines the following methods:
 
 * <<Elasticsearch_Namespaces_ClusterNamespaceallocationExplain_allocationExplain,`allocationExplain()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacedeleteComponentTemplate_deleteComponentTemplate,`deleteComponentTemplate()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacedeleteVotingConfigExclusions_deleteVotingConfigExclusions,`deleteVotingConfigExclusions()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespaceexistsComponentTemplate_existsComponentTemplate,`existsComponentTemplate()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacegetComponentTemplate_getComponentTemplate,`getComponentTemplate()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings,`getSettings()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespacehealth_health,`health()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks,`pendingTasks()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespacepostVotingConfigExclusions_postVotingConfigExclusions,`postVotingConfigExclusions()`>>
+* <<Elasticsearch_Namespaces_ClusterNamespaceputComponentTemplate_putComponentTemplate,`putComponentTemplate()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespaceputSettings_putSettings,`putSettings()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespaceremoteInfo_remoteInfo,`remoteInfo()`>>
 * <<Elasticsearch_Namespaces_ClusterNamespacereroute_reroute,`reroute()`>>
@@ -42,6 +48,95 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cluster()->allocationExplain($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacedeleteComponentTemplate_deleteComponentTemplate]]
+.`deleteComponentTemplate()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name']           = (string) The name of the template
+$params['timeout']        = (time) Explicit operation timeout
+$params['master_timeout'] = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->deleteComponentTemplate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacedeleteVotingConfigExclusions_deleteVotingConfigExclusions]]
+.`deleteVotingConfigExclusions()`
+****
+[source,php]
+----
+/*
+$params['wait_for_removal'] = (boolean) Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list. (Default = true)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->deleteVotingConfigExclusions($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespaceexistsComponentTemplate_existsComponentTemplate]]
+.`existsComponentTemplate()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name']           = (string) The name of the template
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->existsComponentTemplate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacegetComponentTemplate_getComponentTemplate]]
+.`getComponentTemplate()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name']           = (list) The comma separated names of the component templates
+$params['master_timeout'] = (time) Explicit operation timeout for connection to master node
+$params['local']          = (boolean) Return local information, do not retrieve the state from master node (default: false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->getComponentTemplate($params);
 ----
 ****
 
@@ -77,7 +172,7 @@ $response = $client->cluster()->getSettings($params);
 ----
 /*
 $params['index']                           = (list) Limit the information returned to a specific index
-$params['expand_wildcards']                = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)
+$params['expand_wildcards']                = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = all)
 $params['level']                           = (enum) Specify the level of detail for returned information (Options = cluster,indices,shards) (Default = cluster)
 $params['local']                           = (boolean) Return local information, do not retrieve the state from master node (default: false)
 $params['master_timeout']                  = (time) Explicit operation timeout for connection to master node
@@ -117,6 +212,51 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cluster()->pendingTasks($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespacepostVotingConfigExclusions_postVotingConfigExclusions]]
+.`postVotingConfigExclusions()`
+****
+[source,php]
+----
+/*
+$params['node_ids']   = (string) A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->postVotingConfigExclusions($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_ClusterNamespaceputComponentTemplate_putComponentTemplate]]
+.`putComponentTemplate()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+$params['name']           = (string) The name of the template
+$params['create']         = (boolean) Whether the index template should only be added if new or can also replace an existing one (Default = false)
+$params['timeout']        = (time) Explicit operation timeout
+$params['master_timeout'] = (time) Specify timeout for connection to master
+$params['body']           = (array) The template definition (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->cluster()->putComponentTemplate($params);
 ----
 ****
 
@@ -205,7 +345,7 @@ $params['wait_for_metadata_version'] = (number) Wait for the metadata version to
 $params['wait_for_timeout']          = (time) The maximum time to wait for wait_for_metadata_version before timing out
 $params['ignore_unavailable']        = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']          = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']          = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 */
 
 $params = [

@@ -6,6 +6,7 @@
 
 
 Class Client
+Generated running $ php util/GenerateEndpoints.php 7.9
 
 
 *Methods*
@@ -26,6 +27,8 @@ The class defines the following methods:
 * <<Elasticsearch_ClientfieldCaps_fieldCaps,`fieldCaps()`>>
 * <<Elasticsearch_Clientget_get,`get()`>>
 * <<Elasticsearch_ClientgetScript_getScript,`getScript()`>>
+* <<Elasticsearch_ClientgetScriptContext_getScriptContext,`getScriptContext()`>>
+* <<Elasticsearch_ClientgetScriptLanguages_getScriptLanguages,`getScriptLanguages()`>>
 * <<Elasticsearch_ClientgetSource_getSource,`getSource()`>>
 * <<Elasticsearch_Clientindex_index,`index()`>>
 * <<Elasticsearch_Clientinfo_info,`info()`>>
@@ -50,11 +53,33 @@ The class defines the following methods:
 * <<Elasticsearch_ClientupdateByQueryRethrottle_updateByQueryRethrottle,`updateByQueryRethrottle()`>>
 * <<Elasticsearch_Clientcat_cat,`cat()`>>
 * <<Elasticsearch_Clientcluster_cluster,`cluster()`>>
+* <<Elasticsearch_ClientdanglingIndices_danglingIndices,`danglingIndices()`>>
 * <<Elasticsearch_Clientindices_indices,`indices()`>>
 * <<Elasticsearch_Clientingest_ingest,`ingest()`>>
 * <<Elasticsearch_Clientnodes_nodes,`nodes()`>>
 * <<Elasticsearch_Clientsnapshot_snapshot,`snapshot()`>>
 * <<Elasticsearch_Clienttasks_tasks,`tasks()`>>
+* <<Elasticsearch_ClientasyncSearch_asyncSearch,`asyncSearch()`>>
+* <<Elasticsearch_Clientautoscaling_autoscaling,`autoscaling()`>>
+* <<Elasticsearch_Clientccr_ccr,`ccr()`>>
+* <<Elasticsearch_ClientdataFrameTransformDeprecated_dataFrameTransformDeprecated,`dataFrameTransformDeprecated()`>>
+* <<Elasticsearch_Clientenrich_enrich,`enrich()`>>
+* <<Elasticsearch_Clienteql_eql,`eql()`>>
+* <<Elasticsearch_Clientgraph_graph,`graph()`>>
+* <<Elasticsearch_Clientilm_ilm,`ilm()`>>
+* <<Elasticsearch_Clientlicense_license,`license()`>>
+* <<Elasticsearch_Clientmigration_migration,`migration()`>>
+* <<Elasticsearch_Clientml_ml,`ml()`>>
+* <<Elasticsearch_Clientmonitoring_monitoring,`monitoring()`>>
+* <<Elasticsearch_Clientrollup_rollup,`rollup()`>>
+* <<Elasticsearch_ClientsearchableSnapshots_searchableSnapshots,`searchableSnapshots()`>>
+* <<Elasticsearch_Clientsecurity_security,`security()`>>
+* <<Elasticsearch_Clientslm_slm,`slm()`>>
+* <<Elasticsearch_Clientsql_sql,`sql()`>>
+* <<Elasticsearch_Clientssl_ssl,`ssl()`>>
+* <<Elasticsearch_Clienttransform_transform,`transform()`>>
+* <<Elasticsearch_Clientwatcher_watcher,`watcher()`>>
+* <<Elasticsearch_Clientxpack_xpack,`xpack()`>>
 * <<Elasticsearch_Client-call-_call,`__call()`>>
 * <<Elasticsearch_ClientextractArgument_extractArgument,`extractArgument()`>>
 
@@ -70,7 +95,7 @@ The class defines the following methods:
 $params['index']                  = (string) Default index for items which don't provide one
 $params['type']                   = DEPRECATED (string) Default document type for items which don't provide one
 $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-$params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+$params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
 $params['routing']                = (string) Specific routing value
 $params['timeout']                = (time) Explicit operation timeout
 $params['_source']                = (list) True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
@@ -123,7 +148,7 @@ $params['type']               = DEPRECATED (list) A comma-separated list of type
 $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['ignore_throttled']   = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
 $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 $params['min_score']          = (number) Include only documents with a specific `_score` value in the result
 $params['preference']         = (string) Specify the node or shard the operation should be performed on (default: random)
 $params['routing']            = (list) A comma-separated list of specific routing values
@@ -162,7 +187,7 @@ $params['refresh']                = (enum) If `true` then refresh the affected s
 $params['routing']                = (string) Specific routing value
 $params['timeout']                = (time) Explicit operation timeout
 $params['version']                = (number) Explicit version number for concurrency control
-$params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte,force)
+$params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte)
 $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
 $params['body']                   = (array) The document (Required)
 */
@@ -188,7 +213,7 @@ $params['id']                     = (string) The document ID (Required)
 $params['index']                  = (string) The name of the index (Required)
 $params['type']                   = DEPRECATED (string) The type of the document
 $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-$params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+$params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
 $params['routing']                = (string) Specific routing value
 $params['timeout']                = (time) Explicit operation timeout
 $params['if_seq_no']              = (number) only perform the delete operation if the last operation that has changed the document has the specified sequence number
@@ -216,6 +241,7 @@ $response = $client->delete($params);
 /*
 $params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices (Required)
 $params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+$params['analyzer']               = (string) The analyzer to use for the query string
 $params['analyze_wildcard']       = (boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)
 $params['default_operator']       = (enum) The default operator for query string query (AND or OR) (Options = AND,OR) (Default = OR)
 $params['df']                     = (string) The field to use as default where no field prefix is given in the query string
@@ -223,7 +249,7 @@ $params['from']                   = (number) Starting offset (default: 0)
 $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 $params['conflicts']              = (enum) What to do when the delete by query hits version conflicts? (Options = abort,proceed) (Default = abort)
-$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 $params['lenient']                = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 $params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
 $params['q']                      = (string) Query in the Lucene query string syntax
@@ -395,8 +421,9 @@ $params['index']              = (list) A comma-separated list of index names; us
 $params['fields']             = (list) A comma-separated list of field names
 $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 $params['include_unmapped']   = (boolean) Indicates whether unmapped fields should be included in the response. (Default = false)
+$params['body']               = (array) An index filter specified with the Query DSL
 */
 
 $params = [
@@ -463,6 +490,46 @@ $response = $client->getScript($params);
 
 
 
+[[Elasticsearch_ClientgetScriptContext_getScriptContext]]
+.`getScriptContext()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->getScriptContext($params);
+----
+****
+
+
+
+[[Elasticsearch_ClientgetScriptLanguages_getScriptLanguages]]
+.`getScriptLanguages()`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->getScriptLanguages($params);
+----
+****
+
+
+
 [[Elasticsearch_ClientgetSource_getSource]]
 .`getSource()`
 ****
@@ -504,12 +571,12 @@ $params['id']                     = (string) Document ID
 $params['index']                  = (string) The name of the index (Required)
 $params['type']                   = DEPRECATED (string) The type of the document
 $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-$params['op_type']                = (enum) Explicit operation type (Options = index,create) (Default = index)
+$params['op_type']                = (enum) Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID (Options = index,create)
 $params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
 $params['routing']                = (string) Specific routing value
 $params['timeout']                = (time) Explicit operation timeout
 $params['version']                = (number) Explicit version number for concurrency control
-$params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte,force)
+$params['version_type']           = (enum) Specific version type (Options = internal,external,external_gte)
 $params['if_seq_no']              = (number) only perform the index operation if the last operation that has changed the document has the specified sequence number
 $params['if_primary_term']        = (number) only perform the index operation if the last operation that has changed the document has the specified primary term
 $params['pipeline']               = (string) The pipeline id to preprocess incoming documents with
@@ -587,11 +654,7 @@ $params['type']                          = DEPRECATED (list) A comma-separated l
 $params['search_type']                   = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
 $params['max_concurrent_searches']       = (number) Controls the maximum number of concurrent searches the multi search api will execute
 $params['typed_keys']                    = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-$params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on it's rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint. (Default = 128)
-$params['max_concurrent_shard_requests'] = (number) The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests (Default = 5)
-$params['rest_total_hits_as_int']        = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
-$params['ccs_minimize_roundtrips']       = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
-$params['body']                          = (array) The request definitions (metadata-search request definition pairs), separated by newlines (Required)
+$params['pre_filter_shard_size']         = (number) A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
 */
 
 $params = [
@@ -617,6 +680,7 @@ $params['search_type']             = (enum) Search operation type (Options = que
 $params['typed_keys']              = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
 $params['max_concurrent_searches'] = (number) Controls the maximum number of concurrent searches the multi search api will execute
 $params['rest_total_hits_as_int']  = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
+$params['ccs_minimize_roundtrips'] = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
 $params['body']                    = (array) The request definitions (metadata-search request definition pairs), separated by newlines (Required)
 */
 
@@ -704,7 +768,8 @@ $response = $client->putScript($params);
 $params['index']              = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
 $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+$params['search_type']        = (enum) Search operation type (Options = query_then_fetch,dfs_query_then_fetch)
 $params['body']               = (array) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition. (Required)
 */
 
@@ -725,13 +790,13 @@ $response = $client->rankEval($params);
 [source,php]
 ----
 /*
-$params['refresh']                = (boolean) Should the effected indexes be refreshed?
+$params['refresh']                = (boolean) Should the affected indexes be refreshed?
 $params['timeout']                = (time) Time each individual bulk request should wait for shards that are unavailable. (Default = 1m)
 $params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 $params['wait_for_completion']    = (boolean) Should the request should block until the reindex is complete. (Default = true)
 $params['requests_per_second']    = (number) The throttle to set on this request in sub-requests per second. -1 means no throttle. (Default = 0)
 $params['scroll']                 = (time) Control how long to keep the search context alive (Default = 5m)
-$params['slices']                 = (number) The number of slices this task should be divided into. Defaults to 1 meaning the task isn't sliced into subtasks. (Default = 1)
+$params['slices']                 = (number|string) The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`. (Default = 1)
 $params['max_docs']               = (number) Maximum number of documents to process (default: all documents)
 $params['body']                   = (array) The search definition using the Query DSL and the prototype for the index request. (Required)
 */
@@ -853,7 +918,7 @@ $params['from']                          = (number) Starting offset (default: 0)
 $params['ignore_unavailable']            = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['ignore_throttled']              = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
 $params['allow_no_indices']              = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']              = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']              = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 $params['lenient']                       = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 $params['preference']                    = (string) Specify the node or shard the operation should be performed on (default: random)
 $params['q']                             = (string) Query in the Lucene query string syntax
@@ -891,7 +956,7 @@ $params['routing']            = (string) Specific routing value
 $params['local']              = (boolean) Return local information, do not retrieve the state from master node (default: false)
 $params['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']   = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 */
 
 $params = [
@@ -911,21 +976,22 @@ $response = $client->searchShards($params);
 [source,php]
 ----
 /*
-$params['index']                  = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-$params['type']                   = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
-$params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-$params['ignore_throttled']       = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
-$params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
-$params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
-$params['routing']                = (list) A comma-separated list of specific routing values
-$params['scroll']                 = (time) Specify how long a consistent view of the index should be maintained for scrolled search
-$params['search_type']            = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
-$params['explain']                = (boolean) Specify whether to return detailed information about score computation as part of a hit
-$params['profile']                = (boolean) Specify whether to profile the query execution
-$params['typed_keys']             = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-$params['rest_total_hits_as_int'] = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
-$params['body']                   = (array) The search definition template and its params (Required)
+$params['index']                   = (list) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+$params['type']                    = DEPRECATED (list) A comma-separated list of document types to search; leave empty to perform the operation on all types
+$params['ignore_unavailable']      = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
+$params['ignore_throttled']        = (boolean) Whether specified concrete, expanded or aliased indices should be ignored when throttled
+$params['allow_no_indices']        = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+$params['expand_wildcards']        = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
+$params['preference']              = (string) Specify the node or shard the operation should be performed on (default: random)
+$params['routing']                 = (list) A comma-separated list of specific routing values
+$params['scroll']                  = (time) Specify how long a consistent view of the index should be maintained for scrolled search
+$params['search_type']             = (enum) Search operation type (Options = query_then_fetch,query_and_fetch,dfs_query_then_fetch,dfs_query_and_fetch)
+$params['explain']                 = (boolean) Specify whether to return detailed information about score computation as part of a hit
+$params['profile']                 = (boolean) Specify whether to profile the query execution
+$params['typed_keys']              = (boolean) Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+$params['rest_total_hits_as_int']  = (boolean) Indicates whether hits.total should be rendered as an integer or an object in the rest search response (Default = false)
+$params['ccs_minimize_roundtrips'] = (boolean) Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (Default = true)
+$params['body']                    = (array) The search definition template and its params (Required)
 */
 
 $params = [
@@ -974,7 +1040,7 @@ $params['_source']                = (list) True or false to return the _source f
 $params['_source_excludes']       = (list) A list of fields to exclude from the returned _source field
 $params['_source_includes']       = (list) A list of fields to extract and return from the _source field
 $params['lang']                   = (string) The script language (default: painless)
-$params['refresh']                = (enum) If `true` then refresh the effected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
+$params['refresh']                = (enum) If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes. (Options = true,false,wait_for)
 $params['retry_on_conflict']      = (number) Specify how many times should the operation be retried when a conflict occurs (default: 0)
 $params['routing']                = (string) Specific routing value
 $params['timeout']                = (time) Explicit operation timeout
@@ -1010,7 +1076,7 @@ $params['from']                   = (number) Starting offset (default: 0)
 $params['ignore_unavailable']     = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
 $params['allow_no_indices']       = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 $params['conflicts']              = (enum) What to do when the update by query hits version conflicts? (Options = abort,proceed) (Default = abort)
-$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)
+$params['expand_wildcards']       = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,hidden,none,all) (Default = open)
 $params['lenient']                = (boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 $params['pipeline']               = (string) Ingest pipeline to set on index requests made by this action. (default: none)
 $params['preference']             = (string) Specify the node or shard the operation should be performed on (default: random)
@@ -1086,6 +1152,25 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->cluster();
+----
+****
+
+
+
+[[Elasticsearch_ClientdanglingIndices_danglingIndices]]
+.`danglingIndices()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->danglingIndices();
 ----
 ****
 
@@ -1181,6 +1266,405 @@ $params = [
 
 $client = ClientBuilder::create()->build();
 $response = $client->tasks();
+----
+****
+
+
+
+[[Elasticsearch_ClientasyncSearch_asyncSearch]]
+.`asyncSearch()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->asyncSearch();
+----
+****
+
+
+
+[[Elasticsearch_Clientautoscaling_autoscaling]]
+.`autoscaling()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->autoscaling();
+----
+****
+
+
+
+[[Elasticsearch_Clientccr_ccr]]
+.`ccr()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr();
+----
+****
+
+
+
+[[Elasticsearch_ClientdataFrameTransformDeprecated_dataFrameTransformDeprecated]]
+.`dataFrameTransformDeprecated()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->dataFrameTransformDeprecated();
+----
+****
+
+
+
+[[Elasticsearch_Clientenrich_enrich]]
+.`enrich()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich();
+----
+****
+
+
+
+[[Elasticsearch_Clienteql_eql]]
+.`eql()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->eql();
+----
+****
+
+
+
+[[Elasticsearch_Clientgraph_graph]]
+.`graph()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->graph();
+----
+****
+
+
+
+[[Elasticsearch_Clientilm_ilm]]
+.`ilm()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm();
+----
+****
+
+
+
+[[Elasticsearch_Clientlicense_license]]
+.`license()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->license();
+----
+****
+
+
+
+[[Elasticsearch_Clientmigration_migration]]
+.`migration()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->migration();
+----
+****
+
+
+
+[[Elasticsearch_Clientml_ml]]
+.`ml()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ml();
+----
+****
+
+
+
+[[Elasticsearch_Clientmonitoring_monitoring]]
+.`monitoring()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->monitoring();
+----
+****
+
+
+
+[[Elasticsearch_Clientrollup_rollup]]
+.`rollup()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->rollup();
+----
+****
+
+
+
+[[Elasticsearch_ClientsearchableSnapshots_searchableSnapshots]]
+.`searchableSnapshots()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->searchableSnapshots();
+----
+****
+
+
+
+[[Elasticsearch_Clientsecurity_security]]
+.`security()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security();
+----
+****
+
+
+
+[[Elasticsearch_Clientslm_slm]]
+.`slm()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm();
+----
+****
+
+
+
+[[Elasticsearch_Clientsql_sql]]
+.`sql()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->sql();
+----
+****
+
+
+
+[[Elasticsearch_Clientssl_ssl]]
+.`ssl()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ssl();
+----
+****
+
+
+
+[[Elasticsearch_Clienttransform_transform]]
+.`transform()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->transform();
+----
+****
+
+
+
+[[Elasticsearch_Clientwatcher_watcher]]
+.`watcher()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher();
+----
+****
+
+
+
+[[Elasticsearch_Clientxpack_xpack]]
+.`xpack()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->xpack();
 ----
 ****
 

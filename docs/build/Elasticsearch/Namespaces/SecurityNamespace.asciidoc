@@ -1,0 +1,604 @@
+
+
+[[Elasticsearch_Namespaces_SecurityNamespace]]
+=== Elasticsearch\Namespaces\SecurityNamespace
+
+
+
+Class SecurityNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SecurityNamespaceauthenticate_authenticate,`authenticate()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacechangePassword_changePassword,`changePassword()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceclearCachedPrivileges_clearCachedPrivileges,`clearCachedPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceclearCachedRealms_clearCachedRealms,`clearCachedRealms()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceclearCachedRoles_clearCachedRoles,`clearCachedRoles()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacecreateApiKey_createApiKey,`createApiKey()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacedeletePrivileges_deletePrivileges,`deletePrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacedeleteRole_deleteRole,`deleteRole()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacedeleteRoleMapping_deleteRoleMapping,`deleteRoleMapping()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacedeleteUser_deleteUser,`deleteUser()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacedisableUser_disableUser,`disableUser()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceenableUser_enableUser,`enableUser()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetApiKey_getApiKey,`getApiKey()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetBuiltinPrivileges_getBuiltinPrivileges,`getBuiltinPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetPrivileges_getPrivileges,`getPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetRole_getRole,`getRole()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetRoleMapping_getRoleMapping,`getRoleMapping()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetToken_getToken,`getToken()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetUser_getUser,`getUser()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacegetUserPrivileges_getUserPrivileges,`getUserPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespacehasPrivileges_hasPrivileges,`hasPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceinvalidateApiKey_invalidateApiKey,`invalidateApiKey()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceinvalidateToken_invalidateToken,`invalidateToken()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceputPrivileges_putPrivileges,`putPrivileges()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceputRole_putRole,`putRole()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceputRoleMapping_putRoleMapping,`putRoleMapping()`>>
+* <<Elasticsearch_Namespaces_SecurityNamespaceputUser_putUser,`putUser()`>>
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceauthenticate_authenticate]]
+.`authenticate()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->authenticate($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacechangePassword_changePassword]]
+.`changePassword()`
+****
+[source,php]
+----
+/*
+$params['username'] = (string) The username of the user to change the password for
+$params['refresh']  = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']     = (array) the new password for the user (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->changePassword($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedPrivileges_clearCachedPrivileges]]
+.`clearCachedPrivileges()`
+****
+[source,php]
+----
+/*
+$params['application'] = (list) A comma-separated list of application names
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->clearCachedPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRealms_clearCachedRealms]]
+.`clearCachedRealms()`
+****
+[source,php]
+----
+/*
+$params['realms']    = (list) Comma-separated list of realms to clear
+$params['usernames'] = (list) Comma-separated list of usernames to clear from the cache
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->clearCachedRealms($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRoles_clearCachedRoles]]
+.`clearCachedRoles()`
+****
+[source,php]
+----
+/*
+$params['name'] = (list) Role name
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->clearCachedRoles($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacecreateApiKey_createApiKey]]
+.`createApiKey()`
+****
+[source,php]
+----
+/*
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']    = (array) The api key request to create an API key (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->createApiKey($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacedeletePrivileges_deletePrivileges]]
+.`deletePrivileges()`
+****
+[source,php]
+----
+/*
+$params['application'] = (string) Application name
+$params['name']        = (string) Privilege name
+$params['refresh']     = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->deletePrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacedeleteRole_deleteRole]]
+.`deleteRole()`
+****
+[source,php]
+----
+/*
+$params['name']    = (string) Role name
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->deleteRole($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacedeleteRoleMapping_deleteRoleMapping]]
+.`deleteRoleMapping()`
+****
+[source,php]
+----
+/*
+$params['name']    = (string) Role-mapping name
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->deleteRoleMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacedeleteUser_deleteUser]]
+.`deleteUser()`
+****
+[source,php]
+----
+/*
+$params['username'] = (string) username
+$params['refresh']  = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->deleteUser($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacedisableUser_disableUser]]
+.`disableUser()`
+****
+[source,php]
+----
+/*
+$params['username'] = (string) The username of the user to disable
+$params['refresh']  = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->disableUser($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceenableUser_enableUser]]
+.`enableUser()`
+****
+[source,php]
+----
+/*
+$params['username'] = (string) The username of the user to enable
+$params['refresh']  = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->enableUser($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetApiKey_getApiKey]]
+.`getApiKey()`
+****
+[source,php]
+----
+/*
+$params['id']         = (string) API key id of the API key to be retrieved
+$params['name']       = (string) API key name of the API key to be retrieved
+$params['username']   = (string) user name of the user who created this API key to be retrieved
+$params['realm_name'] = (string) realm name of the user who created this API key to be retrieved
+$params['owner']      = (boolean) flag to query API keys owned by the currently authenticated user (Default = false)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getApiKey($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetBuiltinPrivileges_getBuiltinPrivileges]]
+.`getBuiltinPrivileges()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getBuiltinPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetPrivileges_getPrivileges]]
+.`getPrivileges()`
+****
+[source,php]
+----
+/*
+$params['application'] = (string) Application name
+$params['name']        = (string) Privilege name
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetRole_getRole]]
+.`getRole()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) Role name
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getRole($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetRoleMapping_getRoleMapping]]
+.`getRoleMapping()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) Role-Mapping name
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getRoleMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetToken_getToken]]
+.`getToken()`
+****
+[source,php]
+----
+/*
+$params['body'] = (array) The token request to get (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getToken($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetUser_getUser]]
+.`getUser()`
+****
+[source,php]
+----
+/*
+$params['username'] = (list) A comma-separated list of usernames
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getUser($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacegetUserPrivileges_getUserPrivileges]]
+.`getUserPrivileges()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->getUserPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespacehasPrivileges_hasPrivileges]]
+.`hasPrivileges()`
+****
+[source,php]
+----
+/*
+$params['user'] = (string) Username
+$params['body'] = (array) The privileges to test (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->hasPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceinvalidateApiKey_invalidateApiKey]]
+.`invalidateApiKey()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->invalidateApiKey($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceinvalidateToken_invalidateToken]]
+.`invalidateToken()`
+****
+[source,php]
+----
+/*
+$params['body'] = (array) The token to invalidate (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->invalidateToken($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceputPrivileges_putPrivileges]]
+.`putPrivileges()`
+****
+[source,php]
+----
+/*
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']    = (array) The privilege(s) to add (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->putPrivileges($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceputRole_putRole]]
+.`putRole()`
+****
+[source,php]
+----
+/*
+$params['name']    = (string) Role name
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']    = (array) The role to add (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->putRole($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceputRoleMapping_putRoleMapping]]
+.`putRoleMapping()`
+****
+[source,php]
+----
+/*
+$params['name']    = (string) Role-mapping name
+$params['refresh'] = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']    = (array) The role mapping to add (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->putRoleMapping($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SecurityNamespaceputUser_putUser]]
+.`putUser()`
+****
+[source,php]
+----
+/*
+$params['username'] = (string) The username of the User
+$params['refresh']  = (enum) If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. (Options = true,false,wait_for)
+$params['body']     = (array) The user to add (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->security()->putUser($params);
+----
+****
+
+

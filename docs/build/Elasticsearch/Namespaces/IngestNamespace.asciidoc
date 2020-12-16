@@ -6,7 +6,7 @@
 
 
 Class IngestNamespace
-Generated running $ php util/GenerateEndpoints.php 7.4.2
+Generated running $ php util/GenerateEndpoints.php 7.9
 
 
 *Methods*

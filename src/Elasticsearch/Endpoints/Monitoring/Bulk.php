@@ -82,5 +82,4 @@ class Bulk extends AbstractEndpoint
         }
         return $this;
     }
-
 }

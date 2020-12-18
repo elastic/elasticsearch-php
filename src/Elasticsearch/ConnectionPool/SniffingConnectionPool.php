@@ -20,6 +20,7 @@ namespace Elasticsearch\ConnectionPool;
 
 use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionInterface;
@@ -117,7 +118,12 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
             return false;
         }
 
-        $nodes = $this->parseClusterState($connection->getTransportSchema(), $response);
+        try {
+            $nodes = $this->parseClusterState($connection->getTransportSchema(),
+                $response);
+        } catch (TransportException $exception) {
+            return false;
+        }
 
         if (count($nodes) === 0) {
             return false;

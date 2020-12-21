@@ -40,6 +40,7 @@ class YamlTests
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Indices\Create\_20_Mix_Typeless_TypefulTest::CreateATypedIndexWhileThereIsATypelessTemplate' => 'mismatch on warning header',
         'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
+        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title'
     ];
 
     const SKIPPED_TEST_XPACK = [
@@ -60,7 +61,18 @@ class YamlTests
         'Ml\_Delete_Expired_DataTest::TestDeleteExpiredDataWithJobId' => 'Substring mismatch',
         'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
         'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
-        'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'spanshop name already exists',
+        'RuntimeFields\_100_Geo_PointTest::GetMapping' => 'Substring mismatch',
+        'RuntimeFields\_10_KeywordTest::GetMapping' => 'Substring mismatch',
+        'RuntimeFields\_10_KeywordTest::FetchFields' => 'Array mismatch',
+        'RuntimeFields\_10_KeywordTest::Docvalue_fields' => 'Array mismatch',
+        'RuntimeFields\_10_KeywordTest::ExplainTermQueryWrappedInScriptScore' => 'Substring mismatch',
+        'RuntimeFields\_200_Runtime_Fields_StatsTest::UsageStatsWithRuntimeFields' => 'Count mismatch',
+        'RuntimeFields\_20_LongTest::GetMapping' => 'String mismatch',
+        'RuntimeFields\_30_DoubleTest::GetMapping' => 'Array mismatch',
+        'RuntimeFields\_40_DateTest::GetMapping' => 'String mismatch',
+        'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
+        'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
+        'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
         'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',

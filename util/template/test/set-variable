@@ -1,1 +1,1 @@
-        $:var = $response:value;
+        $:var = :value;

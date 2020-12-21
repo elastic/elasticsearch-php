@@ -1,4 +1,4 @@
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             :regex, 
             $response['error']['reason']
         );

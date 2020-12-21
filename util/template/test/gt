@@ -1,4 +1,4 @@
         $this->assertGreaterThan(
             :expected, 
-            $response:value
+            :value
         );

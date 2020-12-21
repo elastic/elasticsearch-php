@@ -1,1 +1,1 @@
-        $this->assertTrue(isset($response:value) && $response:value !== 0 && $response:value !== false && $response:value !== '');
+        $this->assertTrue(isset(:value) && :value !== 0 && :value !== false && :value !== '');

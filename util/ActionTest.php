@@ -25,33 +25,39 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
 use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
 use Elasticsearch\Util\YamlTests;
+use PHPUnit\Runner\Version as PHPUnitVersion;
 use stdClass;
 
 class ActionTest
 {
-    const TEMPLATE_ENDPOINT           = __DIR__ . '/template/test/endpoint';
-    const TEMPLATE_MATCH_EQUAL        = __DIR__ . '/template/test/match-equal';
-    const TEMPLATE_MATCH_REGEX        = __DIR__ . '/template/test/match-regex';
-    const TEMPLATE_IS_FALSE           = __DIR__ . '/template/test/is-false';
-    const TEMPLATE_IS_TRUE            = __DIR__ . '/template/test/is-true';
-    const TEMPLATE_IS_NULL            = __DIR__ . '/template/test/is-null';
-    const TEMPLATE_LENGTH             = __DIR__ . '/template/test/length';
-    const TEMPLATE_SKIP_VERSION       = __DIR__ . '/template/test/skip-version';
-    const TEMPLATE_SKIP_FEATURE       = __DIR__ . '/template/test/skip-feature';
-    const TEMPLATE_SKIP_XPACK         = __DIR__ . '/template/test/skip-xpack';
-    const TEMPLATE_SKIP_NODE_SELECTOR = __DIR__ . '/template/test/skip-node-selector';
-    const TEMPLATE_SKIP_OSS           = __DIR__ . '/template/test/skip-oss';
-    const TEMPLATE_CATCH              = __DIR__ . '/template/test/catch';
-    const TEMPLATE_CATCH_UNAVAILABLE  = __DIR__ . '/template/test/catch-unavailable';
-    const TEMPLATE_CATCH_REGEX        = __DIR__ . '/template/test/catch-regex';
-    const TEMPLATE_SET_VARIABLE       = __DIR__ . '/template/test/set-variable';
-    const TEMPLATE_TRANSFORM_AND_SET  = __DIR__ . '/template/test/transform-and-set';
-    const TEMPLATE_WARNINGS           = __DIR__ . '/template/test/warnings';
-    const TEMPLATE_ALLOWED_WARNINGS   = __DIR__ . '/template/test/allowed-warnings';
-    const TEMPLATE_GT                 = __DIR__ . '/template/test/gt';
-    const TEMPLATE_GTE                = __DIR__ . '/template/test/gte';
-    const TEMPLATE_LT                 = __DIR__ . '/template/test/lt';
-    const TEMPLATE_LTE                = __DIR__ . '/template/test/lte';
+    const TEMPLATE_ENDPOINT             = __DIR__ . '/template/test/endpoint';
+    const TEMPLATE_MATCH_EQUAL          = __DIR__ . '/template/test/match-equal';
+    const TEMPLATE_MATCH_REGEX          = __DIR__ . '/template/test/match-regex';
+    const TEMPLATE_IS_FALSE             = __DIR__ . '/template/test/is-false';
+    const TEMPLATE_IS_TRUE              = __DIR__ . '/template/test/is-true';
+    const TEMPLATE_IS_NULL              = __DIR__ . '/template/test/is-null';
+    const TEMPLATE_LENGTH               = __DIR__ . '/template/test/length';
+    const TEMPLATE_SKIP_VERSION         = __DIR__ . '/template/test/skip-version';
+    const TEMPLATE_SKIP_FEATURE         = __DIR__ . '/template/test/skip-feature';
+    const TEMPLATE_SKIP_XPACK           = __DIR__ . '/template/test/skip-xpack';
+    const TEMPLATE_SKIP_NODE_SELECTOR   = __DIR__ . '/template/test/skip-node-selector';
+    const TEMPLATE_SKIP_OSS             = __DIR__ . '/template/test/skip-oss';
+    const TEMPLATE_CATCH                = __DIR__ . '/template/test/catch';
+    const TEMPLATE_CATCH_UNAVAILABLE    = __DIR__ . '/template/test/catch-unavailable';
+    const TEMPLATE_CATCH_REGEX          = __DIR__ . '/template/test/catch-regex';
+    const TEMPLATE_SET_VARIABLE         = __DIR__ . '/template/test/set-variable';
+    const TEMPLATE_TRANSFORM_AND_SET    = __DIR__ . '/template/test/transform-and-set';
+    const TEMPLATE_WARNINGS             = __DIR__ . '/template/test/warnings';
+    const TEMPLATE_ALLOWED_WARNINGS     = __DIR__ . '/template/test/allowed-warnings';
+    const TEMPLATE_GT                   = __DIR__ . '/template/test/gt';
+    const TEMPLATE_GTE                  = __DIR__ . '/template/test/gte';
+    const TEMPLATE_LT                   = __DIR__ . '/template/test/lt';
+    const TEMPLATE_LTE                  = __DIR__ . '/template/test/lte';
+
+    // --- PHPUNIT 9 TEMPLATE ---
+    const TEMPLATE_PHPUNIT9_MATCH_REGEX = __DIR__ . '/template/test/match-regex-9';
+    const TEMPLATE_PHPUNIT9_CATCH_REGEX = __DIR__ . '/template/test/catch-regex-9';
+
     const TAB14                 = '              ';
     const SUPPORTED_FEATURES    = [
         'xpack', 
@@ -68,9 +74,12 @@ class ActionTest
     private $variables = [];
     private $skippedTest = false;
     private $output = '';
+    private $phpUnitVersion;
 
     public function __construct(array $steps)
     {
+        $this->phpUnitVersion = (int) explode('.', PHPUnitVersion::id())[0];
+        
         foreach ($steps as $step) {
             foreach ($step as $name => $actions) {
                 if (method_exists($this, $name) && !$this->skippedTest) {
@@ -197,9 +206,10 @@ class ActionTest
                 break;
             default:
                 $expectedException = ElasticsearchException::class;
-                $scriptException = YamlTests::render(self::TEMPLATE_CATCH_REGEX,[
-                    ':regex' => sprintf("'%s'", addslashes($action))
-                ]);
+                $scriptException = YamlTests::render(
+                    ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_CATCH_REGEX) : (self::TEMPLATE_CATCH_REGEX),
+                    [ ':regex' => sprintf("'%s'", addslashes($action)) ]
+                );
         }
         $vars[':catch'] = YamlTests::render(self::TEMPLATE_CATCH, [
             ':exception' => $expectedException
@@ -246,7 +256,10 @@ class ActionTest
             $vars[':expected'] = $this->convertJavaRegexToPhp($vars[':expected']);
             // Add /sx preg modifier to ignore whitespace
             $vars[':expected'] .= "sx";
-            return YamlTests::render(self::TEMPLATE_MATCH_REGEX, $vars);
+            return YamlTests::render(
+                ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_MATCH_REGEX) : (self::TEMPLATE_MATCH_REGEX), 
+                $vars
+            );
         }
         if ($expected instanceof stdClass && empty(get_object_vars($expected))) {
             $vars[':expected'] = '[]';
@@ -415,20 +428,24 @@ class ActionTest
     
     private function convertResponseField(string $field): string
     {
+        $output = '$response';
         if ($field === '$body' || $field === '') {
-            return '';
+            return $output;
+        }
+        // if the field starts with a .$variable remove the first dot
+        if (substr($field, 0, 2) === '.$') {
+            $field = substr($field, 1);
         }
         # Remove \. from $field
         $field = str_replace ('\.', chr(200), $field);
         $parts = explode('.', $field);
-        $output = '';
         foreach ($parts as $part) {
             # Replace \. in $part
             $part = str_replace (chr(200), '.', $part);
             if (is_int($part)) {
                 $output .= sprintf("[%d]", $part);
             } else {
-                $output .= sprintf("['%s']", $part);
+                $output .= sprintf("[\"%s\"]", $part);
             }
         }
         return $output;

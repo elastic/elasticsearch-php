@@ -14,7 +14,9 @@
  */
 declare(strict_types = 1);
 
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Util\YamlTests;
+use Elasticsearch\Tests\Utility;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -23,8 +25,18 @@ if (!isset($argv[2])) {
     printf ("where <ES_VERSION> is Elasticsearch semantic version and <TEST_SUITE> is 'oss' or 'xpack'\n");
     exit(1);
 }
-
 $version = $argv[1];
+if (false !== strpos($version, '.x')) {
+    $client = Utility::getClient();
+    try {
+        $result = $client->info();
+        $version = $result['version']['number'] ?? '';
+    } catch (ElasticsearchException $e) {
+        printf ("The %s specified is not a valid semantic version number.\n", $version);
+        exit(1);
+    }
+}
+$version = str_replace('-snapshot', '', strtolower($version));
 if (!version_compare($version, '0.0.1', '>=')) {
     printf ("The argument <ES_VERSION> should be a valid semantic version number\n");
     exit(1);

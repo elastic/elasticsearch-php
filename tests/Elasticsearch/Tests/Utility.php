@@ -20,6 +20,7 @@ namespace Elasticsearch\Tests;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class Utility
@@ -319,10 +320,15 @@ class Utility
             if (self::isXPackTemplate($component['name'])) {
                 continue;
             }
-            $client->cluster()->deleteComponentTemplate([
-                'name' => $component['name']
-            ]);
+            try {
+                $client->cluster()->deleteComponentTemplate([
+                    'name' => $component['name']
+                ]);
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+            }
         }
+        
     }
 
     /**

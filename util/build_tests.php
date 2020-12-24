@@ -37,6 +37,7 @@ if (false !== strpos($version, '.x')) {
     }
 }
 $version = str_replace('-snapshot', '', strtolower($version));
+
 if (!version_compare($version, '0.0.1', '>=')) {
     printf ("The argument <ES_VERSION> should be a valid semantic version number\n");
     exit(1);
@@ -47,6 +48,10 @@ if (!in_array($argv[2], ['oss', 'xpack'])) {
     printf ("The argument <TEST_SUITE> should be 'oss' or 'xpack'\n");
     exit(1);
 }
+printf ("*****************************************\n");
+printf ("** Bulding YAML tests for %s suite\n", strtoupper($stack));
+printf ("*****************************************\n");
+printf ("Using %s version for Elasticsearch\n", $version);
 
 $yamlOutputTest = __DIR__ . '/../tests/Elasticsearch/Tests/Yaml';
 $yamlTestFolder = strtolower($stack) === 'oss'

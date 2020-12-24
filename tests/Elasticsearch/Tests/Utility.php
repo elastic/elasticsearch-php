@@ -328,7 +328,6 @@ class Utility
                 // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
             }
         }
-        
     }
 
     /**

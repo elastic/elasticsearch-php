@@ -327,7 +327,7 @@ class Connection implements ConnectionInterface
     private function getURI($uri, $params)
     {
         if (isset($params) === true && !empty($params)) {
-            array_walk($params, function (&$value, &$key) {
+            array_walk($params, function (&$value) {
                 if ($value === true) {
                     $value = 'true';
                 } elseif ($value === false) {

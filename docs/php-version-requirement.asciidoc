@@ -1,7 +1,0 @@
-[[php_version_requirement]]
-== PHP Version Requirement
-
-Version 7.0 of Elasticsearch-PHP requires PHP version 7.1.0 or higher.
-
-In addition, it requires the native JSON extension to be version 1.3.7 or 
-higher.

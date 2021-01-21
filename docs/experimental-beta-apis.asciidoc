@@ -18,7 +18,7 @@ The {es} APIs are marked using the following convention:
 All the `experimental` and `beta` APIs are marked with a `@note` tag in the
 phpdoc section of the code.
 
-
+[discrete]
 === Experimental
 
 The experimental APIs included in the current version of `elasticsearch-php` 
@@ -68,7 +68,7 @@ $client = ClientBuilder::create()->build();
 $result = $client->getScriptLanguages();
 ----
 
-
+[discrete]
 === Beta
 
 There are no beta APIs in the current version of `elasticsearch-php`.

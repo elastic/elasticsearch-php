@@ -23,6 +23,7 @@ alternate HTTP handler based on PHP streams. Performance _will_ suffer, as the
 libcurl extension is much faster.
 ====
 
+[discrete]
 === Version Matrix
 
 You need to match your version of {es} to the appropriate version of this 
@@ -42,6 +43,8 @@ use `dev-master` in your production code.
 | <= 0.90.*            | `0.4`
 |============================
 
+
+[discrete]
 === Composer Installation
 
 * Include elasticsearch-php in your `composer.json` file.  If you are starting a 

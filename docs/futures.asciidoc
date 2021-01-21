@@ -1,5 +1,5 @@
 [[future_mode]]
-== Future Mode
+=== Future Mode
 
 The client offers a mode called "future" or "async" mode. This allows batch 
 processing of requests (sent in parallel to the cluster), which can have a 
@@ -21,7 +21,8 @@ simultaneously, which means the Elasticsearch-PHP client can more effectively
 utilize your full cluster.
 
 
-=== Using Future Mode
+[discrete]
+==== Using Future Mode
 
 Utilizing this feature is straightforward, but it does introduce more 
 responsibility into your code. To enable future mode, set the `future` flag in 
@@ -131,7 +132,9 @@ for ($i = 0; $i < 1000; $i++) {
 $futures[999]->wait();
 ----
 
-=== Changing batch size
+
+[discrete]
+==== Changing batch size
 
 The default batch size is 100, meaning 100 requests queue up before the client 
 forces futures to begin resolving (for example, initiate a `curl_multi` call). 
@@ -188,7 +191,8 @@ $body = $future[499]['body'];
 ----
 
 
-=== Heterogeneous batches are OK
+[discrete]
+==== Heterogeneous batches are OK
 
 It is possible to queue up heterogeneous batches of requests. For example, you 
 can queue up several GETs, indexing requests, and a search:
@@ -245,7 +249,8 @@ $doc = $futures['getRequest']['_source'];
 ----
 
 
-=== Caveats to Future mode
+[discrete]
+==== Caveats to Future mode
 
 There are a few caveats to using future mode. The biggest is also the most 
 obvious: you need to deal with resolving the future yourself. This is usually 

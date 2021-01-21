@@ -11,9 +11,10 @@ JSON.
 
 The default serializer is the `SmartSerializer`.
 
-
+[discrete]
 === SmartSerializer
 
+[discrete]
 ==== Serialize()
 
 The `SmartSerializer` inspects the data to be encoded. If the request body is 
@@ -26,6 +27,7 @@ empty array, the serializer manually converts the JSON from an empty array
 (`[]`) to an empty object (`{}`) so that it is valid JSON for {es} request 
 bodies.
 
+[discrete]
 ==== Deserialize()
 
 When decoding the response body, the `SmartSerializer` introspects the 
@@ -36,7 +38,7 @@ is returned as a string.
 This functionality is required to cooperate with endpoints such as the `Cat` 
 endpoints, which return tabular text instead of JSON.
 
-
+[discrete]
 ==== Selecting the SmartSerializer
 
 The `SmartSerializer` is selected by default, but if you wish to manually 
@@ -53,9 +55,10 @@ $client = ClientBuilder::create()
 Note that the serializer is configured by specifying a namespace path to the 
 serializer.
 
-
+[discrete]
 === ArrayToJSONSerializer
 
+[discrete]
 ==== Serialize()
 
 The `ArrayToJSONSerializer` inspects the data to be encoded. If the request body
@@ -68,13 +71,13 @@ empty array, the serializer manually converts the JSON from an empty array
 (`[]`) to an empty object (`{}`) so that it is valid JSON for {es} request 
 bodies.
 
-
+[discrete]
 ==== Deserialize()
 
 When decoding the response body, everything is decoded to JSON from JSON. If the 
 data is not valid JSON, `null` will be returned.
 
-
+[discrete]
 ==== Selecting the ArrayToJSONSerializer
 
 You can select `ArrayToJSONSerializer` by using the `setSerializer()` method on 
@@ -91,9 +94,10 @@ $client = ClientBuilder::create()
 Note that the serializer is configured by specifying a namespace path to the 
 serializer.
 
-
+[discrete]
 === EverythingToJSONSerializer
 
+[discrete]
 ==== Serialize()
 
 The `EverythingToJSONSerializer` tries to convert everything to JSON.
@@ -105,11 +109,13 @@ JSON for Elasticsearch request bodies.
 If the data was not an array and/or not convertible to JSON, the method returns
 `null`.
 
+[discrete]
 ==== Deserialize()
 
 When decoding the response body, everything is decoded to JSON from JSON. If the 
 data is not valid JSON, `null` is returned.
 
+[discrete]
 ==== Selecting the EverythingToJSONSerializer
 
 You can select  `EverythingToJSONSerializer` by using the `setSerializer()` 
@@ -125,6 +131,8 @@ $client = ClientBuilder::create()
 Note that the serializer is configured by specifying a namespace path to the 
 serializer.
 
+
+[discrete]
 === Implementing your own Serializer
 
 If you want to use your own custom serializer, you need to implement the 

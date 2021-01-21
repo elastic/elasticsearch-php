@@ -1,5 +1,5 @@
 
-
+[discrete]
 [[Elasticsearch_Namespaces_EqlNamespace]]
 === Elasticsearch\Namespaces\EqlNamespace
 

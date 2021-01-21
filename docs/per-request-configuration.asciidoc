@@ -5,7 +5,7 @@ There are several configurations that can be set on a per-request basis, rather
 than at a connection- or client-level. These are specified as part of the 
 request associative array.
 
-
+[discrete]
 === Request Identification
 
 You can enrich your requests against {es} with an identifier string, that allows 
@@ -34,7 +34,7 @@ $response = $client->get($params);
 <1> This populates the `X-Opaque-Id` header with the value 
 `app17@dc06.eu_user1234`.
 
-
+[discrete]
 === Ignoring exceptions
 
 The library attempts to throw exceptions for common problems. These exceptions 
@@ -93,7 +93,7 @@ could be decoded. In the second example, it was simply a string.
 Since the client has no way of knowing what the exception response will contain, 
 no attempts to decode it are taken.
 
-
+[discrete]
 === Providing custom query parameters
 
 Sometimes you need to provide custom query parameters, such as authentication 
@@ -122,7 +122,7 @@ $params = [
 $exists = $client->exists($params);
 ----
 
-
+[discrete]
 === Increasing the verbosity of responses
 
 By default, the client only returns the response body. If you require more 
@@ -249,6 +249,8 @@ Array
 )
 ----
 
+
+[discrete]
 === Curl Timeouts
 
 It is possible to configure per-request curl timeouts via the `timeout` and 
@@ -287,6 +289,7 @@ $response = $client->get($params);
 ----
 
 
+[discrete]
 === Enabling Future Mode
 
 The client supports asynchronous, batch processing of requests. This is enabled 
@@ -313,6 +316,7 @@ asynchronous execution functions, and how to work with the results, see the
 dedicated page on <<future_mode>>.
 
 
+[discrete]
 === SSL Encryption
 
 Normally, you specify SSL configurations when you create the client (see 

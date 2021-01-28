@@ -151,6 +151,11 @@ class Connection implements ConnectionInterface
         }
 
         $connectionParams['client']['curl'][CURLOPT_PORT] = $hostDetails['port'];
+        
+        if(!in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'])){
+            $connectionParams['client']['curl'][CURLOPT_SSL_VERIFYHOST] = 0;
+            $connectionParams['client']['curl'][CURLOPT_SSL_VERIFYPEER] = 0;
+        }
 
         if (isset($connectionParams['client']['headers'])) {
             $this->headers = $connectionParams['client']['headers'];

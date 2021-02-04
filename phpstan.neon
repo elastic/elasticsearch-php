@@ -1,6 +1,10 @@
 parameters:
+    phpVersion: 70100
     level: 2
     paths:
         - src/
     ignoreErrors:
         - '#^Unsafe usage of new static\(\)\.$#'
+        # PHP 7.1 only
+        - '#^Caught class JsonException not found\.$#'
+        - '#^Call to method getCode\(\) on an unknown class JsonException\.$#'

@@ -44,10 +44,6 @@ jobs:
       run: |
         composer run-script phpcs
 
-    - name: PHP Static Analysis Tool
-      run: |
-        composer run-script phpstan -- --no-progress
-
     - name: Unit tests
       run: |
         vendor/bin/phpunit -c phpunit.xml.dist
@@ -71,3 +67,43 @@ jobs:
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
         TEST_SUITE: oss
+
+  phpstan:
+    name: Static Analysis
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php-version: [7.1]
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Use PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: prestissimo
+      env:
+        COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get composer cache directory
+      id: composercache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composercache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install dependencies
+      run: |
+        composer update --prefer-dist
+
+    - name: PHP Static Analysis Tool
+      run: |
+        composer run-script phpstan -- --no-progress

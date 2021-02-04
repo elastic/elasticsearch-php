@@ -56,7 +56,7 @@
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests"
     ],
     "phpstan": [
-      "phpstan analyse src --level 2 --no-progress"
+      "phpstan analyse"
     ]
   }
 }

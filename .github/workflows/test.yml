@@ -24,11 +24,11 @@ jobs:
         tools: prestissimo
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-   
+
     - name: Get composer cache directory
       id: composercache
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      
+
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
@@ -46,7 +46,7 @@ jobs:
 
     - name: PHP Static Analysis Tool
       run: |
-        composer run-script phpstan
+        composer run-script phpstan -- --no-progress
 
     - name: Unit tests
       run: |
@@ -71,4 +71,3 @@ jobs:
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
         TEST_SUITE: oss
-        

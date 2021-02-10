@@ -311,7 +311,7 @@ class YamlTests
             } elseif ($value instanceof \stdClass) {
                 $value = 'new \stdClass';
             }
-            $output = str_replace($name, $value, $output);
+            $output = str_replace($name, (string) $value, $output);
         }
         return $output;
     }

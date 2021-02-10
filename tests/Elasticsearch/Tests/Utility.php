@@ -56,7 +56,7 @@ class Utility
                 ]
             ]
         ]);
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             $clientBuilder->setSSLVerification(false);
         }
         return $clientBuilder->build();

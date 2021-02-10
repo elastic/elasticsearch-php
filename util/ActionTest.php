@@ -328,7 +328,7 @@ class ActionTest
                 }
                 switch ($feature) {
                     case 'xpack': 
-                        if (YamlTests::$testSuite !== 'xpack') {
+                        if (YamlTests::$testSuite !== 'platinum') {
                             $this->skippedTest = true;
                             return YamlTests::render(self::TEMPLATE_SKIP_XPACK, [
                                 ':testname' => "__CLASS__ . '::' . __FUNCTION__"
@@ -336,7 +336,7 @@ class ActionTest
                         } 
                         break;
                     case 'no_xpack': 
-                        if (YamlTests::$testSuite !== 'oss') {
+                        if (YamlTests::$testSuite !== 'free') {
                             $this->skippedTest = true;
                             return YamlTests::render(self::TEMPLATE_SKIP_OSS, [
                                 ':testname' => "__CLASS__ . '::' . __FUNCTION__"

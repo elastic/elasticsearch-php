@@ -18,8 +18,8 @@
     <groups>
         <exclude>
             <group>Integration</group>
-            <group>oss</group>
-            <group>xpack</group>
+            <group>free</group>
+            <group>platinum</group>
         </exclude>
     </groups>
     <filter>

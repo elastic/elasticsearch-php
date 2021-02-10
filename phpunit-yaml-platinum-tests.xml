@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.3/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         failOnRisky="true"
+         verbose="true"
+         beStrictAboutChangesToGlobalState="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestsThatDoNotTestAnything="false"
+>
+    <php>
+        <!-- Disable E_USER_DEPRECATED setting E_ALL & ~E_USER_DEPRECATED-->
+        <ini name="error_reporting" value="16383"/>
+        <ini name="memory_limit" value="-1" />
+    </php>
+    <testsuites>
+        <testsuite name="Yaml tests">
+            <directory>tests/Elasticsearch/Tests/Yaml/Platinum</directory>
+        </testsuite>
+    </testsuites>
+    <groups>
+        <include>
+            <group>platinum</group>
+        </include>
+    </groups>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="junit" target="tests/yaml-test-junit.xml"/>
+    </logging>
+</phpunit>

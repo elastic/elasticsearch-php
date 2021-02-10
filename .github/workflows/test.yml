@@ -58,7 +58,7 @@ jobs:
       run: |
         vendor/bin/phpunit -c phpunit.xml.dist
       env:
-        TEST_SUITE: oss
+        TEST_SUITE: free
 
     - name: Configure sysctl limits
       run: |
@@ -76,4 +76,4 @@ jobs:
       run: |
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
-        TEST_SUITE: oss
+        TEST_SUITE: free

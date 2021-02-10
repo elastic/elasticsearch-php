@@ -34,9 +34,9 @@ class Utility
             return $url;
         }
         switch (getenv('TEST_SUITE')) {
-            case 'oss':
+            case 'free':
                 return 'http://localhost:9200';
-            case 'xpack':
+            case 'platinum':
                 return 'https://elastic:changeme@localhost:9200';
         }
         return null;

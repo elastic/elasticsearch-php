@@ -158,7 +158,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
     {
         $host = Utility::getHost();
         if (null == $host) {
-            echo 'Environment variable TEST_SUITE (oss, xpack) not defined.';
+            echo 'Environment variable TEST_SUITE (free, platinum) not defined.';
             exit;
         }
         return $host;
@@ -1147,7 +1147,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
             'name' => '*'
         ]);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             # Get all roles
             $roles = $this->client->security()->getRole();
             # Delete custom roles (metadata._reserved = 0)

@@ -107,7 +107,7 @@ class Utility
      */
     private static function wipeCluster(Client $client): void
     {
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);
             self::deleteAllSLMPolicies($client);  
@@ -115,13 +115,13 @@ class Utility
 
         self::wipeSnapshots($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeDataStreams($client);
         }
         
         self::wipeAllIndices($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeTemplateForXpack($client);
         } else {
             // Delete templates
@@ -140,7 +140,7 @@ class Utility
 
         self::wipeClusterSettings($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::deleteAllILMPolicies($client);
             self::deleteAllAutoFollowPatterns($client);
             self::deleteAllTasks($client);

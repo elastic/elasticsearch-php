@@ -1,3 +1,18 @@
+## Release 7.11.0
+
+- [#1089](https://github.com/elastic/elasticsearch-php/pull/1089)
+  Added the `X-Elastic-Client-Meta` header which is used by Elastic Cloud
+  and can be disabled with `ClientBuilder::setElasticMetaHeader(false)`
+- [#1075](https://github.com/elastic/elasticsearch-php/pull/1075)
+  Replaced `array_walk` with `array_map` in `Connection::getURI` for PHP 8
+  compatibility
+- [#1069](https://github.com/elastic/elasticsearch-php/pull/1069)
+  Remove unnecessary `InvalidArgumentExceptions`
+- [#1063](https://github.com/elastic/elasticsearch-php/pull/1063)
+  Introducing PHP 8 compatibility
+- [#1062](https://github.com/elastic/elasticsearch-php/pull/1062)
+  Replace Sami by Doctum and fix `.gitignore`
+
 ## Release 7.10.0
 
 - Updated endpoints and namespaces for Elasticsearch 7.10

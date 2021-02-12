@@ -49,15 +49,15 @@ install:
   - composer install --prefer-dist
 
 before_script:
-  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; PHP_FLAGS="-dxdebug.mode=coverage"; fi
   - php util/RestSpecRunner.php
   - php util/EnsureClusterAlive.php
 
 script:
   - if [ $TRAVIS_PHP_VERSION != '7.3' ]; then composer run-script phpcs; fi
   - composer run-script phpstan
-  - vendor/bin/phpunit $PHPUNIT_FLAGS
-  - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
+  - php $PHP_FLAGS vendor/bin/phpunit $PHPUNIT_FLAGS
+  - php $PHP_FLAGS vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
 
 after_script:
   - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then php vendor/bin/coveralls; fi

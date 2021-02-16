@@ -43,4 +43,5 @@ docker run \
   --ulimit nofile=65535:65535 \
   --name elasticsearch-php \
   --rm \
-  elastic/elasticsearch-php
+  elastic/elasticsearch-php \
+  ./.ci/yaml-tests.sh

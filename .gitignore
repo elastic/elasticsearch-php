@@ -35,3 +35,6 @@ build
 
 # Junit test output
 tests/*-junit.xml
+
+# clients make output
+.ci/output

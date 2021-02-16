@@ -193,7 +193,7 @@ class Connection implements ConnectionInterface
      * @param  Transport $transport
      * @return mixed
      */
-    public function performRequest(string $method, string $uri, ?array $params = [], $body = null, array $options = [], Transport $transport = null)
+    public function performRequest(string $method, string $uri, array $params = [], $body = null, array $options = [], Transport $transport = null)
     {
         if ($body !== null) {
             $body = $this->serializer->serialize($body);
@@ -337,9 +337,9 @@ class Connection implements ConnectionInterface
         };
     }
 
-    private function getURI(string $uri, ?array $params): string
+    private function getURI(string $uri, array $params): string
     {
-        if (isset($params) === true && !empty($params)) {
+        if ($params !== []) {
             array_walk(
                 $params,
                 function (&$value, &$key) {
@@ -461,7 +461,7 @@ class Connection implements ConnectionInterface
             ]
         ];
         try {
-            $response = $this->performRequest('HEAD', '/', null, null, $options);
+            $response = $this->performRequest('HEAD', '/', [], null, $options);
             $response = $response->wait();
         } catch (TransportException $exception) {
             $this->markDead();
@@ -492,7 +492,7 @@ class Connection implements ConnectionInterface
             ]
         ];
 
-        return $this->performRequest('GET', '/_nodes/', null, null, $options);
+        return $this->performRequest('GET', '/_nodes/', [], null, $options);
     }
 
     public function isAlive(): bool
@@ -609,9 +609,7 @@ class Connection implements ConnectionInterface
         $statusCode = $response['status'];
         $responseBody = $response['body'];
 
-        /**
- * @var \Exception $exception
-*/
+        /** @var \Exception $exception */
         $exception = $this->tryDeserialize400Error($response);
 
         if (array_search($response['status'], $ignore) !== false) {
@@ -647,9 +645,7 @@ class Connection implements ConnectionInterface
         $statusCode = (int) $response['status'];
         $responseBody = $response['body'];
 
-        /**
- * @var \Exception $exception
-*/
+        /** @var \Exception $exception */
         $exception = $this->tryDeserialize500Error($response);
 
         $exceptionText = "[$statusCode Server Exception] ".$exception->getMessage();

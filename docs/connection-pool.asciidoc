@@ -26,7 +26,7 @@ be alive, so `NoNodesAvailableException` is returned.
 
 There are several connection pool implementations that you can choose from:
 
-
+[discrete]
 === staticNoPingConnectionPool (default)
 
 This connection pool maintains a static list of hosts which are assumed to be 
@@ -49,7 +49,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === staticConnectionPool
 
 Identical to the `StaticNoPingConnectionPool`, except it pings nodes before they 
@@ -68,7 +68,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === simpleConnectionPool
 
 The `SimpleConnectionPool` returns the next node as specified by the selector; 
@@ -89,7 +89,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === sniffingConnectionPool
 
 Unlike the two previous static connection pools, this one is dynamic. The user 
@@ -108,7 +108,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === Custom Connection Pool
 
 If you wish to implement your own custom Connection Pool, your class must 
@@ -202,7 +202,7 @@ $client = ClientBuilder::create()
             ->build();
 ----
 
-
+[discrete]
 === Which connection pool to choose? PHP and connection pooling
 
 At first glance, the `sniffingConnectionPool` implementation seems superior. For 

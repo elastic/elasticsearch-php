@@ -10,6 +10,7 @@ connections. Like the connection pool, there are several implementations to
 choose from.
 
 
+[discrete]
 === RoundRobinSelector (Default)
 
 This selector returns connections in a round-robin fashion. Node #1 is selected 
@@ -29,7 +30,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === StickyRoundRobinSelector
 
 This selector is "sticky", so that it prefers to reuse the same connection 
@@ -64,7 +65,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === RandomSelector
 
 This selector returns a random node, regardless of state. It is generally just 
@@ -81,7 +82,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === Custom Selector
 
 You can implement your own custom selector. Custom selectors must implement 

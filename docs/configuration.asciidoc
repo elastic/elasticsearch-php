@@ -9,7 +9,7 @@ Custom configuration is accomplished before the client is instantiated, through
 the ClientBuilder helper object. You can find all the configuration options and 
 check sample code that helps you replace the various components.
 
-
+[discrete]
 === Inline Host Configuration
 
 The most common configuration is telling the client about your cluster: the 
@@ -54,7 +54,7 @@ $clientBuilder->setHosts($hosts);           // Set the hosts
 $client = $clientBuilder->build();          // Build the client object
 ----
 
-
+[discrete]
 === Extended Host Configuration
 
 The client also supports an _extended_ host configuration syntax. The inline 
@@ -100,7 +100,7 @@ $client = ClientBuilder::create()           // Instantiate a new ClientBuilder
 Only the `host` parameter is required for each configured host. If not provided, 
 the default port is `9200`. The default scheme is `http`.
 
-
+[discrete]
 === Connect to Elastic Cloud
 
 If you want to connect to Elastic Cloud, you can use your Cloud ID and use basic 
@@ -126,13 +126,13 @@ $client = ClientBuilder::create()
 <1> Your Cloud ID provided by the Elastic Cloud platform
 <2> Your ApiKey pair as described <<authentication,here>>.
 
-
+[discrete]
 === Authorization and Encryption
 
 For details about HTTP Authorization and SSL encryption, see 
 <<authentication,Authorization and SSL>>.
 
-
+[discrete]
 === Set retries
 
 By default, the client will retry `n` times, where `n = number of nodes` in your 
@@ -202,7 +202,7 @@ try {
 }
 ----
 
-
+[discrete]
 [[enabling_logger]]
 === Enabling the Logger
 
@@ -249,7 +249,7 @@ $client = ClientBuilder::create()       // Instantiate a new ClientBuilder
             ->build();                  // Build the client object
 ----
 
-
+[discrete]
 === Configure the HTTP Handler
 
 Elasticsearch-PHP uses an interchangeable HTTP transport layer called 
@@ -289,7 +289,7 @@ with async future mode. You may consider using just the `singleHandler` if you
 know you will never need async capabilities, since it will save a small amount 
 of overhead by reducing indirection.
 
-
+[discrete]
 === Setting the Connection Pool
 
 The client maintains a pool of connections, with each connection representing a 
@@ -308,7 +308,7 @@ $client = ClientBuilder::create()
 For more details, please see the dedicated page on
 <<connection_pool,configuring connection pools>>.
 
-
+[discrete]
 === Setting the Connection Selector
 
 The connection pool manages the connections to your cluster, but the Selector is 
@@ -327,7 +327,7 @@ $client = ClientBuilder::create()
 For more details, please see the dedicated page on 
 <<selectors,configuring selectors>>.
 
-
+[discrete]
 === Setting the Serializer
 
 Requests are given to the client in the form of associative arrays, but {es} 
@@ -350,7 +350,7 @@ $client = ClientBuilder::create()
 For more details, please see the dedicated page on
 <<serializers,configuring serializers>>.
 
-
+[discrete]
 === Setting a custom ConnectionFactory
 
 The ConnectionFactory instantiates new Connection objects when requested by the 
@@ -408,7 +408,7 @@ As you can see, if you decide to inject your own ConnectionFactory, you take
 over the responsibility of wiring it correctly. The ConnectionFactory requires a 
 working HTTP handler, serializer, logger and tracer.
 
-
+[discrete]
 === Set the Endpoint closure
 
 The client uses an Endpoint closure to dispatch API requests to the correct 
@@ -447,7 +447,7 @@ Obviously, by doing this you take responsibility that all existing endpoints
 still function correctly. And you also assume the responsibility of correctly 
 wiring the Transport and Serializer into each endpoint.
 
-
+[discrete]
 === Building the client from a configuration hash
 
 To help ease automated building of the client, all configurations can be 

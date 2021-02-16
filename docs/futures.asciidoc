@@ -21,6 +21,7 @@ simultaneously, which means the Elasticsearch-PHP client can more effectively
 utilize your full cluster.
 
 
+[discrete]
 === Using Future Mode
 
 Utilizing this feature is straightforward, but it does introduce more 
@@ -131,6 +132,7 @@ for ($i = 0; $i < 1000; $i++) {
 $futures[999]->wait();
 ----
 
+[discrete]
 === Changing batch size
 
 The default batch size is 100, meaning 100 requests queue up before the client 
@@ -188,6 +190,7 @@ $body = $future[499]['body'];
 ----
 
 
+[discrete]
 === Heterogeneous batches are OK
 
 It is possible to queue up heterogeneous batches of requests. For example, you 
@@ -245,6 +248,7 @@ $doc = $futures['getRequest']['_source'];
 ----
 
 
+[discrete]
 === Caveats to Future mode
 
 There are a few caveats to using future mode. The biggest is also the most 

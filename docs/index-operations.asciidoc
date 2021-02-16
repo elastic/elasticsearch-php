@@ -5,7 +5,7 @@ Index management operations allow you to manage the indices in your {es}
 cluster, such as creating, deleting and updating indices and their 
 mappings/settings.
 
-
+[discrete]
 === Create an index
 
 The index operations are all contained under a distinct namespace, separated 
@@ -60,7 +60,7 @@ $response = $client->indices()->create($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === Create an index (advanced example)
 
 This is a more complicated example of creating an index, showing how to define 
@@ -138,7 +138,7 @@ char filters and analyzers.
 <3> `mappings` is another element nested inside of `settings`, and contains the 
 mappings for various types.
 
-
+[discrete]
 === Delete an index
 
 Deleting an index is very simple:
@@ -150,7 +150,7 @@ $response = $client->indices()->delete($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === PUT Settings API
 
 The PUT Settings API allows you to modify any index setting that is dynamic:
@@ -171,7 +171,7 @@ $response = $client->indices()->putSettings($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === GET Settings API
 
 The GET Settings API shows you the currently configured settings for one or more 
@@ -191,7 +191,7 @@ $response = $client->indices()->getSettings($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === PUT Mappings API
 
 The PUT Mappings API allows you to modify or add to an existing index's mapping.
@@ -222,7 +222,7 @@ $client->indices()->putMapping($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === GET Mappings API
 
 The GET Mappings API returns the mapping details about your indices. Depending 
@@ -245,7 +245,7 @@ $response = $client->indices()->getMapping($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === Other APIs in the indices namespace
 
 There are a number of other APIs in the indices namespace that allow you to 

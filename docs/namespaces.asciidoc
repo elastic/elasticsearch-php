@@ -1,5 +1,5 @@
 [[namespaces]]
-== Namespaces
+=== Namespaces
 
 The client has a number of "namespaces", which generally expose administrative
 functionality. The namespaces correspond to the various administrative endpoints

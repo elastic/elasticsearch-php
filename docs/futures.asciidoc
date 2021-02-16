@@ -1,5 +1,5 @@
 [[future_mode]]
-== Future Mode
+=== Future Mode
 
 The client offers a mode called "future" or "async" mode. This allows batch 
 processing of requests (sent in parallel to the cluster), which can have a 
@@ -22,7 +22,7 @@ utilize your full cluster.
 
 
 [discrete]
-=== Using Future Mode
+==== Using Future Mode
 
 Utilizing this feature is straightforward, but it does introduce more 
 responsibility into your code. To enable future mode, set the `future` flag in 
@@ -132,8 +132,9 @@ for ($i = 0; $i < 1000; $i++) {
 $futures[999]->wait();
 ----
 
+
 [discrete]
-=== Changing batch size
+==== Changing batch size
 
 The default batch size is 100, meaning 100 requests queue up before the client 
 forces futures to begin resolving (for example, initiate a `curl_multi` call). 
@@ -191,7 +192,7 @@ $body = $future[499]['body'];
 
 
 [discrete]
-=== Heterogeneous batches are OK
+==== Heterogeneous batches are OK
 
 It is possible to queue up heterogeneous batches of requests. For example, you 
 can queue up several GETs, indexing requests, and a search:
@@ -249,7 +250,7 @@ $doc = $futures['getRequest']['_source'];
 
 
 [discrete]
-=== Caveats to Future mode
+==== Caveats to Future mode
 
 There are a few caveats to using future mode. The biggest is also the most 
 obvious: you need to deal with resolving the future yourself. This is usually 

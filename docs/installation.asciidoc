@@ -23,7 +23,6 @@ alternate HTTP handler based on PHP streams. Performance _will_ suffer, as the
 libcurl extension is much faster.
 ====
 
-
 [discrete]
 === Version Matrix
 

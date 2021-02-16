@@ -12,7 +12,6 @@ and elasticsearch-php client. You can easily build any {es} query and transform
 it to an array.
 __________________________
 
-
 [discrete]
 === elasticsearcher
 
@@ -25,7 +24,6 @@ Its main goal is to allow for easier structuring of queries and indices in your
 application. It does not want to hide or replace functionality of the {es} PHP 
 client.
 __________________________
-
 
 [discrete]
 === ElasticSearchQueryDSL
@@ -87,6 +85,7 @@ include:
 - Listeners for Doctrine events for automatic indexing.
 __________________________
 
+
 [discrete]
 === Drupal
 
@@ -114,6 +113,7 @@ __________________________
 This is a Laravel (4+) Service Provider for the official {es} low-level client.
 __________________________
 
+
 [discrete]
 ==== cviebrock/Laravel-Elasticsearch
 
@@ -123,6 +123,7 @@ https://github.com/cviebrock/laravel-elasticsearch[Link: cviebrock/Laravel-Elast
 __________________________
 An easy way to use the official {es} client in your Laravel applications.
 __________________________
+
 
 [discrete]
 ==== Plastic

@@ -1,12 +1,12 @@
 [[per_request_configuration]]
-== Per-request configuration
+=== Per-request configuration
 
 There are several configurations that can be set on a per-request basis, rather 
 than at a connection- or client-level. These are specified as part of the 
 request associative array.
 
-[discrete]
-=== Request Identification
+
+==== Request Identification
 
 You can enrich your requests against {es} with an identifier string, that allows 
 you to discover this identifier in 
@@ -34,8 +34,8 @@ $response = $client->get($params);
 <1> This populates the `X-Opaque-Id` header with the value 
 `app17@dc06.eu_user1234`.
 
-[discrete]
-=== Ignoring exceptions
+
+==== Ignoring exceptions
 
 The library attempts to throw exceptions for common problems. These exceptions 
 match the HTTP response code provided by {es}. For example, attempting to GET a 
@@ -93,8 +93,8 @@ could be decoded. In the second example, it was simply a string.
 Since the client has no way of knowing what the exception response will contain, 
 no attempts to decode it are taken.
 
-[discrete]
-=== Providing custom query parameters
+
+==== Providing custom query parameters
 
 Sometimes you need to provide custom query parameters, such as authentication 
 tokens for a third-party plugin or proxy. All query parameters are allow listed 
@@ -122,8 +122,8 @@ $params = [
 $exists = $client->exists($params);
 ----
 
-[discrete]
-=== Increasing the verbosity of responses
+
+==== Increasing the verbosity of responses
 
 By default, the client only returns the response body. If you require more 
 information (for example, stats about the transfer, headers, status codes, and 
@@ -249,9 +249,7 @@ Array
 )
 ----
 
-
-[discrete]
-=== Curl Timeouts
+==== Curl Timeouts
 
 It is possible to configure per-request curl timeouts via the `timeout` and 
 `connect_timeout` parameters. These control the client-side, curl timeouts. The 
@@ -289,8 +287,7 @@ $response = $client->get($params);
 ----
 
 
-[discrete]
-=== Enabling Future Mode
+==== Enabling Future Mode
 
 The client supports asynchronous, batch processing of requests. This is enabled 
 (if your HTTP handler supports it) on a per-request basis via the `future` 
@@ -316,8 +313,7 @@ asynchronous execution functions, and how to work with the results, see the
 dedicated page on <<future_mode>>.
 
 
-[discrete]
-=== SSL Encryption
+==== SSL Encryption
 
 Normally, you specify SSL configurations when you create the client (see 
 <<authentication>> for more details), since encryption typically applies to all 

@@ -71,6 +71,6 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('headers', $options['client']);
         $this->assertArrayHasKey('x-opaque-id', $options['client']['headers']);
         $this->assertNotEmpty($options['client']['headers']['x-opaque-id']);
-        $this->assertEquals($params['client']['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
+        $this->assertSame($params['client']['opaqueId'], $options['client']['headers']['x-opaque-id'][0]);
     }
 }

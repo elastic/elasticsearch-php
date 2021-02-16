@@ -110,7 +110,7 @@ class ClientBuilderTest extends TestCase
         } catch (ElasticsearchException $e) {
             $request = $client->transport->getLastConnection()->getLastRequestInfo();
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
-            $this->assertEquals($url, $request['request']['headers']['Host'][0]);
+            $this->assertSame($url, $request['request']['headers']['Host'][0]);
         }
     }
 
@@ -138,7 +138,7 @@ class ClientBuilderTest extends TestCase
         } catch (ElasticsearchException $e) {
             $request = $client->transport->getLastConnection()->getLastRequestInfo();
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
-            $this->assertEquals($host, $request['request']['headers']['Host'][0]);
+            $this->assertSame($host, $request['request']['headers']['Host'][0]);
         }
     }
 
@@ -167,7 +167,7 @@ class ClientBuilderTest extends TestCase
         } catch (ElasticsearchException $e) {
             $request = $client->transport->getLastConnection()->getLastRequestInfo();
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
-            $this->assertEquals($host, $request['request']['headers']['Host'][0]);
+            $this->assertSame($host, $request['request']['headers']['Host'][0]);
         }
     }
 }

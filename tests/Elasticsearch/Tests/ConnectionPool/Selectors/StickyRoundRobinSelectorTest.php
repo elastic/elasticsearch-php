@@ -29,7 +29,7 @@ use Mockery as m;
  */
 class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

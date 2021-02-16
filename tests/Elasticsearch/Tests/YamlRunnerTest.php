@@ -152,7 +152,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         echo "ES Version: ".static::$esVersion."\n";
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->client = Elasticsearch\ClientBuilder::create()
             ->setHosts([self::getHost()]);
@@ -162,7 +162,7 @@ class YamlRunnerTest extends \PHPUnit\Framework\TestCase
         $this->client = $this->client->build();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->clean();
     }

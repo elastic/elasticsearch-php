@@ -1,12 +1,12 @@
 [[per_request_configuration]]
-== Per-request configuration
+=== Per-request configuration
 
 There are several configurations that can be set on a per-request basis, rather 
 than at a connection- or client-level. These are specified as part of the 
 request associative array.
 
 
-=== Request Identification
+==== Request Identification
 
 You can enrich your requests against {es} with an identifier string, that allows 
 you to discover this identifier in 
@@ -35,7 +35,7 @@ $response = $client->get($params);
 `app17@dc06.eu_user1234`.
 
 
-=== Ignoring exceptions
+==== Ignoring exceptions
 
 The library attempts to throw exceptions for common problems. These exceptions 
 match the HTTP response code provided by {es}. For example, attempting to GET a 
@@ -94,7 +94,7 @@ Since the client has no way of knowing what the exception response will contain,
 no attempts to decode it are taken.
 
 
-=== Providing custom query parameters
+==== Providing custom query parameters
 
 Sometimes you need to provide custom query parameters, such as authentication 
 tokens for a third-party plugin or proxy. All query parameters are allow listed 
@@ -123,7 +123,7 @@ $exists = $client->exists($params);
 ----
 
 
-=== Increasing the verbosity of responses
+==== Increasing the verbosity of responses
 
 By default, the client only returns the response body. If you require more 
 information (for example, stats about the transfer, headers, status codes, and 
@@ -249,7 +249,7 @@ Array
 )
 ----
 
-=== Curl Timeouts
+==== Curl Timeouts
 
 It is possible to configure per-request curl timeouts via the `timeout` and 
 `connect_timeout` parameters. These control the client-side, curl timeouts. The 
@@ -287,7 +287,7 @@ $response = $client->get($params);
 ----
 
 
-=== Enabling Future Mode
+==== Enabling Future Mode
 
 The client supports asynchronous, batch processing of requests. This is enabled 
 (if your HTTP handler supports it) on a per-request basis via the `future` 
@@ -313,10 +313,10 @@ asynchronous execution functions, and how to work with the results, see the
 dedicated page on <<future_mode>>.
 
 
-=== SSL Encryption
+==== SSL Encryption
 
 Normally, you specify SSL configurations when you create the client (see 
-<<security>> for more details), since encryption typically applies to all 
+<<authentication>> for more details), since encryption typically applies to all 
 requests. However, it is possible to configure on a per-request basis, too, if 
 you need that functionality. For example, if you need to use a self-signed cert 
 on a specific request, you can specify it via the `verify` parameter in the 

@@ -1,5 +1,5 @@
 [[serializers]]
-== Serializers
+=== Serializers
 
 The client has three serializers available. You will most likely never need
 to change the serializer, unless you have special requirements or are 
@@ -12,9 +12,11 @@ JSON.
 The default serializer is the `SmartSerializer`.
 
 
-=== SmartSerializer
+[discrete]
+==== SmartSerializer
 
-==== Serialize()
+[discrete]
+===== Serialize()
 
 The `SmartSerializer` inspects the data to be encoded. If the request body is 
 provided as a string, it is passed directly to {es} as a string. This allows 
@@ -26,7 +28,9 @@ empty array, the serializer manually converts the JSON from an empty array
 (`[]`) to an empty object (`{}`) so that it is valid JSON for {es} request 
 bodies.
 
-==== Deserialize()
+
+[discrete]
+===== Deserialize()
 
 When decoding the response body, the `SmartSerializer` introspects the 
 `content_type` headers to determine the appropriate encoding. If the data is
@@ -37,7 +41,8 @@ This functionality is required to cooperate with endpoints such as the `Cat`
 endpoints, which return tabular text instead of JSON.
 
 
-==== Selecting the SmartSerializer
+[discrete]
+===== Selecting the SmartSerializer
 
 The `SmartSerializer` is selected by default, but if you wish to manually 
 configure it for explicitness, you can do so by using the `setSerializer()` 
@@ -54,9 +59,12 @@ Note that the serializer is configured by specifying a namespace path to the
 serializer.
 
 
-=== ArrayToJSONSerializer
+[discrete]
+==== ArrayToJSONSerializer
 
-==== Serialize()
+
+[discrete]
+===== Serialize()
 
 The `ArrayToJSONSerializer` inspects the data to be encoded. If the request body
 is provided as a string, it is passed directly to {es} as a string. This allows 
@@ -69,13 +77,15 @@ empty array, the serializer manually converts the JSON from an empty array
 bodies.
 
 
-==== Deserialize()
+[discrete]
+===== Deserialize()
 
 When decoding the response body, everything is decoded to JSON from JSON. If the 
 data is not valid JSON, `null` will be returned.
 
 
-==== Selecting the ArrayToJSONSerializer
+[discrete]
+===== Selecting the ArrayToJSONSerializer
 
 You can select `ArrayToJSONSerializer` by using the `setSerializer()` method on 
 the `ClientBuilder` object:
@@ -92,9 +102,12 @@ Note that the serializer is configured by specifying a namespace path to the
 serializer.
 
 
-=== EverythingToJSONSerializer
+[discrete]
+==== EverythingToJSONSerializer
 
-==== Serialize()
+
+[discrete]
+===== Serialize()
 
 The `EverythingToJSONSerializer` tries to convert everything to JSON.
 
@@ -105,11 +118,15 @@ JSON for Elasticsearch request bodies.
 If the data was not an array and/or not convertible to JSON, the method returns
 `null`.
 
-==== Deserialize()
+
+[discrete]
+===== Deserialize()
 
 When decoding the response body, everything is decoded to JSON from JSON. If the 
 data is not valid JSON, `null` is returned.
 
+
+[discrete]
 ==== Selecting the EverythingToJSONSerializer
 
 You can select  `EverythingToJSONSerializer` by using the `setSerializer()` 
@@ -125,7 +142,9 @@ $client = ClientBuilder::create()
 Note that the serializer is configured by specifying a namespace path to the 
 serializer.
 
-=== Implementing your own Serializer
+
+[discrete]
+==== Implementing your own Serializer
 
 If you want to use your own custom serializer, you need to implement the 
 `SerializerInterface` interface. Please keep in mind that the client uses a 
@@ -186,5 +205,21 @@ $mySerializer->setFoo("bar");
 
 $client = ClientBuilder::create()
             ->setSerializer($mySerializer);
+            ->build();
+----
+
+
+[discrete]
+==== Quick setup
+
+The majority of people will never need to change the default Serializer 
+(`SmartSerializer`), but if you need to, it can be done via the 
+`setSerializer()` method:
+
+[source,php]
+----
+$serializer = '\Elasticsearch\Serializers\SmartSerializer';
+$client = ClientBuilder::create()
+            ->setSerializer($serializer)
             ->build();
 ----

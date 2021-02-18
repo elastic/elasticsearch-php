@@ -1,5 +1,5 @@
 
-
+[discrete]
 [[Elasticsearch_Namespaces_IlmNamespace]]
 === Elasticsearch\Namespaces\IlmNamespace
 

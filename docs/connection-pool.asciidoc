@@ -1,5 +1,5 @@
 [[connection_pool]]
-== Connection Pool
+=== Connection Pool
 
 The connection pool is an object inside the client that is responsible for 
 maintaining the current list of nodes. Theoretically, nodes are either dead or 
@@ -27,7 +27,8 @@ be alive, so `NoNodesAvailableException` is returned.
 There are several connection pool implementations that you can choose from:
 
 
-=== staticNoPingConnectionPool (default)
+[discrete]
+==== staticNoPingConnectionPool (default)
 
 This connection pool maintains a static list of hosts which are assumed to be 
 alive when the client initializes. If a node fails a request, it is marked as 
@@ -50,7 +51,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== staticConnectionPool
+[discrete]
+==== staticConnectionPool
 
 Identical to the `StaticNoPingConnectionPool`, except it pings nodes before they 
 are used to determine if they are alive. This may be useful for long-running 
@@ -69,7 +71,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== simpleConnectionPool
+[discrete]
+==== simpleConnectionPool
 
 The `SimpleConnectionPool` returns the next node as specified by the selector; 
 it does not track node conditions. It returns nodes either they are dead or 
@@ -90,7 +93,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== sniffingConnectionPool
+[discrete]
+==== sniffingConnectionPool
 
 Unlike the two previous static connection pools, this one is dynamic. The user 
 provides a seed list of hosts, which the client uses to "sniff" and discover the 
@@ -109,7 +113,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== Custom Connection Pool
+[discrete]
+==== Custom Connection Pool
 
 If you wish to implement your own custom Connection Pool, your class must 
 implement `ConnectionPoolInterface`:
@@ -203,7 +208,8 @@ $client = ClientBuilder::create()
 ----
 
 
-=== Which connection pool to choose? PHP and connection pooling
+[discrete]
+==== Which connection pool to choose? PHP and connection pooling
 
 At first glance, the `sniffingConnectionPool` implementation seems superior. For 
 many languages, it is. In PHP, the conversation is a bit more nuanced.
@@ -229,3 +235,19 @@ For this reason the default connection pool is currently the
 `staticNoPingConnectionPool`. You can, of course, change this default - but we 
 strongly recommend you to perform load test and to verify that the change does 
 not negatively impact the performance.
+
+
+[discrete]
+==== Quick setup
+
+As you see above, there are several connection pool implementations available, 
+and each has slightly different behavior (pinging vs no pinging, and so on). 
+Connection pools are configured via the `setConnectionPool()` method:
+
+[source,php]
+----
+$connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+$client = ClientBuilder::create()
+            ->setConnectionPool($connectionPool)
+            ->build();
+----

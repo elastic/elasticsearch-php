@@ -8,7 +8,7 @@ The client gives you full access to every query and parameter exposed by the
 REST API, following the naming scheme as much as possible. Let's look at a few 
 examples so you can become familiar with the syntax.
 
-
+[discrete]
 === Match query
 
 Here is a standard curl for a match query:
@@ -126,7 +126,7 @@ $doc   = $results['hits']['hits'][0]['_source'];
 ----
 {zwsp} +
 
-
+[discrete]
 === Bool Queries
 
 Bool queries can be easily constructed using the client. For example, this 
@@ -180,7 +180,7 @@ into an array of JSON objects internally, so the final resulting output is
 identical to the curl example. For more details about arrays and objects in PHP,
 see <<php_json_objects, Dealing with JSON Arrays and Objects in PHP>>.
 
-
+[discrete]
 === A more complicated example
 
 Let's construct a slightly more complicated example: a boolean query that 
@@ -232,7 +232,7 @@ $results = $client->search($params);
 ----
 {zwsp} +
 
-
+[discrete]
 === Scrolling
 
 The scrolling functionality of {es} is used to paginate over many documents in a 

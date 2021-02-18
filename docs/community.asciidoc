@@ -1,6 +1,7 @@
 [[community_dsls]]
 == Community DSLs
 
+[discrete]
 === ElasticsearchDSL
 
 https://github.com/ongr-io/ElasticsearchDSL[Link: ElasticsearchDSL]
@@ -11,7 +12,7 @@ and elasticsearch-php client. You can easily build any {es} query and transform
 it to an array.
 __________________________
 
-
+[discrete]
 === elasticsearcher
 
 https://github.com/madewithlove/elasticsearcher[Link: elasticsearcher]
@@ -24,7 +25,7 @@ application. It does not want to hide or replace functionality of the {es} PHP
 client.
 __________________________
 
-
+[discrete]
 === ElasticSearchQueryDSL
 
 https://github.com/gskema/elasticsearch-query-dsl-php[Link: ElasticSearchQueryDSL]
@@ -39,8 +40,10 @@ __________________________
 
 == Community Integrations
 
+[discrete]
 === Symfony
 
+[discrete]
 ==== ONGR Elasticsearch Bundle
 
 https://github.com/ongr-io/ElasticsearchBundle[Link: ONGR {es} Bundle]
@@ -66,7 +69,7 @@ Technical goodies:
 - Designed in an extensible way for all your custom needs.
 __________________________
 
-
+[discrete]
 ==== FOS Elastica Bundle
 
 https://github.com/FriendsOfSymfony/FOSElasticaBundle[Link: FOS Elastica Bundle]
@@ -83,8 +86,10 @@ include:
 __________________________
 
 
+[discrete]
 === Drupal
 
+[discrete]
 ==== {es} Connector
 
 https://www.drupal.org/project/elasticsearch_connector[Link: {es} Connector]
@@ -95,8 +100,10 @@ __________________________
 Drupal.
 __________________________
 
+[discrete]
 === Laravel
 
+[discrete]
 ==== shift31/Laravel-Elasticsearch
 
 https://github.com/shift31/laravel-elasticsearch[Link: shift31/Laravel-Elasticsearch]
@@ -107,6 +114,7 @@ This is a Laravel (4+) Service Provider for the official {es} low-level client.
 __________________________
 
 
+[discrete]
 ==== cviebrock/Laravel-Elasticsearch
 
 https://github.com/cviebrock/laravel-elasticsearch[Link: cviebrock/Laravel-Elasticsearch]
@@ -117,6 +125,7 @@ An easy way to use the official {es} client in your Laravel applications.
 __________________________
 
 
+[discrete]
 ==== Plastic
 
 https://github.com/sleimanx2/plastic[Link: Plastic]
@@ -128,8 +137,10 @@ experience more enjoyable while using {es} by providing a fluent syntax for
 mapping, querying, and storing eloquent models.
 __________________________
 
+[discrete]
 === Helper
 
+[discrete]
 ==== Index Helper
 
 https://github.com/Nexucis/es-php-index-helper[Link: nexucis/es-php-index-helper]

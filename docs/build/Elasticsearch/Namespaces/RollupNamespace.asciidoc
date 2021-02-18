@@ -1,5 +1,5 @@
 
-
+[discrete]
 [[Elasticsearch_Namespaces_RollupNamespace]]
 === Elasticsearch\Namespaces\RollupNamespace
 

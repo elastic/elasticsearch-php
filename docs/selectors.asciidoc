@@ -1,5 +1,5 @@
 [[selectors]]
-== Selectors
+=== Selectors
 
 The connection pool maintains the list of connections, and decides when nodes 
 should transition from alive to dead (and vice versa). It has no logic to choose 
@@ -10,7 +10,8 @@ connections. Like the connection pool, there are several implementations to
 choose from.
 
 
-=== RoundRobinSelector (Default)
+[discrete]
+==== RoundRobinSelector (Default)
 
 This selector returns connections in a round-robin fashion. Node #1 is selected 
 on the first request, Node #2 on the second request, and so on. This ensures an 
@@ -30,7 +31,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== StickyRoundRobinSelector
+[discrete]
+==== StickyRoundRobinSelector
 
 This selector is "sticky", so that it prefers to reuse the same connection 
 repeatedly. For example, Node #1 is chosen on the first request. Node #1 will 
@@ -65,7 +67,8 @@ $client = ClientBuilder::create()
 Note that the implementation is specified via a namespace path to the class.
 
 
-=== RandomSelector
+[discrete]
+==== RandomSelector
 
 This selector returns a random node, regardless of state. It is generally just 
 for testing.
@@ -81,7 +84,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === Custom Selector
 
 You can implement your own custom selector. Custom selectors must implement 
@@ -124,5 +127,19 @@ $mySelector = new MyCustomSelector();
 $client = ClientBuilder::create()
             ->setSelector($mySelector)                             // object injection
             ->setSelector('\MyProject\Selectors\FirstSelector')    // or namespace
+            ->build();
+----
+
+
+[discrete]
+==== Quick setup
+
+Selectors can be changed via the `setSelector()` method:
+
+[source,php]
+----
+$selector = '\Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector';
+$client = ClientBuilder::create()
+            ->setSelector($selector)
             ->build();
 ----

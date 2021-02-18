@@ -6,6 +6,7 @@ objects, and how to specify them in PHP. In particular, problems are caused by
 empty objects and arrays of objects. This page shows you some common patterns
 used in {es} JSON API and how to convert that to a PHP representation.
 
+[discrete]
 === Empty Objects
 
 The {es} API uses empty JSON objects in several locations which can cause 
@@ -61,6 +62,7 @@ correctly output an empty object, instead of an empty array. This verbose
 solution is the only way to acomplish the goal in PHP... there is no "short"
 version of an empty object.
 
+[discrete]
 === Arrays of Objects
 
 Another common pattern in {es} DSL is an array of objects. For example, consider 
@@ -123,6 +125,7 @@ $params['body'] = [
 $results = $client->search($params);
 ----
 
+[discrete]
 === Arrays of empty objects
 
 Occasionally, you'll encounter DSL that requires both of the previous patterns. 

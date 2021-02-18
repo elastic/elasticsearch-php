@@ -58,8 +58,8 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
         $client = ClientBuilder::create()
             ->setHosts([$this->host])
             ->setLogger($this->logger);
-        
-        if (getenv('TEST_SUITE') === 'xpack') {
+
+        if (getenv('TEST_SUITE') === 'platinum') {
             $client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
         }    
         return $client->build();

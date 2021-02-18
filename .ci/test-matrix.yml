@@ -9,6 +9,7 @@ PHP_VERSION:
   - 7.1-cli
 
 TEST_SUITE:
-  - oss
+  - free
+  - platinum
 
 exclude: ~

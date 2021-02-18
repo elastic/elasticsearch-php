@@ -186,7 +186,7 @@ class YamlTests
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
                             $skippedAllTest = sprintf("%s\\%s::*", $namespace, $testName);
-                            $skip = strtolower(self::$testSuite) === 'oss' 
+                            $skip = strtolower(self::$testSuite) === 'free' 
                                 ? self::SKIPPED_TEST_OSS 
                                 : self::SKIPPED_TEST_XPACK;
                             if (isset($skip[$skippedAllTest])) {
@@ -232,7 +232,7 @@ class YamlTests
                 );
             } else {
                 $test = self::render(
-                    strtolower(self::$testSuite) === 'oss'
+                    strtolower(self::$testSuite) === 'free'
                         ? self::TEMPLATE_UNIT_TEST_OSS
                         : self::TEMPLATE_UNIT_TEST_XPACK,
                     [

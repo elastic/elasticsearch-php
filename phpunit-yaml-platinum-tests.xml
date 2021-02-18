@@ -16,12 +16,12 @@
     </php>
     <testsuites>
         <testsuite name="Yaml tests">
-            <directory>tests/Elasticsearch/Tests/Yaml/Oss</directory>
+            <directory>tests/Elasticsearch/Tests/Yaml/Platinum</directory>
         </testsuite>
     </testsuites>
     <groups>
         <include>
-            <group>oss</group>
+            <group>platinum</group>
         </include>
     </groups>
     <filter>

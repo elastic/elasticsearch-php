@@ -22,7 +22,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 if (!isset($argv[2])) {
     printf ("Usage: php %s <ES_VERSION> <TEST_SUITE>\n", $argv[0]);
-    printf ("where <ES_VERSION> is Elasticsearch semantic version and <TEST_SUITE> is 'oss' or 'xpack'\n");
+    printf ("where <ES_VERSION> is Elasticsearch semantic version and <TEST_SUITE> is 'free' or 'platinum'\n");
     exit(1);
 }
 $version = $argv[1];
@@ -44,8 +44,8 @@ if (!version_compare($version, '0.0.1', '>=')) {
 }
 
 $stack = $argv[2];
-if (!in_array($argv[2], ['oss', 'xpack'])) {
-    printf ("The argument <TEST_SUITE> should be 'oss' or 'xpack'\n");
+if (!in_array($argv[2], ['free', 'platinum'])) {
+    printf ("The argument <TEST_SUITE> should be 'free' or 'platinum'\n");
     exit(1);
 }
 printf ("*****************************************\n");
@@ -54,7 +54,7 @@ printf ("*****************************************\n");
 printf ("Using %s version for Elasticsearch\n", $version);
 
 $yamlOutputTest = __DIR__ . '/../tests/Elasticsearch/Tests/Yaml';
-$yamlTestFolder = strtolower($stack) === 'oss'
+$yamlTestFolder = strtolower($stack) === 'free'
     ? __DIR__ . '/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test'
     : __DIR__ . '/elasticsearch/x-pack/plugin/src/test/resources/rest-api-spec/test';
 

@@ -35,9 +35,9 @@ class Utility
             return $url;
         }
         switch (getenv('TEST_SUITE')) {
-            case 'oss':
+            case 'free':
                 return 'http://localhost:9200';
-            case 'xpack':
+            case 'platinum':
                 return 'https://elastic:changeme@localhost:9200';
         }
         return null;
@@ -57,7 +57,7 @@ class Utility
                 ]
             ]
         ]);
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             $clientBuilder->setSSLVerification(false);
         }
         return $clientBuilder->build();
@@ -108,7 +108,7 @@ class Utility
      */
     private static function wipeCluster(Client $client): void
     {
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);
             self::deleteAllSLMPolicies($client);  
@@ -116,13 +116,13 @@ class Utility
 
         self::wipeSnapshots($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeDataStreams($client);
         }
         
         self::wipeAllIndices($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeTemplateForXpack($client);
         } else {
             // Delete templates
@@ -141,7 +141,7 @@ class Utility
 
         self::wipeClusterSettings($client);
 
-        if (getenv('TEST_SUITE') === 'xpack') {
+        if (getenv('TEST_SUITE') === 'platinum') {
             self::deleteAllILMPolicies($client);
             self::deleteAllAutoFollowPatterns($client);
             self::deleteAllTasks($client);

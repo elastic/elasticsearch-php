@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Template;
+namespace Iprice\Elasticsearch\Endpoints\Template;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Put
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Template
+ * @package  Iprice\Elasticsearch\Endpoints\Template
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -33,7 +33,7 @@ class Put extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

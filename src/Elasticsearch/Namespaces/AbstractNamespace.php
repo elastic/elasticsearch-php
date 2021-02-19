@@ -1,22 +1,22 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Iprice\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Transport;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Transport;
 
 /**
  * Class AbstractNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
+ * @package  Iprice\Elasticsearch\Namespaces
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 abstract class AbstractNamespace
 {
-    /** @var \Elasticsearch\Transport  */
+    /** @var \Iprice\Elasticsearch\Transport  */
     protected $transport;
 
     /** @var  callback */

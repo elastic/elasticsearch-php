@@ -1,10 +1,10 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Iprice\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Iprice\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Iprice\Elasticsearch\Connections\Connection;
+use Iprice\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class SimpleConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
@@ -21,7 +21,7 @@ class SimpleConnectionPool extends AbstractConnectionPool implements ConnectionP
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {

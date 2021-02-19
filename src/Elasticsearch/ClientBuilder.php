@@ -1,19 +1,19 @@
 <?php
 
-namespace Elasticsearch;
+namespace Iprice\Elasticsearch;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
-use Elasticsearch\Namespaces\NamespaceBuilderInterface;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\ConnectionPool\Selectors;
-use Elasticsearch\Serializers\SmartSerializer;
+use Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Iprice\Elasticsearch\Common\Exceptions\RuntimeException;
+use Iprice\Elasticsearch\ConnectionPool\AbstractConnectionPool;
+use Iprice\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Iprice\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
+use Iprice\Elasticsearch\Connections\Connection;
+use Iprice\Elasticsearch\Connections\ConnectionFactory;
+use Iprice\Elasticsearch\Connections\ConnectionFactoryInterface;
+use Iprice\Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
+use Iprice\Elasticsearch\ConnectionPool\Selectors;
+use Iprice\Elasticsearch\Serializers\SmartSerializer;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
@@ -27,7 +27,7 @@ use Monolog\Processor\IntrospectionProcessor;
  * Class ClientBuilder
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Common\Exceptions
+ * @package  Iprice\Elasticsearch\Common\Exceptions
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -55,13 +55,13 @@ class ClientBuilder
     private $tracer;
 
     /** @var string */
-    private $connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+    private $connectionPool = '\Iprice\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
 
     /** @var  string */
-    private $serializer = '\Elasticsearch\Serializers\SmartSerializer';
+    private $serializer = '\Iprice\Elasticsearch\Serializers\SmartSerializer';
 
     /** @var  string */
-    private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
+    private $selector = '\Iprice\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
 
     /** @var  array */
     private $connectionPoolArgs = [
@@ -144,7 +144,7 @@ class ClientBuilder
      * @param bool $quiet False if unknown settings throw exception, true to silently
      *                    ignore unknown settings
      * @throws Common\Exceptions\RuntimeException
-     * @return \Elasticsearch\Client
+     * @return \Iprice\Elasticsearch\Client
      */
     public static function fromConfig($config, $quiet = false)
     {
@@ -229,7 +229,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
+     * @param \Iprice\Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
      * @return $this
      */
     public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
@@ -240,7 +240,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\ConnectionPool\AbstractConnectionPool|string $connectionPool
+     * @param \Iprice\Elasticsearch\ConnectionPool\AbstractConnectionPool|string $connectionPool
      * @param array $args
      * @throws \InvalidArgumentException
      * @return $this
@@ -282,7 +282,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Transport $transport
+     * @param \Iprice\Elasticsearch\Transport $transport
      * @return $this
      */
     public function setTransport($transport)
@@ -326,7 +326,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Serializers\SerializerInterface|string $serializer
+     * @param \Iprice\Elasticsearch\Serializers\SerializerInterface|string $serializer
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -371,7 +371,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
+     * @param \Iprice\Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -524,7 +524,7 @@ class ClientBuilder
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($serializer) {
-                $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
+                $fullPath = '\\Iprice\Elasticsearch\\Endpoints\\' . $class;
                 if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MsearchTemplate' || $class === 'MPercolate') {
                     return new $fullPath($serializer);
                 } else {
@@ -614,7 +614,7 @@ class ClientBuilder
      * @param array $hosts
      *
      * @throws \InvalidArgumentException
-     * @return \Elasticsearch\Connections\Connection[]
+     * @return \Iprice\Elasticsearch\Connections\Connection[]
      */
     private function buildConnectionsFromHosts($hosts)
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Iprice\Elasticsearch\Endpoints;
 
 /**
  * Class Search
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package  Iprice\Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

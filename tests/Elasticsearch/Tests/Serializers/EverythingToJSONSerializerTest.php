@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Tests\Serializers;
+namespace Iprice\Elasticsearch\Tests\Serializers;
 
-use Elasticsearch\Serializers\EverythingToJSONSerializer;
+use Iprice\Elasticsearch\Serializers\EverythingToJSONSerializer;
 use PHPUnit_Framework_TestCase;
 use Mockery as m;
 
 /**
  * Class EverythingToJSONSerializerTest
- * @package Elasticsearch\Tests\Serializers
+ * @package Iprice\Elasticsearch\Tests\Serializers
  */
 class EverythingToJSONSerializerTest extends PHPUnit_Framework_TestCase
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Iprice\Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Templates
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ * @package  Iprice\Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -1,11 +1,10 @@
 <?php
-namespace Elasticsearch\Tests\Connections;
+namespace Iprice\Elasticsearch\Tests\Connections;
 
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Serializers\SmartSerializer;
+use Iprice\Elasticsearch\Client;
+use Iprice\Elasticsearch\ClientBuilder;
+use Iprice\Elasticsearch\Connections\Connection;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 class ConnectionTest extends \PHPUnit\Framework\TestCase

@@ -3,17 +3,17 @@
  * Class RegisteredNamespaceInterface
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
+ * @package  Iprice\Elasticsearch\Namespaces
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 
-namespace Elasticsearch\Namespaces;
+namespace Iprice\Elasticsearch\Namespaces;
 
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
+use Iprice\Elasticsearch\Transport;
 
 interface NamespaceBuilderInterface
 {

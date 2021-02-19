@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Ingest;
+namespace Iprice\Elasticsearch\Endpoints\Ingest;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Simulate
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Ingest
+ * @package  Iprice\Elasticsearch\Endpoints\Ingest
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -19,7 +19,7 @@ class Simulate extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -34,7 +34,7 @@ class Simulate extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

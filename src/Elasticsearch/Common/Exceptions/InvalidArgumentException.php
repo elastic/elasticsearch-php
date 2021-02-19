@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace Iprice\Elasticsearch\Common\Exceptions;
 
 /**
  * InvalidArgumentException
@@ -8,7 +8,7 @@ namespace Elasticsearch\Common\Exceptions;
  * Denote invalid or incorrect argument values
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Common\Exceptions
+ * @package  Iprice\Elasticsearch\Common\Exceptions
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

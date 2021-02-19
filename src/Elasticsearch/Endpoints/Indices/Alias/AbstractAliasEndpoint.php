@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Alias;
+namespace Iprice\Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class AbstractAliasEndpoint
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Alias
+ * @package Iprice\Elasticsearch\Endpoints\Indices\Alias
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -22,7 +22,7 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
     /**
      * @param $name
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */

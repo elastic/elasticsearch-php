@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Iprice\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Connections\ConnectionInterface;
+use Iprice\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * ConnectionPoolInterface
  *
  * @category Elasticsearch
- * @package  Elasticsearch\ConnectionPool
+ * @package  Iprice\Elasticsearch\ConnectionPool
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Aliases;
+namespace Iprice\Elasticsearch\Endpoints\Indices\Aliases;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Aliases
+ * @package  Iprice\Elasticsearch\Endpoints\Indices\Aliases
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

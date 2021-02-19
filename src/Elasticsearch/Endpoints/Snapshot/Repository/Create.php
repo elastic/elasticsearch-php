@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot\Repository;
+namespace Iprice\Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Create
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot\Repository
+ * @package  Iprice\Elasticsearch\Endpoints\Snapshot\Repository
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -22,7 +22,7 @@ class Create extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -53,7 +53,7 @@ class Create extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()
@@ -86,7 +86,7 @@ class Create extends AbstractEndpoint
 
     /**
      * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
     {

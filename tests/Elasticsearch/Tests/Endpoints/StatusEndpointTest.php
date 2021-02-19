@@ -1,8 +1,8 @@
 <?php
-namespace Elasticsearch\Tests\Endpoints;
+namespace Iprice\Elasticsearch\Tests\Endpoints;
 
-use Elasticsearch\Endpoints\Snapshot\Status;
-use Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\Snapshot\Status;
+use Iprice\Elasticsearch\Common\Exceptions;
 
 class StatusEndpointTest extends \PHPUnit\Framework\TestCase
 {

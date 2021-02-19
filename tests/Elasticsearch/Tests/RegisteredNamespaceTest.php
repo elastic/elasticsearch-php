@@ -1,11 +1,10 @@
 <?php
 
-namespace Elasticsearch\Tests;
+namespace Iprice\Elasticsearch\Tests;
 
-use Elasticsearch;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Iprice\Elasticsearch\ClientBuilder;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
+use Iprice\Elasticsearch\Transport;
 use Mockery as m;
 
 /**
@@ -33,7 +32,7 @@ class RegisteredNamespaceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
+     * @expectedException \Iprice\Elasticsearch\Common\Exceptions\BadMethodCallException
      */
     public function testNonExistingNamespace()
     {
@@ -43,7 +42,7 @@ class RegisteredNamespaceTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class FooNamespaceBuilder implements Elasticsearch\Namespaces\NamespaceBuilderInterface
+class FooNamespaceBuilder implements \Iprice\Elasticsearch\Namespaces\NamespaceBuilderInterface
 {
     public function getName()
     {

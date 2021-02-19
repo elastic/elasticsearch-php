@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Iprice\Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions\RuntimeException;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Snapshots
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cat
+ * @package  Iprice\Elasticsearch\Endpoints\Cat
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

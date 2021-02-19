@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Serializers;
+namespace Iprice\Elasticsearch\Serializers;
 
 /**
  * Class EverythingToJSONSerializer
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Serializers
+ * @package  Iprice\Elasticsearch\Serializers
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

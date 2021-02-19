@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot;
+namespace Iprice\Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Status
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot
+ * @package  Iprice\Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -55,7 +55,7 @@ class Status extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

@@ -14,9 +14,7 @@ class ClientIntegrationTests extends \PHPUnit_Framework_TestCase
 {
     public function testCustomQueryParams()
     {
-        $params = array();
-
-        $client = Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
+        $client = Iprice\Elasticsearch\ClientBuilder::create()->setHosts([$_SERVER['ES_TEST_HOST']])->build();
 
         $getParams = array(
             'index' => 'test',
@@ -26,7 +24,7 @@ class ClientIntegrationTests extends \PHPUnit_Framework_TestCase
             'custom' => array('customToken' => 'abc', 'otherToken' => 123),
             'client' => ['ignore' => 400]
         );
-        $exists = $client->exists($getParams);
+        $client->exists($getParams);
     }
 
 }

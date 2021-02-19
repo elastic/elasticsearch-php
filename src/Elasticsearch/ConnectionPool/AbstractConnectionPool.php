@@ -1,18 +1,18 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Iprice\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
-use Elasticsearch\Connections\ConnectionInterface;
+use Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Iprice\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Iprice\Elasticsearch\Connections\Connection;
+use Iprice\Elasticsearch\Connections\ConnectionFactoryInterface;
+use Iprice\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class AbstractConnectionPool
  *
  * @category Elasticsearch
- * @package  Elasticsearch\ConnectionPool
+ * @package  Iprice\Elasticsearch\ConnectionPool
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -43,7 +43,7 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
     /** @var array */
     protected $connectionPoolParams;
 
-    /** @var \Elasticsearch\Connections\ConnectionFactory  */
+    /** @var \Iprice\Elasticsearch\Connections\ConnectionFactory  */
     protected $connectionFactory;
 
     /**

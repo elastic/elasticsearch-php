@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Helper\Iterators;
+namespace Iprice\Elasticsearch\Helper\Iterators;
 
 use Iterator;
 
@@ -8,7 +8,7 @@ use Iterator;
  * Class SearchHitIterator
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Helper\Iterators
+ * @package  Iprice\Elasticsearch\Helper\Iterators
  * @author   Arturo Mejia <arturo.mejia@kreatetechnology.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

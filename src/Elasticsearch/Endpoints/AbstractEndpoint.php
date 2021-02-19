@@ -1,10 +1,10 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Iprice\Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\UnexpectedValueException;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Iprice\Elasticsearch\Common\Exceptions\UnexpectedValueException;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
+use Iprice\Elasticsearch\Transport;
 use Exception;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
@@ -12,7 +12,7 @@ use GuzzleHttp\Ring\Future\FutureArrayInterface;
  * Class AbstractEndpoint
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package  Iprice\Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -220,7 +220,7 @@ abstract class AbstractEndpoint
     /**
      * @param array $params
      *
-     * @throws \Elasticsearch\Common\Exceptions\UnexpectedValueException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\UnexpectedValueException
      */
     private function checkUserParams($params)
     {

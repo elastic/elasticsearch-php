@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Tasks;
+namespace Iprice\Elasticsearch\Endpoints\Tasks;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class TasksLists
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Tasks
+ * @package  Iprice\Elasticsearch\Endpoints\Tasks
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -18,7 +18,7 @@ class TasksList extends AbstractEndpoint
 {
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

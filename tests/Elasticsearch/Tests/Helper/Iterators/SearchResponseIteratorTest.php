@@ -1,13 +1,13 @@
 <?php
 
-namespace Elasticsearch\Tests\Helper\Iterators;
+namespace Iprice\Elasticsearch\Tests\Helper\Iterators;
 
-use Elasticsearch\Helper\Iterators\SearchResponseIterator;
+use Iprice\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 use Mockery as m;
 
 /**
  * Class SearchResponseIteratorTest
- * @package Elasticsearch\Tests\Helper\Iterators
+ * @package Iprice\Elasticsearch\Tests\Helper\Iterators
  * @author  Arturo Mejia <arturo.mejia@kreatetechnology.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link    http://Elasticsearch.org
@@ -33,7 +33,7 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mock_client = m::mock('\Elasticsearch\Client');
+        $mock_client = m::mock('\Iprice\Elasticsearch\Client');
 
         $mock_client->shouldReceive('search')
             ->once()
@@ -68,7 +68,7 @@ class SearchResponseIteratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mock_client = m::mock('\Elasticsearch\Client');
+        $mock_client = m::mock('\Iprice\Elasticsearch\Client');
 
         $mock_client->shouldReceive('search')
             ->once()

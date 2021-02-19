@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Iprice\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Iprice\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
+use Iprice\Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Iprice\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Iprice\Elasticsearch\Connections\Connection;
+use Iprice\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class SniffingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
@@ -31,7 +31,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {

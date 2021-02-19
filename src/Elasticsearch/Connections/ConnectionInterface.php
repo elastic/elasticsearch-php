@@ -1,16 +1,16 @@
 <?php
 
-namespace Elasticsearch\Connections;
+namespace Iprice\Elasticsearch\Connections;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Iprice\Elasticsearch\Serializers\SerializerInterface;
+use Iprice\Elasticsearch\Transport;
 use Psr\Log\LoggerInterface;
 
 /**
  * Interface ConnectionInterface
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Connections
+ * @package  Iprice\Elasticsearch\Connections
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -23,7 +23,7 @@ interface ConnectionInterface
      * @param $handler
      * @param array $hostDetails
      * @param array $connectionParams connection-specific parameters
-     * @param \Elasticsearch\Serializers\SerializerInterface $serializer
+     * @param \Iprice\Elasticsearch\Serializers\SerializerInterface $serializer
      * @param \Psr\Log\LoggerInterface $log          Logger object
      * @param \Psr\Log\LoggerInterface $trace        Logger object
      */
@@ -92,7 +92,7 @@ interface ConnectionInterface
      * @param null $params
      * @param null $body
      * @param array $options
-     * @param \Elasticsearch\Transport $transport
+     * @param \Iprice\Elasticsearch\Transport $transport
      * @return mixed
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport);

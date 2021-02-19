@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Iprice\Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions;
+use Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Iprice\Elasticsearch\Common\Exceptions;
 
 /**
  * Class SearchTemplate
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package  Iprice\Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -19,7 +19,7 @@ class SearchTemplate extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Iprice\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)

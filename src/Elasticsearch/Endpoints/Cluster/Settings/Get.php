@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Settings;
+namespace Iprice\Elasticsearch\Endpoints\Cluster\Settings;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cluster\Settings
+ * @package  Iprice\Elasticsearch\Endpoints\Cluster\Settings
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

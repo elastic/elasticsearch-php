@@ -1,17 +1,17 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Iprice\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
-use Elasticsearch\Endpoints\Ingest\Simulate;
+use Iprice\Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
+use Iprice\Elasticsearch\Endpoints\Ingest\Pipeline\Get;
+use Iprice\Elasticsearch\Endpoints\Ingest\Pipeline\Put;
+use Iprice\Elasticsearch\Endpoints\Ingest\Simulate;
 
 /**
  * Class IngestNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\IngestNamespace
+ * @package  Iprice\Elasticsearch\Namespaces\IngestNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

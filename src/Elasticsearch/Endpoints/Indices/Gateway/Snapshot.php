@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Gateway;
+namespace Iprice\Elasticsearch\Endpoints\Indices\Gateway;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Iprice\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Snapshot
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Gateway
+ * @package  Iprice\Elasticsearch\Endpoints\Indices\Gateway
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

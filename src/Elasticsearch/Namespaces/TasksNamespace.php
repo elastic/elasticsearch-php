@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Iprice\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Tasks\Cancel;
-use Elasticsearch\Endpoints\Tasks\Get;
+use Iprice\Elasticsearch\Endpoints\Tasks\Cancel;
+use Iprice\Elasticsearch\Endpoints\Tasks\Get;
 
 /**
  * Class TasksNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\TasksNamespace
+ * @package  Iprice\Elasticsearch\Namespaces\TasksNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

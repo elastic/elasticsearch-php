@@ -21,26 +21,21 @@ namespace Elasticsearch\Tests;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Tests\ClientBuilder\DummyLogger;
-use GuzzleHttp\Ring\Client\MockHandler;
 use PHPUnit\Framework\TestCase;
 
 class ClientBuilderTest extends TestCase
 {
-    /**
-     * @expectedException TypeError
-     */
     public function testClientBuilderThrowsExceptionForIncorrectLoggerClass()
     {
+        $this->expectException(\TypeError::class);
         ClientBuilder::create()->setLogger(new DummyLogger);
     }
 
-    /**
-     * @expectedException TypeError
-     */
     public function testClientBuilderThrowsExceptionForIncorrectTracerClass()
     {
+        $this->expectException(\TypeError::class);
         ClientBuilder::create()->setTracer(new DummyLogger);
     }
 
@@ -51,7 +46,7 @@ class ClientBuilderTest extends TestCase
             ->build();
 
         $this->assertInstanceOf(Client::class, $client);
-        
+
         try {
             $result = $client->info();
         } catch (ElasticsearchException $e) {
@@ -75,7 +70,7 @@ class ClientBuilderTest extends TestCase
             ->build();
 
         $this->assertInstanceOf(Client::class, $client);
-        
+
         try {
             $result = $client->info();
         } catch (ElasticsearchException $e) {
@@ -169,5 +164,136 @@ class ClientBuilderTest extends TestCase
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
             $this->assertEquals($host, $request['request']['headers']['Host'][0]);
         }
+    }
+
+    public function getCloudIdExamples()
+    {
+        return [
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbTo5MjQzJGM2NjM3ZjMxMmM1MjQzY2RhN2RlZDZlOTllM2QyYzE5JA==', 'c6637f312c5243cda7ded6e99e3d2c19.westeurope.azure.elastic-cloud.com:9243'],
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSRlN2RlOWYxMzQ1ZTQ0OTAyODNkOTAzYmU1YjZmOTE5ZSQ=', 'e7de9f1345e4490283d903be5b6f919e.westeurope.azure.elastic-cloud.com'],
+            ['cluster:d2VzdGV1cm9wZS5henVyZS5lbGFzdGljLWNsb3VkLmNvbSQ4YWY3ZWUzNTQyMGY0NThlOTAzMDI2YjQwNjQwODFmMiQyMDA2MTU1NmM1NDA0OTg2YmZmOTU3ZDg0YTZlYjUxZg==', '8af7ee35420f458e903026b4064081f2.westeurope.azure.elastic-cloud.com']
+        ];
+    }
+
+    /**
+     * @dataProvider getCloudIdExamples
+     */
+    public function testSetCloudIdWithExplicitPortOnlyEsUuid(string $cloudId, string $url)
+    {
+        $client = ClientBuilder::create()
+            ->setElasticCloudId($cloudId)
+            ->build();
+
+        $connection = $client->transport->getConnection();
+
+        $this->assertEquals($url, $connection->getHost());
+    }
+
+    public function getConfig()
+    {
+        return [
+            [[
+                'hosts' => ['localhost:9200']
+            ]],
+            [[
+                'hosts'  => ['cloud:9200'],
+                'apiKey' => ['id-value', 'apikey-value']
+            ]],
+            [[
+                'hosts'  => ['cloud:9200'],
+                'basicAuthentication' => ['username-value', 'password-value']
+            ]]
+        ];
+    }
+
+    /**
+     * @dataProvider getConfig
+     * @see https://github.com/elastic/elasticsearch-php/issues/1074
+     */
+    public function testFromConfig(array $params)
+    {
+        $client = ClientBuilder::fromConfig($params);
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
+    public function testFromConfigQuiteTrueWithUnknownKey()
+    {
+        $client = ClientBuilder::fromConfig(
+            [
+                'hosts' => ['localhost:9200'],
+                'foo' => 'bar'
+            ],
+            true
+        );
+    }
+
+    public function testFromConfigQuiteFalseWithUnknownKey()
+    {
+        $this->expectException(RuntimeException::class);
+        $client = ClientBuilder::fromConfig(
+            [
+                'hosts' => ['localhost:9200'],
+                'foo' => 'bar'
+            ],
+            false
+        );
+    }
+
+    public function testElasticClientMetaHeaderIsSentByDefault()
+    {
+        $client = ClientBuilder::create()
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['x-elastic-client-meta']));
+            $this->assertEquals(
+                1,
+                preg_match(
+                    '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                    $request['request']['headers']['x-elastic-client-meta'][0]
+                )
+            );
+        }    
+    }
+
+    public function testElasticClientMetaHeaderIsSentWhenEnabled()
+    {
+        $client = ClientBuilder::create()
+            ->setElasticMetaHeader(true)
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['x-elastic-client-meta']));
+            $this->assertEquals(
+                1,
+                preg_match(
+                    '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                    $request['request']['headers']['x-elastic-client-meta'][0]
+                )
+            );
+        }    
+    }
+
+    public function testElasticClientMetaHeaderIsNotSentWhenDisabled()
+    {
+        $client = ClientBuilder::create()
+            ->setElasticMetaHeader(false)
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertFalse(isset($request['request']['headers']['x-elastic-client-meta']));
+        }    
     }
 }

@@ -18,6 +18,11 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
+
 class Utility
 {
     public static function getHost(): ?string

@@ -42,7 +42,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
      */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->trace = $this->createMock(LoggerInterface::class);
@@ -96,7 +96,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $headers = $connection->getHeaders();
 
         $this->assertArrayHasKey('User-Agent', $headers);
-        $this->assertContains('elasticsearch-php/'. Client::VERSION, $headers['User-Agent'][0]);
+        $this->assertStringContainsString('elasticsearch-php/'. Client::VERSION, $headers['User-Agent'][0]);
     }
 
     /**
@@ -125,7 +125,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $request = $connection->getLastRequestInfo()['request'];
 
         $this->assertArrayHasKey('User-Agent', $request['headers']);
-        $this->assertContains('elasticsearch-php/'. Client::VERSION, $request['headers']['User-Agent'][0]);
+        $this->assertStringContainsString('elasticsearch-php/'. Client::VERSION, $request['headers']['User-Agent'][0]);
     }
 
     /**
@@ -157,7 +157,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains('foo:bar', $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString('foo:bar', $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -191,7 +191,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('Authorization', $request['headers']);
         $this->assertArrayNotHasKey(CURLOPT_HTTPAUTH, $request['headers']);
-        $this->assertContains($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
+        $this->assertStringContainsString($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
     }
 
     /**
@@ -227,7 +227,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('Authorization', $request['headers']);
         $this->assertArrayNotHasKey(CURLOPT_HTTPAUTH, $request['headers']);
-        $this->assertContains($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
+        $this->assertStringContainsString($params['client']['headers']['Authorization'][0], $request['headers']['Authorization'][0]);
     }
 
     /**
@@ -261,7 +261,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains($params['client']['curl'][CURLOPT_USERPWD], $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString($params['client']['curl'][CURLOPT_USERPWD], $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -297,7 +297,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey(CURLOPT_HTTPAUTH, $request['client']['curl']);
         $this->assertArrayHasKey(CURLOPT_USERPWD, $request['client']['curl']);
         $this->assertArrayNotHasKey('Authorization', $request['headers']);
-        $this->assertContains('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
+        $this->assertStringContainsString('username:password', $request['client']['curl'][CURLOPT_USERPWD]);
     }
 
     /**
@@ -332,6 +332,124 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $result = $tryDeserializeError->invoke($connection, $response, ServerErrorResponseException::class);
         $this->assertInstanceOf(ServerErrorResponseException::class, $result);
-        $this->assertContains('master_not_discovered_exception', $result->getMessage());
+        $this->assertStringContainsString('master_not_discovered_exception', $result->getMessage());
+    }
+
+    public function testHeaderClientParamIsResetAfterSent()
+    {
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            [],
+            new SmartSerializer(),
+            $this->logger,
+            $this->trace
+        );
+        
+        $options = [
+            'client' => [
+                'headers' => [
+                    'Foo' => [ 'Bar' ]
+                ]
+            ]
+        ];
+        
+        $headersBefore = $connection->getHeaders();
+        $result = $connection->performRequest('GET', '/', null, null, $options);
+        $headersAfter = $connection->getHeaders();
+        $this->assertEquals($headersBefore, $headersAfter);
+    }
+
+    /**
+     * Test if the x-elastic-client-meta header is sent if $params['client']['x-elastic-client-meta'] is true  
+     */
+    public function testElasticMetaClientHeaderIsSentWhenParameterIsTrue()
+    {
+        $params = [
+            'client' => [
+                'x-elastic-client-meta'=> true
+            ]
+        ];
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $params,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/');
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertArrayHasKey('x-elastic-client-meta', $request['headers']);
+        $this->assertEquals(
+            1,
+            preg_match(
+                '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                $request['headers']['x-elastic-client-meta'][0]
+            )
+        );
+    }
+
+    /**
+     * Test if the x-elastic-client-meta header is sent if $params['client']['x-elastic-client-meta'] is true  
+     */
+    public function testElasticMetaClientHeaderIsNotSentWhenParameterIsFalse()
+    {
+        $params = [
+            'client' => [
+                'x-elastic-client-meta'=> false
+            ]
+        ];
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $params,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/');
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertArrayNotHasKey('x-elastic-client-meta', $request['headers']);
+    }
+
+    public function testParametersAreSent()
+    {
+        $connectionParams = [];
+        $host = [
+            'host' => 'localhost'
+        ];
+        $requestParams = [
+            'foo' => true,
+            'baz' => false,
+            'bar' => 'baz'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $connectionParams,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/', $requestParams);
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertEquals('/?foo=true&baz=false&bar=baz', $request['uri']);
     }
 }

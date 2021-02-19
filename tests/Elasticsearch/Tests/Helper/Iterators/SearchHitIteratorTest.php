@@ -33,12 +33,12 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
      */
     private $searchResponse;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->searchResponse = Mockery::mock(SearchResponseIterator::class);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }

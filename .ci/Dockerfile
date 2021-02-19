@@ -11,7 +11,12 @@ RUN apt-get update && \
 RUN apt-get install -y \
         libzip-dev \
         zip \
-    && docker-php-ext-install zip
+        libyaml-dev \
+    && docker-php-ext-install zip 
+
+# Install yaml extension for PHP
+RUN pecl channel-update pecl.php.net
+RUN pecl install yaml && docker-php-ext-enable yaml
 
 # Print PHP version
 RUN php -v

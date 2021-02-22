@@ -21,8 +21,10 @@ use Elasticsearch\Common\Exceptions\RoutingMissingException;
 use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
 use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Common\Exceptions\TransportException;
+use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Transport;
+use Exception;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;
@@ -615,23 +617,21 @@ class Connection implements ConnectionInterface
             return;
         }
 
-        // if responseBody is not string, we convert it so it can be used as Exception message
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
-        }
-
+        $responseBody = $this->convertBodyToString($response['body'], $statusCode, $exception);
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
+        } elseif ($statusCode === 401) {
+            $exception = new Unauthorized401Exception($responseBody, $statusCode);
         } elseif ($statusCode === 403) {
             $exception = new Forbidden403Exception($responseBody, $statusCode);
         } elseif ($statusCode === 404) {
             $exception = new Missing404Exception($responseBody, $statusCode);
+        } elseif ($statusCode === 408) {
+            $exception = new RequestTimeout408Exception($responseBody, $statusCode);
         } elseif ($statusCode === 409) {
             $exception = new Conflict409Exception($responseBody, $statusCode);
         } elseif ($statusCode === 400 && strpos($responseBody, 'script_lang not supported') !== false) {
             $exception = new ScriptLangNotSupportedException($responseBody. $statusCode);
-        } elseif ($statusCode === 408) {
-            $exception = new RequestTimeout408Exception($responseBody, $statusCode);
         } else {
             $exception = new BadRequest400Exception($responseBody, $statusCode);
         }
@@ -696,18 +696,35 @@ class Connection implements ConnectionInterface
         throw $exception;
     }
 
+    private function convertBodyToString($body, int $statusCode, Exception $exception) : string
+    {
+        if (empty($body)) {
+            return sprintf(
+                "Unknown %d error from Elasticsearch %s",
+                $statusCode,
+                $exception->getMessage()
+            );
+        }
+        // if body is not string, we convert it so it can be used as Exception message
+        if (!is_string($body)) {
+            return json_encode($body);
+        }
+        return $body;
+    }
+
     private function tryDeserialize400Error($response)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
+        return $this->tryDeserializeError($response, BadRequest400Exception::class);
     }
 
     private function tryDeserialize500Error($response)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
+        return $this->tryDeserializeError($response, ServerErrorResponseException::class);
     }
 
     private function tryDeserializeError($response, $errorClass)
     {
+        $responseBody = '';
         $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
         if (is_array($error) === true) {
             // 2.0 structured exceptions
@@ -738,9 +755,15 @@ class Connection implements ConnectionInterface
         }
 
         // if responseBody is not string, we convert it so it can be used as Exception message
-        $responseBody = $response['body'];
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
+        if ($response['body'] !== null) {
+            $responseBody = $response['body'];
+            if (!is_string($responseBody)) {
+              $responseBody = json_encode($responseBody);
+            }
+        }
+        // if response body is null, this then use the response "reason" instead.
+        else if (isset($response['reason'])) {
+            $responseBody = $response['reason'];
         }
 
         // <2.0 "i just blew up" nonstructured exception

@@ -18,7 +18,7 @@ use Elasticsearch;
  */
 class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (empty(getenv('ES_TEST_HOST'))) {
             $this->markTestSkipped(

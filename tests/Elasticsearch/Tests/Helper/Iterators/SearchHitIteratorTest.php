@@ -19,12 +19,12 @@ use Mockery;
 class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->searchResponse = Mockery::mock(SearchResponseIterator::class);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
     }

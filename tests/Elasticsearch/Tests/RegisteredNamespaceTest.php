@@ -22,7 +22,7 @@ use Mockery as m;
  */
 class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }

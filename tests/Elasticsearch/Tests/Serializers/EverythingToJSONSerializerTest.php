@@ -14,7 +14,7 @@ use Mockery as m;
  */
 class EverythingToJSONSerializerTest extends \PHPUnit\Framework\TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }

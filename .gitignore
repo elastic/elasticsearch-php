@@ -24,9 +24,11 @@ generator/*
 util/elasticsearch
 util/cache/
 util/output
+util/backup_*
 
 # Sami docs generator
 /sami.phar
 
 # PHPUnit
 /phpunit.xml
+.phpunit.result.cache

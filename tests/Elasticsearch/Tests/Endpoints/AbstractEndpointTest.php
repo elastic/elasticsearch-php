@@ -32,7 +32,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->endpoint->setParams($params);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->endpoint = $this->getMockForAbstractClass(AbstractEndpoint::class);
     }

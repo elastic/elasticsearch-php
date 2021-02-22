@@ -13,7 +13,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
     private $trace;
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->trace = $this->createMock(LoggerInterface::class);

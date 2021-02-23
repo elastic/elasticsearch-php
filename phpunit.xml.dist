@@ -7,16 +7,21 @@
         verbose="true"
         beStrictAboutChangesToGlobalState="true"
         beStrictAboutOutputDuringTests="true"
+        beStrictAboutTestsThatDoNotTestAnything="false"
 >
-    <php>
-        <env name="ES_TEST_HOST" value=""/>
-    </php>
     <testsuites>
-        <testsuite name="Tests">
+        <testsuite name="Unit tests">
             <directory>tests</directory>
             <exclude>tests/Elasticsearch/Tests/YamlRunnerTest.php</exclude>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude>
+            <group>Integration</group>
+            <group>oss</group>
+            <group>xpack</group>
+        </exclude>
+    </groups>
     <filter>
         <whitelist>
             <directory suffix=".php">src</directory>

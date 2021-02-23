@@ -1,0 +1,6 @@
+        $this->markTestSkipped(sprintf(
+            "Skip test %s, as ES version %s should be skipped (%s)",
+            :testname,
+            :esversion,
+            :reason
+        ));

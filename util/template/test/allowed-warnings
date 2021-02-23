@@ -1,0 +1,10 @@
+        // check for allowed_warnings
+        $headers = $this->client->transport->getLastConnection()->getLastRequestInfo()['response']['headers'];
+        if (isset($headers['Warning'])) {
+            $expectedHeaders = :expected;
+            $contains = false;
+            foreach ($expectedHeaders as $expected) {
+                $contains = $contains || (false !== strpos($headers['Warning'][0], $expected));
+            }
+            $this->assertTrue($contains);
+        }

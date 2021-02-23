@@ -1,0 +1,14 @@
+:apidoc
+    public function :endpoint(array $params = [])
+    {
+:extract
+        $this->verifyNotNullOrEmpty("id", $id);
+        $this->verifyNotNullOrEmpty("type", $type);
+        $this->verifyNotNullOrEmpty("index", $index);
+        
+        $endpointBuilder = $this->endpoints;
+        $endpoint = $endpointBuilder(':EndpointClass');
+        $endpoint->setParams($params);
+:setparam
+        return $this->performRequest($endpoint);
+    }

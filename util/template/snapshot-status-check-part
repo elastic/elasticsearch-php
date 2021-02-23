@@ -1,0 +1,5 @@
+        if (isset($this->snapshot) === true && isset($this->repository) !== true) {
+            throw new \Elasticsearch\Common\Exceptions\RuntimeException(
+                'Repository param must be provided if snapshot param is set'
+            );
+        }

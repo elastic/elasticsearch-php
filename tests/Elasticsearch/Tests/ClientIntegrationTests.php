@@ -24,6 +24,7 @@ use Elasticsearch;
  * Class ClientTest
  *
  * @subpackage Tests
+ * @group Integration
  */
 class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 {

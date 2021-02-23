@@ -25,6 +25,7 @@ use Elasticsearch\ConnectionPool\SniffingConnectionPool;
  * Class SniffingConnectionPoolIntegrationTest
  *
  * @subpackage Tests/SniffingConnectionPoolTest
+ * @group Integration
  */
 class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {

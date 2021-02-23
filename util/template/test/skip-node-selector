@@ -1,0 +1,6 @@
+        $this->markTestSkipped(sprintf(
+            "Skip test %s, as ES version %s, node_selector %s",
+            :testname,
+            :esversion,
+            :node_selector
+        ));

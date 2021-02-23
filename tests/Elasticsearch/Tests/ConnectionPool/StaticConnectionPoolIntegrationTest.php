@@ -24,6 +24,7 @@ use Elasticsearch;
  * Class StaticConnectionPoolIntegrationTest
  *
  * @subpackage Tests/StaticConnectionPoolTest
+ * @group Integration
  */
 class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {

@@ -1,0 +1,14 @@
+---
+STACK_VERSION:
+  - 6.8-SNAPSHOT
+  
+PHP_VERSION:
+  - 8.0-cli
+  - 7.4-cli
+  - 7.3-cli
+
+TEST_SUITE:
+  - oss
+  - xpack
+
+exclude: ~

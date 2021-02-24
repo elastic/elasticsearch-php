@@ -40,7 +40,9 @@ class YamlTests
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Indices\Create\_20_Mix_Typeless_TypefulTest::CreateATypedIndexWhileThereIsATypelessTemplate' => 'mismatch on warning header',
         'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
-        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title'
+        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title',
+        'Cluster\Reroute\_11_ExplainTest::ExplainAPIForNonexistentNodeShard' => '\$node_id is not parsed as variable',
+        'Nodes\Stats\_30_DiscoveryTest::DiscoveryStats' => 'Failed asserting that false is true'
     ];
 
     const SKIPPED_TEST_XPACK = [
@@ -186,7 +188,7 @@ class YamlTests
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
                             $skippedAllTest = sprintf("%s\\%s::*", $namespace, $testName);
-                            $skip = strtolower(self::$testSuite) === 'free' 
+                            $skip = strtolower(self::$testSuite) === 'oss' 
                                 ? self::SKIPPED_TEST_OSS 
                                 : self::SKIPPED_TEST_XPACK;
                             if (isset($skip[$skippedAllTest])) {
@@ -232,7 +234,7 @@ class YamlTests
                 );
             } else {
                 $test = self::render(
-                    strtolower(self::$testSuite) === 'free'
+                    strtolower(self::$testSuite) === 'oss'
                         ? self::TEMPLATE_UNIT_TEST_OSS
                         : self::TEMPLATE_UNIT_TEST_XPACK,
                     [

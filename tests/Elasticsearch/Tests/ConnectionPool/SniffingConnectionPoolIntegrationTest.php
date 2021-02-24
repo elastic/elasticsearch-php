@@ -20,6 +20,7 @@ namespace Elasticsearch\Tests\ConnectionPool;
 
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\ConnectionPool\SniffingConnectionPool;
+use Elasticsearch\Tests\Utility;
 
 /**
  * Class SniffingConnectionPoolIntegrationTest
@@ -37,7 +38,7 @@ class SniffingConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
     public function testSniff()
     {
         $client = ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setHosts([Utility::getHost()])
             ->setConnectionPool(SniffingConnectionPool::class, ['sniffingInterval' => -10])
             ->build();
 

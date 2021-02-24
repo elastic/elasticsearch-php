@@ -18,8 +18,6 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
-use Elasticsearch;
-
 /**
  * Class ClientTest
  *
@@ -30,9 +28,7 @@ class ClientIntegrationTests extends \PHPUnit\Framework\TestCase
 {
     public function testCustomQueryParams()
     {
-        $client = Elasticsearch\ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
-            ->build();
+        $client = Utility::getClient();
 
         $getParams = [
             'index' => 'test',

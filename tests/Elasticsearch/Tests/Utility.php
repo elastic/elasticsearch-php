@@ -129,14 +129,6 @@ class Utility
             $client->indices()->deleteTemplate([
                 'name' => '*'
             ]);
-            // Delete index template
-            $client->indices()->deleteIndexTemplate([
-                'name' => '*'
-            ]);
-            // Delete component template
-            $client->cluster()->deleteComponentTemplate([
-                'name' => '*'
-            ]);
         }
 
         self::wipeClusterSettings($client);

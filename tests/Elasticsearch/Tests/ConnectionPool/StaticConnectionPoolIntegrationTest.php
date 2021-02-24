@@ -18,7 +18,8 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests\ConnectionPool;
 
-use Elasticsearch;
+use Elasticsearch\ClientBuilder;
+use Elasticsearch\Tests\Utility;
 
 /**
  * Class StaticConnectionPoolIntegrationTest
@@ -30,18 +31,18 @@ class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp(): void
     {
-        if (empty(getenv('ES_TEST_HOST'))) {
+        if (empty(Utility::getHost())) {
             $this->markTestSkipped(
-                'Elasticsearch is not configured. Check the ES_TEST_HOST env in your phpunit.xml file.'
+                'Elasticsearch is not running'
             );
-        }
+        } 
     }
 
     // Issue #636
     public function test404Liveness()
     {
-        $client = \Elasticsearch\ClientBuilder::create()
-            ->setHosts([getenv('ES_TEST_HOST')])
+        $client = ClientBuilder::create()
+            ->setHosts([Utility::getHost()])
             ->setConnectionPool(\Elasticsearch\ConnectionPool\StaticConnectionPool::class)
             ->build();
 

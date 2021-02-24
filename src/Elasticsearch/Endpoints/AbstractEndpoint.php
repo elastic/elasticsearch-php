@@ -57,17 +57,17 @@ abstract class AbstractEndpoint
     /**
      * @return string[]
      */
-    abstract public function getParamWhitelist();
+    abstract public function getParamWhitelist(): array;
 
     /**
      * @return string
      */
-    abstract public function getURI();
+    abstract public function getURI(): string;
 
     /**
      * @return string
      */
-    abstract public function getMethod();
+    abstract public function getMethod(): string;
 
 
     /**
@@ -82,9 +82,9 @@ abstract class AbstractEndpoint
             $params = (array) $params;
         }
 
+        $this->extractOptions($params);
         $this->checkUserParams($params);
         $params = $this->convertCustom($params);
-        $this->extractOptions($params);
         $this->params = $this->convertArraysToStrings($params);
 
         return $this;
@@ -243,7 +243,7 @@ abstract class AbstractEndpoint
             return; //no params, just return.
         }
 
-        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path', 'human'));
+        $whitelist = array_merge($this->getParamWhitelist(), array('client', 'custom', 'filter_path', 'human', 'opaqueId'));
 
         $invalid = array_diff(array_keys($params), $whitelist);
         if (count($invalid) > 0) {
@@ -264,6 +264,15 @@ abstract class AbstractEndpoint
     {
         // Extract out client options, then start transforming
         if (isset($params['client']) === true) {
+            // Check if the opaqueId is populated and add the header
+            if (isset($params['client']['opaqueId']) === true) {
+                if (isset($params['client']['headers']) === false) {
+                    $params['client']['headers'] = [];
+                }
+                $params['client']['headers']['x-opaque-id'] = [trim($params['client']['opaqueId'])];
+                unset($params['client']['opaqueId']);
+            }
+
             $this->options['client'] = $params['client'];
             unset($params['client']);
         }

@@ -82,5 +82,4 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
         }
         return $this;
     }
-
 }

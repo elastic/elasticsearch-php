@@ -87,5 +87,4 @@ class MsearchTemplate extends AbstractEndpoint implements BulkEndpointInterface
         }
         return $this;
     }
-
 }

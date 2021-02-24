@@ -53,10 +53,10 @@
   "scripts": {
     "phpcs": [
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src",
-      "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests"
+      "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests --ignore=tests/Elasticsearch/Tests/Yaml"
     ],
     "phpstan": [
-      "@php vendor/phpstan/phpstan-shim/phpstan.phar analyse -c phpstan-src.neon src --level 2 --no-progress"
+      "phpstan analyse src --level 2 --no-progress"
     ]
   }
 }

@@ -88,5 +88,4 @@ class FindFileStructure extends AbstractEndpoint implements BulkEndpointInterfac
         }
         return $this;
     }
-
 }

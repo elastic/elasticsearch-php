@@ -95,5 +95,4 @@ class PostData extends AbstractEndpoint implements BulkEndpointInterface
 
         return $this;
     }
-
 }

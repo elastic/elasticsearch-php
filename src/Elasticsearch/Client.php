@@ -55,7 +55,7 @@ use Elasticsearch\Namespaces\WatcherNamespace;
  */
 class Client
 {
-    const VERSION = '6.8.14';
+    const VERSION = '6.8.0';
 
     /**
      * @var Transport

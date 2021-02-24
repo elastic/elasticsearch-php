@@ -80,7 +80,6 @@ class BackwardCompatibleTest extends \PHPUnit\Framework\TestCase
             ['Elasticsearch\Endpoints\Indices\Flush'],
             ['Elasticsearch\Endpoints\Indices\Refresh'],
             ['Elasticsearch\Endpoints\Indices\Recovery'],
-            ['Elasticsearch\Endpoints\Indices\Field\Get'],
             ['Elasticsearch\Endpoints\Indices\Validate\Query'],
             ['Elasticsearch\Endpoints\Indices\Mapping\Get'],
             ['Elasticsearch\Endpoints\Indices\Mapping\Put'],

@@ -32,3 +32,9 @@ util/backup_*
 # PHPUnit
 /phpunit.xml
 .phpunit.result.cache
+
+# Junit test output
+tests/*-junit.xml
+
+# YAML tests
+tests/Elasticsearch/Tests/Yaml

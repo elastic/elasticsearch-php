@@ -1,0 +1,79 @@
+name: PHP test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php-version: [7.3, 7.4, 8.0]
+        os: [ubuntu-latest]
+        es-version: [7.x-SNAPSHOT]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Use PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: yaml
+      env:
+        COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get composer cache directory
+      id: composercache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composercache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install dependencies
+      if: ${{ matrix.php-version != '8.0' }}
+      run: |
+        composer install --prefer-dist
+
+    - name: ignore ignore-platform-reqs if it is using php 8
+      if: ${{ matrix.php-version == '8.0' }}
+      run: |
+        composer install --prefer-dist --ignore-platform-reqs
+
+    - name: PHP Coding Standards
+      run: |
+        composer run-script phpcs
+
+    - name: PHP Static Analysis Tool
+      run: |
+        composer run-script phpstan
+
+    - name: Unit tests
+      run: |
+        vendor/bin/phpunit -c phpunit.xml.dist
+      env:
+        TEST_SUITE: oss
+
+    - name: Configure sysctl limits
+      run: |
+        sudo swapoff -a
+        sudo sysctl -w vm.swappiness=1
+        sudo sysctl -w fs.file-max=262144
+        sudo sysctl -w vm.max_map_count=262144
+
+    - name: Runs Elasticsearch ${{ matrix.es-version }}
+      uses: elastic/elastic-github-actions/elasticsearch@master
+      with:
+        stack-version: ${{ matrix.es-version }}
+
+    - name: Integration tests
+      run: |
+        vendor/bin/phpunit -c phpunit-integration-tests.xml
+      env:
+        TEST_SUITE: oss

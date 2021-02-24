@@ -1,7 +1,4 @@
     
-    /**
-     * @param string|array|Traversable $body
-     */
     public function setBody($body): :endpoint
     {
         if (isset($body) !== true) {

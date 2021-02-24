@@ -18,6 +18,7 @@ namespace Elasticsearch\Endpoints\Ml;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Endpoints\BulkEndpointInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Traversable;
 
@@ -66,9 +67,6 @@ class FindFileStructure extends AbstractEndpoint implements BulkEndpointInterfac
         return 'POST';
     }
         
-    /**
-     * @param string|array|Traversable $body
-     */
     public function setBody($body): FindFileStructure
     {
         if (isset($body) !== true) {

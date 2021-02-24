@@ -171,7 +171,7 @@ class Connection implements ConnectionInterface
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null)
     {
-        if (isset($body) === true) {
+        if ($body !== null) {
             $body = $this->serializer->serialize($body);
         }
 
@@ -333,7 +333,7 @@ class Connection implements ConnectionInterface
      *
      * @return string
      */
-    private function getURI($uri, $params)
+    private function getURI(string $uri, ?array $params)
     {
         if (isset($params) === true && !empty($params)) {
             array_walk($params, function (&$value, &$key) {
@@ -588,7 +588,7 @@ class Connection implements ConnectionInterface
      *
      * @return string
      */
-    private function buildCurlCommand($method, $uri, $body)
+    private function buildCurlCommand(string $method, string $uri, ?string $body): string
     {
         if (strpos($uri, '?') === false) {
             $uri .= '?pretty=true';

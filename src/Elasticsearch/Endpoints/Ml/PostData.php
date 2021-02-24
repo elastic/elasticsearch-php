@@ -19,6 +19,7 @@ namespace Elasticsearch\Endpoints\Ml;
 use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Endpoints\BulkEndpointInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Traversable;
 
@@ -63,9 +64,6 @@ class PostData extends AbstractEndpoint implements BulkEndpointInterface
         return 'POST';
     }
         
-    /**
-     * @param string|array|Traversable $body
-     */
     public function setBody($body): PostData
     {
         if (isset($body) !== true) {

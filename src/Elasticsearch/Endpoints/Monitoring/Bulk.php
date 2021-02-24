@@ -18,6 +18,7 @@ namespace Elasticsearch\Endpoints\Monitoring;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Endpoints\BulkEndpointInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Traversable;
 
@@ -60,9 +61,6 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
         return 'POST';
     }
         
-    /**
-     * @param string|array|Traversable $body
-     */
     public function setBody($body): Bulk
     {
         if (isset($body) !== true) {

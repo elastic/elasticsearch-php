@@ -146,19 +146,15 @@ class Transport
      *
      * @return callable|array
      */
-    public function resultOrFuture($result, $options = [])
+    public function resultOrFuture(FutureArrayInterface $result, array $options = [])
     {
-        $response = null;
         $async = isset($options['client']['future']) ? $options['client']['future'] : null;
         if (is_null($async) || $async === false) {
             do {
                 $result = $result->wait();
             } while ($result instanceof FutureArrayInterface);
-
-            return $result;
-        } elseif ($async === true || $async === 'lazy') {
-            return $result;
-        }
+        } 
+        return $result;
     }
 
     /**

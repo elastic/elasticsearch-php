@@ -18,6 +18,7 @@ namespace Elasticsearch\Endpoints;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
+use Elasticsearch\Endpoints\BulkEndpointInterface;
 use Elasticsearch\Serializers\SerializerInterface;
 use Traversable;
 
@@ -67,9 +68,6 @@ class Msearch extends AbstractEndpoint implements BulkEndpointInterface
         return isset($this->body) ? 'POST' : 'GET';
     }
         
-    /**
-     * @param string|array|Traversable $body
-     */
     public function setBody($body): Msearch
     {
         if (isset($body) !== true) {

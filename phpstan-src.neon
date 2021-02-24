@@ -1,6 +1,0 @@
-parameters:
-    ignoreErrors:
-
-        # nullable types are missing everywhere
-        # this should be removed and fixed in the code later
-        - '#Variable (.*) in isset\(\) always exists and is not nullable.#'

@@ -1,13 +1,14 @@
 elasticsearch-php
 =================
 
-[![Build Status](https://travis-ci.org/elastic/elasticsearch-php.svg?branch=master)](https://travis-ci.org/elastic/elasticsearch-php) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
+[![Build status](https://github.com/elastic/elasticsearch-php/workflows/PHP%20test/badge.svg?branch=6.8.x)](https://github.com/elastic/elasticsearch-php/actions) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
 
 
 Official low-level client for Elasticsearch. Its goal is to provide common ground for all Elasticsearch-related code in PHP; because of this it tries to be opinion-free and very extendable.
 
 To maintain consistency across all the low-level clients (Ruby, Python, etc.), clients accept simple associative arrays as parameters.  All parameters, from the URI to the document body, are defined in the associative array.
 
+**NOTE**: starting from `elasticsearch-php` 6.8.0 we supports also [XPack](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/setup-xpack.html) endpoints of Elasticsearch.
 
 Features
 --------
@@ -21,14 +22,12 @@ Features
  - Option to use asynchronous future, which enables parallel execution of curl requests to multiple nodes
 
 
-**Note:** If you want to use X-Pack API, you need to install an optional extension [elasticsearch/xpack](https://github.com/elastic/elasticsearch-x-pack-php).
-
-
 Version Matrix
 --------------
 
 | Elasticsearch Version | Elasticsearch-PHP Branch |
 | --------------------- | ------------------------ |
+| >= 6.8, < 7.0         | 6.8.x                    |
 | >= 6.6, < 7.0         | 6.7.x                    |
 | >= 6.0, < 6.6         | 6.5.x                    |
 | >= 5.0, < 6.0         | 5.0                      |
@@ -36,6 +35,7 @@ Version Matrix
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
+ - If you are using Elasticsearch 6.8+, use Elasticsearch-PHP 6.8.x branch.
  - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
  - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
@@ -51,12 +51,12 @@ Installation via Composer
 -------------------------
 The recommended method to install _Elasticsearch-PHP_ is through [Composer](http://getcomposer.org).
 
-1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance for ES 6.7):
+1. Add `elasticsearch/elasticsearch` as a dependency in your project's `composer.json` file (change version to suit your version of Elasticsearch, for instance for ES 6.8):
 
     ```json
         {
             "require": {
-                "elasticsearch/elasticsearch": "^6.7"
+                "elasticsearch/elasticsearch": "^6.8"
             }
         }
     ```
@@ -93,12 +93,16 @@ PHP Version Requirement
 Version 6.0 of this library requires at least PHP version 7.0.0 to function.  In addition, it requires the native JSON
 extension to be version 1.3.7 or higher.
 
+**NOTE**: starting from `elasticsearch-php` **6.8.0** we supports only PHP 7.3+ (including PHP 8.0).
+
+
 | Elasticsearch-PHP Branch | PHP Version |
 | ----------- | ------------------------ |
-| 6.0         | >= 7.0.0                 |
-| 5.0         | >= 5.6.6                 |
-| 2.0         | >= 5.4.0                 |
-| 0.4, 1.0    | >= 5.3.9                 |
+| 6.8         | >= 7.3.0, < 9.0.0        |
+| 6.0         | >= 7.0.0, < 8.0.0        |
+| 5.0         | >= 5.6.6, < 8.0.0        |
+| 2.0         | >= 5.4.0, < 7.0.0        |
+| 0.4, 1.0    | >= 5.3.9, < 7.0.0        |
 
 
 Quickstart

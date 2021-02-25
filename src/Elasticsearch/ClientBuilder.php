@@ -20,14 +20,10 @@ namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
-use Elasticsearch\Connections\Connection;
 use Elasticsearch\Connections\ConnectionFactory;
 use Elasticsearch\Connections\ConnectionFactoryInterface;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
-use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\ConnectionPool\Selectors;
 use Elasticsearch\Serializers\SmartSerializer;
 use GuzzleHttp\Ring\Client\CurlHandler;
@@ -99,6 +95,11 @@ class ClientBuilder
 
     /** @var null|bool|string */
     private $sslVerification = null;
+
+    /**
+     * @var bool
+     */
+    private $elasticMetaHeader = true;
 
     /**
      * @return ClientBuilder
@@ -432,6 +433,16 @@ class ClientBuilder
     }
 
     /**
+     * Set or disable the x-elastic-client-meta header
+     */
+    public function setElasticMetaHeader($value = true): ClientBuilder
+    {
+        $this->elasticMetaHeader = $value;
+
+        return $this;
+    }
+
+    /**
      * @return Client
      */
     public function build()
@@ -473,6 +484,8 @@ class ClientBuilder
         } elseif (is_string($this->serializer)) {
             $this->serializer = new $this->serializer;
         }
+
+        $this->connectionParams['client']['x-elastic-client-meta'] = $this->elasticMetaHeader;
 
         if (is_null($this->connectionFactory)) {
             if (is_null($this->connectionParams)) {

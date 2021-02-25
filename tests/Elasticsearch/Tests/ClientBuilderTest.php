@@ -18,7 +18,9 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -39,5 +41,63 @@ class ClientBuilderTest extends TestCase
         $this->expectExceptionMessage('$tracer must implement \Psr\Log\LoggerInterface!');
 
         ClientBuilder::create()->setTracer(new \Elasticsearch\Tests\ClientBuilder\DummyLogger());
+    }
+
+    public function testElasticClientMetaHeaderIsSentByDefault()
+    {
+        $client = ClientBuilder::create()
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['x-elastic-client-meta']));
+            $this->assertEquals(
+                1,
+                preg_match(
+                    '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                    $request['request']['headers']['x-elastic-client-meta'][0]
+                )
+            );
+        }    
+    }
+
+    public function testElasticClientMetaHeaderIsSentWhenEnabled()
+    {
+        $client = ClientBuilder::create()
+            ->setElasticMetaHeader(true)
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['x-elastic-client-meta']));
+            $this->assertEquals(
+                1,
+                preg_match(
+                    '/^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$/', 
+                    $request['request']['headers']['x-elastic-client-meta'][0]
+                )
+            );
+        }    
+    }
+
+    public function testElasticClientMetaHeaderIsNotSentWhenDisabled()
+    {
+        $client = ClientBuilder::create()
+            ->setElasticMetaHeader(false)
+            ->build();
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertFalse(isset($request['request']['headers']['x-elastic-client-meta']));
+        }    
     }
 }

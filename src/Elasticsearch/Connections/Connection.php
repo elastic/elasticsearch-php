@@ -175,14 +175,17 @@ class Connection implements ConnectionInterface
             $body = $this->serializer->serialize($body);
         }
 
+        $headers = $this->headers;
+        if (isset($options['client']['headers']) && is_array($options['client']['headers'])) {
+            $headers = array_merge($this->headers, $options['client']['headers']);
+        }
+
         $request = [
             'http_method' => $method,
             'scheme'      => $this->transportSchema,
             'uri'         => $this->getURI($uri, $params),
             'body'        => $body,
-            'headers'     => array_merge([
-                'Host'  => [$this->host]
-            ], $this->headers)
+            'headers'     => array_merge(['Host' => [$this->host]], $headers)
         ];
 
         $request = array_replace_recursive($request, $this->connectionParams, $options);
@@ -333,16 +336,20 @@ class Connection implements ConnectionInterface
      *
      * @return string
      */
-    private function getURI(string $uri, ?array $params)
+    private function getURI(string $uri, ?array $params): string
     {
         if (isset($params) === true && !empty($params)) {
-            array_walk($params, function (&$value, &$key) {
-                if ($value === true) {
-                    $value = 'true';
-                } elseif ($value === false) {
-                    $value = 'false';
-                }
-            });
+            $params = array_map(
+                function ($value) {
+                    if ($value === true) {
+                        return 'true';
+                    } elseif ($value === false) {
+                        return 'false';
+                    }
+                    return $value;
+                },
+                $params
+            );
 
             $uri .= '?' . http_build_query($params);
         }
@@ -351,7 +358,7 @@ class Connection implements ConnectionInterface
             $uri = $this->path . $uri;
         }
 
-        return $uri;
+        return $uri ?? '';
     }
 
     /**

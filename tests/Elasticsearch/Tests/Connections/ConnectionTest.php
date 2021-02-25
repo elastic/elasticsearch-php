@@ -19,6 +19,7 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Serializers\SerializerInterface;
+use Elasticsearch\Serializers\SmartSerializer;
 use Psr\Log\LoggerInterface;
 
 class ConnectionTest extends \PHPUnit\Framework\TestCase
@@ -90,5 +91,66 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $request = $connection->getLastRequestInfo()['request'];
         $this->assertArrayHasKey('User-Agent', $request['headers']);
         $this->assertStringContainsString('elasticsearch-php/'. Client::VERSION, $request['headers']['User-Agent'][0]);
+    }
+
+    /**
+     * @depends testGetHeadersContainUserAgent
+     *
+     * @covers \Connection::performRequest
+     * @covers \Connection::getURI
+     */
+    public function testParametersAreSent()
+    {
+        $connectionParams = [];
+        $host = [
+            'host' => 'localhost'
+        ];
+        $requestParams = [
+            'foo' => true,
+            'baz' => false,
+            'bar' => 'baz'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            $connectionParams,
+            $this->serializer,
+            $this->logger,
+            $this->trace
+        );
+        $result  = $connection->performRequest('GET', '/', $requestParams);
+        $request = $connection->getLastRequestInfo()['request'];
+
+        $this->assertEquals('/?foo=true&baz=false&bar=baz', $request['uri']);
+    }
+
+    public function testHeaderClientParamIsResetAfterSent()
+    {
+        $host = [
+            'host' => 'localhost'
+        ];
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            $host,
+            [],
+            new SmartSerializer(),
+            $this->logger,
+            $this->trace
+        );
+
+        $options = [
+            'client' => [
+                'headers' => [
+                    'Foo' => [ 'Bar' ]
+                ]
+            ]
+        ];
+
+        $headersBefore = $connection->getHeaders();
+        $result = $connection->performRequest('GET', '/', null, null, $options);
+        $headersAfter = $connection->getHeaders();
+        $this->assertEquals($headersBefore, $headersAfter);
     }
 }

@@ -214,6 +214,28 @@ Array
 )
 ----
 
+=== Request Identification
+
+You can enrich your requests against Elasticsearch with an identifier string, that allows you to discover this identifier
+in https://www.elastic.co/guide/en/elasticsearch/reference/6.8/logging.html#deprecation-logging[deprecation logs], to support you with
+https://www.elastic.co/guide/en/elasticsearch/reference/6.8/index-modules-slowlog.html[identifying search slow log origin]
+or to help with https://www.elastic.co/guide/en/elasticsearch/reference/6.8/tasks.html#_identifying_running_tasks[identifying running tasks].
+
+
+[source,php]
+----
+$client = ClientBuilder::create()->build();
+$params = [
+    'index' => 'test',
+    'id'    => 1,
+    'client' => [
+        'opaqueId' => 'app17@dc06.eu_user1234', <1>
+    ]
+];
+$response = $client->get($params);
+----
+<1> This will populate the `X-Opaque-Id` header with the value `app17@dc06.eu_user1234`
+
 === Curl Timeouts
 
 It is possible to configure per-request curl timeouts via the `timeout` and `connect_timeout` parameters.  These

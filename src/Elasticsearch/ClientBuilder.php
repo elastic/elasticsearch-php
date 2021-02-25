@@ -35,6 +35,9 @@ use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use ReflectionClass;
+
+use function filter_var;
 
 /**
  * Class ClientBuilder
@@ -512,7 +515,11 @@ class ClientBuilder
 
             $this->endpoint = function ($class) use ($serializer) {
                 $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
-                if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MsearchTemplate' || $class === 'MPercolate') {
+                
+                $reflection = new ReflectionClass($fullPath);
+                $constructor = $reflection->getConstructor();
+
+                if ($constructor && $constructor->getParameters()) {
                     return new $fullPath($serializer);
                 } else {
                     return new $fullPath();
@@ -576,7 +583,7 @@ class ClientBuilder
         }
 
         if (is_null($this->transport)) {
-            $this->transport = new Transport($this->retries, $this->sniffOnStart, $this->connectionPool, $this->logger);
+            $this->transport = new Transport($this->retries, $this->connectionPool, $this->logger, $this->sniffOnStart);
         }
     }
 

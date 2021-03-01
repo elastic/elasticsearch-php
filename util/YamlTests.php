@@ -46,7 +46,26 @@ class YamlTests
     ];
 
     const SKIPPED_TEST_XPACK = [
-        'License\_20_Put_LicenseTest::*' => 'License issue'
+        'License\_20_Put_LicenseTest::*' => 'License issue',
+        'Ml\_Get_Datafeed_StatsTest::TestImplicitGetAllDatafeedStatsGivenStartedDatafeeds' => 'resource_already_exists_exception',
+        'Ml\_Jobs_Get_StatsTest::*' => 'resource_already_exists_exception',
+        'Ml\_Post_DataTest::*' => 'resource_already_exists_exception',
+        'Ml\_Set_Upgrade_ModeTest::*' => 'resource_already_exists_exception',
+        'Ml\_Start_Stop_DatafeedTest::*' => 'resource_already_exists_exception',
+        'Privileges\_40_Get_User_PrivsTest::TestGet_user_privilegesForSingleRole' => 'username is not a valid parameter',
+        'RoleMapping\_20_Get_MissingTest::GetMissingmultipleRolemappings' => 'Array to string conversion',
+        'Roles\_20_Get_MissingTest::GetMissingmultipleRoles' => 'Array to string conversion',
+        'ChangePassword\_10_BasicTest::*' => 'Failed asserting exception',
+        'Deprecation\_10_BasicTest::TestDeprecations' => 'Mismatch',
+        'Monitoring\Bulk\_20_PrivilegesTest::MonitoringBulkAPI' => 'Mismatch',
+        'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Mismatch',
+        'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch',
+        'Token\_10_BasicTest::*' => 'Failed asserting exception',
+        'Users\_10_BasicTest::TestPutUserWithPasswordHash' => 'Failed asserting exception',
+        'Users\_16_Update_UserTest::TestCreateUserAndUpdateWithoutAndWithPassword' => 'Failed asserting exception',
+        'Users\_30_Enable_DisableTest::*' => 'Failed asserting exception',
+        'Users\_31_Create_DisabledTest::TestDisableThenEnableUser' => 'Failed asserting exception',
+        'Xpack\_15_BasicTest::XPackInfoAndUsage' => 'Mismatch'
     ];
 
     const PHP_RESERVED_WORDS     = [

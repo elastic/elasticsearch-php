@@ -150,6 +150,7 @@ class Utility
                 $client->rollup()->stopJob([
                     'id' => $job['config']['id'],
                     'wait_for_completion' => true,
+                    'timeout' => '10s',
                     'client' => [
                         'ignore' => 404
                     ]

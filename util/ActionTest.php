@@ -416,6 +416,9 @@ class ActionTest
 
     private function convertDotToArrow(string $dot)
     {
+        if (substr($dot, 0, 6) === 'xpack.' && count(explode('.', $dot)) > 2) {
+            $dot = substr($dot, 6); // remove the 'xpack.' in endpoints like 'xpack.security.put_role'
+        }
         $result = str_replace ('.', '()->', $dot);
         $tot = strlen($result);
         for ($i = 0; $i < $tot; $i++) {

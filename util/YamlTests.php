@@ -46,42 +46,7 @@ class YamlTests
     ];
 
     const SKIPPED_TEST_XPACK = [
-        'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
-        'License\_20_Put_LicenseTest::CurrentLicenseIsTrialMeansNotEligleToStartTrial' => 'License issue',
-        'License\_20_Put_LicenseTest::MustAcknowledgeToStartBasic' => 'License issue',
-        'License\_20_Put_LicenseTest::InstallingAndGettingLicenseWorks' => 'Invalid license',
-        'License\_20_Put_LicenseTest::ShouldInstallAFeatureTypeLicense' => 'Invalid license',
-        'License\_20_Put_LicenseTest::CanStartBasicLicenseIfDoNotAlreadyHaveBasic' => 'Invalid license',
-        'License\_30_Enterprise_LicenseTest::InstallingEnterpriseLicense' => 'Invalid license',
-        'Ml\_Jobs_CrudTest::TestPutJobWithModel_memory_limitAsStringAndLazyOpen' => 'Memory limit',
-        'Ml\_Data_Frame_Analytics_CrudTest::TestPutClassificationGivenNum_top_classesIsLessThanZero' => 'No error catched',
-        'Ml\_Set_Upgrade_ModeTest::*' => 'Skipped all tests',
-        'Ml\_Filter_CrudTest::*' => 'Skipped all tests',
-        'Ml\_Inference_CrudTest::*' => 'Skipped all tests',
-        'Ml\_Inference_Stats_CrudTest::*' => 'Skipped all tests',
-        'Ml\_Ml_InfoTest::TestMlInfo' => 'response[\'limits\'][\'max_model_memory_limit\'] is not empty',
-        'Ml\_Delete_Expired_DataTest::TestDeleteExpiredDataWithJobId' => 'Substring mismatch',
-        'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
-        'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
-        'RuntimeFields\_100_Geo_PointTest::GetMapping' => 'Substring mismatch',
-        'RuntimeFields\_10_KeywordTest::GetMapping' => 'Substring mismatch',
-        'RuntimeFields\_10_KeywordTest::FetchFields' => 'Array mismatch',
-        'RuntimeFields\_10_KeywordTest::Docvalue_fields' => 'Array mismatch',
-        'RuntimeFields\_10_KeywordTest::ExplainTermQueryWrappedInScriptScore' => 'Substring mismatch',
-        'RuntimeFields\_200_Runtime_Fields_StatsTest::UsageStatsWithRuntimeFields' => 'Count mismatch',
-        'RuntimeFields\_20_LongTest::GetMapping' => 'String mismatch',
-        'RuntimeFields\_30_DoubleTest::GetMapping' => 'Array mismatch',
-        'RuntimeFields\_40_DateTest::GetMapping' => 'String mismatch',
-        'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
-        'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
-        'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
-        'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
-        'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
-        'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',
-        'UnsignedLong\_20_Null_ValueTest::*' => 'Skipped all tests',
-        'UnsignedLong\_30_Multi_FieldsTest::*' => 'Skipped all tests',
-        'UnsignedLong\_50_Script_ValuesTest::*' => 'Skipped all tests',
-        'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
+        'License\_20_Put_LicenseTest::*' => 'License issue'
     ];
 
     const PHP_RESERVED_WORDS     = [

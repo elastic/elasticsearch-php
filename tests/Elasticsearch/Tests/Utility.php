@@ -110,16 +110,10 @@ class Utility
     {
         if (getenv('TEST_SUITE') === 'xpack') {
             self::wipeRollupJobs($client);
-            self::waitForPendingRollupTasks($client);
-            self::deleteAllSLMPolicies($client);  
+            self::waitForPendingRollupTasks($client); 
         }
 
         self::wipeSnapshots($client);
-
-        if (getenv('TEST_SUITE') === 'xpack') {
-            self::wipeDataStreams($client);
-        }
-        
         self::wipeAllIndices($client);
 
         if (getenv('TEST_SUITE') === 'xpack') {
@@ -233,33 +227,6 @@ class Utility
     }
 
     /**
-     * Delete all SLM policies
-     * 
-     * @see ESRestTestCase.java:deleteAllSLMPolicies()
-     */
-    private static function deleteAllSLMPolicies(Client $client): void
-    {
-        $policies = $client->slm()->getLifecycle();
-        foreach ($policies as $policy) {
-            $client->slm()->deleteLifecycle([
-                'policy_id' => $policy['name']
-            ]);
-        }
-    }
-
-    /**
-     * Delete all data streams
-     * 
-     * @see ESRestTestCase.java:wipeDataStreams()
-     */
-    private static function wipeDataStreams(Client $client): void
-    {
-        $client->indices()->deleteDataStream([
-            'name' => '*'
-        ]);
-    }
-
-    /**
      * Delete all indices
      * 
      * @see ESRestTestCase.java:wipeAllIndices()
@@ -298,26 +265,6 @@ class Utility
                     'name' => $template
                 ]);
             } catch (Missing404Exception $e) {
-                $msg = sprintf("index_template [%s] missing", $template);
-                if (strpos($e->getMessage(), $msg) !== false) {
-                    $client->indices()->deleteIndexTemplate([
-                        'name' => $template
-                    ]);
-                }
-            }
-        }
-        // Delete component template
-        $result = $client->cluster()->getComponentTemplate();
-        foreach ($result['component_templates'] as $component) {
-            if (self::isXPackTemplate($component['name'])) {
-                continue;
-            }
-            try {
-                $client->cluster()->deleteComponentTemplate([
-                    'name' => $component['name']
-                ]);
-            } catch (ElasticsearchException $e) {
-                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
             }
         }
     }
@@ -454,8 +401,7 @@ class Utility
             foreach ($tasks['nodes'] as $node => $value) {
                 foreach ($value['tasks'] as $id => $data) {
                     $client->tasks()->cancel([
-                        'task_id' => $id,
-                        'wait_for_completion' => true
+                        'task_id' => $id
                     ]);
                 }
             }

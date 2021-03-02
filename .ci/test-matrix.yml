@@ -1,13 +1,11 @@
 ---
 STACK_VERSION:
-  - 7.x-SNAPSHOT
+  - 7.12.0-SNAPSHOT
   
 PHP_VERSION:
   - 8.0-cli
   - 7.4-cli
   - 7.3-cli
-  - 7.2-cli
-  - 7.1-cli
 
 TEST_SUITE:
   - free

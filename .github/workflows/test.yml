@@ -21,7 +21,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        extensions: yaml
+        extensions: yaml, zip, curl
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

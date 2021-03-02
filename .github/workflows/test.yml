@@ -9,9 +9,9 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.1, 7.2, 7.3, 7.4, 8.0]
+        php-version: [7.3, 7.4, 8.0]
         os: [ubuntu-latest]
-        es-version: [7.x-SNAPSHOT]
+        es-version: [7.12.0-SNAPSHOT]
 
     steps:
     - name: Checkout
@@ -58,7 +58,7 @@ jobs:
       run: |
         vendor/bin/phpunit -c phpunit.xml.dist
       env:
-        TEST_SUITE: oss
+        TEST_SUITE: free
 
     - name: Configure sysctl limits
       run: |
@@ -76,4 +76,4 @@ jobs:
       run: |
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
-        TEST_SUITE: oss
+        TEST_SUITE: free

@@ -73,6 +73,7 @@ class YamlTests
         'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
+        'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'An open index with same name already exists',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
         'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',

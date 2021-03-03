@@ -13,6 +13,6 @@ by using the Client.
 
 include::index-operations.asciidoc[]
 
-include:search-operations.asciidoc[]
+include::search-operations.asciidoc[]
 
 include::crud.asciidoc[]

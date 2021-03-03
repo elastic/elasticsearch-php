@@ -11,13 +11,9 @@ include::connecting.asciidoc[]
 
 include::configuration.asciidoc[]
 
+include::operations.asciidoc[]
+
 include::php_json_objects.asciidoc[]
-
-include::index-operations.asciidoc[]
-
-include::crud.asciidoc[]
-
-include::search-operations.asciidoc[]
 
 include::breaking-changes.asciidoc[]
 

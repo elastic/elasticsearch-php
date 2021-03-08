@@ -1,5 +1,5 @@
 [[indexing_documents]]
-== Indexing documents
+=== Indexing documents
 
 IMPORTANT: Please note that mapping types will disappear from {es}, read more 
 {ref-7x}/removal-of-types.html[here]. If you migrated types from {es} 6 to 7, 
@@ -12,7 +12,7 @@ indexing. There are several methods of ingesting data into {es} which we cover
 here.
 
 [discrete]
-=== Single document indexing
+==== Single document indexing
 
 When indexing a document, you can either provide an ID or let {es} generate one 
 for you.
@@ -67,7 +67,7 @@ $response = $client->index($params);
 {zwsp} +
 
 [discrete]
-=== Bulk Indexing
+==== Bulk Indexing
 
 {es} also supports bulk indexing of documents. The bulk API expects JSON 
 action/metadata pairs, separated by newlines. When constructing your documents 
@@ -137,7 +137,7 @@ if (!empty($params['body'])) {
 ----
 
 [[getting_documents]]
-== Getting documents
+=== Getting documents
 
 {es} provides realtime GETs of documents. This means that as soon as the 
 document is indexed and your client receives an acknowledgement, you can 
@@ -157,14 +157,14 @@ $response = $client->get($params);
 {zwsp} +
 
 [[updating_documents]]
-== Updating documents
+=== Updating documents
 
 Updating a document allows you to either completely replace the contents of the 
 existing document, or perform a partial update to just some fields (either 
 changing an existing field or adding new fields).
 
 [discrete]
-=== Partial document update
+==== Partial document update
 
 If you want to partially update a document (for example, change an existing 
 field or add a new one) you can do so by specifying the `doc` in the `body` 
@@ -189,7 +189,7 @@ $response = $client->update($params);
 {zwsp} +
 
 [discrete]
-=== Scripted document update
+==== Scripted document update
 
 Sometimes you need to perform a scripted update, such as incrementing a counter 
 or appending a new value to an array. To perform a scripted update, you need to 
@@ -213,7 +213,7 @@ $response = $client->update($params);
 {zwsp} +
 
 [discrete]
-=== Upserts
+==== Upserts
 
 Upserts are "Update or Insert" operations. This means an upsert attempts to run 
 your update script, but if the document does not exist (or the field you are 
@@ -243,7 +243,7 @@ $response = $client->update($params);
 
 
 [[deleting_documents]]
-== Deleting documents
+=== Deleting documents
 
 Finally, you can delete documents by specifying their full `/index/_doc_/id` 
 path:

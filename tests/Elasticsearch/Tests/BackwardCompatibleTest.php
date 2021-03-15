@@ -17,6 +17,8 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Elasticsearch\Namespaces\IndicesNamespace;
+
 /**
  * Class BackwardCompatibleTest
  *
@@ -30,14 +32,12 @@ class BackwardCompatibleTest extends \PHPUnit\Framework\TestCase
     public function getClasses()
     {
         return [
-            //['Elasticsearch\Endpoints\TermVectors'],
             ['Elasticsearch\Endpoints\Delete'],
             ['Elasticsearch\Endpoints\ScriptsPainlessExecute'],
             ['Elasticsearch\Endpoints\Create'],
             ['Elasticsearch\Endpoints\Exists'],
             ['Elasticsearch\Endpoints\Get'],
             ['Elasticsearch\Endpoints\Explain'],
-            //['Elasticsearch\Endpoints\MTermVectors'],
             ['Elasticsearch\Endpoints\Search'],
             ['Elasticsearch\Endpoints\FieldCaps'],
             ['Elasticsearch\Endpoints\Msearch'],
@@ -90,6 +90,9 @@ class BackwardCompatibleTest extends \PHPUnit\Framework\TestCase
             ['Elasticsearch\Endpoints\Indices\Alias\Exists'],
             ['Elasticsearch\Endpoints\Indices\Alias\Get'],
             ['Elasticsearch\Endpoints\Indices\Alias\Put'],
+            ['Elasticsearch\Endpoints\Indices\Aliases\Update'],
+            ['Elasticsearch\Endpoints\Indices\Exists\Types'],
+            ['Elasticsearch\Endpoints\Indices\Field\Get'],
             ['Elasticsearch\Endpoints\Indices\Settings\Get'],
             ['Elasticsearch\Endpoints\Indices\Settings\Put'],
             ['Elasticsearch\Endpoints\Indices\Upgrade\Get'],
@@ -154,5 +157,13 @@ class BackwardCompatibleTest extends \PHPUnit\Framework\TestCase
     public function testOldClassNamespacesPreviousTo67($class)
     {
         $this->assertTrue(class_exists($class, true), sprintf("Class %s does not exist", $class));
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/1112
+     */
+    public function testGetAliasesExistsInIndicesNamespace()
+    {
+        $this->assertTrue(method_exists(IndicesNamespace::class, 'getAliases'));
     }
 }

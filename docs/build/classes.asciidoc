@@ -1,6 +1,6 @@
 
 [[ElasticsearchPHP_Endpoints]]
-== Reference - Endpoints
+== API reference
 
 This is a complete list of namespaces and their associated endpoints.
 
@@ -68,3 +68,4 @@ include::Elasticsearch/Namespaces/TasksNamespace.asciidoc[]
 include::Elasticsearch/Namespaces/TransformNamespace.asciidoc[]
 include::Elasticsearch/Namespaces/WatcherNamespace.asciidoc[]
 include::Elasticsearch/Namespaces/XpackNamespace.asciidoc[]
+include::../experimental-beta-apis.asciidoc[]

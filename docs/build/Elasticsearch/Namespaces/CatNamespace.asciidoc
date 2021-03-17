@@ -1,4 +1,3 @@
-
 [discrete]
 [[Elasticsearch_Namespaces_CatNamespace]]
 === Elasticsearch\Namespaces\CatNamespace

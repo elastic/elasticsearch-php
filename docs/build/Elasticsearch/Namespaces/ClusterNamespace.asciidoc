@@ -1,5 +1,4 @@
-
-
+[discrete]
 [[Elasticsearch_Namespaces_ClusterNamespace]]
 === Elasticsearch\Namespaces\ClusterNamespace
 

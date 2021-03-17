@@ -1,5 +1,4 @@
-
-
+[discrete]
 [[Elasticsearch_Namespaces_TasksNamespace]]
 === Elasticsearch\Namespaces\TasksNamespace
 

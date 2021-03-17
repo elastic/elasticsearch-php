@@ -1,5 +1,4 @@
-
-
+[discrete]
 [[Elasticsearch_Namespaces_NodesNamespace]]
 === Elasticsearch\Namespaces\NodesNamespace
 

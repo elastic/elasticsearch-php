@@ -1,12 +1,12 @@
 [[index_management]]
-== Index management operations
+=== Index management operations
 
 Index management operations allow you to manage the indices in your {es} 
 cluster, such as creating, deleting and updating indices and their 
 mappings/settings.
 
 [discrete]
-=== Create an index
+==== Create an index
 
 The index operations are all contained under a distinct namespace, separated 
 from other methods that are on the root client object. As an example, let's 
@@ -61,7 +61,7 @@ $response = $client->indices()->create($params);
 {zwsp} +
 
 [discrete]
-=== Create an index (advanced example)
+==== Create an index (advanced example)
 
 This is a more complicated example of creating an index, showing how to define 
 analyzers, tokenizers, filters and index settings. Although essentially the same 
@@ -139,7 +139,7 @@ char filters and analyzers.
 mappings for various types.
 
 [discrete]
-=== Delete an index
+==== Delete an index
 
 Deleting an index is very simple:
 
@@ -172,7 +172,7 @@ $response = $client->indices()->putSettings($params);
 {zwsp} +
 
 [discrete]
-=== GET Settings API
+==== GET Settings API
 
 The GET Settings API shows you the currently configured settings for one or more 
 indices:
@@ -192,7 +192,7 @@ $response = $client->indices()->getSettings($params);
 {zwsp} +
 
 [discrete]
-=== PUT Mappings API
+==== PUT Mappings API
 
 The PUT Mappings API allows you to modify or add to an existing index's mapping.
 
@@ -223,7 +223,7 @@ $client->indices()->putMapping($params);
 {zwsp} +
 
 [discrete]
-=== GET Mappings API
+==== GET Mappings API
 
 The GET Mappings API returns the mapping details about your indices. Depending 
 on the mappings that you wish to retrieve, you can specify one of more indices:
@@ -246,7 +246,7 @@ $response = $client->indices()->getMapping($params);
 {zwsp} +
 
 [discrete]
-=== Other APIs in the indices namespace
+==== Other APIs in the indices namespace
 
 There are a number of other APIs in the indices namespace that allow you to 
 manage your {es} indices (add/remove templates, flush segments, close indices, 

@@ -79,7 +79,7 @@ Version Matrix
 | >= 1.0, < 2.0         | 1.0 or 2.0               |
 | <= 0.90.x             | 0.4                      |
 
- - If you are using Elasticsearch 7.x you can use use Elasticsearch-PHP 7.x branch
+ - If you are using Elasticsearch 7.x you can use Elasticsearch-PHP 7.x branch
  - If you are using Elasticsearch 6.6 to 6.7, use Elasticsearch-PHP 6.7.x branch.
  - If you are using Elasticsearch 6.0 to 6.5, use Elasticsearch-PHP 6.5.x branch.
  - If you are using Elasticsearch 5.x, use Elasticsearch-PHP 5.0 branch.
@@ -91,7 +91,7 @@ Documentation
 --------------
 [Full documentation can be found here.](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html)  Docs are stored within the repo under /docs/, so if you see a typo or problem, please submit a PR to fix it!
 
-We also provide a code examples generator for PHP using the `util/GenerateDocExamples.php` script. This command parse the `util/alternative_report.spec.json` file produced from this [JSON specification](https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json) and it generates the PHP examples foreach digest value.
+We also provide a code examples generator for PHP using the `util/GenerateDocExamples.php` script. This command parses the `util/alternative_report.spec.json` file produced from this [JSON specification](https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json) and it generates the PHP examples for each digest value.
 The examples are stored in asciidoc format under `docs/examples` folder.
 
 Installation via Composer
@@ -434,7 +434,7 @@ $client = $builder->build();
 Contributing
 ============
 
-If you want to contribute to this project you need to subscribe a [Contributor Agreement](https://www.elastic.co/contributor-agreement).
+If you want to contribute to this project you need to subscribe to a [Contributor Agreement](https://www.elastic.co/contributor-agreement).
 If you want to send a PR for version `Y` please use the `Y.x` branch. For instance if you want to send a PR for **elasticsearch-php 7** use the `7.x` branch.
 
 Never send PR to `master` unless you want to contribute to the development version of the client (`master` represents the next major version).

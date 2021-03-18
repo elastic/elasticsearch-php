@@ -39,8 +39,7 @@ class YamlTests
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Indices\Create\_20_Mix_Typeless_TypefulTest::CreateATypedIndexWhileThereIsATypelessTemplate' => 'mismatch on warning header',
-        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
-        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title'
+        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML"
     ];
 
     const SKIPPED_TEST_XPACK = [

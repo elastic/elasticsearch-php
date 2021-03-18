@@ -110,7 +110,10 @@ class Utility
     {
         if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeRollupJobs($client);
-            self::waitForPendingRollupTasks($client);
+            self::waitForPendingRollupTasks($client);        
+        }
+
+        if (version_compare(getenv('STACK_VERSION'), '7.3.99') > 0) {
             self::deleteAllSLMPolicies($client);  
         }
 
@@ -262,9 +265,24 @@ class Utility
      */
     private static function wipeDataStreams(Client $client): void
     {
-        $client->indices()->deleteDataStream([
-            'name' => '*'
-        ]);
+        try {
+            if (version_compare(getenv('STACK_VERSION'), '7.8.99') > 0) {
+                $client->indices()->deleteDataStream([
+                    'name' => '*',
+                    'expand_wildcards' => 'all'
+                ]);
+            }
+        } catch (ElasticsearchException $e) {
+            // We hit a version of ES that doesn't understand expand_wildcards, try again without it
+            try {
+                $client->indices()->deleteDataStream([
+                    'name' => '*'
+                ]);
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
+                // field or that doesn't support data streams so it's safe to ignore
+            }
+        }
     }
 
     /**
@@ -293,39 +311,51 @@ class Utility
      */
     private static function wipeTemplateForXpack(Client $client): void
     {
-        $result = $client->cat()->templates([
-            'h' => 'name'
-        ]);
-        $templates = explode("\n", $result);
-        foreach ($templates as $template) {
-            if (empty($template) || self::isXPackTemplate($template)) {
-                continue;
-            }
+        if (version_compare(getenv('STACK_VERSION'), '7.6.99') > 0) {
             try {
-                $client->indices()->deleteTemplate([
-                    'name' => $template
-                ]);
-            } catch (Missing404Exception $e) {
-                $msg = sprintf("index_template [%s] missing", $template);
-                if (strpos($e->getMessage(), $msg) !== false) {
-                    $client->indices()->deleteIndexTemplate([
-                        'name' => $template
+                $result = $client->indices()->getIndexTemplate();
+                foreach ($result['index_templates'] as $template) {
+                    if (self::isXPackTemplate($template['name'])) {
+                        continue;
+                    }
+                    try {
+                        $client->indices()->deleteIndexTemplate([
+                            'name' => $template['name']
+                        ]);
+                    } catch (ElasticsearchException $e) {
+                        // unable to remove index template
+                    }
+                }
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+            }
+            // Delete component template
+            $result = $client->cluster()->getComponentTemplate();
+            foreach ($result['component_templates'] as $component) {
+                if (self::isXPackTemplate($component['name'])) {
+                    continue;
+                }
+                try {
+                    $client->cluster()->deleteComponentTemplate([
+                        'name' => $component['name']
                     ]);
+                } catch (ElasticsearchException $e) {
+                    // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
                 }
             }
         }
-        // Delete component template
-        $result = $client->cluster()->getComponentTemplate();
-        foreach ($result['component_templates'] as $component) {
-            if (self::isXPackTemplate($component['name'])) {
+        // Always check for legacy templates
+        $result = $client->indices()->getTemplate();
+        foreach ($result as $name => $value) {
+            if (self::isXPackTemplate($name)) {
                 continue;
             }
             try {
-                $client->cluster()->deleteComponentTemplate([
-                    'name' => $component['name']
+                $result = $client->indices()->deleteTemplate([
+                    'name' => $name
                 ]);
             } catch (ElasticsearchException $e) {
-                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                // unable to remove index template
             }
         }
     }
@@ -398,6 +428,8 @@ class Utility
             case "synthetics-mappings":
             case ".snapshot-blob-cache":
             case ".deprecation-indexing-template":
+            case "logstash-index-template":
+            case "security-index-template":
                 return true;
         }
         return false;

@@ -1,3 +1,19 @@
+## Release 6.8.1
+
+- Fix missing class aliases in 6.8.0 (https://github.com/elastic/elasticsearch-php/pull/1114)
+- Backported fix #1066 (https://github.com/elastic/elasticsearch-php/pull/1109)
+
+## Release 6.8.0
+
+- Added XPack endpoints
+- Added X-Opaque-Id header (https://github.com/elastic/elasticsearch-php/pull/952)
+- Added X-Elastic-Client-Meta header (https://github.com/elastic/elasticsearch-php/pull/1089)
+- Added the license header (https://github.com/elastic/elasticsearch-php/commit/0ff5fb98745a511118df5b1a68ca54d892b08ee3)
+- Support of PHP 8 (https://github.com/elastic/elasticsearch-php/pull/1095 and https://github.com/elastic/elasticsearch-php/pull/1063)
+- Replace `array_walk` with `array_map` in `Connection::getURI` (https://github.com/elastic/elasticsearch-php/pull/1075)
+- Fix for #1064 reset custom headers (https://github.com/elastic/elasticsearch-php/pull/1065)
+- Replace `guzzlehttp/ringphp` with `ezimuel/ringphp` (https://github.com/elastic/elasticsearch-php/pull/1102)
+
 ## Release 6.7.2
 
 - Fix #846 choosing `GET` and `POST` in endpoints based on body [[acbc76d0]](https://github.com/elastic/elasticsearch-php/commit/acbc76d0)

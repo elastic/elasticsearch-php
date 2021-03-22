@@ -132,14 +132,18 @@ class Utility
             $client->indices()->deleteTemplate([
                 'name' => '*'
             ]);
-            // Delete index template
-            $client->indices()->deleteIndexTemplate([
-                'name' => '*'
-            ]);
-            // Delete component template
-            $client->cluster()->deleteComponentTemplate([
-                'name' => '*'
-            ]);
+            try {
+                // Delete index template
+                $client->indices()->deleteIndexTemplate([
+                    'name' => '*'
+                ]);
+                // Delete component template
+                $client->cluster()->deleteComponentTemplate([
+                    'name' => '*'
+                ]);
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+            }
         }
 
         self::wipeClusterSettings($client);
@@ -314,16 +318,32 @@ class Utility
         if (version_compare(getenv('STACK_VERSION'), '7.6.99') > 0) {
             try {
                 $result = $client->indices()->getIndexTemplate();
+                $names = [];
                 foreach ($result['index_templates'] as $template) {
                     if (self::isXPackTemplate($template['name'])) {
                         continue;
                     }
-                    try {
-                        $client->indices()->deleteIndexTemplate([
-                            'name' => $template['name']
-                        ]);
-                    } catch (ElasticsearchException $e) {
-                        // unable to remove index template
+                    $names[] = $template['name'];
+                }
+                if (!empty($names)) {
+                    if (version_compare(getenv('STACK_VERSION'), '7.12.99') > 0) {
+                        try {
+                            $client->indices()->deleteIndexTemplate([
+                                'name' => implode(',', $names)
+                            ]);
+                        } catch (ElasticsearchException $e) {
+                            // unable to remove index template
+                        }
+                    } else {
+                        foreach ($names as $name) {
+                            try {
+                                $client->indices()->deleteIndexTemplate([
+                                    'name' => $name
+                                ]);
+                            } catch (ElasticsearchException $e) {
+                                // unable to remove index template
+                            }
+                        }
                     }
                 }
             } catch (ElasticsearchException $e) {
@@ -331,16 +351,32 @@ class Utility
             }
             // Delete component template
             $result = $client->cluster()->getComponentTemplate();
+            $names = [];
             foreach ($result['component_templates'] as $component) {
                 if (self::isXPackTemplate($component['name'])) {
                     continue;
                 }
-                try {
-                    $client->cluster()->deleteComponentTemplate([
-                        'name' => $component['name']
-                    ]);
-                } catch (ElasticsearchException $e) {
-                    // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                $names[] = $component['name'];
+            }
+            if (!empty($names)) {
+                if (version_compare(getenv('STACK_VERSION'), '7.12.99') > 0) {
+                    try {
+                        $client->cluster()->deleteComponentTemplate([
+                            'name' => implode(',', $names)
+                        ]);
+                    } catch (ElasticsearchException $e) {
+                        // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                    }
+                } else {
+                    foreach ($names as $name) {
+                        try {
+                            $client->cluster()->deleteComponentTemplate([
+                                'name' => $name
+                            ]);
+                        } catch (ElasticsearchException $e) {
+                            // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                        }
+                    }
                 }
             }
         }

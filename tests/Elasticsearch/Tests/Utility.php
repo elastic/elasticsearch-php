@@ -18,13 +18,18 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Exception;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class Utility
 {
+    /**
+     * @var string
+     */
+    private static $version;
+
     /**
      * Get the host URL based on ENV variables
      */
@@ -90,6 +95,15 @@ class Utility
         ]);
     }
 
+    private static function getVersion(Client $client): string
+    {
+        if (!isset(self::$version)) {
+            $result = $client->info();
+            self::$version = $result['version']['number'];
+        }
+        return self::$version;
+    }
+
     /**
      * Clean up the cluster after a test
      * 
@@ -113,7 +127,7 @@ class Utility
             self::waitForPendingRollupTasks($client);        
         }
 
-        if (version_compare(getenv('STACK_VERSION'), '7.3.99') > 0) {
+        if (version_compare(self::getVersion($client), '7.3.99') > 0) {
             self::deleteAllSLMPolicies($client);  
         }
 
@@ -171,10 +185,13 @@ class Utility
                 $client->rollup()->stopJob([
                     'id' => $job['config']['id'],
                     'wait_for_completion' => true,
+                    'timeout' => '10s',
                     'client' => [
                         'ignore' => 404
                     ]
                 ]);
+            }
+            foreach ($rollups['jobs'] as $job) {
                 $client->rollup()->deleteJob([
                     'id' => $job['config']['id'],
                     'client' => [
@@ -192,16 +209,27 @@ class Utility
      */
     private static function wipeSnapshots(Client $client): void
     {
-        $repos = $client->snapshot()->getRepository();
+        $repos = $client->snapshot()->getRepository([
+            'repository' => '_all'
+        ]);
         foreach ($repos as $name => $value) {
             if ($value['type'] === 'fs') {
-                $client->snapshot()->delete([
+                $response = $client->snapshot()->get([
                     'repository' => $name,
-                    'snapshot' => '*',
-                    'client' => [
-                        'ignore' => 404
-                    ]
+                    'snapshot' => '_all',
+                    'ignore_unavailable' => true
                 ]);
+                if (isset($response['snapshots'])) {
+                    foreach ($response['snapshots'] as $snapshot) {
+                        $client->snapshot()->delete([
+                            'repository' => $name,
+                            'snapshot' => $snapshot['snapshot'],
+                            'client' => [
+                                'ignore' => 404
+                            ]
+                        ]);
+                    }
+                }
             }         
             $client->snapshot()->deleteRepository([
                 'repository' => $name,
@@ -270,7 +298,7 @@ class Utility
     private static function wipeDataStreams(Client $client): void
     {
         try {
-            if (version_compare(getenv('STACK_VERSION'), '7.8.99') > 0) {
+            if (version_compare(self::getVersion($client), '7.8.99') > 0) {
                 $client->indices()->deleteDataStream([
                     'name' => '*',
                     'expand_wildcards' => 'all'
@@ -296,13 +324,20 @@ class Utility
      */
     private static function wipeAllIndices(Client $client): void
     {
-        $client->indices()->delete([
-            'index' => '*,-.ds-ilm-history-*',
-            'expand_wildcards' => 'all',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
+        $expand = 'open,closed';
+        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
+            $expand .= ',hidden';
+        }
+        try {
+            $client->indices()->delete([
+                'index' => '*,-.ds-ilm-history-*',
+                'expand_wildcards' => $expand
+            ]);
+        } catch (Exception $e) {
+            if ($e->getCode() != '404') {
+                throw $e;
+            }
+        }
     }
 
     /**
@@ -315,7 +350,7 @@ class Utility
      */
     private static function wipeTemplateForXpack(Client $client): void
     {
-        if (version_compare(getenv('STACK_VERSION'), '7.6.99') > 0) {
+        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
             try {
                 $result = $client->indices()->getIndexTemplate();
                 $names = [];
@@ -326,7 +361,7 @@ class Utility
                     $names[] = $template['name'];
                 }
                 if (!empty($names)) {
-                    if (version_compare(getenv('STACK_VERSION'), '7.12.99') > 0) {
+                    if (version_compare(self::getVersion($client), '7.12.99') > 0) {
                         try {
                             $client->indices()->deleteIndexTemplate([
                                 'name' => implode(',', $names)
@@ -359,7 +394,7 @@ class Utility
                 $names[] = $component['name'];
             }
             if (!empty($names)) {
-                if (version_compare(getenv('STACK_VERSION'), '7.12.99') > 0) {
+                if (version_compare(self::getVersion($client), '7.12.99') > 0) {
                     try {
                         $client->cluster()->deleteComponentTemplate([
                             'name' => implode(',', $names)

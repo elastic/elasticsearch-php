@@ -1,5 +1,4 @@
-
-
+[discrete]
 [[Elasticsearch_Client]]
 === Elasticsearch\Client
 

@@ -1,5 +1,5 @@
 [[experimental_and_beta_apis]]
-== Experimental and beta APIs
+=== Experimental and beta APIs
 
 The PHP client offers also `experimental` and `beta` APIs for {es}.
 

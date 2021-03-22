@@ -1,4 +1,3 @@
-
 [discrete]
 [[Elasticsearch_ClientBuilder]]
 === Elasticsearch\ClientBuilder

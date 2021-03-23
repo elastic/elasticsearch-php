@@ -32,7 +32,7 @@ class FeaturesNamespace extends AbstractNamespace
      *
      * @param array $params Associative array of parameters
      * @return array
-     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/7.12/features-apis.html
      */
     public function getFeatures(array $params = [])
     {

@@ -1,3 +1,28 @@
+## Release 7.12.0
+
+- Updated the endpoints for ES 7.12 + removed cpliakas/git-wrapper
+  in favor of symplify/git-wrapper
+  [136d5b9](https://github.com/elastic/elasticsearch-php/commit/136d5b9717b3806c6b34ef8a5076bfe7cee8b46e)
+- Fixed warning header as array in YAML tests generator
+  [0d81be1](https://github.com/elastic/elasticsearch-php/commit/0d81be131bfc7eff6ef82468e61c16077a892aab)
+- Refactored TEST_SUITE with free, platinum + removed old YamlRunnerTest
+  [f69d96f](https://github.com/elastic/elasticsearch-php/commit/f69d96fc283580177002b4088c279c3d0c07befe)
+  
+## Release 7.11.0
+
+- Added the `X-Elastic-Client-Meta` header which is used by Elastic Cloud
+  and can be disabled with `ClientBuilder::setElasticMetaHeader(false)`
+  [#1089](https://github.com/elastic/elasticsearch-php/pull/1089)
+- Replaced `array_walk` with `array_map` in `Connection::getURI` for PHP 8
+  compatibility
+  [#1075](https://github.com/elastic/elasticsearch-php/pull/1075)
+- Remove unnecessary `InvalidArgumentExceptions`
+  [#1069](https://github.com/elastic/elasticsearch-php/pull/1069)
+- Introducing PHP 8 compatibility
+  [#1063](https://github.com/elastic/elasticsearch-php/pull/1063) 
+- Replace Sami by Doctum and fix `.gitignore`
+  [#1062](https://github.com/elastic/elasticsearch-php/pull/1062)
+
 ## Release 7.10.0
 
 - Updated endpoints and namespaces for Elasticsearch 7.10

@@ -35,7 +35,7 @@ VERSION=$2
 STACK_VERSION=$VERSION
 set -euo pipefail
 
-product="elastic/client-skel"
+product="elastic/elasticsearch-php"
 output_folder=".ci/output"
 codegen_folder=".ci/output"
 OUTPUT_DIR="$repo/${output_folder}"
@@ -114,9 +114,9 @@ esac
 
 echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-#docker build --file .ci/DockerFile --tag ${product} \
-#  --build-arg USER_ID="$(id -u)" \
-#  --build-arg GROUP_ID="$(id -g)" .
+docker build --file .ci/DockerFile --tag ${product} \
+  --build-arg USER_ID="$(id -u)" \
+  --build-arg GROUP_ID="$(id -g)" .
 
 
 # ------------------------------------------------------- #

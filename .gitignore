@@ -44,3 +44,5 @@ tests/*-junit.xml
 
 # YAML tests
 tests/Elasticsearch/Tests/Yaml
+
+.ci/output

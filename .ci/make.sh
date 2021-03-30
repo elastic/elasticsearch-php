@@ -53,8 +53,8 @@ echo -e "\033[34;1mINFO:\033[0m OUTPUT_DIR ${OUTPUT_DIR}\033[0m"
 case $CMD in
     clean)
         echo -e "\033[36;1mTARGET: clean workspace $output_folder\033[0m"
-        rm -rf "$output_folder"
-        echo -e "\033[32;1mdone.\033[0m"
+        rm -rfv "$output_folder"
+        echo -e "\033[32;1mTARGET: clean - done.\033[0m"
         exit 0
         ;;
     assemble)
@@ -112,18 +112,18 @@ esac
 # Build Container
 # ------------------------------------------------------- #
 
-echo -e "\033[34;1mINFO: building $product container\033[0m"
+#echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-docker build --file .ci/DockerFile --tag ${product} \
-  --build-arg USER_ID="$(id -u)" \
-  --build-arg GROUP_ID="$(id -g)" .
+#docker build --file .ci/Dockerfile --tag ${product} \
+#  --build-arg USER_ID="$(id -u)" \
+#  --build-arg GROUP_ID="$(id -g)" .
 
 
 # ------------------------------------------------------- #
 # Run the Container
 # ------------------------------------------------------- #
 
-echo -e "\033[34;1mINFO: running $product container\033[0m"
+#echo -e "\033[34;1mINFO: running $product container\033[0m"
 
 #docker run \
 # --env "DOTNET_VERSION" \
@@ -138,8 +138,24 @@ echo -e "\033[34;1mINFO: running $product container\033[0m"
 # ------------------------------------------------------- #
 
 if [[ "$CMD" == "assemble" ]]; then
-	if compgen -G ".ci/output/*" > /dev/null; then
-		echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
+    artefact_name="elasticsearch-php-${VERSION}"
+    echo -e "\033[34;1mINFO: copy artefacts\033[0m"
+    rsync -arv --exclude=.ci --exclude=.git "$PWD" "${output_folder}/."
+
+    echo -e "\033[34;1mINFO: rename artefacts\033[0m"
+    mv -v "${output_folder}/elasticsearch-php" "${output_folder}/${artefact_name}"
+
+    echo -e "\033[34;1mINFO: build artefacts\033[0m"
+    cd ./.ci/output && tar -czvf ${artefact_name}.tar.gz "${artefact_name}/." && cd -
+
+    echo -e "\033[34;1mINFO: cleanup\033[0m"
+    rm -Rf "${output_folder}/${artefact_name}"
+
+    echo -e "\033[34;1mINFO: validate artefact\033[0m"
+    proof=`ls ${output_folder}`
+
+	if [ $proof == "${artefact_name}.tar.gz" ]; then
+		echo -e "\033[32;1mTARGET: assemble - success: $artefact_name.tar.gz\033[0m"
 	else
 		echo -e "\033[31;1mTARGET: assemble failed, empty workspace!\033[0m"
 		exit 1

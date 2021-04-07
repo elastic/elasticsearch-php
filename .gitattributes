@@ -7,9 +7,9 @@
 /.gitignore export-ignore
 /.gitmodules export-ignore
 /.php_cs export-ignore
-/.phpstan.neon export-ignore
+/phpstan.neon export-ignore
 /phpunit-integration-tests.xml export-ignore
-/phpunit-integration.xml export-ignore
-/phpunit-yaml-tests.xml
+/phpunit-yaml-free-tests.xml export-ignore
+/phpunit-yaml-platinum-tests.xml export-ignore
 /phpunit.xml.dist export-ignore
 /ruleset.xml export-ignore

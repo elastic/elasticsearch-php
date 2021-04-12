@@ -39,12 +39,11 @@ class UpdateByQuery extends AbstractEndpoint
         return $this;
     }
 
-
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\BadMethodCallException
+    */
+    public function getURI(): string
     {
         if (!$this->index) {
             throw new Exceptions\RuntimeException(
@@ -60,11 +59,10 @@ class UpdateByQuery extends AbstractEndpoint
         return $uri;
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return [
             'analyzer',
@@ -116,11 +114,10 @@ class UpdateByQuery extends AbstractEndpoint
         ];
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

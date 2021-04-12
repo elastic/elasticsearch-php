@@ -58,11 +58,11 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
@@ -82,10 +82,10 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'timeout',
@@ -93,10 +93,10 @@ class Put extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'PUT';
     }

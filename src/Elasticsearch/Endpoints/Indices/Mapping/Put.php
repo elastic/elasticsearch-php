@@ -35,11 +35,11 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         $index = $this->index ?? null;
         $type = $this->type ?? null;
@@ -61,10 +61,10 @@ class Put extends AbstractEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'ignore_conflicts',
@@ -91,10 +91,10 @@ class Put extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'PUT';
     }

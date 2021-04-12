@@ -19,11 +19,11 @@ use Elasticsearch\Common\Exceptions;
 
 class ShardStores extends AbstractEndpoint
 {
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         $index = $this->index;
         $uri   = "/_shard_stores";
@@ -35,11 +35,10 @@ class ShardStores extends AbstractEndpoint
         return $uri;
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'status',
@@ -50,11 +49,10 @@ class ShardStores extends AbstractEndpoint
         );
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

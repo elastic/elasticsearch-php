@@ -34,10 +34,10 @@ class Count extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $index = $this->index;
         $type = $this->type;
@@ -54,10 +54,10 @@ class Count extends AbstractEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'ignore_unavailable',
@@ -79,10 +79,10 @@ class Count extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return isset($this->body) ? 'POST' : 'GET';
     }

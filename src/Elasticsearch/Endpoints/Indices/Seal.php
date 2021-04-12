@@ -18,11 +18,11 @@ use Elasticsearch\Common\Exceptions;
  */
 class Seal extends AbstractEndpoint
 {
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         $index = $this->index;
         $uri   = "/_seal";
@@ -34,18 +34,18 @@ class Seal extends AbstractEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array();
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

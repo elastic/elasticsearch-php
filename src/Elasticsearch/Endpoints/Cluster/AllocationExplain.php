@@ -35,18 +35,18 @@ class AllocationExplain extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         return "/_cluster/allocation/explain";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'include_yes_decisions',
@@ -54,10 +54,10 @@ class AllocationExplain extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return isset($this->body) ? 'POST' : 'GET';
     }

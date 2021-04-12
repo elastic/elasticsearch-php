@@ -40,10 +40,10 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $repository = $this->repository;
         $uri   = "/_snapshot";
@@ -55,10 +55,10 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'master_timeout',
@@ -66,10 +66,10 @@ class Get extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

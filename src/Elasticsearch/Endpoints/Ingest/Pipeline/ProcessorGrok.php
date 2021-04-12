@@ -18,27 +18,27 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class ProcessorGrok extends AbstractEndpoint
 {
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         return "/_ingest/processor/grok";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

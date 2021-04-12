@@ -17,26 +17,26 @@ use Elasticsearch\Common\Exceptions\RuntimeException;
  */
 class ScriptsPainlessExecute extends AbstractEndpoint
 {
-    /**
-     * @return array
-     */
-    public function getParamWhitelist()
+   /**
+    * @return array
+    */
+    public function getParamWhitelist(): array
     {
         return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         return "/_scripts/painless/_execute";
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return isset($this->body) ? 'POST' : 'GET';
     }

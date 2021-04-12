@@ -17,20 +17,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PendingTasks extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $uri   = "/_cluster/pending_tasks";
 
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'local',
@@ -38,10 +38,10 @@ class PendingTasks extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

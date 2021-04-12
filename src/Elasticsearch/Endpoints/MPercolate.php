@@ -50,18 +50,18 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         return $this->getOptionalURI('_mpercolate');
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'ignore_unavailable',
@@ -70,10 +70,10 @@ class MPercolate extends AbstractEndpoint implements BulkEndpointInterface
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

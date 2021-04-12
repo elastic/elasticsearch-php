@@ -45,20 +45,20 @@ abstract class AbstractEndpoint
     /** @var  SerializerInterface */
     protected $serializer;
 
-    /**
-     * @return string[]
-     */
-    abstract public function getParamWhitelist();
+   /**
+    * @return string[]
+    */
+    abstract public function getParamWhitelist(): array;
 
-    /**
-     * @return string
-     */
-    abstract public function getURI();
+   /**
+    * @return string
+    */
+    abstract public function getURI(): string;
 
-    /**
-     * @return string
-     */
-    abstract public function getMethod();
+   /**
+    * @return string
+    */
+    abstract public function getMethod(): string;
 
 
     /**

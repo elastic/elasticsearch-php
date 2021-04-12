@@ -15,10 +15,10 @@ namespace Elasticsearch\Endpoints\Cluster\Nodes;
  */
 class ReloadSecureSettings extends AbstractNodesEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $nodeId = $this->nodeID;
         $uri   = "/_nodes/reload_secure_settings";
@@ -30,18 +30,18 @@ class ReloadSecureSettings extends AbstractNodesEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

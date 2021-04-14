@@ -491,11 +491,11 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         ];
         $connection->logRequestSuccess($request, $response);
         // Check for localhost:9200 in trace
-        foreach($trace->output as $row) {
+        foreach ($trace->output as $row) {
             $this->assertStringContainsString('localhost:9200', $row);
         }
         // Check for localhost:9200 in logger
-        foreach($logger->output as $row) {
+        foreach ($logger->output as $row) {
             if (false !== strpos('info: Request Success', $row)) {
                 $this->assertStringContainsString('localhost:9200', $row);
             }
@@ -539,11 +539,11 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $connection->logRequestFail($request, $response, new Exception());
         
         // Check for localhost:9200 in trace
-        foreach($trace->output as $row) {
+        foreach ($trace->output as $row) {
             $this->assertStringContainsString('localhost:9200', $row);
         }
         // Check for localhost:9200 in logger
-        foreach($logger->output as $row) {
+        foreach ($logger->output as $row) {
             if (false !== strpos('warning: Request Failure:', $row)) {
                 $this->assertStringContainsString('localhost:9200', $row);
             }

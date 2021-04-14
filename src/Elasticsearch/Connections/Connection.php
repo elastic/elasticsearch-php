@@ -394,13 +394,16 @@ class Connection implements ConnectionInterface
      */
     public function logRequestSuccess(array $request, array $response): void
     {
+        $port = $request['client']['curl'][CURLOPT_PORT] ?? $response['transfer_stats']['primary_port'] ?? '';
+        $uri = $this->addPortInUrl($response['effective_url'], (int) $port);
+
         $this->log->debug('Request Body', array($request['body']));
         $this->log->info(
             'Request Success:',
             array(
                 'method'    => $request['http_method'],
-                'uri'       => $response['effective_url'],
-                'port'      => $response['transfer_stats']['primary_port'] ?? '',
+                'uri'       => $uri,
+                'port'      => $port,
                 'headers'   => $request['headers'],
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],
@@ -409,14 +412,15 @@ class Connection implements ConnectionInterface
         $this->log->debug('Response', array($response['body']));
 
         // Build the curl command for Trace.
-        $curlCommand = $this->buildCurlCommand($request['http_method'], $response['effective_url'], $request['body']);
+        $curlCommand = $this->buildCurlCommand($request['http_method'], $uri, $request['body']);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
             array(
                 'response'  => $response['body'],
                 'method'    => $request['http_method'],
-                'uri'       => $response['effective_url'],
+                'uri'       => $uri,
+                'port'      => $port,
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],
             )
@@ -434,14 +438,16 @@ class Connection implements ConnectionInterface
      */
     public function logRequestFail(array $request, array $response, \Exception $exception): void
     {
-        $this->log->debug('Request Body', array($request['body']));
+        $port = $request['client']['curl'][CURLOPT_PORT] ?? $response['transfer_stats']['primary_port'] ?? '';
+        $uri = $this->addPortInUrl($response['effective_url'], (int) $port);
         
+        $this->log->debug('Request Body', array($request['body']));
         $this->log->warning(
             'Request Failure:',
             array(
                 'method'    => $request['http_method'],
-                'uri'       => $response['effective_url'],
-                'port'      => $response['transfer_stats']['primary_port'] ?? '',
+                'uri'       => $uri,
+                'port'      => $port,
                 'headers'   => $request['headers'],
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],
@@ -451,14 +457,15 @@ class Connection implements ConnectionInterface
         $this->log->warning('Response', array($response['body']));
 
         // Build the curl command for Trace.
-        $curlCommand = $this->buildCurlCommand($request['http_method'], $response['effective_url'], $request['body']);
+        $curlCommand = $this->buildCurlCommand($request['http_method'], $uri, $request['body']);
         $this->trace->info($curlCommand);
         $this->trace->debug(
             'Response:',
             array(
                 'response'  => $response,
                 'method'    => $request['http_method'],
-                'uri'       => $response['effective_url'],
+                'uri'       => $uri,
+                'port'      => $port,
                 'HTTP code' => $response['status'],
                 'duration'  => $response['transfer_stats']['total_time'],
             )
@@ -625,18 +632,29 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * Add the port value in the URL if not present
+     */
+    private function addPortInUrl(string $uri, int $port): string
+    {
+        if (strpos($uri, ':', 7) !== false) {
+            return $uri;
+        }
+        return preg_replace('#([^/])/([^/])#', sprintf("$1:%s/$2", $port), $uri, 1);
+    }
+
+    /**
      * Construct a string cURL command
      */
-    private function buildCurlCommand(string $method, string $uri, ?string $body): string
+    private function buildCurlCommand(string $method, string $url, ?string $body): string
     {
-        if (strpos($uri, '?') === false) {
-            $uri .= '?pretty=true';
+        if (strpos($url, '?') === false) {
+            $url .= '?pretty=true';
         } else {
-            str_replace('?', '?pretty=true', $uri);
+            str_replace('?', '?pretty=true', $url);
         }
 
         $curlCommand = 'curl -X' . strtoupper($method);
-        $curlCommand .= " '" . $uri . "'";
+        $curlCommand .= " '" . $url . "'";
 
         if (isset($body) === true && $body !== '') {
             $curlCommand .= " -d '" . $body . "'";

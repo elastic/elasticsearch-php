@@ -29,6 +29,7 @@ util/output/
 
 # Doctum docs generator
 /doctum.phar
+util/doctum.phar
 
 # PHPUnit
 /phpunit.xml

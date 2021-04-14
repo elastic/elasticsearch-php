@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": "^7.1 || ^8.0",
+    "php": "^7.3 || ^8.0",
     "ext-json": ">=1.3.7",
     "ezimuel/ringphp": "^1.1.2",
     "psr/log": "~1.0"
@@ -21,7 +21,7 @@
   "require-dev": {
     "ext-yaml": "*",
     "ext-zip": "*",
-    "cpliakas/git-wrapper": "~2.0 || ~3.0",
+    "symplify/git-wrapper": "~9.0",
     "doctrine/inflector": "^1.3",
     "mockery/mockery": "^1.2",
     "phpstan/phpstan": "^0.12",

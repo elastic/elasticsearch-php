@@ -16,9 +16,8 @@
 
 declare(strict_types = 1);
 
-use Elasticsearch\ClientBuilder;
 use Elasticsearch\Tests\Utility;
-use GitWrapper\GitWrapper;
+use Symplify\GitWrapper\GitWrapper;
 
 error_reporting(E_ALL | E_STRICT);
 

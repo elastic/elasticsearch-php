@@ -132,11 +132,7 @@ class Utility
         }
 
         self::wipeSnapshots($client);
-
-        if (getenv('TEST_SUITE') === 'platinum') {
-            self::wipeDataStreams($client);
-        }
-        
+        self::wipeDataStreams($client);
         self::wipeAllIndices($client);
 
         if (getenv('TEST_SUITE') === 'platinum') {

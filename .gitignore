@@ -26,6 +26,7 @@ util/elasticsearch/
 util/cache/
 util/*.zip
 util/output/
+util/rest-spec
 
 # Doctum docs generator
 /doctum.phar

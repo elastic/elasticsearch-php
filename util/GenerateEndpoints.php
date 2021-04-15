@@ -15,8 +15,9 @@
 
 declare(strict_types = 1);
 
-use GitWrapper\GitWrapper;
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Util\ClientEndpoint;
 use Elasticsearch\Util\Endpoint;
 use Elasticsearch\Util\NamespaceEndpoint;
@@ -24,8 +25,19 @@ use Elasticsearch\Tests\Utility;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$client = Utility::getClient();
-$serverInfo = $client->info();
+try {
+    $client = Utility::getClient();
+} catch (RuntimeException $e) {
+    printf("ERROR: I cannot find STACK_VERSION and TEST_SUITE environment variables\n");
+    exit(1);
+}
+
+try {
+    $serverInfo = $client->info();
+} catch (NoNodesAvailableException $e) {
+    printf ("ERROR: Host %s is offline\n", Utility::getHost());
+    exit(1);
+}
 $version = $serverInfo['version']['number'];
 $buildHash = $serverInfo['version']['build_hash']; 
 
@@ -47,18 +59,14 @@ $start = microtime(true);
 printf ("Generating endpoints for Elasticsearch\n");
 
 $success = true;
-$gitWrapper = new GitWrapper();
-$git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
+// Check if the rest-spec folder with the build hash exists
+if (!is_dir(sprintf("%s/rest-spec/%s", __DIR__, $buildHash))) {
+    printf("ERROR: I cannot find the rest-spec for build hash %s\n", $buildHash);
+    printf("You need to execute 'php util/RestSpecRunner.php'\n");
+    exit(1);
+}
 
-$git->run('checkout', [$buildHash]);
-$result = $git->run(
-    'ls-files',
-    [
-        "rest-api-spec/src/main/resources/rest-api-spec/api/*.json",
-        "x-pack/plugin/src/test/resources/rest-api-spec/api/*.json"
-    ]
-);
-$files = explode("\n", $result);
+$files = glob(sprintf("%s/rest-spec/%s/rest-api-spec/api/*.json", __DIR__, $buildHash));
 
 $outputDir = __DIR__ . "/output";
 if (!file_exists($outputDir)) {
@@ -80,7 +88,7 @@ foreach ($files as $file) {
     }
     printf("Generating %s...", basename($file));
 
-    $endpoint = new Endpoint($file, $git->run('show', [':' . trim($file)]), $version, $buildHash);
+    $endpoint = new Endpoint($file, file_get_contents($file), $version, $buildHash);
 
     $dir = $endpointDir . NamespaceEndpoint::normalizeName($endpoint->namespace);
     if (!file_exists($dir)) {
@@ -154,6 +162,7 @@ rename($outputDir . "/Client.php", $destDir . "/Client.php");
 
 $end = microtime(true);
 printf("\nGenerated %d endpoints and %d namespaces in %.3f seconds\n", $countEndpoint, $countNamespace, $end - $start);
+printf("\n");
 
 removeDirectory($outputDir);
 

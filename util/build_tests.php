@@ -14,52 +14,48 @@
  */
 declare(strict_types = 1);
 
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\Util\YamlTests;
 use Elasticsearch\Tests\Utility;
 
-require __DIR__ . '/../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-if (!isset($argv[2])) {
-    printf ("Usage: php %s <ES_VERSION> <TEST_SUITE>\n", $argv[0]);
-    printf ("where <ES_VERSION> is Elasticsearch semantic version and <TEST_SUITE> is 'free' or 'platinum'\n");
-    exit(1);
-}
-$version = $argv[1];
-if (false !== strpos($version, '.x')) {
+try {
     $client = Utility::getClient();
-    try {
-        $result = $client->info();
-        $version = $result['version']['number'] ?? '';
-    } catch (ElasticsearchException $e) {
-        printf ("The %s specified is not a valid semantic version number.\n", $version);
-        exit(1);
-    }
-}
-$version = str_replace('-snapshot', '', strtolower($version));
-
-if (!version_compare($version, '0.0.1', '>=')) {
-    printf ("The argument <ES_VERSION> should be a valid semantic version number\n");
+} catch (RuntimeException $e) {
+    printf("ERROR: I cannot find STACK_VERSION and TEST_SUITE environment variables\n");
     exit(1);
 }
 
-$stack = $argv[2];
-if (!in_array($argv[2], ['free', 'platinum'])) {
-    printf ("The argument <TEST_SUITE> should be 'free' or 'platinum'\n");
+try {
+    $serverInfo = $client->info();
+} catch (NoNodesAvailableException $e) {
+    printf ("ERROR: Host %s is offline\n", Utility::getHost());
     exit(1);
 }
+$version = $serverInfo['version']['number'];
+$buildHash = $serverInfo['version']['build_hash']; 
+
+// Check if the rest-spec folder with the build hash exists
+if (!is_dir(sprintf("%s/rest-spec/%s", __DIR__, $buildHash))) {
+    printf("ERROR: I cannot find the rest-spec for build hash %s\n", $buildHash);
+    printf("You need to execute 'php util/RestSpecRunner.php'\n");
+    exit(1);
+}
+
+$stack = getenv('TEST_SUITE');
 printf ("*****************************************\n");
 printf ("** Bulding YAML tests for %s suite\n", strtoupper($stack));
 printf ("*****************************************\n");
-printf ("Using %s version for Elasticsearch\n", $version);
+printf ("Using Elasticsearch %s version\n", $version);
+printf ("With build hash %s\n", $buildHash);
 
 $yamlOutputTest = __DIR__ . '/../tests/Elasticsearch/Tests/Yaml';
-$yamlTestFolder = strtolower($stack) === 'free'
-    ? __DIR__ . '/elasticsearch/rest-api-spec/src/main/resources/rest-api-spec/test'
-    : __DIR__ . '/elasticsearch/x-pack/plugin/src/test/resources/rest-api-spec/test';
+$yamlTestFolder = sprintf("%s/rest-spec/%s/rest-api-spec/test/%s", __DIR__, $buildHash, strtolower($stack));
 
 $test = new YamlTests($yamlTestFolder, $yamlOutputTest, $version, $stack);
 $result = $test->build();
 
-printf("Generated %d PHPUnit files and %d tests.\n", $result['files'], $result['tests']);
-printf("Files saved in %s\n", realpath($yamlOutputTest . '/' . ucfirst($stack)));
+printf ("Generated %d PHPUnit files and %d tests.\n", $result['files'], $result['tests']);
+printf ("Files saved in %s\n", realpath($yamlOutputTest . '/' . ucfirst($stack)));
+printf ("\n");

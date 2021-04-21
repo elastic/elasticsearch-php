@@ -4,7 +4,7 @@
 php util/RestSpecRunner.php
 
 # Generate the YAML tests for PHPUnit
-php util/build_tests.php ${STACK_VERSION} ${TEST_SUITE}
+php util/build_tests.php
 
 # Run YAML tests
 vendor/bin/phpunit -c "phpunit-yaml-${TEST_SUITE}-tests.xml"

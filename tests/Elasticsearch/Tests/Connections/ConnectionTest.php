@@ -453,8 +453,6 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $request = $connection->getLastRequestInfo()['request'];
 
         $this->assertEquals('/?foo=true&baz=false&bar=baz', $request['uri']);
-<<<<<<< HEAD
-=======
     }
 
     public function testPortInUrlWhenLogRequestSuccess()
@@ -550,6 +548,5 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
                 $this->assertStringContainsString('localhost:9200', $row);
             }
         }
->>>>>>> 7.x
     }
 }

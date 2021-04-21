@@ -24,6 +24,8 @@ use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
 use Elasticsearch\Connections\Connection;
 use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Serializers\SmartSerializer;
+use Elasticsearch\Tests\ClientBuilder\ArrayLogger;
+use Exception;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
@@ -451,5 +453,103 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $request = $connection->getLastRequestInfo()['request'];
 
         $this->assertEquals('/?foo=true&baz=false&bar=baz', $request['uri']);
+<<<<<<< HEAD
+=======
+    }
+
+    public function testPortInUrlWhenLogRequestSuccess()
+    {
+        $logger = new ArrayLogger();
+        $trace = new ArrayLogger();
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            [ 
+                'host'   => 'localhost',
+                'port'   => 9200,
+                'scheme' => 'http',
+                'path'   => '/info'
+            ],
+            [],
+            $this->serializer,
+            $logger,
+            $trace
+        );
+        $request = [
+            'body' => '{}',
+            'http_method' => 'GET',
+            'headers' => [
+                'User-Agent: Testing'
+            ]
+        ]; 
+        $response = [
+            'effective_url' => 'http://localhost/info',
+            'status' => 200,
+            'transfer_stats' => [
+                'primary_port' => 9200,
+                'total_time' => 1
+            ],
+            'body' => '{}'
+        ];
+        $connection->logRequestSuccess($request, $response);
+        // Check for localhost:9200 in trace
+        foreach ($trace->output as $row) {
+            $this->assertStringContainsString('localhost:9200', $row);
+        }
+        // Check for localhost:9200 in logger
+        foreach ($logger->output as $row) {
+            if (false !== strpos('info: Request Success', $row)) {
+                $this->assertStringContainsString('localhost:9200', $row);
+            }
+        }
+    }
+
+    public function testPortInLogUrlWhenLogRequestFail()
+    {
+        $logger = new ArrayLogger();
+        $trace = new ArrayLogger();
+
+        $connection = new Connection(
+            ClientBuilder::defaultHandler(),
+            [ 
+                'host'   => 'localhost',
+                'port'   => 9200,
+                'scheme' => 'http',
+                'path'   => '/info'
+            ],
+            [],
+            $this->serializer,
+            $logger,
+            $trace
+        );
+        $request = [
+            'body' => '{}',
+            'http_method' => 'GET',
+            'headers' => [
+                'User-Agent: Testing'
+            ]
+        ]; 
+        $response = [
+            'effective_url' => 'http://localhost/info',
+            'status' => 400,
+            'transfer_stats' => [
+                'primary_port' => 9200,
+                'total_time' => 1
+            ],
+            'body' => '{}'
+        ];
+        $connection->logRequestFail($request, $response, new Exception());
+        
+        // Check for localhost:9200 in trace
+        foreach ($trace->output as $row) {
+            $this->assertStringContainsString('localhost:9200', $row);
+        }
+        // Check for localhost:9200 in logger
+        foreach ($logger->output as $row) {
+            if (false !== strpos('warning: Request Failure:', $row)) {
+                $this->assertStringContainsString('localhost:9200', $row);
+            }
+        }
+>>>>>>> 7.x
     }
 }

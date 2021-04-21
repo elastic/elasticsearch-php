@@ -1,0 +1,80 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_SqlNamespace]]
+=== Elasticsearch\Namespaces\SqlNamespace
+
+
+
+Class SqlNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SqlNamespaceclearCursor_clearCursor,`clearCursor()`>>
+* <<Elasticsearch_Namespaces_SqlNamespacequery_query,`query()`>>
+* <<Elasticsearch_Namespaces_SqlNamespacetranslate_translate,`translate()`>>
+
+
+
+[[Elasticsearch_Namespaces_SqlNamespaceclearCursor_clearCursor]]
+.`clearCursor()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->sql()->clearCursor($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SqlNamespacequery_query]]
+.`query()`
+****
+[source,php]
+----
+/*
+$params['format'] = (string) a short version of the Accept header, e.g. json, yaml
+$params['body']   = (array) Use the `query` element to start a query. Use the `cursor` element to continue a query. (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->sql()->query($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SqlNamespacetranslate_translate]]
+.`translate()`
+****
+[source,php]
+----
+/*
+$params['body'] = (array) Specify the query in the `query` element. (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->sql()->translate($params);
+----
+****
+
+

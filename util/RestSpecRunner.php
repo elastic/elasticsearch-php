@@ -16,11 +16,8 @@
 
 declare(strict_types = 1);
 
-use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Elasticsearch\Tests\Utility;
-use GitWrapper\GitWrapper;
-
-error_reporting(E_ALL | E_STRICT);
 
 // Set the default timezone. While this doesn't cause any tests to fail, PHP
 // complains if it is not set in 'date.timezone' of php.ini.
@@ -32,23 +29,58 @@ if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
         . "See http://getcomposer.org for help with installing composer\n");
 }
 
-echo "Base directory: ". dirname(__DIR__)."\n";
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-// Include the composer autoloader
-$autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
+printf("********************************************************\n");
+printf("** Download the YAML test from Elasticsearch artifacts\n");
+printf("********************************************************\n");
+printf("Executing %s...\n", basename(__FILE__));
 
 $client = Utility::getClient();
 
-$serverInfo = $client->info();
-var_dump($serverInfo);
+printf ("Getting the Elasticsearch build_hash:\n");
+try {
+    $serverInfo = $client->info();
+    print_r($serverInfo);
+} catch (NoNodesAvailableException $e) {
+    printf ("ERROR: Host %s is offline\n", Utility::getHost());
+    exit(1);
+}
 
-$gitWrapper = new GitWrapper();
-echo "Git cwd: ".dirname(__DIR__) . "/util/elasticsearch\n";
-$git = $gitWrapper->workingCopy(dirname(__DIR__) . '/util/elasticsearch');
+$version = $serverInfo['version']['number'];
+$artifactFile = sprintf("rest-resources-zip-%s.zip", $version);
+$tempFilePath = sprintf("%s/%s.zip", sys_get_temp_dir(), $serverInfo['version']['build_hash']);
 
-echo "Update elasticsearch submodule\n";
-$git->fetchAll(array('verbose' => true));
+if (!file_exists($tempFilePath)) {
+    // Download of Elasticsearch rest-api artifacts
+    $json = file_get_contents("https://artifacts-api.elastic.co/v1/versions/$version");
+    if (empty($json)) {
+        printf ("ERROR: I cannot download the artifcats from https://artifacts-api.elastic.co/v1/versions/%s\n", $version);
+        exit(1);
+    }
+    $content = json_decode($json, true);
+    foreach ($content['version']['builds'] as $builds) {
+        if ($builds['projects']['elasticsearch']['commit_hash'] === $serverInfo['version']['build_hash']) {
+            // Download the artifact ZIP file (rest-resources-zip-$version.zip)
+            printf("Download %s\n", $builds['projects']['elasticsearch']['packages'][$artifactFile]['url']);
+            if (!copy($builds['projects']['elasticsearch']['packages'][$artifactFile]['url'], $tempFilePath)) {
+                printf ("ERROR: failed to download %s\n", $artifactFile);
+            }
+            break;
+        }
+    }
+} else {
+    printf("The file %s already exists\n", $tempFilePath);
+}
 
-$hash = $serverInfo['version']['build_hash'];
-echo "Checkout yaml tests (hash: $hash)\n";
-$git->checkout($hash, array('force' => true, 'quiet' => true));
+if (!file_exists($tempFilePath)) {
+    printf("ERROR: the commit_hash %s has not been found\n", $serverInfo['version']['build_hash']);
+    exit(1);
+}
+$zip = new ZipArchive();
+$zip->open($tempFilePath);
+printf("Extracting %s\ninto %s/rest-spec/%s\n", $tempFilePath, __DIR__, $serverInfo['version']['build_hash']);
+$zip->extractTo(sprintf("%s/rest-spec/%s", __DIR__, $serverInfo['version']['build_hash']));
+$zip->close();
+
+printf ("Rest-spec API installed successfully!\n\n");

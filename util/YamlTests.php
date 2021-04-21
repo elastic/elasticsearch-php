@@ -39,8 +39,7 @@ class YamlTests
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Indices\Create\_20_Mix_Typeless_TypefulTest::CreateATypedIndexWhileThereIsATypelessTemplate' => 'mismatch on warning header',
-        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
-        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title'
+        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML"
     ];
 
     const SKIPPED_TEST_XPACK = [
@@ -60,6 +59,8 @@ class YamlTests
         'Ml\_Ml_InfoTest::TestMlInfo' => 'response[\'limits\'][\'max_model_memory_limit\'] is not empty',
         'Ml\_Delete_Expired_DataTest::TestDeleteExpiredDataWithJobId' => 'Substring mismatch',
         'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
+        'Ml\_Get_Trained_Model_StatsTest::*' => 'Skipped all tests',
+        'Ml\_Get_Trained_Model_StatsTest::TestGetStatsGivenTrainedModels' => 'cannot assign model_alias',
         'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
         'RuntimeFields\_100_Geo_PointTest::GetMapping' => 'Substring mismatch',
         'RuntimeFields\_10_KeywordTest::GetMapping' => 'Substring mismatch',
@@ -72,7 +73,9 @@ class YamlTests
         'RuntimeFields\_40_DateTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
+        'SearchableSnapshots\_10_UsageTest::TestsSearchableSnapshotsUsageStatsWithFull_copyAndShared_cacheIndices' => 'Mismatch values',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
+        'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
         'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',

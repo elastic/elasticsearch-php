@@ -1,0 +1,228 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_IlmNamespace]]
+=== Elasticsearch\Namespaces\IlmNamespace
+
+
+
+Class IlmNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_IlmNamespacedeleteLifecycle_deleteLifecycle,`deleteLifecycle()`>>
+* <<Elasticsearch_Namespaces_IlmNamespaceexplainLifecycle_explainLifecycle,`explainLifecycle()`>>
+* <<Elasticsearch_Namespaces_IlmNamespacegetLifecycle_getLifecycle,`getLifecycle()`>>
+* <<Elasticsearch_Namespaces_IlmNamespacegetStatus_getStatus,`getStatus()`>>
+* <<Elasticsearch_Namespaces_IlmNamespacemoveToStep_moveToStep,`moveToStep()`>>
+* <<Elasticsearch_Namespaces_IlmNamespaceputLifecycle_putLifecycle,`putLifecycle()`>>
+* <<Elasticsearch_Namespaces_IlmNamespaceremovePolicy_removePolicy,`removePolicy()`>>
+* <<Elasticsearch_Namespaces_IlmNamespaceretry_retry,`retry()`>>
+* <<Elasticsearch_Namespaces_IlmNamespacestart_start,`start()`>>
+* <<Elasticsearch_Namespaces_IlmNamespacestop_stop,`stop()`>>
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacedeleteLifecycle_deleteLifecycle]]
+.`deleteLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy'] = (string) The name of the index lifecycle policy
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->deleteLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespaceexplainLifecycle_explainLifecycle]]
+.`explainLifecycle()`
+****
+[source,php]
+----
+/*
+$params['index']        = (string) The name of the index to explain
+$params['only_managed'] = (boolean) filters the indices included in the response to ones managed by ILM
+$params['only_errors']  = (boolean) filters the indices included in the response to ones in an ILM error state, implies only_managed
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->explainLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacegetLifecycle_getLifecycle]]
+.`getLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy'] = (string) The name of the index lifecycle policy
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->getLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacegetStatus_getStatus]]
+.`getStatus()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->getStatus($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacemoveToStep_moveToStep]]
+.`moveToStep()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the index whose lifecycle step is to change
+$params['body']  = (array) The new lifecycle step to move to
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->moveToStep($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespaceputLifecycle_putLifecycle]]
+.`putLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy'] = (string) The name of the index lifecycle policy
+$params['body']   = (array) The lifecycle policy definition to register
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->putLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespaceremovePolicy_removePolicy]]
+.`removePolicy()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the index to remove policy on
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->removePolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespaceretry_retry]]
+.`retry()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the indices (comma-separated) whose failed lifecycle step is to be retry
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->retry($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacestart_start]]
+.`start()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->start($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_IlmNamespacestop_stop]]
+.`stop()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ilm()->stop($params);
+----
+****
+
+

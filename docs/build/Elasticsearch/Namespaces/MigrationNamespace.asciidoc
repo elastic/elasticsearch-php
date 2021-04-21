@@ -1,0 +1,38 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_MigrationNamespace]]
+=== Elasticsearch\Namespaces\MigrationNamespace
+
+
+
+Class MigrationNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_MigrationNamespacedeprecations_deprecations,`deprecations()`>>
+
+
+
+[[Elasticsearch_Namespaces_MigrationNamespacedeprecations_deprecations]]
+.`deprecations()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) Index pattern
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->migration()->deprecations($params);
+----
+****
+
+

@@ -11,13 +11,17 @@
 
 This is a complete list of available interfaces:
 
-{% for interface in classes if interface.interface %}
+{% for interface in classes %}
+{% if interface.interface %}
 * <<{{ replace_backslash(interface) }}, {{ interface }}>>
 {% else %}
 * There are no interfaces available.
+{% endif %}
 {% endfor %}
-{% for interface in classes if interface.interface %}
+{% for interface in classes %}
+{% if interface.interface %}
 include::{{ back_to_forward(interface) }}.asciidoc[]
 {% else %}
+{% endif %}
 {% endfor %}
 {% endblock %}

@@ -16,7 +16,7 @@ some APIs.
 
 The `SearchResponseIterator` can be used to iterate page by page in a search 
 result using 
-{ref}/paginate-search-results.html#paginate-search-results[pagination].
+https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html#paginate-search-results[pagination].
 
 An example as follows:
 
@@ -52,7 +52,7 @@ foreach($pages as $page) {
 
 The `SearchHitIterator` can be used to iterate in a `SearchResponseIterator` 
 without worrying about 
-{ref}/paginate-search-results.html#paginate-search-results[pagination].
+https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html#paginate-search-results[pagination].
 
 An example as follows:
 

@@ -22,6 +22,7 @@ if [ "$TEST_SUITE" = "free" ]; then
       --env "repositories.url.allowed_urls=http://snapshot.*" \
       --env "discovery.type=single-node" \
       --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
+      --env "action.destructive_requires_name=false" \
       --network=esnet \
       --name=elasticsearch \
       --health-interval=2s \
@@ -47,6 +48,7 @@ else
       --env "repositories.url.allowed_urls=http://snapshot.*" \
       --env "discovery.type=single-node" \
       --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
+      --env "action.destructive_requires_name=false" \
       --env "ELASTIC_PASSWORD=changeme" \
       --env "xpack.security.enabled=true" \
       --env "xpack.license.self_generated.type=trial" \

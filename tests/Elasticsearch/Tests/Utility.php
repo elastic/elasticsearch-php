@@ -39,13 +39,7 @@ class Utility
         if (false !== $url) {
             return $url;
         }
-        switch (getenv('TEST_SUITE')) {
-            case 'free':
-                return 'http://localhost:9200';
-            case 'platinum':
-                return 'https://elastic:changeme@localhost:9200';
-        }
-        return null;
+        return 'https://elastic:changeme@localhost:9200';
     }
 
     /**
@@ -62,9 +56,7 @@ class Utility
                 ]
             ]
         ]);
-        if (getenv('TEST_SUITE') === 'platinum') {
-            $clientBuilder->setSSLVerification(false);
-        }
+        $clientBuilder->setSSLVerification(false);
         return $clientBuilder->build();
     }
 
@@ -207,17 +199,20 @@ class Utility
         $repos = $client->snapshot()->getRepository([
             'repository' => '_all'
         ]);
-        foreach ($repos as $name => $value) {
+        foreach ($repos as $repository => $value) {
             if ($value['type'] === 'fs') {
                 $response = $client->snapshot()->get([
-                    'repository' => $name,
+                    'repository' => $repository,
                     'snapshot' => '_all',
                     'ignore_unavailable' => true
                 ]);
+                if (isset($response['responses'])) {
+                    $response = $response['responses'][0];
+                }
                 if (isset($response['snapshots'])) {
                     foreach ($response['snapshots'] as $snapshot) {
                         $client->snapshot()->delete([
-                            'repository' => $name,
+                            'repository' => $repository,
                             'snapshot' => $snapshot['snapshot'],
                             'client' => [
                                 'ignore' => 404
@@ -227,7 +222,7 @@ class Utility
                 }
             }         
             $client->snapshot()->deleteRepository([
-                'repository' => $name,
+                'repository' => $repository,
                 'client' => [
                     'ignore' => 404
                 ]

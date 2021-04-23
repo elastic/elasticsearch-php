@@ -27,9 +27,6 @@ if [[ -z $es_node_name ]]; then
   export elastic_password=changeme
   export elasticsearch_image=elasticsearch
   export elasticsearch_url=https://elastic:${elastic_password}@${es_node_name}:9200
-  if [[ $TEST_SUITE != "platinum" ]]; then
-    export elasticsearch_url=http://${es_node_name}:9200
-  fi
   export external_elasticsearch_url=${elasticsearch_url/$es_node_name/localhost}
   export elasticsearch_container="${elasticsearch_image}:${STACK_VERSION}"
 

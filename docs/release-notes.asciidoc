@@ -247,6 +247,7 @@
   marked as deprecated and it will be removed from `elasticsearch-php 8.0`
   https://github.com/elastic/elasticsearch-php/pull/943[#943]
 
+[discrete]
 ==== Docs
 
 * Fixed missing put mapping code snippet in code examples
@@ -298,6 +299,7 @@
 * Fixed scroll TTL is extracted but not set as a body param
   https://github.com/elastic/elasticsearch-php/pull/907[#907]
 
+[discrete]
 ==== Testing
 
 * Improved the speed of integration tests removing snapshots delete from 
@@ -306,6 +308,7 @@
 * Reduced the number of skipping YAML integration tests from 20 to 6
   https://github.com/elastic/elasticsearch-php/pull/911[#911]
 
+[discrete]
 ==== Docs
 
 * Documentation updated for {es} 7

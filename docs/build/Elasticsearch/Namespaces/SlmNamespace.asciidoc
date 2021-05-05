@@ -1,0 +1,202 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_SlmNamespace]]
+=== Elasticsearch\Namespaces\SlmNamespace
+
+
+
+Class SlmNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SlmNamespacedeleteLifecycle_deleteLifecycle,`deleteLifecycle()`>>
+* <<Elasticsearch_Namespaces_SlmNamespaceexecuteLifecycle_executeLifecycle,`executeLifecycle()`>>
+* <<Elasticsearch_Namespaces_SlmNamespaceexecuteRetention_executeRetention,`executeRetention()`>>
+* <<Elasticsearch_Namespaces_SlmNamespacegetLifecycle_getLifecycle,`getLifecycle()`>>
+* <<Elasticsearch_Namespaces_SlmNamespacegetStats_getStats,`getStats()`>>
+* <<Elasticsearch_Namespaces_SlmNamespacegetStatus_getStatus,`getStatus()`>>
+* <<Elasticsearch_Namespaces_SlmNamespaceputLifecycle_putLifecycle,`putLifecycle()`>>
+* <<Elasticsearch_Namespaces_SlmNamespacestart_start,`start()`>>
+* <<Elasticsearch_Namespaces_SlmNamespacestop_stop,`stop()`>>
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacedeleteLifecycle_deleteLifecycle]]
+.`deleteLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy_id'] = (string) The id of the snapshot lifecycle policy to remove
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->deleteLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespaceexecuteLifecycle_executeLifecycle]]
+.`executeLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy_id'] = (string) The id of the snapshot lifecycle policy to be executed
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->executeLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespaceexecuteRetention_executeRetention]]
+.`executeRetention()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->executeRetention($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacegetLifecycle_getLifecycle]]
+.`getLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy_id'] = (list) Comma-separated list of snapshot lifecycle policies to retrieve
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->getLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacegetStats_getStats]]
+.`getStats()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->getStats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacegetStatus_getStatus]]
+.`getStatus()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->getStatus($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespaceputLifecycle_putLifecycle]]
+.`putLifecycle()`
+****
+[source,php]
+----
+/*
+$params['policy_id'] = (string) The id of the snapshot lifecycle policy
+$params['body']      = (array) The snapshot lifecycle policy definition to register
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->putLifecycle($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacestart_start]]
+.`start()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->start($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_SlmNamespacestop_stop]]
+.`stop()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->slm()->stop($params);
+----
+****
+
+

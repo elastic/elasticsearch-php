@@ -1,0 +1,123 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_EnrichNamespace]]
+=== Elasticsearch\Namespaces\EnrichNamespace
+
+
+
+Class EnrichNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_EnrichNamespacedeletePolicy_deletePolicy,`deletePolicy()`>>
+* <<Elasticsearch_Namespaces_EnrichNamespaceexecutePolicy_executePolicy,`executePolicy()`>>
+* <<Elasticsearch_Namespaces_EnrichNamespacegetPolicy_getPolicy,`getPolicy()`>>
+* <<Elasticsearch_Namespaces_EnrichNamespaceputPolicy_putPolicy,`putPolicy()`>>
+* <<Elasticsearch_Namespaces_EnrichNamespacestats_stats,`stats()`>>
+
+
+
+[[Elasticsearch_Namespaces_EnrichNamespacedeletePolicy_deletePolicy]]
+.`deletePolicy()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the enrich policy
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich()->deletePolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_EnrichNamespaceexecutePolicy_executePolicy]]
+.`executePolicy()`
+****
+[source,php]
+----
+/*
+$params['name']                = (string) The name of the enrich policy
+$params['wait_for_completion'] = (boolean) Should the request should block until the execution is complete. (Default = true)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich()->executePolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_EnrichNamespacegetPolicy_getPolicy]]
+.`getPolicy()`
+****
+[source,php]
+----
+/*
+$params['name'] = (list) A comma-separated list of enrich policy names
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich()->getPolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_EnrichNamespaceputPolicy_putPolicy]]
+.`putPolicy()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the enrich policy
+$params['body'] = (array) The enrich policy to register (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich()->putPolicy($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_EnrichNamespacestats_stats]]
+.`stats()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->enrich()->stats($params);
+----
+****
+
+

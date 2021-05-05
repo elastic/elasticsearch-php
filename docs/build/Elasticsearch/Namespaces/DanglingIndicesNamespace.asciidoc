@@ -1,0 +1,85 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_DanglingIndicesNamespace]]
+=== Elasticsearch\Namespaces\DanglingIndicesNamespace
+
+
+
+Class DanglingIndicesNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_DanglingIndicesNamespacedeleteDanglingIndex_deleteDanglingIndex,`deleteDanglingIndex()`>>
+* <<Elasticsearch_Namespaces_DanglingIndicesNamespaceimportDanglingIndex_importDanglingIndex,`importDanglingIndex()`>>
+* <<Elasticsearch_Namespaces_DanglingIndicesNamespacelistDanglingIndices_listDanglingIndices,`listDanglingIndices()`>>
+
+
+
+[[Elasticsearch_Namespaces_DanglingIndicesNamespacedeleteDanglingIndex_deleteDanglingIndex]]
+.`deleteDanglingIndex()`
+****
+[source,php]
+----
+/*
+$params['index_uuid']       = (string) The UUID of the dangling index
+$params['accept_data_loss'] = (boolean) Must be set to true in order to delete the dangling index
+$params['timeout']          = (time) Explicit operation timeout
+$params['master_timeout']   = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->danglingindices()->deleteDanglingIndex($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_DanglingIndicesNamespaceimportDanglingIndex_importDanglingIndex]]
+.`importDanglingIndex()`
+****
+[source,php]
+----
+/*
+$params['index_uuid']       = (string) The UUID of the dangling index
+$params['accept_data_loss'] = (boolean) Must be set to true in order to import the dangling index
+$params['timeout']          = (time) Explicit operation timeout
+$params['master_timeout']   = (time) Specify timeout for connection to master
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->danglingindices()->importDanglingIndex($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_DanglingIndicesNamespacelistDanglingIndices_listDanglingIndices]]
+.`listDanglingIndices()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->danglingindices()->listDanglingIndices($params);
+----
+****
+
+

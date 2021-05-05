@@ -1,3 +1,0 @@
-[submodule "util/elasticsearch"]
-	path = util/elasticsearch
-	url = https://github.com/elasticsearch/elasticsearch.git

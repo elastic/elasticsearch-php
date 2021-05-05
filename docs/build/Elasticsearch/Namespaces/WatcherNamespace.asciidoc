@@ -1,0 +1,234 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_WatcherNamespace]]
+=== Elasticsearch\Namespaces\WatcherNamespace
+
+
+
+Class WatcherNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_WatcherNamespaceackWatch_ackWatch,`ackWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespaceactivateWatch_activateWatch,`activateWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacedeactivateWatch_deactivateWatch,`deactivateWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacedeleteWatch_deleteWatch,`deleteWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespaceexecuteWatch_executeWatch,`executeWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacegetWatch_getWatch,`getWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespaceputWatch_putWatch,`putWatch()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacestart_start,`start()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacestats_stats,`stats()`>>
+* <<Elasticsearch_Namespaces_WatcherNamespacestop_stop,`stop()`>>
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespaceackWatch_ackWatch]]
+.`ackWatch()`
+****
+[source,php]
+----
+/*
+$params['watch_id']  = (string) Watch ID (Required)
+$params['action_id'] = (list) A comma-separated list of the action ids to be acked
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->ackWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespaceactivateWatch_activateWatch]]
+.`activateWatch()`
+****
+[source,php]
+----
+/*
+$params['watch_id'] = (string) Watch ID
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->activateWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacedeactivateWatch_deactivateWatch]]
+.`deactivateWatch()`
+****
+[source,php]
+----
+/*
+$params['watch_id'] = (string) Watch ID
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->deactivateWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacedeleteWatch_deleteWatch]]
+.`deleteWatch()`
+****
+[source,php]
+----
+/*
+$params['id'] = (string) Watch ID
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->deleteWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespaceexecuteWatch_executeWatch]]
+.`executeWatch()`
+****
+[source,php]
+----
+/*
+$params['id']    = (string) Watch ID
+$params['debug'] = (boolean) indicates whether the watch should execute in debug mode
+$params['body']  = (array) Execution control
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->executeWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacegetWatch_getWatch]]
+.`getWatch()`
+****
+[source,php]
+----
+/*
+$params['id'] = (string) Watch ID
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->getWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespaceputWatch_putWatch]]
+.`putWatch()`
+****
+[source,php]
+----
+/*
+$params['id']              = (string) Watch ID
+$params['active']          = (boolean) Specify whether the watch is in/active by default
+$params['version']         = (number) Explicit version number for concurrency control
+$params['if_seq_no']       = (number) only update the watch if the last operation that has changed the watch has the specified sequence number
+$params['if_primary_term'] = (number) only update the watch if the last operation that has changed the watch has the specified primary term
+$params['body']            = (array) The watch
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->putWatch($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacestart_start]]
+.`start()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->start($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacestats_stats]]
+.`stats()`
+****
+[source,php]
+----
+/*
+$params['metric']           = (list) Controls what additional stat metrics should be include in the response
+$params['emit_stacktraces'] = (boolean) Emits stack traces of currently running watches
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->stats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_WatcherNamespacestop_stop]]
+.`stop()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->watcher()->stop($params);
+----
+****
+
+

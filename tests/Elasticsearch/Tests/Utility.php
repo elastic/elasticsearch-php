@@ -18,13 +18,18 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use Exception;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class Utility
 {
+    /**
+     * @var string
+     */
+    private static $version;
+
     /**
      * Get the host URL based on ENV variables
      */
@@ -34,13 +39,7 @@ class Utility
         if (false !== $url) {
             return $url;
         }
-        switch (getenv('TEST_SUITE')) {
-            case 'free':
-                return 'http://localhost:9200';
-            case 'platinum':
-                return 'https://elastic:changeme@localhost:9200';
-        }
-        return null;
+        return 'https://elastic:changeme@localhost:9200';
     }
 
     /**
@@ -57,9 +56,7 @@ class Utility
                 ]
             ]
         ]);
-        if (getenv('TEST_SUITE') === 'platinum') {
-            $clientBuilder->setSSLVerification(false);
-        }
+        $clientBuilder->setSSLVerification(false);
         return $clientBuilder->build();
     }
 
@@ -90,6 +87,15 @@ class Utility
         ]);
     }
 
+    private static function getVersion(Client $client): string
+    {
+        if (!isset(self::$version)) {
+            $result = $client->info();
+            self::$version = $result['version']['number'];
+        }
+        return self::$version;
+    }
+
     /**
      * Clean up the cluster after a test
      * 
@@ -110,16 +116,14 @@ class Utility
     {
         if (getenv('TEST_SUITE') === 'platinum') {
             self::wipeRollupJobs($client);
-            self::waitForPendingRollupTasks($client);
+            self::waitForPendingRollupTasks($client);        
+        }
+        if (version_compare(self::getVersion($client), '7.3.99') > 0) {
             self::deleteAllSLMPolicies($client);  
         }
 
         self::wipeSnapshots($client);
-
-        if (getenv('TEST_SUITE') === 'platinum') {
-            self::wipeDataStreams($client);
-        }
-        
+        self::wipeDataStreams($client);
         self::wipeAllIndices($client);
 
         if (getenv('TEST_SUITE') === 'platinum') {
@@ -129,14 +133,18 @@ class Utility
             $client->indices()->deleteTemplate([
                 'name' => '*'
             ]);
-            // Delete index template
-            $client->indices()->deleteIndexTemplate([
-                'name' => '*'
-            ]);
-            // Delete component template
-            $client->cluster()->deleteComponentTemplate([
-                'name' => '*'
-            ]);
+            try {
+                // Delete index template
+                $client->indices()->deleteIndexTemplate([
+                    'name' => '*'
+                ]);
+                // Delete component template
+                $client->cluster()->deleteComponentTemplate([
+                    'name' => '*'
+                ]);
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+            }
         }
 
         self::wipeClusterSettings($client);
@@ -164,10 +172,13 @@ class Utility
                 $client->rollup()->stopJob([
                     'id' => $job['config']['id'],
                     'wait_for_completion' => true,
+                    'timeout' => '10s',
                     'client' => [
                         'ignore' => 404
                     ]
                 ]);
+            }
+            foreach ($rollups['jobs'] as $job) {
                 $client->rollup()->deleteJob([
                     'id' => $job['config']['id'],
                     'client' => [
@@ -185,19 +196,33 @@ class Utility
      */
     private static function wipeSnapshots(Client $client): void
     {
-        $repos = $client->snapshot()->getRepository();
-        foreach ($repos as $name => $value) {
+        $repos = $client->snapshot()->getRepository([
+            'repository' => '_all'
+        ]);
+        foreach ($repos as $repository => $value) {
             if ($value['type'] === 'fs') {
-                $client->snapshot()->delete([
-                    'repository' => $name,
-                    'snapshot' => '*',
-                    'client' => [
-                        'ignore' => 404
-                    ]
+                $response = $client->snapshot()->get([
+                    'repository' => $repository,
+                    'snapshot' => '_all',
+                    'ignore_unavailable' => true
                 ]);
+                if (isset($response['responses'])) {
+                    $response = $response['responses'][0];
+                }
+                if (isset($response['snapshots'])) {
+                    foreach ($response['snapshots'] as $snapshot) {
+                        $client->snapshot()->delete([
+                            'repository' => $repository,
+                            'snapshot' => $snapshot['snapshot'],
+                            'client' => [
+                                'ignore' => 404
+                            ]
+                        ]);
+                    }
+                }
             }         
             $client->snapshot()->deleteRepository([
-                'repository' => $name,
+                'repository' => $repository,
                 'client' => [
                     'ignore' => 404
                 ]
@@ -262,9 +287,24 @@ class Utility
      */
     private static function wipeDataStreams(Client $client): void
     {
-        $client->indices()->deleteDataStream([
-            'name' => '*'
-        ]);
+        try {
+            if (version_compare(self::getVersion($client), '7.8.99') > 0) {
+                $client->indices()->deleteDataStream([
+                    'name' => '*',
+                    'expand_wildcards' => 'all'
+                ]);
+            }
+        } catch (ElasticsearchException $e) {
+            // We hit a version of ES that doesn't understand expand_wildcards, try again without it
+            try {
+                $client->indices()->deleteDataStream([
+                    'name' => '*'
+                ]);
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
+                // field or that doesn't support data streams so it's safe to ignore
+            }
+        }
     }
 
     /**
@@ -274,13 +314,20 @@ class Utility
      */
     private static function wipeAllIndices(Client $client): void
     {
-        $client->indices()->delete([
-            'index' => '*,-.ds-ilm-history-*',
-            'expand_wildcards' => 'all',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
+        $expand = 'open,closed';
+        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
+            $expand .= ',hidden';
+        }
+        try {
+            $client->indices()->delete([
+                'index' => '*,-.ds-ilm-history-*',
+                'expand_wildcards' => $expand
+            ]);
+        } catch (Exception $e) {
+            if ($e->getCode() != '404') {
+                throw $e;
+            }
+        }
     }
 
     /**
@@ -293,39 +340,83 @@ class Utility
      */
     private static function wipeTemplateForXpack(Client $client): void
     {
-        $result = $client->cat()->templates([
-            'h' => 'name'
-        ]);
-        $templates = explode("\n", $result);
-        foreach ($templates as $template) {
-            if (empty($template) || self::isXPackTemplate($template)) {
-                continue;
-            }
+        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
             try {
-                $client->indices()->deleteTemplate([
-                    'name' => $template
-                ]);
-            } catch (Missing404Exception $e) {
-                $msg = sprintf("index_template [%s] missing", $template);
-                if (strpos($e->getMessage(), $msg) !== false) {
-                    $client->indices()->deleteIndexTemplate([
-                        'name' => $template
-                    ]);
+                $result = $client->indices()->getIndexTemplate();
+                $names = [];
+                foreach ($result['index_templates'] as $template) {
+                    if (self::isXPackTemplate($template['name'])) {
+                        continue;
+                    }
+                    $names[] = $template['name'];
+                }
+                if (!empty($names)) {
+                    if (version_compare(self::getVersion($client), '7.12.99') > 0) {
+                        try {
+                            $client->indices()->deleteIndexTemplate([
+                                'name' => implode(',', $names)
+                            ]);
+                        } catch (ElasticsearchException $e) {
+                            // unable to remove index template
+                        }
+                    } else {
+                        foreach ($names as $name) {
+                            try {
+                                $client->indices()->deleteIndexTemplate([
+                                    'name' => $name
+                                ]);
+                            } catch (ElasticsearchException $e) {
+                                // unable to remove index template
+                            }
+                        }
+                    }
+                }
+            } catch (ElasticsearchException $e) {
+                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+            }
+            // Delete component template
+            $result = $client->cluster()->getComponentTemplate();
+            $names = [];
+            foreach ($result['component_templates'] as $component) {
+                if (self::isXPackTemplate($component['name'])) {
+                    continue;
+                }
+                $names[] = $component['name'];
+            }
+            if (!empty($names)) {
+                if (version_compare(self::getVersion($client), '7.12.99') > 0) {
+                    try {
+                        $client->cluster()->deleteComponentTemplate([
+                            'name' => implode(',', $names)
+                        ]);
+                    } catch (ElasticsearchException $e) {
+                        // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                    }
+                } else {
+                    foreach ($names as $name) {
+                        try {
+                            $client->cluster()->deleteComponentTemplate([
+                                'name' => $name
+                            ]);
+                        } catch (ElasticsearchException $e) {
+                            // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                        }
+                    }
                 }
             }
         }
-        // Delete component template
-        $result = $client->cluster()->getComponentTemplate();
-        foreach ($result['component_templates'] as $component) {
-            if (self::isXPackTemplate($component['name'])) {
+        // Always check for legacy templates
+        $result = $client->indices()->getTemplate();
+        foreach ($result as $name => $value) {
+            if (self::isXPackTemplate($name)) {
                 continue;
             }
             try {
-                $client->cluster()->deleteComponentTemplate([
-                    'name' => $component['name']
+                $result = $client->indices()->deleteTemplate([
+                    'name' => $name
                 ]);
             } catch (ElasticsearchException $e) {
-                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+                // unable to remove index template
             }
         }
     }
@@ -398,6 +489,8 @@ class Utility
             case "synthetics-mappings":
             case ".snapshot-blob-cache":
             case ".deprecation-indexing-template":
+            case "logstash-index-template":
+            case "security-index-template":
                 return true;
         }
         return false;
@@ -462,8 +555,7 @@ class Utility
             foreach ($tasks['nodes'] as $node => $value) {
                 foreach ($value['tasks'] as $id => $data) {
                     $client->tasks()->cancel([
-                        'task_id' => $id,
-                        'wait_for_completion' => true
+                        'task_id' => $id
                     ]);
                 }
             }

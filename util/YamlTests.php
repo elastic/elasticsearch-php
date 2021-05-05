@@ -38,9 +38,8 @@ class YamlTests
     const SKIPPED_TEST_OSS = [
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
-        'Indices\Create\_20_Mix_Typeless_TypefulTest::CreateATypedIndexWhileThereIsATypelessTemplate' => 'mismatch on warning header',
         'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
-        'Search\Highlight\_20_FvhTest::HighlightMultipleNestedDocuments' => 'Undefined index: nested\.title'
+        'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false'
     ];
 
     const SKIPPED_TEST_XPACK = [
@@ -60,6 +59,8 @@ class YamlTests
         'Ml\_Ml_InfoTest::TestMlInfo' => 'response[\'limits\'][\'max_model_memory_limit\'] is not empty',
         'Ml\_Delete_Expired_DataTest::TestDeleteExpiredDataWithJobId' => 'Substring mismatch',
         'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
+        'Ml\_Get_Trained_Model_StatsTest::*' => 'Skipped all tests',
+        'Ml\_Get_Trained_Model_StatsTest::TestGetStatsGivenTrainedModels' => 'cannot assign model_alias',
         'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
         'RuntimeFields\_100_Geo_PointTest::GetMapping' => 'Substring mismatch',
         'RuntimeFields\_10_KeywordTest::GetMapping' => 'Substring mismatch',
@@ -72,13 +73,13 @@ class YamlTests
         'RuntimeFields\_40_DateTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
+        'SearchableSnapshots\_10_UsageTest::TestsSearchableSnapshotsUsageStatsWithFull_copyAndShared_cacheIndices' => 'Mismatch values',
+        'ServiceAccounts\_10_BasicTest::TestServiceAccountTokens' => 'Count mismatch',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
+        'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
-        'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',
-        'UnsignedLong\_20_Null_ValueTest::*' => 'Skipped all tests',
-        'UnsignedLong\_30_Multi_FieldsTest::*' => 'Skipped all tests',
-        'UnsignedLong\_50_Script_ValuesTest::*' => 'Skipped all tests',
+        'UnsignedLong\*' => 'Skipped all tests',
         'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
     ];
 
@@ -186,10 +187,11 @@ class YamlTests
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
                             $skippedAllTest = sprintf("%s\\%s::*", $namespace, $testName);
+                            $skippedAllFiles = sprintf("%s\\*", $namespace);
                             $skip = strtolower(self::$testSuite) === 'free' 
                                 ? self::SKIPPED_TEST_OSS 
                                 : self::SKIPPED_TEST_XPACK;
-                            if (isset($skip[$skippedAllTest])) {
+                            if (isset($skip[$skippedAllFiles]) || isset($skip[$skippedAllTest])) {
                                 $allSkipped = true;
                                 $functions .= self::render(
                                     self::TEMPLATE_FUNCTION_SKIPPED,

@@ -1,0 +1,37 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_SslNamespace]]
+=== Elasticsearch\Namespaces\SslNamespace
+
+
+
+Class SslNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_SslNamespacecertificates_certificates,`certificates()`>>
+
+
+
+[[Elasticsearch_Namespaces_SslNamespacecertificates_certificates]]
+.`certificates()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ssl()->certificates($params);
+----
+****
+
+

@@ -1,0 +1,292 @@
+
+[discrete]
+[[Elasticsearch_Namespaces_CcrNamespace]]
+=== Elasticsearch\Namespaces\CcrNamespace
+
+
+
+Class CcrNamespace
+Generated running $ php util/GenerateEndpoints.php 7.9
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elasticsearch_Namespaces_CcrNamespacedeleteAutoFollowPattern_deleteAutoFollowPattern,`deleteAutoFollowPattern()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacefollow_follow,`follow()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacefollowInfo_followInfo,`followInfo()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacefollowStats_followStats,`followStats()`>>
+* <<Elasticsearch_Namespaces_CcrNamespaceforgetFollower_forgetFollower,`forgetFollower()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacegetAutoFollowPattern_getAutoFollowPattern,`getAutoFollowPattern()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacepauseAutoFollowPattern_pauseAutoFollowPattern,`pauseAutoFollowPattern()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacepauseFollow_pauseFollow,`pauseFollow()`>>
+* <<Elasticsearch_Namespaces_CcrNamespaceputAutoFollowPattern_putAutoFollowPattern,`putAutoFollowPattern()`>>
+* <<Elasticsearch_Namespaces_CcrNamespaceresumeAutoFollowPattern_resumeAutoFollowPattern,`resumeAutoFollowPattern()`>>
+* <<Elasticsearch_Namespaces_CcrNamespaceresumeFollow_resumeFollow,`resumeFollow()`>>
+* <<Elasticsearch_Namespaces_CcrNamespacestats_stats,`stats()`>>
+* <<Elasticsearch_Namespaces_CcrNamespaceunfollow_unfollow,`unfollow()`>>
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacedeleteAutoFollowPattern_deleteAutoFollowPattern]]
+.`deleteAutoFollowPattern()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the auto follow pattern.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->deleteAutoFollowPattern($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacefollow_follow]]
+.`follow()`
+****
+[source,php]
+----
+/*
+$params['index']                  = (string) The name of the follower index
+$params['wait_for_active_shards'] = (string) Sets the number of shard copies that must be active before returning. Defaults to 0. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1) (Default = 0)
+$params['body']                   = (array) The name of the leader index and other optional ccr related parameters (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->follow($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacefollowInfo_followInfo]]
+.`followInfo()`
+****
+[source,php]
+----
+/*
+$params['index'] = (list) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->followInfo($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacefollowStats_followStats]]
+.`followStats()`
+****
+[source,php]
+----
+/*
+$params['index'] = (list) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->followStats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespaceforgetFollower_forgetFollower]]
+.`forgetFollower()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) the name of the leader index for which specified follower retention leases should be removed
+$params['body']  = (array) the name and UUID of the follower index, the name of the cluster containing the follower index, and the alias from the perspective of that cluster for the remote cluster containing the leader index (Required)
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->forgetFollower($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacegetAutoFollowPattern_getAutoFollowPattern]]
+.`getAutoFollowPattern()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the auto follow pattern.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->getAutoFollowPattern($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacepauseAutoFollowPattern_pauseAutoFollowPattern]]
+.`pauseAutoFollowPattern()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the auto follow pattern that should pause discovering new indices to follow.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->pauseAutoFollowPattern($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacepauseFollow_pauseFollow]]
+.`pauseFollow()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the follower index that should pause following its leader index.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->pauseFollow($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespaceputAutoFollowPattern_putAutoFollowPattern]]
+.`putAutoFollowPattern()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the auto follow pattern.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->putAutoFollowPattern($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespaceresumeAutoFollowPattern_resumeAutoFollowPattern]]
+.`resumeAutoFollowPattern()`
+****
+[source,php]
+----
+/*
+$params['name'] = (string) The name of the auto follow pattern to resume discovering new indices to follow.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->resumeAutoFollowPattern($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespaceresumeFollow_resumeFollow]]
+.`resumeFollow()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the follow index to resume following.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->resumeFollow($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespacestats_stats]]
+.`stats()`
+****
+[source,php]
+----
+/*
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->stats($params);
+----
+****
+
+
+
+[[Elasticsearch_Namespaces_CcrNamespaceunfollow_unfollow]]
+.`unfollow()`
+****
+[source,php]
+----
+/*
+$params['index'] = (string) The name of the follower index that should be turned into a regular index.
+*/
+
+$params = [
+    // ...
+];
+
+$client = ClientBuilder::create()->build();
+$response = $client->ccr()->unfollow($params);
+----
+****
+
+

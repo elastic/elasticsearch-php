@@ -74,14 +74,12 @@ class YamlTests
         'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
         'SearchableSnapshots\_10_UsageTest::TestsSearchableSnapshotsUsageStatsWithFull_copyAndShared_cacheIndices' => 'Mismatch values',
+        'ServiceAccounts\_10_BasicTest::TestServiceAccountTokens' => 'Count mismatch',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
         'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
-        'UnsignedLong\_10_BasicTest::*' => 'Skipped all tests',
-        'UnsignedLong\_20_Null_ValueTest::*' => 'Skipped all tests',
-        'UnsignedLong\_30_Multi_FieldsTest::*' => 'Skipped all tests',
-        'UnsignedLong\_50_Script_ValuesTest::*' => 'Skipped all tests',
+        'UnsignedLong\*' => 'Skipped all tests',
         'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
     ];
 
@@ -189,10 +187,11 @@ class YamlTests
                             
                             $skippedTest = sprintf("%s\\%s::%s", $namespace, $testName, $functionName);
                             $skippedAllTest = sprintf("%s\\%s::*", $namespace, $testName);
+                            $skippedAllFiles = sprintf("%s\\*", $namespace);
                             $skip = strtolower(self::$testSuite) === 'free' 
                                 ? self::SKIPPED_TEST_OSS 
                                 : self::SKIPPED_TEST_XPACK;
-                            if (isset($skip[$skippedAllTest])) {
+                            if (isset($skip[$skippedAllFiles]) || isset($skip[$skippedAllTest])) {
                                 $allSkipped = true;
                                 $functions .= self::render(
                                     self::TEMPLATE_FUNCTION_SKIPPED,

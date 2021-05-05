@@ -118,7 +118,6 @@ class Utility
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);        
         }
-
         if (version_compare(self::getVersion($client), '7.3.99') > 0) {
             self::deleteAllSLMPolicies($client);  
         }
@@ -556,8 +555,7 @@ class Utility
             foreach ($tasks['nodes'] as $node => $value) {
                 foreach ($value['tasks'] as $id => $data) {
                     $client->tasks()->cancel([
-                        'task_id' => $id,
-                        'wait_for_completion' => true
+                        'task_id' => $id
                     ]);
                 }
             }

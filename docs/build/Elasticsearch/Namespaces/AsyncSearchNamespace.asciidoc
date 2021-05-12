@@ -26,8 +26,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_AsyncSearchNamespacedelete_delete]]
-.`delete()`
-[[Elasticsearch_Namespaces_AsyncSearchNamespacedelete_delete]]
 .`delete(array $params = [])`
 ****
 [source,php]
@@ -40,8 +38,6 @@ $params['id'] = (string) The async search ID
 
 
 
-[[Elasticsearch_Namespaces_AsyncSearchNamespaceget_get]]
-.`get()`
 [[Elasticsearch_Namespaces_AsyncSearchNamespaceget_get]]
 .`get(array $params = [])`
 ****
@@ -59,8 +55,6 @@ $params['typed_keys']                  = (boolean) Specify whether aggregation a
 
 
 [[Elasticsearch_Namespaces_AsyncSearchNamespacestatus_status]]
-.`status()`
-[[Elasticsearch_Namespaces_AsyncSearchNamespacestatus_status]]
 .`status(array $params = [])`
 ****
 [source,php]
@@ -73,8 +67,6 @@ $params['id'] = (string) The async search ID
 
 
 
-[[Elasticsearch_Namespaces_AsyncSearchNamespacesubmit_submit]]
-.`submit()`
 [[Elasticsearch_Namespaces_AsyncSearchNamespacesubmit_submit]]
 .`submit(array $params = [])`
 ****

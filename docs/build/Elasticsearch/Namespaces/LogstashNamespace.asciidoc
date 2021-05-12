@@ -25,8 +25,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_LogstashNamespacedeletePipeline_deletePipeline]]
-.`deletePipeline()`
-[[Elasticsearch_Namespaces_LogstashNamespacedeletePipeline_deletePipeline]]
 .`deletePipeline(array $params = [])`
 ****
 [source,php]
@@ -40,8 +38,6 @@ $params['id'] = (string) The ID of the Pipeline
 
 
 [[Elasticsearch_Namespaces_LogstashNamespacegetPipeline_getPipeline]]
-.`getPipeline()`
-[[Elasticsearch_Namespaces_LogstashNamespacegetPipeline_getPipeline]]
 .`getPipeline(array $params = [])`
 ****
 [source,php]
@@ -54,8 +50,6 @@ $params['id'] = (string) A comma-separated list of Pipeline IDs
 
 
 
-[[Elasticsearch_Namespaces_LogstashNamespaceputPipeline_putPipeline]]
-.`putPipeline()`
 [[Elasticsearch_Namespaces_LogstashNamespaceputPipeline_putPipeline]]
 .`putPipeline(array $params = [])`
 ****

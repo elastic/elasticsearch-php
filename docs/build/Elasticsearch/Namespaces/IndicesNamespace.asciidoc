@@ -78,8 +78,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceaddBlock_addBlock]]
-.`addBlock()`
-[[Elasticsearch_Namespaces_IndicesNamespaceaddBlock_addBlock]]
 .`addBlock(array $params = [])`
 ****
 [source,php]
@@ -99,8 +97,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceanalyze_analyze]]
-.`analyze()`
-[[Elasticsearch_Namespaces_IndicesNamespaceanalyze_analyze]]
 .`analyze(array $params = [])`
 ****
 [source,php]
@@ -114,8 +110,6 @@ $params['body']  = (array) Define analyzer/tokenizer parameters and the text on 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceclearCache_clearCache]]
-.`clearCache()`
 [[Elasticsearch_Namespaces_IndicesNamespaceclearCache_clearCache]]
 .`clearCache(array $params = [])`
 ****
@@ -137,8 +131,6 @@ $params['request']            = (boolean) Clear request cache
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceclone_clone]]
-.`clone()`
-[[Elasticsearch_Namespaces_IndicesNamespaceclone_clone]]
 .`clone(array $params = [])`
 ****
 [source,php]
@@ -155,8 +147,6 @@ $params['wait_for_active_shards'] = (string) Set the number of active shards to 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceclose_close]]
-.`close()`
 [[Elasticsearch_Namespaces_IndicesNamespaceclose_close]]
 .`close(array $params = [])`
 ****
@@ -177,8 +167,6 @@ $params['wait_for_active_shards'] = (string) Sets the number of active shards to
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacecreate_create]]
-.`create()`
-[[Elasticsearch_Namespaces_IndicesNamespacecreate_create]]
 .`create(array $params = [])`
 ****
 [source,php]
@@ -193,8 +181,6 @@ $params['include_type_name']      = (boolean) Whether a type should be expected 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacecreateDataStream_createDataStream]]
-.`createDataStream()`
-[[Elasticsearch_Namespaces_IndicesNamespacecreateDataStream_createDataStream]]
 .`createDataStream(array $params = [])`
 ****
 [source,php]
@@ -208,8 +194,6 @@ $params['name'] = (string) The name of the data stream
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacedataStreamsStats_dataStreamsStats]]
-.`dataStreamsStats()`
-[[Elasticsearch_Namespaces_IndicesNamespacedataStreamsStats_dataStreamsStats]]
 .`dataStreamsStats(array $params = [])`
 ****
 [source,php]
@@ -222,8 +206,6 @@ $params['name'] = (list) A comma-separated list of data stream names; use `_all`
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacedelete_delete]]
-.`delete()`
 [[Elasticsearch_Namespaces_IndicesNamespacedelete_delete]]
 .`delete(array $params = [])`
 ****
@@ -243,8 +225,6 @@ $params['expand_wildcards']   = (enum) Whether wildcard expressions should get e
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias]]
-.`deleteAlias()`
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteAlias_deleteAlias]]
 .`deleteAlias(array $params = [])`
 ****
 [source,php]
@@ -261,8 +241,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacedeleteDataStream_deleteDataStream]]
-.`deleteDataStream()`
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteDataStream_deleteDataStream]]
 .`deleteDataStream(array $params = [])`
 ****
 [source,php]
@@ -276,8 +254,6 @@ $params['expand_wildcards'] = (enum) Whether wildcard expressions should get exp
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteIndexTemplate_deleteIndexTemplate]]
-.`deleteIndexTemplate()`
 [[Elasticsearch_Namespaces_IndicesNamespacedeleteIndexTemplate_deleteIndexTemplate]]
 .`deleteIndexTemplate(array $params = [])`
 ****
@@ -294,8 +270,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate]]
-.`deleteTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespacedeleteTemplate_deleteTemplate]]
 .`deleteTemplate(array $params = [])`
 ****
 [source,php]
@@ -310,8 +284,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceexists_exists]]
-.`exists()`
 [[Elasticsearch_Namespaces_IndicesNamespaceexists_exists]]
 .`exists(array $params = [])`
 ****
@@ -332,8 +304,6 @@ $params['include_defaults']   = (boolean) Whether to return all default setting 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias]]
-.`existsAlias()`
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsAlias_existsAlias]]
 .`existsAlias(array $params = [])`
 ****
 [source,php]
@@ -352,8 +322,6 @@ $params['local']              = (boolean) Return local information, do not retri
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceexistsIndexTemplate_existsIndexTemplate]]
-.`existsIndexTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsIndexTemplate_existsIndexTemplate]]
 .`existsIndexTemplate(array $params = [])`
 ****
 [source,php]
@@ -370,8 +338,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate]]
-.`existsTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsTemplate_existsTemplate]]
 .`existsTemplate(array $params = [])`
 ****
 [source,php]
@@ -387,8 +353,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType]]
-.`existsType()`
 [[Elasticsearch_Namespaces_IndicesNamespaceexistsType_existsType]]
 .`existsType(array $params = [])`
 ****
@@ -408,8 +372,6 @@ $params['local']              = (boolean) Return local information, do not retri
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceflush_flush]]
-.`flush()`
-[[Elasticsearch_Namespaces_IndicesNamespaceflush_flush]]
 .`flush(array $params = [])`
 ****
 [source,php]
@@ -424,8 +386,6 @@ $params['wait_if_ongoing']    = (boolean) If set to true the flush operation wil
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced]]
-.`flushSynced()`
 [[Elasticsearch_Namespaces_IndicesNamespaceflushSynced_flushSynced]]
 .`flushSynced(array $params = [])`
 ****
@@ -442,8 +402,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceforcemerge_forcemerge]]
-.`forcemerge()`
 [[Elasticsearch_Namespaces_IndicesNamespaceforcemerge_forcemerge]]
 .`forcemerge(array $params = [])`
 ****
@@ -464,8 +422,6 @@ $params['only_expunge_deletes'] = (boolean) Specify whether the operation should
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacefreeze_freeze]]
-.`freeze()`
-[[Elasticsearch_Namespaces_IndicesNamespacefreeze_freeze]]
 .`freeze(array $params = [])`
 ****
 [source,php]
@@ -484,8 +440,6 @@ $params['wait_for_active_shards'] = (string) Sets the number of active shards to
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceget_get]]
-.`get()`
 [[Elasticsearch_Namespaces_IndicesNamespaceget_get]]
 .`get(array $params = [])`
 ****
@@ -508,8 +462,6 @@ $params['master_timeout']     = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias]]
-.`getAlias()`
-[[Elasticsearch_Namespaces_IndicesNamespacegetAlias_getAlias]]
 .`getAlias(array $params = [])`
 ****
 [source,php]
@@ -528,8 +480,6 @@ $params['local']              = (boolean) Return local information, do not retri
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacegetDataStream_getDataStream]]
-.`getDataStream()`
-[[Elasticsearch_Namespaces_IndicesNamespacegetDataStream_getDataStream]]
 .`getDataStream(array $params = [])`
 ****
 [source,php]
@@ -543,8 +493,6 @@ $params['expand_wildcards'] = (enum) Whether wildcard expressions should get exp
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping]]
-.`getFieldMapping()`
 [[Elasticsearch_Namespaces_IndicesNamespacegetFieldMapping_getFieldMapping]]
 .`getFieldMapping(array $params = [])`
 ****
@@ -562,8 +510,6 @@ $params['include_type_name']  = (boolean) Whether a type should be returned in t
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacegetIndexTemplate_getIndexTemplate]]
-.`getIndexTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespacegetIndexTemplate_getIndexTemplate]]
 .`getIndexTemplate(array $params = [])`
 ****
 [source,php]
@@ -579,8 +525,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping]]
-.`getMapping()`
 [[Elasticsearch_Namespaces_IndicesNamespacegetMapping_getMapping]]
 .`getMapping(array $params = [])`
 ****
@@ -601,8 +545,6 @@ $params['local']              = (boolean) Return local information, do not retri
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings]]
-.`getSettings()`
 [[Elasticsearch_Namespaces_IndicesNamespacegetSettings_getSettings]]
 .`getSettings(array $params = [])`
 ****
@@ -625,8 +567,6 @@ $params['include_defaults']   = (boolean) Whether to return all default setting 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate]]
-.`getTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespacegetTemplate_getTemplate]]
 .`getTemplate(array $params = [])`
 ****
 [source,php]
@@ -640,8 +580,6 @@ $params['include_type_name'] = (boolean) Whether a type should be returned in th
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetUpgrade_getUpgrade]]
-.`getUpgrade()`
 [[Elasticsearch_Namespaces_IndicesNamespacegetUpgrade_getUpgrade]]
 .`getUpgrade(array $params = [])`
 ****
@@ -659,8 +597,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacemigrateToDataStream_migrateToDataStream]]
-.`migrateToDataStream()`
-[[Elasticsearch_Namespaces_IndicesNamespacemigrateToDataStream_migrateToDataStream]]
 .`migrateToDataStream(array $params = [])`
 ****
 [source,php]
@@ -673,8 +609,6 @@ $params['name'] = (string) The name of the alias to migrate
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceopen_open]]
-.`open()`
 [[Elasticsearch_Namespaces_IndicesNamespaceopen_open]]
 .`open(array $params = [])`
 ****
@@ -695,8 +629,6 @@ $params['wait_for_active_shards'] = (string) Sets the number of active shards to
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacepromoteDataStream_promoteDataStream]]
-.`promoteDataStream()`
-[[Elasticsearch_Namespaces_IndicesNamespacepromoteDataStream_promoteDataStream]]
 .`promoteDataStream(array $params = [])`
 ****
 [source,php]
@@ -709,8 +641,6 @@ $params['name'] = (string) The name of the data stream
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias]]
-.`putAlias()`
 [[Elasticsearch_Namespaces_IndicesNamespaceputAlias_putAlias]]
 .`putAlias(array $params = [])`
 ****
@@ -729,8 +659,6 @@ $params['body']           = (array) The settings for the alias, such as `routing
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceputIndexTemplate_putIndexTemplate]]
-.`putIndexTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespaceputIndexTemplate_putIndexTemplate]]
 .`putIndexTemplate(array $params = [])`
 ****
 [source,php]
@@ -748,8 +676,6 @@ $params['body']           = (array) The template definition (Required)
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping]]
-.`putMapping()`
-[[Elasticsearch_Namespaces_IndicesNamespaceputMapping_putMapping]]
 .`putMapping(array $params = [])`
 ****
 [source,php]
@@ -762,8 +688,6 @@ $params['index']              = (list) A comma-separated list of index names the
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings]]
-.`putSettings()`
 [[Elasticsearch_Namespaces_IndicesNamespaceputSettings_putSettings]]
 .`putSettings(array $params = [])`
 ****
@@ -786,8 +710,6 @@ $params['body']               = (array) The index settings to be updated (Requir
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate]]
-.`putTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespaceputTemplate_putTemplate]]
 .`putTemplate(array $params = [])`
 ****
 [source,php]
@@ -801,8 +723,6 @@ $params['include_type_name'] = (boolean) Whether a type should be returned in th
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery]]
-.`recovery()`
 [[Elasticsearch_Namespaces_IndicesNamespacerecovery_recovery]]
 .`recovery(array $params = [])`
 ****
@@ -818,8 +738,6 @@ $params['active_only'] = (boolean) Display only those recoveries that are curren
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh]]
-.`refresh()`
 [[Elasticsearch_Namespaces_IndicesNamespacerefresh_refresh]]
 .`refresh(array $params = [])`
 ****
@@ -837,8 +755,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacereloadSearchAnalyzers_reloadSearchAnalyzers]]
-.`reloadSearchAnalyzers()`
-[[Elasticsearch_Namespaces_IndicesNamespacereloadSearchAnalyzers_reloadSearchAnalyzers]]
 .`reloadSearchAnalyzers(array $params = [])`
 ****
 [source,php]
@@ -855,10 +771,8 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceresolveIndex_resolveIndex]]
-.`resolveIndex()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_IndicesNamespaceresolveIndex_resolveIndex]]
 .`resolveIndex(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -871,8 +785,6 @@ $params['expand_wildcards'] = (enum) Whether wildcard expressions should get exp
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacerollover_rollover]]
-.`rollover()`
 [[Elasticsearch_Namespaces_IndicesNamespacerollover_rollover]]
 .`rollover(array $params = [])`
 ****
@@ -888,8 +800,6 @@ $params['include_type_name']      = (boolean) Whether a type should be included 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacesegments_segments]]
-.`segments()`
 [[Elasticsearch_Namespaces_IndicesNamespacesegments_segments]]
 .`segments(array $params = [])`
 ****
@@ -908,8 +818,6 @@ $params['verbose']            = (boolean) Includes detailed memory usage by Luce
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores]]
-.`shardStores()`
-[[Elasticsearch_Namespaces_IndicesNamespaceshardStores_shardStores]]
 .`shardStores(array $params = [])`
 ****
 [source,php]
@@ -926,8 +834,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink]]
-.`shrink()`
 [[Elasticsearch_Namespaces_IndicesNamespaceshrink_shrink]]
 .`shrink(array $params = [])`
 ****
@@ -947,8 +853,6 @@ $params['wait_for_active_shards'] = (string) Set the number of active shards to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacesimulateIndexTemplate_simulateIndexTemplate]]
-.`simulateIndexTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespacesimulateIndexTemplate_simulateIndexTemplate]]
 .`simulateIndexTemplate(array $params = [])`
 ****
 [source,php]
@@ -966,8 +870,6 @@ $params['body']           = (array) New index template definition, which will be
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacesimulateTemplate_simulateTemplate]]
-.`simulateTemplate()`
-[[Elasticsearch_Namespaces_IndicesNamespacesimulateTemplate_simulateTemplate]]
 .`simulateTemplate(array $params = [])`
 ****
 [source,php]
@@ -984,8 +886,6 @@ $params['body']           = (array) New index template definition to be simulate
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacesplit_split]]
-.`split()`
 [[Elasticsearch_Namespaces_IndicesNamespacesplit_split]]
 .`split(array $params = [])`
 ****
@@ -1005,8 +905,6 @@ $params['wait_for_active_shards'] = (string) Set the number of active shards to 
 
 
 [[Elasticsearch_Namespaces_IndicesNamespacestats_stats]]
-.`stats()`
-[[Elasticsearch_Namespaces_IndicesNamespacestats_stats]]
 .`stats(array $params = [])`
 ****
 [source,php]
@@ -1019,8 +917,6 @@ $params['metric']                     = (list) Limit the information returned th
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceunfreeze_unfreeze]]
-.`unfreeze()`
 [[Elasticsearch_Namespaces_IndicesNamespaceunfreeze_unfreeze]]
 .`unfreeze(array $params = [])`
 ****
@@ -1041,8 +937,6 @@ $params['wait_for_active_shards'] = (string) Sets the number of active shards to
 
 
 [[Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases]]
-.`updateAliases()`
-[[Elasticsearch_Namespaces_IndicesNamespaceupdateAliases_updateAliases]]
 .`updateAliases(array $params = [])`
 ****
 [source,php]
@@ -1057,8 +951,6 @@ $params['body']           = (array) The definition of `actions` to perform (Requ
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade]]
-.`upgrade()`
 [[Elasticsearch_Namespaces_IndicesNamespaceupgrade_upgrade]]
 .`upgrade(array $params = [])`
 ****
@@ -1077,8 +969,6 @@ $params['only_ancient_segments'] = (boolean) If true, only ancient (an older Luc
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery]]
-.`validateQuery()`
 [[Elasticsearch_Namespaces_IndicesNamespacevalidateQuery_validateQuery]]
 .`validateQuery(array $params = [])`
 ****
@@ -1104,8 +994,6 @@ $params['rewrite']            = (boolean) Provide a more detailed explanation sh
 
 
 
-[[Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases]]
-.`getAliases()`
 [[Elasticsearch_Namespaces_IndicesNamespacegetAliases_getAliases]]
 .`getAliases(array $params = [])`
 ****

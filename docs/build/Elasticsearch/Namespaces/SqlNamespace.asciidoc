@@ -25,8 +25,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SqlNamespaceclearCursor_clearCursor]]
-.`clearCursor()`
-[[Elasticsearch_Namespaces_SqlNamespaceclearCursor_clearCursor]]
 .`clearCursor(array $params = [])`
 ****
 [source,php]
@@ -38,8 +36,6 @@ The class defines the following methods:
 
 
 
-[[Elasticsearch_Namespaces_SqlNamespacequery_query]]
-.`query()`
 [[Elasticsearch_Namespaces_SqlNamespacequery_query]]
 .`query(array $params = [])`
 ****
@@ -54,8 +50,6 @@ $params['body']   = (array) Use the `query` element to start a query. Use the `c
 
 
 
-[[Elasticsearch_Namespaces_SqlNamespacetranslate_translate]]
-.`translate()`
 [[Elasticsearch_Namespaces_SqlNamespacetranslate_translate]]
 .`translate(array $params = [])`
 ****

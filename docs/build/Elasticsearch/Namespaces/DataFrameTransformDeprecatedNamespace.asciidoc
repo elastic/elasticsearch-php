@@ -30,10 +30,8 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacedeleteTransform_deleteTransform]]
-.`deleteTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacedeleteTransform_deleteTransform]]
 .`deleteTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -47,10 +45,8 @@ $params['force']        = (boolean) When `true`, the transform is deleted regard
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacegetTransform_getTransform]]
-.`getTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacegetTransform_getTransform]]
 .`getTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -67,10 +63,8 @@ $params['exclude_generated'] = (boolean) Omits generated fields. Allows transfor
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacegetTransformStats_getTransformStats]]
-.`getTransformStats()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacegetTransformStats_getTransformStats]]
 .`getTransformStats(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -86,8 +80,6 @@ $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacepreviewTransform_previewTransform]]
-.`previewTransform()`
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacepreviewTransform_previewTransform]]
 .`previewTransform(array $params = [])`
 ****
 [source,php]
@@ -100,10 +92,8 @@ $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespaceputTransform_putTransform]]
-.`putTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespaceputTransform_putTransform]]
 .`putTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -116,10 +106,8 @@ $params['transform_id']     = (string) The id of the new transform.
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacestartTransform_startTransform]]
-.`startTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacestartTransform_startTransform]]
 .`startTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -133,10 +121,8 @@ $params['timeout']      = (time) Controls the time to wait for the transform to 
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacestopTransform_stopTransform]]
-.`stopTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespacestopTransform_stopTransform]]
 .`stopTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -152,10 +138,8 @@ $params['allow_no_match']      = (boolean) Whether to ignore if a wildcard expre
 
 
 [[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespaceupdateTransform_updateTransform]]
-.`updateTransform()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_DataFrameTransformDeprecatedNamespaceupdateTransform_updateTransform]]
 .`updateTransform(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----

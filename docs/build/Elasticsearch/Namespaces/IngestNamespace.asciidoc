@@ -27,8 +27,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_IngestNamespacedeletePipeline_deletePipeline]]
-.`deletePipeline()`
-[[Elasticsearch_Namespaces_IngestNamespacedeletePipeline_deletePipeline]]
 .`deletePipeline(array $params = [])`
 ****
 [source,php]
@@ -44,8 +42,6 @@ $params['timeout']        = (time) Explicit operation timeout
 
 
 [[Elasticsearch_Namespaces_IngestNamespacegetPipeline_getPipeline]]
-.`getPipeline()`
-[[Elasticsearch_Namespaces_IngestNamespacegetPipeline_getPipeline]]
 .`getPipeline(array $params = [])`
 ****
 [source,php]
@@ -60,8 +56,6 @@ $params['master_timeout'] = (time) Explicit operation timeout for connection to 
 
 
 [[Elasticsearch_Namespaces_IngestNamespaceprocessorGrok_processorGrok]]
-.`processorGrok()`
-[[Elasticsearch_Namespaces_IngestNamespaceprocessorGrok_processorGrok]]
 .`processorGrok(array $params = [])`
 ****
 [source,php]
@@ -73,8 +67,6 @@ $params['master_timeout'] = (time) Explicit operation timeout for connection to 
 
 
 
-[[Elasticsearch_Namespaces_IngestNamespaceputPipeline_putPipeline]]
-.`putPipeline()`
 [[Elasticsearch_Namespaces_IngestNamespaceputPipeline_putPipeline]]
 .`putPipeline(array $params = [])`
 ****
@@ -91,8 +83,6 @@ $params['body']           = (array) The ingest definition (Required)
 
 
 
-[[Elasticsearch_Namespaces_IngestNamespacesimulate_simulate]]
-.`simulate()`
 [[Elasticsearch_Namespaces_IngestNamespacesimulate_simulate]]
 .`simulate(array $params = [])`
 ****

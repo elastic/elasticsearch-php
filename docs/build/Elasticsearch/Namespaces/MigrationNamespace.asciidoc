@@ -23,8 +23,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_MigrationNamespacedeprecations_deprecations]]
-.`deprecations()`
-[[Elasticsearch_Namespaces_MigrationNamespacedeprecations_deprecations]]
 .`deprecations(array $params = [])`
 ****
 [source,php]

@@ -27,8 +27,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_NodesNamespacehotThreads_hotThreads]]
-.`hotThreads()`
-[[Elasticsearch_Namespaces_NodesNamespacehotThreads_hotThreads]]
 .`hotThreads(array $params = [])`
 ****
 [source,php]
@@ -48,8 +46,6 @@ $params['timeout']             = (time) Explicit operation timeout
 
 
 [[Elasticsearch_Namespaces_NodesNamespaceinfo_info]]
-.`info()`
-[[Elasticsearch_Namespaces_NodesNamespaceinfo_info]]
 .`info(array $params = [])`
 ****
 [source,php]
@@ -64,8 +60,6 @@ $params['metric']        = (list) A comma-separated list of metrics you wish ret
 
 
 [[Elasticsearch_Namespaces_NodesNamespacereloadSecureSettings_reloadSecureSettings]]
-.`reloadSecureSettings()`
-[[Elasticsearch_Namespaces_NodesNamespacereloadSecureSettings_reloadSecureSettings]]
 .`reloadSecureSettings(array $params = [])`
 ****
 [source,php]
@@ -78,8 +72,6 @@ $params['node_id'] = (list) A comma-separated list of node IDs to span the reloa
 
 
 
-[[Elasticsearch_Namespaces_NodesNamespacestats_stats]]
-.`stats()`
 [[Elasticsearch_Namespaces_NodesNamespacestats_stats]]
 .`stats(array $params = [])`
 ****
@@ -95,8 +87,6 @@ $params['index_metric']               = (list) Limit the information returned fo
 
 
 
-[[Elasticsearch_Namespaces_NodesNamespaceusage_usage]]
-.`usage()`
 [[Elasticsearch_Namespaces_NodesNamespaceusage_usage]]
 .`usage(array $params = [])`
 ****

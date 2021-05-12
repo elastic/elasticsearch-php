@@ -83,8 +83,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_MlNamespacecloseJob_closeJob]]
-.`closeJob()`
-[[Elasticsearch_Namespaces_MlNamespacecloseJob_closeJob]]
 .`closeJob(array $params = [])`
 ****
 [source,php]
@@ -103,8 +101,6 @@ $params['body']           = (array) The URL params optionally sent in the body
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteCalendar_deleteCalendar]]
-.`deleteCalendar()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteCalendar_deleteCalendar]]
 .`deleteCalendar(array $params = [])`
 ****
 [source,php]
@@ -117,8 +113,6 @@ $params['calendar_id'] = (string) The ID of the calendar to delete
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacedeleteCalendarEvent_deleteCalendarEvent]]
-.`deleteCalendarEvent()`
 [[Elasticsearch_Namespaces_MlNamespacedeleteCalendarEvent_deleteCalendarEvent]]
 .`deleteCalendarEvent(array $params = [])`
 ****
@@ -134,8 +128,6 @@ $params['event_id']    = (string) The ID of the event to remove from the calenda
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteCalendarJob_deleteCalendarJob]]
-.`deleteCalendarJob()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteCalendarJob_deleteCalendarJob]]
 .`deleteCalendarJob(array $params = [])`
 ****
 [source,php]
@@ -150,10 +142,8 @@ $params['job_id']      = (string) The ID of the job to remove from the calendar
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteDataFrameAnalytics_deleteDataFrameAnalytics]]
-.`deleteDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacedeleteDataFrameAnalytics_deleteDataFrameAnalytics]]
 .`deleteDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -167,8 +157,6 @@ $params['timeout'] = (time) Controls the time to wait until a job is deleted. De
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacedeleteDatafeed_deleteDatafeed]]
-.`deleteDatafeed()`
 [[Elasticsearch_Namespaces_MlNamespacedeleteDatafeed_deleteDatafeed]]
 .`deleteDatafeed(array $params = [])`
 ****
@@ -184,8 +172,6 @@ $params['force']       = (boolean) True if the datafeed should be forcefully del
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteExpiredData_deleteExpiredData]]
-.`deleteExpiredData()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteExpiredData_deleteExpiredData]]
 .`deleteExpiredData(array $params = [])`
 ****
 [source,php]
@@ -200,8 +186,6 @@ $params['requests_per_second'] = (number) The desired requests per second for th
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteFilter_deleteFilter]]
-.`deleteFilter()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteFilter_deleteFilter]]
 .`deleteFilter(array $params = [])`
 ****
 [source,php]
@@ -214,8 +198,6 @@ $params['filter_id'] = (string) The ID of the filter to delete
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacedeleteForecast_deleteForecast]]
-.`deleteForecast()`
 [[Elasticsearch_Namespaces_MlNamespacedeleteForecast_deleteForecast]]
 .`deleteForecast(array $params = [])`
 ****
@@ -233,8 +215,6 @@ $params['timeout']            = (time) Controls the time to wait until the forec
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteJob_deleteJob]]
-.`deleteJob()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteJob_deleteJob]]
 .`deleteJob(array $params = [])`
 ****
 [source,php]
@@ -250,8 +230,6 @@ $params['wait_for_completion'] = (boolean) Should this request wait until the op
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteModelSnapshot_deleteModelSnapshot]]
-.`deleteModelSnapshot()`
-[[Elasticsearch_Namespaces_MlNamespacedeleteModelSnapshot_deleteModelSnapshot]]
 .`deleteModelSnapshot(array $params = [])`
 ****
 [source,php]
@@ -266,10 +244,8 @@ $params['snapshot_id'] = (string) The ID of the snapshot to delete
 
 
 [[Elasticsearch_Namespaces_MlNamespacedeleteTrainedModel_deleteTrainedModel]]
-.`deleteTrainedModel()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacedeleteTrainedModel_deleteTrainedModel]]
 .`deleteTrainedModel(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -281,8 +257,6 @@ $params['model_id'] = (string) The ID of the trained model to delete
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceestimateModelMemory_estimateModelMemory]]
-.`estimateModelMemory()`
 [[Elasticsearch_Namespaces_MlNamespaceestimateModelMemory_estimateModelMemory]]
 .`estimateModelMemory(array $params = [])`
 ****
@@ -297,8 +271,6 @@ $params['body'] = (array) The analysis config, plus cardinality estimates for fi
 
 
 [[Elasticsearch_Namespaces_MlNamespaceevaluateDataFrame_evaluateDataFrame]]
-.`evaluateDataFrame()`
-[[Elasticsearch_Namespaces_MlNamespaceevaluateDataFrame_evaluateDataFrame]]
 .`evaluateDataFrame(array $params = [])`
 ****
 [source,php]
@@ -311,10 +283,8 @@ $params['body'] = (array) The analysis config, plus cardinality estimates for fi
 
 
 [[Elasticsearch_Namespaces_MlNamespaceexplainDataFrameAnalytics_explainDataFrameAnalytics]]
-.`explainDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespaceexplainDataFrameAnalytics_explainDataFrameAnalytics]]
 .`explainDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -328,10 +298,8 @@ $params['body'] = (array) The data frame analytics config to explain
 
 
 [[Elasticsearch_Namespaces_MlNamespacefindFileStructure_findFileStructure]]
-.`findFileStructure()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_MlNamespacefindFileStructure_findFileStructure]]
 .`findFileStructure(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -358,8 +326,6 @@ $params['body']                  = (array) The contents of the file to be analyz
 
 
 [[Elasticsearch_Namespaces_MlNamespaceflushJob_flushJob]]
-.`flushJob()`
-[[Elasticsearch_Namespaces_MlNamespaceflushJob_flushJob]]
 .`flushJob(array $params = [])`
 ****
 [source,php]
@@ -379,8 +345,6 @@ $params['body']         = (array) Flush parameters
 
 
 [[Elasticsearch_Namespaces_MlNamespaceforecast_forecast]]
-.`forecast()`
-[[Elasticsearch_Namespaces_MlNamespaceforecast_forecast]]
 .`forecast(array $params = [])`
 ****
 [source,php]
@@ -395,8 +359,6 @@ $params['expires_in']       = (time) The time interval after which the forecast 
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetBuckets_getBuckets]]
-.`getBuckets()`
 [[Elasticsearch_Namespaces_MlNamespacegetBuckets_getBuckets]]
 .`getBuckets(array $params = [])`
 ****
@@ -422,8 +384,6 @@ $params['body']            = (array) Bucket selection details if not provided in
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetCalendarEvents_getCalendarEvents]]
-.`getCalendarEvents()`
-[[Elasticsearch_Namespaces_MlNamespacegetCalendarEvents_getCalendarEvents]]
 .`getCalendarEvents(array $params = [])`
 ****
 [source,php]
@@ -442,8 +402,6 @@ $params['size']        = (int) Specifies a max number of events to get
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetCalendars_getCalendars]]
-.`getCalendars()`
-[[Elasticsearch_Namespaces_MlNamespacegetCalendars_getCalendars]]
 .`getCalendars(array $params = [])`
 ****
 [source,php]
@@ -459,8 +417,6 @@ $params['body']        = (array) The from and size parameters optionally sent in
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetCategories_getCategories]]
-.`getCategories()`
 [[Elasticsearch_Namespaces_MlNamespacegetCategories_getCategories]]
 .`getCategories(array $params = [])`
 ****
@@ -479,10 +435,8 @@ $params['partition_field_value'] = (string) Specifies the partition to retrieve 
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetDataFrameAnalytics_getDataFrameAnalytics]]
-.`getDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacegetDataFrameAnalytics_getDataFrameAnalytics]]
 .`getDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -499,10 +453,8 @@ $params['exclude_generated'] = (boolean) Omits fields that are illegal to set on
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetDataFrameAnalyticsStats_getDataFrameAnalyticsStats]]
-.`getDataFrameAnalyticsStats()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacegetDataFrameAnalyticsStats_getDataFrameAnalyticsStats]]
 .`getDataFrameAnalyticsStats(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -519,8 +471,6 @@ $params['verbose']        = (boolean) whether the stats response should be verbo
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetDatafeedStats_getDatafeedStats]]
-.`getDatafeedStats()`
-[[Elasticsearch_Namespaces_MlNamespacegetDatafeedStats_getDatafeedStats]]
 .`getDatafeedStats(array $params = [])`
 ****
 [source,php]
@@ -535,8 +485,6 @@ $params['allow_no_datafeeds'] = (boolean) Whether to ignore if a wildcard expres
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetDatafeeds_getDatafeeds]]
-.`getDatafeeds()`
 [[Elasticsearch_Namespaces_MlNamespacegetDatafeeds_getDatafeeds]]
 .`getDatafeeds(array $params = [])`
 ****
@@ -554,8 +502,6 @@ $params['exclude_generated']  = (boolean) Omits fields that are illegal to set o
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetFilters_getFilters]]
-.`getFilters()`
-[[Elasticsearch_Namespaces_MlNamespacegetFilters_getFilters]]
 .`getFilters(array $params = [])`
 ****
 [source,php]
@@ -570,8 +516,6 @@ $params['size']      = (int) specifies a max number of filters to get
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetInfluencers_getInfluencers]]
-.`getInfluencers()`
 [[Elasticsearch_Namespaces_MlNamespacegetInfluencers_getInfluencers]]
 .`getInfluencers(array $params = [])`
 ****
@@ -595,8 +539,6 @@ $params['body']             = (array) Influencer selection criteria
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetJobStats_getJobStats]]
-.`getJobStats()`
-[[Elasticsearch_Namespaces_MlNamespacegetJobStats_getJobStats]]
 .`getJobStats(array $params = [])`
 ****
 [source,php]
@@ -611,8 +553,6 @@ $params['allow_no_jobs']  = (boolean) Whether to ignore if a wildcard expression
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetJobs_getJobs]]
-.`getJobs()`
 [[Elasticsearch_Namespaces_MlNamespacegetJobs_getJobs]]
 .`getJobs(array $params = [])`
 ****
@@ -630,8 +570,6 @@ $params['exclude_generated'] = (boolean) Omits fields that are illegal to set on
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetModelSnapshots_getModelSnapshots]]
-.`getModelSnapshots()`
-[[Elasticsearch_Namespaces_MlNamespacegetModelSnapshots_getModelSnapshots]]
 .`getModelSnapshots(array $params = [])`
 ****
 [source,php]
@@ -647,8 +585,6 @@ $params['size']        = (int) The default number of documents returned in queri
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacegetOverallBuckets_getOverallBuckets]]
-.`getOverallBuckets()`
 [[Elasticsearch_Namespaces_MlNamespacegetOverallBuckets_getOverallBuckets]]
 .`getOverallBuckets(array $params = [])`
 ****
@@ -672,8 +608,6 @@ $params['body']            = (array) Overall bucket selection details if not pro
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetRecords_getRecords]]
-.`getRecords()`
-[[Elasticsearch_Namespaces_MlNamespacegetRecords_getRecords]]
 .`getRecords(array $params = [])`
 ****
 [source,php]
@@ -696,10 +630,8 @@ $params['body']            = (array) Record selection criteria
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetTrainedModels_getTrainedModels]]
-.`getTrainedModels()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacegetTrainedModels_getTrainedModels]]
 .`getTrainedModels(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -714,10 +646,8 @@ $params['include']                  = (string) A comma-separate list of fields t
 
 
 [[Elasticsearch_Namespaces_MlNamespacegetTrainedModelsStats_getTrainedModelsStats]]
-.`getTrainedModelsStats()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacegetTrainedModelsStats_getTrainedModelsStats]]
 .`getTrainedModelsStats(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -733,8 +663,6 @@ $params['size']           = (int) specifies a max number of trained models to ge
 
 
 [[Elasticsearch_Namespaces_MlNamespaceinfo_info]]
-.`info()`
-[[Elasticsearch_Namespaces_MlNamespaceinfo_info]]
 .`info(array $params = [])`
 ****
 [source,php]
@@ -746,8 +674,6 @@ $params['size']           = (int) specifies a max number of trained models to ge
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceopenJob_openJob]]
-.`openJob()`
 [[Elasticsearch_Namespaces_MlNamespaceopenJob_openJob]]
 .`openJob(array $params = [])`
 ****
@@ -762,8 +688,6 @@ $params['job_id'] = (string) The ID of the job to open
 
 
 [[Elasticsearch_Namespaces_MlNamespacepostCalendarEvents_postCalendarEvents]]
-.`postCalendarEvents()`
-[[Elasticsearch_Namespaces_MlNamespacepostCalendarEvents_postCalendarEvents]]
 .`postCalendarEvents(array $params = [])`
 ****
 [source,php]
@@ -777,8 +701,6 @@ $params['body']        = (array) A list of events (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacepostData_postData]]
-.`postData()`
 [[Elasticsearch_Namespaces_MlNamespacepostData_postData]]
 .`postData(array $params = [])`
 ****
@@ -796,8 +718,6 @@ $params['body']        = (array) The data to process (Required)
 
 
 [[Elasticsearch_Namespaces_MlNamespacepreviewDatafeed_previewDatafeed]]
-.`previewDatafeed()`
-[[Elasticsearch_Namespaces_MlNamespacepreviewDatafeed_previewDatafeed]]
 .`previewDatafeed(array $params = [])`
 ****
 [source,php]
@@ -810,8 +730,6 @@ $params['datafeed_id'] = (string) The ID of the datafeed to preview
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceputCalendar_putCalendar]]
-.`putCalendar()`
 [[Elasticsearch_Namespaces_MlNamespaceputCalendar_putCalendar]]
 .`putCalendar(array $params = [])`
 ****
@@ -827,8 +745,6 @@ $params['body']        = (array) The calendar details
 
 
 [[Elasticsearch_Namespaces_MlNamespaceputCalendarJob_putCalendarJob]]
-.`putCalendarJob()`
-[[Elasticsearch_Namespaces_MlNamespaceputCalendarJob_putCalendarJob]]
 .`putCalendarJob(array $params = [])`
 ****
 [source,php]
@@ -843,10 +759,8 @@ $params['job_id']      = (string) The ID of the job to add to the calendar
 
 
 [[Elasticsearch_Namespaces_MlNamespaceputDataFrameAnalytics_putDataFrameAnalytics]]
-.`putDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespaceputDataFrameAnalytics_putDataFrameAnalytics]]
 .`putDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -859,8 +773,6 @@ $params['body'] = (array) The data frame analytics configuration (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceputDatafeed_putDatafeed]]
-.`putDatafeed()`
 [[Elasticsearch_Namespaces_MlNamespaceputDatafeed_putDatafeed]]
 .`putDatafeed(array $params = [])`
 ****
@@ -880,8 +792,6 @@ $params['body']               = (array) The datafeed config (Required)
 
 
 [[Elasticsearch_Namespaces_MlNamespaceputFilter_putFilter]]
-.`putFilter()`
-[[Elasticsearch_Namespaces_MlNamespaceputFilter_putFilter]]
 .`putFilter(array $params = [])`
 ****
 [source,php]
@@ -895,8 +805,6 @@ $params['body']      = (array) The filter details (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceputJob_putJob]]
-.`putJob()`
 [[Elasticsearch_Namespaces_MlNamespaceputJob_putJob]]
 .`putJob(array $params = [])`
 ****
@@ -912,10 +820,8 @@ $params['body']   = (array) The job (Required)
 
 
 [[Elasticsearch_Namespaces_MlNamespaceputTrainedModel_putTrainedModel]]
-.`putTrainedModel()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespaceputTrainedModel_putTrainedModel]]
 .`putTrainedModel(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -928,8 +834,6 @@ $params['body']     = (array) The trained model configuration (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacerevertModelSnapshot_revertModelSnapshot]]
-.`revertModelSnapshot()`
 [[Elasticsearch_Namespaces_MlNamespacerevertModelSnapshot_revertModelSnapshot]]
 .`revertModelSnapshot(array $params = [])`
 ****
@@ -947,8 +851,6 @@ $params['body']                       = (array) Reversion options
 
 
 [[Elasticsearch_Namespaces_MlNamespacesetUpgradeMode_setUpgradeMode]]
-.`setUpgradeMode()`
-[[Elasticsearch_Namespaces_MlNamespacesetUpgradeMode_setUpgradeMode]]
 .`setUpgradeMode(array $params = [])`
 ****
 [source,php]
@@ -962,10 +864,8 @@ $params['enabled'] = (boolean) Whether to enable upgrade_mode ML setting or not.
 
 
 [[Elasticsearch_Namespaces_MlNamespacestartDataFrameAnalytics_startDataFrameAnalytics]]
-.`startDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacestartDataFrameAnalytics_startDataFrameAnalytics]]
 .`startDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -979,8 +879,6 @@ $params['body']    = (array) The start data frame analytics parameters
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacestartDatafeed_startDatafeed]]
-.`startDatafeed()`
 [[Elasticsearch_Namespaces_MlNamespacestartDatafeed_startDatafeed]]
 .`startDatafeed(array $params = [])`
 ****
@@ -999,10 +897,8 @@ $params['body']        = (array) The start datafeed parameters
 
 
 [[Elasticsearch_Namespaces_MlNamespacestopDataFrameAnalytics_stopDataFrameAnalytics]]
-.`stopDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespacestopDataFrameAnalytics_stopDataFrameAnalytics]]
 .`stopDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -1018,8 +914,6 @@ $params['body']           = (array) The stop data frame analytics parameters
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacestopDatafeed_stopDatafeed]]
-.`stopDatafeed()`
 [[Elasticsearch_Namespaces_MlNamespacestopDatafeed_stopDatafeed]]
 .`stopDatafeed(array $params = [])`
 ****
@@ -1037,10 +931,8 @@ $params['force']              = (boolean) True if the datafeed should be forcefu
 
 
 [[Elasticsearch_Namespaces_MlNamespaceupdateDataFrameAnalytics_updateDataFrameAnalytics]]
-.`updateDataFrameAnalytics()`
-*NOTE:* This API is BETA and may change in ways that are not backwards compatible
-[[Elasticsearch_Namespaces_MlNamespaceupdateDataFrameAnalytics_updateDataFrameAnalytics]]
 .`updateDataFrameAnalytics(array $params = [])`
+*NOTE:* This API is BETA and may change in ways that are not backwards compatible
 ****
 [source,php]
 ----
@@ -1053,8 +945,6 @@ $params['body'] = (array) The data frame analytics settings to update (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceupdateDatafeed_updateDatafeed]]
-.`updateDatafeed()`
 [[Elasticsearch_Namespaces_MlNamespaceupdateDatafeed_updateDatafeed]]
 .`updateDatafeed(array $params = [])`
 ****
@@ -1074,8 +964,6 @@ $params['body']               = (array) The datafeed update settings (Required)
 
 
 [[Elasticsearch_Namespaces_MlNamespaceupdateFilter_updateFilter]]
-.`updateFilter()`
-[[Elasticsearch_Namespaces_MlNamespaceupdateFilter_updateFilter]]
 .`updateFilter(array $params = [])`
 ****
 [source,php]
@@ -1090,8 +978,6 @@ $params['body']      = (array) The filter update (Required)
 
 
 [[Elasticsearch_Namespaces_MlNamespaceupdateJob_updateJob]]
-.`updateJob()`
-[[Elasticsearch_Namespaces_MlNamespaceupdateJob_updateJob]]
 .`updateJob(array $params = [])`
 ****
 [source,php]
@@ -1105,8 +991,6 @@ $params['body']   = (array) The job update settings (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespaceupdateModelSnapshot_updateModelSnapshot]]
-.`updateModelSnapshot()`
 [[Elasticsearch_Namespaces_MlNamespaceupdateModelSnapshot_updateModelSnapshot]]
 .`updateModelSnapshot(array $params = [])`
 ****
@@ -1123,8 +1007,6 @@ $params['body']        = (array) The model snapshot properties to update (Requir
 
 
 [[Elasticsearch_Namespaces_MlNamespaceupgradeJobSnapshot_upgradeJobSnapshot]]
-.`upgradeJobSnapshot()`
-[[Elasticsearch_Namespaces_MlNamespaceupgradeJobSnapshot_upgradeJobSnapshot]]
 .`upgradeJobSnapshot(array $params = [])`
 ****
 [source,php]
@@ -1140,8 +1022,6 @@ $params['timeout']             = (time) How long should the API wait for the job
 
 
 [[Elasticsearch_Namespaces_MlNamespacevalidate_validate]]
-.`validate()`
-[[Elasticsearch_Namespaces_MlNamespacevalidate_validate]]
 .`validate(array $params = [])`
 ****
 [source,php]
@@ -1154,8 +1034,6 @@ $params['body'] = (array) The job config (Required)
 
 
 
-[[Elasticsearch_Namespaces_MlNamespacevalidateDetector_validateDetector]]
-.`validateDetector()`
 [[Elasticsearch_Namespaces_MlNamespacevalidateDetector_validateDetector]]
 .`validateDetector(array $params = [])`
 ****

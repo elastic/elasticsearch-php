@@ -23,8 +23,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SslNamespacecertificates_certificates]]
-.`certificates()`
-[[Elasticsearch_Namespaces_SslNamespacecertificates_certificates]]
 .`certificates(array $params = [])`
 ****
 [source,php]

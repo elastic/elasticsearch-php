@@ -26,10 +26,8 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_TasksNamespacecancel_cancel]]
-.`cancel()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_TasksNamespacecancel_cancel]]
 .`cancel(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -44,10 +42,8 @@ $params['actions']             = (list) A comma-separated list of actions that s
 
 
 [[Elasticsearch_Namespaces_TasksNamespaceget_get]]
-.`get()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_TasksNamespaceget_get]]
 .`get(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -62,10 +58,8 @@ $params['timeout']             = (time) Explicit operation timeout
 
 
 [[Elasticsearch_Namespaces_TasksNamespacelist_list]]
-.`list()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_TasksNamespacelist_list]]
 .`list(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -78,8 +72,6 @@ $params['actions']             = (list) A comma-separated list of actions that s
 
 
 
-[[Elasticsearch_Namespaces_TasksNamespacetasksList_tasksList]]
-.`tasksList()`
 [[Elasticsearch_Namespaces_TasksNamespacetasksList_tasksList]]
 .`tasksList(array $params = [])`
 ****

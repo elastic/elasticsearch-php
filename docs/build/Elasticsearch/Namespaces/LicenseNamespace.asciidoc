@@ -29,8 +29,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_LicenseNamespacedelete_delete]]
-.`delete()`
-[[Elasticsearch_Namespaces_LicenseNamespacedelete_delete]]
 .`delete(array $params = [])`
 ****
 [source,php]
@@ -42,8 +40,6 @@ The class defines the following methods:
 
 
 
-[[Elasticsearch_Namespaces_LicenseNamespaceget_get]]
-.`get()`
 [[Elasticsearch_Namespaces_LicenseNamespaceget_get]]
 .`get(array $params = [])`
 ****
@@ -59,8 +55,6 @@ $params['accept_enterprise'] = (boolean) If the active license is an enterprise 
 
 
 [[Elasticsearch_Namespaces_LicenseNamespacegetBasicStatus_getBasicStatus]]
-.`getBasicStatus()`
-[[Elasticsearch_Namespaces_LicenseNamespacegetBasicStatus_getBasicStatus]]
 .`getBasicStatus(array $params = [])`
 ****
 [source,php]
@@ -73,8 +67,6 @@ $params['accept_enterprise'] = (boolean) If the active license is an enterprise 
 
 
 [[Elasticsearch_Namespaces_LicenseNamespacegetTrialStatus_getTrialStatus]]
-.`getTrialStatus()`
-[[Elasticsearch_Namespaces_LicenseNamespacegetTrialStatus_getTrialStatus]]
 .`getTrialStatus(array $params = [])`
 ****
 [source,php]
@@ -86,8 +78,6 @@ $params['accept_enterprise'] = (boolean) If the active license is an enterprise 
 
 
 
-[[Elasticsearch_Namespaces_LicenseNamespacepost_post]]
-.`post()`
 [[Elasticsearch_Namespaces_LicenseNamespacepost_post]]
 .`post(array $params = [])`
 ****
@@ -103,8 +93,6 @@ $params['body']        = (array) licenses to be installed
 
 
 [[Elasticsearch_Namespaces_LicenseNamespacepostStartBasic_postStartBasic]]
-.`postStartBasic()`
-[[Elasticsearch_Namespaces_LicenseNamespacepostStartBasic_postStartBasic]]
 .`postStartBasic(array $params = [])`
 ****
 [source,php]
@@ -117,8 +105,6 @@ $params['acknowledge'] = (boolean) whether the user has acknowledged acknowledge
 
 
 
-[[Elasticsearch_Namespaces_LicenseNamespacepostStartTrial_postStartTrial]]
-.`postStartTrial()`
 [[Elasticsearch_Namespaces_LicenseNamespacepostStartTrial_postStartTrial]]
 .`postStartTrial(array $params = [])`
 ****

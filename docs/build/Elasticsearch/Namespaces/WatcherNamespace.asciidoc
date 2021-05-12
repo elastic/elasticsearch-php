@@ -33,8 +33,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_WatcherNamespaceackWatch_ackWatch]]
-.`ackWatch()`
-[[Elasticsearch_Namespaces_WatcherNamespaceackWatch_ackWatch]]
 .`ackWatch(array $params = [])`
 ****
 [source,php]
@@ -49,8 +47,6 @@ $params['action_id'] = (list) A comma-separated list of the action ids to be ack
 
 
 [[Elasticsearch_Namespaces_WatcherNamespaceactivateWatch_activateWatch]]
-.`activateWatch()`
-[[Elasticsearch_Namespaces_WatcherNamespaceactivateWatch_activateWatch]]
 .`activateWatch(array $params = [])`
 ****
 [source,php]
@@ -63,8 +59,6 @@ $params['watch_id'] = (string) Watch ID
 
 
 
-[[Elasticsearch_Namespaces_WatcherNamespacedeactivateWatch_deactivateWatch]]
-.`deactivateWatch()`
 [[Elasticsearch_Namespaces_WatcherNamespacedeactivateWatch_deactivateWatch]]
 .`deactivateWatch(array $params = [])`
 ****
@@ -79,8 +73,6 @@ $params['watch_id'] = (string) Watch ID
 
 
 [[Elasticsearch_Namespaces_WatcherNamespacedeleteWatch_deleteWatch]]
-.`deleteWatch()`
-[[Elasticsearch_Namespaces_WatcherNamespacedeleteWatch_deleteWatch]]
 .`deleteWatch(array $params = [])`
 ****
 [source,php]
@@ -93,8 +85,6 @@ $params['id'] = (string) Watch ID
 
 
 
-[[Elasticsearch_Namespaces_WatcherNamespaceexecuteWatch_executeWatch]]
-.`executeWatch()`
 [[Elasticsearch_Namespaces_WatcherNamespaceexecuteWatch_executeWatch]]
 .`executeWatch(array $params = [])`
 ****
@@ -111,8 +101,6 @@ $params['body']  = (array) Execution control
 
 
 [[Elasticsearch_Namespaces_WatcherNamespacegetWatch_getWatch]]
-.`getWatch()`
-[[Elasticsearch_Namespaces_WatcherNamespacegetWatch_getWatch]]
 .`getWatch(array $params = [])`
 ****
 [source,php]
@@ -125,8 +113,6 @@ $params['id'] = (string) Watch ID
 
 
 
-[[Elasticsearch_Namespaces_WatcherNamespaceputWatch_putWatch]]
-.`putWatch()`
 [[Elasticsearch_Namespaces_WatcherNamespaceputWatch_putWatch]]
 .`putWatch(array $params = [])`
 ****
@@ -146,8 +132,6 @@ $params['body']            = (array) The watch
 
 
 [[Elasticsearch_Namespaces_WatcherNamespacequeryWatches_queryWatches]]
-.`queryWatches()`
-[[Elasticsearch_Namespaces_WatcherNamespacequeryWatches_queryWatches]]
 .`queryWatches(array $params = [])`
 ****
 [source,php]
@@ -161,8 +145,6 @@ $params['body'] = (array) From, size, query, sort and search_after
 
 
 [[Elasticsearch_Namespaces_WatcherNamespacestart_start]]
-.`start()`
-[[Elasticsearch_Namespaces_WatcherNamespacestart_start]]
 .`start(array $params = [])`
 ****
 [source,php]
@@ -174,8 +156,6 @@ $params['body'] = (array) From, size, query, sort and search_after
 
 
 
-[[Elasticsearch_Namespaces_WatcherNamespacestats_stats]]
-.`stats()`
 [[Elasticsearch_Namespaces_WatcherNamespacestats_stats]]
 .`stats(array $params = [])`
 ****
@@ -190,8 +170,6 @@ $params['emit_stacktraces'] = (boolean) Emits stack traces of currently running 
 
 
 
-[[Elasticsearch_Namespaces_WatcherNamespacestop_stop]]
-.`stop()`
 [[Elasticsearch_Namespaces_WatcherNamespacestop_stop]]
 .`stop(array $params = [])`
 ****

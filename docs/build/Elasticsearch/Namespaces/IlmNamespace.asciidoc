@@ -32,8 +32,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_IlmNamespacedeleteLifecycle_deleteLifecycle]]
-.`deleteLifecycle()`
-[[Elasticsearch_Namespaces_IlmNamespacedeleteLifecycle_deleteLifecycle]]
 .`deleteLifecycle(array $params = [])`
 ****
 [source,php]
@@ -46,8 +44,6 @@ $params['policy'] = (string) The name of the index lifecycle policy
 
 
 
-[[Elasticsearch_Namespaces_IlmNamespaceexplainLifecycle_explainLifecycle]]
-.`explainLifecycle()`
 [[Elasticsearch_Namespaces_IlmNamespaceexplainLifecycle_explainLifecycle]]
 .`explainLifecycle(array $params = [])`
 ****
@@ -64,8 +60,6 @@ $params['only_errors']  = (boolean) filters the indices included in the response
 
 
 [[Elasticsearch_Namespaces_IlmNamespacegetLifecycle_getLifecycle]]
-.`getLifecycle()`
-[[Elasticsearch_Namespaces_IlmNamespacegetLifecycle_getLifecycle]]
 .`getLifecycle(array $params = [])`
 ****
 [source,php]
@@ -79,8 +73,6 @@ $params['policy'] = (string) The name of the index lifecycle policy
 
 
 [[Elasticsearch_Namespaces_IlmNamespacegetStatus_getStatus]]
-.`getStatus()`
-[[Elasticsearch_Namespaces_IlmNamespacegetStatus_getStatus]]
 .`getStatus(array $params = [])`
 ****
 [source,php]
@@ -92,8 +84,6 @@ $params['policy'] = (string) The name of the index lifecycle policy
 
 
 
-[[Elasticsearch_Namespaces_IlmNamespacemoveToStep_moveToStep]]
-.`moveToStep()`
 [[Elasticsearch_Namespaces_IlmNamespacemoveToStep_moveToStep]]
 .`moveToStep(array $params = [])`
 ****
@@ -109,8 +99,6 @@ $params['body']  = (array) The new lifecycle step to move to
 
 
 [[Elasticsearch_Namespaces_IlmNamespaceputLifecycle_putLifecycle]]
-.`putLifecycle()`
-[[Elasticsearch_Namespaces_IlmNamespaceputLifecycle_putLifecycle]]
 .`putLifecycle(array $params = [])`
 ****
 [source,php]
@@ -125,8 +113,6 @@ $params['body']   = (array) The lifecycle policy definition to register
 
 
 [[Elasticsearch_Namespaces_IlmNamespaceremovePolicy_removePolicy]]
-.`removePolicy()`
-[[Elasticsearch_Namespaces_IlmNamespaceremovePolicy_removePolicy]]
 .`removePolicy(array $params = [])`
 ****
 [source,php]
@@ -139,8 +125,6 @@ $params['index'] = (string) The name of the index to remove policy on
 
 
 
-[[Elasticsearch_Namespaces_IlmNamespaceretry_retry]]
-.`retry()`
 [[Elasticsearch_Namespaces_IlmNamespaceretry_retry]]
 .`retry(array $params = [])`
 ****
@@ -155,8 +139,6 @@ $params['index'] = (string) The name of the indices (comma-separated) whose fail
 
 
 [[Elasticsearch_Namespaces_IlmNamespacestart_start]]
-.`start()`
-[[Elasticsearch_Namespaces_IlmNamespacestart_start]]
 .`start(array $params = [])`
 ****
 [source,php]
@@ -168,8 +150,6 @@ $params['index'] = (string) The name of the indices (comma-separated) whose fail
 
 
 
-[[Elasticsearch_Namespaces_IlmNamespacestop_stop]]
-.`stop()`
 [[Elasticsearch_Namespaces_IlmNamespacestop_stop]]
 .`stop(array $params = [])`
 ****

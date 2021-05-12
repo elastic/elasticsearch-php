@@ -26,8 +26,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_AutoscalingNamespacedeleteAutoscalingPolicy_deleteAutoscalingPolicy]]
-.`deleteAutoscalingPolicy()`
-[[Elasticsearch_Namespaces_AutoscalingNamespacedeleteAutoscalingPolicy_deleteAutoscalingPolicy]]
 .`deleteAutoscalingPolicy(array $params = [])`
 ****
 [source,php]
@@ -41,8 +39,6 @@ $params['name'] = (string) the name of the autoscaling policy
 
 
 [[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingCapacity_getAutoscalingCapacity]]
-.`getAutoscalingCapacity()`
-[[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingCapacity_getAutoscalingCapacity]]
 .`getAutoscalingCapacity(array $params = [])`
 ****
 [source,php]
@@ -54,8 +50,6 @@ $params['name'] = (string) the name of the autoscaling policy
 
 
 
-[[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingPolicy_getAutoscalingPolicy]]
-.`getAutoscalingPolicy()`
 [[Elasticsearch_Namespaces_AutoscalingNamespacegetAutoscalingPolicy_getAutoscalingPolicy]]
 .`getAutoscalingPolicy(array $params = [])`
 ****
@@ -69,8 +63,6 @@ $params['name'] = (string) the name of the autoscaling policy
 
 
 
-[[Elasticsearch_Namespaces_AutoscalingNamespaceputAutoscalingPolicy_putAutoscalingPolicy]]
-.`putAutoscalingPolicy()`
 [[Elasticsearch_Namespaces_AutoscalingNamespaceputAutoscalingPolicy_putAutoscalingPolicy]]
 .`putAutoscalingPolicy(array $params = [])`
 ****

@@ -35,8 +35,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_CcrNamespacedeleteAutoFollowPattern_deleteAutoFollowPattern]]
-.`deleteAutoFollowPattern()`
-[[Elasticsearch_Namespaces_CcrNamespacedeleteAutoFollowPattern_deleteAutoFollowPattern]]
 .`deleteAutoFollowPattern(array $params = [])`
 ****
 [source,php]
@@ -49,8 +47,6 @@ $params['name'] = (string) The name of the auto follow pattern.
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespacefollow_follow]]
-.`follow()`
 [[Elasticsearch_Namespaces_CcrNamespacefollow_follow]]
 .`follow(array $params = [])`
 ****
@@ -67,8 +63,6 @@ $params['body']                   = (array) The name of the leader index and oth
 
 
 [[Elasticsearch_Namespaces_CcrNamespacefollowInfo_followInfo]]
-.`followInfo()`
-[[Elasticsearch_Namespaces_CcrNamespacefollowInfo_followInfo]]
 .`followInfo(array $params = [])`
 ****
 [source,php]
@@ -82,8 +76,6 @@ $params['index'] = (list) A comma-separated list of index patterns; use `_all` t
 
 
 [[Elasticsearch_Namespaces_CcrNamespacefollowStats_followStats]]
-.`followStats()`
-[[Elasticsearch_Namespaces_CcrNamespacefollowStats_followStats]]
 .`followStats(array $params = [])`
 ****
 [source,php]
@@ -96,8 +88,6 @@ $params['index'] = (list) A comma-separated list of index patterns; use `_all` t
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespaceforgetFollower_forgetFollower]]
-.`forgetFollower()`
 [[Elasticsearch_Namespaces_CcrNamespaceforgetFollower_forgetFollower]]
 .`forgetFollower(array $params = [])`
 ****
@@ -113,8 +103,6 @@ $params['body']  = (array) the name and UUID of the follower index, the name of 
 
 
 [[Elasticsearch_Namespaces_CcrNamespacegetAutoFollowPattern_getAutoFollowPattern]]
-.`getAutoFollowPattern()`
-[[Elasticsearch_Namespaces_CcrNamespacegetAutoFollowPattern_getAutoFollowPattern]]
 .`getAutoFollowPattern(array $params = [])`
 ****
 [source,php]
@@ -127,8 +115,6 @@ $params['name'] = (string) The name of the auto follow pattern.
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespacepauseAutoFollowPattern_pauseAutoFollowPattern]]
-.`pauseAutoFollowPattern()`
 [[Elasticsearch_Namespaces_CcrNamespacepauseAutoFollowPattern_pauseAutoFollowPattern]]
 .`pauseAutoFollowPattern(array $params = [])`
 ****
@@ -143,8 +129,6 @@ $params['name'] = (string) The name of the auto follow pattern that should pause
 
 
 [[Elasticsearch_Namespaces_CcrNamespacepauseFollow_pauseFollow]]
-.`pauseFollow()`
-[[Elasticsearch_Namespaces_CcrNamespacepauseFollow_pauseFollow]]
 .`pauseFollow(array $params = [])`
 ****
 [source,php]
@@ -157,8 +141,6 @@ $params['index'] = (string) The name of the follower index that should pause fol
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespaceputAutoFollowPattern_putAutoFollowPattern]]
-.`putAutoFollowPattern()`
 [[Elasticsearch_Namespaces_CcrNamespaceputAutoFollowPattern_putAutoFollowPattern]]
 .`putAutoFollowPattern(array $params = [])`
 ****
@@ -173,8 +155,6 @@ $params['name'] = (string) The name of the auto follow pattern.
 
 
 [[Elasticsearch_Namespaces_CcrNamespaceresumeAutoFollowPattern_resumeAutoFollowPattern]]
-.`resumeAutoFollowPattern()`
-[[Elasticsearch_Namespaces_CcrNamespaceresumeAutoFollowPattern_resumeAutoFollowPattern]]
 .`resumeAutoFollowPattern(array $params = [])`
 ****
 [source,php]
@@ -187,8 +167,6 @@ $params['name'] = (string) The name of the auto follow pattern to resume discove
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespaceresumeFollow_resumeFollow]]
-.`resumeFollow()`
 [[Elasticsearch_Namespaces_CcrNamespaceresumeFollow_resumeFollow]]
 .`resumeFollow(array $params = [])`
 ****
@@ -203,8 +181,6 @@ $params['index'] = (string) The name of the follow index to resume following.
 
 
 [[Elasticsearch_Namespaces_CcrNamespacestats_stats]]
-.`stats()`
-[[Elasticsearch_Namespaces_CcrNamespacestats_stats]]
 .`stats(array $params = [])`
 ****
 [source,php]
@@ -216,8 +192,6 @@ $params['index'] = (string) The name of the follow index to resume following.
 
 
 
-[[Elasticsearch_Namespaces_CcrNamespaceunfollow_unfollow]]
-.`unfollow()`
 [[Elasticsearch_Namespaces_CcrNamespaceunfollow_unfollow]]
 .`unfollow(array $params = [])`
 ****

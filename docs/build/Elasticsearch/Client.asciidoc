@@ -97,8 +97,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Clientbulk_bulk]]
-.`bulk()`
-[[Elasticsearch_Clientbulk_bulk]]
 .`bulk(array $params = [])`
 ****
 [source,php]
@@ -123,8 +121,6 @@ $params['body']                   = (array) The operation definition and data (a
 
 
 [[Elasticsearch_ClientclearScroll_clearScroll]]
-.`clearScroll()`
-[[Elasticsearch_ClientclearScroll_clearScroll]]
 .`clearScroll(array $params = [])`
 ****
 [source,php]
@@ -139,8 +135,6 @@ $params['body']      = (array) A comma-separated list of scroll IDs to clear if 
 
 
 [[Elasticsearch_ClientclosePointInTime_closePointInTime]]
-.`closePointInTime()`
-[[Elasticsearch_ClientclosePointInTime_closePointInTime]]
 .`closePointInTime(array $params = [])`
 ****
 [source,php]
@@ -153,8 +147,6 @@ $params['body'] = (array) a point-in-time id to close
 
 
 
-[[Elasticsearch_Clientcount_count]]
-.`count()`
 [[Elasticsearch_Clientcount_count]]
 .`count(array $params = [])`
 ****
@@ -185,8 +177,6 @@ $params['body']               = (array) A query to restrict the results specifie
 
 
 [[Elasticsearch_Clientcreate_create]]
-.`create()`
-[[Elasticsearch_Clientcreate_create]]
 .`create(array $params = [])`
 ****
 [source,php]
@@ -210,8 +200,6 @@ $params['body']                   = (array) The document (Required)
 
 
 [[Elasticsearch_Clientdelete_delete]]
-.`delete()`
-[[Elasticsearch_Clientdelete_delete]]
 .`delete(array $params = [])`
 ****
 [source,php]
@@ -234,8 +222,6 @@ $params['version_type']           = (enum) Specific version type (Options = inte
 
 
 
-[[Elasticsearch_ClientdeleteByQuery_deleteByQuery]]
-.`deleteByQuery()`
 [[Elasticsearch_ClientdeleteByQuery_deleteByQuery]]
 .`deleteByQuery(array $params = [])`
 ****
@@ -267,8 +253,6 @@ $params['search_timeout']         = (time) Explicit timeout for each search requ
 
 
 [[Elasticsearch_ClientdeleteByQueryRethrottle_deleteByQueryRethrottle]]
-.`deleteByQueryRethrottle()`
-[[Elasticsearch_ClientdeleteByQueryRethrottle_deleteByQueryRethrottle]]
 .`deleteByQueryRethrottle(array $params = [])`
 ****
 [source,php]
@@ -282,8 +266,6 @@ $params['requests_per_second'] = (number) The throttle to set on this request in
 
 
 
-[[Elasticsearch_ClientdeleteScript_deleteScript]]
-.`deleteScript()`
 [[Elasticsearch_ClientdeleteScript_deleteScript]]
 .`deleteScript(array $params = [])`
 ****
@@ -299,8 +281,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 
-[[Elasticsearch_Clientexists_exists]]
-.`exists()`
 [[Elasticsearch_Clientexists_exists]]
 .`exists(array $params = [])`
 ****
@@ -327,8 +307,6 @@ $params['version_type']     = (enum) Specific version type (Options = internal,e
 
 
 [[Elasticsearch_ClientexistsSource_existsSource]]
-.`existsSource()`
-[[Elasticsearch_ClientexistsSource_existsSource]]
 .`existsSource(array $params = [])`
 ****
 [source,php]
@@ -352,8 +330,6 @@ $params['version_type']     = (enum) Specific version type (Options = internal,e
 
 
 
-[[Elasticsearch_Clientexplain_explain]]
-.`explain()`
 [[Elasticsearch_Clientexplain_explain]]
 .`explain(array $params = [])`
 ****
@@ -383,8 +359,6 @@ $params['body']             = (array) The query definition using the Query DSL
 
 
 [[Elasticsearch_ClientfieldCaps_fieldCaps]]
-.`fieldCaps()`
-[[Elasticsearch_ClientfieldCaps_fieldCaps]]
 .`fieldCaps(array $params = [])`
 ****
 [source,php]
@@ -403,8 +377,6 @@ $params['body']               = (array) An index filter specified with the Query
 
 
 
-[[Elasticsearch_Clientget_get]]
-.`get()`
 [[Elasticsearch_Clientget_get]]
 .`get(array $params = [])`
 ****
@@ -431,8 +403,6 @@ $params['version_type']     = (enum) Specific version type (Options = internal,e
 
 
 [[Elasticsearch_ClientgetScript_getScript]]
-.`getScript()`
-[[Elasticsearch_ClientgetScript_getScript]]
 .`getScript(array $params = [])`
 ****
 [source,php]
@@ -447,10 +417,8 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_ClientgetScriptContext_getScriptContext]]
-.`getScriptContext()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_ClientgetScriptContext_getScriptContext]]
 .`getScriptContext(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -461,11 +429,9 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 
-[[Elasticsearch_ClientgetScriptLanguages_getScriptLanguages]]
-.`getScriptLanguages()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 [[Elasticsearch_ClientgetScriptLanguages_getScriptLanguages]]
 .`getScriptLanguages(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -476,8 +442,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 
-[[Elasticsearch_ClientgetSource_getSource]]
-.`getSource()`
 [[Elasticsearch_ClientgetSource_getSource]]
 .`getSource(array $params = [])`
 ****
@@ -502,8 +466,6 @@ $params['version_type']     = (enum) Specific version type (Options = internal,e
 
 
 
-[[Elasticsearch_Clientindex_index]]
-.`index()`
 [[Elasticsearch_Clientindex_index]]
 .`index(array $params = [])`
 ****
@@ -532,8 +494,6 @@ $params['body']                   = (array) The document (Required)
 
 
 [[Elasticsearch_Clientinfo_info]]
-.`info()`
-[[Elasticsearch_Clientinfo_info]]
 .`info(array $params = [])`
 ****
 [source,php]
@@ -545,8 +505,6 @@ $params['body']                   = (array) The document (Required)
 
 
 
-[[Elasticsearch_Clientmget_mget]]
-.`mget()`
 [[Elasticsearch_Clientmget_mget]]
 .`mget(array $params = [])`
 ****
@@ -571,8 +529,6 @@ $params['body']             = (array) Document identifiers; can be either `docs`
 
 
 [[Elasticsearch_Clientmsearch_msearch]]
-.`msearch()`
-[[Elasticsearch_Clientmsearch_msearch]]
 .`msearch(array $params = [])`
 ****
 [source,php]
@@ -590,8 +546,6 @@ $params['pre_filter_shard_size']         = (number) A threshold that enforces a 
 
 
 
-[[Elasticsearch_ClientmsearchTemplate_msearchTemplate]]
-.`msearchTemplate()`
 [[Elasticsearch_ClientmsearchTemplate_msearchTemplate]]
 .`msearchTemplate(array $params = [])`
 ****
@@ -613,8 +567,6 @@ $params['body']                    = (array) The request definitions (metadata-s
 
 
 [[Elasticsearch_Clientmtermvectors_mtermvectors]]
-.`mtermvectors()`
-[[Elasticsearch_Clientmtermvectors_mtermvectors]]
 .`mtermvectors(array $params = [])`
 ****
 [source,php]
@@ -627,8 +579,6 @@ $params['index']            = (string) The index in which the document resides.
 
 
 
-[[Elasticsearch_ClientopenPointInTime_openPointInTime]]
-.`openPointInTime()`
 [[Elasticsearch_ClientopenPointInTime_openPointInTime]]
 .`openPointInTime(array $params = [])`
 ****
@@ -648,8 +598,6 @@ $params['keep_alive']         = (string) Specific the time to live for the point
 
 
 [[Elasticsearch_Clientping_ping]]
-.`ping()`
-[[Elasticsearch_Clientping_ping]]
 .`ping(array $params = [])`
 ****
 [source,php]
@@ -661,8 +609,6 @@ $params['keep_alive']         = (string) Specific the time to live for the point
 
 
 
-[[Elasticsearch_ClientputScript_putScript]]
-.`putScript()`
 [[Elasticsearch_ClientputScript_putScript]]
 .`putScript(array $params = [])`
 ****
@@ -681,10 +627,8 @@ $params['body']           = (array) The document (Required)
 
 
 [[Elasticsearch_ClientrankEval_rankEval]]
-.`rankEval()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_ClientrankEval_rankEval]]
 .`rankEval(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -701,8 +645,6 @@ $params['body']               = (array) The ranking evaluation search definition
 
 
 
-[[Elasticsearch_Clientreindex_reindex]]
-.`reindex()`
 [[Elasticsearch_Clientreindex_reindex]]
 .`reindex(array $params = [])`
 ****
@@ -725,8 +667,6 @@ $params['body']                   = (array) The search definition using the Quer
 
 
 [[Elasticsearch_ClientreindexRethrottle_reindexRethrottle]]
-.`reindexRethrottle()`
-[[Elasticsearch_ClientreindexRethrottle_reindexRethrottle]]
 .`reindexRethrottle(array $params = [])`
 ****
 [source,php]
@@ -740,8 +680,6 @@ $params['requests_per_second'] = (number) The throttle to set on this request in
 
 
 
-[[Elasticsearch_ClientrenderSearchTemplate_renderSearchTemplate]]
-.`renderSearchTemplate()`
 [[Elasticsearch_ClientrenderSearchTemplate_renderSearchTemplate]]
 .`renderSearchTemplate(array $params = [])`
 ****
@@ -757,10 +695,8 @@ $params['body'] = (array) The search definition template and its params
 
 
 [[Elasticsearch_ClientscriptsPainlessExecute_scriptsPainlessExecute]]
-.`scriptsPainlessExecute()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_ClientscriptsPainlessExecute_scriptsPainlessExecute]]
 .`scriptsPainlessExecute(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -772,8 +708,6 @@ $params['body'] = (array) The script to execute
 
 
 
-[[Elasticsearch_Clientscroll_scroll]]
-.`scroll()`
 [[Elasticsearch_Clientscroll_scroll]]
 .`scroll(array $params = [])`
 ****
@@ -790,8 +724,6 @@ $params['body']                   = (array) The scroll ID if not passed by URL o
 
 
 
-[[Elasticsearch_Clientsearch_search]]
-.`search()`
 [[Elasticsearch_Clientsearch_search]]
 .`search(array $params = [])`
 ****
@@ -832,8 +764,6 @@ $params['terminate_after']               = (number) The maximum number of docume
 
 
 [[Elasticsearch_ClientsearchShards_searchShards]]
-.`searchShards()`
-[[Elasticsearch_ClientsearchShards_searchShards]]
 .`searchShards(array $params = [])`
 ****
 [source,php]
@@ -852,8 +782,6 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 
-[[Elasticsearch_ClientsearchTemplate_searchTemplate]]
-.`searchTemplate()`
 [[Elasticsearch_ClientsearchTemplate_searchTemplate]]
 .`searchTemplate(array $params = [])`
 ****
@@ -883,8 +811,6 @@ $params['body']                    = (array) The search definition template and 
 
 
 [[Elasticsearch_Clienttermvectors_termvectors]]
-.`termvectors()`
-[[Elasticsearch_Clienttermvectors_termvectors]]
 .`termvectors(array $params = [])`
 ****
 [source,php]
@@ -898,8 +824,6 @@ $params['id']               = (string) The id of the document, when not specifie
 
 
 
-[[Elasticsearch_Clientupdate_update]]
-.`update()`
 [[Elasticsearch_Clientupdate_update]]
 .`update(array $params = [])`
 ****
@@ -928,8 +852,6 @@ $params['body']                   = (array) The request definition requires eith
 
 
 
-[[Elasticsearch_ClientupdateByQuery_updateByQuery]]
-.`updateByQuery()`
 [[Elasticsearch_ClientupdateByQuery_updateByQuery]]
 .`updateByQuery(array $params = [])`
 ****
@@ -962,8 +884,6 @@ $params['search_timeout']         = (time) Explicit timeout for each search requ
 
 
 [[Elasticsearch_ClientupdateByQueryRethrottle_updateByQueryRethrottle]]
-.`updateByQueryRethrottle()`
-[[Elasticsearch_ClientupdateByQueryRethrottle_updateByQueryRethrottle]]
 .`updateByQueryRethrottle(array $params = [])`
 ****
 [source,php]
@@ -979,8 +899,6 @@ $params['requests_per_second'] = (number) The throttle to set on this request in
 
 [[Elasticsearch_ClientasyncSearch_asyncSearch]]
 .`asyncSearch()`
-[[Elasticsearch_ClientasyncSearch_asyncSearch]]
-.`asyncSearch()`
 ****
 [source,php]
 ----
@@ -992,8 +910,6 @@ Returns the asyncSearch namespace
 
 
 
-[[Elasticsearch_Clientautoscaling_autoscaling]]
-.`autoscaling()`
 [[Elasticsearch_Clientautoscaling_autoscaling]]
 .`autoscaling()`
 ****
@@ -1009,8 +925,6 @@ Returns the autoscaling namespace
 
 [[Elasticsearch_Clientcat_cat]]
 .`cat()`
-[[Elasticsearch_Clientcat_cat]]
-.`cat()`
 ****
 [source,php]
 ----
@@ -1022,8 +936,6 @@ Returns the cat namespace
 
 
 
-[[Elasticsearch_Clientccr_ccr]]
-.`ccr()`
 [[Elasticsearch_Clientccr_ccr]]
 .`ccr()`
 ****
@@ -1039,8 +951,6 @@ Returns the ccr namespace
 
 [[Elasticsearch_Clientcluster_cluster]]
 .`cluster()`
-[[Elasticsearch_Clientcluster_cluster]]
-.`cluster()`
 ****
 [source,php]
 ----
@@ -1052,8 +962,6 @@ Returns the cluster namespace
 
 
 
-[[Elasticsearch_ClientdanglingIndices_danglingIndices]]
-.`danglingIndices()`
 [[Elasticsearch_ClientdanglingIndices_danglingIndices]]
 .`danglingIndices()`
 ****
@@ -1069,8 +977,6 @@ Returns the danglingIndices namespace
 
 [[Elasticsearch_ClientdataFrameTransformDeprecated_dataFrameTransformDeprecated]]
 .`dataFrameTransformDeprecated()`
-[[Elasticsearch_ClientdataFrameTransformDeprecated_dataFrameTransformDeprecated]]
-.`dataFrameTransformDeprecated()`
 ****
 [source,php]
 ----
@@ -1082,8 +988,6 @@ Returns the dataFrameTransformDeprecated namespace
 
 
 
-[[Elasticsearch_Clientenrich_enrich]]
-.`enrich()`
 [[Elasticsearch_Clientenrich_enrich]]
 .`enrich()`
 ****
@@ -1099,8 +1003,6 @@ Returns the enrich namespace
 
 [[Elasticsearch_Clienteql_eql]]
 .`eql()`
-[[Elasticsearch_Clienteql_eql]]
-.`eql()`
 ****
 [source,php]
 ----
@@ -1112,8 +1014,6 @@ Returns the eql namespace
 
 
 
-[[Elasticsearch_Clientfeatures_features]]
-.`features()`
 [[Elasticsearch_Clientfeatures_features]]
 .`features()`
 ****
@@ -1129,8 +1029,6 @@ Returns the features namespace
 
 [[Elasticsearch_Clientgraph_graph]]
 .`graph()`
-[[Elasticsearch_Clientgraph_graph]]
-.`graph()`
 ****
 [source,php]
 ----
@@ -1142,8 +1040,6 @@ Returns the graph namespace
 
 
 
-[[Elasticsearch_Clientilm_ilm]]
-.`ilm()`
 [[Elasticsearch_Clientilm_ilm]]
 .`ilm()`
 ****
@@ -1159,8 +1055,6 @@ Returns the ilm namespace
 
 [[Elasticsearch_Clientindices_indices]]
 .`indices()`
-[[Elasticsearch_Clientindices_indices]]
-.`indices()`
 ****
 [source,php]
 ----
@@ -1172,8 +1066,6 @@ Returns the indices namespace
 
 
 
-[[Elasticsearch_Clientingest_ingest]]
-.`ingest()`
 [[Elasticsearch_Clientingest_ingest]]
 .`ingest()`
 ****
@@ -1189,8 +1081,6 @@ Returns the ingest namespace
 
 [[Elasticsearch_Clientlicense_license]]
 .`license()`
-[[Elasticsearch_Clientlicense_license]]
-.`license()`
 ****
 [source,php]
 ----
@@ -1202,8 +1092,6 @@ Returns the license namespace
 
 
 
-[[Elasticsearch_Clientlogstash_logstash]]
-.`logstash()`
 [[Elasticsearch_Clientlogstash_logstash]]
 .`logstash()`
 ****
@@ -1219,8 +1107,6 @@ Returns the logstash namespace
 
 [[Elasticsearch_Clientmigration_migration]]
 .`migration()`
-[[Elasticsearch_Clientmigration_migration]]
-.`migration()`
 ****
 [source,php]
 ----
@@ -1232,8 +1118,6 @@ Returns the migration namespace
 
 
 
-[[Elasticsearch_Clientml_ml]]
-.`ml()`
 [[Elasticsearch_Clientml_ml]]
 .`ml()`
 ****
@@ -1249,8 +1133,6 @@ Returns the ml namespace
 
 [[Elasticsearch_Clientmonitoring_monitoring]]
 .`monitoring()`
-[[Elasticsearch_Clientmonitoring_monitoring]]
-.`monitoring()`
 ****
 [source,php]
 ----
@@ -1262,8 +1144,6 @@ Returns the monitoring namespace
 
 
 
-[[Elasticsearch_Clientnodes_nodes]]
-.`nodes()`
 [[Elasticsearch_Clientnodes_nodes]]
 .`nodes()`
 ****
@@ -1279,8 +1159,6 @@ Returns the nodes namespace
 
 [[Elasticsearch_Clientrollup_rollup]]
 .`rollup()`
-[[Elasticsearch_Clientrollup_rollup]]
-.`rollup()`
 ****
 [source,php]
 ----
@@ -1292,8 +1170,6 @@ Returns the rollup namespace
 
 
 
-[[Elasticsearch_ClientsearchableSnapshots_searchableSnapshots]]
-.`searchableSnapshots()`
 [[Elasticsearch_ClientsearchableSnapshots_searchableSnapshots]]
 .`searchableSnapshots()`
 ****
@@ -1309,8 +1185,6 @@ Returns the searchableSnapshots namespace
 
 [[Elasticsearch_Clientsecurity_security]]
 .`security()`
-[[Elasticsearch_Clientsecurity_security]]
-.`security()`
 ****
 [source,php]
 ----
@@ -1322,8 +1196,6 @@ Returns the security namespace
 
 
 
-[[Elasticsearch_Clientslm_slm]]
-.`slm()`
 [[Elasticsearch_Clientslm_slm]]
 .`slm()`
 ****
@@ -1339,8 +1211,6 @@ Returns the slm namespace
 
 [[Elasticsearch_Clientsnapshot_snapshot]]
 .`snapshot()`
-[[Elasticsearch_Clientsnapshot_snapshot]]
-.`snapshot()`
 ****
 [source,php]
 ----
@@ -1352,8 +1222,6 @@ Returns the snapshot namespace
 
 
 
-[[Elasticsearch_Clientsql_sql]]
-.`sql()`
 [[Elasticsearch_Clientsql_sql]]
 .`sql()`
 ****
@@ -1369,8 +1237,6 @@ Returns the sql namespace
 
 [[Elasticsearch_Clientssl_ssl]]
 .`ssl()`
-[[Elasticsearch_Clientssl_ssl]]
-.`ssl()`
 ****
 [source,php]
 ----
@@ -1382,8 +1248,6 @@ Returns the ssl namespace
 
 
 
-[[Elasticsearch_Clienttasks_tasks]]
-.`tasks()`
 [[Elasticsearch_Clienttasks_tasks]]
 .`tasks()`
 ****
@@ -1399,8 +1263,6 @@ Returns the tasks namespace
 
 [[Elasticsearch_ClienttextStructure_textStructure]]
 .`textStructure()`
-[[Elasticsearch_ClienttextStructure_textStructure]]
-.`textStructure()`
 ****
 [source,php]
 ----
@@ -1412,8 +1274,6 @@ Returns the textStructure namespace
 
 
 
-[[Elasticsearch_Clienttransform_transform]]
-.`transform()`
 [[Elasticsearch_Clienttransform_transform]]
 .`transform()`
 ****
@@ -1429,8 +1289,6 @@ Returns the transform namespace
 
 [[Elasticsearch_Clientwatcher_watcher]]
 .`watcher()`
-[[Elasticsearch_Clientwatcher_watcher]]
-.`watcher()`
 ****
 [source,php]
 ----
@@ -1442,8 +1300,6 @@ Returns the watcher namespace
 
 
 
-[[Elasticsearch_Clientxpack_xpack]]
-.`xpack()`
 [[Elasticsearch_Clientxpack_xpack]]
 .`xpack()`
 ****
@@ -1458,8 +1314,6 @@ Returns the xpack namespace
 
 
 [[Elasticsearch_Client-call-_call]]
-.`__call()`
-[[Elasticsearch_Client-call-_call]]
 .`__call(string $name, array $arguments)`
 ****
 [source,php]
@@ -1472,8 +1326,6 @@ Catchall for registered namespaces
 
 
 
-[[Elasticsearch_ClientextractArgument_extractArgument]]
-.`extractArgument()`
 [[Elasticsearch_ClientextractArgument_extractArgument]]
 .`extractArgument(array $params, string $arg)`
 ****

@@ -47,8 +47,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_CatNamespacealiases_aliases]]
-.`aliases()`
-[[Elasticsearch_Namespaces_CatNamespacealiases_aliases]]
 .`aliases(array $params = [])`
 ****
 [source,php]
@@ -68,8 +66,6 @@ $params['expand_wildcards'] = (enum) Whether to expand wildcard expression to co
 
 
 
-[[Elasticsearch_Namespaces_CatNamespaceallocation_allocation]]
-.`allocation()`
 [[Elasticsearch_Namespaces_CatNamespaceallocation_allocation]]
 .`allocation(array $params = [])`
 ****
@@ -92,8 +88,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacecount_count]]
-.`count()`
-[[Elasticsearch_Namespaces_CatNamespacecount_count]]
 .`count(array $params = [])`
 ****
 [source,php]
@@ -111,8 +105,6 @@ $params['v']      = (boolean) Verbose mode. Display column headers (Default = fa
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacefielddata_fielddata]]
-.`fielddata()`
 [[Elasticsearch_Namespaces_CatNamespacefielddata_fielddata]]
 .`fielddata(array $params = [])`
 ****
@@ -133,8 +125,6 @@ $params['v']      = (boolean) Verbose mode. Display column headers (Default = fa
 
 
 [[Elasticsearch_Namespaces_CatNamespacehealth_health]]
-.`health()`
-[[Elasticsearch_Namespaces_CatNamespacehealth_health]]
 .`health(array $params = [])`
 ****
 [source,php]
@@ -154,8 +144,6 @@ $params['v']      = (boolean) Verbose mode. Display column headers (Default = fa
 
 
 [[Elasticsearch_Namespaces_CatNamespacehelp_help]]
-.`help()`
-[[Elasticsearch_Namespaces_CatNamespacehelp_help]]
 .`help(array $params = [])`
 ****
 [source,php]
@@ -169,8 +157,6 @@ $params['s']    = (list) Comma-separated list of column names or column aliases 
 
 
 
-[[Elasticsearch_Namespaces_CatNamespaceindices_indices]]
-.`indices()`
 [[Elasticsearch_Namespaces_CatNamespaceindices_indices]]
 .`indices(array $params = [])`
 ****
@@ -198,8 +184,6 @@ $params['expand_wildcards']          = (enum) Whether to expand wildcard express
 
 
 [[Elasticsearch_Namespaces_CatNamespacemaster_master]]
-.`master()`
-[[Elasticsearch_Namespaces_CatNamespacemaster_master]]
 .`master(array $params = [])`
 ****
 [source,php]
@@ -218,8 +202,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacemlDataFrameAnalytics_mlDataFrameAnalytics]]
-.`mlDataFrameAnalytics()`
 [[Elasticsearch_Namespaces_CatNamespacemlDataFrameAnalytics_mlDataFrameAnalytics]]
 .`mlDataFrameAnalytics(array $params = [])`
 ****
@@ -242,8 +224,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacemlDatafeeds_mlDatafeeds]]
-.`mlDatafeeds()`
-[[Elasticsearch_Namespaces_CatNamespacemlDatafeeds_mlDatafeeds]]
 .`mlDatafeeds(array $params = [])`
 ****
 [source,php]
@@ -264,8 +244,6 @@ $params['v']                  = (boolean) Verbose mode. Display column headers (
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacemlJobs_mlJobs]]
-.`mlJobs()`
 [[Elasticsearch_Namespaces_CatNamespacemlJobs_mlJobs]]
 .`mlJobs(array $params = [])`
 ****
@@ -288,8 +266,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacemlTrainedModels_mlTrainedModels]]
-.`mlTrainedModels()`
 [[Elasticsearch_Namespaces_CatNamespacemlTrainedModels_mlTrainedModels]]
 .`mlTrainedModels(array $params = [])`
 ****
@@ -314,8 +290,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacenodeattrs_nodeattrs]]
-.`nodeattrs()`
-[[Elasticsearch_Namespaces_CatNamespacenodeattrs_nodeattrs]]
 .`nodeattrs(array $params = [])`
 ****
 [source,php]
@@ -334,8 +308,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacenodes_nodes]]
-.`nodes()`
 [[Elasticsearch_Namespaces_CatNamespacenodes_nodes]]
 .`nodes(array $params = [])`
 ****
@@ -359,8 +331,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks]]
-.`pendingTasks()`
-[[Elasticsearch_Namespaces_CatNamespacependingTasks_pendingTasks]]
 .`pendingTasks(array $params = [])`
 ****
 [source,php]
@@ -381,8 +351,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespaceplugins_plugins]]
-.`plugins()`
-[[Elasticsearch_Namespaces_CatNamespaceplugins_plugins]]
 .`plugins(array $params = [])`
 ****
 [source,php]
@@ -402,8 +370,6 @@ $params['v']                 = (boolean) Verbose mode. Display column headers (D
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacerecovery_recovery]]
-.`recovery()`
 [[Elasticsearch_Namespaces_CatNamespacerecovery_recovery]]
 .`recovery(array $params = [])`
 ****
@@ -427,8 +393,6 @@ $params['v']           = (boolean) Verbose mode. Display column headers (Default
 
 
 [[Elasticsearch_Namespaces_CatNamespacerepositories_repositories]]
-.`repositories()`
-[[Elasticsearch_Namespaces_CatNamespacerepositories_repositories]]
 .`repositories(array $params = [])`
 ****
 [source,php]
@@ -448,8 +412,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacesegments_segments]]
-.`segments()`
-[[Elasticsearch_Namespaces_CatNamespacesegments_segments]]
 .`segments(array $params = [])`
 ****
 [source,php]
@@ -468,8 +430,6 @@ $params['v']      = (boolean) Verbose mode. Display column headers (Default = fa
 
 
 
-[[Elasticsearch_Namespaces_CatNamespaceshards_shards]]
-.`shards()`
 [[Elasticsearch_Namespaces_CatNamespaceshards_shards]]
 .`shards(array $params = [])`
 ****
@@ -493,8 +453,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacesnapshots_snapshots]]
-.`snapshots()`
-[[Elasticsearch_Namespaces_CatNamespacesnapshots_snapshots]]
 .`snapshots(array $params = [])`
 ****
 [source,php]
@@ -516,8 +474,6 @@ $params['v']                  = (boolean) Verbose mode. Display column headers (
 
 
 [[Elasticsearch_Namespaces_CatNamespacetasks_tasks]]
-.`tasks()`
-[[Elasticsearch_Namespaces_CatNamespacetasks_tasks]]
 .`tasks(array $params = [])`
 ****
 [source,php]
@@ -532,8 +488,6 @@ $params['actions']        = (list) A comma-separated list of actions that should
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacetemplates_templates]]
-.`templates()`
 [[Elasticsearch_Namespaces_CatNamespacetemplates_templates]]
 .`templates(array $params = [])`
 ****
@@ -555,8 +509,6 @@ $params['v']              = (boolean) Verbose mode. Display column headers (Defa
 
 
 [[Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool]]
-.`threadPool()`
-[[Elasticsearch_Namespaces_CatNamespacethreadPool_threadPool]]
 .`threadPool(array $params = [])`
 ****
 [source,php]
@@ -577,8 +529,6 @@ $params['v']                    = (boolean) Verbose mode. Display column headers
 
 
 
-[[Elasticsearch_Namespaces_CatNamespacetransforms_transforms]]
-.`transforms()`
 [[Elasticsearch_Namespaces_CatNamespacetransforms_transforms]]
 .`transforms(array $params = [])`
 ****

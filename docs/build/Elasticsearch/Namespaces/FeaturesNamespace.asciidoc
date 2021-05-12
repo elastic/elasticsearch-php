@@ -23,8 +23,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_FeaturesNamespacegetFeatures_getFeatures]]
-.`getFeatures()`
-[[Elasticsearch_Namespaces_FeaturesNamespacegetFeatures_getFeatures]]
 .`getFeatures(array $params = [])`
 ****
 [source,php]

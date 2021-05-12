@@ -1,4 +1,5 @@
-[discrete]
+
+
 [[Elasticsearch_ClientBuilder]]
 === Elasticsearch\ClientBuilder
 
@@ -37,6 +38,7 @@ The class defines the following methods:
 * <<Elasticsearch_ClientBuildersetSSLCert_setSSLCert,`setSSLCert()`>>
 * <<Elasticsearch_ClientBuildersetSSLKey_setSSLKey,`setSSLKey()`>>
 * <<Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification,`setSSLVerification()`>>
+* <<Elasticsearch_ClientBuildersetElasticMetaHeader_setElasticMetaHeader,`setElasticMetaHeader()`>>
 * <<Elasticsearch_ClientBuilderincludePortInHostHeader_includePortInHostHeader,`includePortInHostHeader()`>>
 * <<Elasticsearch_ClientBuilderbuild_build,`build()`>>
 * <<Elasticsearch_ClientBuilderinstantiate_instantiate,`instantiate()`>>
@@ -45,12 +47,14 @@ The class defines the following methods:
 
 [[Elasticsearch_ClientBuildercreate_create]]
 .`create()`
+[[Elasticsearch_ClientBuildercreate_create]]
+.`create()`
 ****
 [source,php]
 ----
 /*
+Create an instance of ClientBuilder
 */
-
 ----
 ****
 
@@ -58,13 +62,14 @@ The class defines the following methods:
 
 [[Elasticsearch_ClientBuildergetTransport_getTransport]]
 .`getTransport()`
+[[Elasticsearch_ClientBuildergetTransport_getTransport]]
+.`getTransport()`
 ****
 [source,php]
 ----
 /*
-    Can supply first parm to Client::__construct() when invoking manually or with dependency injection
+Can supply first parm to Client::__construct() when invoking manually or with dependency injection
 */
-
 ----
 ****
 
@@ -72,13 +77,14 @@ The class defines the following methods:
 
 [[Elasticsearch_ClientBuildergetEndpoint_getEndpoint]]
 .`getEndpoint()`
+[[Elasticsearch_ClientBuildergetEndpoint_getEndpoint]]
+.`getEndpoint()`
 ****
 [source,php]
 ----
 /*
-    Can supply second parm to Client::__construct() when invoking manually or with dependency injection
+Can supply second parm to Client::__construct() when invoking manually or with dependency injection
 */
-
 ----
 ****
 
@@ -86,13 +92,14 @@ The class defines the following methods:
 
 [[Elasticsearch_ClientBuildergetRegisteredNamespacesBuilders_getRegisteredNamespacesBuilders]]
 .`getRegisteredNamespacesBuilders()`
+[[Elasticsearch_ClientBuildergetRegisteredNamespacesBuilders_getRegisteredNamespacesBuilders]]
+.`getRegisteredNamespacesBuilders()`
 ****
 [source,php]
 ----
 /*
-    Can supply third parm to Client::__construct() when invoking manually or with dependency injection
+Can supply third parm to Client::__construct() when invoking manually or with dependency injection
 */
-
 ----
 ****
 
@@ -100,15 +107,16 @@ The class defines the following methods:
 
 [[Elasticsearch_ClientBuilderfromConfig_fromConfig]]
 .`fromConfig()`
+[[Elasticsearch_ClientBuilderfromConfig_fromConfig]]
+.`fromConfig(array $config, bool $quiet = false)`
 ****
 [source,php]
 ----
 /*
-    Build a new client from the provided config.  Hash keys
+Build a new client from the provided config.  Hash keys
 should correspond to the method name e.g. ['connectionPool']
 corresponds to setConnectionPool().
 */
-
 ----
 ****
 
@@ -116,12 +124,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderdefaultHandler_defaultHandler]]
 .`defaultHandler()`
+[[Elasticsearch_ClientBuilderdefaultHandler_defaultHandler]]
+.`defaultHandler(array $multiParams = [], array $singleParams = [])`
 ****
 [source,php]
 ----
 /*
+Get the default handler
 */
-
 ----
 ****
 
@@ -129,12 +139,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildermultiHandler_multiHandler]]
 .`multiHandler()`
+[[Elasticsearch_ClientBuildermultiHandler_multiHandler]]
+.`multiHandler(array $params = [])`
 ****
 [source,php]
 ----
 /*
+Get the multi handler for async (CurlMultiHandler)
 */
-
 ----
 ****
 
@@ -142,12 +154,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersingleHandler_singleHandler]]
 .`singleHandler()`
+[[Elasticsearch_ClientBuildersingleHandler_singleHandler]]
+.`singleHandler()`
 ****
 [source,php]
 ----
 /*
+Get the handler instance (CurlHandler)
 */
-
 ----
 ****
 
@@ -155,12 +169,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetConnectionFactory_setConnectionFactory]]
 .`setConnectionFactory()`
+[[Elasticsearch_ClientBuildersetConnectionFactory_setConnectionFactory]]
+.`setConnectionFactory(Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory)`
 ****
 [source,php]
 ----
 /*
+Set connection Factory
 */
-
 ----
 ****
 
@@ -168,12 +184,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetConnectionPool_setConnectionPool]]
 .`setConnectionPool()`
+[[Elasticsearch_ClientBuildersetConnectionPool_setConnectionPool]]
+.`setConnectionPool(AbstractConnectionPool|string $connectionPool, array $args = [])`
 ****
 [source,php]
 ----
 /*
+Set the connection pool (default is StaticNoPingConnectionPool)
 */
-
 ----
 ****
 
@@ -181,12 +199,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetEndpoint_setEndpoint]]
 .`setEndpoint()`
+[[Elasticsearch_ClientBuildersetEndpoint_setEndpoint]]
+.`setEndpoint(callable $endpoint)`
 ****
 [source,php]
 ----
 /*
+Set the endpoint
 */
-
 ----
 ****
 
@@ -194,12 +214,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderregisterNamespace_registerNamespace]]
 .`registerNamespace()`
+[[Elasticsearch_ClientBuilderregisterNamespace_registerNamespace]]
+.`registerNamespace(Elasticsearch\Namespaces\NamespaceBuilderInterface $namespaceBuilder)`
 ****
 [source,php]
 ----
 /*
+Register namespace
 */
-
 ----
 ****
 
@@ -207,12 +229,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetTransport_setTransport]]
 .`setTransport()`
+[[Elasticsearch_ClientBuildersetTransport_setTransport]]
+.`setTransport(Elasticsearch\Transport $transport)`
 ****
 [source,php]
 ----
 /*
+Set the transport
 */
-
 ----
 ****
 
@@ -220,12 +244,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetHandler_setHandler]]
 .`setHandler()`
+[[Elasticsearch_ClientBuildersetHandler_setHandler]]
+.`setHandler(mixed $handler)`
 ****
 [source,php]
 ----
 /*
+Set the HTTP handler (cURL is default)
 */
-
 ----
 ****
 
@@ -233,12 +259,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetLogger_setLogger]]
 .`setLogger()`
+[[Elasticsearch_ClientBuildersetLogger_setLogger]]
+.`setLogger(Psr\Log\LoggerInterface $logger)`
 ****
 [source,php]
 ----
 /*
+Set the PSR-3 Logger
 */
-
 ----
 ****
 
@@ -246,12 +274,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetTracer_setTracer]]
 .`setTracer()`
+[[Elasticsearch_ClientBuildersetTracer_setTracer]]
+.`setTracer(Psr\Log\LoggerInterface $tracer)`
 ****
 [source,php]
 ----
 /*
+Set the PSR-3 tracer
 */
-
 ----
 ****
 
@@ -259,12 +289,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSerializer_setSerializer]]
 .`setSerializer()`
+[[Elasticsearch_ClientBuildersetSerializer_setSerializer]]
+.`setSerializer(Elasticsearch\Serializers\SerializerInterface|string $serializer)`
 ****
 [source,php]
 ----
 /*
+Set the serializer
 */
-
 ----
 ****
 
@@ -272,12 +304,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetHosts_setHosts]]
 .`setHosts()`
+[[Elasticsearch_ClientBuildersetHosts_setHosts]]
+.`setHosts(array $hosts)`
 ****
 [source,php]
 ----
 /*
+Set the hosts (nodes)
 */
-
 ----
 ****
 
@@ -285,13 +319,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetApiKey_setApiKey]]
 .`setApiKey()`
+[[Elasticsearch_ClientBuildersetApiKey_setApiKey]]
+.`setApiKey(string $id, string $apiKey)`
 ****
 [source,php]
 ----
 /*
-    Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
 */
-
 ----
 ****
 
@@ -299,13 +334,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetBasicAuthentication_setBasicAuthentication]]
 .`setBasicAuthentication()`
+[[Elasticsearch_ClientBuildersetBasicAuthentication_setBasicAuthentication]]
+.`setBasicAuthentication(string $username, string $password)`
 ****
 [source,php]
 ----
 /*
-    Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+Set Basic access authentication
 */
-
 ----
 ****
 
@@ -313,13 +349,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetElasticCloudId_setElasticCloudId]]
 .`setElasticCloudId()`
+[[Elasticsearch_ClientBuildersetElasticCloudId_setElasticCloudId]]
+.`setElasticCloudId(string $cloudId)`
 ****
 [source,php]
 ----
 /*
-    Set Elastic Cloud ID to connect to Elastic Cloud
+Set Elastic Cloud ID to connect to Elastic Cloud
 */
-
 ----
 ****
 
@@ -327,12 +364,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetConnectionParams_setConnectionParams]]
 .`setConnectionParams()`
+[[Elasticsearch_ClientBuildersetConnectionParams_setConnectionParams]]
+.`setConnectionParams(array $params)`
 ****
 [source,php]
 ----
 /*
+Set connection parameters
 */
-
 ----
 ****
 
@@ -340,12 +379,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetRetries_setRetries]]
 .`setRetries()`
+[[Elasticsearch_ClientBuildersetRetries_setRetries]]
+.`setRetries(int $retries)`
 ****
 [source,php]
 ----
 /*
+Set number or retries (default is equal to number of nodes)
 */
-
 ----
 ****
 
@@ -353,12 +394,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSelector_setSelector]]
 .`setSelector()`
+[[Elasticsearch_ClientBuildersetSelector_setSelector]]
+.`setSelector(Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector)`
 ****
 [source,php]
 ----
 /*
+Set the selector algorithm
 */
-
 ----
 ****
 
@@ -366,12 +409,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSniffOnStart_setSniffOnStart]]
 .`setSniffOnStart()`
+[[Elasticsearch_ClientBuildersetSniffOnStart_setSniffOnStart]]
+.`setSniffOnStart(bool $sniffOnStart)`
 ****
 [source,php]
 ----
 /*
+Set sniff on start
 */
-
 ----
 ****
 
@@ -379,12 +424,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSSLCert_setSSLCert]]
 .`setSSLCert()`
+[[Elasticsearch_ClientBuildersetSSLCert_setSSLCert]]
+.`setSSLCert(string $cert, string $password = null)`
 ****
 [source,php]
 ----
 /*
+Set SSL certificate
 */
-
 ----
 ****
 
@@ -392,12 +439,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSSLKey_setSSLKey]]
 .`setSSLKey()`
+[[Elasticsearch_ClientBuildersetSSLKey_setSSLKey]]
+.`setSSLKey(string $key, string $password = null)`
 ****
 [source,php]
 ----
 /*
+Set SSL key
 */
-
 ----
 ****
 
@@ -405,12 +454,29 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification]]
 .`setSSLVerification()`
+[[Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification]]
+.`setSSLVerification(bool|string $value = true)`
 ****
 [source,php]
 ----
 /*
+Set SSL verification
 */
+----
+****
 
+
+
+[[Elasticsearch_ClientBuildersetElasticMetaHeader_setElasticMetaHeader]]
+.`setElasticMetaHeader()`
+[[Elasticsearch_ClientBuildersetElasticMetaHeader_setElasticMetaHeader]]
+.`setElasticMetaHeader($value = true)`
+****
+[source,php]
+----
+/*
+Set or disable the x-elastic-client-meta header
+*/
 ----
 ****
 
@@ -418,13 +484,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderincludePortInHostHeader_includePortInHostHeader]]
 .`includePortInHostHeader()`
+[[Elasticsearch_ClientBuilderincludePortInHostHeader_includePortInHostHeader]]
+.`includePortInHostHeader(bool $enable)`
 ****
 [source,php]
 ----
 /*
-    Include the port in Host header
+Include the port in Host header
 */
-
 ----
 ****
 
@@ -432,12 +499,14 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderbuild_build]]
 .`build()`
+[[Elasticsearch_ClientBuilderbuild_build]]
+.`build()`
 ****
 [source,php]
 ----
 /*
+Build and returns the Client object
 */
-
 ----
 ****
 
@@ -445,12 +514,13 @@ corresponds to setConnectionPool().
 
 [[Elasticsearch_ClientBuilderinstantiate_instantiate]]
 .`instantiate()`
+[[Elasticsearch_ClientBuilderinstantiate_instantiate]]
+.`instantiate(Elasticsearch\Transport $transport, callable $endpoint, array $registeredNamespaces)`
 ****
 [source,php]
 ----
 /*
 */
-
 ----
 ****
 

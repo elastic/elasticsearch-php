@@ -1,8 +1,8 @@
 [[breaking_changes]]
-== Breaking changes from 6.x
+=== Breaking changes from 6.x
 
 [discrete]
-=== E_USER_DEPRECATED notice when using deprecated parameters
+==== E_USER_DEPRECATED notice when using deprecated parameters
 
 Starting from elasticsearch-php 7.4.0, we generate a PHP 
 https://www.php.net/manual/en/errorfunc.constants.php[E_USER_DEPRECATED] notice 
@@ -25,7 +25,7 @@ set_error_handler(function ($errno, $errstr) {
 ----
 
 [discrete]
-=== Moving from types to typeless APIs in {es} 7.0
+==== Moving from types to typeless APIs in {es} 7.0
 
 {es} 7.0 deprecated APIs that accept types, introduced new typeless APIs, and 
 removed support for the _default_ mapping. Read 
@@ -33,13 +33,13 @@ https://www.elastic.co/blog/moving-from-types-to-typeless-apis-in-elasticsearch-
 blog post for more information.
 
 [discrete]
-=== Type hint and return type
+==== Type hint and return type
 
 Added type hints and return type declarations in all the code base where 
 possible. See PR https://github.com/elastic/elasticsearch-php/pull/897[#897].
 
 [discrete]
-=== PHP 7.1+ Requirement
+==== PHP 7.1+ Requirement
 
 We require using PHP 7.1+ for elasticsearch-php. PHP 7.0 is not supported since
 1st Jan 2019. Refer 

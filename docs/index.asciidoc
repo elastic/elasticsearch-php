@@ -15,10 +15,6 @@ include::operations.asciidoc[]
 
 include::build/classes.asciidoc[]
 
-include::php_json_objects.asciidoc[]
-
-include::breaking-changes.asciidoc[]
-
-include::community.asciidoc[]
+include::helpers.asciidoc[]
 
 include::redirects.asciidoc[]

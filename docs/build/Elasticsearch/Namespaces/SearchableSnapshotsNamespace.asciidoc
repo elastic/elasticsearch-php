@@ -26,10 +26,8 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SearchableSnapshotsNamespaceclearCache_clearCache]]
-.`clearCache()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_SearchableSnapshotsNamespaceclearCache_clearCache]]
 .`clearCache(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -45,10 +43,8 @@ $params['expand_wildcards']   = (enum) Whether to expand wildcard expression to 
 
 
 [[Elasticsearch_Namespaces_SearchableSnapshotsNamespacemount_mount]]
-.`mount()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacemount_mount]]
 .`mount(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -66,10 +62,8 @@ $params['body']                = (array) The restore configuration for mounting 
 
 
 [[Elasticsearch_Namespaces_SearchableSnapshotsNamespacerepositoryStats_repositoryStats]]
-.`repositoryStats()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacerepositoryStats_repositoryStats]]
 .`repositoryStats(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----
@@ -82,10 +76,8 @@ $params['repository'] = (string) The repository for which to get the stats for
 
 
 [[Elasticsearch_Namespaces_SearchableSnapshotsNamespacestats_stats]]
-.`stats()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_SearchableSnapshotsNamespacestats_stats]]
 .`stats(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----

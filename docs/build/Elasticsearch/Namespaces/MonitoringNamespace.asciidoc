@@ -23,10 +23,8 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_MonitoringNamespacebulk_bulk]]
-.`bulk()`
-*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
-[[Elasticsearch_Namespaces_MonitoringNamespacebulk_bulk]]
 .`bulk(array $params = [])`
+*NOTE:* This API is EXPERIMENTAL and may be changed or removed completely in a future release
 ****
 [source,php]
 ----

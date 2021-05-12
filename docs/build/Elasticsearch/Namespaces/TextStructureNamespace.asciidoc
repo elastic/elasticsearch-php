@@ -23,8 +23,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_TextStructureNamespacefindStructure_findStructure]]
-.`findStructure()`
-[[Elasticsearch_Namespaces_TextStructureNamespacefindStructure_findStructure]]
 .`findStructure(array $params = [])`
 ****
 [source,php]

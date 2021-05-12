@@ -26,8 +26,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_EqlNamespacedelete_delete]]
-.`delete()`
-[[Elasticsearch_Namespaces_EqlNamespacedelete_delete]]
 .`delete(array $params = [])`
 ****
 [source,php]
@@ -40,8 +38,6 @@ $params['id'] = (string) The async search ID
 
 
 
-[[Elasticsearch_Namespaces_EqlNamespaceget_get]]
-.`get()`
 [[Elasticsearch_Namespaces_EqlNamespaceget_get]]
 .`get(array $params = [])`
 ****
@@ -58,8 +54,6 @@ $params['keep_alive']                  = (time) Update the time interval in whic
 
 
 [[Elasticsearch_Namespaces_EqlNamespacegetStatus_getStatus]]
-.`getStatus()`
-[[Elasticsearch_Namespaces_EqlNamespacegetStatus_getStatus]]
 .`getStatus(array $params = [])`
 ****
 [source,php]
@@ -72,8 +66,6 @@ $params['id'] = (string) The async search ID
 
 
 
-[[Elasticsearch_Namespaces_EqlNamespacesearch_search]]
-.`search()`
 [[Elasticsearch_Namespaces_EqlNamespacesearch_search]]
 .`search(array $params = [])`
 ****

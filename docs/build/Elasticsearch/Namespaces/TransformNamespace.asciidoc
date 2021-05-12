@@ -30,8 +30,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_TransformNamespacedeleteTransform_deleteTransform]]
-.`deleteTransform()`
-[[Elasticsearch_Namespaces_TransformNamespacedeleteTransform_deleteTransform]]
 .`deleteTransform(array $params = [])`
 ****
 [source,php]
@@ -45,8 +43,6 @@ $params['force']        = (boolean) When `true`, the transform is deleted regard
 
 
 
-[[Elasticsearch_Namespaces_TransformNamespacegetTransform_getTransform]]
-.`getTransform()`
 [[Elasticsearch_Namespaces_TransformNamespacegetTransform_getTransform]]
 .`getTransform(array $params = [])`
 ****
@@ -65,8 +61,6 @@ $params['exclude_generated'] = (boolean) Omits fields that are illegal to set on
 
 
 [[Elasticsearch_Namespaces_TransformNamespacegetTransformStats_getTransformStats]]
-.`getTransformStats()`
-[[Elasticsearch_Namespaces_TransformNamespacegetTransformStats_getTransformStats]]
 .`getTransformStats(array $params = [])`
 ****
 [source,php]
@@ -83,8 +77,6 @@ $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression
 
 
 [[Elasticsearch_Namespaces_TransformNamespacepreviewTransform_previewTransform]]
-.`previewTransform()`
-[[Elasticsearch_Namespaces_TransformNamespacepreviewTransform_previewTransform]]
 .`previewTransform(array $params = [])`
 ****
 [source,php]
@@ -96,8 +88,6 @@ $params['allow_no_match'] = (boolean) Whether to ignore if a wildcard expression
 
 
 
-[[Elasticsearch_Namespaces_TransformNamespaceputTransform_putTransform]]
-.`putTransform()`
 [[Elasticsearch_Namespaces_TransformNamespaceputTransform_putTransform]]
 .`putTransform(array $params = [])`
 ****
@@ -112,8 +102,6 @@ $params['transform_id']     = (string) The id of the new transform.
 
 
 [[Elasticsearch_Namespaces_TransformNamespacestartTransform_startTransform]]
-.`startTransform()`
-[[Elasticsearch_Namespaces_TransformNamespacestartTransform_startTransform]]
 .`startTransform(array $params = [])`
 ****
 [source,php]
@@ -127,8 +115,6 @@ $params['timeout']      = (time) Controls the time to wait for the transform to 
 
 
 
-[[Elasticsearch_Namespaces_TransformNamespacestopTransform_stopTransform]]
-.`stopTransform()`
 [[Elasticsearch_Namespaces_TransformNamespacestopTransform_stopTransform]]
 .`stopTransform(array $params = [])`
 ****
@@ -147,8 +133,6 @@ $params['wait_for_checkpoint'] = (boolean) Whether to wait for the transform to 
 
 
 
-[[Elasticsearch_Namespaces_TransformNamespaceupdateTransform_updateTransform]]
-.`updateTransform()`
 [[Elasticsearch_Namespaces_TransformNamespaceupdateTransform_updateTransform]]
 .`updateTransform(array $params = [])`
 ****

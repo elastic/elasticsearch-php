@@ -37,8 +37,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_ClusterNamespaceallocationExplain_allocationExplain]]
-.`allocationExplain()`
-[[Elasticsearch_Namespaces_ClusterNamespaceallocationExplain_allocationExplain]]
 .`allocationExplain(array $params = [])`
 ****
 [source,php]
@@ -53,8 +51,6 @@ $params['body']                  = (array) The index, shard, and primary flag to
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacedeleteComponentTemplate_deleteComponentTemplate]]
-.`deleteComponentTemplate()`
 [[Elasticsearch_Namespaces_ClusterNamespacedeleteComponentTemplate_deleteComponentTemplate]]
 .`deleteComponentTemplate(array $params = [])`
 ****
@@ -71,8 +67,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_Namespaces_ClusterNamespacedeleteVotingConfigExclusions_deleteVotingConfigExclusions]]
-.`deleteVotingConfigExclusions()`
-[[Elasticsearch_Namespaces_ClusterNamespacedeleteVotingConfigExclusions_deleteVotingConfigExclusions]]
 .`deleteVotingConfigExclusions(array $params = [])`
 ****
 [source,php]
@@ -85,8 +79,6 @@ $params['wait_for_removal'] = (boolean) Specifies whether to wait for all exclud
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespaceexistsComponentTemplate_existsComponentTemplate]]
-.`existsComponentTemplate()`
 [[Elasticsearch_Namespaces_ClusterNamespaceexistsComponentTemplate_existsComponentTemplate]]
 .`existsComponentTemplate(array $params = [])`
 ****
@@ -103,8 +95,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 [[Elasticsearch_Namespaces_ClusterNamespacegetComponentTemplate_getComponentTemplate]]
-.`getComponentTemplate()`
-[[Elasticsearch_Namespaces_ClusterNamespacegetComponentTemplate_getComponentTemplate]]
 .`getComponentTemplate(array $params = [])`
 ****
 [source,php]
@@ -119,8 +109,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings]]
-.`getSettings()`
 [[Elasticsearch_Namespaces_ClusterNamespacegetSettings_getSettings]]
 .`getSettings(array $params = [])`
 ****
@@ -137,8 +125,6 @@ $params['include_defaults'] = (boolean) Whether to return all default clusters s
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacehealth_health]]
-.`health()`
 [[Elasticsearch_Namespaces_ClusterNamespacehealth_health]]
 .`health(array $params = [])`
 ****
@@ -164,8 +150,6 @@ $params['wait_for_status']                 = (enum) Wait until cluster is in a s
 
 
 [[Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks]]
-.`pendingTasks()`
-[[Elasticsearch_Namespaces_ClusterNamespacependingTasks_pendingTasks]]
 .`pendingTasks(array $params = [])`
 ****
 [source,php]
@@ -180,8 +164,6 @@ $params['master_timeout'] = (time) Specify timeout for connection to master
 
 
 [[Elasticsearch_Namespaces_ClusterNamespacepostVotingConfigExclusions_postVotingConfigExclusions]]
-.`postVotingConfigExclusions()`
-[[Elasticsearch_Namespaces_ClusterNamespacepostVotingConfigExclusions_postVotingConfigExclusions]]
 .`postVotingConfigExclusions(array $params = [])`
 ****
 [source,php]
@@ -194,8 +176,6 @@ $params['node_ids']   = (string) A comma-separated list of the persistent ids of
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespaceputComponentTemplate_putComponentTemplate]]
-.`putComponentTemplate()`
 [[Elasticsearch_Namespaces_ClusterNamespaceputComponentTemplate_putComponentTemplate]]
 .`putComponentTemplate(array $params = [])`
 ****
@@ -214,8 +194,6 @@ $params['body']           = (array) The template definition (Required)
 
 
 [[Elasticsearch_Namespaces_ClusterNamespaceputSettings_putSettings]]
-.`putSettings()`
-[[Elasticsearch_Namespaces_ClusterNamespaceputSettings_putSettings]]
 .`putSettings(array $params = [])`
 ****
 [source,php]
@@ -232,8 +210,6 @@ $params['body']           = (array) The settings to be updated. Can be either `t
 
 
 [[Elasticsearch_Namespaces_ClusterNamespaceremoteInfo_remoteInfo]]
-.`remoteInfo()`
-[[Elasticsearch_Namespaces_ClusterNamespaceremoteInfo_remoteInfo]]
 .`remoteInfo(array $params = [])`
 ****
 [source,php]
@@ -245,8 +221,6 @@ $params['body']           = (array) The settings to be updated. Can be either `t
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacereroute_reroute]]
-.`reroute()`
 [[Elasticsearch_Namespaces_ClusterNamespacereroute_reroute]]
 .`reroute(array $params = [])`
 ****
@@ -266,8 +240,6 @@ $params['body']           = (array) The definition of `commands` to perform (`mo
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacestate_state]]
-.`state()`
 [[Elasticsearch_Namespaces_ClusterNamespacestate_state]]
 .`state(array $params = [])`
 ****
@@ -290,8 +262,6 @@ $params['expand_wildcards']          = (enum) Whether to expand wildcard express
 
 
 
-[[Elasticsearch_Namespaces_ClusterNamespacestats_stats]]
-.`stats()`
 [[Elasticsearch_Namespaces_ClusterNamespacestats_stats]]
 .`stats(array $params = [])`
 ****

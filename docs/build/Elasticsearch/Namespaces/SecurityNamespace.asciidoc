@@ -51,8 +51,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceauthenticate_authenticate]]
-.`authenticate()`
-[[Elasticsearch_Namespaces_SecurityNamespaceauthenticate_authenticate]]
 .`authenticate(array $params = [])`
 ****
 [source,php]
@@ -64,8 +62,6 @@ The class defines the following methods:
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacechangePassword_changePassword]]
-.`changePassword()`
 [[Elasticsearch_Namespaces_SecurityNamespacechangePassword_changePassword]]
 .`changePassword(array $params = [])`
 ****
@@ -82,8 +78,6 @@ $params['body']     = (array) the new password for the user (Required)
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceclearApiKeyCache_clearApiKeyCache]]
-.`clearApiKeyCache()`
-[[Elasticsearch_Namespaces_SecurityNamespaceclearApiKeyCache_clearApiKeyCache]]
 .`clearApiKeyCache(array $params = [])`
 ****
 [source,php]
@@ -97,8 +91,6 @@ $params['ids'] = (list) A comma-separated list of IDs of API keys to clear from 
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceclearCachedPrivileges_clearCachedPrivileges]]
-.`clearCachedPrivileges()`
-[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedPrivileges_clearCachedPrivileges]]
 .`clearCachedPrivileges(array $params = [])`
 ****
 [source,php]
@@ -111,8 +103,6 @@ $params['application'] = (list) A comma-separated list of application names
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRealms_clearCachedRealms]]
-.`clearCachedRealms()`
 [[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRealms_clearCachedRealms]]
 .`clearCachedRealms(array $params = [])`
 ****
@@ -128,8 +118,6 @@ $params['usernames'] = (list) Comma-separated list of usernames to clear from th
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRoles_clearCachedRoles]]
-.`clearCachedRoles()`
-[[Elasticsearch_Namespaces_SecurityNamespaceclearCachedRoles_clearCachedRoles]]
 .`clearCachedRoles(array $params = [])`
 ****
 [source,php]
@@ -142,8 +130,6 @@ $params['name'] = (list) Role name
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacecreateApiKey_createApiKey]]
-.`createApiKey()`
 [[Elasticsearch_Namespaces_SecurityNamespacecreateApiKey_createApiKey]]
 .`createApiKey(array $params = [])`
 ****
@@ -158,8 +144,6 @@ $params['body']    = (array) The api key request to create an API key (Required)
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacedeletePrivileges_deletePrivileges]]
-.`deletePrivileges()`
 [[Elasticsearch_Namespaces_SecurityNamespacedeletePrivileges_deletePrivileges]]
 .`deletePrivileges(array $params = [])`
 ****
@@ -176,8 +160,6 @@ $params['refresh']     = (enum) If `true` (the default) then refresh the affecte
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacedeleteRole_deleteRole]]
-.`deleteRole()`
-[[Elasticsearch_Namespaces_SecurityNamespacedeleteRole_deleteRole]]
 .`deleteRole(array $params = [])`
 ****
 [source,php]
@@ -191,8 +173,6 @@ $params['refresh'] = (enum) If `true` (the default) then refresh the affected sh
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacedeleteRoleMapping_deleteRoleMapping]]
-.`deleteRoleMapping()`
 [[Elasticsearch_Namespaces_SecurityNamespacedeleteRoleMapping_deleteRoleMapping]]
 .`deleteRoleMapping(array $params = [])`
 ****
@@ -208,8 +188,6 @@ $params['refresh'] = (enum) If `true` (the default) then refresh the affected sh
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacedeleteUser_deleteUser]]
-.`deleteUser()`
-[[Elasticsearch_Namespaces_SecurityNamespacedeleteUser_deleteUser]]
 .`deleteUser(array $params = [])`
 ****
 [source,php]
@@ -223,8 +201,6 @@ $params['refresh']  = (enum) If `true` (the default) then refresh the affected s
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacedisableUser_disableUser]]
-.`disableUser()`
 [[Elasticsearch_Namespaces_SecurityNamespacedisableUser_disableUser]]
 .`disableUser(array $params = [])`
 ****
@@ -240,8 +216,6 @@ $params['refresh']  = (enum) If `true` (the default) then refresh the affected s
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceenableUser_enableUser]]
-.`enableUser()`
-[[Elasticsearch_Namespaces_SecurityNamespaceenableUser_enableUser]]
 .`enableUser(array $params = [])`
 ****
 [source,php]
@@ -255,8 +229,6 @@ $params['refresh']  = (enum) If `true` (the default) then refresh the affected s
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacegetApiKey_getApiKey]]
-.`getApiKey()`
 [[Elasticsearch_Namespaces_SecurityNamespacegetApiKey_getApiKey]]
 .`getApiKey(array $params = [])`
 ****
@@ -275,8 +247,6 @@ $params['owner']      = (boolean) flag to query API keys owned by the currently 
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacegetBuiltinPrivileges_getBuiltinPrivileges]]
-.`getBuiltinPrivileges()`
-[[Elasticsearch_Namespaces_SecurityNamespacegetBuiltinPrivileges_getBuiltinPrivileges]]
 .`getBuiltinPrivileges(array $params = [])`
 ****
 [source,php]
@@ -288,8 +258,6 @@ $params['owner']      = (boolean) flag to query API keys owned by the currently 
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacegetPrivileges_getPrivileges]]
-.`getPrivileges()`
 [[Elasticsearch_Namespaces_SecurityNamespacegetPrivileges_getPrivileges]]
 .`getPrivileges(array $params = [])`
 ****
@@ -305,8 +273,6 @@ $params['name']        = (string) Privilege name
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacegetRole_getRole]]
-.`getRole()`
-[[Elasticsearch_Namespaces_SecurityNamespacegetRole_getRole]]
 .`getRole(array $params = [])`
 ****
 [source,php]
@@ -319,8 +285,6 @@ $params['name'] = (list) A comma-separated list of role names
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacegetRoleMapping_getRoleMapping]]
-.`getRoleMapping()`
 [[Elasticsearch_Namespaces_SecurityNamespacegetRoleMapping_getRoleMapping]]
 .`getRoleMapping(array $params = [])`
 ****
@@ -335,8 +299,6 @@ $params['name'] = (list) A comma-separated list of role-mapping names
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacegetToken_getToken]]
-.`getToken()`
-[[Elasticsearch_Namespaces_SecurityNamespacegetToken_getToken]]
 .`getToken(array $params = [])`
 ****
 [source,php]
@@ -349,8 +311,6 @@ $params['body'] = (array) The token request to get (Required)
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacegetUser_getUser]]
-.`getUser()`
 [[Elasticsearch_Namespaces_SecurityNamespacegetUser_getUser]]
 .`getUser(array $params = [])`
 ****
@@ -365,8 +325,6 @@ $params['username'] = (list) A comma-separated list of usernames
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacegetUserPrivileges_getUserPrivileges]]
-.`getUserPrivileges()`
-[[Elasticsearch_Namespaces_SecurityNamespacegetUserPrivileges_getUserPrivileges]]
 .`getUserPrivileges(array $params = [])`
 ****
 [source,php]
@@ -378,8 +336,6 @@ $params['username'] = (list) A comma-separated list of usernames
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespacegrantApiKey_grantApiKey]]
-.`grantApiKey()`
 [[Elasticsearch_Namespaces_SecurityNamespacegrantApiKey_grantApiKey]]
 .`grantApiKey(array $params = [])`
 ****
@@ -395,8 +351,6 @@ $params['body']    = (array) The api key request to create an API key (Required)
 
 
 [[Elasticsearch_Namespaces_SecurityNamespacehasPrivileges_hasPrivileges]]
-.`hasPrivileges()`
-[[Elasticsearch_Namespaces_SecurityNamespacehasPrivileges_hasPrivileges]]
 .`hasPrivileges(array $params = [])`
 ****
 [source,php]
@@ -411,8 +365,6 @@ $params['body'] = (array) The privileges to test (Required)
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceinvalidateApiKey_invalidateApiKey]]
-.`invalidateApiKey()`
-[[Elasticsearch_Namespaces_SecurityNamespaceinvalidateApiKey_invalidateApiKey]]
 .`invalidateApiKey(array $params = [])`
 ****
 [source,php]
@@ -424,8 +376,6 @@ $params['body'] = (array) The privileges to test (Required)
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespaceinvalidateToken_invalidateToken]]
-.`invalidateToken()`
 [[Elasticsearch_Namespaces_SecurityNamespaceinvalidateToken_invalidateToken]]
 .`invalidateToken(array $params = [])`
 ****
@@ -440,8 +390,6 @@ $params['body'] = (array) The token to invalidate (Required)
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceputPrivileges_putPrivileges]]
-.`putPrivileges()`
-[[Elasticsearch_Namespaces_SecurityNamespaceputPrivileges_putPrivileges]]
 .`putPrivileges(array $params = [])`
 ****
 [source,php]
@@ -455,8 +403,6 @@ $params['body']    = (array) The privilege(s) to add (Required)
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespaceputRole_putRole]]
-.`putRole()`
 [[Elasticsearch_Namespaces_SecurityNamespaceputRole_putRole]]
 .`putRole(array $params = [])`
 ****
@@ -473,8 +419,6 @@ $params['body']    = (array) The role to add (Required)
 
 
 [[Elasticsearch_Namespaces_SecurityNamespaceputRoleMapping_putRoleMapping]]
-.`putRoleMapping()`
-[[Elasticsearch_Namespaces_SecurityNamespaceputRoleMapping_putRoleMapping]]
 .`putRoleMapping(array $params = [])`
 ****
 [source,php]
@@ -489,8 +433,6 @@ $params['body']    = (array) The role mapping to add (Required)
 
 
 
-[[Elasticsearch_Namespaces_SecurityNamespaceputUser_putUser]]
-.`putUser()`
 [[Elasticsearch_Namespaces_SecurityNamespaceputUser_putUser]]
 .`putUser(array $params = [])`
 ****

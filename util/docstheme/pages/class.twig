@@ -37,14 +37,12 @@ The {{ class_type(class) }} defines the following methods:
 
 
 [[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
-.`{{ method.name }}()`
+.`{{ method.name }}{{ block('method_parameters_signature') }}`
 {% if method.tags('note') %}
 {% for note in method.tags('note') %}
 *NOTE:* {{ note|join(' ') }}
 {% endfor %}
 {% endif %}
-[[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
-.`{{ method.name }}{{ block('method_parameters_signature') }}`
 ****
 [source,php]
 ----

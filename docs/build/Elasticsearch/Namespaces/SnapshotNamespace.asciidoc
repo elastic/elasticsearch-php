@@ -33,8 +33,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacecleanupRepository_cleanupRepository]]
-.`cleanupRepository()`
-[[Elasticsearch_Namespaces_SnapshotNamespacecleanupRepository_cleanupRepository]]
 .`cleanupRepository(array $params = [])`
 ****
 [source,php]
@@ -49,8 +47,6 @@ $params['timeout']        = (time) Explicit operation timeout
 
 
 
-[[Elasticsearch_Namespaces_SnapshotNamespaceclone_clone]]
-.`clone()`
 [[Elasticsearch_Namespaces_SnapshotNamespaceclone_clone]]
 .`clone(array $params = [])`
 ****
@@ -69,8 +65,6 @@ $params['body']            = (array) The snapshot clone definition (Required)
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacecreate_create]]
-.`create()`
-[[Elasticsearch_Namespaces_SnapshotNamespacecreate_create]]
 .`create(array $params = [])`
 ****
 [source,php]
@@ -87,8 +81,6 @@ $params['body']                = (array) The snapshot definition
 
 
 
-[[Elasticsearch_Namespaces_SnapshotNamespacecreateRepository_createRepository]]
-.`createRepository()`
 [[Elasticsearch_Namespaces_SnapshotNamespacecreateRepository_createRepository]]
 .`createRepository(array $params = [])`
 ****
@@ -107,8 +99,6 @@ $params['body']           = (array) The repository definition (Required)
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacedelete_delete]]
-.`delete()`
-[[Elasticsearch_Namespaces_SnapshotNamespacedelete_delete]]
 .`delete(array $params = [])`
 ****
 [source,php]
@@ -124,8 +114,6 @@ $params['master_timeout'] = (time) Explicit operation timeout for connection to 
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacedeleteRepository_deleteRepository]]
-.`deleteRepository()`
-[[Elasticsearch_Namespaces_SnapshotNamespacedeleteRepository_deleteRepository]]
 .`deleteRepository(array $params = [])`
 ****
 [source,php]
@@ -138,8 +126,6 @@ $params['repository']     = (list) Name of the snapshot repository to unregister
 
 
 
-[[Elasticsearch_Namespaces_SnapshotNamespaceget_get]]
-.`get()`
 [[Elasticsearch_Namespaces_SnapshotNamespaceget_get]]
 .`get(array $params = [])`
 ****
@@ -158,8 +144,6 @@ $params['verbose']            = (boolean) Whether to show verbose snapshot info 
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacegetRepository_getRepository]]
-.`getRepository()`
-[[Elasticsearch_Namespaces_SnapshotNamespacegetRepository_getRepository]]
 .`getRepository(array $params = [])`
 ****
 [source,php]
@@ -174,8 +158,6 @@ $params['local']          = (boolean) Return local information, do not retrieve 
 
 
 
-[[Elasticsearch_Namespaces_SnapshotNamespacerestore_restore]]
-.`restore()`
 [[Elasticsearch_Namespaces_SnapshotNamespacerestore_restore]]
 .`restore(array $params = [])`
 ****
@@ -194,8 +176,6 @@ $params['body']                = (array) Details of what to restore
 
 
 [[Elasticsearch_Namespaces_SnapshotNamespacestatus_status]]
-.`status()`
-[[Elasticsearch_Namespaces_SnapshotNamespacestatus_status]]
 .`status(array $params = [])`
 ****
 [source,php]
@@ -211,8 +191,6 @@ $params['ignore_unavailable'] = (boolean) Whether to ignore unavailable snapshot
 
 
 
-[[Elasticsearch_Namespaces_SnapshotNamespaceverifyRepository_verifyRepository]]
-.`verifyRepository()`
 [[Elasticsearch_Namespaces_SnapshotNamespaceverifyRepository_verifyRepository]]
 .`verifyRepository(array $params = [])`
 ****

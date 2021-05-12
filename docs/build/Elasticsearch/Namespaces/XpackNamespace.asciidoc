@@ -24,8 +24,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_XpackNamespaceinfo_info]]
-.`info()`
-[[Elasticsearch_Namespaces_XpackNamespaceinfo_info]]
 .`info(array $params = [])`
 ****
 [source,php]
@@ -39,8 +37,6 @@ $params['accept_enterprise'] = (boolean) If an enterprise license is installed, 
 
 
 
-[[Elasticsearch_Namespaces_XpackNamespaceusage_usage]]
-.`usage()`
 [[Elasticsearch_Namespaces_XpackNamespaceusage_usage]]
 .`usage(array $params = [])`
 ****

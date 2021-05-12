@@ -23,8 +23,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_GraphNamespaceexplore_explore]]
-.`explore()`
-[[Elasticsearch_Namespaces_GraphNamespaceexplore_explore]]
 .`explore(array $params = [])`
 ****
 [source,php]

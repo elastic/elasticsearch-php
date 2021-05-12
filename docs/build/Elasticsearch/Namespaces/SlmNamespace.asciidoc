@@ -31,8 +31,6 @@ The class defines the following methods:
 
 
 [[Elasticsearch_Namespaces_SlmNamespacedeleteLifecycle_deleteLifecycle]]
-.`deleteLifecycle()`
-[[Elasticsearch_Namespaces_SlmNamespacedeleteLifecycle_deleteLifecycle]]
 .`deleteLifecycle(array $params = [])`
 ****
 [source,php]
@@ -45,8 +43,6 @@ $params['policy_id'] = (string) The id of the snapshot lifecycle policy to remov
 
 
 
-[[Elasticsearch_Namespaces_SlmNamespaceexecuteLifecycle_executeLifecycle]]
-.`executeLifecycle()`
 [[Elasticsearch_Namespaces_SlmNamespaceexecuteLifecycle_executeLifecycle]]
 .`executeLifecycle(array $params = [])`
 ****
@@ -61,8 +57,6 @@ $params['policy_id'] = (string) The id of the snapshot lifecycle policy to be ex
 
 
 [[Elasticsearch_Namespaces_SlmNamespaceexecuteRetention_executeRetention]]
-.`executeRetention()`
-[[Elasticsearch_Namespaces_SlmNamespaceexecuteRetention_executeRetention]]
 .`executeRetention(array $params = [])`
 ****
 [source,php]
@@ -74,8 +68,6 @@ $params['policy_id'] = (string) The id of the snapshot lifecycle policy to be ex
 
 
 
-[[Elasticsearch_Namespaces_SlmNamespacegetLifecycle_getLifecycle]]
-.`getLifecycle()`
 [[Elasticsearch_Namespaces_SlmNamespacegetLifecycle_getLifecycle]]
 .`getLifecycle(array $params = [])`
 ****
@@ -90,8 +82,6 @@ $params['policy_id'] = (list) Comma-separated list of snapshot lifecycle policie
 
 
 [[Elasticsearch_Namespaces_SlmNamespacegetStats_getStats]]
-.`getStats()`
-[[Elasticsearch_Namespaces_SlmNamespacegetStats_getStats]]
 .`getStats(array $params = [])`
 ****
 [source,php]
@@ -104,8 +94,6 @@ $params['policy_id'] = (list) Comma-separated list of snapshot lifecycle policie
 
 
 [[Elasticsearch_Namespaces_SlmNamespacegetStatus_getStatus]]
-.`getStatus()`
-[[Elasticsearch_Namespaces_SlmNamespacegetStatus_getStatus]]
 .`getStatus(array $params = [])`
 ****
 [source,php]
@@ -117,8 +105,6 @@ $params['policy_id'] = (list) Comma-separated list of snapshot lifecycle policie
 
 
 
-[[Elasticsearch_Namespaces_SlmNamespaceputLifecycle_putLifecycle]]
-.`putLifecycle()`
 [[Elasticsearch_Namespaces_SlmNamespaceputLifecycle_putLifecycle]]
 .`putLifecycle(array $params = [])`
 ****
@@ -134,8 +120,6 @@ $params['body']      = (array) The snapshot lifecycle policy definition to regis
 
 
 [[Elasticsearch_Namespaces_SlmNamespacestart_start]]
-.`start()`
-[[Elasticsearch_Namespaces_SlmNamespacestart_start]]
 .`start(array $params = [])`
 ****
 [source,php]
@@ -147,8 +131,6 @@ $params['body']      = (array) The snapshot lifecycle policy definition to regis
 
 
 
-[[Elasticsearch_Namespaces_SlmNamespacestop_stop]]
-.`stop()`
 [[Elasticsearch_Namespaces_SlmNamespacestop_stop]]
 .`stop(array $params = [])`
 ****

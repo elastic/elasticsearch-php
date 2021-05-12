@@ -36,7 +36,6 @@ The {{ class_type(class) }} defines the following methods:
 {% if method.name != "__construct" %}
 
 
-{% if class.shortname != "ClientBuilder" %}
 [[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
 .`{{ method.name }}()`
 {% if method.tags('note') %}
@@ -44,6 +43,8 @@ The {{ class_type(class) }} defines the following methods:
 *NOTE:* {{ note|join(' ') }}
 {% endfor %}
 {% endif %}
+[[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
+.`{{ method.name }}{{ block('method_parameters_signature') }}`
 ****
 [source,php]
 ----
@@ -52,30 +53,8 @@ The {{ class_type(class) }} defines the following methods:
 {{ method.shortdesc|raw }}
 {% endif %}
 */
-
-$params = [
-    // ...
-];
-
-$client = ClientBuilder::create()->build();
-$response = {{ get_namespace(class) }}->{{ method.name }}({{ param_list(method)|trim(',') }});
 ----
 ****
-{% else %}
-[[{{ sanitize(replace_backslash(method)~"_"~method.name) }}]]
-.`{{ method.name }}()`
-****
-[source,php]
-----
-/*
-{% if method.shortdesc %}
-    {{ method.shortdesc|raw }}
-{% endif %}
-*/
-
-----
-****
-{% endif %}
 {% endif %}
 
 {% endfor %}
@@ -83,3 +62,7 @@ $response = {{ get_namespace(class) }}->{{ method.name }}({{ param_list(method)|
 
 {% endblock %}
 
+{% block method_parameters_signature -%}
+    {%- from "macros.twig" import method_parameters_signature -%}
+    {{ method_parameters_signature(method) }}
+{%- endblock %}

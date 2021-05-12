@@ -34,7 +34,4 @@ RUN composer install
 
 COPY . .
 
-# Updating elasticsearch submodule
-RUN git submodule update --init --recursive
-
 CMD ["bash", ".ci/yaml-tests.sh"]

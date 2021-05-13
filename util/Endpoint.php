@@ -436,12 +436,13 @@ class Endpoint
 
     public function renderDocParams(): string
     {
-        if (!isset($this->content['params']) && empty($this->getParts())) {
-            return '';
-        }
         $space = $this->getMaxLengthBodyPartsParams();
 
         $result = "\n    /**\n";
+        if (isset($this->content['documentation']['description'])) {
+            $result .= "     * {$this->content['documentation']['description']}\n";
+            $result .= "     *\n";
+        }
         $result .= $this->extractPartsDescription($space);
         $result .= $this->extractParamsDescription($space);
         $result .= $this->extractBodyDescription($space);

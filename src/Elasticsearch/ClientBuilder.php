@@ -144,6 +144,9 @@ class ClientBuilder
      */
     private $includePortInHostHeader = false;
 
+    /**
+     * Create an instance of ClientBuilder
+     */
     public static function create(): ClientBuilder
     {
         return new static();
@@ -185,6 +188,7 @@ class ClientBuilder
      * Unknown keys will throw an exception by default, but this can be silenced
      * by setting `quiet` to true
      *
+     * @param  array $config
      * @param  bool $quiet False if unknown settings throw exception, true to silently
      *                     ignore unknown settings
      * @throws Common\Exceptions\RuntimeException
@@ -214,6 +218,10 @@ class ClientBuilder
     }
 
     /**
+     * Get the default handler
+     * 
+     * @param array $multiParams
+     * @param array $singleParams
      * @throws \RuntimeException
      */
     public static function defaultHandler(array $multiParams = [], array $singleParams = []): callable
@@ -235,6 +243,8 @@ class ClientBuilder
     }
 
     /**
+     * Get the multi handler for async (CurlMultiHandler)
+     * 
      * @throws \RuntimeException
      */
     public static function multiHandler(array $params = []): CurlMultiHandler
@@ -247,6 +257,8 @@ class ClientBuilder
     }
 
     /**
+     * Get the handler instance (CurlHandler)
+     * 
      * @throws \RuntimeException
      */
     public static function singleHandler(): CurlHandler
@@ -258,6 +270,11 @@ class ClientBuilder
         }
     }
 
+    /**
+     * Set connection Factory
+     * 
+     * @param ConnectionFactoryInterface $connectionFactory
+     */
     public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory): ClientBuilder
     {
         $this->connectionFactory = $connectionFactory;
@@ -266,7 +283,10 @@ class ClientBuilder
     }
 
     /**
+     * Set the connection pool (default is StaticNoPingConnectionPool)
+     * 
      * @param  AbstractConnectionPool|string $connectionPool
+     * @param array $args
      * @throws \InvalidArgumentException
      */
     public function setConnectionPool($connectionPool, array $args = []): ClientBuilder
@@ -283,6 +303,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the endpoint
+     * 
+     * @param callable $endpoint
+     */
     public function setEndpoint(callable $endpoint): ClientBuilder
     {
         $this->endpoint = $endpoint;
@@ -290,6 +315,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Register namespace
+     * 
+     * @param NamespaceBuilderInterface $namespaceBuilder
+     */
     public function registerNamespace(NamespaceBuilderInterface $namespaceBuilder): ClientBuilder
     {
         $this->registeredNamespacesBuilders[] = $namespaceBuilder;
@@ -297,6 +327,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the transport
+     * 
+     * @param Transport $transport
+     */
     public function setTransport(Transport $transport): ClientBuilder
     {
         $this->transport = $transport;
@@ -305,8 +340,9 @@ class ClientBuilder
     }
 
     /**
+     * Set the HTTP handler (cURL is default)
+     * 
      * @param  mixed $handler
-     * @return $this
      */
     public function setHandler($handler): ClientBuilder
     {
@@ -315,6 +351,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the PSR-3 Logger
+     * 
+     * @param LoggerInterface $logger
+     */
     public function setLogger(LoggerInterface $logger): ClientBuilder
     {
         $this->logger = $logger;
@@ -322,6 +363,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the PSR-3 tracer
+     * 
+     * @param LoggerInterface $tracer
+     */
     public function setTracer(LoggerInterface $tracer): ClientBuilder
     {
         $this->tracer = $tracer;
@@ -330,6 +376,8 @@ class ClientBuilder
     }
 
     /**
+     * Set the serializer
+     * 
      * @param \Elasticsearch\Serializers\SerializerInterface|string $serializer
      */
     public function setSerializer($serializer): ClientBuilder
@@ -339,6 +387,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set the hosts (nodes)
+     * 
+     * @param array $hosts
+     */
     public function setHosts(array $hosts): ClientBuilder
     {
         $this->hosts = $hosts;
@@ -365,8 +418,9 @@ class ClientBuilder
     }
 
     /**
-     * Set the APIKey Pair, consiting of the API Id and the ApiKey of the Response from /_security/api_key
+     * Set Basic access authentication
      *
+     * @see https://en.wikipedia.org/wiki/Basic_access_authentication
      * @param string $username
      * @param string $password
      *
@@ -416,6 +470,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set connection parameters
+     * 
+     * @param array $params
+     */
     public function setConnectionParams(array $params): ClientBuilder
     {
         $this->connectionParams = $params;
@@ -423,6 +482,11 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set number or retries (default is equal to number of nodes)
+     * 
+     * @param int $retries
+     */
     public function setRetries(int $retries): ClientBuilder
     {
         $this->retries = $retries;
@@ -431,6 +495,8 @@ class ClientBuilder
     }
 
     /**
+     * Set the selector algorithm
+     * 
      * @param \Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
      */
     public function setSelector($selector): ClientBuilder
@@ -440,6 +506,12 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Set sniff on start 
+     * 
+     * @param bool $sniffOnStart enable or disable sniff on start
+     */
+
     public function setSniffOnStart(bool $sniffOnStart): ClientBuilder
     {
         $this->sniffOnStart = $sniffOnStart;
@@ -448,7 +520,10 @@ class ClientBuilder
     }
 
     /**
+     * Set SSL certificate
+     * 
      * @param string $cert The name of a file containing a PEM formatted certificate.
+     * @param string $password if the certificate requires a password
      */
     public function setSSLCert(string $cert, string $password = null): ClientBuilder
     {
@@ -458,7 +533,10 @@ class ClientBuilder
     }
 
     /**
-     * @param string $key The name of a file containing a private SSL key.
+     * Set SSL key
+     * 
+     * @param string $key The name of a file containing a private SSL key
+     * @param string $password if the private key requires a password
      */
     public function setSSLKey(string $key, string $password = null): ClientBuilder
     {
@@ -468,6 +546,8 @@ class ClientBuilder
     }
 
     /**
+     * Set SSL verification 
+     * 
      * @param bool|string $value
      */
     public function setSSLVerification($value = true): ClientBuilder
@@ -499,6 +579,9 @@ class ClientBuilder
         return $this;
     }
 
+    /**
+     * Build and returns the Client object
+     */
     public function build(): Client
     {
         $this->buildLoggers();

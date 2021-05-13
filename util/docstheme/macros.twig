@@ -136,3 +136,35 @@ class
 {% if member.static %} static{% endif %}
 {% endspaceless %}
 {%- endmacro -%}
+
+{% macro method_parameters_signature(method) -%}
+    {%- from "macros.twig" import hint_link -%}
+    (
+        {%- for parameter in method.parameters %}
+            {%- if parameter.hashint %}{{ hint_link(parameter.hint) }} {% endif -%}
+            {%- if parameter.variadic %}...{% endif %}${{ parameter.name|raw }}
+            {%- if parameter.default is not null %} = {{ parameter.default }}{% endif %}
+            {%- if not loop.last %}, {% endif %}
+        {%- endfor -%}
+    )
+{%- endmacro %}
+
+{% macro hint_link(hints) -%}
+    {%- from _self import class_link %}
+
+    {%- if hints %}
+        {%- for hint in hints %}
+            {%- if hint.class %}
+                {{- class_link(hint.name) }}
+            {%- elseif hint.name %}
+                {{- abbr_class(hint.name) }}
+            {%- endif %}
+            {%- if hint.array %}[]{% endif %}
+            {%- if not loop.last %}|{% endif %}
+        {%- endfor %}
+    {%- endif %}
+{%- endmacro %}
+
+{% macro class_link(class, absolute) -%}
+    {{- class }}
+{%- endmacro %}

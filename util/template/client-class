@@ -89,6 +89,8 @@ class Client
     }
 
     /**
+     * Extract an argument from the array of parameters
+     *
      * @return null|mixed
      */
     public function extractArgument(array &$params, string $arg)

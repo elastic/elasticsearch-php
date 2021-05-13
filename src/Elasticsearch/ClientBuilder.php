@@ -486,9 +486,6 @@ class ClientBuilder
      * Set number or retries (default is equal to number of nodes)
      * 
      * @param int $retries
-     * @api $params = [
-     * 'a' => 'b'
-     * ]
      */
     public function setRetries(int $retries): ClientBuilder
     {

@@ -440,7 +440,7 @@ class Endpoint
 
         $result = "\n    /**\n";
         if (isset($this->content['documentation']['description'])) {
-            $result .= "     * {$this->content['documentation']['description']}\n";
+            $result .= sprintf("     * %s\n", str_replace("\n", '', $this->content['documentation']['description']));
             $result .= "     *\n";
         }
         $result .= $this->extractPartsDescription($space);

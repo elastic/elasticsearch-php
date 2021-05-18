@@ -103,6 +103,6 @@ interface ConnectionInterface
      */
 	// @codingStandardsIgnoreStart
 	// "Arguments with default values must be at the end of the argument list" - cannot change the interface
-    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport);
+    public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null);
 	// @codingStandardsIgnoreEnd
 }

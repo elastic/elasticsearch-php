@@ -53,14 +53,14 @@ class ClientBuilder
     /** @var  LoggerInterface */
     private $tracer;
 
-    /** @var string */
-    private $connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+    /** @var string|AbstractConnectionPool */
+    private $connectionPool = StaticNoPingConnectionPool::class;
 
     /** @var  string */
-    private $serializer = '\Elasticsearch\Serializers\SmartSerializer';
+    private $serializer = SmartSerializer::class;
 
-    /** @var  string */
-    private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
+    /** @var  string|SelectorInterface */
+    private $selector = Selectors\RoundRobinSelector::class;
 
     /** @var  array */
     private $connectionPoolArgs = [
@@ -641,7 +641,7 @@ class ClientBuilder
     }
 
     /**
-     * @param array $host
+     * @param string $host
      *
      * @throws \InvalidArgumentException
      * @return array

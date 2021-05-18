@@ -296,4 +296,52 @@ class ClientBuilderTest extends TestCase
             $this->assertFalse(isset($request['request']['headers']['x-elastic-client-meta']));
         }    
     }
+
+    public function getCompatibilityHeaders()
+    {
+        return [
+            ['true', true],
+            ['1', true],
+            ['false', false],
+            ['0', false]
+        ];
+    }
+
+    /**
+     * @dataProvider getCompatibilityHeaders
+     */
+    public function testCompatibilityHeader($env, $compatibility)
+    {
+        putenv("ELASTIC_CLIENT_APIVERSIONING=$env");
+
+        $client = ClientBuilder::create()
+            ->build();
+        
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            if ($compatibility) {
+                $this->assertContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Content-Type']);
+                $this->assertContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Accept']);
+            } else {
+                $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Content-Type']);
+                $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Accept']);
+            }
+        }    
+    }
+
+    public function testCompatibilityHeaderDefaultIsOff()
+    {
+        $client = ClientBuilder::create()
+            ->build();
+        
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Content-Type']);
+            $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Accept']);
+        }    
+    }
 }

@@ -11,6 +11,7 @@ check sample code that helps you replace the various components.
 
 * <<host-config>>
 * <<set-retries>>
+* <<http-meta-data>>
 * <<enabling_logger>>
 * <<http-handler-config>>
 * <<namespaces>>
@@ -27,6 +28,8 @@ check sample code that helps you replace the various components.
 include::host-config.asciidoc[]
 
 include::set-retries.asciidoc[]
+
+include::http-meta-data.asciidoc[]
 
 include::logger.asciidoc[]
 

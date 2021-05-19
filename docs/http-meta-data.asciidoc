@@ -56,7 +56,7 @@ Accept: application/vnd.elasticsearch+json; compatible-with=7
 
 which signals to {es} that the client is requesting 7.x version of request and response
 bodies. This allows forupgrading from 7.x to 8.x version of Elasticsearch without upgrading
-everything at once. Elasticsearch should be upgraded first after the compatibility header is
+everything at once. {es} should be upgraded first after the compatibility header is
 configured and clients should be upgraded second.
 
 To enable this compatibility header you need to create a `ELASTIC_CLIENT_APIVERSIONING`
@@ -68,5 +68,4 @@ In PHP you can set this environment variable as follows:
 ----
 putenv("ELASTIC_CLIENT_APIVERSIONING=true");
 ----
-
 

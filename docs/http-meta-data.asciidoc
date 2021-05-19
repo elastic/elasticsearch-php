@@ -59,7 +59,7 @@ bodies. This allows forupgrading from 7.x to 8.x version of Elasticsearch withou
 everything at once. {es} should be upgraded first after the compatibility header is
 configured and clients should be upgraded second.
 
-To enable this compatibility header you need to create a `ELASTIC_CLIENT_APIVERSIONING`
+To enable this compatibility header, you need to create an `ELASTIC_CLIENT_APIVERSIONING`
 environment variable and set it to `true` or `1`, before the `Client` class initialization.
 
 In PHP you can set this environment variable as follows:
@@ -68,4 +68,3 @@ In PHP you can set this environment variable as follows:
 ----
 putenv("ELASTIC_CLIENT_APIVERSIONING=true");
 ----
-

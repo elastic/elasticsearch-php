@@ -55,7 +55,7 @@ Accept: application/vnd.elasticsearch+json; compatible-with=7
 ----
 
 which signals to {es} that the client is requesting 7.x version of request and response
-bodies. This allows forupgrading from 7.x to 8.x version of Elasticsearch without upgrading
+bodies. This allows upgrading from 7.x to 8.x version of Elasticsearch without upgrading
 everything at once. {es} should be upgraded first after the compatibility header is
 configured and clients should be upgraded second.
 

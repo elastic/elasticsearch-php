@@ -45,7 +45,7 @@ $client = Elasticsearch\ClientBuilder::create()
 
 ==== Send the API compatibility layer
 
-Starting from version 7.13, Elasticsearch supports a compatibility header in
+Starting from version 7.13, {es} supports a compatibility header in
 `Content-Type` and `Accept`. The PHP client can be configured to emit the following HTTP headers:
 
 [source]

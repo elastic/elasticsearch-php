@@ -13,6 +13,7 @@ To learn more about JSON in PHP, read <<php_json_objects>>.
 
 * <<host-config>>
 * <<set-retries>>
+* <<http-meta-data>>
 * <<enabling_logger>>
 * <<http-handler-config>>
 * <<namespaces>>
@@ -31,6 +32,8 @@ include::php_json_objects.asciidoc[]
 include::host-config.asciidoc[]
 
 include::set-retries.asciidoc[]
+
+include::http-meta-data.asciidoc[]
 
 include::logger.asciidoc[]
 

@@ -29,7 +29,7 @@ $client = Elasticsearch\ClientBuilder::create()
 ==== Include port number in Host header
 
 This is a special setting for the client that enables the port in the
-Host header. This settings has been introduced to prevent issue with
+Host header. This setting has been introduced to prevent issues with
 HTTP proxy layers (see issue https://github.com/elastic/elasticsearch-php/issues/993[#993]).
 
 By default the port number is not included in the Host header.
@@ -68,7 +68,6 @@ In PHP you can set this environment variable as follows:
 ----
 putenv("ELASTIC_CLIENT_APIVERSIONING=true");
 ----
-
 
 
 

@@ -1,3 +1,18 @@
+## Release 7.13.0
+
+- (DOCS) Added the HTTP meta data section
+  [#1143](https://github.com/elastic/elasticsearch-php/pull/1143)
+- Added support for API Compatibility Header
+  [#1142](https://github.com/elastic/elasticsearch-php/pull/1142)
+- (DOCS) Added Helpers section to PHP book
+  [#1129](https://github.com/elastic/elasticsearch-php/pull/1129)
+- Added the API description in phpdoc section for each endpoint
+  [9e05c81](https://github.com/elastic/elasticsearch-php/commit/9e05c8108b638b60cc676b6a4f4be97c7df9eb64)
+- Usage of PHPUnit 9 only + migrated xml configurations
+  [038b5dd](https://github.com/elastic/elasticsearch-php/commit/038b5dd043dc76b20b9f5f265ea914a38d33568d)
+- Added port in url for trace and logger messages
+  [#1126](https://github.com/elastic/elasticsearch-php/pull/1126)
+
 ## Release 7.12.0
 
 - Updated the endpoints for ES 7.12 + removed cpliakas/git-wrapper

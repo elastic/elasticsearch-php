@@ -17,11 +17,6 @@ declare(strict_types = 1);
 namespace Elasticsearch;
 
 use Elasticsearch\Common\Exceptions\BadMethodCallException;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\TransportException;
 use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Namespaces\AbstractNamespace;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
@@ -69,7 +64,7 @@ use Elasticsearch\Namespaces\XpackNamespace;
  */
 class Client
 {
-    const VERSION = '7.13.0-SNAPSHOT';
+    const VERSION = '7.13.0';
 
     /**
      * @var Transport

@@ -1,3 +1,7 @@
+## Release 7.13.1
+
+- Added port in url for trace and logger messages
+  [#1126](https://github.com/elastic/elasticsearch-php/pull/1126) 
 ## Release 7.13.0
 
 - (DOCS) Added the HTTP meta data section
@@ -10,8 +14,6 @@
   [9e05c81](https://github.com/elastic/elasticsearch-php/commit/9e05c8108b638b60cc676b6a4f4be97c7df9eb64)
 - Usage of PHPUnit 9 only + migrated xml configurations
   [038b5dd](https://github.com/elastic/elasticsearch-php/commit/038b5dd043dc76b20b9f5f265ea914a38d33568d)
-- Added port in url for trace and logger messages
-  [#1126](https://github.com/elastic/elasticsearch-php/pull/1126)
 
 ## Release 7.12.0
 

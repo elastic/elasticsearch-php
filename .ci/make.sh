@@ -140,7 +140,7 @@ esac
 if [[ "$CMD" == "assemble" ]]; then
     artefact_name="elasticsearch-php-${VERSION}"
     echo -e "\033[34;1mINFO: copy artefacts\033[0m"
-    rsync -arv --exclude=.ci --exclude=.git "$PWD" "${output_folder}/."
+    rsync -arv --exclude=.ci --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
     echo -e "\033[34;1mINFO: rename artefacts\033[0m"
     mv -v "${output_folder}/elasticsearch-php" "${output_folder}/${artefact_name}"

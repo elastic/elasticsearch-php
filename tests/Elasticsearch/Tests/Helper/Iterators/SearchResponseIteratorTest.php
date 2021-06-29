@@ -100,8 +100,10 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->ordered()
             ->with(
                 [
-                    'scroll_id'  => 'scroll_id_01',
-                    'scroll' => '5m'
+                    'body' => [
+                        'scroll_id'  => 'scroll_id_01',
+                        'scroll' => '5m'
+                    ]
                 ]
             )
             ->andReturn(
@@ -122,8 +124,10 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->ordered()
             ->with(
                 [
-                    'scroll_id'  => 'scroll_id_02',
-                    'scroll' => '5m'
+                    'body' => [
+                        'scroll_id' => 'scroll_id_02',
+                        'scroll' => '5m'
+                    ]
                 ]
             )
             ->andReturn(
@@ -144,8 +148,10 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->ordered()
             ->with(
                 [
-                    'scroll_id'  => 'scroll_id_03',
-                    'scroll' => '5m'
+                    'body' => [
+                        'scroll_id' => 'scroll_id_03',
+                        'scroll' => '5m'
+                    ]
                 ]
             )
             ->andReturn(
@@ -161,8 +167,10 @@ class SearchResponseIteratorTest extends \PHPUnit\Framework\TestCase
             ->never()
             ->with(
                 [
-                    'scroll_id'  => 'scroll_id_04',
-                    'scroll' => '5m'
+                    'body' => [
+                        'scroll_id'  => 'scroll_id_04',
+                        'scroll' => '5m'
+                    ]
                 ]
             );
 

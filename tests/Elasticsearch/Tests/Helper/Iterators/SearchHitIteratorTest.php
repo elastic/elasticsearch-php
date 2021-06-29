@@ -64,7 +64,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar1' ],
                         [ 'foo' => 'bar2' ]
                     ],
-                    'total' => 3
+                    'total' => [
+                        'value' => 3,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ],
                 [
@@ -74,7 +77,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar1' ],
                         [ 'foo' => 'bar2' ]
                     ],
-                    'total' => 3
+                    'total' => [
+                        'value' => 3,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ],
                 [
@@ -84,7 +90,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar1' ],
                         [ 'foo' => 'bar2' ]
                     ],
-                    'total' => 3
+                    'total' => [
+                        'value' => 3,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ],
                 [
@@ -94,7 +103,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar1' ],
                         [ 'foo' => 'bar2' ]
                     ],
-                    'total' => 3
+                    'total' => [
+                        'value' => 3,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ],
                 [
@@ -103,7 +115,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar3' ],
                         [ 'foo' => 'bar4' ]
                     ],
-                    'total' => 2
+                    'total' => [
+                        'value' => 2,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ],
                 [
@@ -112,7 +127,10 @@ class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
                         [ 'foo' => 'bar3' ],
                         [ 'foo' => 'bar4' ]
                     ],
-                    'total' => 2
+                    'total' => [
+                        'value' => 2,
+                        'relation' => 'eq'
+                    ]
                 ]
                 ]
             );

@@ -77,7 +77,7 @@ class SearchHitIterator implements Iterator, \Countable
 
         $this->count = 0;
         if (isset($current_page['hits']) && isset($current_page['hits']['total'])) {
-            $this->count = $current_page['hits']['total'];
+            $this->count = $current_page['hits']['total']['value'] ?? $current_page['hits']['total'];
         }
 
         $this->readPageData();

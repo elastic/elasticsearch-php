@@ -41,11 +41,11 @@ class GetField extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         if (isset($this->fields) !== true) {
             throw new Exceptions\RuntimeException(
@@ -57,10 +57,10 @@ class GetField extends AbstractEndpoint
         return $uri.'/'.$this->fields;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'include_defaults',
@@ -72,10 +72,10 @@ class GetField extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

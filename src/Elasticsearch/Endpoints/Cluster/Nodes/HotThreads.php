@@ -15,10 +15,10 @@ namespace Elasticsearch\Endpoints\Cluster\Nodes;
  */
 class HotThreads extends AbstractNodesEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $node_id = $this->nodeID;
         $uri   = "/_cluster/nodes/hotthreads";
@@ -30,10 +30,10 @@ class HotThreads extends AbstractNodesEndpoint
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'interval',
@@ -43,10 +43,10 @@ class HotThreads extends AbstractNodesEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

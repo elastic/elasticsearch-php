@@ -17,20 +17,20 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Nodes extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $uri   = "/_cat/nodes";
 
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'local',
@@ -44,10 +44,10 @@ class Nodes extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

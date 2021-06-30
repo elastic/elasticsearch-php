@@ -25,10 +25,10 @@ use Elasticsearch\Common\Exceptions;
 class Get extends AbstractEndpoint
 {
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $index = $this->index;
         $uri   = "/_upgrade";
@@ -41,11 +41,10 @@ class Get extends AbstractEndpoint
         return $uri;
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'wait_for_completion',
@@ -56,11 +55,10 @@ class Get extends AbstractEndpoint
         );
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -14,10 +14,10 @@ namespace Elasticsearch\Endpoints;
  */
 class RankEval extends AbstractEndpoint
 {
-    /**
-     * @return array
-     */
-    public function getParamWhitelist()
+   /**
+    * @return array
+    */
+    public function getParamWhitelist(): array
     {
         return [
             'ignore_unavailable',
@@ -26,10 +26,10 @@ class RankEval extends AbstractEndpoint
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    */
+    public function getURI(): string
     {
         $index = $this->index ?? null;
         if (isset($index)) {
@@ -38,10 +38,10 @@ class RankEval extends AbstractEndpoint
         return '/_rank_eval';
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

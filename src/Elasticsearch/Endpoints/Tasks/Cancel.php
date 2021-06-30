@@ -37,11 +37,11 @@ class Cancel extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+   /**
+    * @return string
+    * @throws Exceptions\RuntimeException
+    */
+    public function getURI(): string
     {
         if (isset($this->id) === true) {
             return "/_tasks/{$this->taskId}/_cancel";
@@ -50,10 +50,10 @@ class Cancel extends AbstractEndpoint
         return "/_tasks/_cancel";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+   /**
+    * @return string[]
+    */
+    public function getParamWhitelist(): array
     {
         return array(
             'node_id',
@@ -63,10 +63,10 @@ class Cancel extends AbstractEndpoint
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+   /**
+    * @return string
+    */
+    public function getMethod(): string
     {
         return 'POST';
     }

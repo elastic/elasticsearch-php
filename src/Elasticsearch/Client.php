@@ -37,6 +37,7 @@ use Elasticsearch\Namespaces\LicenseNamespace;
 use Elasticsearch\Namespaces\MigrationNamespace;
 use Elasticsearch\Namespaces\MlNamespace;
 use Elasticsearch\Namespaces\MonitoringNamespace;
+use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\RollupNamespace;
 use Elasticsearch\Namespaces\SqlNamespace;
 use Elasticsearch\Namespaces\SslNamespace;

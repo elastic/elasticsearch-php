@@ -22,6 +22,7 @@ use Exception;
 class NamespaceEndpoint
 {
     const NAMESPACE_CLASS_TEMPLATE          = __DIR__ . '/template/namespace-class';
+    const NAMESPACE_INDICES_CLASS_TEMPLATE  = __DIR__ . '/template/namespace-indices-class';
     const ENDPOINT_FUNCTION_TEMPLATE        = __DIR__ . '/template/endpoint-function';
     const ENDPOINT_FUNCTION_BOOL_TEMPLATE   = __DIR__ . '/template/endpoint-function-bool';
     const ENDPOINT_FUNCTION_DELETE_TEMPLATE = __DIR__ . '/template/endpoint-function-delete';
@@ -46,7 +47,10 @@ class NamespaceEndpoint
         if (empty($this->endpoints)) {
             throw new Exception("No endpoints has been added. I cannot render the class");
         }
-        $class = file_get_contents(static::NAMESPACE_CLASS_TEMPLATE);
+        $class = file_get_contents($this->name === 'indices' 
+            ? static::NAMESPACE_INDICES_CLASS_TEMPLATE 
+            : static::NAMESPACE_CLASS_TEMPLATE
+        );
         $class = str_replace(':namespace', $this->getNamespaceName() . 'Namespace', $class);
 
         $endpoints = '';

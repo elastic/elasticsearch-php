@@ -1005,4 +1005,14 @@ class IndicesNamespace extends AbstractNamespace
 
         return $this->performRequest($endpoint);
     }
+
+    /**
+     * Proxy to getAlias()
+     * 
+     * @see https://github.com/elastic/elasticsearch-php/issues/1112
+     */
+    public function getAliases(array $params = [])
+    {
+        return $this->getAlias($params);
+    }
 }

@@ -18,6 +18,7 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests\Serializers;
 
+use Elasticsearch\Common\Exceptions\RuntimeException;
 use Elasticsearch\Serializers\EverythingToJSONSerializer;
 use Mockery as m;
 
@@ -43,6 +44,17 @@ class EverythingToJSONSerializerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($body, $ret);
     }
 
+    public function testSerializeArrayEmpty()
+    {
+        $serializer = new EverythingToJSONSerializer();
+        $data = [];
+
+        $ret = $serializer->serialize($data);
+
+        $this->assertSame('{}', $ret);
+
+    }
+
     public function testSerializeString()
     {
         $serializer = new EverythingToJSONSerializer();
@@ -53,6 +65,8 @@ class EverythingToJSONSerializerTest extends \PHPUnit\Framework\TestCase
         $body = '"abc"';
         $this->assertSame($body, $ret);
     }
+
+
 
     public function testDeserializeJSON()
     {

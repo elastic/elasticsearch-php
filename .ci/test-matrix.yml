@@ -1,6 +1,6 @@
 ---
 STACK_VERSION:
-  - 7.x-SNAPSHOT
+  - 7.14-SNAPSHOT
   
 PHP_VERSION:
   - 8.0-cli

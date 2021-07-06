@@ -3,7 +3,10 @@
   "description": "PHP Client for Elasticsearch",
   "keywords": ["search","client", "elasticsearch"],
   "type": "library",
-  "license": "Apache-2.0",
+  "license": [
+    "Apache-2.0",
+    "LGPL-2.1-only"
+  ],
   "authors": [
     {
         "name": "Zachary Tong"

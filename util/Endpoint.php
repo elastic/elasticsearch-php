@@ -44,6 +44,13 @@ class Endpoint
         'protected', 'public', 'require', 'require_once', 'return', 'static',
         'switch', 'throw', 'trait', 'try', 'unset', 'use', 'var', 'while', 'xor'
     ];
+    // this is for backward compatibility with elasticsearch-php 7.x
+    const BC_CLASS_NAME = [
+        'Cat\Nodeattrs'      => 'NodeAttrs',
+        'Indices\Forcemerge' => 'ForceMerge',
+        'Mtermvectors'       => 'MTermVectors',
+        'Termvectors'        => 'TermVectors'
+    ];
 
     public $namespace;
     public $name;
@@ -380,7 +387,10 @@ class Endpoint
         if (in_array(strtolower($this->name), static::PHP_RESERVED_WORDS)) {
             return $this->normalizeName($this->name . ucwords($this->namespace));
         }
-        return $this->normalizeName($this->name);
+        $normalizedName = $this->normalizeName($this->name);
+        $normalizedFullName = empty($this->namespace) ? $normalizedName : ucwords($this->namespace) . '\\' . $normalizedName;
+
+        return static::BC_CLASS_NAME[$normalizedFullName] ?? $normalizedName;
     }
 
     public function renderDocParams(): string

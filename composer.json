@@ -19,7 +19,7 @@
     "psr/log": "~1.0"
   },
   "require-dev": {
-    "symplify/git-wrapper": "~9.0",
+    "symplify/git-wrapper": ">=9.0 <9.3.27",
     "doctrine/inflector": "^1.3",
     "mockery/mockery": "^1.2",
     "phpstan/phpstan": "^0.12",
@@ -52,7 +52,7 @@
   },
   "scripts": {
     "phpcs": [
-      "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src",
+      "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp src --ignore=src/Elasticsearch/Endpoints",
       "phpcs --standard=ruleset.xml --extensions=php --encoding=utf-8 --tab-width=4 -sp tests --ignore=tests/Elasticsearch/Tests/Yaml"
     ],
     "phpstan": [

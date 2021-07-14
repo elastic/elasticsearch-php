@@ -46,6 +46,7 @@ else
       --env "node.attr.testattr=test" \
       --env "path.repo=/tmp" \
       --env "repositories.url.allowed_urls=http://snapshot.*" \
+      --env "ingest.geoip.downloader.enabled=false" \
       --env "discovery.type=single-node" \
       --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
       --env "action.destructive_requires_name=false" \

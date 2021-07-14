@@ -39,6 +39,7 @@ environment=($(cat <<-END
   --env node.attr.testattr=test
   --env path.repo=/tmp
   --env repositories.url.allowed_urls=http://snapshot.test*
+  --env ingest.geoip.downloader.enabled=false
   --env action.destructive_requires_name=false
   --env ELASTIC_PASSWORD=$elastic_password
   --env xpack.license.self_generated.type=trial

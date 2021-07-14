@@ -1,3 +1,8 @@
+## Release 6.8.2
+
+- Fix #1131 class naming for some endpoints used in `elasticsearch-php` < 6.8.
+  These endpoints are: `NodeAttrs`, `ForceMerge`, `MTermVectors`, `TermVectors`
+  (https://github.com/elastic/elasticsearch-php/pull/1151)
 ## Release 6.8.1
 
 - Fix missing class aliases in 6.8.0 (https://github.com/elastic/elasticsearch-php/pull/1114)

@@ -122,6 +122,11 @@ class Utility
             self::deleteAllSLMPolicies($client);  
         }
 
+        // Clean up searchable snapshots indices before deleting snapshots and repositories
+        if (getenv('TEST_SUITE') === 'platinum' && version_compare(self::getVersion($client), '7.7.99') > 0) {
+            self::wipeSearchableSnapshotsIndices($client);
+        }
+
         self::wipeSnapshots($client);
         self::wipeDataStreams($client);
         self::wipeAllIndices($client);
@@ -154,6 +159,8 @@ class Utility
             self::deleteAllAutoFollowPatterns($client);
             self::deleteAllTasks($client);
         }
+
+        self::deleteAllNodeShutdownMetadata($client);
     }
 
     /**
@@ -491,6 +498,7 @@ class Utility
             case ".deprecation-indexing-template":
             case "logstash-index-template":
             case "security-index-template":
+            case "data-streams-mappings":
                 return true;
         }
         return false;
@@ -559,6 +567,49 @@ class Utility
                     ]);
                 }
             }
+        }
+    }
+
+    /**
+     * If any nodes are registered for shutdown, removes their metadata
+     * 
+     * @see https://github.com/elastic/elasticsearch/commit/cea054f7dae215475ea0499bc7060ca7ec05382f
+     */
+    private static function deleteAllNodeShutdownMetadata(Client $client)
+    {
+        $nodes = $client->shutdown()->getNode();
+        if (isset($nodes['_nodes']) && isset($nodes['cluster_name'])) {
+            // If the response contains these two keys, the feature flag isn't enabled on this cluster, so skip out now.
+            // We can't check the system property directly because it only gets set for the cluster under test's JVM, not for the test
+            // runner's JVM.
+            return;
+        }
+        foreach ($nodes['nodes'] as $node) {
+            $client->shutdown()->deleteNode($node['node_id']);
+        }
+    }
+
+    /**
+     * Delete searchable snapshots index
+     * 
+     * @see https://github.com/elastic/elasticsearch/commit/4927b6917deca6793776cf0c839eadf5ea512b4a
+     */
+    private static function wipeSearchableSnapshotsIndices(Client $client)
+    {
+        $indices = $client->cluster()->state([
+            'metric' => 'metadata',
+            'filter_path' => 'metadata.indices.*.settings.index.store.snapshot'
+        ]);
+        if (!isset($indices['metadata']['indices'])) {
+            return;
+        }
+        foreach ($indices['metadata']['indices'] as $index => $value) {
+            $client->indices()->delete([
+                'index' => $index,
+                'client' => [
+                    'ignore' => 404
+                ]
+            ]);
         }
     }
 

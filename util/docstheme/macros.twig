@@ -3,7 +3,7 @@
 {%- endmacro -%}
 
 {% macro class_name(class, short = false, suffix = "") -%}
-{% spaceless -%}
+{% apply spaceless -%}
 {% if class.projectclass or class.phpclass %}
 {% if class.projectclass %}
 <<{{_self.replace_backslash( (short ? class.shortname : class)~suffix) }},{{ class }}>>
@@ -13,11 +13,11 @@ http://php.net/class.{{ class }}[{{ short ? class.shortname : class }}{{ suffix 
 {% else %}
 `{{ class }}`
 {% endif %}
-{%- endspaceless %}
+{%- endapply %}
 {%- endmacro -%}
 
 {% macro class_type(class, sentence = false) -%}
-{% spaceless %}
+{% apply spaceless %}
 {% if class.interface %}
 {% if sentence %}an {% endif %}
 interface
@@ -26,59 +26,59 @@ interface
 {% if class.abstract %}abstract {% endif %}
 class
 {%- endif -%}
-{% endspaceless %}
+{% endapply %}
 {%- endmacro -%}
 
 {% macro hint(hint) -%}
-{% spaceless %}
+{% apply spaceless %}
 {% if hint.class -%}
 {{ _self.class_name(hint.name) }}
 {%- elseif hint.name -%}
 {{ hint.name }}
 {%- endif %}
-{% endspaceless %}
+{% endapply %}
 {%- endmacro -%}
 
 {% macro markdown_path(path) -%}
-{% spaceless %}
+{% apply spaceless %}
 {{- path|replace({".html": ".md"}) -}}
-{% endspaceless %}
+{% endapply %}
 {%- endmacro -%}
 
 {% macro replace_backslash(path) -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {{- path|replace({"\\": "_"}) -}}
-    {% endspaceless %}
+    {% endapply %}
 {%- endmacro -%}
 
 {% macro back_to_forward(path) -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {{- path|replace({"\\": "/"}) -}}
-    {% endspaceless %}
+    {% endapply %}
 {%- endmacro -%}
 
 {% macro sanitize(path) -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {{- path|replace({"$": "", "::": "", "__": "-"}) -}}
-    {% endspaceless %}
+    {% endapply %}
 {%- endmacro -%}
 
 {% macro get_namespace(class) -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {% if class.shortname == 'Client' %}
             $client
         {% else %}
             $client->{{ class.shortname|lower|replace({"namespace": ""}) }}()
         {% endif %}
-    {% endspaceless %}
+    {% endapply %}
 {%- endmacro -%}
 
 
 
 {% macro param_list(member) -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {% for parameter in member.parameters %}${{ parameter.name }},{% endfor %}
-    {% endspaceless %}
+    {% endapply %}
 {%- endmacro -%}
 
 {% macro member_signature(type, member) -%}
@@ -131,10 +131,10 @@ class
 {%- endmacro -%}
 
 {% macro member_visibility(member) -%}
-{% spaceless %}
+{% apply spaceless %}
 {% if member.private %}private{% elseif member.protected %}protected{% else %}public{% endif %}
 {% if member.static %} static{% endif %}
-{% endspaceless %}
+{% endapply %}
 {%- endmacro -%}
 
 {% macro method_parameters_signature(method) -%}

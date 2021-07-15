@@ -13,14 +13,18 @@ This is a complete list of namespaces and their associated endpoints.
 
 NOTE: This is auto-generated documentation
 
-{% for class in classes if not class.interface %}
+{% for class in classes %}
+{% if not class.interface %}
 * <<{{ replace_backslash(class) }}, {{ class }}>>
 {% else %}
 * There are no endpoints available.
+{% endif %}
 {% endfor %}
-{% for class in classes if not class.interface %}
+{% for class in classes %}
+{% if not class.interface %}
 include::{{ back_to_forward(class) }}.asciidoc[]
 {% else %}
+{% endif %}
 {% endfor %}
 {% endblock %}
 

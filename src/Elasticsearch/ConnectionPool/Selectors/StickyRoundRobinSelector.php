@@ -36,13 +36,12 @@ class StickyRoundRobinSelector implements SelectorInterface
      * Use current connection unless it is dead, otherwise round-robin
      *
      * @param ConnectionInterface[] $connections Array of connections to choose from
+     *
+     * @return \Elasticsearch\Connections\ConnectionInterface
      */
     public function select(array $connections): ConnectionInterface
     {
-        /**
- * @var ConnectionInterface[] $connections
-*/
-        if ($connections[$this->current]->isAlive()) {
+        if (array_key_exists($this->current, $connections) && $connections[$this->current]->isAlive()) {
             return $connections[$this->current];
         }
 

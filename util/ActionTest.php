@@ -432,6 +432,10 @@ class ActionTest
         if ($field === '$body' || $field === '') {
             return $output;
         }
+        // if the field start with $ use this as variable instead of $response
+        if ($field[0] === '$') {
+            list($output, $field) = explode('.', $field, 2);
+        }
         // if the field starts with a .$variable remove the first dot
         if (substr($field, 0, 2) === '.$') {
             $field = substr($field, 1);

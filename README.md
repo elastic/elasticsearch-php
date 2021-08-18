@@ -35,6 +35,7 @@ Table of Contents
 - [elasticsearch-php](#elasticsearch-php)
   * [Features](#features)
   * [Version Matrix](#version-matrix)
+  * [Compatibility](#compatibility)
   * [Documentation](#documentation)
   * [Installation via Composer](#installation-via-composer)
   * [PHP Version Requirement](#php-version-requirement)
@@ -86,6 +87,13 @@ Version Matrix
  - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
  - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
  - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticsearch master and may contain incomplete features or breaks in backwards compatibility. Only use ES-PHP master if you are developing against ES master for some reason.
+
+Compatibility
+-------------
+
+Language clients are forward compatible; meaning that clients support communicating
+with greater minor versions of Elasticsearch. Elastic language clients are also backwards
+compatible with lesser supported minor Elasticsearch versions.
 
 Documentation
 --------------

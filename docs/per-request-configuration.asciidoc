@@ -253,7 +253,7 @@ Array
 
 It is possible to configure per-request curl timeouts via the `timeout` and 
 `connect_timeout` parameters. These control the client-side, curl timeouts. The 
-`connect_timeout` paramter controls how long curl should wait for the "connect" 
+`connect_timeout` parameter controls how long curl should wait for the "connect" 
 phase to finish, while the `timeout` parameter controls how long curl should 
 wait for the entire request to finish.
 

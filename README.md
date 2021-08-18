@@ -35,6 +35,7 @@ Table of Contents
 - [elasticsearch-php](#elasticsearch-php)
   * [Features](#features)
   * [Version Matrix](#version-matrix)
+  * [Compatibility](#compatibility)
   * [Documentation](#documentation)
   * [Installation via Composer](#installation-via-composer)
   * [PHP Version Requirement](#php-version-requirement)

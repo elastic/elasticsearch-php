@@ -138,25 +138,15 @@ esac
 # ------------------------------------------------------- #
 
 if [[ "$CMD" == "assemble" ]]; then
-    artefact_name="elasticsearch-php-${VERSION}"
     echo -e "\033[34;1mINFO: copy artefacts\033[0m"
-    rsync -arv --exclude=.ci --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
+    rsync -ar --exclude=.ci --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
-    echo -e "\033[34;1mINFO: rename artefacts\033[0m"
-    mv -v "${output_folder}/elasticsearch-php" "${output_folder}/${artefact_name}"
-
-    echo -e "\033[34;1mINFO: build artefacts\033[0m"
-    cd ./.ci/output && tar -czvf ${artefact_name}.tar.gz "${artefact_name}/." && cd -
-
-    echo -e "\033[34;1mINFO: cleanup\033[0m"
-    rm -Rf "${output_folder}/${artefact_name}"
-
-    echo -e "\033[34;1mINFO: validate artefact\033[0m"
-    proof=`ls ${output_folder}`
-
-	if [ $proof == "${artefact_name}.tar.gz" ]; then
-		echo -e "\033[32;1mTARGET: assemble - success: $artefact_name.tar.gz\033[0m"
-	else
+    if compgen -G ".ci/output/*" > /dev/null; then
+        cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
+        rm -Rf "${repo}/.ci/output/elasticsearch-php"
+        echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
+		exit 0
+    else
 		echo -e "\033[31;1mTARGET: assemble failed, empty workspace!\033[0m"
 		exit 1
 	fi

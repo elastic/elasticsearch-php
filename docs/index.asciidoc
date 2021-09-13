@@ -5,8 +5,6 @@ include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
 include::overview.asciidoc[]
 
-include::compatibility.asciidoc[]
-
 include::installation.asciidoc[]
 
 include::connecting.asciidoc[]

@@ -43,6 +43,14 @@ use `dev-master` in your production code.
 | <= 0.90.*            | `0.4`
 |============================
 
+[discrete]
+[[compatibility]]
+=== Compatibility
+
+Language clients are forward compatible; meaning that clients support communicating
+with greater or equal minor versions of Elasticsearch. Elasticsearch language
+clients are only backwards compatible with default distributions and without
+guarantees made.
 
 [discrete]
 === Composer Installation

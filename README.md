@@ -92,8 +92,9 @@ Compatibility
 -------------
 
 Language clients are forward compatible; meaning that clients support communicating
-with greater minor versions of Elasticsearch. Elastic language clients are also backwards
-compatible with lesser supported minor Elasticsearch versions.
+with greater or equal minor versions of Elasticsearch. Elasticsearch language
+clients are only backwards compatible with default distributions and without
+guarantees made.
 
 Documentation
 --------------

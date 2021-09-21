@@ -1,12 +1,12 @@
 ---
 - job:
-    name: elastic+elasticsearch-php+7.13
-    display-name: 'elastic / elasticsearch-php # 7.13'
-    description: Testing the elasticsearch-php 7.13 branch.
+    name: elastic+elasticsearch-php+7.15
+    display-name: 'elastic / elasticsearch-php # 7.15'
+    description: Testing the elasticsearch-php 7.15 branch.
     parameters:
     - string:
         name: branch_specifier
-        default: refs/heads/7.13
+        default: refs/heads/7.15
         description: the Git branch specifier to build (&lt;branchName&gt;, &lt;tagName&gt;,
           &lt;commitId&gt;, etc.)
     triggers:

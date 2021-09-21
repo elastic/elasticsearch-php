@@ -87,7 +87,7 @@ class Utility
         ]);
     }
 
-    private static function getVersion(Client $client): string
+    public static function getVersion(Client $client): string
     {
         if (!isset(self::$version)) {
             $result = $client->info();

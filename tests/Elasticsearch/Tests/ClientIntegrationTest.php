@@ -60,7 +60,7 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
             ->setLogger($this->logger);
 
         if (getenv('TEST_SUITE') === 'platinum') {
-            $client->setSSLVerification(__DIR__ . '/../../../.ci/certs/ca.crt');
+            $client->setSSLVerification(false);
         }
         return $client->build();
     }
@@ -151,6 +151,98 @@ class ClientIntegrationTest extends \PHPUnit\Framework\TestCase
             'id' => 'test'
             ]
         );
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch/blob/master/rest-api-spec/src/main/resources/rest-api-spec/api/search_mvt.json
+     */
+    public function testSupportMapBoxVectorTiles()
+    {
+        $client = $this->getClient();
+        
+        if (Utility::getVersion($client) < '7.15') {
+            $this->markTestSkipped(sprintf(
+                "The %s test requires Elasticsearch 7.15+",
+                __FUNCTION__
+            ));
+        }
+
+        // Create a museums index with a custom mappings
+        $client->indices()->create([
+            'index' => 'museums',
+            'body' => [
+                "mappings" => [
+                    "properties" => [
+                        "location" => ["type" => "geo_point"],
+                        "name" => ["type" => "keyword"],
+                        "price" => ["type" => "long"],
+                        "included" => ["type" => "boolean"]
+                    ]
+                ]
+            ]
+        ]);
+
+        // Bulk some documents
+        $body = [
+            [ "index" => [ "_id" => "1" ]],
+            [ "location" => "52.374081,4.912350", "name" => "NEMO Science Museum",  "price" => 1750, "included" => true ],
+            [ "index" => [ "_id" => "2" ]],
+            [ "location" => "52.369219,4.901618", "name" => "Museum Het Rembrandthuis", "price" => 1500, "included" => false ],
+            [ "index" => [ "_id" => "3" ]],
+            [ "location" => "52.371667,4.914722", "name" => "Nederlands Scheepvaartmuseum", "price" => 1650, "included" => true ],
+            [ "index" => [ "_id" => "4" ]],
+            [ "location" => "52.371667,4.914722", "name" => "Amsterdam Centre for Architecture", "price" => 0, "included" => true ]
+        ];
+        $client->bulk([
+            'index' => 'museums',
+            'refresh' => true,
+            'body' => $body
+        ]);
+
+        $body = [
+            "grid_precision" => 2,
+            "fields" => ["name", "price"],
+            "query" => [
+                "term" => [
+                    "included" => true
+                ]
+            ],
+            "aggs" => [
+                "min_price" => [
+                    "min" => [
+                        "field" => "price"
+                    ]
+                ],
+                "max_price" => [
+                    "max" => [
+                        "field" => "price"
+                    ]
+                ],
+                "avg_price" => [
+                    "avg" => [
+                        "field" => "price"
+                    ]
+                ]
+            ]
+        ];
+
+        // Searches a vector tile for geospatial values. Returns results as a binary Mapbox vector tile.
+        $response = $client->searchMvt([
+            'index' => 'museums',
+            'field' => 'location',
+            'zoom' => 13,
+            'x' => 4207,
+            'y' => 2692,
+            'body' => $body
+        ]);
+
+        // Remove the index museums
+        $client->indices()->delete([
+            'index' => 'museums'
+        ]);
+
+        $this->assertIsString($response);
+        $this->assertStringContainsString('NEMO Science Museum', $response);
     }
 
     private function getLevelOutput(string $level, array $output): string

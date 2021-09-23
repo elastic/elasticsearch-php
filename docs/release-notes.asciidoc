@@ -1,6 +1,7 @@
 [[release-notes]]
 == Release notes
 
+* <<rn-7-15-0>>
 * <<rn-7-14-0>>
 * <<rn-7-13-1>>
 * <<rn-7-13-0>>
@@ -26,6 +27,14 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-7-15-0]]
+=== 7.15.0
+
+* Updated endpoints for Elasticsearch 7.15.0
+  https://github.com/elastic/elasticsearch-php/commit/995f6d4bde7de76004e95d7a434b1d59da7a7e75[995f6d4]
+
 
 [discrete]
 [[rn-7-14-0]]

@@ -304,9 +304,11 @@ class Utility
         } catch (ElasticsearchException $e) {
             // We hit a version of ES that doesn't understand expand_wildcards, try again without it
             try {
-                $client->indices()->deleteDataStream([
-                    'name' => '*'
-                ]);
+                if (getenv('TEST_SUITE') === 'platinum') {
+                    $client->indices()->deleteDataStream([
+                        'name' => '*'
+                    ]);
+                }
             } catch (ElasticsearchException $e) {
                 // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
                 // field or that doesn't support data streams so it's safe to ignore
@@ -476,6 +478,9 @@ class Utility
         if (strpos($name, '.transform-') !== false) {
             return true;
         }
+        if (strpos($name, '.deprecation-') !== false) {
+            return true;
+        }
         switch ($name) {
             case ".watches":
             case "logstash-index-template":
@@ -577,13 +582,11 @@ class Utility
      */
     private static function deleteAllNodeShutdownMetadata(Client $client)
     {
-        $nodes = $client->shutdown()->getNode();
-        if (isset($nodes['_nodes']) && isset($nodes['cluster_name'])) {
-            // If the response contains these two keys, the feature flag isn't enabled on this cluster, so skip out now.
-            // We can't check the system property directly because it only gets set for the cluster under test's JVM, not for the test
-            // runner's JVM.
+        if (getenv('TEST_SUITE') !== 'platinum' ||  version_compare(self::getVersion($client), '7.15.0') < 0) {
+            // Node shutdown APIs are only present in xpack from 7.15+
             return;
         }
+        $nodes = $client->shutdown()->getNode();
         foreach ($nodes['nodes'] as $node) {
             $client->shutdown()->deleteNode($node['node_id']);
         }

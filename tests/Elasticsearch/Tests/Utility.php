@@ -31,6 +31,31 @@ class Utility
     private static $version;
 
     /**
+     * @var bool
+     */
+    private static $hasXPack = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasIlm = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasRollups = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasCcr = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasShutdown = false;
+
+    /**
      * Get the host URL based on ENV variables
      */
     public static function getHost(): ?string
@@ -87,7 +112,7 @@ class Utility
         ]);
     }
 
-    private static function getVersion(Client $client): string
+    public static function getVersion(Client $client): string
     {
         if (!isset(self::$version)) {
             $result = $client->info();
@@ -97,14 +122,63 @@ class Utility
     }
 
     /**
+     * Read the plugins installed in Elasticsearch using the
+     * undocumented API GET /_nodes/plugins
+     * 
+     * @see ESRestTestCase.java:initClient()
+     */
+    private static function readPlugins(Client $client): void
+    {
+        $result = $client->transport->performRequest('GET', '/_nodes/plugins');
+        foreach ($result['nodes'] as $node) {
+            foreach ($node['modules'] as $module) {
+                if (substr($module['name'], 0, 6) === 'x-pack') {
+                    self::$hasXPack = true;
+                }
+                if ($module['name'] === 'x-pack-ilm') {
+                    self::$hasIlm = true;
+                }
+                if ($module['name'] === 'x-pack-rollup') {
+                    self::$hasRollups = true;
+                }
+                if ($module['name'] === 'x-pack-ccr') {
+                    self::$hasCcr = true;
+                }
+                if ($module['name'] === 'x-pack-shutdown') {
+                    self::$hasShutdown = true;
+                }
+            }
+        }
+    }
+
+    /**
      * Clean up the cluster after a test
      * 
      * @see ESRestTestCase.java:cleanUpCluster()
      */
     public static function cleanUpCluster(Client $client): void
     {
+        self::readPlugins($client);
+
+        self::ensureNoInitializingShards($client);
         self::wipeCluster($client);
         self::waitForClusterStateUpdatesToFinish($client);
+    }
+
+    /**
+     * Waits until all shard initialization is completed.
+     * This is a handy alternative to ensureGreen as it relates to all shards
+     * in the cluster and doesn't require to know how many nodes/replica there are.
+     * 
+     * @see ESRestTestCase.java:ensureNoInitializingShards()
+     */
+    private static function ensureNoInitializingShards(Client $client): void
+    {
+        $client->cluster()->health([
+            'wait_for_no_initializing_shards' => true,
+            'timeout' => '70s',
+            'level' => 'shards'
+        ]);
     }
 
      /**
@@ -114,45 +188,62 @@ class Utility
      */
     private static function wipeCluster(Client $client): void
     {
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasRollups) {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);        
         }
-        if (version_compare(self::getVersion($client), '7.3.99') > 0) {
-            self::deleteAllSLMPolicies($client);  
+        self::deleteAllSLMPolicies($client);  
+
+        // Clean up searchable snapshots indices before deleting snapshots and repositories
+        if (self::$hasXPack && version_compare(self::getVersion($client), '7.7.99') > 0) {
+            self::wipeSearchableSnapshotsIndices($client);
         }
 
         self::wipeSnapshots($client);
         self::wipeDataStreams($client);
         self::wipeAllIndices($client);
 
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasXPack) {
             self::wipeTemplateForXpack($client);
         } else {
-            // Delete templates
-            $client->indices()->deleteTemplate([
-                'name' => '*'
-            ]);
-            try {
-                // Delete index template
-                $client->indices()->deleteIndexTemplate([
-                    'name' => '*'
-                ]);
-                // Delete component template
-                $client->cluster()->deleteComponentTemplate([
-                    'name' => '*'
-                ]);
-            } catch (ElasticsearchException $e) {
-                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
-            }
+            self::wipeAllTemplates($client);
         }
 
         self::wipeClusterSettings($client);
 
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasIlm) {
             self::deleteAllILMPolicies($client);
+        }
+        if (self::$hasCcr) {
             self::deleteAllAutoFollowPatterns($client);
+        }
+        if (self::$hasXPack) {
             self::deleteAllTasks($client);
+        }
+
+        self::deleteAllNodeShutdownMetadata($client);
+    }
+
+    /**
+     * Remove all templates
+     */
+    private static function wipeAllTemplates(Client $client): void
+    {
+        // Delete templates
+        $client->indices()->deleteTemplate([
+            'name' => '*'
+        ]);
+        try {
+            // Delete index template
+            $client->indices()->deleteIndexTemplate([
+                'name' => '*'
+            ]);
+            // Delete component template
+            $client->cluster()->deleteComponentTemplate([
+                'name' => '*'
+            ]);
+        } catch (ElasticsearchException $e) {
+            // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
         }
     }
 
@@ -288,7 +379,7 @@ class Utility
     private static function wipeDataStreams(Client $client): void
     {
         try {
-            if (version_compare(self::getVersion($client), '7.8.99') > 0) {
+            if (self::$hasXPack) {
                 $client->indices()->deleteDataStream([
                     'name' => '*',
                     'expand_wildcards' => 'all'
@@ -297,12 +388,17 @@ class Utility
         } catch (ElasticsearchException $e) {
             // We hit a version of ES that doesn't understand expand_wildcards, try again without it
             try {
-                $client->indices()->deleteDataStream([
-                    'name' => '*'
-                ]);
-            } catch (ElasticsearchException $e) {
+                if (self::$hasXPack) {
+                    $client->indices()->deleteDataStream([
+                        'name' => '*'
+                    ]);
+                }
+            } catch (Exception $e) {
                 // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
                 // field or that doesn't support data streams so it's safe to ignore
+                if ($e->getCode() !== '404' && $e->getCode() !== '405') {
+                    throw $e;
+                }
             }
         }
     }
@@ -469,15 +565,15 @@ class Utility
         if (strpos($name, '.transform-') !== false) {
             return true;
         }
+        if (strpos($name, '.deprecation-') !== false) {
+            return true;
+        }
         switch ($name) {
             case ".watches":
-            case "logstash-index-template":
-            case ".logstash-management":
             case "security_audit_log":
             case ".slm-history":
             case ".async-search":
             case "saml-service-provider":
-            case "ilm-history":
             case "logs":
             case "logs-settings":
             case "logs-mappings":
@@ -488,12 +584,14 @@ class Utility
             case "synthetics-settings":
             case "synthetics-mappings":
             case ".snapshot-blob-cache":
-            case ".deprecation-indexing-template":
+            case "ilm-history":
             case "logstash-index-template":
             case "security-index-template":
+            case "data-streams-mappings":
                 return true;
+            default:
+                return false;
         }
-        return false;
     }
 
     /**
@@ -559,6 +657,47 @@ class Utility
                     ]);
                 }
             }
+        }
+    }
+
+    /**
+     * If any nodes are registered for shutdown, removes their metadata
+     * 
+     * @see https://github.com/elastic/elasticsearch/commit/cea054f7dae215475ea0499bc7060ca7ec05382f
+     */
+    private static function deleteAllNodeShutdownMetadata(Client $client)
+    {
+        if (!self::$hasShutdown || version_compare(self::getVersion($client), '7.15.0') < 0) {
+            // Node shutdown APIs are only present in xpack 
+            return;
+        }
+        $nodes = $client->shutdown()->getNode();
+        foreach ($nodes['nodes'] as $node) {
+            $client->shutdown()->deleteNode($node['node_id']);
+        }
+    }
+
+    /**
+     * Delete searchable snapshots index
+     * 
+     * @see https://github.com/elastic/elasticsearch/commit/4927b6917deca6793776cf0c839eadf5ea512b4a
+     */
+    private static function wipeSearchableSnapshotsIndices(Client $client)
+    {
+        $indices = $client->cluster()->state([
+            'metric' => 'metadata',
+            'filter_path' => 'metadata.indices.*.settings.index.store.snapshot'
+        ]);
+        if (!isset($indices['metadata']['indices'])) {
+            return;
+        }
+        foreach ($indices['metadata']['indices'] as $index => $value) {
+            $client->indices()->delete([
+                'index' => $index,
+                'client' => [
+                    'ignore' => 404
+                ]
+            ]);
         }
     }
 

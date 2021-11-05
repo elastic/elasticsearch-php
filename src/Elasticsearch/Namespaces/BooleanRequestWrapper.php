@@ -24,7 +24,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Transport;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
-trait BooleanRequestWrapper
+abstract class BooleanRequestWrapper
 {
     /**
      * Perform Request

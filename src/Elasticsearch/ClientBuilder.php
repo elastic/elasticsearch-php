@@ -572,7 +572,7 @@ class ClientBuilder
      *
      * @see https://github.com/elastic/elasticsearch-php/issues/993
      */
-    public function includePortInHostHeader(bool $enable): ClientBuilder
+    public function setIncludePortInHostHeader(bool $enable): ClientBuilder
     {
         $this->includePortInHostHeader = $enable;
 

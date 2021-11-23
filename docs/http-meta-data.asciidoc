@@ -39,7 +39,7 @@ as follows:
 [source,php]
 ----
 $client = Elasticsearch\ClientBuilder::create()
-    ->includePortInHostHeader(true)
+    ->setIncludePortInHostHeader(true)
     ->build();
 ----
 

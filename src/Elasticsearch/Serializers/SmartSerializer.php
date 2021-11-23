@@ -20,6 +20,7 @@ namespace Elasticsearch\Serializers;
 
 use Elasticsearch\Common\Exceptions;
 use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
+use JsonException;
 
 if (!defined('JSON_INVALID_UTF8_SUBSTITUTE')) {
     //PHP < 7.2 Define it as 0 so it does nothing
@@ -84,9 +85,12 @@ class SmartSerializer implements SerializerInterface
             try {
                 $result = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
                 return $result;
-            } catch (\JsonException $e) {
-                $result = $result ?? [];
-                throw new JsonErrorException($e->getCode(), $data, $result);
+            } catch (JsonException $e) {
+                switch ($e->getCode()) {
+                    case JSON_ERROR_UTF16:
+                        return $this->decode(str_replace('\\', '\\\\', $data));
+                }
+                throw new JsonErrorException($e->getCode(), $data, $result ?? []);
             }
         }
 

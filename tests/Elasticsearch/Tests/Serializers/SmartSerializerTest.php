@@ -45,4 +45,18 @@ class SmartSerializerTest extends TestCase
 
         $result = $this->serializer->deserialize('{ "foo" : bar" }', []);
     }
+
+    /**
+     * Single unpaired UTF-16 surrogate in unicode escape
+     * 
+     * @requires PHP 7.3
+     * @see https://github.com/elastic/elasticsearch-php/issues/1171
+     */
+    public function testSingleUnpairedUTF16SurrogateInUnicodeEscape()
+    {
+        $json = '{ "data": "ud83d\ude4f" }';
+
+        $result = $this->serializer->deserialize($json, []);
+        $this->assertEquals($result['data'], 'ud83d\ude4f');
+    }
 }

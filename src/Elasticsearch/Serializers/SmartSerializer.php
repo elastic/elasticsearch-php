@@ -88,7 +88,13 @@ class SmartSerializer implements SerializerInterface
             } catch (JsonException $e) {
                 switch ($e->getCode()) {
                     case JSON_ERROR_UTF16:
-                        return $this->decode(str_replace('\\', '\\\\', $data));
+                        try {
+                            $data = str_replace('\\', '\\\\', $data);
+                            $result = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+                            return $result;
+                        } catch (JsonException $e) {
+                            throw new JsonErrorException($e->getCode(), $data, $result ?? []);
+                        }
                 }
                 throw new JsonErrorException($e->getCode(), $data, $result ?? []);
             }

@@ -197,7 +197,8 @@ class ClientBuilder
     {
         $builder = new static;
         foreach ($config as $key => $value) {
-            $method = "set$key";
+            $allowedMethods = ['includePortInHostHeader']; // other available methods
+            $method = in_array($key, $allowedMethods) ? $key : "set$key";
             $reflection = new ReflectionClass($builder);
             if ($reflection->hasMethod($method)) {
                 $func = $reflection->getMethod($method);

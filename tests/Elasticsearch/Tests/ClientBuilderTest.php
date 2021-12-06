@@ -216,6 +216,9 @@ class ClientBuilderTest extends TestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFromConfigQuiteTrueWithUnknownKey()
     {
         $client = ClientBuilder::fromConfig(
@@ -343,5 +346,34 @@ class ClientBuilderTest extends TestCase
             $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Content-Type']);
             $this->assertNotContains('application/vnd.elasticsearch+json;compatible-with=7', $request['request']['headers']['Accept']);
         }    
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/1176
+     */
+    public function testFromConfigWithIncludePortInHostHeader()
+    {
+        $url = 'localhost:1234';
+        $config = [
+            'hosts' => [$url],
+            'includePortInHostHeader' => true,
+            'connectionParams' => [
+                'client' => [
+                    'verbose' => true
+                ]
+            ],
+        ];
+
+        $client = ClientBuilder::fromConfig($config);
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertTrue(isset($request['request']['headers']['Host'][0]));
+            $this->assertEquals($url, $request['request']['headers']['Host'][0]);
+        }
     }
 }

@@ -42,6 +42,8 @@ use ReflectionClass;
 
 class ClientBuilder
 {
+    const ALLOWED_METHODS_FROM_CONFIG = ['includePortInHostHeader'];
+
     /**
      * @var Transport
      */
@@ -197,8 +199,7 @@ class ClientBuilder
     {
         $builder = new static;
         foreach ($config as $key => $value) {
-            $allowedMethods = ['includePortInHostHeader']; // other available methods
-            $method = in_array($key, $allowedMethods) ? $key : "set$key";
+            $method = in_array($key, self::ALLOWED_METHODS_FROM_CONFIG) ? $key : "set$key";
             $reflection = new ReflectionClass($builder);
             if ($reflection->hasMethod($method)) {
                 $func = $reflection->getMethod($method);

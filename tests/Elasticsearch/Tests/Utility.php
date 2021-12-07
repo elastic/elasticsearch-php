@@ -397,7 +397,7 @@ class Utility
             } catch (Exception $e) {
                 // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
                 // field or that doesn't support data streams so it's safe to ignore
-                if ($e->getCode() !== '404' && $e->getCode() !== '405') {
+                if (!in_array($e->getCode(), ['404', '405', '500'])) {
                     throw $e;
                 }
             }

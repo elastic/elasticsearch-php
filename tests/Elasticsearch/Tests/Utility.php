@@ -587,6 +587,7 @@ class Utility
             case ".snapshot-blob-cache":
             case "ilm-history":
             case "logstash-index-template":
+            case ".logstash-management":
             case "security-index-template":
             case "data-streams-mappings":
                 return true;

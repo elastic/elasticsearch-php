@@ -31,6 +31,31 @@ class Utility
     private static $version;
 
     /**
+     * @var bool
+     */
+    private static $hasXPack = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasIlm = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasRollups = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasCcr = false;
+
+    /**
+     * @var bool
+     */
+    private static $hasShutdown = false;
+
+    /**
      * Get the host URL based on ENV variables
      */
     public static function getHost(): ?string
@@ -97,14 +122,64 @@ class Utility
     }
 
     /**
+     * Read the plugins installed in Elasticsearch using the
+     * undocumented API GET /_nodes/plugins
+     * 
+     * @see ESRestTestCase.java:initClient()
+     */
+    private static function readPlugins(Client $client): void
+    {
+        $result = $client->transport->performRequest('GET', '/_nodes/plugins');
+        foreach ($result['nodes'] as $node) {
+            foreach ($node['modules'] as $module) {
+                if (substr($module['name'], 0, 6) === 'x-pack') {
+                    self::$hasXPack = true;
+                }
+                if ($module['name'] === 'x-pack-ilm') {
+                    self::$hasIlm = true;
+                }
+                if ($module['name'] === 'x-pack-rollup') {
+                    self::$hasRollups = true;
+                }
+                if ($module['name'] === 'x-pack-ccr') {
+                    self::$hasCcr = true;
+                }
+                if ($module['name'] === 'x-pack-shutdown') {
+                    self::$hasShutdown = true;
+                }
+            }
+        }
+    }
+
+    /**
      * Clean up the cluster after a test
      * 
      * @see ESRestTestCase.java:cleanUpCluster()
      */
     public static function cleanUpCluster(Client $client): void
     {
+        self::readPlugins($client);
+
+        self::ensureNoInitializingShards($client);
         self::wipeCluster($client);
         self::waitForClusterStateUpdatesToFinish($client);
+        self::checkForUnexpectedlyRecreatedObjects($client);
+    }
+
+    /**
+     * Waits until all shard initialization is completed.
+     * This is a handy alternative to ensureGreen as it relates to all shards
+     * in the cluster and doesn't require to know how many nodes/replica there are.
+     * 
+     * @see ESRestTestCase.java:ensureNoInitializingShards()
+     */
+    private static function ensureNoInitializingShards(Client $client): void
+    {
+        $client->cluster()->health([
+            'wait_for_no_initializing_shards' => true,
+            'timeout' => '70s',
+            'level' => 'shards'
+        ]);
     }
 
      /**
@@ -114,16 +189,14 @@ class Utility
      */
     private static function wipeCluster(Client $client): void
     {
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasRollups) {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);        
         }
-        if (version_compare(self::getVersion($client), '7.3.99') > 0) {
-            self::deleteAllSLMPolicies($client);  
-        }
+        self::deleteAllSLMPolicies($client);  
 
         // Clean up searchable snapshots indices before deleting snapshots and repositories
-        if (getenv('TEST_SUITE') === 'platinum' && version_compare(self::getVersion($client), '7.7.99') > 0) {
+        if (self::$hasXPack && version_compare(self::getVersion($client), '7.7.99') > 0) {
             self::wipeSearchableSnapshotsIndices($client);
         }
 
@@ -131,36 +204,48 @@ class Utility
         self::wipeDataStreams($client);
         self::wipeAllIndices($client);
 
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasXPack) {
             self::wipeTemplateForXpack($client);
         } else {
-            // Delete templates
-            $client->indices()->deleteTemplate([
-                'name' => '*'
-            ]);
-            try {
-                // Delete index template
-                $client->indices()->deleteIndexTemplate([
-                    'name' => '*'
-                ]);
-                // Delete component template
-                $client->cluster()->deleteComponentTemplate([
-                    'name' => '*'
-                ]);
-            } catch (ElasticsearchException $e) {
-                // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
-            }
+            self::wipeAllTemplates($client);
         }
 
         self::wipeClusterSettings($client);
 
-        if (getenv('TEST_SUITE') === 'platinum') {
+        if (self::$hasIlm) {
             self::deleteAllILMPolicies($client);
+        }
+        if (self::$hasCcr) {
             self::deleteAllAutoFollowPatterns($client);
+        }
+        if (self::$hasXPack) {
             self::deleteAllTasks($client);
         }
 
         self::deleteAllNodeShutdownMetadata($client);
+    }
+
+    /**
+     * Remove all templates
+     */
+    private static function wipeAllTemplates(Client $client): void
+    {
+        // Delete templates
+        $client->indices()->deleteTemplate([
+            'name' => '*'
+        ]);
+        try {
+            // Delete index template
+            $client->indices()->deleteIndexTemplate([
+                'name' => '*'
+            ]);
+            // Delete component template
+            $client->cluster()->deleteComponentTemplate([
+                'name' => '*'
+            ]);
+        } catch (ElasticsearchException $e) {
+            // We hit a version of ES that doesn't support index templates v2 yet, so it's safe to ignore
+        }
     }
 
     /**
@@ -295,7 +380,7 @@ class Utility
     private static function wipeDataStreams(Client $client): void
     {
         try {
-            if (version_compare(self::getVersion($client), '7.8.99') > 0) {
+            if (self::$hasXPack) {
                 $client->indices()->deleteDataStream([
                     'name' => '*',
                     'expand_wildcards' => 'all'
@@ -304,14 +389,17 @@ class Utility
         } catch (ElasticsearchException $e) {
             // We hit a version of ES that doesn't understand expand_wildcards, try again without it
             try {
-                if (getenv('TEST_SUITE') === 'platinum') {
+                if (self::$hasXPack) {
                     $client->indices()->deleteDataStream([
                         'name' => '*'
                     ]);
                 }
-            } catch (ElasticsearchException $e) {
+            } catch (Exception $e) {
                 // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
                 // field or that doesn't support data streams so it's safe to ignore
+                if ($e->getCode() !== '404' && $e->getCode() !== '405') {
+                    throw $e;
+                }
             }
         }
     }
@@ -483,13 +571,10 @@ class Utility
         }
         switch ($name) {
             case ".watches":
-            case "logstash-index-template":
-            case ".logstash-management":
             case "security_audit_log":
             case ".slm-history":
             case ".async-search":
             case "saml-service-provider":
-            case "ilm-history":
             case "logs":
             case "logs-settings":
             case "logs-mappings":
@@ -500,13 +585,14 @@ class Utility
             case "synthetics-settings":
             case "synthetics-mappings":
             case ".snapshot-blob-cache":
-            case ".deprecation-indexing-template":
+            case "ilm-history":
             case "logstash-index-template":
             case "security-index-template":
             case "data-streams-mappings":
                 return true;
+            default:
+                return false;
         }
-        return false;
     }
 
     /**
@@ -522,7 +608,15 @@ class Utility
             "watch-history-ilm-policy", 
             "ml-size-based-ilm-policy", 
             "logs", 
-            "metrics"
+            "metrics",
+            "synthetics",
+            "7-days-default",
+            "30-days-default",
+            "90-days-default",
+            "180-days-default",
+            "365-days-default",
+            ".fleet-actions-results-ilm-policy",
+            ".deprecation-indexing-ilm-policy"
         ];
     }
 
@@ -582,8 +676,8 @@ class Utility
      */
     private static function deleteAllNodeShutdownMetadata(Client $client)
     {
-        if (getenv('TEST_SUITE') !== 'platinum' ||  version_compare(self::getVersion($client), '7.15.0') < 0) {
-            // Node shutdown APIs are only present in xpack from 7.15+
+        if (!self::$hasShutdown || version_compare(self::getVersion($client), '7.15.0') < 0) {
+            // Node shutdown APIs are only present in xpack 
             return;
         }
         $nodes = $client->shutdown()->getNode();
@@ -628,5 +722,86 @@ class Utility
             $result = $client->cluster()->pendingTasks();
             $stillWaiting = ! empty($result['tasks']);
         } while ($stillWaiting && time() < ($start + $timeout));
+    }
+
+    /**
+     * Returns all the unexpected ilm policies, removing $exclusions from the list
+     */
+    private static function getAllUnexpectedIlmPolicies(Client $client, array $exclusions): array
+    {
+        try {
+            $policies = $client->ilm()->getLifecycle();
+        } catch (ElasticsearchException $e) {
+            return [];
+        }
+        foreach ($policies as $name => $value) {
+            if (in_array($name, $exclusions)) {
+                unset($policies[$name]);
+            }
+        }
+        return $policies;
+    }
+
+    /**
+     * Returns all the unexpected templates
+     */
+    private static function getAllUnexpectedTemplates(Client $client): array
+    {
+        if (!self::$hasXPack) {
+            return [];
+        }
+        $unexpected = [];
+        // In case of bwc testing, if all nodes are before 7.7.0 then no need
+        // to attempt to delete component and composable index templates,
+        // because these were introduced in 7.7.0:
+        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
+            $result = $client->indices()->getIndexTemplate();
+            foreach ($result['index_templates'] as $template) {
+                if (!self::isXPackTemplate($template['name'])) {
+                    $unexpected[$template['name']] = true;
+                }
+            }
+            $result = $client->cluster()->getComponentTemplate();
+            foreach ($result['component_templates'] as $template) {
+                if (!self::isXPackTemplate($template['name'])) {
+                    $unexpected[$template['name']] = true;
+                }
+            }
+        }
+        $result = $client->indices()->getIndexTemplate();
+        foreach ($result['index_templates'] as $template) {
+            if (!self::isXPackTemplate($template['name'])) {
+                $unexpected[$template['name']] = true;
+            }
+        }
+        return array_keys($unexpected);
+    }
+
+
+    /**
+     * This method checks whether ILM policies or templates get recreated after
+     * they have been deleted. If so, we are probably deleting them unnecessarily,
+     * potentially causing test performance problems. This could happen for example
+     * if someone adds a new standard ILM policy but forgets to put it in the
+     * exclusion list in this test.
+     */
+    private static function checkForUnexpectedlyRecreatedObjects(Client $client): void
+    {
+        if (self::$hasIlm) {
+            $policies = self::getAllUnexpectedIlmPolicies($client, self::preserveILMPolicyIds());
+            if (count($policies) > 0) {
+                throw new Exception(sprintf(
+                    "Expected no ILM policies after deletions, but found %s",
+                    implode(',', array_keys($policies))
+                ));
+            }
+        }
+        $templates = self::getAllUnexpectedTemplates($client);
+        if (count($templates) > 0) {
+            throw new Exception(sprintf(
+                "Expected no templates after deletions, but found %s",
+                implode(',', array_keys($templates))
+            ));
+        }
     }
 }

@@ -89,5 +89,4 @@ class PostData extends AbstractEndpoint
 
         return $this;
     }
-
 }

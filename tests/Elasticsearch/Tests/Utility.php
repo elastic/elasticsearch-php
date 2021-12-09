@@ -189,11 +189,13 @@ class Utility
      */
     private static function wipeCluster(Client $client): void
     {
-        if (self::$hasRollups) {
+        if (self::$hasXPack) {
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);        
         }
-        self::deleteAllSLMPolicies($client);  
+        if (version_compare(self::getVersion($client), '7.3.99') > 0) {
+            self::deleteAllSLMPolicies($client);  
+        }
 
         // Clean up searchable snapshots indices before deleting snapshots and repositories
         if (self::$hasXPack && version_compare(self::getVersion($client), '7.7.99') > 0) {
@@ -212,14 +214,11 @@ class Utility
 
         self::wipeClusterSettings($client);
 
-        if (self::$hasIlm) {
+        if (self::$hasXPack) {
             self::deleteAllILMPolicies($client);
         }
-        if (self::$hasCcr) {
-            self::deleteAllAutoFollowPatterns($client);
-        }
         if (self::$hasXPack) {
-            self::deleteAllTasks($client);
+            self::deleteAllAutoFollowPatterns($client);
         }
 
         self::deleteAllNodeShutdownMetadata($client);
@@ -421,7 +420,7 @@ class Utility
                 'expand_wildcards' => $expand
             ]);
         } catch (Exception $e) {
-            if ($e->getCode() != '404') {
+            if (!in_array($e->getCode(), ['404'])) {
                 throw $e;
             }
         }

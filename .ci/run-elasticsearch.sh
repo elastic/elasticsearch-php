@@ -63,6 +63,8 @@ if [[ "$TEST_SUITE" == "platinum" ]]; then
     --env xpack.security.transport.ssl.key=certs/testnode.key
     --env xpack.security.transport.ssl.certificate=certs/testnode.crt
     --env xpack.security.transport.ssl.certificate_authorities=certs/ca.crt
+    --env xpack.ml.max_machine_memory_percent=50
+    --env xpack.ml.node_concurrent_job_allocations=50
 END
 ))
   volumes+=($(cat <<-END

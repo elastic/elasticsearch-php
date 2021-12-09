@@ -220,7 +220,10 @@ class Utility
         if (self::$hasXPack) {
             self::deleteAllAutoFollowPatterns($client);
         }
-
+        if (self::$hasXPack) {
+            self::deleteAllTasks($client);
+        }
+        
         self::deleteAllNodeShutdownMetadata($client);
     }
 

@@ -1,3 +1,12 @@
+## Release 7.16.0
+
+- Added support of includePortInHostHeader in ClientBuilder::fromConfig
+  [#1181](https://github.com/elastic/elasticsearch-php/pull/1181)
+- Fixed UTF-16 issue in SmartSerializer with single unpaired surrogate in unicode escape
+  [#1179](https://github.com/elastic/elasticsearch-php/pull/1179)
+- Replace trait with abstract class to avoid Deprecated Functionality issue in PHP 8.1
+  [#1175](https://github.com/elastic/elasticsearch-php/pull/1175)
+
 ## Release 7.15.0
 
 - Updated endpoints for Elasticsearch 7.15.0

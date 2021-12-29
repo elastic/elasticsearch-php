@@ -514,13 +514,14 @@ class ActionTest
         return $params;
     }
 
+    /*
+    No need for IF statement.
+    */
     private function formatHeaders(array $headers): array
     {
         $result = $headers;
         foreach ($headers as $key => $value) {
-            if (!is_array($value)) {
                 $result[$key] = [$value];
-            }
         }
         return $result;
     }

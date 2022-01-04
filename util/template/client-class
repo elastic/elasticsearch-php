@@ -26,7 +26,7 @@ use Elasticsearch\Endpoints\AbstractEndpoint;
 use Elasticsearch\Namespaces\AbstractNamespace;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
 use Elasticsearch\Namespaces\BooleanRequestWrapper;
-:use-namespaces
+
 /**
  * Class Client
  *

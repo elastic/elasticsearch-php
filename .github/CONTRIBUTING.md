@@ -32,7 +32,7 @@ The process for contributing to any of the Elasticsearch repositories is similar
         $> php util/RestSpecRunner.php
         $> php vendor/bin/phpunit
 
-5. Ensure your changes follow the [PSR-2 Coding Style Guide](http://www.php-fig.org/psr/psr-2/). You can run tools such as [PHP-CS-Fixer](http://cs.sensiolabs.org/) or [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) to enforce PSR-2 automatically.
+5. Ensure your changes follow the [PSR-12 Coding Style Guide](http://www.php-fig.org/psr/psr-12/). You can run tools such as [PHP-CS-Fixer](http://cs.sensiolabs.org/) or [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) to enforce PSR-12 automatically.
 
 6. Rebase your changes
 

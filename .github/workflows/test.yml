@@ -11,7 +11,7 @@ jobs:
       matrix:
         php-version: [7.3, 7.4, 8.0, 8.1]
         os: [ubuntu-latest]
-        es-version: [7.16.0]
+        es-version: [7.17-SNAPSHOT]
 
     steps:
     - name: Checkout

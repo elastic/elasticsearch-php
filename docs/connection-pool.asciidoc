@@ -78,8 +78,10 @@ The `SimpleConnectionPool` returns the next node as specified by the selector;
 it does not track node conditions. It returns nodes either they are dead or 
 alive. It is a simple pool of static hosts.
 
-The `SimpleConnectionPool` is not recommended for routine use but it may be a 
-useful debugging tool.
+The `SimpleConnectionPool` is recommended where the Elasticsearch deployment
+is located behnd a (reverse-) proxy or load balancer, where the individual
+Elasticsearch nodes are not visible to the client. This should be used when
+running Elasticsearch deployments on Cloud.
 
 To use the `SimpleConnectionPool`:
 

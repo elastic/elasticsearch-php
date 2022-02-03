@@ -32,7 +32,7 @@ class EmptyLogger extends AbstractLogger implements LoggerInterface
     /**
      * {@inheritDoc}
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         return;
     }

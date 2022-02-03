@@ -126,6 +126,14 @@ class YamlTests
         self::$minorEsVersion = sprintf("%s.%s", $major, $minor);
     }
 
+    /**
+     * @see https://www.php.net/manual/en/function.yaml-parse-file.php#124980
+     */
+    private function quoteYInYamlFile(string $file)
+    {
+        return str_replace (' y: ', ' "y": ', file_get_contents($file));
+    }
+
     private function getAllTests(string $dir): array
     {
         $it = new RecursiveDirectoryIterator($dir);
@@ -133,11 +141,16 @@ class YamlTests
         // Iterate over the Yaml test files
         foreach (new RecursiveIteratorIterator($it) as $file) {
             if ($file->getExtension() === 'yml') {
-                $test = yaml_parse_file($file->getPathname(), -1, $ndocs, [
-                    YAML_MAP_TAG => function($value, $tag, $flags) {
-                        return empty($value) ? new stdClass : $value;
-                    }
-                ]);
+                $test = yaml_parse(
+                    $this->quoteYInYamlFile($file->getPathname()), 
+                    -1, 
+                    $ndocs, 
+                    [
+                        YAML_MAP_TAG => function($value, $tag, $flags) {
+                            return empty($value) ? new stdClass : $value;
+                        }
+                    ]
+                );
                 if (false === $test) {
                     throw new Exception(sprintf(
                         "YAML parse error file %s",

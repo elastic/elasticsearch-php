@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Elasticsearch PHP Client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   https://opensource.org/licenses/MIT MIT License
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
+
+declare(strict_types=1);
+
+namespace Elastic\Elasticsearch\Endpoints;
+
+use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Http\Promise\Promise;
+
+/**
+ * @generated This file is generated, please do not edit
+ */
+class TextStructure extends AbstractEndpoint
+{
+	use EndpointTrait;
+
+	/**
+	 * Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html
+	 *
+	 * @param array{
+	 *     lines_to_sample: int, // How many lines of the file should be included in the analysis
+	 *     line_merge_size_limit: int, // Maximum number of characters permitted in a single message when lines are merged to create messages.
+	 *     timeout: time, // Timeout after which the analysis will be aborted
+	 *     charset: string, // Optional parameter to specify the character set of the file
+	 *     format: enum, // Optional parameter to specify the high level file format
+	 *     has_header_row: boolean, // Optional parameter to specify whether a delimited file includes the column names in its first row
+	 *     column_names: list, // Optional parameter containing a comma separated list of the column names for a delimited file
+	 *     delimiter: string, // Optional parameter to specify the delimiter character for a delimited file - must be a single character
+	 *     quote: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
+	 *     should_trim_fields: boolean, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
+	 *     grok_pattern: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
+	 *     timestamp_field: string, // Optional parameter to specify the timestamp field in the file
+	 *     timestamp_format: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
+	 *     explain: boolean, // Whether to include a commentary on how the structure was derived
+	 *     body: array, // (REQUIRED) The contents of the file to be analyzed
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function findStructure(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = "/_text_structure/find_structure";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+}

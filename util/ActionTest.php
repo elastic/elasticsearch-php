@@ -15,16 +15,9 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Util;
+namespace Elastic\Elasticsearch\Util;
 
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
-use Elasticsearch\Util\YamlTests;
+use Elastic\Elasticsearch\Exceptions\ElasticsearchException;
 use PHPUnit\Runner\Version as PHPUnitVersion;
 use stdClass;
 

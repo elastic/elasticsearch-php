@@ -15,9 +15,8 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Util;
+namespace Elastic\Elasticsearch\Util;
 
-use Elasticsearch\Util\ActionTest;
 use Exception;
 use ParseError;
 use RecursiveDirectoryIterator;
@@ -225,7 +224,7 @@ class YamlTests
                 $test = self::render(
                     self::TEMPLATE_UNIT_TEST_SKIPPED,
                     [
-                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':namespace' => sprintf("Elastic\Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
                         ':test-name' => $testName,
                         ':tests'     => $functions,
                         ':yamlfile'  => sprintf(self::ELASTICSEARCH_GIT_URL, self::$minorEsVersion, $yamlFileName),
@@ -238,7 +237,7 @@ class YamlTests
                         ? self::TEMPLATE_UNIT_TEST_OSS
                         : self::TEMPLATE_UNIT_TEST_XPACK,
                     [
-                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':namespace' => sprintf("Elastic\Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
                         ':test-name' => $testName,
                         ':tests'     => $functions,
                         ':setup'     => $setup,

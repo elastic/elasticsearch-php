@@ -1,0 +1,1457 @@
+<?php
+
+/**
+ * Elasticsearch PHP Client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   https://opensource.org/licenses/MIT MIT License
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
+
+declare(strict_types=1);
+
+namespace Elastic\Elasticsearch\Endpoints;
+
+use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Http\Promise\Promise;
+
+/**
+ * @generated This file is generated, please do not edit
+ */
+class Indices extends AbstractEndpoint
+{
+	use EndpointTrait;
+
+	/**
+	 * Adds a block to an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma separated list of indices to add a block to
+	 *     block: string, // (REQUIRED) The block to add (one of read, write, read_only or metadata)
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function addBlock(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','block'], $params);
+		$url = "/{$params['index']}/_block/{$params['block']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Performs the analysis process on a text and return the tokens breakdown of the text.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
+	 *
+	 * @param array{
+	 *     index: string, //  The name of the index to scope the operation
+	 *     index: string, // The name of the index to scope the operation
+	 *     body: array, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function analyze(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_analyze";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = "/_analyze";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Clears all or specific caches for one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index name to limit the operation
+	 *     fielddata: boolean, // Clear field data
+	 *     fields: list, // A comma-separated list of fields to clear when using the `fielddata` parameter (default: all)
+	 *     query: boolean, // Clear query caches
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     index: list, // A comma-separated list of index name to limit the operation
+	 *     request: boolean, // Clear request cache
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function clearCache(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_cache/clear";
+			$method = 'POST';
+		} else {
+			$url = "/_cache/clear";
+			$method = 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Clones an index
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) The name of the source index to clone
+	 *     target: string, // (REQUIRED) The name of the target index to clone into
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the cloned index before the operation returns.
+	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function clone(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','target'], $params);
+		$url = "/{$params['index']}/_clone/{$params['target']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Closes an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma separated list of indices to close
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function close(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_close";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Creates an index with optional settings and mappings.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) The name of the index
+	 *     wait_for_active_shards: string, // Set the number of active shards to wait for before the operation returns.
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, //  The configuration for the index (`settings` and `mappings`)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function create(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Creates a data stream
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the data stream
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function createDataStream(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_data_stream/{$params['name']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Provides statistics on operations happening in a data stream.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: list, //  A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function dataStreamsStats(array $params = [])
+	{
+		if (isset($params['name'])) {
+			$url = "/_data_stream/{$params['name']}/_stats";
+			$method = 'GET';
+		} else {
+			$url = "/_data_stream/_stats";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Deletes an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open, closed, or hidden indices
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function delete(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Deletes an alias.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names (supports wildcards); use `_all` for all indices
+	 *     name: list, // (REQUIRED) A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+	 *     timeout: time, // Explicit timestamp for the document
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteAlias(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','name'], $params);
+		$url = "/{$params['index']}/_alias/{$params['name']}";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Deletes a data stream.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: list, // (REQUIRED) A comma-separated list of data streams to delete; use `*` to delete all data streams
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteDataStream(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_data_stream/{$params['name']}";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Deletes an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the template
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteIndexTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_index_template/{$params['name']}";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Deletes an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the template
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_template/{$params['name']}";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Analyzes the disk usage of each field of an index or data stream
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) Comma-separated list of indices or data streams to analyze the disk usage
+	 *     run_expensive_tasks: boolean, // Must be set to [true] in order for the task to be performed. Defaults to false.
+	 *     flush: boolean, // Whether flush or not before analyzing the index disk usage. Defaults to true
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function diskUsage(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_disk_usage";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about whether a particular index exists.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function exists(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}";
+		$method = 'HEAD';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about whether a particular alias exists.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+	 *
+	 * @param array{
+	 *     name: list, // (REQUIRED) A comma-separated list of alias names to return
+	 *     index: list, //  A comma-separated list of index names to filter aliases
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function existsAlias(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_alias/{$params['name']}";
+			$method = 'HEAD';
+		} else {
+			$url = "/_alias/{$params['name']}";
+			$method = 'HEAD';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about whether a particular index template exists.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the template
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function existsIndexTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_index_template/{$params['name']}";
+		$method = 'HEAD';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about whether a particular index template exists.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: list, // (REQUIRED) The comma separated names of the index templates
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function existsTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_template/{$params['name']}";
+		$method = 'HEAD';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns the field usage stats for each field of an index
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/field-usage-stats.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     fields: list, // A comma-separated list of fields to include in the stats if only a subset of fields should be returned (supports wildcards)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function fieldUsageStats(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_field_usage_stats";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Performs the flush operation on one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string for all indices
+	 *     force: boolean, // Whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal)
+	 *     wait_if_ongoing: boolean, // If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function flush(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_flush";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = "/_flush";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Performs the force merge operation on one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     flush: boolean, // Specify whether the index should be flushed after performing the operation (default: true)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     max_num_segments: number, // The number of segments the index should be merged into (default: dynamic)
+	 *     only_expunge_deletes: boolean, // Specify whether the operation should only expunge deleted documents
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function forcemerge(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_forcemerge";
+			$method = 'POST';
+		} else {
+			$url = "/_forcemerge";
+			$method = 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function get(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns an alias.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+	 *
+	 * @param array{
+	 *     name: list, //  A comma-separated list of alias names to return
+	 *     index: list, //  A comma-separated list of index names to filter aliases
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getAlias(array $params = [])
+	{
+		if (isset($params['index']) && isset($params['name'])) {
+			$url = "/{$params['index']}/_alias/{$params['name']}";
+			$method = 'GET';
+		} elseif (isset($params['name'])) {
+			$url = "/_alias/{$params['name']}";
+			$method = 'GET';
+		} elseif (isset($params['index'])) {
+			$url = "/{$params['index']}/_alias";
+			$method = 'GET';
+		} else {
+			$url = "/_alias";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns data streams.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: list, //  A comma-separated list of data streams to get; use `*` to get all data streams
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getDataStream(array $params = [])
+	{
+		if (isset($params['name'])) {
+			$url = "/_data_stream/{$params['name']}";
+			$method = 'GET';
+		} else {
+			$url = "/_data_stream";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns mapping for one or more fields.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
+	 *
+	 * @param array{
+	 *     fields: list, // (REQUIRED) A comma-separated list of fields
+	 *     index: list, //  A comma-separated list of index names
+	 *     include_defaults: boolean, // Whether the default mapping values should be returned as well
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getFieldMapping(array $params = [])
+	{
+		$this->checkRequiredParameters(['fields'], $params);
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_mapping/field/{$params['fields']}";
+			$method = 'GET';
+		} else {
+			$url = "/_mapping/field/{$params['fields']}";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, //  A pattern that returned template names must match
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getIndexTemplate(array $params = [])
+	{
+		if (isset($params['name'])) {
+			$url = "/_index_template/{$params['name']}";
+			$method = 'GET';
+		} else {
+			$url = "/_index_template";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns mappings for one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getMapping(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_mapping";
+			$method = 'GET';
+		} else {
+			$url = "/_mapping";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns settings for one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     name: list, //  The name of the settings that should be included
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getSettings(array $params = [])
+	{
+		if (isset($params['index']) && isset($params['name'])) {
+			$url = "/{$params['index']}/_settings/{$params['name']}";
+			$method = 'GET';
+		} elseif (isset($params['index'])) {
+			$url = "/{$params['index']}/_settings";
+			$method = 'GET';
+		} elseif (isset($params['name'])) {
+			$url = "/_settings/{$params['name']}";
+			$method = 'GET';
+		} else {
+			$url = "/_settings";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: list, //  The comma separated names of the index templates
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function getTemplate(array $params = [])
+	{
+		if (isset($params['name'])) {
+			$url = "/_template/{$params['name']}";
+			$method = 'GET';
+		} else {
+			$url = "/_template";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Migrates an alias to a data stream
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the alias to migrate
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function migrateToDataStream(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_data_stream/_migrate/{$params['name']}";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Modifies a data stream
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     body: array, // (REQUIRED) The data stream modifications
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function modifyDataStream(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = "/_data_stream/_modify";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Opens an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma separated list of indices to open
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function open(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_open";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Promotes a data stream from a replicated data stream managed by CCR to a regular data stream
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the data stream
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function promoteDataStream(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_data_stream/_promote/{$params['name']}";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Creates or updates an alias.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names the alias should point to (supports wildcards); use `_all` to perform the operation on all indices.
+	 *     name: string, // (REQUIRED) The name of the alias to be created or updated
+	 *     timeout: time, // Explicit timestamp for the document
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, //  The settings for the alias, such as `routing` or `filter`
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function putAlias(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','name'], $params);
+		$url = "/{$params['index']}/_alias/{$params['name']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Creates or updates an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the template
+	 *     create: boolean, // Whether the index template should only be added if new or can also replace an existing one
+	 *     cause: string, // User defined reason for creating/updating the index template
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, // (REQUIRED) The template definition
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function putIndexTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name','body'], $params);
+		$url = "/_index_template/{$params['name']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Updates the index mappings.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     write_index_only: boolean, // When true, applies mappings only to the write index of an alias or data stream
+	 *     body: array, // (REQUIRED) The mapping definition
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function putMapping(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','body'], $params);
+		$url = "/{$params['index']}/_mapping";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Updates the index settings.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     timeout: time, // Explicit operation timeout
+	 *     preserve_existing: boolean, // Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     body: array, // (REQUIRED) The index settings to be updated
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function putSettings(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_settings";
+			$method = 'PUT';
+		} else {
+			$url = "/_settings";
+			$method = 'PUT';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Creates or updates an index template.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the template
+	 *     order: number, // The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
+	 *     create: boolean, // Whether the index template should only be added if new or can also replace an existing one
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, // (REQUIRED) The template definition
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function putTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name','body'], $params);
+		$url = "/_template/{$params['name']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about ongoing index shard recoveries.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     detailed: boolean, // Whether to display detailed information about shard recovery
+	 *     active_only: boolean, // Display only those recoveries that are currently on-going
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function recovery(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_recovery";
+			$method = 'GET';
+		} else {
+			$url = "/_recovery";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Performs the refresh operation in one or more indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function refresh(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_refresh";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = "/_refresh";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Reloads an index's search analyzers and their resources.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html
+	 *
+	 * @param array{
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to reload analyzers for
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function reloadSearchAnalyzers(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_reload_search_analyzers";
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Returns information about any matching indices, aliases, and data streams
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html
+	 *
+	 * @param array{
+	 *     name: list, // (REQUIRED) A comma-separated list of names or wildcard expressions
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function resolveIndex(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_resolve/index/{$params['name']}";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Updates an alias to point to a new index when the existing index
+	 * is considered to be too large or too old.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html
+	 *
+	 * @param array{
+	 *     alias: string, // (REQUIRED) The name of the alias to rollover
+	 *     new_index: string, //  The name of the rollover index
+	 *     timeout: time, // Explicit operation timeout
+	 *     dry_run: boolean, // If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
+	 *     body: array, //  The conditions that needs to be met for executing rollover
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function rollover(array $params = [])
+	{
+		$this->checkRequiredParameters(['alias'], $params);
+		if (isset($params['new_index'])) {
+			$url = "/{$params['alias']}/_rollover/{$params['new_index']}";
+			$method = 'POST';
+		} else {
+			$url = "/{$params['alias']}/_rollover";
+			$method = 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Provides low-level information about segments in a Lucene index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     verbose: boolean, // Includes detailed memory usage by Lucene.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function segments(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_segments";
+			$method = 'GET';
+		} else {
+			$url = "/_segments";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Provides store information for shard copies of indices.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     status: list, // A comma-separated list of statuses used to filter on shards to get store information for
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function shardStores(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_shard_stores";
+			$method = 'GET';
+		} else {
+			$url = "/_shard_stores";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Allow to shrink an existing index into a new index with fewer primary shards.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) The name of the source index to shrink
+	 *     target: string, // (REQUIRED) The name of the target index to shrink into
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
+	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function shrink(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','target'], $params);
+		$url = "/{$params['index']}/_shrink/{$params['target']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Simulate matching the given index name against the index templates in the system
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the index (it must be a concrete index name)
+	 *     create: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
+	 *     cause: string, // User defined reason for dry-run creating the new template for simulation purposes
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, //  New index template definition, which will be included in the simulation, as if it already exists in the system
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function simulateIndexTemplate(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = "/_index_template/_simulate_index/{$params['name']}";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Simulate resolving the given template name or body
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 *
+	 * @param array{
+	 *     name: string, //  The name of the index template
+	 *     create: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
+	 *     cause: string, // User defined reason for dry-run creating the new template for simulation purposes
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, //  New index template definition to be simulated, if no index template name is specified
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function simulateTemplate(array $params = [])
+	{
+		if (isset($params['name'])) {
+			$url = "/_index_template/_simulate/{$params['name']}";
+			$method = 'POST';
+		} else {
+			$url = "/_index_template/_simulate";
+			$method = 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Allows you to split an existing index into a new index with more primary shards.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) The name of the source index to split
+	 *     target: string, // (REQUIRED) The name of the target index to split into
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
+	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function split(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','target'], $params);
+		$url = "/{$params['index']}/_split/{$params['target']}";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Provides statistics on operations happening in an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html
+	 *
+	 * @param array{
+	 *     metric: list, //  Limit the information returned the specific metrics.
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     completion_fields: list, // A comma-separated list of fields for the `completion` index metric (supports wildcards)
+	 *     fielddata_fields: list, // A comma-separated list of fields for the `fielddata` index metric (supports wildcards)
+	 *     fields: list, // A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)
+	 *     groups: list, // A comma-separated list of search groups for `search` index metric
+	 *     level: enum, // Return stats aggregated at cluster, index or shard level
+	 *     include_segment_file_sizes: boolean, // Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested)
+	 *     include_unloaded_segments: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     forbid_closed_indices: boolean, // If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function stats(array $params = [])
+	{
+		if (isset($params['index']) && isset($params['metric'])) {
+			$url = "/{$params['index']}/_stats/{$params['metric']}";
+			$method = 'GET';
+		} elseif (isset($params['metric'])) {
+			$url = "/_stats/{$params['metric']}";
+			$method = 'GET';
+		} elseif (isset($params['index'])) {
+			$url = "/{$params['index']}/_stats";
+			$method = 'GET';
+		} else {
+			$url = "/_stats";
+			$method = 'GET';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Unfreezes an index. When a frozen index is unfrozen, the index goes through the normal recovery process and becomes writeable again.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html
+	 *
+	 * @param array{
+	 *     index: string, // (REQUIRED) The name of the index to unfreeze
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function unfreeze(array $params = [])
+	{
+		$this->checkRequiredParameters(['index'], $params);
+		$url = "/{$params['index']}/_unfreeze";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Updates index aliases.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+	 *
+	 * @param array{
+	 *     timeout: time, // Request timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     body: array, // (REQUIRED) The definition of `actions` to perform
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function updateAliases(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = "/_aliases";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Allows a user to validate a potentially expensive query without executing it.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html
+	 *
+	 * @param array{
+	 *     index: list, //  A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
+	 *     explain: boolean, // Return detailed information about the error
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     analyzer: string, // The analyzer to use for the query string
+	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The field to use as default where no field prefix is given in the query string
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     rewrite: boolean, // Provide a more detailed explanation showing the actual Lucene query that will be executed.
+	 *     all_shards: boolean, // Execute validation on all shards instead of one random shard per index
+	 *     body: array, //  The query definition specified with the Query DSL
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function validateQuery(array $params = [])
+	{
+		if (isset($params['index'])) {
+			$url = "/{$params['index']}/_validate/query";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = "/_validate/query";
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+}

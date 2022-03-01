@@ -14,9 +14,9 @@
  */
 declare(strict_types = 1);
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\Util\YamlTests;
-use Elasticsearch\Tests\Utility;
+use Elastic\Transport\Exception\NoNodeAvailableException;
+use Elastic\Elasticsearch\Util\YamlTests;
+use Elastic\Elasticsearch\Tests\Utility;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -29,7 +29,7 @@ try {
 
 try {
     $serverInfo = $client->info();
-} catch (NoNodesAvailableException $e) {
+} catch (NoNodeAvailableException $e) {
     printf ("ERROR: Host %s is offline\n", Utility::getHost());
     exit(1);
 }

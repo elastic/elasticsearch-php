@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.3, 7.4, 8.0]
+        php-version: [7.4, 8.0, 8.1]
         os: [ubuntu-latest]
         es-version: [8.0.0-SNAPSHOT]
 
@@ -40,10 +40,6 @@ jobs:
       run: |
         composer install --prefer-dist
 
-    - name: PHP Coding Standards
-      run: |
-        composer run-script phpcs
-
     - name: PHP Static Analysis Tool
       run: |
         composer run-script phpstan
@@ -53,22 +49,4 @@ jobs:
         vendor/bin/phpunit -c phpunit.xml.dist
       env:
         TEST_SUITE: free
-
-    - name: Configure sysctl limits
-      run: |
-        sudo swapoff -a
-        sudo sysctl -w vm.swappiness=1
-        sudo sysctl -w fs.file-max=262144
-        sudo sysctl -w vm.max_map_count=262144
-
-    - name: Runs Elasticsearch ${{ matrix.es-version }}
-      uses: elastic/elastic-github-actions/elasticsearch@master
-      with:
-        stack-version: ${{ matrix.es-version }}
-
-    - name: Integration tests
-      run: |
-        vendor/bin/phpunit -c phpunit-integration-tests.xml
-      env:
-        ELASTICSEARCH_URL: http://localhost:9200
         

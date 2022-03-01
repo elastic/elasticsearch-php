@@ -1,3 +1,26 @@
+# 8.0
+
+This major release is a complete new PHP client for Elasticsearch. We build it from scratch!
+We tried to reduce the BC breaks as much as possible but there are some big differences :rage: 
+
+## Architectural changes:
+
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`;
+- we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library
+  to manage the HTTP requests and responses; This library allows the usage of any [PSR-18](https://www.php-fig.org/psr/psr-18/)
+  client.
+- we changed the response type of each endpoints using a wrapper class of a [PSR-7](https://www.php-fig.org/psr/psr-7/)
+  response. This class allows the access of the body response as array or object. This means
+  you can access the API response as in 7.x, no BC break here! :angel:
+
+## Specific changes:
+
+- to be completed 
+# 7.17
+
+- We changed the signature of `Elasticsearch\Common\EmptyLogger::log` adding the `void` return type.
+  This change has been needed to support psr/log v3.
+
 # 7.4
 
 - Using a deprecated parameter is notified triggering a [E_USER_DEPRECATED](https://www.php.net/manual/en/errorfunc.constants.php)

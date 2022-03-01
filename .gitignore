@@ -45,7 +45,7 @@ build
 tests/*-junit.xml
 
 # YAML tests
-tests/Elasticsearch/Tests/Yaml
+tests/Yaml
 
 # Exclude .ci/make.sh artifcats
 .ci/output

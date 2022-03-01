@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * Elasticsearch PHP Client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   https://opensource.org/licenses/MIT MIT License
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
+
+declare(strict_types=1);
+
+namespace Elastic\Elasticsearch\Endpoints;
+
+use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Http\Promise\Promise;
+
+/**
+ * @generated This file is generated, please do not edit
+ */
+class License extends AbstractEndpoint
+{
+	use EndpointTrait;
+
+	/**
+	 * Deletes licensing information for the cluster
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-license.html
+	 */
+	public function delete(array $params = [])
+	{
+		$url = "/_license";
+		$method = 'DELETE';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Retrieves licensing information for the cluster
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html
+	 *
+	 * @param array{
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     accept_enterprise: boolean, // Supported for backwards compatibility with 7.x. If this param is used it must be set to true
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function get(array $params = [])
+	{
+		$url = "/_license";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Retrieves information about the status of the basic license.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html
+	 */
+	public function getBasicStatus(array $params = [])
+	{
+		$url = "/_license/basic_status";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Retrieves information about the status of the trial license.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html
+	 */
+	public function getTrialStatus(array $params = [])
+	{
+		$url = "/_license/trial_status";
+		$method = 'GET';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Updates the license for the cluster.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html
+	 *
+	 * @param array{
+	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     body: array, //  licenses to be installed
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function post(array $params = [])
+	{
+		$url = "/_license";
+		$method = 'PUT';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * Starts an indefinite basic license.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/start-basic.html
+	 *
+	 * @param array{
+	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function postStartBasic(array $params = [])
+	{
+		$url = "/_license/start_basic";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+
+
+	/**
+	 * starts a limited time trial license.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trial.html
+	 *
+	 * @param array{
+	 *     type: string, // The type of trial license to generate (default: "trial")
+	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 * } $params
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @return Elasticsearch|Promise
+	 */
+	public function postStartTrial(array $params = [])
+	{
+		$url = "/_license/start_trial";
+		$method = 'POST';
+
+		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+	}
+}

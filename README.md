@@ -5,6 +5,8 @@ Elasticsearch PHP client
 
 [![Build status](https://github.com/elastic/elasticsearch-php/workflows/PHP%20test/badge.svg)](https://github.com/elastic/elasticsearch-php/actions) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
 
+This is the official PHP client for connecting to [Elasticsearch](https://www.elastic.co/elasticsearch/).
+
 ## Contents
 
 - [Getting started](#getting-started-)
@@ -85,7 +87,23 @@ For more information about the Elasticsearch REST API you can read the official 
 
 ## Backward Incompatible Changes :boom:
 
-To be completed
+The 8.0.0 version of `elasticsearch-php` contains a new implementation compared with 7.x.
+It supports [PSR-7](https://www.php-fig.org/psr/psr-7/) for HTTP messages and [PSR-18](https://www.php-fig.org/psr/psr-18/)
+for HTTP client communications. 
+
+We tried to reduce the BC breaks as much as possible with `7.x` but there are some (big) differences:
+
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`;
+- we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library for HTTP communications;
+- we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
+  `ElasticsearchException` interface, as in 7.x;
+- we changed the response type of each endpoints using an [Elasticsearch](src/Response/Elasticsearch.php) response class.
+  This class wraps a a [PSR-7](https://www.php-fig.org/psr/psr-7/) response allowing the access of the body response
+  as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
+
+You can have a look at the [BREAKING_CHANGES](BREAKING_CHANGES.md) file for more information.
+
+## Specific changes:
 
 ## FAQ 🔮
 

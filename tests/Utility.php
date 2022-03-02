@@ -17,7 +17,7 @@ namespace Elastic\Elasticsearch\Tests;
 use Exception;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
-use Elastic\Elasticsearch\Exceptions\ElasticsearchException;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
 
 class Utility
 {
@@ -333,7 +333,7 @@ class Utility
             $result = $client->cat()->tasks([
                 'detailed' => true
             ]);
-            $tasks = explode("\n", $result);
+            $tasks = explode("\n", $result->asString());
             $count = 0;
             foreach ($tasks as $task) {
                 if (empty($task)) {

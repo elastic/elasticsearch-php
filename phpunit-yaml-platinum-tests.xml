@@ -12,7 +12,7 @@
   </php>
   <testsuites>
     <testsuite name="Yaml tests">
-      <directory>tests/Elasticsearch/Tests/Yaml/Platinum</directory>
+      <directory>tests/Yaml/Platinum</directory>
     </testsuite>
   </testsuites>
   <groups>

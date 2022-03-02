@@ -131,6 +131,7 @@ class YamlTests
         // Iterate over the Yaml test files
         foreach (new RecursiveIteratorIterator($it) as $file) {
             if ($file->getExtension() === 'yml') {
+                printf ("Parsing file %s\n", $file->getPathname());
                 $test = yaml_parse_file($file->getPathname(), -1, $ndocs, [
                     YAML_MAP_TAG => function($value, $tag, $flags) {
                         return empty($value) ? new stdClass : $value;

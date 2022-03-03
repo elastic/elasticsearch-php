@@ -50,7 +50,7 @@ printf ("*****************************************\n");
 printf ("Using Elasticsearch %s version\n", $version);
 printf ("With build hash %s\n", $buildHash);
 
-$yamlOutputTest = __DIR__ . '/../tests/Elasticsearch/Tests/Yaml';
+$yamlOutputTest = __DIR__ . '/../tests/Yaml';
 $yamlTestFolder = sprintf("%s/rest-spec/%s/rest-api-spec/test/%s", __DIR__, $buildHash, strtolower($stack));
 
 $test = new YamlTests($yamlTestFolder, $yamlOutputTest, $version, $stack);

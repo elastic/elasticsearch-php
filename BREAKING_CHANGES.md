@@ -5,13 +5,14 @@ We tried to reduce the BC breaks as much as possible but there are some (big) di
 
 ## Architectural changes:
 
-- we changed the namespace, now everything is under `Elastic\Elasticsearch`;
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`
 - we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library for HTTP communications;
 - we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
-  `ElasticsearchException` interface, as in 7.x;
+  `ElasticsearchException` interface, as in 7.x
 - we changed the response type of each endpoints using an [Elasticsearch](src/Response/Elasticsearch.php) response class.
   This class wraps a a [PSR-7](https://www.php-fig.org/psr/psr-7/) response allowing the access of the body response
   as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
+- we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
 
 ## Specific changes:
 
@@ -24,7 +25,7 @@ The following functions has been removed:
 - `ClientBuilder::multiHandler()`
 - `ClientBuilder::singleHandler()`
 - `ClientBuilder::setConnectionFactory()`
-- `ClientBuilder::setConnectionPool()`
+- `ClientBuilder::setConnectionPool()`, you can use `ClientBuilder::setNodePool` instead
 - `ClientBuilder::setEndpoint()`
 - `ClientBuilder::registerNamespace()`
 - `ClientBuilder::setTransport()`, you can specify an HTTP PSR-18 client using `ClientBuilder::setHttpClient()`
@@ -32,7 +33,7 @@ The following functions has been removed:
 - `ClientBuilder::setTracer()`, you can only set a Logger using  `ClientBuilder::setLogger()`
 - `ClientBuilder::setSerializer()`
 - `ClientBuilder::setConnectionParams()`, you can use `ClientBuilder::setHttpClientOptions()` instead
-- `ClientBuilder::setSelector()`
+- `ClientBuilder::setSelector()`, you can set a `Selector` using the `setNodePool`, see [here](https://github.com/elastic/elastic-transport-php/blob/8.x/README.md#use-a-custom-selector) for more information
 - `ClientBuilder::setSniffOnStart()`
 - `ClientBuilder::includePortInHostHeader()`
 

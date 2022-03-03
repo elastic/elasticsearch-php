@@ -15,11 +15,11 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests;
 
 use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\Exception\NamespaceException;
 use Elastic\Elasticsearch\Exception\ProductCheckException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Transport\NodePool\NodePoolInterface;
 use Elastic\Transport\TransportBuilder;
 use Http\Mock\Client as MockClient;
 use Http\Promise\Promise;
@@ -33,12 +33,10 @@ class ClientTest extends TestCase
     {
         $this->logger = $this->createStub(LoggerInterface::class);
         $this->httpClient = new MockClient();
-        //$this->httpAsyncClient = $this->createStub(HttpAsyncClient::class);
 
         $this->transport = TransportBuilder::create()
             ->setClient($this->httpClient)
             ->build();
-        //$this->transport->setAsyncClient($this->httpAsyncClient);
 
         $this->psr17Factory = new Psr17Factory();
         $this->client = new Client($this->transport, $this->logger);
@@ -59,20 +57,20 @@ class ClientTest extends TestCase
         $this->assertFalse($this->client->getAsync());
     }
 
-    public function testSetAsync()
+    public function testSetGetAsync()
     {
         $async = $this->client->getAsync();
         $this->client->setAsync(!$async);
         $this->assertEquals(!$async, $this->client->getAsync());
     }
 
-    public function testSetElasticMetaHeader()
+    public function testSetGetElasticMetaHeader()
     {
         $this->client->setElasticMetaHeader(false);
         $this->assertFalse($this->client->getElasticMetaHeader());
     }
 
-    public function testSetResponseException()
+    public function testSetGetResponseException()
     {
         $this->client->setResponseException(false);
         $this->assertFalse($this->client->getResponseException());

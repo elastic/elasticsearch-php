@@ -19,26 +19,38 @@ use Elastic\Elasticsearch\Exception\ConfigException;
 use Elastic\Elasticsearch\Exception\HttpClientException;
 use Elastic\Elasticsearch\Exception\InvalidArgumentException;
 use Elastic\Elasticsearch\Transport\Adapter\AdapterInterface;
+use Elastic\Elasticsearch\Transport\Adapter\AdapterOptions;
 use Elastic\Elasticsearch\Transport\RequestOptions;
-use Elastic\Transport\Transport;
+use Elastic\Transport\NodePool\NodePoolInterface;
 use Elastic\Transport\TransportBuilder;
 use Http\Client\HttpAsyncClient;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use ReflectionClass;
 
 class ClientBuilder
 {
     const DEFAULT_HOST = 'localhost:9200';
-    const HTTP_ADAPTERS = [
-        "GuzzleHttp\\Client" => "Elastic\\Elasticsearch\\Transport\\Adapter\\Guzzle"
-    ];
 
-    private Transport $transport;
+    /**
+     * PSR-18 client
+     */
     private ClientInterface $httpClient;
+
+    /**
+     * The HTTP async client
+     */
     private HttpAsyncClient $asyncHttpClient;
+
+    /**
+     * PSR-3 Logger
+     */
     private LoggerInterface $logger;
+
+    /**
+     * The NodelPool
+     */
+    private NodePoolInterface $nodePool;
 
     /**
      * Hosts (elasticsearch nodes)
@@ -182,6 +194,15 @@ class ClientBuilder
     }
 
     /**
+     * Set the NodePool
+     */
+    public function setNodePool(NodePoolInterface $nodePool): ClientBuilder
+    {
+        $this->nodePool = $nodePool;
+        return $this;
+    }
+
+    /**
      * Set the hosts (nodes)
      */
     public function setHosts(array $hosts): ClientBuilder
@@ -290,21 +311,21 @@ class ClientBuilder
      */
     public function build(): Client
     {
-        // Logger
-        if (empty($this->logger)) {
-            $this->logger = new NullLogger();
-        }
+        // Transport builder
+        $builder = TransportBuilder::create();
 
         // Set the default hosts if empty
         if (empty($this->hosts)) {
             $this->hosts = [self::DEFAULT_HOST];
         }
-
-        // Transport
-        $builder = TransportBuilder::create();    
-        $builder->setLogger($this->logger);
         $builder->setHosts($this->hosts);
 
+        // Logger
+        if (!empty($this->logger)) {    
+            $builder->setLogger($this->logger);
+        }
+
+        // Http client
         if (!empty($this->httpClient)) {
             $builder->setClient($this->httpClient);
         } else {
@@ -315,28 +336,33 @@ class ClientBuilder
                 );
             }
         }
+
+        // Cloud id
         if (!empty($this->cloudId)) {
             $builder->setCloudId($this->cloudId);
         }
+
+        // Node Pool
         if (!empty($this->nodePool)) {
             $builder->setNodePool($this->nodePool);
         }
-        $this->transport = $builder->build();
+
+        $transport = $builder->build();
         
         // The default retries is equal to the number of hosts
         if (empty($this->retries)) {
             $this->retries = count($this->hosts);
         }
-        $this->transport->setRetries($this->retries);
+        $transport->setRetries($this->retries);
 
         // Async client
         if (!empty($this->asyncHttpClient)) {
-            $this->transport->setAsyncClient($this->asyncHttpClient);
+            $transport->setAsyncClient($this->asyncHttpClient);
         }
         
         // Basic authentication
         if (!empty($this->username) && !empty($this->password)) {
-            $this->transport->setUserInfo($this->username, $this->password);
+            $transport->setUserInfo($this->username, $this->password);
         }
 
         // API key
@@ -344,15 +370,15 @@ class ClientBuilder
             if (!empty($this->username)) {
                 throw new AuthenticationException('You cannot use APIKey and Basic Authenication together');
             }
-            $this->transport->setHeader('Authorization', sprintf("ApiKey %s", $this->apiKey));
+            $transport->setHeader('Authorization', sprintf("ApiKey %s", $this->apiKey));
         }
 
         // Elastic cloud optimized with gzip
         if (!empty($this->cloudId)) {
-            $this->transport->setHeader('Accept-Encoding', 'gzip');
+            $transport->setHeader('Accept-Encoding', 'gzip');
         }
 
-        $client = new Client($this->transport, $this->logger);
+        $client = new Client($transport, $transport->getLogger());
         // Enable or disable the x-elastic-client-meta header
         $client->setElasticMetaHeader($this->elasticMetaHeader);
 
@@ -386,13 +412,13 @@ class ClientBuilder
             return $client;
         }
         $class = get_class($client);
-        if (!isset(self::HTTP_ADAPTERS[$class])) {
+        if (!isset(AdapterOptions::HTTP_ADAPTERS[$class])) {
             throw new HttpClientException(sprintf(
                 "The HTTP client %s is not supported for custom options",
                 $class
             ));
         }
-        $adapterClass = self::HTTP_ADAPTERS[$class];
+        $adapterClass = AdapterOptions::HTTP_ADAPTERS[$class];
         if (!class_exists($adapterClass) || !in_array(AdapterInterface::class, class_implements($adapterClass))) {
             throw new HttpClientException(sprintf(
                 "The class %s does not exists or does not implement %s",

@@ -19,6 +19,7 @@ use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Exception\AuthenticationException;
 use Elastic\Elasticsearch\Exception\ConfigException;
 use Elastic\Elasticsearch\Exception\InvalidArgumentException;
+use Elastic\Transport\NodePool\NodePoolInterface;
 use Http\Client\HttpAsyncClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,7 @@ class ClientBuilderTest extends TestCase
         $this->httpClient = $this->createStub(ClientInterface::class);
         $this->asyncHttpClient = $this->createStub(HttpAsyncClient::class);
         $this->logger = $this->createStub(LoggerInterface::class);
+        $this->nodePool = $this->createStub(NodePoolInterface::class);
         $this->psr17Factory = new Psr17Factory();
         $this->builder = ClientBuilder::create();
     }
@@ -113,6 +115,12 @@ class ClientBuilderTest extends TestCase
     public function testSetLogger()
     {
         $result = $this->builder->setLogger($this->logger);
+        $this->assertEquals($this->builder, $result);
+    }
+
+    public function testSetNodePool()
+    {
+        $result = $this->builder->setNodePool($this->nodePool);
         $this->assertEquals($this->builder, $result);
     }
 

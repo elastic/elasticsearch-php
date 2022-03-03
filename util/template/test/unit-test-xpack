@@ -17,7 +17,7 @@ declare(strict_types = 1);
 namespace :namespace;
 
 use PHPUnit\Framework\TestCase;
-use Elasticsearch\Tests\Utility;
+use Elastic\Elasticsearch\Tests\Utility;
 use stdClass;
 
 /**

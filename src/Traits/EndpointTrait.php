@@ -14,26 +14,55 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Traits;
 
+use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Transport\Serializer\JsonSerializer;
+use Elastic\Transport\Serializer\NDJsonSerializer;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestInterface;
 
 trait EndpointTrait
 {
+    protected function bodySerialize(array $body, string $contentType): string
+    {
+        if (strpos($contentType, 'application/x-ndjson') !== false) {
+            return NDJsonSerializer::serialize($body, ['remove_null' => false]);
+        }
+        if (strpos($contentType, 'application/json') !== false) {
+            return JsonSerializer::serialize($body, ['remove_null' => false]);
+        }
+        throw new ContentTypeException(sprintf(
+            "The Content-Type %s is not managed by Elasticsearch serializer",
+            $contentType
+        ));
+    }
+
     /**
      * Create a PSR-7 request
      */
-    protected function createRequest(string $method, string $url, array $body = []): RequestInterface
+    protected function createRequest(string $method, string $url, array $headers, array $body = []): RequestInterface
     {
-        $request = Psr17FactoryDiscovery::findRequestFactory();
-        $stream = Psr17FactoryDiscovery::findStreamFactory();
+        $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
-        if (empty($body)) {
-            return $request->createRequest($method, $url);
+        $request = $requestFactory->createRequest($method, $url);
+        // Body request
+        if (!empty($body)) {
+            if (!isset($headers['Content-Type'])) {
+                throw new ContentTypeException(sprintf(
+                    "The Content-Type is missing for %s %s", 
+                    $method, 
+                    $url
+                ));
+            }
+            $content = $this->bodySerialize($body, $headers['Content-Type']);
+            $request = $request->withBody($streamFactory->createStream($content));
         }
-        $content = JsonSerializer::serialize($body);
-        return $request->createRequest($method, $url)->withBody($stream->createStream($content));
+        // Headers
+        foreach ($headers as $name => $value) {
+            $request = $request->withHeader($name, $value);
+        }
+        return $request;
     }
 
     /**

@@ -42,10 +42,13 @@ class AsyncSearch extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_async_search/{$params['id']}";
+		$url = '/_async_search/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -66,10 +69,13 @@ class AsyncSearch extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_async_search/{$params['id']}";
+		$url = '/_async_search/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -87,10 +93,13 @@ class AsyncSearch extends AbstractEndpoint
 	public function status(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_async_search/status/{$params['id']}";
+		$url = '/_async_search/status/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -150,12 +159,16 @@ class AsyncSearch extends AbstractEndpoint
 	public function submit(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_async_search";
+			$url = '/' . urlencode((string) $params['index']) . '/_async_search';
 			$method = 'POST';
 		} else {
-			$url = "/_async_search";
+			$url = '/_async_search';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

@@ -44,10 +44,13 @@ class Ingest extends AbstractEndpoint
 	public function deletePipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_ingest/pipeline/{$params['id']}";
+		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -58,10 +61,13 @@ class Ingest extends AbstractEndpoint
 	 */
 	public function geoIpStats(array $params = [])
 	{
-		$url = "/_ingest/geoip/stats";
+		$url = '/_ingest/geoip/stats';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -81,13 +87,16 @@ class Ingest extends AbstractEndpoint
 	public function getPipeline(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_ingest/pipeline/{$params['id']}";
+			$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
 			$method = 'GET';
 		} else {
-			$url = "/_ingest/pipeline";
+			$url = '/_ingest/pipeline';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -98,10 +107,13 @@ class Ingest extends AbstractEndpoint
 	 */
 	public function processorGrok(array $params = [])
 	{
-		$url = "/_ingest/processor/grok";
+		$url = '/_ingest/processor/grok';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -123,10 +135,14 @@ class Ingest extends AbstractEndpoint
 	public function putPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','body'], $params);
-		$url = "/_ingest/pipeline/{$params['id']}";
+		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -147,12 +163,16 @@ class Ingest extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['id'])) {
-			$url = "/_ingest/pipeline/{$params['id']}/_simulate";
+			$url = '/_ingest/pipeline/' . urlencode((string) $params['id']) . '/_simulate';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_ingest/pipeline/_simulate";
+			$url = '/_ingest/pipeline/_simulate';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

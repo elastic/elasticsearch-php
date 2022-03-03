@@ -42,13 +42,16 @@ class Migration extends AbstractEndpoint
 	public function deprecations(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_migration/deprecations";
+			$url = '/' . urlencode((string) $params['index']) . '/_migration/deprecations';
 			$method = 'GET';
 		} else {
-			$url = "/_migration/deprecations";
+			$url = '/_migration/deprecations';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -59,10 +62,13 @@ class Migration extends AbstractEndpoint
 	 */
 	public function getFeatureUpgradeStatus(array $params = [])
 	{
-		$url = "/_migration/system_features";
+		$url = '/_migration/system_features';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -73,9 +79,12 @@ class Migration extends AbstractEndpoint
 	 */
 	public function postFeatureUpgrade(array $params = [])
 	{
-		$url = "/_migration/system_features";
+		$url = '/_migration/system_features';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

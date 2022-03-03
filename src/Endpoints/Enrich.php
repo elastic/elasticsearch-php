@@ -42,10 +42,13 @@ class Enrich extends AbstractEndpoint
 	public function deletePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_enrich/policy/{$params['name']}";
+		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -64,10 +67,13 @@ class Enrich extends AbstractEndpoint
 	public function executePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_enrich/policy/{$params['name']}/_execute";
+		$url = '/_enrich/policy/' . urlencode((string) $params['name']) . '/_execute';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -85,13 +91,16 @@ class Enrich extends AbstractEndpoint
 	public function getPolicy(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_enrich/policy/{$params['name']}";
+			$url = '/_enrich/policy/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_enrich/policy";
+			$url = '/_enrich/policy';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -110,10 +119,14 @@ class Enrich extends AbstractEndpoint
 	public function putPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_enrich/policy/{$params['name']}";
+		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -124,9 +137,12 @@ class Enrich extends AbstractEndpoint
 	 */
 	public function stats(array $params = [])
 	{
-		$url = "/_enrich/_stats";
+		$url = '/_enrich/_stats';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

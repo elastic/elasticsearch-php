@@ -44,10 +44,13 @@ class Snapshot extends AbstractEndpoint
 	public function cleanupRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = "/_snapshot/{$params['repository']}/_cleanup";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_cleanup';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -69,10 +72,14 @@ class Snapshot extends AbstractEndpoint
 	public function clone(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot','target_snapshot','body'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}/_clone/{$params['target_snapshot']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_clone/' . urlencode((string) $params['target_snapshot']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -94,10 +101,14 @@ class Snapshot extends AbstractEndpoint
 	public function create(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -119,10 +130,14 @@ class Snapshot extends AbstractEndpoint
 	public function createRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','body'], $params);
-		$url = "/_snapshot/{$params['repository']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -142,10 +157,13 @@ class Snapshot extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -165,10 +183,13 @@ class Snapshot extends AbstractEndpoint
 	public function deleteRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = "/_snapshot/{$params['repository']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -192,10 +213,13 @@ class Snapshot extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -215,13 +239,16 @@ class Snapshot extends AbstractEndpoint
 	public function getRepository(array $params = [])
 	{
 		if (isset($params['repository'])) {
-			$url = "/_snapshot/{$params['repository']}";
+			$url = '/_snapshot/' . urlencode((string) $params['repository']);
 			$method = 'GET';
 		} else {
-			$url = "/_snapshot";
+			$url = '/_snapshot';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -250,10 +277,13 @@ class Snapshot extends AbstractEndpoint
 	public function repositoryAnalyze(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = "/_snapshot/{$params['repository']}/_analyze";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_analyze';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -275,10 +305,14 @@ class Snapshot extends AbstractEndpoint
 	public function restore(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}/_restore";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_restore';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -299,16 +333,19 @@ class Snapshot extends AbstractEndpoint
 	public function status(array $params = [])
 	{
 		if (isset($params['repository']) && isset($params['snapshot'])) {
-			$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}/_status";
+			$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_status';
 			$method = 'GET';
 		} elseif (isset($params['repository'])) {
-			$url = "/_snapshot/{$params['repository']}/_status";
+			$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_status';
 			$method = 'GET';
 		} else {
-			$url = "/_snapshot/_status";
+			$url = '/_snapshot/_status';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -328,9 +365,12 @@ class Snapshot extends AbstractEndpoint
 	public function verifyRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = "/_snapshot/{$params['repository']}/_verify";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_verify';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

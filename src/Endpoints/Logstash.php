@@ -42,10 +42,13 @@ class Logstash extends AbstractEndpoint
 	public function deletePipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_logstash/pipeline/{$params['id']}";
+		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -63,10 +66,13 @@ class Logstash extends AbstractEndpoint
 	public function getPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_logstash/pipeline/{$params['id']}";
+		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -85,9 +91,13 @@ class Logstash extends AbstractEndpoint
 	public function putPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','body'], $params);
-		$url = "/_logstash/pipeline/{$params['id']}";
+		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

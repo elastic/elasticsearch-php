@@ -44,10 +44,13 @@ class Transform extends AbstractEndpoint
 	public function deleteTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = "/_transform/{$params['transform_id']}";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -69,13 +72,16 @@ class Transform extends AbstractEndpoint
 	public function getTransform(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = "/_transform/{$params['transform_id']}";
+			$url = '/_transform/' . urlencode((string) $params['transform_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_transform";
+			$url = '/_transform';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -96,10 +102,13 @@ class Transform extends AbstractEndpoint
 	public function getTransformStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = "/_transform/{$params['transform_id']}/_stats";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stats';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -119,13 +128,17 @@ class Transform extends AbstractEndpoint
 	public function previewTransform(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = "/_transform/{$params['transform_id']}/_preview";
+			$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_transform/_preview";
+			$url = '/_transform/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -146,10 +159,14 @@ class Transform extends AbstractEndpoint
 	public function putTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id','body'], $params);
-		$url = "/_transform/{$params['transform_id']}";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -168,10 +185,13 @@ class Transform extends AbstractEndpoint
 	public function startTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = "/_transform/{$params['transform_id']}/_start";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_start';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -194,10 +214,13 @@ class Transform extends AbstractEndpoint
 	public function stopTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = "/_transform/{$params['transform_id']}/_stop";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stop';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -218,10 +241,14 @@ class Transform extends AbstractEndpoint
 	public function updateTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id','body'], $params);
-		$url = "/_transform/{$params['transform_id']}/_update";
+		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_update';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -239,9 +266,13 @@ class Transform extends AbstractEndpoint
 	 */
 	public function upgradeTransforms(array $params = [])
 	{
-		$url = "/_transform/_upgrade";
+		$url = '/_transform/_upgrade';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

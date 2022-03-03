@@ -42,10 +42,13 @@ class Autoscaling extends AbstractEndpoint
 	public function deleteAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_autoscaling/policy/{$params['name']}";
+		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -56,10 +59,13 @@ class Autoscaling extends AbstractEndpoint
 	 */
 	public function getAutoscalingCapacity(array $params = [])
 	{
-		$url = "/_autoscaling/capacity";
+		$url = '/_autoscaling/capacity';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -77,10 +83,13 @@ class Autoscaling extends AbstractEndpoint
 	public function getAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_autoscaling/policy/{$params['name']}";
+		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -99,9 +108,13 @@ class Autoscaling extends AbstractEndpoint
 	public function putAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_autoscaling/policy/{$params['name']}";
+		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

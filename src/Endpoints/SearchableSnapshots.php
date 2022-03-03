@@ -43,13 +43,16 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function cacheStats(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = "/_searchable_snapshots/{$params['node_id']}/cache/stats";
+			$url = '/_searchable_snapshots/' . urlencode((string) $params['node_id']) . '/cache/stats';
 			$method = 'GET';
 		} else {
-			$url = "/_searchable_snapshots/cache/stats";
+			$url = '/_searchable_snapshots/cache/stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -72,13 +75,16 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function clearCache(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_searchable_snapshots/cache/clear";
+			$url = '/' . urlencode((string) $params['index']) . '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		} else {
-			$url = "/_searchable_snapshots/cache/clear";
+			$url = '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -101,10 +107,14 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function mount(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot','body'], $params);
-		$url = "/_snapshot/{$params['repository']}/{$params['snapshot']}/_mount";
+		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_mount';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -123,12 +133,15 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_searchable_snapshots/stats";
+			$url = '/' . urlencode((string) $params['index']) . '/_searchable_snapshots/stats';
 			$method = 'GET';
 		} else {
-			$url = "/_searchable_snapshots/stats";
+			$url = '/_searchable_snapshots/stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

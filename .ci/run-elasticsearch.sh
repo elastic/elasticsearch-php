@@ -7,7 +7,7 @@
 # Export the TEST_SUITE variable, eg. 'free' or 'platinum' defaults to 'free'.
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-# Version 1.3.0
+# Version 1.6.1
 # - Initial version of the run-elasticsearch.sh script
 # - Deleting the volume should not dependent on the container still running
 # - Fixed `ES_JAVA_OPTS` config
@@ -17,6 +17,10 @@
 # - Added 5 retries on docker pull for fixing transient network errors
 # - Added flags to make local CCR configurations work
 # - Added action.destructive_requires_name=false as the default will be true in v8
+# - Added ingest.geoip.downloader.enabled=false as it causes false positives in testing
+# - Moved ELASTIC_PASSWORD and xpack.security.enabled to the base arguments for "Security On by default"
+# - Use https only when TEST_SUITE is "platinum", when "free" use http
+# - Set xpack.security.enabled=false for "free" and xpack.security.enabled=true for "platinum"
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
@@ -30,6 +34,7 @@ cluster_name=${moniker}${suffix}
 
 declare -a volumes
 environment=($(cat <<-END
+  --env ELASTIC_PASSWORD=$elastic_password
   --env node.name=$es_node_name
   --env cluster.name=$cluster_name
   --env cluster.initial_master_nodes=$master_node_name
@@ -40,29 +45,44 @@ environment=($(cat <<-END
   --env path.repo=/tmp
   --env repositories.url.allowed_urls=http://snapshot.test*
   --env action.destructive_requires_name=false
-  --env ELASTIC_PASSWORD=$elastic_password
-  --env xpack.license.self_generated.type=trial
-  --env xpack.security.enabled=true
-  --env xpack.security.http.ssl.enabled=true
-  --env xpack.security.http.ssl.verification_mode=certificate
-  --env xpack.security.http.ssl.key=certs/testnode.key
-  --env xpack.security.http.ssl.certificate=certs/testnode.crt
-  --env xpack.security.http.ssl.certificate_authorities=certs/ca.crt
-  --env xpack.security.transport.ssl.enabled=true
-  --env xpack.security.transport.ssl.verification_mode=certificate
-  --env xpack.security.transport.ssl.key=certs/testnode.key
-  --env xpack.security.transport.ssl.certificate=certs/testnode.crt
-  --env xpack.security.transport.ssl.certificate_authorities=certs/ca.crt
+  --env ingest.geoip.downloader.enabled=false
+  --env cluster.deprecation_indexing.enabled=false
 END
 ))
-volumes+=($(cat <<-END
-  --volume $ssl_cert:/usr/share/elasticsearch/config/certs/testnode.crt
-  --volume $ssl_key:/usr/share/elasticsearch/config/certs/testnode.key
-  --volume $ssl_ca:/usr/share/elasticsearch/config/certs/ca.crt
+if [[ "$TEST_SUITE" == "platinum" ]]; then
+  environment+=($(cat <<-END
+    --env xpack.security.enabled=true
+    --env xpack.license.self_generated.type=trial
+    --env xpack.security.http.ssl.enabled=true
+    --env xpack.security.http.ssl.verification_mode=certificate
+    --env xpack.security.http.ssl.key=certs/testnode.key
+    --env xpack.security.http.ssl.certificate=certs/testnode.crt
+    --env xpack.security.http.ssl.certificate_authorities=certs/ca.crt
+    --env xpack.security.transport.ssl.enabled=true
+    --env xpack.security.transport.ssl.verification_mode=certificate
+    --env xpack.security.transport.ssl.key=certs/testnode.key
+    --env xpack.security.transport.ssl.certificate=certs/testnode.crt
+    --env xpack.security.transport.ssl.certificate_authorities=certs/ca.crt
 END
 ))
+  volumes+=($(cat <<-END
+    --volume $ssl_cert:/usr/share/elasticsearch/config/certs/testnode.crt
+    --volume $ssl_key:/usr/share/elasticsearch/config/certs/testnode.key
+    --volume $ssl_ca:/usr/share/elasticsearch/config/certs/ca.crt
+END
+))
+else
+  environment+=($(cat <<-END
+    --env xpack.security.enabled=false
+    --env xpack.security.http.ssl.enabled=false
+END
+))
+fi
 
-cert_validation_flags="--insecure --cacert /usr/share/elasticsearch/config/certs/ca.crt --resolve ${es_node_name}:443:127.0.0.1"
+cert_validation_flags=""
+if [[ "$TEST_SUITE" == "platinum" ]]; then
+  cert_validation_flags="--insecure --cacert /usr/share/elasticsearch/config/certs/ca.crt --resolve ${es_node_name}:443:127.0.0.1"
+fi
 
 # Pull the container, retry on failures up to 5 times with
 # short delays between each attempt. Fixes most transient network errors.

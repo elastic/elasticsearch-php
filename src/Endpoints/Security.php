@@ -35,10 +35,13 @@ class Security extends AbstractEndpoint
 	 */
 	public function authenticate(array $params = [])
 	{
-		$url = "/_security/_authenticate";
+		$url = '/_security/_authenticate';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -59,13 +62,17 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['username'])) {
-			$url = "/_security/user/{$params['username']}/_password";
+			$url = '/_security/user/' . urlencode((string) $params['username']) . '/_password';
 			$method = 'PUT';
 		} else {
-			$url = "/_security/user/_password";
+			$url = '/_security/user/_password';
 			$method = 'PUT';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -83,10 +90,13 @@ class Security extends AbstractEndpoint
 	public function clearApiKeyCache(array $params = [])
 	{
 		$this->checkRequiredParameters(['ids'], $params);
-		$url = "/_security/api_key/{$params['ids']}/_clear_cache";
+		$url = '/_security/api_key/' . urlencode((string) $params['ids']) . '/_clear_cache';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -104,10 +114,13 @@ class Security extends AbstractEndpoint
 	public function clearCachedPrivileges(array $params = [])
 	{
 		$this->checkRequiredParameters(['application'], $params);
-		$url = "/_security/privilege/{$params['application']}/_clear_cache";
+		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/_clear_cache';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -126,10 +139,13 @@ class Security extends AbstractEndpoint
 	public function clearCachedRealms(array $params = [])
 	{
 		$this->checkRequiredParameters(['realms'], $params);
-		$url = "/_security/realm/{$params['realms']}/_clear_cache";
+		$url = '/_security/realm/' . urlencode((string) $params['realms']) . '/_clear_cache';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -147,10 +163,13 @@ class Security extends AbstractEndpoint
 	public function clearCachedRoles(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_security/role/{$params['name']}/_clear_cache";
+		$url = '/_security/role/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -170,10 +189,13 @@ class Security extends AbstractEndpoint
 	public function clearCachedServiceTokens(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
-		$url = "/_security/service/{$params['namespace']}/{$params['service']}/credential/token/{$params['name']}/_clear_cache";
+		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -192,10 +214,14 @@ class Security extends AbstractEndpoint
 	public function createApiKey(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/api_key";
+		$url = '/_security/api_key';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -217,13 +243,16 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['namespace','service'], $params);
 		if (isset($params['name'])) {
-			$url = "/_security/service/{$params['namespace']}/{$params['service']}/credential/token/{$params['name']}";
+			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
 			$method = 'PUT';
 		} else {
-			$url = "/_security/service/{$params['namespace']}/{$params['service']}/credential/token";
+			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -243,10 +272,13 @@ class Security extends AbstractEndpoint
 	public function deletePrivileges(array $params = [])
 	{
 		$this->checkRequiredParameters(['application','name'], $params);
-		$url = "/_security/privilege/{$params['application']}/{$params['name']}";
+		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -265,10 +297,13 @@ class Security extends AbstractEndpoint
 	public function deleteRole(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_security/role/{$params['name']}";
+		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -287,10 +322,13 @@ class Security extends AbstractEndpoint
 	public function deleteRoleMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_security/role_mapping/{$params['name']}";
+		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -311,10 +349,13 @@ class Security extends AbstractEndpoint
 	public function deleteServiceToken(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
-		$url = "/_security/service/{$params['namespace']}/{$params['service']}/credential/token/{$params['name']}";
+		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -333,10 +374,13 @@ class Security extends AbstractEndpoint
 	public function deleteUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = "/_security/user/{$params['username']}";
+		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -355,10 +399,13 @@ class Security extends AbstractEndpoint
 	public function disableUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = "/_security/user/{$params['username']}/_disable";
+		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_disable';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -377,10 +424,13 @@ class Security extends AbstractEndpoint
 	public function enableUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = "/_security/user/{$params['username']}/_enable";
+		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_enable';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -391,10 +441,14 @@ class Security extends AbstractEndpoint
 	 */
 	public function enrollKibana(array $params = [])
 	{
-		$url = "/_security/enroll/kibana";
+		$url = '/_security/enroll/kibana';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -405,10 +459,14 @@ class Security extends AbstractEndpoint
 	 */
 	public function enrollNode(array $params = [])
 	{
-		$url = "/_security/enroll/node";
+		$url = '/_security/enroll/node';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -429,10 +487,13 @@ class Security extends AbstractEndpoint
 	 */
 	public function getApiKey(array $params = [])
 	{
-		$url = "/_security/api_key";
+		$url = '/_security/api_key';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -443,10 +504,13 @@ class Security extends AbstractEndpoint
 	 */
 	public function getBuiltinPrivileges(array $params = [])
 	{
-		$url = "/_security/privilege/_builtin";
+		$url = '/_security/privilege/_builtin';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -465,16 +529,19 @@ class Security extends AbstractEndpoint
 	public function getPrivileges(array $params = [])
 	{
 		if (isset($params['application']) && isset($params['name'])) {
-			$url = "/_security/privilege/{$params['application']}/{$params['name']}";
+			$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} elseif (isset($params['application'])) {
-			$url = "/_security/privilege/{$params['application']}";
+			$url = '/_security/privilege/' . urlencode((string) $params['application']);
 			$method = 'GET';
 		} else {
-			$url = "/_security/privilege";
+			$url = '/_security/privilege';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -492,13 +559,16 @@ class Security extends AbstractEndpoint
 	public function getRole(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_security/role/{$params['name']}";
+			$url = '/_security/role/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_security/role";
+			$url = '/_security/role';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -516,13 +586,16 @@ class Security extends AbstractEndpoint
 	public function getRoleMapping(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_security/role_mapping/{$params['name']}";
+			$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_security/role_mapping";
+			$url = '/_security/role_mapping';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -541,16 +614,19 @@ class Security extends AbstractEndpoint
 	public function getServiceAccounts(array $params = [])
 	{
 		if (isset($params['namespace']) && isset($params['service'])) {
-			$url = "/_security/service/{$params['namespace']}/{$params['service']}";
+			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']);
 			$method = 'GET';
 		} elseif (isset($params['namespace'])) {
-			$url = "/_security/service/{$params['namespace']}";
+			$url = '/_security/service/' . urlencode((string) $params['namespace']);
 			$method = 'GET';
 		} else {
-			$url = "/_security/service";
+			$url = '/_security/service';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -569,10 +645,13 @@ class Security extends AbstractEndpoint
 	public function getServiceCredentials(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service'], $params);
-		$url = "/_security/service/{$params['namespace']}/{$params['service']}/credential";
+		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -590,10 +669,14 @@ class Security extends AbstractEndpoint
 	public function getToken(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/oauth2/token";
+		$url = '/_security/oauth2/token';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -611,13 +694,16 @@ class Security extends AbstractEndpoint
 	public function getUser(array $params = [])
 	{
 		if (isset($params['username'])) {
-			$url = "/_security/user/{$params['username']}";
+			$url = '/_security/user/' . urlencode((string) $params['username']);
 			$method = 'GET';
 		} else {
-			$url = "/_security/user";
+			$url = '/_security/user';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -628,10 +714,13 @@ class Security extends AbstractEndpoint
 	 */
 	public function getUserPrivileges(array $params = [])
 	{
-		$url = "/_security/user/_privileges";
+		$url = '/_security/user/_privileges';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -650,10 +739,14 @@ class Security extends AbstractEndpoint
 	public function grantApiKey(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/api_key/grant";
+		$url = '/_security/api_key/grant';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -673,13 +766,17 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['user'])) {
-			$url = "/_security/user/{$params['user']}/_has_privileges";
+			$url = '/_security/user/' . urlencode((string) $params['user']) . '/_has_privileges';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_security/user/_has_privileges";
+			$url = '/_security/user/_has_privileges';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -697,10 +794,14 @@ class Security extends AbstractEndpoint
 	public function invalidateApiKey(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/api_key";
+		$url = '/_security/api_key';
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -718,10 +819,14 @@ class Security extends AbstractEndpoint
 	public function invalidateToken(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/oauth2/token";
+		$url = '/_security/oauth2/token';
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -740,10 +845,14 @@ class Security extends AbstractEndpoint
 	public function putPrivileges(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/privilege/";
+		$url = '/_security/privilege/';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -763,10 +872,14 @@ class Security extends AbstractEndpoint
 	public function putRole(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_security/role/{$params['name']}";
+		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -786,10 +899,14 @@ class Security extends AbstractEndpoint
 	public function putRoleMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_security/role_mapping/{$params['name']}";
+		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -809,10 +926,14 @@ class Security extends AbstractEndpoint
 	public function putUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username','body'], $params);
-		$url = "/_security/user/{$params['username']}";
+		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -829,10 +950,14 @@ class Security extends AbstractEndpoint
 	 */
 	public function queryApiKeys(array $params = [])
 	{
-		$url = "/_security/_query/api_key";
+		$url = '/_security/_query/api_key';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -850,10 +975,14 @@ class Security extends AbstractEndpoint
 	public function samlAuthenticate(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/saml/authenticate";
+		$url = '/_security/saml/authenticate';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -871,10 +1000,14 @@ class Security extends AbstractEndpoint
 	public function samlCompleteLogout(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/saml/complete_logout";
+		$url = '/_security/saml/complete_logout';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -892,10 +1025,14 @@ class Security extends AbstractEndpoint
 	public function samlInvalidate(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/saml/invalidate";
+		$url = '/_security/saml/invalidate';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -913,10 +1050,14 @@ class Security extends AbstractEndpoint
 	public function samlLogout(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/saml/logout";
+		$url = '/_security/saml/logout';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -934,10 +1075,14 @@ class Security extends AbstractEndpoint
 	public function samlPrepareAuthentication(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_security/saml/prepare";
+		$url = '/_security/saml/prepare';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -955,9 +1100,13 @@ class Security extends AbstractEndpoint
 	public function samlServiceProviderMetadata(array $params = [])
 	{
 		$this->checkRequiredParameters(['realm_name'], $params);
-		$url = "/_security/saml/metadata/{$params['realm_name']}";
+		$url = '/_security/saml/metadata/' . urlencode((string) $params['realm_name']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

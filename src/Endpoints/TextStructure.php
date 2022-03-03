@@ -56,9 +56,13 @@ class TextStructure extends AbstractEndpoint
 	public function findStructure(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_text_structure/find_structure";
+		$url = '/_text_structure/find_structure';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

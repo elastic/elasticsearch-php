@@ -43,10 +43,13 @@ class Rollup extends AbstractEndpoint
 	public function deleteJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_rollup/job/{$params['id']}";
+		$url = '/_rollup/job/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -65,13 +68,16 @@ class Rollup extends AbstractEndpoint
 	public function getJobs(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_rollup/job/{$params['id']}";
+			$url = '/_rollup/job/' . urlencode((string) $params['id']);
 			$method = 'GET';
 		} else {
-			$url = "/_rollup/job/";
+			$url = '/_rollup/job/';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -90,13 +96,16 @@ class Rollup extends AbstractEndpoint
 	public function getRollupCaps(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_rollup/data/{$params['id']}";
+			$url = '/_rollup/data/' . urlencode((string) $params['id']);
 			$method = 'GET';
 		} else {
-			$url = "/_rollup/data/";
+			$url = '/_rollup/data/';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -115,10 +124,13 @@ class Rollup extends AbstractEndpoint
 	public function getRollupIndexCaps(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_rollup/data";
+		$url = '/' . urlencode((string) $params['index']) . '/_rollup/data';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -138,10 +150,14 @@ class Rollup extends AbstractEndpoint
 	public function putJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','body'], $params);
-		$url = "/_rollup/job/{$params['id']}";
+		$url = '/_rollup/job/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -162,10 +178,14 @@ class Rollup extends AbstractEndpoint
 	public function rollup(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','rollup_index','body'], $params);
-		$url = "/{$params['index']}/_rollup/{$params['rollup_index']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_rollup/' . urlencode((string) $params['rollup_index']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -187,10 +207,14 @@ class Rollup extends AbstractEndpoint
 	public function rollupSearch(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = "/{$params['index']}/_rollup_search";
+		$url = '/' . urlencode((string) $params['index']) . '/_rollup_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -209,10 +233,13 @@ class Rollup extends AbstractEndpoint
 	public function startJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_rollup/job/{$params['id']}/_start";
+		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_start';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -233,9 +260,12 @@ class Rollup extends AbstractEndpoint
 	public function stopJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_rollup/job/{$params['id']}/_stop";
+		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_stop';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

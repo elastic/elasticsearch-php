@@ -53,13 +53,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_bulk";
+			$url = '/' . urlencode((string) $params['index']) . '/_bulk';
 			$method = 'POST';
 		} else {
-			$url = "/_bulk";
+			$url = '/_bulk';
 			$method = 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -78,13 +82,17 @@ trait ClientEndpointsTrait
 	public function clearScroll(array $params = [])
 	{
 		if (isset($params['scroll_id'])) {
-			$url = "/_search/scroll/{$params['scroll_id']}";
+			$url = '/_search/scroll/' . urlencode((string) $params['scroll_id']);
 			$method = 'DELETE';
 		} else {
-			$url = "/_search/scroll";
+			$url = '/_search/scroll';
 			$method = 'DELETE';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json,text/plain',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -101,10 +109,14 @@ trait ClientEndpointsTrait
 	 */
 	public function closePointInTime(array $params = [])
 	{
-		$url = "/_pit";
+		$url = '/_pit';
 		$method = 'DELETE';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -137,13 +149,17 @@ trait ClientEndpointsTrait
 	public function count(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_count";
+			$url = '/' . urlencode((string) $params['index']) . '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_count";
+			$url = '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -172,10 +188,14 @@ trait ClientEndpointsTrait
 	public function create(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index','body'], $params);
-		$url = "/{$params['index']}/_create/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_create/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -202,10 +222,13 @@ trait ClientEndpointsTrait
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_doc/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -253,10 +276,14 @@ trait ClientEndpointsTrait
 	public function deleteByQuery(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = "/{$params['index']}/_delete_by_query";
+		$url = '/' . urlencode((string) $params['index']) . '/_delete_by_query';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -275,10 +302,13 @@ trait ClientEndpointsTrait
 	public function deleteByQueryRethrottle(array $params = [])
 	{
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
-		$url = "/_delete_by_query/{$params['task_id']}/_rethrottle";
+		$url = '/_delete_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -298,10 +328,13 @@ trait ClientEndpointsTrait
 	public function deleteScript(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_scripts/{$params['id']}";
+		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -330,10 +363,13 @@ trait ClientEndpointsTrait
 	public function exists(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_doc/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -361,10 +397,13 @@ trait ClientEndpointsTrait
 	public function existsSource(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_source/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -396,10 +435,14 @@ trait ClientEndpointsTrait
 	public function explain(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_explain/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_explain/' . urlencode((string) $params['id']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -423,13 +466,17 @@ trait ClientEndpointsTrait
 	public function fieldCaps(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_field_caps";
+			$url = '/' . urlencode((string) $params['index']) . '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_field_caps";
+			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -458,10 +505,13 @@ trait ClientEndpointsTrait
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_doc/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -480,10 +530,13 @@ trait ClientEndpointsTrait
 	public function getScript(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_scripts/{$params['id']}";
+		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -494,10 +547,13 @@ trait ClientEndpointsTrait
 	 */
 	public function getScriptContext(array $params = [])
 	{
-		$url = "/_script_context";
+		$url = '/_script_context';
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -508,10 +564,13 @@ trait ClientEndpointsTrait
 	 */
 	public function getScriptLanguages(array $params = [])
 	{
-		$url = "/_script_language";
+		$url = '/_script_language';
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -539,10 +598,13 @@ trait ClientEndpointsTrait
 	public function getSource(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = "/{$params['index']}/_source/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -574,13 +636,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['index','body'], $params);
 		if (isset($params['id'])) {
-			$url = "/{$params['index']}/_doc/{$params['id']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 			$method = 'PUT';
 		} else {
-			$url = "/{$params['index']}/_doc";
+			$url = '/' . urlencode((string) $params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -591,10 +657,13 @@ trait ClientEndpointsTrait
 	 */
 	public function info(array $params = [])
 	{
-		$url = "/";
+		$url = '/';
 		$method = 'GET';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -615,10 +684,14 @@ trait ClientEndpointsTrait
 	public function knnSearch(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_knn_search";
+		$url = '/' . urlencode((string) $params['index']) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -646,13 +719,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_mget";
+			$url = '/' . urlencode((string) $params['index']) . '/_mget';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_mget";
+			$url = '/_mget';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -679,13 +756,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_msearch";
+			$url = '/' . urlencode((string) $params['index']) . '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_msearch";
+			$url = '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -710,13 +791,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_msearch/template";
+			$url = '/' . urlencode((string) $params['index']) . '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_msearch/template";
+			$url = '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -747,13 +832,17 @@ trait ClientEndpointsTrait
 	public function mtermvectors(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_mtermvectors";
+			$url = '/' . urlencode((string) $params['index']) . '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_mtermvectors";
+			$url = '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -776,10 +865,13 @@ trait ClientEndpointsTrait
 	public function openPointInTime(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','keep_alive'], $params);
-		$url = "/{$params['index']}/_pit";
+		$url = '/' . urlencode((string) $params['index']) . '/_pit';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -790,10 +882,13 @@ trait ClientEndpointsTrait
 	 */
 	public function ping(array $params = [])
 	{
-		$url = "/";
+		$url = '/';
 		$method = 'HEAD';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -817,13 +912,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['id','body'], $params);
 		if (isset($params['context'])) {
-			$url = "/_scripts/{$params['id']}/{$params['context']}";
+			$url = '/_scripts/' . urlencode((string) $params['id']) . '/' . urlencode((string) $params['context']);
 			$method = 'PUT';
 		} else {
-			$url = "/_scripts/{$params['id']}";
+			$url = '/_scripts/' . urlencode((string) $params['id']);
 			$method = 'PUT';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -847,13 +946,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_rank_eval";
+			$url = '/' . urlencode((string) $params['index']) . '/_rank_eval';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_rank_eval";
+			$url = '/_rank_eval';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -881,10 +984,14 @@ trait ClientEndpointsTrait
 	public function reindex(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_reindex";
+		$url = '/_reindex';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -903,10 +1010,13 @@ trait ClientEndpointsTrait
 	public function reindexRethrottle(array $params = [])
 	{
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
-		$url = "/_reindex/{$params['task_id']}/_rethrottle";
+		$url = '/_reindex/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -925,13 +1035,17 @@ trait ClientEndpointsTrait
 	public function renderSearchTemplate(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_render/template/{$params['id']}";
+			$url = '/_render/template/' . urlencode((string) $params['id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_render/template";
+			$url = '/_render/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -949,10 +1063,14 @@ trait ClientEndpointsTrait
 	 */
 	public function scriptsPainlessExecute(array $params = [])
 	{
-		$url = "/_scripts/painless/_execute";
+		$url = '/_scripts/painless/_execute';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -974,13 +1092,17 @@ trait ClientEndpointsTrait
 	public function scroll(array $params = [])
 	{
 		if (isset($params['scroll_id'])) {
-			$url = "/_search/scroll/{$params['scroll_id']}";
+			$url = '/_search/scroll/' . urlencode((string) $params['scroll_id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_search/scroll";
+			$url = '/_search/scroll';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1042,13 +1164,17 @@ trait ClientEndpointsTrait
 	public function search(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_search";
+			$url = '/' . urlencode((string) $params['index']) . '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_search";
+			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1078,10 +1204,14 @@ trait ClientEndpointsTrait
 	public function searchMvt(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','field','zoom','x','y'], $params);
-		$url = "/{$params['index']}/_mvt/{$params['field']}/{$params['zoom']}/{$params['x']}/{$params['y']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_mvt/' . urlencode((string) $params['field']) . '/' . urlencode((string) $params['zoom']) . '/' . urlencode((string) $params['x']) . '/' . urlencode((string) $params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/vnd.mapbox-vector-tile',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1105,13 +1235,16 @@ trait ClientEndpointsTrait
 	public function searchShards(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_search_shards";
+			$url = '/' . urlencode((string) $params['index']) . '/_search_shards';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_search_shards";
+			$url = '/_search_shards';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1144,13 +1277,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_search/template";
+			$url = '/' . urlencode((string) $params['index']) . '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_search/template";
+			$url = '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1169,10 +1306,14 @@ trait ClientEndpointsTrait
 	public function termsEnum(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_terms_enum";
+		$url = '/' . urlencode((string) $params['index']) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1204,13 +1345,17 @@ trait ClientEndpointsTrait
 	{
 		$this->checkRequiredParameters(['index'], $params);
 		if (isset($params['id'])) {
-			$url = "/{$params['index']}/_termvectors/{$params['id']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_termvectors/' . urlencode((string) $params['id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/{$params['index']}/_termvectors";
+			$url = '/' . urlencode((string) $params['index']) . '/_termvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1242,10 +1387,14 @@ trait ClientEndpointsTrait
 	public function update(array $params = [])
 	{
 		$this->checkRequiredParameters(['id','index','body'], $params);
-		$url = "/{$params['index']}/_update/{$params['id']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_update/' . urlencode((string) $params['id']);
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1296,10 +1445,14 @@ trait ClientEndpointsTrait
 	public function updateByQuery(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_update_by_query";
+		$url = '/' . urlencode((string) $params['index']) . '/_update_by_query';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1318,9 +1471,12 @@ trait ClientEndpointsTrait
 	public function updateByQueryRethrottle(array $params = [])
 	{
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
-		$url = "/_update_by_query/{$params['task_id']}/_rethrottle";
+		$url = '/_update_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		return $this->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

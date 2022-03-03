@@ -42,10 +42,14 @@ class Shutdown extends AbstractEndpoint
 	public function deleteNode(array $params = [])
 	{
 		$this->checkRequiredParameters(['node_id'], $params);
-		$url = "/_nodes/{$params['node_id']}/shutdown";
+		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -63,13 +67,17 @@ class Shutdown extends AbstractEndpoint
 	public function getNode(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = "/_nodes/{$params['node_id']}/shutdown";
+			$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
 			$method = 'GET';
 		} else {
-			$url = "/_nodes/shutdown";
+			$url = '/_nodes/shutdown';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -88,9 +96,13 @@ class Shutdown extends AbstractEndpoint
 	public function putNode(array $params = [])
 	{
 		$this->checkRequiredParameters(['node_id','body'], $params);
-		$url = "/_nodes/{$params['node_id']}/shutdown";
+		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

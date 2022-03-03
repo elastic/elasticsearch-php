@@ -45,10 +45,13 @@ class DanglingIndices extends AbstractEndpoint
 	public function deleteDanglingIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['index_uuid'], $params);
-		$url = "/_dangling/{$params['index_uuid']}";
+		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -69,10 +72,13 @@ class DanglingIndices extends AbstractEndpoint
 	public function importDanglingIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['index_uuid'], $params);
-		$url = "/_dangling/{$params['index_uuid']}";
+		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -83,9 +89,12 @@ class DanglingIndices extends AbstractEndpoint
 	 */
 	public function listDanglingIndices(array $params = [])
 	{
-		$url = "/_dangling";
+		$url = '/_dangling';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

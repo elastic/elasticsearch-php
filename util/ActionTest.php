@@ -17,7 +17,8 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Util;
 
-use Elastic\Elasticsearch\Exceptions\ElasticsearchException;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use PHPUnit\Runner\Version as PHPUnitVersion;
 use stdClass;
 
@@ -169,22 +170,12 @@ class ActionTest
     {
         switch ($action) {
             case 'bad_request':
-                $expectedException = BadRequest400Exception::class;
-                break;
-            case 'unauthorized':  
-                $expectedException = Unauthorized401Exception::class;  
-                break;
+            case 'unauthorized':
             case 'forbidden':
-                $expectedException = Forbidden403Exception::class;
-                break;
             case 'missing':
-                $expectedException = Missing404Exception::class;
-                break;
             case 'request_timeout':
-                $expectedException = RequestTimeout408Exception::class;
-                break;
             case 'conflict':
-                $expectedException = Conflict409Exception::class;
+                $expectedException = ClientResponseException::class;
                 break;
             case 'request':
                 $expectedException = ElasticsearchException::class;

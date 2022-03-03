@@ -42,10 +42,14 @@ class Sql extends AbstractEndpoint
 	public function clearCursor(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_sql/close";
+		$url = '/_sql/close';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -63,10 +67,13 @@ class Sql extends AbstractEndpoint
 	public function deleteAsync(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_sql/async/delete/{$params['id']}";
+		$url = '/_sql/async/delete/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -88,10 +95,13 @@ class Sql extends AbstractEndpoint
 	public function getAsync(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_sql/async/{$params['id']}";
+		$url = '/_sql/async/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -109,10 +119,13 @@ class Sql extends AbstractEndpoint
 	public function getAsyncStatus(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_sql/async/status/{$params['id']}";
+		$url = '/_sql/async/status/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -131,10 +144,14 @@ class Sql extends AbstractEndpoint
 	public function query(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_sql";
+		$url = '/_sql';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -152,9 +169,13 @@ class Sql extends AbstractEndpoint
 	public function translate(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_sql/translate";
+		$url = '/_sql/translate';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

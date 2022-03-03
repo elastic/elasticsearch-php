@@ -41,10 +41,13 @@ class Features extends AbstractEndpoint
 	 */
 	public function getFeatures(array $params = [])
 	{
-		$url = "/_features";
+		$url = '/_features';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -56,9 +59,12 @@ class Features extends AbstractEndpoint
 	 */
 	public function resetFeatures(array $params = [])
 	{
-		$url = "/_features/_reset";
+		$url = '/_features/_reset';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

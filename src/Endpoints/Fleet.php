@@ -46,10 +46,14 @@ class Fleet extends AbstractEndpoint
 	public function globalCheckpoints(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_fleet/global_checkpoints";
+		$url = '/' . urlencode((string) $params['index']) . '/_fleet/global_checkpoints';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -69,13 +73,17 @@ class Fleet extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_fleet/_fleet_msearch";
+			$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_fleet/_fleet_msearch";
+			$url = '/_fleet/_fleet_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -97,9 +105,13 @@ class Fleet extends AbstractEndpoint
 	public function search(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_fleet/_fleet_search";
+		$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

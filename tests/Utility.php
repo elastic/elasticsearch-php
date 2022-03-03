@@ -17,7 +17,9 @@ namespace Elastic\Elasticsearch\Tests;
 use Exception;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ElasticsearchException;
+use Nyholm\Psr7\Factory\Psr17Factory;
 
 class Utility
 {
@@ -94,12 +96,15 @@ class Utility
      */
     public static function removeYamlXPackUsers(Client $client): void
     {
-        $client->security()->deleteUser([
-            'username' => 'x_pack_rest_user',
-            'client' => [
-                'ignore' => 404
-            ]
-        ]);
+        try {
+            $client->security()->deleteUser([
+                'username' => 'x_pack_rest_user'
+            ]);
+        } catch (ClientResponseException $e) {
+            if ($e->getCode() !== 404) {
+                throw $e;
+            }
+        }
     }
 
     public static function getVersion(Client $client): string
@@ -119,7 +124,8 @@ class Utility
      */
     private static function readPlugins(Client $client): void
     {
-        $result = $client->transport->performRequest('GET', '/_nodes/plugins');
+        $psr17Factory = new Psr17Factory();
+        $result = $client->sendRequest($psr17Factory->createRequest('GET', '/_nodes/plugins'));
         foreach ($result['nodes'] as $node) {
             foreach ($node['modules'] as $module) {
                 if (substr($module['name'], 0, 6) === 'x-pack') {
@@ -250,22 +256,28 @@ class Utility
         ]);
         if (isset($rollups['jobs'])) {
             foreach ($rollups['jobs'] as $job) {
-                $client->rollup()->stopJob([
-                    'id' => $job['config']['id'],
-                    'wait_for_completion' => true,
-                    'timeout' => '10s',
-                    'client' => [
-                        'ignore' => 404
-                    ]
-                ]);
+                try {
+                    $client->rollup()->stopJob([
+                        'id' => $job['config']['id'],
+                        'wait_for_completion' => true,
+                        'timeout' => '10s'
+                    ]);
+                } catch (ClientResponseException $e) {
+                    if ($e->getCode() !== 404) {
+                        throw $e;
+                    }
+                }
             }
             foreach ($rollups['jobs'] as $job) {
-                $client->rollup()->deleteJob([
-                    'id' => $job['config']['id'],
-                    'client' => [
-                        'ignore' => 404
-                    ]
-                ]);
+                try {
+                    $client->rollup()->deleteJob([
+                        'id' => $job['config']['id']
+                    ]);
+                } catch (ClientResponseException $e) {
+                    if ($e->getCode() !== 404) {
+                        throw $e;
+                    }
+                }
             }
         }
     }
@@ -292,22 +304,28 @@ class Utility
                 }
                 if (isset($response['snapshots'])) {
                     foreach ($response['snapshots'] as $snapshot) {
-                        $client->snapshot()->delete([
-                            'repository' => $repository,
-                            'snapshot' => $snapshot['snapshot'],
-                            'client' => [
-                                'ignore' => 404
-                            ]
-                        ]);
+                        try {
+                            $client->snapshot()->delete([
+                                'repository' => $repository,
+                                'snapshot' => $snapshot['snapshot']
+                            ]);
+                        } catch (ClientResponseException $e) {
+                            if ($e->getCode() !== 404) {
+                                throw $e;
+                            }
+                        }
                     }
                 }
-            }         
-            $client->snapshot()->deleteRepository([
-                'repository' => $repository,
-                'client' => [
-                    'ignore' => 404
-                ]
-            ]);
+            }
+            try {
+                $client->snapshot()->deleteRepository([
+                    'repository' => $repository
+                ]);
+            } catch (ClientResponseException $e) {
+                if ($e->getCode() !== 404) {
+                    throw $e;
+                }
+            }
         }
     }
 
@@ -383,10 +401,10 @@ class Utility
                         'name' => '*'
                     ]);
                 }
-            } catch (Exception $e) {
+            } catch (ClientResponseException $e) {
                 // We hit a version of ES that doesn't serialize DeleteDataStreamAction.Request#wildcardExpressionsOriginallySpecified
                 // field or that doesn't support data streams so it's safe to ignore
-                if ($e->getCode() !== '404' && $e->getCode() !== '405') {
+                if (!in_array($e->getCode(), [404, 405])) {
                     throw $e;
                 }
             }
@@ -409,8 +427,8 @@ class Utility
                 'index' => '*,-.ds-ilm-history-*',
                 'expand_wildcards' => $expand
             ]);
-        } catch (Exception $e) {
-            if ($e->getCode() != '404') {
+        } catch (ClientResponseException $e) {
+            if ($e->getCode() !== 404) {
                 throw $e;
             }
         }
@@ -682,12 +700,15 @@ class Utility
             return;
         }
         foreach ($indices['metadata']['indices'] as $index => $value) {
-            $client->indices()->delete([
-                'index' => $index,
-                'client' => [
-                    'ignore' => 404
-                ]
-            ]);
+            try {
+                $client->indices()->delete([
+                    'index' => $index
+                ]);
+            } catch (ClientResponseException $e) {
+                if ($e->getCode() !== 404) {
+                    throw $e;
+                }
+            }
         }
     }
 

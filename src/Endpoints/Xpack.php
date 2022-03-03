@@ -42,10 +42,13 @@ class Xpack extends AbstractEndpoint
 	 */
 	public function info(array $params = [])
 	{
-		$url = "/_xpack";
+		$url = '/_xpack';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -62,9 +65,12 @@ class Xpack extends AbstractEndpoint
 	 */
 	public function usage(array $params = [])
 	{
-		$url = "/_xpack/usage";
+		$url = '/_xpack/usage';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

@@ -47,13 +47,16 @@ class Tasks extends AbstractEndpoint
 	public function cancel(array $params = [])
 	{
 		if (isset($params['task_id'])) {
-			$url = "/_tasks/{$params['task_id']}/_cancel";
+			$url = '/_tasks/' . urlencode((string) $params['task_id']) . '/_cancel';
 			$method = 'POST';
 		} else {
-			$url = "/_tasks/_cancel";
+			$url = '/_tasks/_cancel';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -74,10 +77,13 @@ class Tasks extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['task_id'], $params);
-		$url = "/_tasks/{$params['task_id']}";
+		$url = '/_tasks/' . urlencode((string) $params['task_id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -101,9 +107,12 @@ class Tasks extends AbstractEndpoint
 	 */
 	public function list(array $params = [])
 	{
-		$url = "/_tasks";
+		$url = '/_tasks';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

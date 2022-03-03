@@ -35,10 +35,13 @@ class License extends AbstractEndpoint
 	 */
 	public function delete(array $params = [])
 	{
-		$url = "/_license";
+		$url = '/_license';
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -56,10 +59,13 @@ class License extends AbstractEndpoint
 	 */
 	public function get(array $params = [])
 	{
-		$url = "/_license";
+		$url = '/_license';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -70,10 +76,13 @@ class License extends AbstractEndpoint
 	 */
 	public function getBasicStatus(array $params = [])
 	{
-		$url = "/_license/basic_status";
+		$url = '/_license/basic_status';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -84,10 +93,13 @@ class License extends AbstractEndpoint
 	 */
 	public function getTrialStatus(array $params = [])
 	{
-		$url = "/_license/trial_status";
+		$url = '/_license/trial_status';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -105,10 +117,14 @@ class License extends AbstractEndpoint
 	 */
 	public function post(array $params = [])
 	{
-		$url = "/_license";
+		$url = '/_license';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -125,10 +141,13 @@ class License extends AbstractEndpoint
 	 */
 	public function postStartBasic(array $params = [])
 	{
-		$url = "/_license/start_basic";
+		$url = '/_license/start_basic';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -146,9 +165,12 @@ class License extends AbstractEndpoint
 	 */
 	public function postStartTrial(array $params = [])
 	{
-		$url = "/_license/start_trial";
+		$url = '/_license/start_trial';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

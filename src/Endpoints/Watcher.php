@@ -44,13 +44,16 @@ class Watcher extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
 		if (isset($params['action_id'])) {
-			$url = "/_watcher/watch/{$params['watch_id']}/_ack/{$params['action_id']}";
+			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack/' . urlencode((string) $params['action_id']);
 			$method = 'PUT';
 		} else {
-			$url = "/_watcher/watch/{$params['watch_id']}/_ack";
+			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack';
 			$method = 'PUT';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -68,10 +71,13 @@ class Watcher extends AbstractEndpoint
 	public function activateWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = "/_watcher/watch/{$params['watch_id']}/_activate";
+		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_activate';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -89,10 +95,13 @@ class Watcher extends AbstractEndpoint
 	public function deactivateWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = "/_watcher/watch/{$params['watch_id']}/_deactivate";
+		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_deactivate';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -110,10 +119,13 @@ class Watcher extends AbstractEndpoint
 	public function deleteWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_watcher/watch/{$params['id']}";
+		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -133,13 +145,17 @@ class Watcher extends AbstractEndpoint
 	public function executeWatch(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_watcher/watch/{$params['id']}/_execute";
+			$url = '/_watcher/watch/' . urlencode((string) $params['id']) . '/_execute';
 			$method = 'PUT';
 		} else {
-			$url = "/_watcher/watch/_execute";
+			$url = '/_watcher/watch/_execute';
 			$method = 'PUT';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -157,10 +173,13 @@ class Watcher extends AbstractEndpoint
 	public function getWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_watcher/watch/{$params['id']}";
+		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -183,10 +202,14 @@ class Watcher extends AbstractEndpoint
 	public function putWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_watcher/watch/{$params['id']}";
+		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -203,10 +226,14 @@ class Watcher extends AbstractEndpoint
 	 */
 	public function queryWatches(array $params = [])
 	{
-		$url = "/_watcher/_query/watches";
+		$url = '/_watcher/_query/watches';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -217,10 +244,13 @@ class Watcher extends AbstractEndpoint
 	 */
 	public function start(array $params = [])
 	{
-		$url = "/_watcher/_start";
+		$url = '/_watcher/_start';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -240,13 +270,16 @@ class Watcher extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['metric'])) {
-			$url = "/_watcher/stats/{$params['metric']}";
+			$url = '/_watcher/stats/' . urlencode((string) $params['metric']);
 			$method = 'GET';
 		} else {
-			$url = "/_watcher/stats";
+			$url = '/_watcher/stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -257,9 +290,12 @@ class Watcher extends AbstractEndpoint
 	 */
 	public function stop(array $params = [])
 	{
-		$url = "/_watcher/_stop";
+		$url = '/_watcher/_stop';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

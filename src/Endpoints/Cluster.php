@@ -43,10 +43,14 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function allocationExplain(array $params = [])
 	{
-		$url = "/_cluster/allocation/explain";
+		$url = '/_cluster/allocation/explain';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -66,10 +70,13 @@ class Cluster extends AbstractEndpoint
 	public function deleteComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_component_template/{$params['name']}";
+		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -86,10 +93,13 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function deleteVotingConfigExclusions(array $params = [])
 	{
-		$url = "/_cluster/voting_config_exclusions";
+		$url = '/_cluster/voting_config_exclusions';
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -109,10 +119,13 @@ class Cluster extends AbstractEndpoint
 	public function existsComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_component_template/{$params['name']}";
+		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -132,13 +145,16 @@ class Cluster extends AbstractEndpoint
 	public function getComponentTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_component_template/{$params['name']}";
+			$url = '/_component_template/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_component_template";
+			$url = '/_component_template';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -158,10 +174,13 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function getSettings(array $params = [])
 	{
-		$url = "/_cluster/settings";
+		$url = '/_cluster/settings';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -190,13 +209,16 @@ class Cluster extends AbstractEndpoint
 	public function health(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cluster/health/{$params['index']}";
+			$url = '/_cluster/health/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cluster/health";
+			$url = '/_cluster/health';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -215,10 +237,13 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function pendingTasks(array $params = [])
 	{
-		$url = "/_cluster/pending_tasks";
+		$url = '/_cluster/pending_tasks';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -237,10 +262,13 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function postVotingConfigExclusions(array $params = [])
 	{
-		$url = "/_cluster/voting_config_exclusions";
+		$url = '/_cluster/voting_config_exclusions';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -262,10 +290,14 @@ class Cluster extends AbstractEndpoint
 	public function putComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_component_template/{$params['name']}";
+		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -286,10 +318,14 @@ class Cluster extends AbstractEndpoint
 	public function putSettings(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_cluster/settings";
+		$url = '/_cluster/settings';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -300,10 +336,13 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function remoteInfo(array $params = [])
 	{
-		$url = "/_remote/info";
+		$url = '/_remote/info';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -326,10 +365,14 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function reroute(array $params = [])
 	{
-		$url = "/_cluster/reroute";
+		$url = '/_cluster/reroute';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -356,16 +399,19 @@ class Cluster extends AbstractEndpoint
 	public function state(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['metric'])) {
-			$url = "/_cluster/state/{$params['metric']}/{$params['index']}";
+			$url = '/_cluster/state/' . urlencode((string) $params['metric']) . '/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = "/_cluster/state/{$params['metric']}";
+			$url = '/_cluster/state/' . urlencode((string) $params['metric']);
 			$method = 'GET';
 		} else {
-			$url = "/_cluster/state";
+			$url = '/_cluster/state';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -385,12 +431,15 @@ class Cluster extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = "/_cluster/stats/nodes/{$params['node_id']}";
+			$url = '/_cluster/stats/nodes/' . urlencode((string) $params['node_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cluster/stats";
+			$url = '/_cluster/stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

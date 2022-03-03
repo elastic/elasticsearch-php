@@ -49,13 +49,16 @@ class Cat extends AbstractEndpoint
 	public function aliases(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_cat/aliases/{$params['name']}";
+			$url = '/_cat/aliases/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/aliases";
+			$url = '/_cat/aliases';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -81,13 +84,16 @@ class Cat extends AbstractEndpoint
 	public function allocation(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = "/_cat/allocation/{$params['node_id']}";
+			$url = '/_cat/allocation/' . urlencode((string) $params['node_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/allocation";
+			$url = '/_cat/allocation';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -110,13 +116,16 @@ class Cat extends AbstractEndpoint
 	public function count(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cat/count/{$params['index']}";
+			$url = '/_cat/count/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/count";
+			$url = '/_cat/count';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -141,13 +150,16 @@ class Cat extends AbstractEndpoint
 	public function fielddata(array $params = [])
 	{
 		if (isset($params['fields'])) {
-			$url = "/_cat/fielddata/{$params['fields']}";
+			$url = '/_cat/fielddata/' . urlencode((string) $params['fields']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/fielddata";
+			$url = '/_cat/fielddata';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -170,10 +182,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function health(array $params = [])
 	{
-		$url = "/_cat/health";
+		$url = '/_cat/health';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -191,10 +206,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function help(array $params = [])
 	{
-		$url = "/_cat";
+		$url = '/_cat';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -224,13 +242,16 @@ class Cat extends AbstractEndpoint
 	public function indices(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cat/indices/{$params['index']}";
+			$url = '/_cat/indices/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/indices";
+			$url = '/_cat/indices';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -253,10 +274,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function master(array $params = [])
 	{
-		$url = "/_cat/master";
+		$url = '/_cat/master';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -282,13 +306,16 @@ class Cat extends AbstractEndpoint
 	public function mlDataFrameAnalytics(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = "/_cat/ml/data_frame/analytics/{$params['id']}";
+			$url = '/_cat/ml/data_frame/analytics/' . urlencode((string) $params['id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/ml/data_frame/analytics";
+			$url = '/_cat/ml/data_frame/analytics';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -313,13 +340,16 @@ class Cat extends AbstractEndpoint
 	public function mlDatafeeds(array $params = [])
 	{
 		if (isset($params['datafeed_id'])) {
-			$url = "/_cat/ml/datafeeds/{$params['datafeed_id']}";
+			$url = '/_cat/ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/ml/datafeeds";
+			$url = '/_cat/ml/datafeeds';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -345,13 +375,16 @@ class Cat extends AbstractEndpoint
 	public function mlJobs(array $params = [])
 	{
 		if (isset($params['job_id'])) {
-			$url = "/_cat/ml/anomaly_detectors/{$params['job_id']}";
+			$url = '/_cat/ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/ml/anomaly_detectors";
+			$url = '/_cat/ml/anomaly_detectors';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -379,13 +412,16 @@ class Cat extends AbstractEndpoint
 	public function mlTrainedModels(array $params = [])
 	{
 		if (isset($params['model_id'])) {
-			$url = "/_cat/ml/trained_models/{$params['model_id']}";
+			$url = '/_cat/ml/trained_models/' . urlencode((string) $params['model_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/ml/trained_models";
+			$url = '/_cat/ml/trained_models';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -408,10 +444,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function nodeattrs(array $params = [])
 	{
-		$url = "/_cat/nodeattrs";
+		$url = '/_cat/nodeattrs';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -437,10 +476,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function nodes(array $params = [])
 	{
-		$url = "/_cat/nodes";
+		$url = '/_cat/nodes';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -464,10 +506,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function pendingTasks(array $params = [])
 	{
-		$url = "/_cat/pending_tasks";
+		$url = '/_cat/pending_tasks';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -491,10 +536,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function plugins(array $params = [])
 	{
-		$url = "/_cat/plugins";
+		$url = '/_cat/plugins';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -522,13 +570,16 @@ class Cat extends AbstractEndpoint
 	public function recovery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cat/recovery/{$params['index']}";
+			$url = '/_cat/recovery/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/recovery";
+			$url = '/_cat/recovery';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -551,10 +602,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function repositories(array $params = [])
 	{
-		$url = "/_cat/repositories";
+		$url = '/_cat/repositories';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -578,13 +632,16 @@ class Cat extends AbstractEndpoint
 	public function segments(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cat/segments/{$params['index']}";
+			$url = '/_cat/segments/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/segments";
+			$url = '/_cat/segments';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -610,13 +667,16 @@ class Cat extends AbstractEndpoint
 	public function shards(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/_cat/shards/{$params['index']}";
+			$url = '/_cat/shards/' . urlencode((string) $params['index']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/shards";
+			$url = '/_cat/shards';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -642,13 +702,16 @@ class Cat extends AbstractEndpoint
 	public function snapshots(array $params = [])
 	{
 		if (isset($params['repository'])) {
-			$url = "/_cat/snapshots/{$params['repository']}";
+			$url = '/_cat/snapshots/' . urlencode((string) $params['repository']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/snapshots";
+			$url = '/_cat/snapshots';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -675,10 +738,13 @@ class Cat extends AbstractEndpoint
 	 */
 	public function tasks(array $params = [])
 	{
-		$url = "/_cat/tasks";
+		$url = '/_cat/tasks';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -703,13 +769,16 @@ class Cat extends AbstractEndpoint
 	public function templates(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_cat/templates/{$params['name']}";
+			$url = '/_cat/templates/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/templates";
+			$url = '/_cat/templates';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -736,13 +805,16 @@ class Cat extends AbstractEndpoint
 	public function threadPool(array $params = [])
 	{
 		if (isset($params['thread_pool_patterns'])) {
-			$url = "/_cat/thread_pool/{$params['thread_pool_patterns']}";
+			$url = '/_cat/thread_pool/' . urlencode((string) $params['thread_pool_patterns']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/thread_pool";
+			$url = '/_cat/thread_pool';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -769,12 +841,15 @@ class Cat extends AbstractEndpoint
 	public function transforms(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = "/_cat/transforms/{$params['transform_id']}";
+			$url = '/_cat/transforms/' . urlencode((string) $params['transform_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_cat/transforms";
+			$url = '/_cat/transforms';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'text/plain,application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

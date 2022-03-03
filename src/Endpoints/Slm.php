@@ -42,10 +42,13 @@ class Slm extends AbstractEndpoint
 	public function deleteLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = "/_slm/policy/{$params['policy_id']}";
+		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -63,10 +66,13 @@ class Slm extends AbstractEndpoint
 	public function executeLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = "/_slm/policy/{$params['policy_id']}/_execute";
+		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']) . '/_execute';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -77,10 +83,13 @@ class Slm extends AbstractEndpoint
 	 */
 	public function executeRetention(array $params = [])
 	{
-		$url = "/_slm/_execute_retention";
+		$url = '/_slm/_execute_retention';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -98,13 +107,16 @@ class Slm extends AbstractEndpoint
 	public function getLifecycle(array $params = [])
 	{
 		if (isset($params['policy_id'])) {
-			$url = "/_slm/policy/{$params['policy_id']}";
+			$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
 			$method = 'GET';
 		} else {
-			$url = "/_slm/policy";
+			$url = '/_slm/policy';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -115,10 +127,13 @@ class Slm extends AbstractEndpoint
 	 */
 	public function getStats(array $params = [])
 	{
-		$url = "/_slm/stats";
+		$url = '/_slm/stats';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -129,10 +144,13 @@ class Slm extends AbstractEndpoint
 	 */
 	public function getStatus(array $params = [])
 	{
-		$url = "/_slm/status";
+		$url = '/_slm/status';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -151,10 +169,14 @@ class Slm extends AbstractEndpoint
 	public function putLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = "/_slm/policy/{$params['policy_id']}";
+		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -165,10 +187,13 @@ class Slm extends AbstractEndpoint
 	 */
 	public function start(array $params = [])
 	{
-		$url = "/_slm/start";
+		$url = '/_slm/start';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -179,9 +204,12 @@ class Slm extends AbstractEndpoint
 	 */
 	public function stop(array $params = [])
 	{
-		$url = "/_slm/stop";
+		$url = '/_slm/stop';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

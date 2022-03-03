@@ -35,9 +35,12 @@ class Ssl extends AbstractEndpoint
 	 */
 	public function certificates(array $params = [])
 	{
-		$url = "/_ssl/certificates";
+		$url = '/_ssl/certificates';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

@@ -45,9 +45,13 @@ class Graph extends AbstractEndpoint
 	public function explore(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_graph/explore";
+		$url = '/' . urlencode((string) $params['index']) . '/_graph/explore';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

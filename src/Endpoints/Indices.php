@@ -48,10 +48,13 @@ class Indices extends AbstractEndpoint
 	public function addBlock(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','block'], $params);
-		$url = "/{$params['index']}/_block/{$params['block']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_block/' . urlencode((string) $params['block']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -71,13 +74,17 @@ class Indices extends AbstractEndpoint
 	public function analyze(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_analyze";
+			$url = '/' . urlencode((string) $params['index']) . '/_analyze';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_analyze";
+			$url = '/_analyze';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -103,13 +110,16 @@ class Indices extends AbstractEndpoint
 	public function clearCache(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_cache/clear";
+			$url = '/' . urlencode((string) $params['index']) . '/_cache/clear';
 			$method = 'POST';
 		} else {
-			$url = "/_cache/clear";
+			$url = '/_cache/clear';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -132,10 +142,14 @@ class Indices extends AbstractEndpoint
 	public function clone(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = "/{$params['index']}/_clone/{$params['target']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_clone/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -159,10 +173,13 @@ class Indices extends AbstractEndpoint
 	public function close(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_close";
+		$url = '/' . urlencode((string) $params['index']) . '/_close';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -184,10 +201,14 @@ class Indices extends AbstractEndpoint
 	public function create(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}";
+		$url = '/' . urlencode((string) $params['index']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -205,10 +226,13 @@ class Indices extends AbstractEndpoint
 	public function createDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_data_stream/{$params['name']}";
+		$url = '/_data_stream/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -226,13 +250,16 @@ class Indices extends AbstractEndpoint
 	public function dataStreamsStats(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_data_stream/{$params['name']}/_stats";
+			$url = '/_data_stream/' . urlencode((string) $params['name']) . '/_stats';
 			$method = 'GET';
 		} else {
-			$url = "/_data_stream/_stats";
+			$url = '/_data_stream/_stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -255,10 +282,13 @@ class Indices extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}";
+		$url = '/' . urlencode((string) $params['index']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -279,10 +309,13 @@ class Indices extends AbstractEndpoint
 	public function deleteAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','name'], $params);
-		$url = "/{$params['index']}/_alias/{$params['name']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -301,10 +334,13 @@ class Indices extends AbstractEndpoint
 	public function deleteDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_data_stream/{$params['name']}";
+		$url = '/_data_stream/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -324,10 +360,13 @@ class Indices extends AbstractEndpoint
 	public function deleteIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_index_template/{$params['name']}";
+		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -347,10 +386,13 @@ class Indices extends AbstractEndpoint
 	public function deleteTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_template/{$params['name']}";
+		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -374,10 +416,13 @@ class Indices extends AbstractEndpoint
 	public function diskUsage(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_disk_usage";
+		$url = '/' . urlencode((string) $params['index']) . '/_disk_usage';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -401,10 +446,13 @@ class Indices extends AbstractEndpoint
 	public function exists(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}";
+		$url = '/' . urlencode((string) $params['index']);
 		$method = 'HEAD';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -428,13 +476,16 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['name'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_alias/{$params['name']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 			$method = 'HEAD';
 		} else {
-			$url = "/_alias/{$params['name']}";
+			$url = '/_alias/' . urlencode((string) $params['name']);
 			$method = 'HEAD';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -455,10 +506,13 @@ class Indices extends AbstractEndpoint
 	public function existsIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_index_template/{$params['name']}";
+		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -479,10 +533,13 @@ class Indices extends AbstractEndpoint
 	public function existsTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_template/{$params['name']}";
+		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -505,10 +562,13 @@ class Indices extends AbstractEndpoint
 	public function fieldUsageStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_field_usage_stats";
+		$url = '/' . urlencode((string) $params['index']) . '/_field_usage_stats';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -531,13 +591,16 @@ class Indices extends AbstractEndpoint
 	public function flush(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_flush";
+			$url = '/' . urlencode((string) $params['index']) . '/_flush';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_flush";
+			$url = '/_flush';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -561,13 +624,16 @@ class Indices extends AbstractEndpoint
 	public function forcemerge(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_forcemerge";
+			$url = '/' . urlencode((string) $params['index']) . '/_forcemerge';
 			$method = 'POST';
 		} else {
-			$url = "/_forcemerge";
+			$url = '/_forcemerge';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -592,10 +658,13 @@ class Indices extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}";
+		$url = '/' . urlencode((string) $params['index']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -618,19 +687,22 @@ class Indices extends AbstractEndpoint
 	public function getAlias(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['name'])) {
-			$url = "/{$params['index']}/_alias/{$params['name']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} elseif (isset($params['name'])) {
-			$url = "/_alias/{$params['name']}";
+			$url = '/_alias/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = "/{$params['index']}/_alias";
+			$url = '/' . urlencode((string) $params['index']) . '/_alias';
 			$method = 'GET';
 		} else {
-			$url = "/_alias";
+			$url = '/_alias';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -649,13 +721,16 @@ class Indices extends AbstractEndpoint
 	public function getDataStream(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_data_stream/{$params['name']}";
+			$url = '/_data_stream/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_data_stream";
+			$url = '/_data_stream';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -680,13 +755,16 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['fields'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_mapping/field/{$params['fields']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_mapping/field/' . urlencode((string) $params['fields']);
 			$method = 'GET';
 		} else {
-			$url = "/_mapping/field/{$params['fields']}";
+			$url = '/_mapping/field/' . urlencode((string) $params['fields']);
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -707,13 +785,16 @@ class Indices extends AbstractEndpoint
 	public function getIndexTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_index_template/{$params['name']}";
+			$url = '/_index_template/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_index_template";
+			$url = '/_index_template';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -736,13 +817,16 @@ class Indices extends AbstractEndpoint
 	public function getMapping(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_mapping";
+			$url = '/' . urlencode((string) $params['index']) . '/_mapping';
 			$method = 'GET';
 		} else {
-			$url = "/_mapping";
+			$url = '/_mapping';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -768,19 +852,22 @@ class Indices extends AbstractEndpoint
 	public function getSettings(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['name'])) {
-			$url = "/{$params['index']}/_settings/{$params['name']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_settings/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = "/{$params['index']}/_settings";
+			$url = '/' . urlencode((string) $params['index']) . '/_settings';
 			$method = 'GET';
 		} elseif (isset($params['name'])) {
-			$url = "/_settings/{$params['name']}";
+			$url = '/_settings/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_settings";
+			$url = '/_settings';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -801,13 +888,16 @@ class Indices extends AbstractEndpoint
 	public function getTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_template/{$params['name']}";
+			$url = '/_template/' . urlencode((string) $params['name']);
 			$method = 'GET';
 		} else {
-			$url = "/_template";
+			$url = '/_template';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -825,10 +915,13 @@ class Indices extends AbstractEndpoint
 	public function migrateToDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_data_stream/_migrate/{$params['name']}";
+		$url = '/_data_stream/_migrate/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -846,10 +939,14 @@ class Indices extends AbstractEndpoint
 	public function modifyDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_data_stream/_modify";
+		$url = '/_data_stream/_modify';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -873,10 +970,13 @@ class Indices extends AbstractEndpoint
 	public function open(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_open";
+		$url = '/' . urlencode((string) $params['index']) . '/_open';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -894,10 +994,13 @@ class Indices extends AbstractEndpoint
 	public function promoteDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_data_stream/_promote/{$params['name']}";
+		$url = '/_data_stream/_promote/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -919,10 +1022,14 @@ class Indices extends AbstractEndpoint
 	public function putAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','name'], $params);
-		$url = "/{$params['index']}/_alias/{$params['name']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -944,10 +1051,14 @@ class Indices extends AbstractEndpoint
 	public function putIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_index_template/{$params['name']}";
+		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -972,10 +1083,14 @@ class Indices extends AbstractEndpoint
 	public function putMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = "/{$params['index']}/_mapping";
+		$url = '/' . urlencode((string) $params['index']) . '/_mapping';
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1002,13 +1117,17 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_settings";
+			$url = '/' . urlencode((string) $params['index']) . '/_settings';
 			$method = 'PUT';
 		} else {
-			$url = "/_settings";
+			$url = '/_settings';
 			$method = 'PUT';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1030,10 +1149,14 @@ class Indices extends AbstractEndpoint
 	public function putTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name','body'], $params);
-		$url = "/_template/{$params['name']}";
+		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1053,13 +1176,16 @@ class Indices extends AbstractEndpoint
 	public function recovery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_recovery";
+			$url = '/' . urlencode((string) $params['index']) . '/_recovery';
 			$method = 'GET';
 		} else {
-			$url = "/_recovery";
+			$url = '/_recovery';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1080,13 +1206,16 @@ class Indices extends AbstractEndpoint
 	public function refresh(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_refresh";
+			$url = '/' . urlencode((string) $params['index']) . '/_refresh';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_refresh";
+			$url = '/_refresh';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1107,10 +1236,13 @@ class Indices extends AbstractEndpoint
 	public function reloadSearchAnalyzers(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_reload_search_analyzers";
+		$url = '/' . urlencode((string) $params['index']) . '/_reload_search_analyzers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1129,10 +1261,13 @@ class Indices extends AbstractEndpoint
 	public function resolveIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_resolve/index/{$params['name']}";
+		$url = '/_resolve/index/' . urlencode((string) $params['name']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1158,13 +1293,17 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['alias'], $params);
 		if (isset($params['new_index'])) {
-			$url = "/{$params['alias']}/_rollover/{$params['new_index']}";
+			$url = '/' . urlencode((string) $params['alias']) . '/_rollover/' . urlencode((string) $params['new_index']);
 			$method = 'POST';
 		} else {
-			$url = "/{$params['alias']}/_rollover";
+			$url = '/' . urlencode((string) $params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1186,13 +1325,16 @@ class Indices extends AbstractEndpoint
 	public function segments(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_segments";
+			$url = '/' . urlencode((string) $params['index']) . '/_segments';
 			$method = 'GET';
 		} else {
-			$url = "/_segments";
+			$url = '/_segments';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1214,13 +1356,16 @@ class Indices extends AbstractEndpoint
 	public function shardStores(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_shard_stores";
+			$url = '/' . urlencode((string) $params['index']) . '/_shard_stores';
 			$method = 'GET';
 		} else {
-			$url = "/_shard_stores";
+			$url = '/_shard_stores';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1243,10 +1388,14 @@ class Indices extends AbstractEndpoint
 	public function shrink(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = "/{$params['index']}/_shrink/{$params['target']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_shrink/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1268,10 +1417,14 @@ class Indices extends AbstractEndpoint
 	public function simulateIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = "/_index_template/_simulate_index/{$params['name']}";
+		$url = '/_index_template/_simulate_index/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1293,13 +1446,17 @@ class Indices extends AbstractEndpoint
 	public function simulateTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = "/_index_template/_simulate/{$params['name']}";
+			$url = '/_index_template/_simulate/' . urlencode((string) $params['name']);
 			$method = 'POST';
 		} else {
-			$url = "/_index_template/_simulate";
+			$url = '/_index_template/_simulate';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1322,10 +1479,14 @@ class Indices extends AbstractEndpoint
 	public function split(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = "/{$params['index']}/_split/{$params['target']}";
+		$url = '/' . urlencode((string) $params['index']) . '/_split/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1353,19 +1514,22 @@ class Indices extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['metric'])) {
-			$url = "/{$params['index']}/_stats/{$params['metric']}";
+			$url = '/' . urlencode((string) $params['index']) . '/_stats/' . urlencode((string) $params['metric']);
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = "/_stats/{$params['metric']}";
+			$url = '/_stats/' . urlencode((string) $params['metric']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = "/{$params['index']}/_stats";
+			$url = '/' . urlencode((string) $params['index']) . '/_stats';
 			$method = 'GET';
 		} else {
-			$url = "/_stats";
+			$url = '/_stats';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1389,10 +1553,13 @@ class Indices extends AbstractEndpoint
 	public function unfreeze(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_unfreeze";
+		$url = '/' . urlencode((string) $params['index']) . '/_unfreeze';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1412,10 +1579,14 @@ class Indices extends AbstractEndpoint
 	public function updateAliases(array $params = [])
 	{
 		$this->checkRequiredParameters(['body'], $params);
-		$url = "/_aliases";
+		$url = '/_aliases';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -1446,12 +1617,16 @@ class Indices extends AbstractEndpoint
 	public function validateQuery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = "/{$params['index']}/_validate/query";
+			$url = '/' . urlencode((string) $params['index']) . '/_validate/query';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = "/_validate/query";
+			$url = '/_validate/query';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

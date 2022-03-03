@@ -42,10 +42,13 @@ class Ilm extends AbstractEndpoint
 	public function deleteLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy'], $params);
-		$url = "/_ilm/policy/{$params['policy']}";
+		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -65,10 +68,13 @@ class Ilm extends AbstractEndpoint
 	public function explainLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_ilm/explain";
+		$url = '/' . urlencode((string) $params['index']) . '/_ilm/explain';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -86,13 +92,16 @@ class Ilm extends AbstractEndpoint
 	public function getLifecycle(array $params = [])
 	{
 		if (isset($params['policy'])) {
-			$url = "/_ilm/policy/{$params['policy']}";
+			$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
 			$method = 'GET';
 		} else {
-			$url = "/_ilm/policy";
+			$url = '/_ilm/policy';
 			$method = 'GET';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -103,10 +112,13 @@ class Ilm extends AbstractEndpoint
 	 */
 	public function getStatus(array $params = [])
 	{
-		$url = "/_ilm/status";
+		$url = '/_ilm/status';
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -124,10 +136,14 @@ class Ilm extends AbstractEndpoint
 	 */
 	public function migrateToDataTiers(array $params = [])
 	{
-		$url = "/_ilm/migrate_to_data_tiers";
+		$url = '/_ilm/migrate_to_data_tiers';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -146,10 +162,14 @@ class Ilm extends AbstractEndpoint
 	public function moveToStep(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/_ilm/move/{$params['index']}";
+		$url = '/_ilm/move/' . urlencode((string) $params['index']);
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -168,10 +188,14 @@ class Ilm extends AbstractEndpoint
 	public function putLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy'], $params);
-		$url = "/_ilm/policy/{$params['policy']}";
+		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
 		$method = 'PUT';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -189,10 +213,13 @@ class Ilm extends AbstractEndpoint
 	public function removePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_ilm/remove";
+		$url = '/' . urlencode((string) $params['index']) . '/_ilm/remove';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -210,10 +237,13 @@ class Ilm extends AbstractEndpoint
 	public function retry(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = "/{$params['index']}/_ilm/retry";
+		$url = '/' . urlencode((string) $params['index']) . '/_ilm/retry';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -224,10 +254,13 @@ class Ilm extends AbstractEndpoint
 	 */
 	public function start(array $params = [])
 	{
-		$url = "/_ilm/start";
+		$url = '/_ilm/start';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -238,9 +271,12 @@ class Ilm extends AbstractEndpoint
 	 */
 	public function stop(array $params = [])
 	{
-		$url = "/_ilm/stop";
+		$url = '/_ilm/stop';
 		$method = 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

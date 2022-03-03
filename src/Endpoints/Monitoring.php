@@ -47,12 +47,16 @@ class Monitoring extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['type'])) {
-			$url = "/_monitoring/{$params['type']}/bulk";
+			$url = '/_monitoring/' . urlencode((string) $params['type']) . '/bulk';
 			$method = 'POST';
 		} else {
-			$url = "/_monitoring/bulk";
+			$url = '/_monitoring/bulk';
 			$method = 'POST';
 		}
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/x-ndjson',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

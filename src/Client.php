@@ -143,7 +143,7 @@ final class Client
      * @return Elasticsearch|Promise
      */
     public function sendRequest(RequestInterface $request)
-    {         
+    {   
         // If async returns a Promise
         if ($this->getAsync()) {
             if ($this->getElasticMetaHeader()) {

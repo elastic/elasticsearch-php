@@ -42,10 +42,13 @@ class Eql extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_eql/search/{$params['id']}";
+		$url = '/_eql/search/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -65,10 +68,13 @@ class Eql extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_eql/search/{$params['id']}";
+		$url = '/_eql/search/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -86,10 +92,13 @@ class Eql extends AbstractEndpoint
 	public function getStatus(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = "/_eql/search/status/{$params['id']}";
+		$url = '/_eql/search/status/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 
 
@@ -111,9 +120,13 @@ class Eql extends AbstractEndpoint
 	public function search(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = "/{$params['index']}/_eql/search";
+		$url = '/' . urlencode((string) $params['index']) . '/_eql/search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		return $this->client->sendRequest($this->createRequest($method, $url, $params['body'] ?? []));
+		$headers = array (
+		  'Accept' => 'application/json',
+		  'Content-Type' => 'application/json',
+		);
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
 	}
 }

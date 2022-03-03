@@ -1,1 +1,0 @@
-        $this->:name = new :namespace($transport, $endpoint);

@@ -63,13 +63,13 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
         $status = $response->getStatusCode();
         if ($throwException && $status > 399 && $status < 500) {
             $error = new ClientResponseException(
-                sprintf("%s %s", $status, $response->getReasonPhrase()),
+                sprintf("%s %s: %s", $status, $response->getReasonPhrase(), (string) $response->getBody()),
                 $status
             );
             throw $error->setResponse($response);
         } elseif ($throwException && $status > 499 && $status < 600) {
             $error = new ServerResponseException(
-                sprintf("%s %s", $status, $response->getReasonPhrase()),
+                sprintf("%s %s: %s", $status, $response->getReasonPhrase(), (string) $response->getBody()),
                 $status
             );
             throw $error->setResponse($response);

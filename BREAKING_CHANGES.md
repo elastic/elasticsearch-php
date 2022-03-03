@@ -37,6 +37,14 @@ The following functions has been removed:
 - `ClientBuilder::setSniffOnStart()`
 - `ClientBuilder::includePortInHostHeader()`
 
+We removed the special `client` parameter passed in `$params` endpoints. In details: 
+
+- `$params['client']['never_retry']`
+- `$params['client']['verbose']`
+- `$params['client']['port_in_header']`
+- `$params['client']['future']`, you can set HTTP async using `Client::setAsync(true)`
+- `$params['client']['ignore']`, you can disable the Exception using `Client::setResponseException(false)`
+
 # 7.17
 
 - We changed the signature of `Elasticsearch\Common\EmptyLogger::log` adding the `void` return type.

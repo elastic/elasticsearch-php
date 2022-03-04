@@ -349,6 +349,9 @@ class ClientBuilder
 
         $transport = $builder->build();
         
+        // set content-type header
+        $this->transport->setHeader('Content-Type' , 'application/json');
+        
         // The default retries is equal to the number of hosts
         if (empty($this->retries)) {
             $this->retries = count($this->hosts);

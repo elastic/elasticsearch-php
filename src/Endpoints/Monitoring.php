@@ -53,6 +53,7 @@ class Monitoring extends AbstractEndpoint
 			$url = '/_monitoring/bulk';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',

@@ -44,6 +44,7 @@ class Features extends AbstractEndpoint
 		$url = '/_features';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -62,6 +63,7 @@ class Features extends AbstractEndpoint
 		$url = '/_features/_reset';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

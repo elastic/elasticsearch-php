@@ -47,6 +47,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['force','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -78,6 +79,7 @@ class Transform extends AbstractEndpoint
 			$url = '/_transform';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','exclude_generated']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -105,6 +107,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -134,6 +137,7 @@ class Transform extends AbstractEndpoint
 			$url = '/_transform/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -158,10 +162,11 @@ class Transform extends AbstractEndpoint
 	 */
 	public function putTransform(array $params = [])
 	{
-		$this->checkRequiredParameters(['transform_id','body'], $params);
+		$this->checkRequiredParameters(['transform_id'], $params);
 		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['defer_validation','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -188,6 +193,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -217,6 +223,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','timeout','allow_no_match','wait_for_checkpoint']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -240,10 +247,11 @@ class Transform extends AbstractEndpoint
 	 */
 	public function updateTransform(array $params = [])
 	{
-		$this->checkRequiredParameters(['transform_id','body'], $params);
+		$this->checkRequiredParameters(['transform_id'], $params);
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['defer_validation','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -269,6 +277,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/_upgrade';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['dry_run','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

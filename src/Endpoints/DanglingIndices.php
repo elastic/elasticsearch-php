@@ -48,6 +48,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -75,6 +76,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -92,6 +94,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

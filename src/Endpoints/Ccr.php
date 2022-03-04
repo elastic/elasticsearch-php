@@ -45,6 +45,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -67,10 +68,11 @@ class Ccr extends AbstractEndpoint
 	 */
 	public function follow(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/follow';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -96,6 +98,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/info';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -120,6 +123,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -141,10 +145,11 @@ class Ccr extends AbstractEndpoint
 	 */
 	public function forgetFollower(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/forget_follower';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -173,6 +178,7 @@ class Ccr extends AbstractEndpoint
 			$url = '/_ccr/auto_follow';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -197,6 +203,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']) . '/pause';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -221,6 +228,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/pause_follow';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -242,10 +250,11 @@ class Ccr extends AbstractEndpoint
 	 */
 	public function putAutoFollowPattern(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -271,6 +280,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']) . '/resume';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -296,6 +306,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/resume_follow';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -314,6 +325,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/_ccr/stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -338,6 +350,7 @@ class Ccr extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ccr/unfollow';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

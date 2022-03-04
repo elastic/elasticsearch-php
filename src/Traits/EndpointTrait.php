@@ -21,8 +21,33 @@ use Elastic\Transport\Serializer\NDJsonSerializer;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestInterface;
 
+use function http_build_query;
+use function strpos;
+use function sprintf;
+
 trait EndpointTrait
 {
+    /**
+     * Returns the URL with the query string from $params
+     * extracting the array keys specified in $keys
+     */
+    protected function addQueryString(string $url, array $params, array $keys): string
+    {
+        $queryParams = [];
+        foreach ($keys as $k) {
+            if (isset($params[$k])) {
+                $queryParams[$k] = $params[$k];
+            }
+        }
+        if (empty($queryParams)) {
+            return $url;
+        }
+        return $url . '?' . http_build_query($queryParams);
+    }
+
+    /**
+     * Serialize the body using the Content-Type
+     */
     protected function bodySerialize(array $body, string $contentType): string
     {
         if (strpos($contentType, 'application/x-ndjson') !== false) {
@@ -40,7 +65,7 @@ trait EndpointTrait
     /**
      * Create a PSR-7 request
      */
-    protected function createRequest(string $method, string $url, array $headers, array $body = []): RequestInterface
+    protected function createRequest(string $method, string $url, array $headers, array $body): RequestInterface
     {
         $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();

@@ -45,6 +45,7 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -70,6 +71,7 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/policy/' . urlencode((string) $params['name']) . '/_execute';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -97,6 +99,7 @@ class Enrich extends AbstractEndpoint
 			$url = '/_enrich/policy';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -118,10 +121,11 @@ class Enrich extends AbstractEndpoint
 	 */
 	public function putPolicy(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -140,6 +144,7 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/_stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

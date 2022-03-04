@@ -48,6 +48,7 @@ class Graph extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_graph/explore';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['routing','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

@@ -45,6 +45,7 @@ class Xpack extends AbstractEndpoint
 		$url = '/_xpack';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['categories','accept_enterprise']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -68,6 +69,7 @@ class Xpack extends AbstractEndpoint
 		$url = '/_xpack/usage';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

@@ -45,6 +45,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -71,6 +72,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ilm/explain';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['only_managed','only_errors']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -98,6 +100,7 @@ class Ilm extends AbstractEndpoint
 			$url = '/_ilm/policy';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -115,6 +118,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/status';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -139,6 +143,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/migrate_to_data_tiers';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['dry_run']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -165,6 +170,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/move/' . urlencode((string) $params['index']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -191,6 +197,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -216,6 +223,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ilm/remove';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -240,6 +248,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_ilm/retry';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -257,6 +266,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -274,6 +284,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

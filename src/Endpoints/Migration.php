@@ -48,6 +48,7 @@ class Migration extends AbstractEndpoint
 			$url = '/_migration/deprecations';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -65,6 +66,7 @@ class Migration extends AbstractEndpoint
 		$url = '/_migration/system_features';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -82,6 +84,7 @@ class Migration extends AbstractEndpoint
 		$url = '/_migration/system_features';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

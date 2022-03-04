@@ -45,6 +45,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -69,6 +70,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']) . '/_execute';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -86,6 +88,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/_execute_retention';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -113,6 +116,7 @@ class Slm extends AbstractEndpoint
 			$url = '/_slm/policy';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -130,6 +134,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -147,6 +152,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/status';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -172,6 +178,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -190,6 +197,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -207,6 +215,7 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

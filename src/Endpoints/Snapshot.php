@@ -47,6 +47,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_cleanup';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -71,10 +72,11 @@ class Snapshot extends AbstractEndpoint
 	 */
 	public function clone(array $params = [])
 	{
-		$this->checkRequiredParameters(['repository','snapshot','target_snapshot','body'], $params);
+		$this->checkRequiredParameters(['repository','snapshot','target_snapshot'], $params);
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_clone/' . urlencode((string) $params['target_snapshot']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -104,6 +106,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -129,10 +132,11 @@ class Snapshot extends AbstractEndpoint
 	 */
 	public function createRepository(array $params = [])
 	{
-		$this->checkRequiredParameters(['repository','body'], $params);
+		$this->checkRequiredParameters(['repository'], $params);
 		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','verify']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -160,6 +164,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -186,6 +191,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -216,6 +222,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_details','include_repository','verbose']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -245,6 +252,7 @@ class Snapshot extends AbstractEndpoint
 			$url = '/_snapshot';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -280,6 +288,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_analyze';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -308,6 +317,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_restore';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -342,6 +352,7 @@ class Snapshot extends AbstractEndpoint
 			$url = '/_snapshot/_status';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -368,6 +379,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_verify';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

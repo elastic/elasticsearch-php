@@ -38,6 +38,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/_authenticate';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -68,6 +69,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user/_password';
 			$method = 'PUT';
 		}
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -93,6 +95,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key/' . urlencode((string) $params['ids']) . '/_clear_cache';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -117,6 +120,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/_clear_cache';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -142,6 +146,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/realm/' . urlencode((string) $params['realms']) . '/_clear_cache';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['usernames']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -166,6 +171,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -192,6 +198,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -217,6 +224,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -249,6 +257,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -275,6 +284,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -300,6 +310,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -325,6 +336,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -352,6 +364,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -377,6 +390,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -402,6 +416,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_disable';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -427,6 +442,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_enable';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -444,6 +460,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/enroll/kibana';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -462,6 +479,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/enroll/node';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -490,6 +508,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -507,6 +526,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/_builtin';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -538,6 +558,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/privilege';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -565,6 +586,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/role';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -592,6 +614,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/role_mapping';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -623,6 +646,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/service';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -648,6 +672,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -672,6 +697,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/oauth2/token';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -700,6 +726,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -717,6 +744,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/_privileges';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -742,6 +770,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key/grant';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -772,6 +801,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user/_has_privileges';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -797,6 +827,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -822,6 +853,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/oauth2/token';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -848,6 +880,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -871,10 +904,11 @@ class Security extends AbstractEndpoint
 	 */
 	public function putRole(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -898,10 +932,11 @@ class Security extends AbstractEndpoint
 	 */
 	public function putRoleMapping(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -925,10 +960,11 @@ class Security extends AbstractEndpoint
 	 */
 	public function putUser(array $params = [])
 	{
-		$this->checkRequiredParameters(['username','body'], $params);
+		$this->checkRequiredParameters(['username'], $params);
 		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['refresh']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -953,6 +989,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/_query/api_key';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -978,6 +1015,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/authenticate';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1003,6 +1041,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/complete_logout';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1028,6 +1067,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/invalidate';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1053,6 +1093,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/logout';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1078,6 +1119,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/prepare';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1103,6 +1145,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/metadata/' . urlencode((string) $params['realm_name']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

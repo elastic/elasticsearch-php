@@ -5,16 +5,19 @@
       <directory suffix=".php">src</directory>
     </include>
   </coverage>
+  <php>
+    <!-- Disable E_USER_DEPRECATED setting E_ALL & ~E_USER_DEPRECATED-->
+    <ini name="error_reporting" value="16383"/>
+    <ini name="memory_limit" value="-1"/>
+  </php>
   <testsuites>
-    <testsuite name="Unit tests">
-      <directory>tests</directory>
+    <testsuite name="Integration tests">
+      <directory>tests/Integration</directory>
     </testsuite>
   </testsuites>
   <groups>
-    <exclude>
+    <include>
       <group>integration</group>
-      <group>free</group>
-      <group>platinum</group>
-    </exclude>
+    </include>
   </groups>
 </phpunit>

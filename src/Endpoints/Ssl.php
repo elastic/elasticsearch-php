@@ -38,6 +38,7 @@ class Ssl extends AbstractEndpoint
 		$url = '/_ssl/certificates';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

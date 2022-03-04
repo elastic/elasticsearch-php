@@ -59,6 +59,7 @@ trait ClientEndpointsTrait
 			$url = '/_bulk';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -88,6 +89,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/scroll';
 			$method = 'DELETE';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json,text/plain',
@@ -112,6 +114,7 @@ trait ClientEndpointsTrait
 		$url = '/_pit';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -155,6 +158,7 @@ trait ClientEndpointsTrait
 			$url = '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -187,10 +191,11 @@ trait ClientEndpointsTrait
 	 */
 	public function create(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','index','body'], $params);
+		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_create/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -225,6 +230,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','if_seq_no','if_primary_term','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -275,10 +281,11 @@ trait ClientEndpointsTrait
 	 */
 	public function deleteByQuery(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_delete_by_query';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -301,10 +308,11 @@ trait ClientEndpointsTrait
 	 */
 	public function deleteByQueryRethrottle(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
+		$this->checkRequiredParameters(['task_id'], $params);
 		$url = '/_delete_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['requests_per_second']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -331,6 +339,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -366,6 +375,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -400,6 +410,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -438,6 +449,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_explain/' . urlencode((string) $params['id']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['analyze_wildcard','analyzer','default_operator','df','stored_fields','lenient','preference','q','routing','_source','_source_excludes','_source_includes']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -472,6 +484,7 @@ trait ClientEndpointsTrait
 			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -508,6 +521,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -533,6 +547,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -550,6 +565,7 @@ trait ClientEndpointsTrait
 		$url = '/_script_context';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -567,6 +583,7 @@ trait ClientEndpointsTrait
 		$url = '/_script_language';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -601,6 +618,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -642,6 +660,7 @@ trait ClientEndpointsTrait
 			$url = '/' . urlencode((string) $params['index']) . '/_doc';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -660,6 +679,7 @@ trait ClientEndpointsTrait
 		$url = '/';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -687,6 +707,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['routing']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -725,6 +746,7 @@ trait ClientEndpointsTrait
 			$url = '/_mget';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -762,6 +784,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -797,6 +820,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['search_type','typed_keys','max_concurrent_searches','rest_total_hits_as_int','ccs_minimize_roundtrips']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -838,6 +862,7 @@ trait ClientEndpointsTrait
 			$url = '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ids','term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -864,10 +889,11 @@ trait ClientEndpointsTrait
 	 */
 	public function openPointInTime(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','keep_alive'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_pit';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -885,6 +911,7 @@ trait ClientEndpointsTrait
 		$url = '/';
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -902,7 +929,6 @@ trait ClientEndpointsTrait
 	 *     context: string, //  Script context
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     context: string, // Context name to compile script against
 	 *     body: array, // (REQUIRED) The document
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
@@ -910,7 +936,7 @@ trait ClientEndpointsTrait
 	 */
 	public function putScript(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		if (isset($params['context'])) {
 			$url = '/_scripts/' . urlencode((string) $params['id']) . '/' . urlencode((string) $params['context']);
 			$method = 'PUT';
@@ -918,6 +944,7 @@ trait ClientEndpointsTrait
 			$url = '/_scripts/' . urlencode((string) $params['id']);
 			$method = 'PUT';
 		}
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -952,6 +979,7 @@ trait ClientEndpointsTrait
 			$url = '/_rank_eval';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','search_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -987,6 +1015,7 @@ trait ClientEndpointsTrait
 		$url = '/_reindex';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['refresh','timeout','wait_for_active_shards','wait_for_completion','requests_per_second','scroll','slices','max_docs']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1009,10 +1038,11 @@ trait ClientEndpointsTrait
 	 */
 	public function reindexRethrottle(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
+		$this->checkRequiredParameters(['task_id'], $params);
 		$url = '/_reindex/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['requests_per_second']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1041,6 +1071,7 @@ trait ClientEndpointsTrait
 			$url = '/_render/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1066,6 +1097,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/painless/_execute';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1082,7 +1114,6 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     scroll_id: string, //  The scroll ID
 	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     scroll_id: string, // The scroll ID for scrolled search
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     body: array, //  The scroll ID if not passed by URL or query parameter.
 	 * } $params
@@ -1098,6 +1129,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/scroll';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['scroll','rest_total_hits_as_int']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1170,6 +1202,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','min_compatible_shard_node']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1207,6 +1240,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_mvt/' . urlencode((string) $params['field']) . '/' . urlencode((string) $params['zoom']) . '/' . urlencode((string) $params['x']) . '/' . urlencode((string) $params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits']);
 		$headers = array (
 		  'Accept' => 'application/vnd.mapbox-vector-tile',
 		  'Content-Type' => 'application/json',
@@ -1241,6 +1275,7 @@ trait ClientEndpointsTrait
 			$url = '/_search_shards';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1283,6 +1318,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','preference','routing','scroll','search_type','explain','profile','typed_keys','rest_total_hits_as_int','ccs_minimize_roundtrips']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1309,6 +1345,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1351,6 +1388,7 @@ trait ClientEndpointsTrait
 			$url = '/' . urlencode((string) $params['index']) . '/_termvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1386,10 +1424,11 @@ trait ClientEndpointsTrait
 	 */
 	public function update(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','index','body'], $params);
+		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_update/' . urlencode((string) $params['id']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','timeout','if_seq_no','if_primary_term','require_alias']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1448,6 +1487,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_update_by_query';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','pipeline','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','version_type','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1470,10 +1510,11 @@ trait ClientEndpointsTrait
 	 */
 	public function updateByQueryRethrottle(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
+		$this->checkRequiredParameters(['task_id'], $params);
 		$url = '/_update_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['requests_per_second']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

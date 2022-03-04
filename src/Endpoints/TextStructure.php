@@ -59,6 +59,7 @@ class TextStructure extends AbstractEndpoint
 		$url = '/_text_structure/find_structure';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['lines_to_sample','line_merge_size_limit','timeout','charset','format','has_header_row','column_names','delimiter','quote','should_trim_fields','grok_pattern','timestamp_field','timestamp_format','explain']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',

@@ -49,6 +49,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_close';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -74,6 +75,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -99,6 +101,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events/' . urlencode((string) $params['event_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -124,6 +127,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -150,6 +154,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['force','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -175,6 +180,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['force']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -205,6 +211,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/_delete_expired_data';
 			$method = 'DELETE';
 		}
+		$url = $this->addQueryString($url, $params, ['requests_per_second','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -230,6 +237,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -261,6 +269,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
 			$method = 'DELETE';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_forecasts','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -287,6 +296,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['force','wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -312,6 +322,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -337,6 +348,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -362,6 +374,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -387,6 +400,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_estimate_model_memory';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -412,6 +426,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/_evaluate';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -441,6 +456,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_explain';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -472,6 +488,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_flush';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['calc_interim','start','end','advance_time','skip_time']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -501,6 +518,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['duration','expires_in','max_model_memory']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -541,6 +559,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/buckets';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['expand','exclude_interim','from','size','start','end','anomaly_score','sort','desc']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -571,6 +590,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['job_id','start','end','from','size']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -601,6 +621,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/calendars';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -635,6 +656,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/categories/';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size','partition_field_value']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -667,6 +689,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','exclude_generated']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -698,6 +721,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','verbose']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -726,6 +750,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -755,6 +780,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -784,6 +810,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/filters';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -817,6 +844,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/influencers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','influencer_score','sort','desc']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -846,6 +874,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -875,6 +904,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -901,6 +931,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade/_stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['allow_no_match']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -937,6 +968,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size','start','end','sort','desc']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -970,6 +1002,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/overall_buckets';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['top_n','bucket_span','overall_score','exclude_interim','start','end','allow_no_match']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1004,6 +1037,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/records';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','record_score','sort','desc']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1040,6 +1074,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/trained_models';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','include','include_model_definition','decompress_definition','from','size','tags','exclude_generated']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1070,6 +1105,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/trained_models/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1093,10 +1129,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function inferTrainedModelDeployment(array $params = [])
 	{
-		$this->checkRequiredParameters(['model_id','body'], $params);
+		$this->checkRequiredParameters(['model_id'], $params);
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_infer';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1115,6 +1152,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/info';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1140,6 +1178,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_open';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1162,10 +1201,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function postCalendarEvents(array $params = [])
 	{
-		$this->checkRequiredParameters(['calendar_id','body'], $params);
+		$this->checkRequiredParameters(['calendar_id'], $params);
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1190,10 +1230,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function postData(array $params = [])
 	{
-		$this->checkRequiredParameters(['job_id','body'], $params);
+		$this->checkRequiredParameters(['job_id'], $params);
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_data';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['reset_start','reset_end']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson,application/json',
@@ -1223,6 +1264,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1252,6 +1294,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1278,6 +1321,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1304,6 +1348,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1325,10 +1370,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putDataFrameAnalytics(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1355,10 +1401,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putDatafeed(array $params = [])
 	{
-		$this->checkRequiredParameters(['datafeed_id','body'], $params);
+		$this->checkRequiredParameters(['datafeed_id'], $params);
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1381,10 +1428,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putFilter(array $params = [])
 	{
-		$this->checkRequiredParameters(['filter_id','body'], $params);
+		$this->checkRequiredParameters(['filter_id'], $params);
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1411,10 +1459,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putJob(array $params = [])
 	{
-		$this->checkRequiredParameters(['job_id','body'], $params);
+		$this->checkRequiredParameters(['job_id'], $params);
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1438,10 +1487,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putTrainedModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['model_id','body'], $params);
+		$this->checkRequiredParameters(['model_id'], $params);
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['defer_definition_decompression']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1469,6 +1519,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['reassign']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1493,10 +1544,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putTrainedModelDefinitionPart(array $params = [])
 	{
-		$this->checkRequiredParameters(['model_id','part','body'], $params);
+		$this->checkRequiredParameters(['model_id','part'], $params);
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/definition/' . urlencode((string) $params['part']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1520,10 +1572,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function putTrainedModelVocabulary(array $params = [])
 	{
-		$this->checkRequiredParameters(['model_id','body'], $params);
+		$this->checkRequiredParameters(['model_id'], $params);
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/vocabulary';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1550,6 +1603,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_reset';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1577,6 +1631,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_revert';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['delete_intervening_results']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1602,6 +1657,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/set_upgrade_mode';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['enabled','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1628,6 +1684,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1657,6 +1714,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['start','end','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1685,6 +1743,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','wait_for']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1714,6 +1773,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1744,6 +1804,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1773,6 +1834,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1795,10 +1857,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function updateDataFrameAnalytics(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1825,10 +1888,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function updateDatafeed(array $params = [])
 	{
-		$this->checkRequiredParameters(['datafeed_id','body'], $params);
+		$this->checkRequiredParameters(['datafeed_id'], $params);
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1851,10 +1915,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function updateFilter(array $params = [])
 	{
-		$this->checkRequiredParameters(['filter_id','body'], $params);
+		$this->checkRequiredParameters(['filter_id'], $params);
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1877,10 +1942,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function updateJob(array $params = [])
 	{
-		$this->checkRequiredParameters(['job_id','body'], $params);
+		$this->checkRequiredParameters(['job_id'], $params);
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1904,10 +1970,11 @@ class Ml extends AbstractEndpoint
 	 */
 	public function updateModelSnapshot(array $params = [])
 	{
-		$this->checkRequiredParameters(['job_id','snapshot_id','body'], $params);
+		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_update';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1936,6 +2003,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1960,6 +2028,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_validate';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1985,6 +2054,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_validate/detector';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

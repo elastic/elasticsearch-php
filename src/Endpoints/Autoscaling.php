@@ -45,6 +45,7 @@ class Autoscaling extends AbstractEndpoint
 		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -62,6 +63,7 @@ class Autoscaling extends AbstractEndpoint
 		$url = '/_autoscaling/capacity';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -86,6 +88,7 @@ class Autoscaling extends AbstractEndpoint
 		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -107,10 +110,11 @@ class Autoscaling extends AbstractEndpoint
 	 */
 	public function putAutoscalingPolicy(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

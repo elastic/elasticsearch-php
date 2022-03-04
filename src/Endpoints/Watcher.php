@@ -50,6 +50,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack';
 			$method = 'PUT';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -74,6 +75,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_activate';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -98,6 +100,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_deactivate';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -122,6 +125,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -151,6 +155,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/watch/_execute';
 			$method = 'PUT';
 		}
+		$url = $this->addQueryString($url, $params, ['debug']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -176,6 +181,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -205,6 +211,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['active','version','if_seq_no','if_primary_term']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -229,6 +236,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_query/watches';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -247,6 +255,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -261,7 +270,6 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     metric: list, //  Controls what additional stat metrics should be include in the response
-	 *     metric: list, // Controls what additional stat metrics should be include in the response
 	 *     emit_stacktraces: boolean, // Emits stack traces of currently running watches
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
@@ -276,6 +284,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['emit_stacktraces']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -293,6 +302,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

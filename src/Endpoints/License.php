@@ -38,6 +38,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -62,6 +63,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['local','accept_enterprise']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -79,6 +81,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/basic_status';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -96,6 +99,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/trial_status';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -120,6 +124,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['acknowledge']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -144,6 +149,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_basic';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['acknowledge']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -168,6 +174,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_trial';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['type','acknowledge']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

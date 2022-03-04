@@ -46,6 +46,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/allocation/explain';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['include_yes_decisions','include_disk_info']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -73,6 +74,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -96,6 +98,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/voting_config_exclusions';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_removal']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -122,6 +125,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -151,6 +155,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_component_template';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -177,6 +182,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/settings';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout','include_defaults']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -215,6 +221,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/health';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','level','local','master_timeout','timeout','wait_for_active_shards','wait_for_nodes','wait_for_events','wait_for_no_relocating_shards','wait_for_no_initializing_shards','wait_for_status']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -240,6 +247,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/pending_tasks';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['local','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -265,6 +273,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/voting_config_exclusions';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['node_ids','node_names','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -289,10 +298,11 @@ class Cluster extends AbstractEndpoint
 	 */
 	public function putComponentTemplate(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['create','timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -321,6 +331,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/settings';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -339,6 +350,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_remote/info';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -368,6 +380,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/reroute';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['dry_run','explain','retry_failed','metric','master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -408,6 +421,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/state';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['local','master_timeout','flat_settings','wait_for_metadata_version','wait_for_timeout','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -437,6 +451,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['flat_settings','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

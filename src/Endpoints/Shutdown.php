@@ -45,6 +45,7 @@ class Shutdown extends AbstractEndpoint
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -73,6 +74,7 @@ class Shutdown extends AbstractEndpoint
 			$url = '/_nodes/shutdown';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -95,10 +97,11 @@ class Shutdown extends AbstractEndpoint
 	 */
 	public function putNode(array $params = [])
 	{
-		$this->checkRequiredParameters(['node_id','body'], $params);
+		$this->checkRequiredParameters(['node_id'], $params);
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

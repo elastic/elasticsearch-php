@@ -51,6 +51,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_block/' . urlencode((string) $params['block']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -65,7 +66,6 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, //  The name of the index to scope the operation
-	 *     index: string, // The name of the index to scope the operation
 	 *     body: array, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
@@ -80,6 +80,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_analyze';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -101,7 +102,6 @@ class Indices extends AbstractEndpoint
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     index: list, // A comma-separated list of index name to limit the operation
 	 *     request: boolean, // Clear request cache
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
@@ -116,6 +116,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_cache/clear';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['fielddata','fields','query','ignore_unavailable','allow_no_indices','expand_wildcards','request']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -145,6 +146,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_clone/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -176,6 +178,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_close';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -204,6 +207,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -229,6 +233,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -256,6 +261,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_data_stream/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -285,6 +291,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -312,6 +319,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -337,6 +345,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -363,6 +372,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -389,6 +399,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -419,6 +430,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_disk_usage';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['run_expensive_tasks','flush','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -449,6 +461,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -482,6 +495,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_alias/' . urlencode((string) $params['name']);
 			$method = 'HEAD';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -509,6 +523,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -536,6 +551,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -565,6 +581,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_field_usage_stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -597,6 +614,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_flush';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['force','wait_if_ongoing','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -630,6 +648,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_forcemerge';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['flush','ignore_unavailable','allow_no_indices','expand_wildcards','max_num_segments','only_expunge_deletes']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -661,6 +680,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -699,6 +719,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_alias';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -727,6 +748,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_data_stream';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -761,6 +783,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_mapping/field/' . urlencode((string) $params['fields']);
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['include_defaults','ignore_unavailable','allow_no_indices','expand_wildcards','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -791,6 +814,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_index_template';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -823,6 +847,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_mapping';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -864,6 +889,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_settings';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','local','include_defaults']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -894,6 +920,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_template';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -918,6 +945,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/_migrate/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -942,6 +970,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/_modify';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -973,6 +1002,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_open';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -997,6 +1027,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/_promote/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1025,6 +1056,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1050,10 +1082,11 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putIndexTemplate(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_index_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1082,10 +1115,11 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putMapping(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_mapping';
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','write_index_only']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1123,6 +1157,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_settings';
 			$method = 'PUT';
 		}
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','preserve_existing','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1148,10 +1183,11 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putTemplate(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
+		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['order','create','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1182,6 +1218,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_recovery';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['detailed','active_only']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1212,6 +1249,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_refresh';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1239,6 +1277,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_reload_search_analyzers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1264,6 +1303,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_resolve/index/' . urlencode((string) $params['name']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1299,6 +1339,7 @@ class Indices extends AbstractEndpoint
 			$url = '/' . urlencode((string) $params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1331,6 +1372,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_segments';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','verbose']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1362,6 +1404,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_shard_stores';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['status','ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1391,6 +1434,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_shrink/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1420,6 +1464,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_index_template/_simulate_index/' . urlencode((string) $params['name']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1452,6 +1497,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_index_template/_simulate';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1482,6 +1528,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_split/' . urlencode((string) $params['target']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1526,6 +1573,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['completion_fields','fielddata_fields','fields','groups','level','include_segment_file_sizes','include_unloaded_segments','expand_wildcards','forbid_closed_indices']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1556,6 +1604,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_unfreeze';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1582,6 +1631,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_aliases';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1623,6 +1673,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_validate/query';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['explain','ignore_unavailable','allow_no_indices','expand_wildcards','q','analyzer','analyze_wildcard','default_operator','df','lenient','rewrite','all_shards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

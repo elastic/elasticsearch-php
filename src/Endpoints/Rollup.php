@@ -46,6 +46,7 @@ class Rollup extends AbstractEndpoint
 		$url = '/_rollup/job/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -74,6 +75,7 @@ class Rollup extends AbstractEndpoint
 			$url = '/_rollup/job/';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -102,6 +104,7 @@ class Rollup extends AbstractEndpoint
 			$url = '/_rollup/data/';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -127,6 +130,7 @@ class Rollup extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_rollup/data';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -149,10 +153,11 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function putJob(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_rollup/job/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -177,10 +182,11 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function rollup(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','rollup_index','body'], $params);
+		$this->checkRequiredParameters(['index','rollup_index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_rollup/' . urlencode((string) $params['rollup_index']);
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -206,10 +212,11 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function rollupSearch(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_rollup_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['typed_keys','rest_total_hits_as_int']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -236,6 +243,7 @@ class Rollup extends AbstractEndpoint
 		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_start';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -263,6 +271,7 @@ class Rollup extends AbstractEndpoint
 		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_stop';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

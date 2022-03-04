@@ -49,6 +49,7 @@ class Fleet extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_fleet/global_checkpoints';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_advance','wait_for_index','checkpoints','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -79,6 +80,7 @@ class Fleet extends AbstractEndpoint
 			$url = '/_fleet/_fleet_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -108,6 +110,7 @@ class Fleet extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_checkpoints','wait_for_checkpoints_timeout','allow_partial_search_results']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

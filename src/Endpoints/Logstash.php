@@ -45,6 +45,7 @@ class Logstash extends AbstractEndpoint
 		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -69,6 +70,7 @@ class Logstash extends AbstractEndpoint
 		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -90,10 +92,11 @@ class Logstash extends AbstractEndpoint
 	 */
 	public function putPipeline(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

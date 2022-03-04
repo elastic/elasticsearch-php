@@ -55,6 +55,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/aliases';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','local','h','help','s','v','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -90,6 +91,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/allocation';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','bytes','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -122,6 +124,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/count';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -142,7 +145,6 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
-	 *     fields: list, // A comma-separated list of fields to return in the output
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
 	 * @return Elasticsearch|Promise
@@ -156,6 +158,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/fielddata';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -185,6 +188,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/health';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -209,6 +213,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['help','s']);
 		$headers = array (
 		  'Accept' => 'text/plain',
 		);
@@ -248,6 +253,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/indices';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','health','help','pri','s','time','v','include_unloaded_segments','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -277,6 +283,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/master';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -312,6 +319,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/data_frame/analytics';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -346,6 +354,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/datafeeds';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -381,6 +390,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/anomaly_detectors';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -418,6 +428,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/trained_models';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','bytes','format','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -447,6 +458,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/nodeattrs';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -479,6 +491,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/nodes';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['bytes','format','full_id','master_timeout','h','help','s','time','v','include_unloaded_segments']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -509,6 +522,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/pending_tasks';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -539,6 +553,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/plugins';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -559,7 +574,6 @@ class Cat extends AbstractEndpoint
 	 *     detailed: boolean, // If `true`, the response includes detailed information about shard recoveries
 	 *     h: list, // Comma-separated list of column names to display
 	 *     help: boolean, // Return help information
-	 *     index: list, // Comma-separated list or wildcard expression of index names to limit the returned information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
@@ -576,6 +590,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/recovery';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','active_only','bytes','detailed','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -605,6 +620,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/repositories';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -638,6 +654,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/segments';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -673,6 +690,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/shards';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -708,6 +726,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/snapshots';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -741,6 +760,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/tasks';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -775,6 +795,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/templates';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -811,6 +832,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/thread_pool';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -847,6 +869,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/transforms';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);

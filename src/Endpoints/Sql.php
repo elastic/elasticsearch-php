@@ -45,6 +45,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql/close';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -70,6 +71,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql/async/delete/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -98,6 +100,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql/async/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['delimiter','format','keep_alive','wait_for_completion_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -122,6 +125,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql/async/status/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -147,6 +151,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['format']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -172,6 +177,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql/translate';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

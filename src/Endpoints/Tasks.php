@@ -53,6 +53,7 @@ class Tasks extends AbstractEndpoint
 			$url = '/_tasks/_cancel';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['nodes','actions','parent_task_id','wait_for_completion']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -80,6 +81,7 @@ class Tasks extends AbstractEndpoint
 		$url = '/_tasks/' . urlencode((string) $params['task_id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -110,6 +112,7 @@ class Tasks extends AbstractEndpoint
 		$url = '/_tasks';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['nodes','actions','detailed','parent_task_id','wait_for_completion','group_by','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

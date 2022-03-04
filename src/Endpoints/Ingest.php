@@ -47,6 +47,7 @@ class Ingest extends AbstractEndpoint
 		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -64,6 +65,7 @@ class Ingest extends AbstractEndpoint
 		$url = '/_ingest/geoip/stats';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -93,6 +95,7 @@ class Ingest extends AbstractEndpoint
 			$url = '/_ingest/pipeline';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['summary','master_timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -110,6 +113,7 @@ class Ingest extends AbstractEndpoint
 		$url = '/_ingest/processor/grok';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -134,10 +138,11 @@ class Ingest extends AbstractEndpoint
 	 */
 	public function putPipeline(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
+		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
+		$url = $this->addQueryString($url, $params, ['if_version','master_timeout','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -169,6 +174,7 @@ class Ingest extends AbstractEndpoint
 			$url = '/_ingest/pipeline/_simulate';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['verbose']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

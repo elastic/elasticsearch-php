@@ -45,6 +45,7 @@ class Eql extends AbstractEndpoint
 		$url = '/_eql/search/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -71,6 +72,7 @@ class Eql extends AbstractEndpoint
 		$url = '/_eql/search/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -95,6 +97,7 @@ class Eql extends AbstractEndpoint
 		$url = '/_eql/search/status/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -119,10 +122,11 @@ class Eql extends AbstractEndpoint
 	 */
 	public function search(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','body'], $params);
+		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . urlencode((string) $params['index']) . '/_eql/search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
+		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

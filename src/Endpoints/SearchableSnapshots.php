@@ -49,6 +49,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/cache/stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -67,7 +68,6 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     index: list, // A comma-separated list of index name to limit the operation
 	 * } $params
 	 * @throws MissingParameterException if a required parameter is missing
 	 * @return Elasticsearch|Promise
@@ -81,6 +81,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -106,10 +107,11 @@ class SearchableSnapshots extends AbstractEndpoint
 	 */
 	public function mount(array $params = [])
 	{
-		$this->checkRequiredParameters(['repository','snapshot','body'], $params);
+		$this->checkRequiredParameters(['repository','snapshot'], $params);
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_mount';
 		$method = 'POST';
 
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','storage']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -139,6 +141,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['level']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

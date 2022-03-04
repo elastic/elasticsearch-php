@@ -47,6 +47,7 @@ class Nodes extends AbstractEndpoint
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/_repositories_metering/' . urlencode((string) $params['max_archive_version']);
 		$method = 'DELETE';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -72,6 +73,7 @@ class Nodes extends AbstractEndpoint
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/_repositories_metering';
 		$method = 'GET';
 
+		$url = $this->addQueryString($url, $params, []);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -106,6 +108,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/hot_threads';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['interval','snapshots','threads','ignore_idle_threads','type','sort','timeout']);
 		$headers = array (
 		  'Accept' => 'text/plain',
 		);
@@ -142,6 +145,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['flat_settings','timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -171,6 +175,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/reload_secure_settings';
 			$method = 'POST';
 		}
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -222,6 +227,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/stats';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['completion_fields','fielddata_fields','fields','groups','level','types','timeout','include_segment_file_sizes','include_unloaded_segments']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -257,6 +263,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/usage';
 			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['timeout']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

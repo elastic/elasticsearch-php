@@ -175,7 +175,7 @@ abstract class AbstractEndpoint
             $docID = (string) $docID;
         }
         
-        $this->id = urlencode($docID);
+        $this->id = rawurlencode($docID);
 
         return $this;
     }

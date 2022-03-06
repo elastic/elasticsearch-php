@@ -47,8 +47,6 @@ jobs:
     - name: Unit tests
       run: |
         composer run-script test
-      env:
-        TEST_SUITE: free
 
     - name: Configure sysctl limits
       run: |
@@ -64,4 +62,6 @@ jobs:
 
     - name: Integration tests
       run: |
-        composer run-script integration-test     
+        composer run-script integration-test   
+      env:
+        TEST_SUITE: free

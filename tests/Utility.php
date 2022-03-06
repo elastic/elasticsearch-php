@@ -58,10 +58,10 @@ class Utility
      */
     public static function getHost(): ?string
     {
-        $url = getenv('ELASTICSEARCH_URL');
-        if (false !== $url) {
-            return $url;
-        }
+        // $url = getenv('ELASTICSEARCH_URL');
+        // if (false !== $url) {
+        //     return $url;
+        // }
         if (getenv('TEST_SUITE') === 'free') {
             return 'http://localhost:9200';
         }

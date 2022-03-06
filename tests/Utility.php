@@ -62,6 +62,9 @@ class Utility
         if (false !== $url) {
             return $url;
         }
+        if (getenv('TEST_SUITE') === 'free') {
+            return 'http://localhost:9200';
+        }
         return 'https://localhost:9200';
     }
 
@@ -70,6 +73,11 @@ class Utility
      */
     public static function getClient(): Client
     {
+        if (getenv('TEST_SUITE') === 'free') {
+            return ClientBuilder::create()
+                ->setHosts([self::getHost()])
+                ->build();
+        }
         return ClientBuilder::create()
             ->setHosts([self::getHost()])
             ->setBasicAuthentication('elastic', 'changeme')

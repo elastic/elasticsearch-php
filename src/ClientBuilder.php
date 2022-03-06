@@ -87,14 +87,14 @@ class ClientBuilder
 
     /**
      * SSL certificate 
-     * @param array [$cert, $password] $cert is the name of a file containing a PEM formatted certificate,
+     * @var array [$cert, $password] $cert is the name of a file containing a PEM formatted certificate,
      *              $password if the certificate requires a password 
      */
     private array $sslCert;
 
     /**
      * SSL key
-     * @param array [$key, $password] $key is the name of a file containing a private SSL key,
+     * @var array [$key, $password] $key is the name of a file containing a private SSL key,
      *              $password if the private key requires a password
      */
     private array $sslKey;

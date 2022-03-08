@@ -1,3 +1,8 @@
+## Release 8.0.0-rc2
+
+- Added the common parameters in all the endpoints
+  []()
+
 ## Release 8.0.0-rc1
 
 - Fixed query string in API endpoints + added a first integration test

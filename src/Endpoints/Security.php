@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Security extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Enables authentication as a user and retrieve information about the authenticated user.
 	 *
@@ -38,7 +38,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/_authenticate';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -54,9 +54,19 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     username: string, //  The username of the user to change the password for
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) the new password for the user
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function changePassword(array $params = [])
@@ -69,7 +79,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user/_password';
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -85,8 +95,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     ids: list, // (REQUIRED) A comma-separated list of IDs of API keys to clear from the cache
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearApiKeyCache(array $params = [])
@@ -95,7 +115,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key/' . urlencode((string) $params['ids']) . '/_clear_cache';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -110,8 +130,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     application: list, // (REQUIRED) A comma-separated list of application names
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearCachedPrivileges(array $params = [])
@@ -120,7 +150,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/_clear_cache';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -136,8 +166,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     realms: list, // (REQUIRED) Comma-separated list of realms to clear
 	 *     usernames: list, // Comma-separated list of usernames to clear from the cache
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearCachedRealms(array $params = [])
@@ -146,7 +186,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/realm/' . urlencode((string) $params['realms']) . '/_clear_cache';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['usernames']);
+		$url = $this->addQueryString($url, $params, ['usernames','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -161,8 +201,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) Role name
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearCachedRoles(array $params = [])
@@ -171,7 +221,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -188,8 +238,18 @@ class Security extends AbstractEndpoint
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name: list, // (REQUIRED) A comma-separated list of service token names
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearCachedServiceTokens(array $params = [])
@@ -198,7 +258,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']) . '/_clear_cache';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -213,9 +273,19 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The api key request to create an API key
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function createApiKey(array $params = [])
@@ -224,7 +294,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -243,8 +313,18 @@ class Security extends AbstractEndpoint
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name: string, //  An identifier for the token name
 	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function createServiceToken(array $params = [])
@@ -257,7 +337,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -274,8 +354,18 @@ class Security extends AbstractEndpoint
 	 *     application: string, // (REQUIRED) Application name
 	 *     name: string, // (REQUIRED) Privilege name
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deletePrivileges(array $params = [])
@@ -284,7 +374,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -300,8 +390,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role name
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteRole(array $params = [])
@@ -310,7 +410,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -326,8 +426,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteRoleMapping(array $params = [])
@@ -336,7 +446,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -354,8 +464,18 @@ class Security extends AbstractEndpoint
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name: string, // (REQUIRED) An identifier for the token name
 	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteServiceToken(array $params = [])
@@ -364,7 +484,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -380,8 +500,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     username: string, // (REQUIRED) username
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteUser(array $params = [])
@@ -390,7 +520,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -406,8 +536,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to disable
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function disableUser(array $params = [])
@@ -416,7 +556,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_disable';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -432,8 +572,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to enable
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function enableUser(array $params = [])
@@ -442,7 +592,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_enable';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -460,7 +610,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/enroll/kibana';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -479,7 +629,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/enroll/node';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -499,8 +649,18 @@ class Security extends AbstractEndpoint
 	 *     username: string, // user name of the user who created this API key to be retrieved
 	 *     realm_name: string, // realm name of the user who created this API key to be retrieved
 	 *     owner: boolean, // flag to query API keys owned by the currently authenticated user
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getApiKey(array $params = [])
@@ -508,7 +668,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner']);
+		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -526,7 +686,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/_builtin';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -542,8 +702,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     application: string, //  Application name
 	 *     name: string, //  Privilege name
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getPrivileges(array $params = [])
@@ -558,7 +728,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/privilege';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -573,8 +743,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, //  A comma-separated list of role names
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getRole(array $params = [])
@@ -586,7 +766,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/role';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -601,8 +781,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, //  A comma-separated list of role-mapping names
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getRoleMapping(array $params = [])
@@ -614,7 +804,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/role_mapping';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -630,8 +820,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace: string, //  An identifier for the namespace
 	 *     service: string, //  An identifier for the service name
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getServiceAccounts(array $params = [])
@@ -646,7 +846,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/service';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -662,8 +862,18 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getServiceCredentials(array $params = [])
@@ -672,7 +882,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -686,9 +896,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The token request to get
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getToken(array $params = [])
@@ -697,7 +917,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/oauth2/token';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -713,8 +933,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: list, //  A comma-separated list of usernames
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getUser(array $params = [])
@@ -726,7 +956,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -744,7 +974,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/_privileges';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -759,9 +989,19 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The api key request to create an API key
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function grantApiKey(array $params = [])
@@ -770,7 +1010,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key/grant';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -786,9 +1026,19 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     user: string, //  Username
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The privileges to test
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function hasPrivileges(array $params = [])
@@ -801,7 +1051,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user/_has_privileges';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -816,9 +1066,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The api key request to invalidate API key(s)
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function invalidateApiKey(array $params = [])
@@ -827,7 +1087,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -842,9 +1102,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The token to invalidate
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function invalidateToken(array $params = [])
@@ -853,7 +1123,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/oauth2/token';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -869,9 +1139,19 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The privilege(s) to add
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putPrivileges(array $params = [])
@@ -880,7 +1160,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/privilege/';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -897,9 +1177,19 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role name
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The role to add
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putRole(array $params = [])
@@ -908,7 +1198,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -925,9 +1215,19 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The role mapping to add
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putRoleMapping(array $params = [])
@@ -936,7 +1236,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -953,9 +1253,19 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the User
 	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The user to add
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putUser(array $params = [])
@@ -964,7 +1274,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/user/' . urlencode((string) $params['username']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -979,9 +1289,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  From, size, query, sort and search_after
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function queryApiKeys(array $params = [])
@@ -989,7 +1309,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/_query/api_key';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1004,9 +1324,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The SAML response to authenticate
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlAuthenticate(array $params = [])
@@ -1015,7 +1345,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/authenticate';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1030,9 +1360,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-complete-logout.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The logout response to verify
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlCompleteLogout(array $params = [])
@@ -1041,7 +1381,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/complete_logout';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1056,9 +1396,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-invalidate.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The LogoutRequest message
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlInvalidate(array $params = [])
@@ -1067,7 +1417,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/invalidate';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1082,9 +1432,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The tokens to invalidate
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlLogout(array $params = [])
@@ -1093,7 +1453,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/logout';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1108,9 +1468,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The realm for which to create the authentication request, identified by either its name or the ACS URL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlPrepareAuthentication(array $params = [])
@@ -1119,7 +1489,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/prepare';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1135,8 +1505,18 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     realm_name: string, // (REQUIRED) The name of the SAML realm to get the metadata for
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function samlServiceProviderMetadata(array $params = [])
@@ -1145,7 +1525,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/saml/metadata/' . urlencode((string) $params['realm_name']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

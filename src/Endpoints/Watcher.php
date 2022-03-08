@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Watcher extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Acknowledges a watch, manually throttling the execution of the watch's actions.
 	 *
@@ -36,8 +36,18 @@ class Watcher extends AbstractEndpoint
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
 	 *     action_id: list, //  A comma-separated list of the action ids to be acked
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function ackWatch(array $params = [])
@@ -50,7 +60,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack';
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -65,8 +75,18 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function activateWatch(array $params = [])
@@ -75,7 +95,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_activate';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -90,8 +110,18 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deactivateWatch(array $params = [])
@@ -100,7 +130,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_deactivate';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -115,8 +145,18 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteWatch(array $params = [])
@@ -125,7 +165,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -141,9 +181,19 @@ class Watcher extends AbstractEndpoint
 	 * @param array{
 	 *     id: string, //  Watch ID
 	 *     debug: boolean, // indicates whether the watch should execute in debug mode
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Execution control
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function executeWatch(array $params = [])
@@ -155,7 +205,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/watch/_execute';
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['debug']);
+		$url = $this->addQueryString($url, $params, ['debug','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -171,8 +221,18 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getWatch(array $params = [])
@@ -181,7 +241,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -200,9 +260,19 @@ class Watcher extends AbstractEndpoint
 	 *     version: number, // Explicit version number for concurrency control
 	 *     if_seq_no: number, // only update the watch if the last operation that has changed the watch has the specified sequence number
 	 *     if_primary_term: number, // only update the watch if the last operation that has changed the watch has the specified primary term
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The watch
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putWatch(array $params = [])
@@ -211,7 +281,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['active','version','if_seq_no','if_primary_term']);
+		$url = $this->addQueryString($url, $params, ['active','version','if_seq_no','if_primary_term','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -226,9 +296,19 @@ class Watcher extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  From, size, query, sort and search_after
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function queryWatches(array $params = [])
@@ -236,7 +316,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_query/watches';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -255,7 +335,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -271,8 +351,18 @@ class Watcher extends AbstractEndpoint
 	 * @param array{
 	 *     metric: list, //  Controls what additional stat metrics should be include in the response
 	 *     emit_stacktraces: boolean, // Emits stack traces of currently running watches
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stats(array $params = [])
@@ -284,7 +374,7 @@ class Watcher extends AbstractEndpoint
 			$url = '/_watcher/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['emit_stacktraces']);
+		$url = $this->addQueryString($url, $params, ['emit_stacktraces','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -302,7 +392,7 @@ class Watcher extends AbstractEndpoint
 		$url = '/_watcher/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

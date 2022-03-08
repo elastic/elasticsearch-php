@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Ml extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Closes one or more anomaly detection jobs. A job can be opened and closed multiple times throughout its lifecycle.
 	 *
@@ -38,9 +38,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
 	 *     force: boolean, // True if the job should be forcefully closed
 	 *     timeout: time, // Controls the time to wait until a job has closed. Default to 30 minutes
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The URL params optionally sent in the body
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function closeJob(array $params = [])
@@ -49,7 +59,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_close';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -65,8 +75,18 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to delete
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteCalendar(array $params = [])
@@ -75,7 +95,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -91,8 +111,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
 	 *     event_id: string, // (REQUIRED) The ID of the event to remove from the calendar
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteCalendarEvent(array $params = [])
@@ -101,7 +131,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events/' . urlencode((string) $params['event_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -117,8 +147,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
 	 *     job_id: string, // (REQUIRED) The ID of the job to remove from the calendar
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteCalendarJob(array $params = [])
@@ -127,7 +167,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -144,8 +184,18 @@ class Ml extends AbstractEndpoint
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to delete
 	 *     force: boolean, // True if the job should be forcefully deleted
 	 *     timeout: time, // Controls the time to wait until a job is deleted. Defaults to 1 minute
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteDataFrameAnalytics(array $params = [])
@@ -154,7 +204,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['force','timeout']);
+		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -170,8 +220,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to delete
 	 *     force: boolean, // True if the datafeed should be forcefully deleted
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteDatafeed(array $params = [])
@@ -180,7 +240,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['force']);
+		$url = $this->addQueryString($url, $params, ['force','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -197,9 +257,19 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, //  The ID of the job(s) to perform expired data hygiene for
 	 *     requests_per_second: number, // The desired requests per second for the deletion processes.
 	 *     timeout: time, // How long can the underlying delete processes run until they are canceled
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  deleting expired data parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteExpiredData(array $params = [])
@@ -211,7 +281,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/_delete_expired_data';
 			$method = 'DELETE';
 		}
-		$url = $this->addQueryString($url, $params, ['requests_per_second','timeout']);
+		$url = $this->addQueryString($url, $params, ['requests_per_second','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -227,8 +297,18 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     filter_id: string, // (REQUIRED) The ID of the filter to delete
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteFilter(array $params = [])
@@ -237,7 +317,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -255,8 +335,18 @@ class Ml extends AbstractEndpoint
 	 *     forecast_id: string, //  The ID of the forecast to delete, can be comma delimited list. Leaving blank implies `_all`
 	 *     allow_no_forecasts: boolean, // Whether to ignore if `_all` matches no forecasts
 	 *     timeout: time, // Controls the time to wait until the forecast(s) are deleted. Default to 30 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteForecast(array $params = [])
@@ -269,7 +359,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
 			$method = 'DELETE';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_forecasts','timeout']);
+		$url = $this->addQueryString($url, $params, ['allow_no_forecasts','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -286,8 +376,18 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, // (REQUIRED) The ID of the job to delete
 	 *     force: boolean, // True if the job should be forcefully deleted
 	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteJob(array $params = [])
@@ -296,7 +396,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['force','wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -312,8 +412,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to fetch
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot to delete
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteModelSnapshot(array $params = [])
@@ -322,7 +432,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -338,8 +448,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained model to delete
 	 *     timeout: time, // Controls the amount of time to wait for the model to be deleted.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteTrainedModel(array $params = [])
@@ -348,7 +468,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -364,8 +484,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_alias: string, // (REQUIRED) The trained model alias to delete
 	 *     model_id: string, // (REQUIRED) The trained model where the model alias is assigned
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteTrainedModelAlias(array $params = [])
@@ -374,7 +504,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -389,9 +519,19 @@ class Ml extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-apis.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The analysis config, plus cardinality estimates for fields it references
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function estimateModelMemory(array $params = [])
@@ -400,7 +540,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_estimate_model_memory';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -415,9 +555,19 @@ class Ml extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The evaluation definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function evaluateDataFrame(array $params = [])
@@ -426,7 +576,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/_evaluate';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -442,9 +592,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, //  The ID of the data frame analytics to explain
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The data frame analytics config to explain
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function explainDataFrameAnalytics(array $params = [])
@@ -456,7 +616,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_explain';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -477,9 +637,19 @@ class Ml extends AbstractEndpoint
 	 *     end: string, // When used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results
 	 *     advance_time: string, // Advances time to the given value generating results and updating the model for the advanced interval
 	 *     skip_time: string, // Skips time to the given value without generating results or updating the model for the skipped interval
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Flush parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function flushJob(array $params = [])
@@ -488,7 +658,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_flush';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['calc_interim','start','end','advance_time','skip_time']);
+		$url = $this->addQueryString($url, $params, ['calc_interim','start','end','advance_time','skip_time','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -507,9 +677,19 @@ class Ml extends AbstractEndpoint
 	 *     duration: time, // The duration of the forecast
 	 *     expires_in: time, // The time interval after which the forecast expires. Expired forecasts will be deleted at the first opportunity.
 	 *     max_model_memory: string, // The max memory able to be used by the forecast. Default is 20mb.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Query parameters can be specified in the body
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function forecast(array $params = [])
@@ -518,7 +698,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['duration','expires_in','max_model_memory']);
+		$url = $this->addQueryString($url, $params, ['duration','expires_in','max_model_memory','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -544,9 +724,19 @@ class Ml extends AbstractEndpoint
 	 *     anomaly_score: double, // Filter for the most anomalous buckets
 	 *     sort: string, // Sort buckets by a particular field
 	 *     desc: boolean, // Set the sort direction
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Bucket selection details if not provided in URI
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getBuckets(array $params = [])
@@ -559,7 +749,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/buckets';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['expand','exclude_interim','from','size','start','end','anomaly_score','sort','desc']);
+		$url = $this->addQueryString($url, $params, ['expand','exclude_interim','from','size','start','end','anomaly_score','sort','desc','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -580,8 +770,18 @@ class Ml extends AbstractEndpoint
 	 *     end: date, // Get events before this time
 	 *     from: int, // Skips a number of events
 	 *     size: int, // Specifies a max number of events to get
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getCalendarEvents(array $params = [])
@@ -590,7 +790,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['job_id','start','end','from','size']);
+		$url = $this->addQueryString($url, $params, ['job_id','start','end','from','size','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -607,9 +807,19 @@ class Ml extends AbstractEndpoint
 	 *     calendar_id: string, //  The ID of the calendar to fetch
 	 *     from: int, // skips a number of calendars
 	 *     size: int, // specifies a max number of calendars to get
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The from and size parameters optionally sent in the body
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getCalendars(array $params = [])
@@ -621,7 +831,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/calendars';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size']);
+		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -641,9 +851,19 @@ class Ml extends AbstractEndpoint
 	 *     from: int, // skips a number of categories
 	 *     size: int, // specifies a max number of categories to get
 	 *     partition_field_value: string, // Specifies the partition to retrieve categories for. This is optional, and should never be used for jobs where per-partition categorization is disabled.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Category selection details if not provided in URI
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getCategories(array $params = [])
@@ -656,7 +876,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/categories/';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size','partition_field_value']);
+		$url = $this->addQueryString($url, $params, ['from','size','partition_field_value','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -676,8 +896,18 @@ class Ml extends AbstractEndpoint
 	 *     from: int, // skips a number of analytics
 	 *     size: int, // specifies a max number of analytics to get
 	 *     exclude_generated: boolean, // Omits fields that are illegal to set on data frame analytics PUT
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getDataFrameAnalytics(array $params = [])
@@ -689,7 +919,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','exclude_generated']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','exclude_generated','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -708,8 +938,18 @@ class Ml extends AbstractEndpoint
 	 *     from: int, // skips a number of analytics
 	 *     size: int, // specifies a max number of analytics to get
 	 *     verbose: boolean, // whether the stats response should be verbose
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getDataFrameAnalyticsStats(array $params = [])
@@ -721,7 +961,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','verbose']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','verbose','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -737,8 +977,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     datafeed_id: string, //  The ID of the datafeeds stats to fetch
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getDatafeedStats(array $params = [])
@@ -750,7 +1000,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds/_stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -767,8 +1017,18 @@ class Ml extends AbstractEndpoint
 	 *     datafeed_id: string, //  The ID of the datafeeds to fetch
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     exclude_generated: boolean, // Omits fields that are illegal to set on datafeed PUT
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getDatafeeds(array $params = [])
@@ -780,7 +1040,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -797,8 +1057,18 @@ class Ml extends AbstractEndpoint
 	 *     filter_id: string, //  The ID of the filter to fetch
 	 *     from: int, // skips a number of filters
 	 *     size: int, // specifies a max number of filters to get
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getFilters(array $params = [])
@@ -810,7 +1080,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/filters';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size']);
+		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -833,9 +1103,19 @@ class Ml extends AbstractEndpoint
 	 *     influencer_score: double, // influencer score threshold for the requested influencers
 	 *     sort: string, // sort field for the requested influencers
 	 *     desc: boolean, // whether the results should be sorted in decending order
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Influencer selection criteria
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getInfluencers(array $params = [])
@@ -844,7 +1124,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/influencers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','influencer_score','sort','desc']);
+		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','influencer_score','sort','desc','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -861,8 +1141,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, //  The ID of the jobs stats to fetch
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getJobStats(array $params = [])
@@ -874,7 +1164,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/_stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -891,8 +1181,18 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, //  The ID of the jobs to fetch
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
 	 *     exclude_generated: boolean, // Omits fields that are illegal to set on job PUT
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getJobs(array $params = [])
@@ -904,7 +1204,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','exclude_generated','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -921,8 +1221,18 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, // (REQUIRED) The ID of the job. May be a wildcard, comma separated list or `_all`.
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot. May be a wildcard, comma separated list or `_all`.
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no jobs or no snapshots. (This includes the `_all` string.)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getModelSnapshotUpgradeStats(array $params = [])
@@ -931,7 +1241,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade/_stats';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -953,9 +1263,19 @@ class Ml extends AbstractEndpoint
 	 *     end: date, // The filter 'end' query parameter
 	 *     sort: string, // Name of the field to sort on
 	 *     desc: boolean, // True if the results should be sorted in descending order
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Model snapshot selection criteria
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getModelSnapshots(array $params = [])
@@ -968,7 +1288,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size','start','end','sort','desc']);
+		$url = $this->addQueryString($url, $params, ['from','size','start','end','sort','desc','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -991,9 +1311,19 @@ class Ml extends AbstractEndpoint
 	 *     start: string, // Returns overall buckets with timestamps after this time
 	 *     end: string, // Returns overall buckets with timestamps earlier than this time
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Overall bucket selection details if not provided in URI
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getOverallBuckets(array $params = [])
@@ -1002,7 +1332,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/overall_buckets';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['top_n','bucket_span','overall_score','exclude_interim','start','end','allow_no_match']);
+		$url = $this->addQueryString($url, $params, ['top_n','bucket_span','overall_score','exclude_interim','start','end','allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1026,9 +1356,19 @@ class Ml extends AbstractEndpoint
 	 *     record_score: double, // Returns records with anomaly scores greater or equal than this value
 	 *     sort: string, // Sort records by a particular field
 	 *     desc: boolean, // Set the sort direction
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Record selection criteria
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getRecords(array $params = [])
@@ -1037,7 +1377,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/records';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','record_score','sort','desc']);
+		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','record_score','sort','desc','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1061,8 +1401,18 @@ class Ml extends AbstractEndpoint
 	 *     size: int, // specifies a max number of trained models to get
 	 *     tags: list, // A comma-separated list of tags that the model must have.
 	 *     exclude_generated: boolean, // Omits fields that are illegal to set on model PUT
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getTrainedModels(array $params = [])
@@ -1074,7 +1424,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/trained_models';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','include','include_model_definition','decompress_definition','from','size','tags','exclude_generated']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','include','include_model_definition','decompress_definition','from','size','tags','exclude_generated','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1092,8 +1442,18 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
 	 *     from: int, // skips a number of trained models
 	 *     size: int, // specifies a max number of trained models to get
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getTrainedModelsStats(array $params = [])
@@ -1105,7 +1465,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/trained_models/_stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1122,9 +1482,19 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
 	 *     timeout: time, // Controls the amount of time to wait for inference results.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The docs to apply inference on
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function inferTrainedModelDeployment(array $params = [])
@@ -1133,7 +1503,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_infer';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1152,7 +1522,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/info';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1167,9 +1537,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to open
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Query parameters can be specified in the body
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function openJob(array $params = [])
@@ -1178,7 +1558,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_open';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1194,9 +1574,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) A list of events
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function postCalendarEvents(array $params = [])
@@ -1205,7 +1595,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1223,9 +1613,19 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, // (REQUIRED) The name of the job receiving the data
 	 *     reset_start: string, // Optional parameter to specify the start of the bucket resetting range
 	 *     reset_end: string, // Optional parameter to specify the end of the bucket resetting range
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The data to process
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function postData(array $params = [])
@@ -1234,7 +1634,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_data';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['reset_start','reset_end']);
+		$url = $this->addQueryString($url, $params, ['reset_start','reset_end','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson,application/json',
@@ -1250,9 +1650,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, //  The ID of the data frame analytics to preview
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The data frame analytics config to preview
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function previewDataFrameAnalytics(array $params = [])
@@ -1264,7 +1674,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/data_frame/analytics/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1280,9 +1690,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, //  The ID of the datafeed to preview
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The datafeed config and job config with which to execute the preview
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function previewDatafeed(array $params = [])
@@ -1294,7 +1714,7 @@ class Ml extends AbstractEndpoint
 			$url = '/_ml/datafeeds/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1310,9 +1730,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to create
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The calendar details
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putCalendar(array $params = [])
@@ -1321,7 +1751,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1338,8 +1768,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
 	 *     job_id: string, // (REQUIRED) The ID of the job to add to the calendar
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putCalendarJob(array $params = [])
@@ -1348,7 +1788,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1363,9 +1803,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to create
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The data frame analytics configuration
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putDataFrameAnalytics(array $params = [])
@@ -1374,7 +1824,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1394,9 +1844,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_indices: boolean, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
 	 *     ignore_throttled: boolean, // Ignore indices that are marked as throttled (default: true)
 	 *     expand_wildcards: enum, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The datafeed config
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putDatafeed(array $params = [])
@@ -1405,7 +1865,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1421,9 +1881,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     filter_id: string, // (REQUIRED) The ID of the filter to create
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The filter details
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putFilter(array $params = [])
@@ -1432,7 +1902,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1452,9 +1922,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_indices: boolean, // Ignore if the source indices expressions resolves to no concrete indices (default: true). Only set if datafeed_config is provided.
 	 *     ignore_throttled: boolean, // Ignore indices that are marked as throttled (default: true). Only set if datafeed_config is provided.
 	 *     expand_wildcards: enum, // Whether source index expressions should get expanded to open or closed indices (default: open). Only set if datafeed_config is provided.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The job
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putJob(array $params = [])
@@ -1463,7 +1943,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1480,9 +1960,19 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained models to store
 	 *     defer_definition_decompression: boolean, // If set to `true` and a `compressed_definition` is provided, the request defers definition decompression and skips relevant validations.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The trained model configuration
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putTrainedModel(array $params = [])
@@ -1491,7 +1981,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['defer_definition_decompression']);
+		$url = $this->addQueryString($url, $params, ['defer_definition_decompression','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1509,8 +1999,18 @@ class Ml extends AbstractEndpoint
 	 *     model_alias: string, // (REQUIRED) The trained model alias to update
 	 *     model_id: string, // (REQUIRED) The trained model where the model alias should be assigned
 	 *     reassign: boolean, // If the model_alias already exists and points to a separate model_id, this parameter must be true. Defaults to false.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putTrainedModelAlias(array $params = [])
@@ -1519,7 +2019,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['reassign']);
+		$url = $this->addQueryString($url, $params, ['reassign','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1537,9 +2037,19 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained model for this definition part
 	 *     part: int, // (REQUIRED) The part number
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The trained model definition part
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putTrainedModelDefinitionPart(array $params = [])
@@ -1548,7 +2058,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/definition/' . urlencode((string) $params['part']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1565,9 +2075,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained model for this vocabulary
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The trained model vocabulary
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putTrainedModelVocabulary(array $params = [])
@@ -1576,7 +2096,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/vocabulary';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1593,8 +2113,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to reset
 	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function resetJob(array $params = [])
@@ -1603,7 +2133,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_reset';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1620,9 +2150,19 @@ class Ml extends AbstractEndpoint
 	 *     job_id: string, // (REQUIRED) The ID of the job to fetch
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot to revert to
 	 *     delete_intervening_results: boolean, // Should we reset the results back to the time of the snapshot?
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Reversion options
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function revertModelSnapshot(array $params = [])
@@ -1631,7 +2171,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_revert';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['delete_intervening_results']);
+		$url = $this->addQueryString($url, $params, ['delete_intervening_results','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1648,8 +2188,18 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     enabled: boolean, // Whether to enable upgrade_mode ML setting or not. Defaults to false.
 	 *     timeout: time, // Controls the time to wait before action times out. Defaults to 30 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function setUpgradeMode(array $params = [])
@@ -1657,7 +2207,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/set_upgrade_mode';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['enabled','timeout']);
+		$url = $this->addQueryString($url, $params, ['enabled','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1673,9 +2223,19 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to start
 	 *     timeout: time, // Controls the time to wait until the task has started. Defaults to 20 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The start data frame analytics parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function startDataFrameAnalytics(array $params = [])
@@ -1684,7 +2244,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1703,9 +2263,19 @@ class Ml extends AbstractEndpoint
 	 *     start: string, // The start time from where the datafeed should begin
 	 *     end: string, // The end time when the datafeed should stop. When not set, the datafeed continues in real time
 	 *     timeout: time, // Controls the time to wait until a datafeed has started. Default to 20 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The start datafeed parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function startDatafeed(array $params = [])
@@ -1714,7 +2284,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['start','end','timeout']);
+		$url = $this->addQueryString($url, $params, ['start','end','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1733,8 +2303,18 @@ class Ml extends AbstractEndpoint
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
 	 *     timeout: time, // Controls the amount of time to wait for the model to deploy.
 	 *     wait_for: string, // The allocation status for which to wait
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function startTrainedModelDeployment(array $params = [])
@@ -1743,7 +2323,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout','wait_for']);
+		$url = $this->addQueryString($url, $params, ['timeout','wait_for','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1762,9 +2342,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no data frame analytics. (This includes `_all` string or when no data frame analytics have been specified)
 	 *     force: boolean, // True if the data frame analytics should be forcefully stopped
 	 *     timeout: time, // Controls the time to wait until the task has stopped. Defaults to 20 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The stop data frame analytics parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stopDataFrameAnalytics(array $params = [])
@@ -1773,7 +2363,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1793,9 +2383,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_datafeeds: boolean, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     force: boolean, // True if the datafeed should be forcefully stopped.
 	 *     timeout: time, // Controls the time to wait until a datafeed has stopped. Default to 20 seconds
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The URL params optionally sent in the body
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stopDatafeed(array $params = [])
@@ -1804,7 +2404,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1823,9 +2423,19 @@ class Ml extends AbstractEndpoint
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no deployments. (This includes `_all` string or when no deployments have been specified)
 	 *     force: boolean, // True if the deployment should be forcefully stopped
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The stop deployment parameters
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stopTrainedModelDeployment(array $params = [])
@@ -1834,7 +2444,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','force']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1850,9 +2460,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to update
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The data frame analytics settings to update
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateDataFrameAnalytics(array $params = [])
@@ -1861,7 +2481,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1881,9 +2501,19 @@ class Ml extends AbstractEndpoint
 	 *     allow_no_indices: boolean, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
 	 *     ignore_throttled: boolean, // Ignore indices that are marked as throttled (default: true)
 	 *     expand_wildcards: enum, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The datafeed update settings
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateDatafeed(array $params = [])
@@ -1892,7 +2522,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1908,9 +2538,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     filter_id: string, // (REQUIRED) The ID of the filter to update
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The filter update
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateFilter(array $params = [])
@@ -1919,7 +2559,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1935,9 +2575,19 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to create
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The job update settings
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateJob(array $params = [])
@@ -1946,7 +2596,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1963,9 +2613,19 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to fetch
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot to update
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The model snapshot properties to update
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateModelSnapshot(array $params = [])
@@ -1974,7 +2634,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1993,8 +2653,18 @@ class Ml extends AbstractEndpoint
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot
 	 *     timeout: time, // How long should the API wait for the job to be opened and the old snapshot to be loaded.
 	 *     wait_for_completion: boolean, // Should the request wait until the task is complete before responding to the caller. Default is false.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function upgradeJobSnapshot(array $params = [])
@@ -2003,7 +2673,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout','wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -2017,9 +2687,19 @@ class Ml extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The job config
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function validate(array $params = [])
@@ -2028,7 +2708,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_validate';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -2043,9 +2723,19 @@ class Ml extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The detector
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function validateDetector(array $params = [])
@@ -2054,7 +2744,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/_validate/detector';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

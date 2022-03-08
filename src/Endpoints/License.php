@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class License extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Deletes licensing information for the cluster
 	 *
@@ -38,7 +38,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -54,8 +54,18 @@ class License extends AbstractEndpoint
 	 * @param array{
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
 	 *     accept_enterprise: boolean, // Supported for backwards compatibility with 7.x. If this param is used it must be set to true
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function get(array $params = [])
@@ -63,7 +73,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['local','accept_enterprise']);
+		$url = $this->addQueryString($url, $params, ['local','accept_enterprise','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -81,7 +91,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/basic_status';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -99,7 +109,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/trial_status';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -114,9 +124,19 @@ class License extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  licenses to be installed
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function post(array $params = [])
@@ -124,7 +144,7 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['acknowledge']);
+		$url = $this->addQueryString($url, $params, ['acknowledge','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -140,8 +160,18 @@ class License extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function postStartBasic(array $params = [])
@@ -149,7 +179,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_basic';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['acknowledge']);
+		$url = $this->addQueryString($url, $params, ['acknowledge','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -165,8 +195,18 @@ class License extends AbstractEndpoint
 	 * @param array{
 	 *     type: string, // The type of trial license to generate (default: "trial")
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function postStartTrial(array $params = [])
@@ -174,7 +214,7 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_trial';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['type','acknowledge']);
+		$url = $this->addQueryString($url, $params, ['type','acknowledge','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

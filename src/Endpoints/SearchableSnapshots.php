@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class SearchableSnapshots extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Retrieve node-level cache statistics about searchable snapshots.
 	 *
@@ -36,8 +36,18 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id: list, //  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function cacheStats(array $params = [])
@@ -49,7 +59,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/cache/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -68,8 +78,18 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearCache(array $params = [])
@@ -81,7 +101,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -100,9 +120,19 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
 	 *     storage: string, // Selects the kind of local storage used to accelerate searches. Experimental, and defaults to `full_copy`
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The restore configuration for mounting the snapshot as searchable
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mount(array $params = [])
@@ -111,7 +141,7 @@ class SearchableSnapshots extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_mount';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','storage']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','storage','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -128,8 +158,18 @@ class SearchableSnapshots extends AbstractEndpoint
 	 * @param array{
 	 *     index: list, //  A comma-separated list of index names
 	 *     level: enum, // Return stats aggregated at cluster, index or shard level
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stats(array $params = [])
@@ -141,7 +181,7 @@ class SearchableSnapshots extends AbstractEndpoint
 			$url = '/_searchable_snapshots/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['level']);
+		$url = $this->addQueryString($url, $params, ['level','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

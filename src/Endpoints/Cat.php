@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Cat extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Shows information about currently configured aliases to indices including filter and routing infos.
 	 *
@@ -42,8 +42,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function aliases(array $params = [])
@@ -55,7 +65,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/aliases';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','local','h','help','s','v','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['format','local','h','help','s','v','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -78,8 +88,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function allocation(array $params = [])
@@ -91,7 +111,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/allocation';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -111,8 +131,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function count(array $params = [])
@@ -124,7 +154,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/count';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -145,8 +175,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function fielddata(array $params = [])
@@ -158,7 +198,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/fielddata';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -179,8 +219,18 @@ class Cat extends AbstractEndpoint
 	 *     time: enum, // The unit in which to display time values
 	 *     ts: boolean, // Set to false to disable timestamping
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function health(array $params = [])
@@ -188,7 +238,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/health';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -204,8 +254,18 @@ class Cat extends AbstractEndpoint
 	 * @param array{
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function help(array $params = [])
@@ -213,7 +273,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['help','s']);
+		$url = $this->addQueryString($url, $params, ['help','s','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain',
 		);
@@ -240,8 +300,18 @@ class Cat extends AbstractEndpoint
 	 *     v: boolean, // Verbose mode. Display column headers
 	 *     include_unloaded_segments: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function indices(array $params = [])
@@ -253,7 +323,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/indices';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','health','help','pri','s','time','v','include_unloaded_segments','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','health','help','pri','s','time','v','include_unloaded_segments','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -274,8 +344,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function master(array $params = [])
@@ -283,7 +363,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/master';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -306,8 +386,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mlDataFrameAnalytics(array $params = [])
@@ -319,7 +409,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/data_frame/analytics';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -341,8 +431,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mlDatafeeds(array $params = [])
@@ -354,7 +454,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/datafeeds';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -377,8 +477,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mlJobs(array $params = [])
@@ -390,7 +500,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/anomaly_detectors';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -415,8 +525,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mlTrainedModels(array $params = [])
@@ -428,7 +548,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/trained_models';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','bytes','format','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -449,8 +569,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function nodeattrs(array $params = [])
@@ -458,7 +588,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/nodeattrs';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -482,8 +612,18 @@ class Cat extends AbstractEndpoint
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
 	 *     include_unloaded_segments: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function nodes(array $params = [])
@@ -491,7 +631,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/nodes';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['bytes','format','full_id','master_timeout','h','help','s','time','v','include_unloaded_segments']);
+		$url = $this->addQueryString($url, $params, ['bytes','format','full_id','master_timeout','h','help','s','time','v','include_unloaded_segments','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -513,8 +653,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function pendingTasks(array $params = [])
@@ -522,7 +672,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/pending_tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -544,8 +694,18 @@ class Cat extends AbstractEndpoint
 	 *     include_bootstrap: boolean, // Include bootstrap plugins in the response
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function plugins(array $params = [])
@@ -553,7 +713,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/plugins';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -577,8 +737,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function recovery(array $params = [])
@@ -590,7 +760,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/recovery';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','active_only','bytes','detailed','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['format','active_only','bytes','detailed','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -611,8 +781,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function repositories(array $params = [])
@@ -620,7 +800,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/repositories';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -641,8 +821,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function segments(array $params = [])
@@ -654,7 +844,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/segments';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -677,8 +867,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function shards(array $params = [])
@@ -690,7 +890,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/shards';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -713,8 +913,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function snapshots(array $params = [])
@@ -726,7 +936,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/snapshots';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -751,8 +961,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function tasks(array $params = [])
@@ -760,7 +980,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -782,8 +1002,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function templates(array $params = [])
@@ -795,7 +1025,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/templates';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -819,8 +1049,18 @@ class Cat extends AbstractEndpoint
 	 *     help: boolean, // Return help information
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function threadPool(array $params = [])
@@ -832,7 +1072,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/thread_pool';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v']);
+		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
@@ -856,8 +1096,18 @@ class Cat extends AbstractEndpoint
 	 *     s: list, // Comma-separated list of column names or column aliases to sort by
 	 *     time: enum, // The unit in which to display time values
 	 *     v: boolean, // Verbose mode. Display column headers
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function transforms(array $params = [])
@@ -869,7 +1119,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/transforms';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v']);
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);

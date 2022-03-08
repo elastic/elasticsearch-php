@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Fleet extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Returns the current global checkpoints for an index. This API is design for internal use by the fleet server project.
 	 *
@@ -39,8 +39,18 @@ class Fleet extends AbstractEndpoint
 	 *     wait_for_index: boolean, // Whether to wait for the target index to exist and all primary shards be active
 	 *     checkpoints: list, // Comma separated list of checkpoints
 	 *     timeout: time, // Timeout to wait for global checkpoint to advance
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function globalCheckpoints(array $params = [])
@@ -49,7 +59,7 @@ class Fleet extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_fleet/global_checkpoints';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_advance','wait_for_index','checkpoints','timeout']);
+		$url = $this->addQueryString($url, $params, ['wait_for_advance','wait_for_index','checkpoints','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -65,9 +75,19 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, //  The index name to use as the default
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The request definitions (metadata-fleet search request definition pairs), separated by newlines
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function msearch(array $params = [])
@@ -80,7 +100,7 @@ class Fleet extends AbstractEndpoint
 			$url = '/_fleet/_fleet_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -99,9 +119,19 @@ class Fleet extends AbstractEndpoint
 	 *     wait_for_checkpoints: list, // Comma separated list of checkpoints, one per shard
 	 *     wait_for_checkpoints_timeout: time, // Explicit wait_for_checkpoints timeout
 	 *     allow_partial_search_results: boolean, // Indicate if an error should be returned if there is a partial search failure or timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function search(array $params = [])
@@ -110,7 +140,7 @@ class Fleet extends AbstractEndpoint
 		$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_checkpoints','wait_for_checkpoints_timeout','allow_partial_search_results']);
+		$url = $this->addQueryString($url, $params, ['wait_for_checkpoints','wait_for_checkpoints_timeout','allow_partial_search_results','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

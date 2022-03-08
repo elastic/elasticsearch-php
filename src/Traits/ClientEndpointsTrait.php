@@ -16,8 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Traits;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -25,8 +28,6 @@ use Http\Promise\Promise;
  */
 trait ClientEndpointsTrait
 {
-	use EndpointTrait;
-
 	/**
 	 * Allows to perform multiple index/update/delete operations in a single request.
 	 *
@@ -44,9 +45,19 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
 	 *     require_alias: boolean, // Sets require_alias for all incoming documents. Defaults to unset (false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function bulk(array $params = [])
@@ -59,7 +70,7 @@ trait ClientEndpointsTrait
 			$url = '/_bulk';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -75,9 +86,19 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     scroll_id: list, //  A comma-separated list of scroll IDs to clear
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearScroll(array $params = [])
@@ -89,7 +110,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/scroll';
 			$method = 'DELETE';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json,text/plain',
@@ -104,9 +125,19 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  a point-in-time id to close
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function closePointInTime(array $params = [])
@@ -114,7 +145,7 @@ trait ClientEndpointsTrait
 		$url = '/_pit';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -144,9 +175,19 @@ trait ClientEndpointsTrait
 	 *     df: string, // The field to use as default where no field prefix is given in the query string
 	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     terminate_after: number, // The maximum count for each shard, upon reaching which the query execution will terminate early
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  A query to restrict the results specified with the Query DSL (optional)
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function count(array $params = [])
@@ -158,7 +199,7 @@ trait ClientEndpointsTrait
 			$url = '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -184,9 +225,19 @@ trait ClientEndpointsTrait
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The document
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function create(array $params = [])
@@ -195,7 +246,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_create/' . urlencode((string) $params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -220,8 +271,18 @@ trait ClientEndpointsTrait
 	 *     if_primary_term: number, // only perform the delete operation if the last operation that has changed the document has the specified primary term
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function delete(array $params = [])
@@ -230,7 +291,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','if_seq_no','if_primary_term','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','if_seq_no','if_primary_term','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -274,9 +335,19 @@ trait ClientEndpointsTrait
 	 *     wait_for_completion: boolean, // Should the request should block until the delete by query is complete.
 	 *     requests_per_second: number, // The throttle for this request in sub-requests per second. -1 means no throttle.
 	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The search definition using the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteByQuery(array $params = [])
@@ -285,7 +356,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_delete_by_query';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -302,8 +373,18 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
 	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteByQueryRethrottle(array $params = [])
@@ -312,7 +393,7 @@ trait ClientEndpointsTrait
 		$url = '/_delete_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['requests_per_second']);
+		$url = $this->addQueryString($url, $params, ['requests_per_second','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -329,8 +410,18 @@ trait ClientEndpointsTrait
 	 *     id: string, // (REQUIRED) Script ID
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteScript(array $params = [])
@@ -339,7 +430,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -365,8 +456,18 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function exists(array $params = [])
@@ -375,7 +476,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
-		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -400,8 +501,18 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function existsSource(array $params = [])
@@ -410,7 +521,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'HEAD';
 
-		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -438,9 +549,19 @@ trait ClientEndpointsTrait
 	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The query definition using the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function explain(array $params = [])
@@ -449,7 +570,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_explain/' . urlencode((string) $params['id']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['analyze_wildcard','analyzer','default_operator','df','stored_fields','lenient','preference','q','routing','_source','_source_excludes','_source_includes']);
+		$url = $this->addQueryString($url, $params, ['analyze_wildcard','analyzer','default_operator','df','stored_fields','lenient','preference','q','routing','_source','_source_excludes','_source_includes','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -470,9 +591,19 @@ trait ClientEndpointsTrait
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     include_unmapped: boolean, // Indicates whether unmapped fields should be included in the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  An index filter specified with the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function fieldCaps(array $params = [])
@@ -484,7 +615,7 @@ trait ClientEndpointsTrait
 			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped']);
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -511,8 +642,18 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function get(array $params = [])
@@ -521,7 +662,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_doc/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -537,8 +678,18 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getScript(array $params = [])
@@ -547,7 +698,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -565,7 +716,7 @@ trait ClientEndpointsTrait
 		$url = '/_script_context';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -583,7 +734,7 @@ trait ClientEndpointsTrait
 		$url = '/_script_language';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -608,8 +759,18 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getSource(array $params = [])
@@ -618,7 +779,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_source/' . urlencode((string) $params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -645,9 +806,19 @@ trait ClientEndpointsTrait
 	 *     if_primary_term: number, // only perform the index operation if the last operation that has changed the document has the specified primary term
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
 	 *     require_alias: boolean, // When true, requires destination to be an alias. Default is false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The document
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function index(array $params = [])
@@ -660,7 +831,7 @@ trait ClientEndpointsTrait
 			$url = '/' . urlencode((string) $params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -679,7 +850,7 @@ trait ClientEndpointsTrait
 		$url = '/';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -696,9 +867,19 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` to perform the operation on all indices
 	 *     routing: list, // A comma-separated list of specific routing values
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The search definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function knnSearch(array $params = [])
@@ -707,7 +888,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['routing']);
+		$url = $this->addQueryString($url, $params, ['routing','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -731,9 +912,19 @@ trait ClientEndpointsTrait
 	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
 	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mget(array $params = [])
@@ -746,7 +937,7 @@ trait ClientEndpointsTrait
 			$url = '/_mget';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes']);
+		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -769,9 +960,19 @@ trait ClientEndpointsTrait
 	 *     max_concurrent_shard_requests: number, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function msearch(array $params = [])
@@ -784,7 +985,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips']);
+		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -805,9 +1006,19 @@ trait ClientEndpointsTrait
 	 *     max_concurrent_searches: number, // Controls the maximum number of concurrent searches the multi search api will execute
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function msearchTemplate(array $params = [])
@@ -820,7 +1031,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['search_type','typed_keys','max_concurrent_searches','rest_total_hits_as_int','ccs_minimize_roundtrips']);
+		$url = $this->addQueryString($url, $params, ['search_type','typed_keys','max_concurrent_searches','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
@@ -848,9 +1059,19 @@ trait ClientEndpointsTrait
 	 *     realtime: boolean, // Specifies if requests are real-time as opposed to near-real-time (default: true).
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function mtermvectors(array $params = [])
@@ -862,7 +1083,7 @@ trait ClientEndpointsTrait
 			$url = '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ids','term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['ids','term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -883,8 +1104,18 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     keep_alive: string, // Specific the time to live for the point in time
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function openPointInTime(array $params = [])
@@ -893,7 +1124,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_pit';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -911,7 +1142,7 @@ trait ClientEndpointsTrait
 		$url = '/';
 		$method = 'HEAD';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -929,9 +1160,19 @@ trait ClientEndpointsTrait
 	 *     context: string, //  Script context
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The document
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putScript(array $params = [])
@@ -944,7 +1185,7 @@ trait ClientEndpointsTrait
 			$url = '/_scripts/' . urlencode((string) $params['id']);
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -964,9 +1205,19 @@ trait ClientEndpointsTrait
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     search_type: enum, // Search operation type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function rankEval(array $params = [])
@@ -979,7 +1230,7 @@ trait ClientEndpointsTrait
 			$url = '/_rank_eval';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','search_type']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','search_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1004,9 +1255,19 @@ trait ClientEndpointsTrait
 	 *     scroll: time, // Control how long to keep the search context alive
 	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
 	 *     max_docs: number, // Maximum number of documents to process (default: all documents)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function reindex(array $params = [])
@@ -1015,7 +1276,7 @@ trait ClientEndpointsTrait
 		$url = '/_reindex';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['refresh','timeout','wait_for_active_shards','wait_for_completion','requests_per_second','scroll','slices','max_docs']);
+		$url = $this->addQueryString($url, $params, ['refresh','timeout','wait_for_active_shards','wait_for_completion','requests_per_second','scroll','slices','max_docs','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1032,8 +1293,18 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
 	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function reindexRethrottle(array $params = [])
@@ -1042,7 +1313,7 @@ trait ClientEndpointsTrait
 		$url = '/_reindex/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['requests_per_second']);
+		$url = $this->addQueryString($url, $params, ['requests_per_second','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1057,9 +1328,19 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, //  The id of the stored search template
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The search definition template and its params
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function renderSearchTemplate(array $params = [])
@@ -1071,7 +1352,7 @@ trait ClientEndpointsTrait
 			$url = '/_render/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1087,9 +1368,19 @@ trait ClientEndpointsTrait
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The script to execute
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function scriptsPainlessExecute(array $params = [])
@@ -1097,7 +1388,7 @@ trait ClientEndpointsTrait
 		$url = '/_scripts/painless/_execute';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1115,9 +1406,19 @@ trait ClientEndpointsTrait
 	 *     scroll_id: string, //  The scroll ID
 	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The scroll ID if not passed by URL or query parameter.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function scroll(array $params = [])
@@ -1129,7 +1430,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/scroll';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['scroll','rest_total_hits_as_int']);
+		$url = $this->addQueryString($url, $params, ['scroll','rest_total_hits_as_int','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1188,9 +1489,19 @@ trait ClientEndpointsTrait
 	 *     pre_filter_shard_size: number, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     min_compatible_shard_node: string, // The minimum compatible version that all shards involved in search should have for this request to be successful
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function search(array $params = [])
@@ -1202,7 +1513,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','min_compatible_shard_node']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','min_compatible_shard_node','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1229,9 +1540,19 @@ trait ClientEndpointsTrait
 	 *     grid_type: enum, // Determines the geometry type for features in the aggs layer.
 	 *     size: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
 	 *     track_total_hits: boolean|long, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Search request body.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function searchMvt(array $params = [])
@@ -1240,7 +1561,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_mvt/' . urlencode((string) $params['field']) . '/' . urlencode((string) $params['zoom']) . '/' . urlencode((string) $params['x']) . '/' . urlencode((string) $params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits']);
+		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/vnd.mapbox-vector-tile',
 		  'Content-Type' => 'application/json',
@@ -1262,8 +1583,18 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function searchShards(array $params = [])
@@ -1275,7 +1606,7 @@ trait ClientEndpointsTrait
 			$url = '/_search_shards';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -1303,9 +1634,19 @@ trait ClientEndpointsTrait
 	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
 	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The search definition template and its params
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function searchTemplate(array $params = [])
@@ -1318,7 +1659,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','preference','routing','scroll','search_type','explain','profile','typed_keys','rest_total_hits_as_int','ccs_minimize_roundtrips']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','preference','routing','scroll','search_type','explain','profile','typed_keys','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1334,9 +1675,19 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  field name, string which is the prefix expected in matching terms, timeout and size for max number of results
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function termsEnum(array $params = [])
@@ -1345,7 +1696,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1373,9 +1724,19 @@ trait ClientEndpointsTrait
 	 *     realtime: boolean, // Specifies if request is real-time as opposed to near-real-time (default: true).
 	 *     version: number, // Explicit version number for concurrency control
 	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Define parameters and or supply a document to get termvectors for. See documentation.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function termvectors(array $params = [])
@@ -1388,7 +1749,7 @@ trait ClientEndpointsTrait
 			$url = '/' . urlencode((string) $params['index']) . '/_termvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type']);
+		$url = $this->addQueryString($url, $params, ['term_statistics','field_statistics','fields','offsets','positions','payloads','preference','routing','realtime','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1417,9 +1778,19 @@ trait ClientEndpointsTrait
 	 *     if_seq_no: number, // only perform the update operation if the last operation that has changed the document has the specified sequence number
 	 *     if_primary_term: number, // only perform the update operation if the last operation that has changed the document has the specified primary term
 	 *     require_alias: boolean, // When true, requires destination is an alias. Default is false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The request definition requires either `script` or partial `doc`
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function update(array $params = [])
@@ -1428,7 +1799,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_update/' . urlencode((string) $params['id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','timeout','if_seq_no','if_primary_term','require_alias']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','timeout','if_seq_no','if_primary_term','require_alias','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1476,9 +1847,19 @@ trait ClientEndpointsTrait
 	 *     wait_for_completion: boolean, // Should the request should block until the update by query operation is complete.
 	 *     requests_per_second: number, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
 	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateByQuery(array $params = [])
@@ -1487,7 +1868,7 @@ trait ClientEndpointsTrait
 		$url = '/' . urlencode((string) $params['index']) . '/_update_by_query';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','pipeline','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','version_type','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','pipeline','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','version_type','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -1504,8 +1885,18 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
 	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateByQueryRethrottle(array $params = [])
@@ -1514,7 +1905,7 @@ trait ClientEndpointsTrait
 		$url = '/_update_by_query/' . urlencode((string) $params['task_id']) . '/_rethrottle';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['requests_per_second']);
+		$url = $this->addQueryString($url, $params, ['requests_per_second','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

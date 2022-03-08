@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class DanglingIndices extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Deletes the specified dangling index
 	 *
@@ -38,8 +38,18 @@ class DanglingIndices extends AbstractEndpoint
 	 *     accept_data_loss: boolean, // Must be set to true in order to delete the dangling index
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteDanglingIndex(array $params = [])
@@ -48,7 +58,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -66,8 +76,18 @@ class DanglingIndices extends AbstractEndpoint
 	 *     accept_data_loss: boolean, // Must be set to true in order to import the dangling index
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function importDanglingIndex(array $params = [])
@@ -76,7 +96,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -94,7 +114,7 @@ class DanglingIndices extends AbstractEndpoint
 		$url = '/_dangling';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

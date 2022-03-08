@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Tasks extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Cancels a task, if it can be cancelled through an API.
 	 *
@@ -40,8 +40,18 @@ class Tasks extends AbstractEndpoint
 	 *     actions: list, // A comma-separated list of actions that should be cancelled. Leave empty to cancel all.
 	 *     parent_task_id: string, // Cancel tasks with specified parent task id (node_id:task_number). Set to -1 to cancel all.
 	 *     wait_for_completion: boolean, // Should the request block until the cancellation of the task and its descendant tasks is completed. Defaults to false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function cancel(array $params = [])
@@ -53,7 +63,7 @@ class Tasks extends AbstractEndpoint
 			$url = '/_tasks/_cancel';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['nodes','actions','parent_task_id','wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['nodes','actions','parent_task_id','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -71,8 +81,18 @@ class Tasks extends AbstractEndpoint
 	 *     task_id: string, // (REQUIRED) Return the task with specified id (node_id:task_number)
 	 *     wait_for_completion: boolean, // Wait for the matching tasks to complete (default: false)
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function get(array $params = [])
@@ -81,7 +101,7 @@ class Tasks extends AbstractEndpoint
 		$url = '/_tasks/' . urlencode((string) $params['task_id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -103,8 +123,18 @@ class Tasks extends AbstractEndpoint
 	 *     wait_for_completion: boolean, // Wait for the matching tasks to complete (default: false)
 	 *     group_by: enum, // Group tasks by nodes or parent/child relationships
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function list(array $params = [])
@@ -112,7 +142,7 @@ class Tasks extends AbstractEndpoint
 		$url = '/_tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['nodes','actions','detailed','parent_task_id','wait_for_completion','group_by','timeout']);
+		$url = $this->addQueryString($url, $params, ['nodes','actions','detailed','parent_task_id','wait_for_completion','group_by','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

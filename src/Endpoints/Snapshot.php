@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Snapshot extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Removes stale data from repository.
 	 *
@@ -37,8 +37,18 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function cleanupRepository(array $params = [])
@@ -47,7 +57,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_cleanup';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -65,9 +75,19 @@ class Snapshot extends AbstractEndpoint
 	 *     snapshot: string, // (REQUIRED) The name of the snapshot to clone from
 	 *     target_snapshot: string, // (REQUIRED) The name of the cloned snapshot to create
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The snapshot clone definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clone(array $params = [])
@@ -76,7 +96,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_clone/' . urlencode((string) $params['target_snapshot']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -95,9 +115,19 @@ class Snapshot extends AbstractEndpoint
 	 *     snapshot: string, // (REQUIRED) A snapshot name
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The snapshot definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function create(array $params = [])
@@ -106,7 +136,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -125,9 +155,19 @@ class Snapshot extends AbstractEndpoint
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
 	 *     verify: boolean, // Whether to verify the repository after creation
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The repository definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function createRepository(array $params = [])
@@ -136,7 +176,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','verify']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','verify','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -154,8 +194,18 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: list, // (REQUIRED) A comma-separated list of snapshot names
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function delete(array $params = [])
@@ -164,7 +214,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -181,8 +231,18 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: list, // (REQUIRED) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteRepository(array $params = [])
@@ -191,7 +251,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -212,8 +272,18 @@ class Snapshot extends AbstractEndpoint
 	 *     index_details: boolean, // Whether to include details of each index in the snapshot, if those details are available. Defaults to false.
 	 *     include_repository: boolean, // Whether to include the repository name in the snapshot info. Defaults to true.
 	 *     verbose: boolean, // Whether to show verbose snapshot info or only show the basic info found in the repository index blob
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function get(array $params = [])
@@ -222,7 +292,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_details','include_repository','verbose']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_details','include_repository','verbose','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -239,8 +309,18 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: list, //  A comma-separated list of repository names
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getRepository(array $params = [])
@@ -252,7 +332,7 @@ class Snapshot extends AbstractEndpoint
 			$url = '/_snapshot';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -278,8 +358,18 @@ class Snapshot extends AbstractEndpoint
 	 *     timeout: time, // Explicit operation timeout. Defaults to '30s'.
 	 *     detailed: boolean, // Whether to return detailed results or a summary. Defaults to 'false' so that only the summary is returned.
 	 *     rarely_abort_writes: boolean, // Whether to rarely abort writes before they complete. Defaults to 'true'.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function repositoryAnalyze(array $params = [])
@@ -288,7 +378,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_analyze';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes']);
+		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -306,9 +396,19 @@ class Snapshot extends AbstractEndpoint
 	 *     snapshot: string, // (REQUIRED) A snapshot name
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  Details of what to restore
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function restore(array $params = [])
@@ -317,7 +417,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_restore';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -336,8 +436,18 @@ class Snapshot extends AbstractEndpoint
 	 *     snapshot: list, //  A comma-separated list of snapshot names
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     ignore_unavailable: boolean, // Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function status(array $params = [])
@@ -352,7 +462,7 @@ class Snapshot extends AbstractEndpoint
 			$url = '/_snapshot/_status';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -369,8 +479,18 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function verifyRepository(array $params = [])
@@ -379,7 +499,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_verify';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

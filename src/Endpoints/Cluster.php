@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Cluster extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Provides explanations for shard allocations in the cluster.
 	 *
@@ -36,9 +36,19 @@ class Cluster extends AbstractEndpoint
 	 * @param array{
 	 *     include_yes_decisions: boolean, // Return 'YES' decisions in explanation (default: false)
 	 *     include_disk_info: boolean, // Return information about disk usage and shard sizes (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The index, shard, and primary flag to explain. Empty means 'explain a randomly-chosen unassigned shard'
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function allocationExplain(array $params = [])
@@ -46,7 +56,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/allocation/explain';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['include_yes_decisions','include_disk_info']);
+		$url = $this->addQueryString($url, $params, ['include_yes_decisions','include_disk_info','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -64,8 +74,18 @@ class Cluster extends AbstractEndpoint
 	 *     name: string, // (REQUIRED) The name of the template
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteComponentTemplate(array $params = [])
@@ -74,7 +94,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -89,8 +109,18 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     wait_for_removal: boolean, // Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteVotingConfigExclusions(array $params = [])
@@ -98,7 +128,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/voting_config_exclusions';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_removal']);
+		$url = $this->addQueryString($url, $params, ['wait_for_removal','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -115,8 +145,18 @@ class Cluster extends AbstractEndpoint
 	 *     name: string, // (REQUIRED) The name of the template
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function existsComponentTemplate(array $params = [])
@@ -125,7 +165,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'HEAD';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -142,8 +182,18 @@ class Cluster extends AbstractEndpoint
 	 *     name: list, //  The comma separated names of the component templates
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getComponentTemplate(array $params = [])
@@ -155,7 +205,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_component_template';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','local']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -173,8 +223,18 @@ class Cluster extends AbstractEndpoint
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
 	 *     include_defaults: boolean, // Whether to return all default clusters setting.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getSettings(array $params = [])
@@ -182,7 +242,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/settings';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout','include_defaults']);
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout','include_defaults','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -208,8 +268,18 @@ class Cluster extends AbstractEndpoint
 	 *     wait_for_no_relocating_shards: boolean, // Whether to wait until there are no relocating shards in the cluster
 	 *     wait_for_no_initializing_shards: boolean, // Whether to wait until there are no initializing shards in the cluster
 	 *     wait_for_status: enum, // Wait until cluster is in a specific state
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function health(array $params = [])
@@ -221,7 +291,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/health';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['expand_wildcards','level','local','master_timeout','timeout','wait_for_active_shards','wait_for_nodes','wait_for_events','wait_for_no_relocating_shards','wait_for_no_initializing_shards','wait_for_status']);
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','level','local','master_timeout','timeout','wait_for_active_shards','wait_for_nodes','wait_for_events','wait_for_no_relocating_shards','wait_for_no_initializing_shards','wait_for_status','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -238,8 +308,18 @@ class Cluster extends AbstractEndpoint
 	 * @param array{
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function pendingTasks(array $params = [])
@@ -247,7 +327,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/pending_tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['local','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['local','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -264,8 +344,18 @@ class Cluster extends AbstractEndpoint
 	 *     node_ids: string, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
 	 *     node_names: string, // A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function postVotingConfigExclusions(array $params = [])
@@ -273,7 +363,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/voting_config_exclusions';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['node_ids','node_names','timeout']);
+		$url = $this->addQueryString($url, $params, ['node_ids','node_names','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -291,9 +381,19 @@ class Cluster extends AbstractEndpoint
 	 *     create: boolean, // Whether the index template should only be added if new or can also replace an existing one
 	 *     timeout: time, // Explicit operation timeout
 	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The template definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putComponentTemplate(array $params = [])
@@ -302,7 +402,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . urlencode((string) $params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['create','timeout','master_timeout']);
+		$url = $this->addQueryString($url, $params, ['create','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -320,9 +420,19 @@ class Cluster extends AbstractEndpoint
 	 *     flat_settings: boolean, // Return settings in flat format (default: false)
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart).
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putSettings(array $params = [])
@@ -331,7 +441,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/settings';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout']);
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -350,7 +460,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_remote/info';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -370,9 +480,19 @@ class Cluster extends AbstractEndpoint
 	 *     metric: list, // Limit the information returned to the specified metrics. Defaults to all but metadata
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The definition of `commands` to perform (`move`, `cancel`, `allocate`)
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function reroute(array $params = [])
@@ -380,7 +500,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/reroute';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['dry_run','explain','retry_failed','metric','master_timeout','timeout']);
+		$url = $this->addQueryString($url, $params, ['dry_run','explain','retry_failed','metric','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -405,8 +525,18 @@ class Cluster extends AbstractEndpoint
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function state(array $params = [])
@@ -421,7 +551,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/state';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['local','master_timeout','flat_settings','wait_for_metadata_version','wait_for_timeout','ignore_unavailable','allow_no_indices','expand_wildcards']);
+		$url = $this->addQueryString($url, $params, ['local','master_timeout','flat_settings','wait_for_metadata_version','wait_for_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -438,8 +568,18 @@ class Cluster extends AbstractEndpoint
 	 *     node_id: list, //  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
 	 *     flat_settings: boolean, // Return settings in flat format (default: false)
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stats(array $params = [])
@@ -451,7 +591,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['flat_settings','timeout']);
+		$url = $this->addQueryString($url, $params, ['flat_settings','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

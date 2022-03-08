@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Xpack extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Retrieves information about the installed X-Pack features.
 	 *
@@ -36,8 +36,18 @@ class Xpack extends AbstractEndpoint
 	 * @param array{
 	 *     categories: list, // Comma-separated list of info categories. Can be any of: build, license, features
 	 *     accept_enterprise: boolean, // If this param is used it must be set to true
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function info(array $params = [])
@@ -45,7 +55,7 @@ class Xpack extends AbstractEndpoint
 		$url = '/_xpack';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['categories','accept_enterprise']);
+		$url = $this->addQueryString($url, $params, ['categories','accept_enterprise','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -60,8 +70,18 @@ class Xpack extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     master_timeout: time, // Specify timeout for watch write operation
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function usage(array $params = [])
@@ -69,7 +89,7 @@ class Xpack extends AbstractEndpoint
 		$url = '/_xpack/usage';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

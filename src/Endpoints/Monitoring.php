@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Monitoring extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Used by the monitoring features to send monitoring data.
 	 *
@@ -38,9 +38,19 @@ class Monitoring extends AbstractEndpoint
 	 *     system_id: string, // Identifier of the monitored system
 	 *     system_api_version: string, // API Version of the monitored system
 	 *     interval: string, // Collection interval (e.g., '10s' or '10000ms') of the payload
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function bulk(array $params = [])
@@ -53,7 +63,7 @@ class Monitoring extends AbstractEndpoint
 			$url = '/_monitoring/bulk';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval']);
+		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',

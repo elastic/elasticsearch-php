@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Nodes extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Removes the archived repositories metering information present in the cluster.
 	 *
@@ -37,8 +37,18 @@ class Nodes extends AbstractEndpoint
 	 * @param array{
 	 *     node_id: list, // (REQUIRED) Comma-separated list of node IDs or names used to limit returned information.
 	 *     max_archive_version: long, // (REQUIRED) Specifies the maximum archive_version to be cleared from the archive.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function clearRepositoriesMeteringArchive(array $params = [])
@@ -47,7 +57,7 @@ class Nodes extends AbstractEndpoint
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/_repositories_metering/' . urlencode((string) $params['max_archive_version']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -63,8 +73,18 @@ class Nodes extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id: list, // (REQUIRED) A comma-separated list of node IDs or names to limit the returned information.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getRepositoriesMeteringInfo(array $params = [])
@@ -73,7 +93,7 @@ class Nodes extends AbstractEndpoint
 		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/_repositories_metering';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, []);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -95,8 +115,18 @@ class Nodes extends AbstractEndpoint
 	 *     type: enum, // The type to sample (default: cpu)
 	 *     sort: enum, // The sort order for 'cpu' type (default: total)
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function hotThreads(array $params = [])
@@ -108,7 +138,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/hot_threads';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['interval','snapshots','threads','ignore_idle_threads','type','sort','timeout']);
+		$url = $this->addQueryString($url, $params, ['interval','snapshots','threads','ignore_idle_threads','type','sort','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'text/plain',
 		);
@@ -126,8 +156,18 @@ class Nodes extends AbstractEndpoint
 	 *     metric: list, //  A comma-separated list of metrics you wish returned. Use `_all` to retrieve all metrics and `_none` to retrieve the node identity without any additional metrics.
 	 *     flat_settings: boolean, // Return settings in flat format (default: false)
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function info(array $params = [])
@@ -145,7 +185,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['flat_settings','timeout']);
+		$url = $this->addQueryString($url, $params, ['flat_settings','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -161,9 +201,19 @@ class Nodes extends AbstractEndpoint
 	 * @param array{
 	 *     node_id: list, //  A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  An object containing the password for the elasticsearch keystore
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function reloadSecureSettings(array $params = [])
@@ -175,7 +225,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/reload_secure_settings';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -202,8 +252,18 @@ class Nodes extends AbstractEndpoint
 	 *     timeout: time, // Explicit operation timeout
 	 *     include_segment_file_sizes: boolean, // Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested)
 	 *     include_unloaded_segments: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stats(array $params = [])
@@ -227,7 +287,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['completion_fields','fielddata_fields','fields','groups','level','types','timeout','include_segment_file_sizes','include_unloaded_segments']);
+		$url = $this->addQueryString($url, $params, ['completion_fields','fielddata_fields','fields','groups','level','types','timeout','include_segment_file_sizes','include_unloaded_segments','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -244,8 +304,18 @@ class Nodes extends AbstractEndpoint
 	 *     node_id: list, //  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
 	 *     metric: list, //  Limit the information returned to the specified metrics
 	 *     timeout: time, // Explicit operation timeout
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function usage(array $params = [])
@@ -263,7 +333,7 @@ class Nodes extends AbstractEndpoint
 			$url = '/_nodes/usage';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);

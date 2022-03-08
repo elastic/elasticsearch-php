@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\Exception\NoAliveException;
 use Http\Promise\Promise;
 
 /**
@@ -26,8 +28,6 @@ use Http\Promise\Promise;
  */
 class Transform extends AbstractEndpoint
 {
-	use EndpointTrait;
-
 	/**
 	 * Deletes an existing transform.
 	 *
@@ -37,8 +37,18 @@ class Transform extends AbstractEndpoint
 	 *     transform_id: string, // (REQUIRED) The id of the transform to delete
 	 *     force: boolean, // When `true`, the transform is deleted regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be deleted.
 	 *     timeout: time, // Controls the time to wait for the transform deletion
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function deleteTransform(array $params = [])
@@ -47,7 +57,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['force','timeout']);
+		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -66,8 +76,18 @@ class Transform extends AbstractEndpoint
 	 *     size: int, // specifies a max number of transforms to get, defaults to 100
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
 	 *     exclude_generated: boolean, // Omits fields that are illegal to set on transform PUT
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getTransform(array $params = [])
@@ -79,7 +99,7 @@ class Transform extends AbstractEndpoint
 			$url = '/_transform';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','exclude_generated']);
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','exclude_generated','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -97,8 +117,18 @@ class Transform extends AbstractEndpoint
 	 *     from: number, // skips a number of transform stats, defaults to 0
 	 *     size: number, // specifies a max number of transform stats to get, defaults to 100
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function getTransformStats(array $params = [])
@@ -107,7 +137,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stats';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match']);
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -123,9 +153,19 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     transform_id: string, //  The id of the transform to preview.
 	 *     timeout: time, // Controls the time to wait for the preview
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, //  The definition for the transform to preview
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function previewTransform(array $params = [])
@@ -137,7 +177,7 @@ class Transform extends AbstractEndpoint
 			$url = '/_transform/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -155,9 +195,19 @@ class Transform extends AbstractEndpoint
 	 *     transform_id: string, // (REQUIRED) The id of the new transform.
 	 *     defer_validation: boolean, // If validations should be deferred until transform starts, defaults to false.
 	 *     timeout: time, // Controls the time to wait for the transform to start
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The transform definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function putTransform(array $params = [])
@@ -166,7 +216,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['defer_validation','timeout']);
+		$url = $this->addQueryString($url, $params, ['defer_validation','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -183,8 +233,18 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to start
 	 *     timeout: time, // Controls the time to wait for the transform to start
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function startTransform(array $params = [])
@@ -193,7 +253,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -213,8 +273,18 @@ class Transform extends AbstractEndpoint
 	 *     timeout: time, // Controls the time to wait until the transform has stopped. Default to 30 seconds
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
 	 *     wait_for_checkpoint: boolean, // Whether to wait for the transform to reach a checkpoint before stopping. Default to false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function stopTransform(array $params = [])
@@ -223,7 +293,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','timeout','allow_no_match','wait_for_checkpoint']);
+		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','timeout','allow_no_match','wait_for_checkpoint','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
@@ -240,9 +310,19 @@ class Transform extends AbstractEndpoint
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
 	 *     defer_validation: boolean, // If validations should be deferred until transform starts, defaults to false.
 	 *     timeout: time, // Controls the time to wait for the update
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The update transform definition
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function updateTransform(array $params = [])
@@ -251,7 +331,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_update';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['defer_validation','timeout']);
+		$url = $this->addQueryString($url, $params, ['defer_validation','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
@@ -268,8 +348,18 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     dry_run: boolean, // Whether to only check for updates but don't execute
 	 *     timeout: time, // Controls the time to wait for the upgrade
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
+	 *
 	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoAliveException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
 	 * @return Elasticsearch|Promise
 	 */
 	public function upgradeTransforms(array $params = [])
@@ -277,7 +367,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/_upgrade';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['dry_run','timeout']);
+		$url = $this->addQueryString($url, $params, ['dry_run','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',

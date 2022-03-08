@@ -12,7 +12,7 @@
   "minimum-stability": "RC",
   "require": {
     "php": "^7.4 || ^8.0",
-    "elastic/transport": ">=8.0.0-rc4",
+    "elastic/transport": "=8.0.0-rc4",
     "psr/http-client": "^1.0",
     "psr/http-message": "^1.0",
     "psr/log": "^1|^2|^3",

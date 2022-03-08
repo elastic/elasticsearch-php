@@ -1,7 +1,9 @@
 ## Release 8.0.0-rc2
 
 - Added the common parameters in all the endpoints
-  []()
+  [6427f8c](https://github.com/elastic/elasticsearch-php/commit/6427f8c42ba2afbe82c00adffdf93dd60b439432)
+- Fixed the version require of elastic/transport in composer.json
+  [82b8ec6](https://github.com/elastic/elasticsearch-php/commit/82b8ec684b8ea5a0a5d58544ff79d90542e409cf)
 
 ## Release 8.0.0-rc1
 

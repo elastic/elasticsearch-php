@@ -1,7 +1,7 @@
         // check for warnings
-        $headers = $this->client->transport->getLastConnection()->getLastRequestInfo()['response']['headers'];
-        $this->assertTrue(isset($headers['Warning']));
+        $warning = $response->getHeader('Warning');
+        $this->assertNotEmpty($warning);
         $expectedHeaders = :expected;
         foreach ($expectedHeaders as $expected) {
-            $this->assertStringContainsString($expected, implode('', $headers['Warning']));
+            $this->assertStringContainsString($expected, implode('', $warning));
         }

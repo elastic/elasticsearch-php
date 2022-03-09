@@ -59,7 +59,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -96,7 +96,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -134,7 +134,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -152,7 +152,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -188,7 +188,7 @@ class Ilm extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -225,7 +225,7 @@ class Ilm extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -262,7 +262,7 @@ class Ilm extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -297,7 +297,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -332,7 +332,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -350,7 +350,7 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -368,6 +368,6 @@ class Ilm extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

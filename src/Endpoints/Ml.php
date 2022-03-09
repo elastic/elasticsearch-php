@@ -64,7 +64,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -99,7 +99,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -135,7 +135,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -171,7 +171,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -208,7 +208,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -244,7 +244,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -286,7 +286,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -321,7 +321,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -363,7 +363,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -400,7 +400,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -436,7 +436,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -472,7 +472,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -509,7 +509,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -545,7 +545,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -581,7 +581,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -621,7 +621,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -663,7 +663,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -703,7 +703,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -754,7 +754,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -794,7 +794,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -836,7 +836,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -881,7 +881,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -923,7 +923,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -965,7 +965,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1004,7 +1004,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1044,7 +1044,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1084,7 +1084,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1129,7 +1129,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1168,7 +1168,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1208,7 +1208,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1245,7 +1245,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1293,7 +1293,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1337,7 +1337,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1382,7 +1382,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1428,7 +1428,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1469,7 +1469,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1508,7 +1508,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1526,7 +1526,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1563,7 +1563,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1600,7 +1600,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1639,7 +1639,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1679,7 +1679,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1719,7 +1719,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1756,7 +1756,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1792,7 +1792,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1829,7 +1829,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1870,7 +1870,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1907,7 +1907,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1948,7 +1948,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1986,7 +1986,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2024,7 +2024,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2063,7 +2063,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2101,7 +2101,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2137,7 +2137,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2176,7 +2176,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2211,7 +2211,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2249,7 +2249,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2289,7 +2289,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2328,7 +2328,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2368,7 +2368,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2409,7 +2409,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2449,7 +2449,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2486,7 +2486,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2527,7 +2527,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2564,7 +2564,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2601,7 +2601,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2639,7 +2639,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2677,7 +2677,7 @@ class Ml extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2713,7 +2713,7 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -2749,6 +2749,6 @@ class Ml extends AbstractEndpoint
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

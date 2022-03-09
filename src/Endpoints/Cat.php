@@ -69,7 +69,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -115,7 +115,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -158,7 +158,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -202,7 +202,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -242,7 +242,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -277,7 +277,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -327,7 +327,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -367,7 +367,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -413,7 +413,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -458,7 +458,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -504,7 +504,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -552,7 +552,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -592,7 +592,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -635,7 +635,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -676,7 +676,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -717,7 +717,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -764,7 +764,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -804,7 +804,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -848,7 +848,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -894,7 +894,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -940,7 +940,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -984,7 +984,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1029,7 +1029,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1076,7 +1076,7 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1123,6 +1123,6 @@ class Cat extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'text/plain,application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

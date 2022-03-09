@@ -62,7 +62,7 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -100,7 +100,7 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -118,6 +118,6 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

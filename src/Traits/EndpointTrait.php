@@ -64,8 +64,10 @@ trait EndpointTrait
 
     /**
      * Create a PSR-7 request
+     * 
+     * @param array|string $body
      */
-    protected function createRequest(string $method, string $url, array $headers, array $body): RequestInterface
+    protected function createRequest(string $method, string $url, array $headers, $body = null): RequestInterface
     {
         $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
@@ -80,7 +82,7 @@ trait EndpointTrait
                     $url
                 ));
             }
-            $content = $this->bodySerialize($body, $headers['Content-Type']);
+            $content = is_string($body) ? $body : $this->bodySerialize($body, $headers['Content-Type']);
             $request = $request->withBody($streamFactory->createStream($content));
         }
         // Headers

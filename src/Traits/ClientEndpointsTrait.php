@@ -75,7 +75,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -115,7 +115,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json,text/plain',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -150,7 +150,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -204,7 +204,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -251,7 +251,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -295,7 +295,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -361,7 +361,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -397,7 +397,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -434,7 +434,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -480,7 +480,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -525,7 +525,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -575,7 +575,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -620,7 +620,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -666,7 +666,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -702,7 +702,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -720,7 +720,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -738,7 +738,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -783,7 +783,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -836,7 +836,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -854,7 +854,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -893,7 +893,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -942,7 +942,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -990,7 +990,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1036,7 +1036,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/x-ndjson',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1088,7 +1088,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1128,7 +1128,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1146,7 +1146,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1190,7 +1190,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1235,7 +1235,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1281,7 +1281,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1317,7 +1317,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1357,7 +1357,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1393,7 +1393,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1435,7 +1435,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1518,7 +1518,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1566,7 +1566,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/vnd.mapbox-vector-tile',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1610,7 +1610,7 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1664,7 +1664,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1701,7 +1701,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1754,7 +1754,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1804,7 +1804,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1873,7 +1873,7 @@ trait ClientEndpointsTrait
 		  'Accept' => 'application/json',
 		  'Content-Type' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
@@ -1909,6 +1909,6 @@ trait ClientEndpointsTrait
 		$headers = array (
 		  'Accept' => 'application/json',
 		);
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? []));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

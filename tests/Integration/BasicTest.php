@@ -58,7 +58,7 @@ class BasicTest extends TestCase
     {
         $response = $this->client->index([
             'index' => 'stocks',
-            'refresh' => 'true',
+            'refresh' => true,
             'body' => [
                 'date'   => $date,
                 'open'   => $open,
@@ -66,8 +66,7 @@ class BasicTest extends TestCase
                 'low'    => $low,
                 'close'  => $close,
                 'volume' => $volume,
-                'name'   => $name,
-                'refresh' => 'true'
+                'name'   => $name
             ] 
         ]);
        

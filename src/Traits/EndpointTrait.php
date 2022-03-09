@@ -36,7 +36,7 @@ trait EndpointTrait
         $queryParams = [];
         foreach ($keys as $k) {
             if (isset($params[$k])) {
-                $queryParams[$k] = $params[$k];
+                $queryParams[$k] = is_bool($params[$k]) ? ($params[$k] ? 'true' : 'false') : $params[$k];
             }
         }
         if (empty($queryParams)) {

@@ -24,8 +24,6 @@ use PHPUnit\Framework\TestCase;
  */
 class BasicTest extends TestCase
 {
-    protected static array $ids;
-
     public function setUp(): void
     {
         $this->client = Utility::getClient();
@@ -73,7 +71,33 @@ class BasicTest extends TestCase
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertEquals('created', $response['result']);
         $this->assertEquals('stocks', $response['_index']);
-        self::$ids[] = $response['_id']; 
+        return $response['_id']; 
+    }
+
+    public function testIndexDocumentWithBodyAsString()
+    {
+        $response = $this->client->index([
+            'index' => 'stocks',
+            'refresh' => true,
+            'body' => '{"date":"2020-09-26","open":47.32,"high":47.32,"low":47.32,"close":47.32,"volume":968728,"name":"XXX"}' 
+        ]);
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals('created', $response['result']);
+        $this->assertEquals('stocks', $response['_index']);
+
+        return $response['_id']; 
+    }
+
+    /**
+     * @depends testIndexDocumentWithBodyAsString
+     */
+    public function testDeleteADocument(string $id)
+    {
+        $response = $this->client->delete([
+            'index' => 'stocks',
+            'id' => $id
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /**

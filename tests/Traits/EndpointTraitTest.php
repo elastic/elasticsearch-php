@@ -71,14 +71,16 @@ class EndpointTraitTest extends TestCase
             [ 'GET', 'http://localhost:9200', ['Foo' => 'bar', 'Content-Type' => 'application/json'], []],
             [ 'GET', 'http://localhost', ['Foo' => 'bar', 'Content-Type' => 'application/json'], []],
             [ 'POST', 'http://localhost:9200', ['Content-Type' => 'application/json'], ['foo' => 'bar']],
-            [ 'POST', 'http://localhost:9200', ['Content-Type' => 'application/x-ndjson'], [[ 'foo' => 'bar'], ['bar' => 'baz']]]
+            [ 'POST', 'http://localhost:9200', ['Content-Type' => 'application/x-ndjson'], [[ 'foo' => 'bar'], ['bar' => 'baz']]],
+            // test body as string
+            [ 'POST', 'http://localhost', ['Content-Type' => 'application/x-ndjson'], '{"foo":"bar"}']
         ];
     }
 
     /**
      * @dataProvider getRequestParts
      */
-    public function testCreateRequest(string $method, string $url, array $headers, array $body)
+    public function testCreateRequest(string $method, string $url, array $headers, $body)
     {
         $request = $this->createRequest($method, $url, $headers, $body);
         $this->assertEquals($method, $request->getMethod());
@@ -91,7 +93,11 @@ class EndpointTraitTest extends TestCase
             $this->assertEquals($value, implode(',', $header));
         }
         if (!empty($body)) {
-            $this->assertEquals($this->bodySerialize($body, $headers['Content-Type']), (string) $request->getBody());
+            if (is_array($body)) {
+                $this->assertEquals($this->bodySerialize($body, $headers['Content-Type']), (string) $request->getBody());
+            } else {
+                $this->assertEquals($body, (string) $request->getBody());
+            }
         }
     }
 

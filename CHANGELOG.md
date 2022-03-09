@@ -3,7 +3,6 @@
 - Added the common parameters in all the endpoints
   [6427f8c](https://github.com/elastic/elasticsearch-php/commit/6427f8c42ba2afbe82c00adffdf93dd60b439432)
 
-
 ## Release 8.0.0-rc1
 
 - Fixed query string in API endpoints + added a first integration test

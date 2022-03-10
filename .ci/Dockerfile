@@ -4,11 +4,11 @@ FROM php:${PHP_VERSION}
 WORKDIR /usr/src/app
 
 # Install git
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git
+RUN apt-get update -q && \
+    apt-get install -q -y --no-install-recommends git
 
 # Install zip extension for PHP
-RUN apt-get install -y \
+RUN apt-get install -q -y \
         libzip-dev \
         zip \
         libyaml-dev \
@@ -16,7 +16,8 @@ RUN apt-get install -y \
 
 # Install yaml extension for PHP
 RUN pecl channel-update pecl.php.net
-RUN pecl install yaml && docker-php-ext-enable yaml
+RUN pecl install yaml > /dev/null 
+RUN docker-php-ext-enable yaml
 
 # Print PHP version
 RUN php -v
@@ -30,7 +31,7 @@ RUN composer --version
 COPY composer.json .
 
 # Install dependencies with composer
-RUN composer install
+RUN composer install --no-progress
 
 COPY . .
 

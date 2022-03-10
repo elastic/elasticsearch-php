@@ -41,6 +41,34 @@ trait EndpointTrait
     }
 
     /**
+     * Converts array to comma-separated list;
+     * Converts boolean value to true', 'false' string
+     * 
+     * @param mixed $value
+     */
+    private function convertValue($value): string
+    {
+        // Convert a boolean value in 'true' or 'false' string
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        // Convert to comma-separated list if array
+        } elseif (is_array($value) && $this->isNestedArray($value) === false) {
+            return implode(',', $value);
+        }
+        return (string) $value;
+    }
+
+    /**
+     * Encode a value for a valid URL
+     * 
+     * @param mixed $value
+     */
+    protected function encode($value): string
+    {
+        return urlencode($this->convertValue($value));
+    }
+
+    /**
      * Returns the URL with the query string from $params
      * extracting the array keys specified in $keys
      */
@@ -49,15 +77,7 @@ trait EndpointTrait
         $queryParams = [];
         foreach ($keys as $k) {
             if (isset($params[$k])) {
-                // Convert to 'true' or 'false' string if bool
-                if (is_bool($params[$k])) {
-                    $queryParams[$k] = $params[$k] ? 'true' : 'false';
-                // Convert to comma-separated list if array
-                } elseif (is_array($params[$k]) && $this->isNestedArray($params[$k]) === false) {
-                    $queryParams[$k] = implode(',', $params[$k]);
-                } else {
-                    $queryParams[$k] = $params[$k];
-                }
+                $queryParams[$k] = $this->convertValue($params[$k]);
             }
         }
         if (empty($queryParams)) {

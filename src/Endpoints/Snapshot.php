@@ -54,7 +54,7 @@ class Snapshot extends AbstractEndpoint
 	public function cleanupRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_cleanup';
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_cleanup';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -93,7 +93,7 @@ class Snapshot extends AbstractEndpoint
 	public function clone(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot','target_snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_clone/' . urlencode((string) $params['target_snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_clone/' . $this->encode($params['target_snapshot']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -133,7 +133,7 @@ class Snapshot extends AbstractEndpoint
 	public function create(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -173,7 +173,7 @@ class Snapshot extends AbstractEndpoint
 	public function createRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']);
+		$url = '/_snapshot/' . $this->encode($params['repository']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','verify','pretty','human','error_trace','source','filter_path']);
@@ -211,7 +211,7 @@ class Snapshot extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -248,7 +248,7 @@ class Snapshot extends AbstractEndpoint
 	public function deleteRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']);
+		$url = '/_snapshot/' . $this->encode($params['repository']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -289,7 +289,7 @@ class Snapshot extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_details','include_repository','verbose','pretty','human','error_trace','source','filter_path']);
@@ -326,7 +326,7 @@ class Snapshot extends AbstractEndpoint
 	public function getRepository(array $params = [])
 	{
 		if (isset($params['repository'])) {
-			$url = '/_snapshot/' . urlencode((string) $params['repository']);
+			$url = '/_snapshot/' . $this->encode($params['repository']);
 			$method = 'GET';
 		} else {
 			$url = '/_snapshot';
@@ -375,7 +375,7 @@ class Snapshot extends AbstractEndpoint
 	public function repositoryAnalyze(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_analyze';
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_analyze';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','pretty','human','error_trace','source','filter_path']);
@@ -414,7 +414,7 @@ class Snapshot extends AbstractEndpoint
 	public function restore(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_restore';
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_restore';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -453,10 +453,10 @@ class Snapshot extends AbstractEndpoint
 	public function status(array $params = [])
 	{
 		if (isset($params['repository']) && isset($params['snapshot'])) {
-			$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_status';
+			$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_status';
 			$method = 'GET';
 		} elseif (isset($params['repository'])) {
-			$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_status';
+			$url = '/_snapshot/' . $this->encode($params['repository']) . '/_status';
 			$method = 'GET';
 		} else {
 			$url = '/_snapshot/_status';
@@ -496,7 +496,7 @@ class Snapshot extends AbstractEndpoint
 	public function verifyRepository(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/_verify';
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_verify';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);

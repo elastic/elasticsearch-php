@@ -52,7 +52,7 @@ class Ilm extends AbstractEndpoint
 	public function deleteLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy'], $params);
-		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
+		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -89,7 +89,7 @@ class Ilm extends AbstractEndpoint
 	public function explainLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ilm/explain';
+		$url = '/' . $this->encode($params['index']) . '/_ilm/explain';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['only_managed','only_errors','pretty','human','error_trace','source','filter_path']);
@@ -124,7 +124,7 @@ class Ilm extends AbstractEndpoint
 	public function getLifecycle(array $params = [])
 	{
 		if (isset($params['policy'])) {
-			$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
+			$url = '/_ilm/policy/' . $this->encode($params['policy']);
 			$method = 'GET';
 		} else {
 			$url = '/_ilm/policy';
@@ -217,7 +217,7 @@ class Ilm extends AbstractEndpoint
 	public function moveToStep(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/_ilm/move/' . urlencode((string) $params['index']);
+		$url = '/_ilm/move/' . $this->encode($params['index']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -254,7 +254,7 @@ class Ilm extends AbstractEndpoint
 	public function putLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy'], $params);
-		$url = '/_ilm/policy/' . urlencode((string) $params['policy']);
+		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -290,7 +290,7 @@ class Ilm extends AbstractEndpoint
 	public function removePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ilm/remove';
+		$url = '/' . $this->encode($params['index']) . '/_ilm/remove';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -325,7 +325,7 @@ class Ilm extends AbstractEndpoint
 	public function retry(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ilm/retry';
+		$url = '/' . $this->encode($params['index']) . '/_ilm/retry';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

@@ -54,10 +54,10 @@ class Watcher extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
 		if (isset($params['action_id'])) {
-			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack/' . urlencode((string) $params['action_id']);
+			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack/' . $this->encode($params['action_id']);
 			$method = 'PUT';
 		} else {
-			$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_ack';
+			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack';
 			$method = 'PUT';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -92,7 +92,7 @@ class Watcher extends AbstractEndpoint
 	public function activateWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_activate';
+		$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_activate';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -127,7 +127,7 @@ class Watcher extends AbstractEndpoint
 	public function deactivateWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = '/_watcher/watch/' . urlencode((string) $params['watch_id']) . '/_deactivate';
+		$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_deactivate';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -162,7 +162,7 @@ class Watcher extends AbstractEndpoint
 	public function deleteWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
+		$url = '/_watcher/watch/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -199,7 +199,7 @@ class Watcher extends AbstractEndpoint
 	public function executeWatch(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_watcher/watch/' . urlencode((string) $params['id']) . '/_execute';
+			$url = '/_watcher/watch/' . $this->encode($params['id']) . '/_execute';
 			$method = 'PUT';
 		} else {
 			$url = '/_watcher/watch/_execute';
@@ -238,7 +238,7 @@ class Watcher extends AbstractEndpoint
 	public function getWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
+		$url = '/_watcher/watch/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -278,7 +278,7 @@ class Watcher extends AbstractEndpoint
 	public function putWatch(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . urlencode((string) $params['id']);
+		$url = '/_watcher/watch/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['active','version','if_seq_no','if_primary_term','pretty','human','error_trace','source','filter_path']);
@@ -368,7 +368,7 @@ class Watcher extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['metric'])) {
-			$url = '/_watcher/stats/' . urlencode((string) $params['metric']);
+			$url = '/_watcher/stats/' . $this->encode($params['metric']);
 			$method = 'GET';
 		} else {
 			$url = '/_watcher/stats';

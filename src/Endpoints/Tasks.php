@@ -57,7 +57,7 @@ class Tasks extends AbstractEndpoint
 	public function cancel(array $params = [])
 	{
 		if (isset($params['task_id'])) {
-			$url = '/_tasks/' . urlencode((string) $params['task_id']) . '/_cancel';
+			$url = '/_tasks/' . $this->encode($params['task_id']) . '/_cancel';
 			$method = 'POST';
 		} else {
 			$url = '/_tasks/_cancel';
@@ -98,7 +98,7 @@ class Tasks extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['task_id'], $params);
-		$url = '/_tasks/' . urlencode((string) $params['task_id']);
+		$url = '/_tasks/' . $this->encode($params['task_id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout','pretty','human','error_trace','source','filter_path']);

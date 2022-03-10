@@ -57,7 +57,7 @@ class Monitoring extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['type'])) {
-			$url = '/_monitoring/' . urlencode((string) $params['type']) . '/bulk';
+			$url = '/_monitoring/' . $this->encode($params['type']) . '/bulk';
 			$method = 'POST';
 		} else {
 			$url = '/_monitoring/bulk';

@@ -52,7 +52,7 @@ class Shutdown extends AbstractEndpoint
 	public function deleteNode(array $params = [])
 	{
 		$this->checkRequiredParameters(['node_id'], $params);
-		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
+		$url = '/_nodes/' . $this->encode($params['node_id']) . '/shutdown';
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -88,7 +88,7 @@ class Shutdown extends AbstractEndpoint
 	public function getNode(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
+			$url = '/_nodes/' . $this->encode($params['node_id']) . '/shutdown';
 			$method = 'GET';
 		} else {
 			$url = '/_nodes/shutdown';
@@ -128,7 +128,7 @@ class Shutdown extends AbstractEndpoint
 	public function putNode(array $params = [])
 	{
 		$this->checkRequiredParameters(['node_id'], $params);
-		$url = '/_nodes/' . urlencode((string) $params['node_id']) . '/shutdown';
+		$url = '/_nodes/' . $this->encode($params['node_id']) . '/shutdown';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

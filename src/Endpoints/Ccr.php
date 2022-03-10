@@ -52,7 +52,7 @@ class Ccr extends AbstractEndpoint
 	public function deleteAutoFollowPattern(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']);
+		$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -89,7 +89,7 @@ class Ccr extends AbstractEndpoint
 	public function follow(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/follow';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/follow';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -125,7 +125,7 @@ class Ccr extends AbstractEndpoint
 	public function followInfo(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/info';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/info';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -160,7 +160,7 @@ class Ccr extends AbstractEndpoint
 	public function followStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/stats';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -196,7 +196,7 @@ class Ccr extends AbstractEndpoint
 	public function forgetFollower(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/forget_follower';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/forget_follower';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -232,7 +232,7 @@ class Ccr extends AbstractEndpoint
 	public function getAutoFollowPattern(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']);
+			$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_ccr/auto_follow';
@@ -270,7 +270,7 @@ class Ccr extends AbstractEndpoint
 	public function pauseAutoFollowPattern(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']) . '/pause';
+		$url = '/_ccr/auto_follow/' . $this->encode($params['name']) . '/pause';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -305,7 +305,7 @@ class Ccr extends AbstractEndpoint
 	public function pauseFollow(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/pause_follow';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/pause_follow';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -341,7 +341,7 @@ class Ccr extends AbstractEndpoint
 	public function putAutoFollowPattern(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']);
+		$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -377,7 +377,7 @@ class Ccr extends AbstractEndpoint
 	public function resumeAutoFollowPattern(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_ccr/auto_follow/' . urlencode((string) $params['name']) . '/resume';
+		$url = '/_ccr/auto_follow/' . $this->encode($params['name']) . '/resume';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -413,7 +413,7 @@ class Ccr extends AbstractEndpoint
 	public function resumeFollow(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/resume_follow';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/resume_follow';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -467,7 +467,7 @@ class Ccr extends AbstractEndpoint
 	public function unfollow(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_ccr/unfollow';
+		$url = '/' . $this->encode($params['index']) . '/_ccr/unfollow';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

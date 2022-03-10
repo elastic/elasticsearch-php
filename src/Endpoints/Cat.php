@@ -59,7 +59,7 @@ class Cat extends AbstractEndpoint
 	public function aliases(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_cat/aliases/' . urlencode((string) $params['name']);
+			$url = '/_cat/aliases/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/aliases';
@@ -105,7 +105,7 @@ class Cat extends AbstractEndpoint
 	public function allocation(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = '/_cat/allocation/' . urlencode((string) $params['node_id']);
+			$url = '/_cat/allocation/' . $this->encode($params['node_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/allocation';
@@ -148,7 +148,7 @@ class Cat extends AbstractEndpoint
 	public function count(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cat/count/' . urlencode((string) $params['index']);
+			$url = '/_cat/count/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/count';
@@ -192,7 +192,7 @@ class Cat extends AbstractEndpoint
 	public function fielddata(array $params = [])
 	{
 		if (isset($params['fields'])) {
-			$url = '/_cat/fielddata/' . urlencode((string) $params['fields']);
+			$url = '/_cat/fielddata/' . $this->encode($params['fields']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/fielddata';
@@ -317,7 +317,7 @@ class Cat extends AbstractEndpoint
 	public function indices(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cat/indices/' . urlencode((string) $params['index']);
+			$url = '/_cat/indices/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/indices';
@@ -403,7 +403,7 @@ class Cat extends AbstractEndpoint
 	public function mlDataFrameAnalytics(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_cat/ml/data_frame/analytics/' . urlencode((string) $params['id']);
+			$url = '/_cat/ml/data_frame/analytics/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/ml/data_frame/analytics';
@@ -448,7 +448,7 @@ class Cat extends AbstractEndpoint
 	public function mlDatafeeds(array $params = [])
 	{
 		if (isset($params['datafeed_id'])) {
-			$url = '/_cat/ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
+			$url = '/_cat/ml/datafeeds/' . $this->encode($params['datafeed_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/ml/datafeeds';
@@ -494,7 +494,7 @@ class Cat extends AbstractEndpoint
 	public function mlJobs(array $params = [])
 	{
 		if (isset($params['job_id'])) {
-			$url = '/_cat/ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
+			$url = '/_cat/ml/anomaly_detectors/' . $this->encode($params['job_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/ml/anomaly_detectors';
@@ -542,7 +542,7 @@ class Cat extends AbstractEndpoint
 	public function mlTrainedModels(array $params = [])
 	{
 		if (isset($params['model_id'])) {
-			$url = '/_cat/ml/trained_models/' . urlencode((string) $params['model_id']);
+			$url = '/_cat/ml/trained_models/' . $this->encode($params['model_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/ml/trained_models';
@@ -754,7 +754,7 @@ class Cat extends AbstractEndpoint
 	public function recovery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cat/recovery/' . urlencode((string) $params['index']);
+			$url = '/_cat/recovery/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/recovery';
@@ -838,7 +838,7 @@ class Cat extends AbstractEndpoint
 	public function segments(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cat/segments/' . urlencode((string) $params['index']);
+			$url = '/_cat/segments/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/segments';
@@ -884,7 +884,7 @@ class Cat extends AbstractEndpoint
 	public function shards(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cat/shards/' . urlencode((string) $params['index']);
+			$url = '/_cat/shards/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/shards';
@@ -930,7 +930,7 @@ class Cat extends AbstractEndpoint
 	public function snapshots(array $params = [])
 	{
 		if (isset($params['repository'])) {
-			$url = '/_cat/snapshots/' . urlencode((string) $params['repository']);
+			$url = '/_cat/snapshots/' . $this->encode($params['repository']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/snapshots';
@@ -1019,7 +1019,7 @@ class Cat extends AbstractEndpoint
 	public function templates(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_cat/templates/' . urlencode((string) $params['name']);
+			$url = '/_cat/templates/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/templates';
@@ -1066,7 +1066,7 @@ class Cat extends AbstractEndpoint
 	public function threadPool(array $params = [])
 	{
 		if (isset($params['thread_pool_patterns'])) {
-			$url = '/_cat/thread_pool/' . urlencode((string) $params['thread_pool_patterns']);
+			$url = '/_cat/thread_pool/' . $this->encode($params['thread_pool_patterns']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/thread_pool';
@@ -1113,7 +1113,7 @@ class Cat extends AbstractEndpoint
 	public function transforms(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = '/_cat/transforms/' . urlencode((string) $params['transform_id']);
+			$url = '/_cat/transforms/' . $this->encode($params['transform_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cat/transforms';

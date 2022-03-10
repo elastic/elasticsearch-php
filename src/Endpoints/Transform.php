@@ -54,7 +54,7 @@ class Transform extends AbstractEndpoint
 	public function deleteTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']);
+		$url = '/_transform/' . $this->encode($params['transform_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
@@ -93,7 +93,7 @@ class Transform extends AbstractEndpoint
 	public function getTransform(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = '/_transform/' . urlencode((string) $params['transform_id']);
+			$url = '/_transform/' . $this->encode($params['transform_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_transform';
@@ -134,7 +134,7 @@ class Transform extends AbstractEndpoint
 	public function getTransformStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stats';
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','pretty','human','error_trace','source','filter_path']);
@@ -171,7 +171,7 @@ class Transform extends AbstractEndpoint
 	public function previewTransform(array $params = [])
 	{
 		if (isset($params['transform_id'])) {
-			$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_preview';
+			$url = '/_transform/' . $this->encode($params['transform_id']) . '/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_transform/_preview';
@@ -213,7 +213,7 @@ class Transform extends AbstractEndpoint
 	public function putTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']);
+		$url = '/_transform/' . $this->encode($params['transform_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['defer_validation','timeout','pretty','human','error_trace','source','filter_path']);
@@ -250,7 +250,7 @@ class Transform extends AbstractEndpoint
 	public function startTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_start';
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_start';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
@@ -290,7 +290,7 @@ class Transform extends AbstractEndpoint
 	public function stopTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_stop';
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_stop';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','timeout','allow_no_match','wait_for_checkpoint','pretty','human','error_trace','source','filter_path']);
@@ -328,7 +328,7 @@ class Transform extends AbstractEndpoint
 	public function updateTransform(array $params = [])
 	{
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . urlencode((string) $params['transform_id']) . '/_update';
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['defer_validation','timeout','pretty','human','error_trace','source','filter_path']);

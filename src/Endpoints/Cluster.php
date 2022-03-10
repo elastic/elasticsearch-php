@@ -91,7 +91,7 @@ class Cluster extends AbstractEndpoint
 	public function deleteComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_component_template/' . urlencode((string) $params['name']);
+		$url = '/_component_template/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -162,7 +162,7 @@ class Cluster extends AbstractEndpoint
 	public function existsComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_component_template/' . urlencode((string) $params['name']);
+		$url = '/_component_template/' . $this->encode($params['name']);
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
@@ -199,7 +199,7 @@ class Cluster extends AbstractEndpoint
 	public function getComponentTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_component_template/' . urlencode((string) $params['name']);
+			$url = '/_component_template/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_component_template';
@@ -285,7 +285,7 @@ class Cluster extends AbstractEndpoint
 	public function health(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/_cluster/health/' . urlencode((string) $params['index']);
+			$url = '/_cluster/health/' . $this->encode($params['index']);
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/health';
@@ -399,7 +399,7 @@ class Cluster extends AbstractEndpoint
 	public function putComponentTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_component_template/' . urlencode((string) $params['name']);
+		$url = '/_component_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['create','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -542,10 +542,10 @@ class Cluster extends AbstractEndpoint
 	public function state(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['metric'])) {
-			$url = '/_cluster/state/' . urlencode((string) $params['metric']) . '/' . urlencode((string) $params['index']);
+			$url = '/_cluster/state/' . $this->encode($params['metric']) . '/' . $this->encode($params['index']);
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_cluster/state/' . urlencode((string) $params['metric']);
+			$url = '/_cluster/state/' . $this->encode($params['metric']);
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/state';
@@ -585,7 +585,7 @@ class Cluster extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = '/_cluster/stats/nodes/' . urlencode((string) $params['node_id']);
+			$url = '/_cluster/stats/nodes/' . $this->encode($params['node_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/stats';

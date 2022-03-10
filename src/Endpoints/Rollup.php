@@ -53,7 +53,7 @@ class Rollup extends AbstractEndpoint
 	public function deleteJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_rollup/job/' . urlencode((string) $params['id']);
+		$url = '/_rollup/job/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -89,7 +89,7 @@ class Rollup extends AbstractEndpoint
 	public function getJobs(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_rollup/job/' . urlencode((string) $params['id']);
+			$url = '/_rollup/job/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
 			$url = '/_rollup/job/';
@@ -128,7 +128,7 @@ class Rollup extends AbstractEndpoint
 	public function getRollupCaps(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_rollup/data/' . urlencode((string) $params['id']);
+			$url = '/_rollup/data/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
 			$url = '/_rollup/data/';
@@ -167,7 +167,7 @@ class Rollup extends AbstractEndpoint
 	public function getRollupIndexCaps(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_rollup/data';
+		$url = '/' . $this->encode($params['index']) . '/_rollup/data';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -204,7 +204,7 @@ class Rollup extends AbstractEndpoint
 	public function putJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_rollup/job/' . urlencode((string) $params['id']);
+		$url = '/_rollup/job/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -243,7 +243,7 @@ class Rollup extends AbstractEndpoint
 	public function rollup(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','rollup_index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_rollup/' . urlencode((string) $params['rollup_index']);
+		$url = '/' . $this->encode($params['index']) . '/_rollup/' . $this->encode($params['rollup_index']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -283,7 +283,7 @@ class Rollup extends AbstractEndpoint
 	public function rollupSearch(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_rollup_search';
+		$url = '/' . $this->encode($params['index']) . '/_rollup_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['typed_keys','rest_total_hits_as_int','pretty','human','error_trace','source','filter_path']);
@@ -320,7 +320,7 @@ class Rollup extends AbstractEndpoint
 	public function startJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_start';
+		$url = '/_rollup/job/' . $this->encode($params['id']) . '/_start';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -358,7 +358,7 @@ class Rollup extends AbstractEndpoint
 	public function stopJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_rollup/job/' . urlencode((string) $params['id']) . '/_stop';
+		$url = '/_rollup/job/' . $this->encode($params['id']) . '/_stop';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout','pretty','human','error_trace','source','filter_path']);

@@ -73,7 +73,7 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['username'])) {
-			$url = '/_security/user/' . urlencode((string) $params['username']) . '/_password';
+			$url = '/_security/user/' . $this->encode($params['username']) . '/_password';
 			$method = 'PUT';
 		} else {
 			$url = '/_security/user/_password';
@@ -112,7 +112,7 @@ class Security extends AbstractEndpoint
 	public function clearApiKeyCache(array $params = [])
 	{
 		$this->checkRequiredParameters(['ids'], $params);
-		$url = '/_security/api_key/' . urlencode((string) $params['ids']) . '/_clear_cache';
+		$url = '/_security/api_key/' . $this->encode($params['ids']) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -147,7 +147,7 @@ class Security extends AbstractEndpoint
 	public function clearCachedPrivileges(array $params = [])
 	{
 		$this->checkRequiredParameters(['application'], $params);
-		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/_clear_cache';
+		$url = '/_security/privilege/' . $this->encode($params['application']) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -183,7 +183,7 @@ class Security extends AbstractEndpoint
 	public function clearCachedRealms(array $params = [])
 	{
 		$this->checkRequiredParameters(['realms'], $params);
-		$url = '/_security/realm/' . urlencode((string) $params['realms']) . '/_clear_cache';
+		$url = '/_security/realm/' . $this->encode($params['realms']) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['usernames','pretty','human','error_trace','source','filter_path']);
@@ -218,7 +218,7 @@ class Security extends AbstractEndpoint
 	public function clearCachedRoles(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role/' . urlencode((string) $params['name']) . '/_clear_cache';
+		$url = '/_security/role/' . $this->encode($params['name']) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -255,7 +255,7 @@ class Security extends AbstractEndpoint
 	public function clearCachedServiceTokens(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
-		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']) . '/_clear_cache';
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -331,10 +331,10 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['namespace','service'], $params);
 		if (isset($params['name'])) {
-			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
+			$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']);
 			$method = 'PUT';
 		} else {
-			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token';
+			$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token';
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -371,7 +371,7 @@ class Security extends AbstractEndpoint
 	public function deletePrivileges(array $params = [])
 	{
 		$this->checkRequiredParameters(['application','name'], $params);
-		$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
+		$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -407,7 +407,7 @@ class Security extends AbstractEndpoint
 	public function deleteRole(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role/' . urlencode((string) $params['name']);
+		$url = '/_security/role/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -443,7 +443,7 @@ class Security extends AbstractEndpoint
 	public function deleteRoleMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
+		$url = '/_security/role_mapping/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -481,7 +481,7 @@ class Security extends AbstractEndpoint
 	public function deleteServiceToken(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
-		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential/token/' . urlencode((string) $params['name']);
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -517,7 +517,7 @@ class Security extends AbstractEndpoint
 	public function deleteUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = '/_security/user/' . urlencode((string) $params['username']);
+		$url = '/_security/user/' . $this->encode($params['username']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -553,7 +553,7 @@ class Security extends AbstractEndpoint
 	public function disableUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_disable';
+		$url = '/_security/user/' . $this->encode($params['username']) . '/_disable';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -589,7 +589,7 @@ class Security extends AbstractEndpoint
 	public function enableUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = '/_security/user/' . urlencode((string) $params['username']) . '/_enable';
+		$url = '/_security/user/' . $this->encode($params['username']) . '/_enable';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -719,10 +719,10 @@ class Security extends AbstractEndpoint
 	public function getPrivileges(array $params = [])
 	{
 		if (isset($params['application']) && isset($params['name'])) {
-			$url = '/_security/privilege/' . urlencode((string) $params['application']) . '/' . urlencode((string) $params['name']);
+			$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
 			$method = 'GET';
 		} elseif (isset($params['application'])) {
-			$url = '/_security/privilege/' . urlencode((string) $params['application']);
+			$url = '/_security/privilege/' . $this->encode($params['application']);
 			$method = 'GET';
 		} else {
 			$url = '/_security/privilege';
@@ -760,7 +760,7 @@ class Security extends AbstractEndpoint
 	public function getRole(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_security/role/' . urlencode((string) $params['name']);
+			$url = '/_security/role/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_security/role';
@@ -798,7 +798,7 @@ class Security extends AbstractEndpoint
 	public function getRoleMapping(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
+			$url = '/_security/role_mapping/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_security/role_mapping';
@@ -837,10 +837,10 @@ class Security extends AbstractEndpoint
 	public function getServiceAccounts(array $params = [])
 	{
 		if (isset($params['namespace']) && isset($params['service'])) {
-			$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']);
+			$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']);
 			$method = 'GET';
 		} elseif (isset($params['namespace'])) {
-			$url = '/_security/service/' . urlencode((string) $params['namespace']);
+			$url = '/_security/service/' . $this->encode($params['namespace']);
 			$method = 'GET';
 		} else {
 			$url = '/_security/service';
@@ -879,7 +879,7 @@ class Security extends AbstractEndpoint
 	public function getServiceCredentials(array $params = [])
 	{
 		$this->checkRequiredParameters(['namespace','service'], $params);
-		$url = '/_security/service/' . urlencode((string) $params['namespace']) . '/' . urlencode((string) $params['service']) . '/credential';
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -950,7 +950,7 @@ class Security extends AbstractEndpoint
 	public function getUser(array $params = [])
 	{
 		if (isset($params['username'])) {
-			$url = '/_security/user/' . urlencode((string) $params['username']);
+			$url = '/_security/user/' . $this->encode($params['username']);
 			$method = 'GET';
 		} else {
 			$url = '/_security/user';
@@ -1045,7 +1045,7 @@ class Security extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['user'])) {
-			$url = '/_security/user/' . urlencode((string) $params['user']) . '/_has_privileges';
+			$url = '/_security/user/' . $this->encode($params['user']) . '/_has_privileges';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_security/user/_has_privileges';
@@ -1195,7 +1195,7 @@ class Security extends AbstractEndpoint
 	public function putRole(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role/' . urlencode((string) $params['name']);
+		$url = '/_security/role/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -1233,7 +1233,7 @@ class Security extends AbstractEndpoint
 	public function putRoleMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role_mapping/' . urlencode((string) $params['name']);
+		$url = '/_security/role_mapping/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -1271,7 +1271,7 @@ class Security extends AbstractEndpoint
 	public function putUser(array $params = [])
 	{
 		$this->checkRequiredParameters(['username'], $params);
-		$url = '/_security/user/' . urlencode((string) $params['username']);
+		$url = '/_security/user/' . $this->encode($params['username']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -1522,7 +1522,7 @@ class Security extends AbstractEndpoint
 	public function samlServiceProviderMetadata(array $params = [])
 	{
 		$this->checkRequiredParameters(['realm_name'], $params);
-		$url = '/_security/saml/metadata/' . urlencode((string) $params['realm_name']);
+		$url = '/_security/saml/metadata/' . $this->encode($params['realm_name']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

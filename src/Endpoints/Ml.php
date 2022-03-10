@@ -56,7 +56,7 @@ class Ml extends AbstractEndpoint
 	public function closeJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_close';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_close';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
@@ -92,7 +92,7 @@ class Ml extends AbstractEndpoint
 	public function deleteCalendar(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -128,7 +128,7 @@ class Ml extends AbstractEndpoint
 	public function deleteCalendarEvent(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id','event_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events/' . urlencode((string) $params['event_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/events/' . $this->encode($params['event_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -164,7 +164,7 @@ class Ml extends AbstractEndpoint
 	public function deleteCalendarJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id','job_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($params['job_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -201,7 +201,7 @@ class Ml extends AbstractEndpoint
 	public function deleteDataFrameAnalytics(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
+		$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
@@ -237,7 +237,7 @@ class Ml extends AbstractEndpoint
 	public function deleteDatafeed(array $params = [])
 	{
 		$this->checkRequiredParameters(['datafeed_id'], $params);
-		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
+		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['force','pretty','human','error_trace','source','filter_path']);
@@ -275,7 +275,7 @@ class Ml extends AbstractEndpoint
 	public function deleteExpiredData(array $params = [])
 	{
 		if (isset($params['job_id'])) {
-			$url = '/_ml/_delete_expired_data/' . urlencode((string) $params['job_id']);
+			$url = '/_ml/_delete_expired_data/' . $this->encode($params['job_id']);
 			$method = 'DELETE';
 		} else {
 			$url = '/_ml/_delete_expired_data';
@@ -314,7 +314,7 @@ class Ml extends AbstractEndpoint
 	public function deleteFilter(array $params = [])
 	{
 		$this->checkRequiredParameters(['filter_id'], $params);
-		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
+		$url = '/_ml/filters/' . $this->encode($params['filter_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -353,10 +353,10 @@ class Ml extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
 		if (isset($params['forecast_id'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast/' . urlencode((string) $params['forecast_id']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_forecast/' . $this->encode($params['forecast_id']);
 			$method = 'DELETE';
 		} else {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_forecast';
 			$method = 'DELETE';
 		}
 		$url = $this->addQueryString($url, $params, ['allow_no_forecasts','timeout','pretty','human','error_trace','source','filter_path']);
@@ -393,7 +393,7 @@ class Ml extends AbstractEndpoint
 	public function deleteJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['force','wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -429,7 +429,7 @@ class Ml extends AbstractEndpoint
 	public function deleteModelSnapshot(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']);
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -465,7 +465,7 @@ class Ml extends AbstractEndpoint
 	public function deleteTrainedModel(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
@@ -501,7 +501,7 @@ class Ml extends AbstractEndpoint
 	public function deleteTrainedModelAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_alias','model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/model_aliases/' . $this->encode($params['model_alias']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -610,7 +610,7 @@ class Ml extends AbstractEndpoint
 	public function explainDataFrameAnalytics(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_explain';
+			$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_explain';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_ml/data_frame/analytics/_explain';
@@ -655,7 +655,7 @@ class Ml extends AbstractEndpoint
 	public function flushJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_flush';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_flush';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['calc_interim','start','end','advance_time','skip_time','pretty','human','error_trace','source','filter_path']);
@@ -695,7 +695,7 @@ class Ml extends AbstractEndpoint
 	public function forecast(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_forecast';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_forecast';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['duration','expires_in','max_model_memory','pretty','human','error_trace','source','filter_path']);
@@ -743,10 +743,10 @@ class Ml extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
 		if (isset($params['timestamp'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/buckets/' . urlencode((string) $params['timestamp']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/buckets/' . $this->encode($params['timestamp']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/buckets';
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/buckets';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['expand','exclude_interim','from','size','start','end','anomaly_score','sort','desc','pretty','human','error_trace','source','filter_path']);
@@ -787,7 +787,7 @@ class Ml extends AbstractEndpoint
 	public function getCalendarEvents(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/events';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['job_id','start','end','from','size','pretty','human','error_trace','source','filter_path']);
@@ -825,7 +825,7 @@ class Ml extends AbstractEndpoint
 	public function getCalendars(array $params = [])
 	{
 		if (isset($params['calendar_id'])) {
-			$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
+			$url = '/_ml/calendars/' . $this->encode($params['calendar_id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_ml/calendars';
@@ -870,10 +870,10 @@ class Ml extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
 		if (isset($params['category_id'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/categories/' . urlencode((string) $params['category_id']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/categories/' . $this->encode($params['category_id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/categories/';
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/categories/';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['from','size','partition_field_value','pretty','human','error_trace','source','filter_path']);
@@ -913,7 +913,7 @@ class Ml extends AbstractEndpoint
 	public function getDataFrameAnalytics(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
+			$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ml/data_frame/analytics';
@@ -955,7 +955,7 @@ class Ml extends AbstractEndpoint
 	public function getDataFrameAnalyticsStats(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_stats';
+			$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/data_frame/analytics/_stats';
@@ -994,7 +994,7 @@ class Ml extends AbstractEndpoint
 	public function getDatafeedStats(array $params = [])
 	{
 		if (isset($params['datafeed_id'])) {
-			$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_stats';
+			$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/datafeeds/_stats';
@@ -1034,7 +1034,7 @@ class Ml extends AbstractEndpoint
 	public function getDatafeeds(array $params = [])
 	{
 		if (isset($params['datafeed_id'])) {
-			$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
+			$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ml/datafeeds';
@@ -1074,7 +1074,7 @@ class Ml extends AbstractEndpoint
 	public function getFilters(array $params = [])
 	{
 		if (isset($params['filter_id'])) {
-			$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
+			$url = '/_ml/filters/' . $this->encode($params['filter_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ml/filters';
@@ -1121,7 +1121,7 @@ class Ml extends AbstractEndpoint
 	public function getInfluencers(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/influencers';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/influencers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','influencer_score','sort','desc','pretty','human','error_trace','source','filter_path']);
@@ -1158,7 +1158,7 @@ class Ml extends AbstractEndpoint
 	public function getJobStats(array $params = [])
 	{
 		if (isset($params['job_id'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_stats';
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/anomaly_detectors/_stats';
@@ -1198,7 +1198,7 @@ class Ml extends AbstractEndpoint
 	public function getJobs(array $params = [])
 	{
 		if (isset($params['job_id'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ml/anomaly_detectors';
@@ -1238,7 +1238,7 @@ class Ml extends AbstractEndpoint
 	public function getModelSnapshotUpgradeStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade/_stats';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']) . '/_upgrade/_stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['allow_no_match','pretty','human','error_trace','source','filter_path']);
@@ -1282,10 +1282,10 @@ class Ml extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
 		if (isset($params['snapshot_id'])) {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
-			$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots';
+			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['from','size','start','end','sort','desc','pretty','human','error_trace','source','filter_path']);
@@ -1329,7 +1329,7 @@ class Ml extends AbstractEndpoint
 	public function getOverallBuckets(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/overall_buckets';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/overall_buckets';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['top_n','bucket_span','overall_score','exclude_interim','start','end','allow_no_match','pretty','human','error_trace','source','filter_path']);
@@ -1374,7 +1374,7 @@ class Ml extends AbstractEndpoint
 	public function getRecords(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/results/records';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/results/records';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['exclude_interim','from','size','start','end','record_score','sort','desc','pretty','human','error_trace','source','filter_path']);
@@ -1418,7 +1418,7 @@ class Ml extends AbstractEndpoint
 	public function getTrainedModels(array $params = [])
 	{
 		if (isset($params['model_id'])) {
-			$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
+			$url = '/_ml/trained_models/' . $this->encode($params['model_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ml/trained_models';
@@ -1459,7 +1459,7 @@ class Ml extends AbstractEndpoint
 	public function getTrainedModelsStats(array $params = [])
 	{
 		if (isset($params['model_id'])) {
-			$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/_stats';
+			$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/trained_models/_stats';
@@ -1500,7 +1500,7 @@ class Ml extends AbstractEndpoint
 	public function inferTrainedModelDeployment(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_infer';
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/deployment/_infer';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
@@ -1555,7 +1555,7 @@ class Ml extends AbstractEndpoint
 	public function openJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_open';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_open';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1592,7 +1592,7 @@ class Ml extends AbstractEndpoint
 	public function postCalendarEvents(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/events';
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/events';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1631,7 +1631,7 @@ class Ml extends AbstractEndpoint
 	public function postData(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_data';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_data';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['reset_start','reset_end','pretty','human','error_trace','source','filter_path']);
@@ -1668,7 +1668,7 @@ class Ml extends AbstractEndpoint
 	public function previewDataFrameAnalytics(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_preview';
+			$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_ml/data_frame/analytics/_preview';
@@ -1708,7 +1708,7 @@ class Ml extends AbstractEndpoint
 	public function previewDatafeed(array $params = [])
 	{
 		if (isset($params['datafeed_id'])) {
-			$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_preview';
+			$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_preview';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_ml/datafeeds/_preview';
@@ -1748,7 +1748,7 @@ class Ml extends AbstractEndpoint
 	public function putCalendar(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1785,7 +1785,7 @@ class Ml extends AbstractEndpoint
 	public function putCalendarJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['calendar_id','job_id'], $params);
-		$url = '/_ml/calendars/' . urlencode((string) $params['calendar_id']) . '/jobs/' . urlencode((string) $params['job_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($params['job_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1821,7 +1821,7 @@ class Ml extends AbstractEndpoint
 	public function putDataFrameAnalytics(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']);
+		$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1862,7 +1862,7 @@ class Ml extends AbstractEndpoint
 	public function putDatafeed(array $params = [])
 	{
 		$this->checkRequiredParameters(['datafeed_id'], $params);
-		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']);
+		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -1899,7 +1899,7 @@ class Ml extends AbstractEndpoint
 	public function putFilter(array $params = [])
 	{
 		$this->checkRequiredParameters(['filter_id'], $params);
-		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']);
+		$url = '/_ml/filters/' . $this->encode($params['filter_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1940,7 +1940,7 @@ class Ml extends AbstractEndpoint
 	public function putJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']);
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -1978,7 +1978,7 @@ class Ml extends AbstractEndpoint
 	public function putTrainedModel(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']);
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['defer_definition_decompression','pretty','human','error_trace','source','filter_path']);
@@ -2016,7 +2016,7 @@ class Ml extends AbstractEndpoint
 	public function putTrainedModelAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_alias','model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/model_aliases/' . urlencode((string) $params['model_alias']);
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/model_aliases/' . $this->encode($params['model_alias']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['reassign','pretty','human','error_trace','source','filter_path']);
@@ -2055,7 +2055,7 @@ class Ml extends AbstractEndpoint
 	public function putTrainedModelDefinitionPart(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id','part'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/definition/' . urlencode((string) $params['part']);
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/definition/' . $this->encode($params['part']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2093,7 +2093,7 @@ class Ml extends AbstractEndpoint
 	public function putTrainedModelVocabulary(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/vocabulary';
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/vocabulary';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2130,7 +2130,7 @@ class Ml extends AbstractEndpoint
 	public function resetJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_reset';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_reset';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -2168,7 +2168,7 @@ class Ml extends AbstractEndpoint
 	public function revertModelSnapshot(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_revert';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']) . '/_revert';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['delete_intervening_results','pretty','human','error_trace','source','filter_path']);
@@ -2241,7 +2241,7 @@ class Ml extends AbstractEndpoint
 	public function startDataFrameAnalytics(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_start';
+		$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_start';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
@@ -2281,7 +2281,7 @@ class Ml extends AbstractEndpoint
 	public function startDatafeed(array $params = [])
 	{
 		$this->checkRequiredParameters(['datafeed_id'], $params);
-		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_start';
+		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_start';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['start','end','timeout','pretty','human','error_trace','source','filter_path']);
@@ -2320,7 +2320,7 @@ class Ml extends AbstractEndpoint
 	public function startTrainedModelDeployment(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_start';
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/deployment/_start';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','wait_for','pretty','human','error_trace','source','filter_path']);
@@ -2360,7 +2360,7 @@ class Ml extends AbstractEndpoint
 	public function stopDataFrameAnalytics(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_stop';
+		$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_stop';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
@@ -2401,7 +2401,7 @@ class Ml extends AbstractEndpoint
 	public function stopDatafeed(array $params = [])
 	{
 		$this->checkRequiredParameters(['datafeed_id'], $params);
-		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_stop';
+		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_stop';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout','pretty','human','error_trace','source','filter_path']);
@@ -2441,7 +2441,7 @@ class Ml extends AbstractEndpoint
 	public function stopTrainedModelDeployment(array $params = [])
 	{
 		$this->checkRequiredParameters(['model_id'], $params);
-		$url = '/_ml/trained_models/' . urlencode((string) $params['model_id']) . '/deployment/_stop';
+		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/deployment/_stop';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['allow_no_match','force','pretty','human','error_trace','source','filter_path']);
@@ -2478,7 +2478,7 @@ class Ml extends AbstractEndpoint
 	public function updateDataFrameAnalytics(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ml/data_frame/analytics/' . urlencode((string) $params['id']) . '/_update';
+		$url = '/_ml/data_frame/analytics/' . $this->encode($params['id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2519,7 +2519,7 @@ class Ml extends AbstractEndpoint
 	public function updateDatafeed(array $params = [])
 	{
 		$this->checkRequiredParameters(['datafeed_id'], $params);
-		$url = '/_ml/datafeeds/' . urlencode((string) $params['datafeed_id']) . '/_update';
+		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','ignore_throttled','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -2556,7 +2556,7 @@ class Ml extends AbstractEndpoint
 	public function updateFilter(array $params = [])
 	{
 		$this->checkRequiredParameters(['filter_id'], $params);
-		$url = '/_ml/filters/' . urlencode((string) $params['filter_id']) . '/_update';
+		$url = '/_ml/filters/' . $this->encode($params['filter_id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2593,7 +2593,7 @@ class Ml extends AbstractEndpoint
 	public function updateJob(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/_update';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2631,7 +2631,7 @@ class Ml extends AbstractEndpoint
 	public function updateModelSnapshot(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_update';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']) . '/_update';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2670,7 +2670,7 @@ class Ml extends AbstractEndpoint
 	public function upgradeJobSnapshot(array $params = [])
 	{
 		$this->checkRequiredParameters(['job_id','snapshot_id'], $params);
-		$url = '/_ml/anomaly_detectors/' . urlencode((string) $params['job_id']) . '/model_snapshots/' . urlencode((string) $params['snapshot_id']) . '/_upgrade';
+		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/model_snapshots/' . $this->encode($params['snapshot_id']) . '/_upgrade';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);

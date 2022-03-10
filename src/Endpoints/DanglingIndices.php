@@ -55,7 +55,7 @@ class DanglingIndices extends AbstractEndpoint
 	public function deleteDanglingIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['index_uuid'], $params);
-		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
+		$url = '/_dangling/' . $this->encode($params['index_uuid']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -93,7 +93,7 @@ class DanglingIndices extends AbstractEndpoint
 	public function importDanglingIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['index_uuid'], $params);
-		$url = '/_dangling/' . urlencode((string) $params['index_uuid']);
+		$url = '/_dangling/' . $this->encode($params['index_uuid']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['accept_data_loss','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);

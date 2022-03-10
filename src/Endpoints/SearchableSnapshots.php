@@ -53,7 +53,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function cacheStats(array $params = [])
 	{
 		if (isset($params['node_id'])) {
-			$url = '/_searchable_snapshots/' . urlencode((string) $params['node_id']) . '/cache/stats';
+			$url = '/_searchable_snapshots/' . $this->encode($params['node_id']) . '/cache/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/cache/stats';
@@ -95,7 +95,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function clearCache(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_searchable_snapshots/cache/clear';
+			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		} else {
 			$url = '/_searchable_snapshots/cache/clear';
@@ -138,7 +138,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function mount(array $params = [])
 	{
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . urlencode((string) $params['repository']) . '/' . urlencode((string) $params['snapshot']) . '/_mount';
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_mount';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','storage','pretty','human','error_trace','source','filter_path']);
@@ -175,7 +175,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_searchable_snapshots/stats';
+			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/stats';

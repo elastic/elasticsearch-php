@@ -88,7 +88,7 @@ class Sql extends AbstractEndpoint
 	public function deleteAsync(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_sql/async/delete/' . urlencode((string) $params['id']);
+		$url = '/_sql/async/delete/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -127,7 +127,7 @@ class Sql extends AbstractEndpoint
 	public function getAsync(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_sql/async/' . urlencode((string) $params['id']);
+		$url = '/_sql/async/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['delimiter','format','keep_alive','wait_for_completion_timeout','pretty','human','error_trace','source','filter_path']);
@@ -162,7 +162,7 @@ class Sql extends AbstractEndpoint
 	public function getAsyncStatus(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_sql/async/status/' . urlencode((string) $params['id']);
+		$url = '/_sql/async/status/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

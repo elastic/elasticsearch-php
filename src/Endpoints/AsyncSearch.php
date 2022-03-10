@@ -52,7 +52,7 @@ class AsyncSearch extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_async_search/' . urlencode((string) $params['id']);
+		$url = '/_async_search/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -90,7 +90,7 @@ class AsyncSearch extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_async_search/' . urlencode((string) $params['id']);
+		$url = '/_async_search/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive','typed_keys','pretty','human','error_trace','source','filter_path']);
@@ -125,7 +125,7 @@ class AsyncSearch extends AbstractEndpoint
 	public function status(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_async_search/status/' . urlencode((string) $params['id']);
+		$url = '/_async_search/status/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -202,7 +202,7 @@ class AsyncSearch extends AbstractEndpoint
 	public function submit(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_async_search';
+			$url = '/' . $this->encode($params['index']) . '/_async_search';
 			$method = 'POST';
 		} else {
 			$url = '/_async_search';

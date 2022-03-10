@@ -52,7 +52,7 @@ class Slm extends AbstractEndpoint
 	public function deleteLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
+		$url = '/_slm/policy/' . $this->encode($params['policy_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -87,7 +87,7 @@ class Slm extends AbstractEndpoint
 	public function executeLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']) . '/_execute';
+		$url = '/_slm/policy/' . $this->encode($params['policy_id']) . '/_execute';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -140,7 +140,7 @@ class Slm extends AbstractEndpoint
 	public function getLifecycle(array $params = [])
 	{
 		if (isset($params['policy_id'])) {
-			$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
+			$url = '/_slm/policy/' . $this->encode($params['policy_id']);
 			$method = 'GET';
 		} else {
 			$url = '/_slm/policy';
@@ -215,7 +215,7 @@ class Slm extends AbstractEndpoint
 	public function putLifecycle(array $params = [])
 	{
 		$this->checkRequiredParameters(['policy_id'], $params);
-		$url = '/_slm/policy/' . urlencode((string) $params['policy_id']);
+		$url = '/_slm/policy/' . $this->encode($params['policy_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

@@ -58,7 +58,7 @@ class Indices extends AbstractEndpoint
 	public function addBlock(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','block'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_block/' . urlencode((string) $params['block']);
+		$url = '/' . $this->encode($params['index']) . '/_block/' . $this->encode($params['block']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -94,7 +94,7 @@ class Indices extends AbstractEndpoint
 	public function analyze(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_analyze';
+			$url = '/' . $this->encode($params['index']) . '/_analyze';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_analyze';
@@ -140,7 +140,7 @@ class Indices extends AbstractEndpoint
 	public function clearCache(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_cache/clear';
+			$url = '/' . $this->encode($params['index']) . '/_cache/clear';
 			$method = 'POST';
 		} else {
 			$url = '/_cache/clear';
@@ -183,7 +183,7 @@ class Indices extends AbstractEndpoint
 	public function clone(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_clone/' . urlencode((string) $params['target']);
+		$url = '/' . $this->encode($params['index']) . '/_clone/' . $this->encode($params['target']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -225,7 +225,7 @@ class Indices extends AbstractEndpoint
 	public function close(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_close';
+		$url = '/' . $this->encode($params['index']) . '/_close';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -264,7 +264,7 @@ class Indices extends AbstractEndpoint
 	public function create(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']);
+		$url = '/' . $this->encode($params['index']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -300,7 +300,7 @@ class Indices extends AbstractEndpoint
 	public function createDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_data_stream/' . urlencode((string) $params['name']);
+		$url = '/_data_stream/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -335,7 +335,7 @@ class Indices extends AbstractEndpoint
 	public function dataStreamsStats(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_data_stream/' . urlencode((string) $params['name']) . '/_stats';
+			$url = '/_data_stream/' . $this->encode($params['name']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_data_stream/_stats';
@@ -378,7 +378,7 @@ class Indices extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']);
+		$url = '/' . $this->encode($params['index']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -416,7 +416,7 @@ class Indices extends AbstractEndpoint
 	public function deleteAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','name'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
+		$url = '/' . $this->encode($params['index']) . '/_alias/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -452,7 +452,7 @@ class Indices extends AbstractEndpoint
 	public function deleteDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_data_stream/' . urlencode((string) $params['name']);
+		$url = '/_data_stream/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -489,7 +489,7 @@ class Indices extends AbstractEndpoint
 	public function deleteIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_index_template/' . urlencode((string) $params['name']);
+		$url = '/_index_template/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -526,7 +526,7 @@ class Indices extends AbstractEndpoint
 	public function deleteTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_template/' . urlencode((string) $params['name']);
+		$url = '/_template/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -567,7 +567,7 @@ class Indices extends AbstractEndpoint
 	public function diskUsage(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_disk_usage';
+		$url = '/' . $this->encode($params['index']) . '/_disk_usage';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['run_expensive_tasks','flush','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -608,7 +608,7 @@ class Indices extends AbstractEndpoint
 	public function exists(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']);
+		$url = '/' . $this->encode($params['index']);
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults','pretty','human','error_trace','source','filter_path']);
@@ -649,10 +649,10 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['name'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
+			$url = '/' . $this->encode($params['index']) . '/_alias/' . $this->encode($params['name']);
 			$method = 'HEAD';
 		} else {
-			$url = '/_alias/' . urlencode((string) $params['name']);
+			$url = '/_alias/' . $this->encode($params['name']);
 			$method = 'HEAD';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','local','pretty','human','error_trace','source','filter_path']);
@@ -690,7 +690,7 @@ class Indices extends AbstractEndpoint
 	public function existsIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_index_template/' . urlencode((string) $params['name']);
+		$url = '/_index_template/' . $this->encode($params['name']);
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
@@ -728,7 +728,7 @@ class Indices extends AbstractEndpoint
 	public function existsTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_template/' . urlencode((string) $params['name']);
+		$url = '/_template/' . $this->encode($params['name']);
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
@@ -768,7 +768,7 @@ class Indices extends AbstractEndpoint
 	public function fieldUsageStats(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_field_usage_stats';
+		$url = '/' . $this->encode($params['index']) . '/_field_usage_stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -808,7 +808,7 @@ class Indices extends AbstractEndpoint
 	public function flush(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_flush';
+			$url = '/' . $this->encode($params['index']) . '/_flush';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_flush';
@@ -852,7 +852,7 @@ class Indices extends AbstractEndpoint
 	public function forcemerge(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_forcemerge';
+			$url = '/' . $this->encode($params['index']) . '/_forcemerge';
 			$method = 'POST';
 		} else {
 			$url = '/_forcemerge';
@@ -897,7 +897,7 @@ class Indices extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']);
+		$url = '/' . $this->encode($params['index']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -937,13 +937,13 @@ class Indices extends AbstractEndpoint
 	public function getAlias(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['name'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
+			$url = '/' . $this->encode($params['index']) . '/_alias/' . $this->encode($params['name']);
 			$method = 'GET';
 		} elseif (isset($params['name'])) {
-			$url = '/_alias/' . urlencode((string) $params['name']);
+			$url = '/_alias/' . $this->encode($params['name']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_alias';
+			$url = '/' . $this->encode($params['index']) . '/_alias';
 			$method = 'GET';
 		} else {
 			$url = '/_alias';
@@ -982,7 +982,7 @@ class Indices extends AbstractEndpoint
 	public function getDataStream(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_data_stream/' . urlencode((string) $params['name']);
+			$url = '/_data_stream/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_data_stream';
@@ -1027,10 +1027,10 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['fields'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_mapping/field/' . urlencode((string) $params['fields']);
+			$url = '/' . $this->encode($params['index']) . '/_mapping/field/' . $this->encode($params['fields']);
 			$method = 'GET';
 		} else {
-			$url = '/_mapping/field/' . urlencode((string) $params['fields']);
+			$url = '/_mapping/field/' . $this->encode($params['fields']);
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['include_defaults','ignore_unavailable','allow_no_indices','expand_wildcards','local','pretty','human','error_trace','source','filter_path']);
@@ -1068,7 +1068,7 @@ class Indices extends AbstractEndpoint
 	public function getIndexTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_index_template/' . urlencode((string) $params['name']);
+			$url = '/_index_template/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_index_template';
@@ -1111,7 +1111,7 @@ class Indices extends AbstractEndpoint
 	public function getMapping(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_mapping';
+			$url = '/' . $this->encode($params['index']) . '/_mapping';
 			$method = 'GET';
 		} else {
 			$url = '/_mapping';
@@ -1157,13 +1157,13 @@ class Indices extends AbstractEndpoint
 	public function getSettings(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['name'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_settings/' . urlencode((string) $params['name']);
+			$url = '/' . $this->encode($params['index']) . '/_settings/' . $this->encode($params['name']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_settings';
+			$url = '/' . $this->encode($params['index']) . '/_settings';
 			$method = 'GET';
 		} elseif (isset($params['name'])) {
-			$url = '/_settings/' . urlencode((string) $params['name']);
+			$url = '/_settings/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_settings';
@@ -1204,7 +1204,7 @@ class Indices extends AbstractEndpoint
 	public function getTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_template/' . urlencode((string) $params['name']);
+			$url = '/_template/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_template';
@@ -1242,7 +1242,7 @@ class Indices extends AbstractEndpoint
 	public function migrateToDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_data_stream/_migrate/' . urlencode((string) $params['name']);
+		$url = '/_data_stream/_migrate/' . $this->encode($params['name']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1319,7 +1319,7 @@ class Indices extends AbstractEndpoint
 	public function open(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_open';
+		$url = '/' . $this->encode($params['index']) . '/_open';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -1354,7 +1354,7 @@ class Indices extends AbstractEndpoint
 	public function promoteDataStream(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_data_stream/_promote/' . urlencode((string) $params['name']);
+		$url = '/_data_stream/_promote/' . $this->encode($params['name']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1393,7 +1393,7 @@ class Indices extends AbstractEndpoint
 	public function putAlias(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','name'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_alias/' . urlencode((string) $params['name']);
+		$url = '/' . $this->encode($params['index']) . '/_alias/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -1433,7 +1433,7 @@ class Indices extends AbstractEndpoint
 	public function putIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_index_template/' . urlencode((string) $params['name']);
+		$url = '/_index_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -1476,7 +1476,7 @@ class Indices extends AbstractEndpoint
 	public function putMapping(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_mapping';
+		$url = '/' . $this->encode($params['index']) . '/_mapping';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','write_index_only','pretty','human','error_trace','source','filter_path']);
@@ -1521,7 +1521,7 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_settings';
+			$url = '/' . $this->encode($params['index']) . '/_settings';
 			$method = 'PUT';
 		} else {
 			$url = '/_settings';
@@ -1564,7 +1564,7 @@ class Indices extends AbstractEndpoint
 	public function putTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_template/' . urlencode((string) $params['name']);
+		$url = '/_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['order','create','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -1602,7 +1602,7 @@ class Indices extends AbstractEndpoint
 	public function recovery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_recovery';
+			$url = '/' . $this->encode($params['index']) . '/_recovery';
 			$method = 'GET';
 		} else {
 			$url = '/_recovery';
@@ -1643,7 +1643,7 @@ class Indices extends AbstractEndpoint
 	public function refresh(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_refresh';
+			$url = '/' . $this->encode($params['index']) . '/_refresh';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_refresh';
@@ -1684,7 +1684,7 @@ class Indices extends AbstractEndpoint
 	public function reloadSearchAnalyzers(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_reload_search_analyzers';
+		$url = '/' . $this->encode($params['index']) . '/_reload_search_analyzers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -1720,7 +1720,7 @@ class Indices extends AbstractEndpoint
 	public function resolveIndex(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_resolve/index/' . urlencode((string) $params['name']);
+		$url = '/_resolve/index/' . $this->encode($params['name']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
@@ -1763,10 +1763,10 @@ class Indices extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['alias'], $params);
 		if (isset($params['new_index'])) {
-			$url = '/' . urlencode((string) $params['alias']) . '/_rollover/' . urlencode((string) $params['new_index']);
+			$url = '/' . $this->encode($params['alias']) . '/_rollover/' . $this->encode($params['new_index']);
 			$method = 'POST';
 		} else {
-			$url = '/' . urlencode((string) $params['alias']) . '/_rollover';
+			$url = '/' . $this->encode($params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -1806,7 +1806,7 @@ class Indices extends AbstractEndpoint
 	public function segments(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_segments';
+			$url = '/' . $this->encode($params['index']) . '/_segments';
 			$method = 'GET';
 		} else {
 			$url = '/_segments';
@@ -1848,7 +1848,7 @@ class Indices extends AbstractEndpoint
 	public function shardStores(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_shard_stores';
+			$url = '/' . $this->encode($params['index']) . '/_shard_stores';
 			$method = 'GET';
 		} else {
 			$url = '/_shard_stores';
@@ -1891,7 +1891,7 @@ class Indices extends AbstractEndpoint
 	public function shrink(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_shrink/' . urlencode((string) $params['target']);
+		$url = '/' . $this->encode($params['index']) . '/_shrink/' . $this->encode($params['target']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -1931,7 +1931,7 @@ class Indices extends AbstractEndpoint
 	public function simulateIndexTemplate(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_index_template/_simulate_index/' . urlencode((string) $params['name']);
+		$url = '/_index_template/_simulate_index/' . $this->encode($params['name']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -1971,7 +1971,7 @@ class Indices extends AbstractEndpoint
 	public function simulateTemplate(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_index_template/_simulate/' . urlencode((string) $params['name']);
+			$url = '/_index_template/_simulate/' . $this->encode($params['name']);
 			$method = 'POST';
 		} else {
 			$url = '/_index_template/_simulate';
@@ -2015,7 +2015,7 @@ class Indices extends AbstractEndpoint
 	public function split(array $params = [])
 	{
 		$this->checkRequiredParameters(['index','target'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_split/' . urlencode((string) $params['target']);
+		$url = '/' . $this->encode($params['index']) . '/_split/' . $this->encode($params['target']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -2061,13 +2061,13 @@ class Indices extends AbstractEndpoint
 	public function stats(array $params = [])
 	{
 		if (isset($params['index']) && isset($params['metric'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_stats/' . urlencode((string) $params['metric']);
+			$url = '/' . $this->encode($params['index']) . '/_stats/' . $this->encode($params['metric']);
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_stats/' . urlencode((string) $params['metric']);
+			$url = '/_stats/' . $this->encode($params['metric']);
 			$method = 'GET';
 		} elseif (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_stats';
+			$url = '/' . $this->encode($params['index']) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_stats';
@@ -2111,7 +2111,7 @@ class Indices extends AbstractEndpoint
 	public function unfreeze(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_unfreeze';
+		$url = '/' . $this->encode($params['index']) . '/_unfreeze';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
@@ -2197,7 +2197,7 @@ class Indices extends AbstractEndpoint
 	public function validateQuery(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_validate/query';
+			$url = '/' . $this->encode($params['index']) . '/_validate/query';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_validate/query';

@@ -52,7 +52,7 @@ class Eql extends AbstractEndpoint
 	public function delete(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_eql/search/' . urlencode((string) $params['id']);
+		$url = '/_eql/search/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -89,7 +89,7 @@ class Eql extends AbstractEndpoint
 	public function get(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_eql/search/' . urlencode((string) $params['id']);
+		$url = '/_eql/search/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive','pretty','human','error_trace','source','filter_path']);
@@ -124,7 +124,7 @@ class Eql extends AbstractEndpoint
 	public function getStatus(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_eql/search/status/' . urlencode((string) $params['id']);
+		$url = '/_eql/search/status/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -163,7 +163,7 @@ class Eql extends AbstractEndpoint
 	public function search(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_eql/search';
+		$url = '/' . $this->encode($params['index']) . '/_eql/search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive','pretty','human','error_trace','source','filter_path']);

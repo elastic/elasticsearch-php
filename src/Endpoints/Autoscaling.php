@@ -52,7 +52,7 @@ class Autoscaling extends AbstractEndpoint
 	public function deleteAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
+		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -105,7 +105,7 @@ class Autoscaling extends AbstractEndpoint
 	public function getAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
+		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -141,7 +141,7 @@ class Autoscaling extends AbstractEndpoint
 	public function putAutoscalingPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_autoscaling/policy/' . urlencode((string) $params['name']);
+		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

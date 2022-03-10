@@ -54,7 +54,7 @@ class Ingest extends AbstractEndpoint
 	public function deletePipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
+		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -109,7 +109,7 @@ class Ingest extends AbstractEndpoint
 	public function getPipeline(array $params = [])
 	{
 		if (isset($params['id'])) {
-			$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
+			$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
 			$url = '/_ingest/pipeline';
@@ -169,7 +169,7 @@ class Ingest extends AbstractEndpoint
 	public function putPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/pipeline/' . urlencode((string) $params['id']);
+		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['if_version','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -208,7 +208,7 @@ class Ingest extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['id'])) {
-			$url = '/_ingest/pipeline/' . urlencode((string) $params['id']) . '/_simulate';
+			$url = '/_ingest/pipeline/' . $this->encode($params['id']) . '/_simulate';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_ingest/pipeline/_simulate';

@@ -56,7 +56,7 @@ class Fleet extends AbstractEndpoint
 	public function globalCheckpoints(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_fleet/global_checkpoints';
+		$url = '/' . $this->encode($params['index']) . '/_fleet/global_checkpoints';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_advance','wait_for_index','checkpoints','timeout','pretty','human','error_trace','source','filter_path']);
@@ -94,7 +94,7 @@ class Fleet extends AbstractEndpoint
 	{
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_msearch';
+			$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_fleet/_fleet_msearch';
@@ -137,7 +137,7 @@ class Fleet extends AbstractEndpoint
 	public function search(array $params = [])
 	{
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . urlencode((string) $params['index']) . '/_fleet/_fleet_search';
+		$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_checkpoints','wait_for_checkpoints_timeout','allow_partial_search_results','pretty','human','error_trace','source','filter_path']);

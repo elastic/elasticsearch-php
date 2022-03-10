@@ -52,7 +52,7 @@ class Enrich extends AbstractEndpoint
 	public function deletePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
+		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -88,7 +88,7 @@ class Enrich extends AbstractEndpoint
 	public function executePolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_enrich/policy/' . urlencode((string) $params['name']) . '/_execute';
+		$url = '/_enrich/policy/' . $this->encode($params['name']) . '/_execute';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -123,7 +123,7 @@ class Enrich extends AbstractEndpoint
 	public function getPolicy(array $params = [])
 	{
 		if (isset($params['name'])) {
-			$url = '/_enrich/policy/' . urlencode((string) $params['name']);
+			$url = '/_enrich/policy/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_enrich/policy';
@@ -162,7 +162,7 @@ class Enrich extends AbstractEndpoint
 	public function putPolicy(array $params = [])
 	{
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_enrich/policy/' . urlencode((string) $params['name']);
+		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

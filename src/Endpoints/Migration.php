@@ -52,7 +52,7 @@ class Migration extends AbstractEndpoint
 	public function deprecations(array $params = [])
 	{
 		if (isset($params['index'])) {
-			$url = '/' . urlencode((string) $params['index']) . '/_migration/deprecations';
+			$url = '/' . $this->encode($params['index']) . '/_migration/deprecations';
 			$method = 'GET';
 		} else {
 			$url = '/_migration/deprecations';

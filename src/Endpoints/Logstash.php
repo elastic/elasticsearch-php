@@ -52,7 +52,7 @@ class Logstash extends AbstractEndpoint
 	public function deletePipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
+		$url = '/_logstash/pipeline/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -87,7 +87,7 @@ class Logstash extends AbstractEndpoint
 	public function getPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
+		$url = '/_logstash/pipeline/' . $this->encode($params['id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -123,7 +123,7 @@ class Logstash extends AbstractEndpoint
 	public function putPipeline(array $params = [])
 	{
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_logstash/pipeline/' . urlencode((string) $params['id']);
+		$url = '/_logstash/pipeline/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

@@ -4,14 +4,15 @@ FROM php:${PHP_VERSION}
 WORKDIR /usr/src/app
 
 # Install git
-RUN apt-get update -q && \
-    apt-get install -q -y --no-install-recommends git
+RUN apt-get update -qq > /dev/null && \
+    apt-get install -y --no-install-recommends git -qq > /dev/null
 
 # Install zip extension for PHP
-RUN apt-get install -q -y \
+RUN apt-get install -y \
         libzip-dev \
         zip \
         libyaml-dev \
+        -qq > /dev/null \
     && docker-php-ext-install zip 
 
 # Install yaml extension for PHP

@@ -89,7 +89,7 @@ fi
 docker_pull_attempts=0
 until [ "$docker_pull_attempts" -ge 5 ]
 do
-   docker pull docker.elastic.co/elasticsearch/"$elasticsearch_container" && break
+   docker pull -q docker.elastic.co/elasticsearch/"$elasticsearch_container" && break
    docker_pull_attempts=$((docker_pull_attempts+1))
    echo "Failed to pull image, retrying in 10 seconds (retry $docker_pull_attempts/5)..."
    sleep 10
@@ -128,7 +128,7 @@ END
     --ulimit memlock=-1:-1 \
     --detach="$local_detach" \
     --health-cmd="curl $cert_validation_flags --fail $elasticsearch_url/_cluster/health || exit 1" \
-    --health-interval=2s \
+    --health-interval=5s \
     --health-retries=20 \
     --health-timeout=2s \
     --rm \

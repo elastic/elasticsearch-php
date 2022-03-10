@@ -88,6 +88,29 @@ class BasicTest extends TestCase
         return $response['_id']; 
     }
 
+    public function testIndexStatistics()
+    {
+        $response = $this->client->indices()->stats([
+            'index' => 'stocks',
+            'metric' => 'completion,docs'
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotNull($response['_all']['primaries']['completion']);
+        $this->assertNotNull($response['_all']['primaries']['docs']);
+    }
+
+    public function testIndexStatisticsWithExpandWildcardsAsArray()
+    {
+        $response = $this->client->indices()->stats([
+            'index' => 'stocks',
+            'metric' => 'completion,docs',
+            'expand_wildcards' => ['open', 'closed']
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotNull($response['_all']['primaries']['completion']);
+        $this->assertNotNull($response['_all']['primaries']['docs']);
+    }
+
     /**
      * @depends testIndexDocumentWithBodyAsString
      */

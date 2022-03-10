@@ -28,6 +28,19 @@ use function sprintf;
 trait EndpointTrait
 {
     /**
+     * Check if an array containts nested array
+     */
+    private function isNestedArray(array $a): bool
+    {
+        foreach ($a as $v) {
+            if (is_array($v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns the URL with the query string from $params
      * extracting the array keys specified in $keys
      */
@@ -36,7 +49,15 @@ trait EndpointTrait
         $queryParams = [];
         foreach ($keys as $k) {
             if (isset($params[$k])) {
-                $queryParams[$k] = is_bool($params[$k]) ? ($params[$k] ? 'true' : 'false') : $params[$k];
+                // Convert to 'true' or 'false' string if bool
+                if (is_bool($params[$k])) {
+                    $queryParams[$k] = $params[$k] ? 'true' : 'false';
+                // Convert to comma-separated list if array
+                } elseif (is_array($params[$k]) && $this->isNestedArray($params[$k]) === false) {
+                    $queryParams[$k] = implode(',', $params[$k]);
+                } else {
+                    $queryParams[$k] = $params[$k];
+                }
             }
         }
         if (empty($queryParams)) {

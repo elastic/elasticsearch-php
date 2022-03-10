@@ -115,7 +115,8 @@ class ActionTest
                     $params = $this->convertStdClass($params); // convert "stdClass::__set_state(array())" in "(object)[]"
                 }
                 $vars[':endpoint'] = $this->convertDotToArrow($key);
-                $vars[':params']   = str_replace("\n","\n" . self::TAB14, $params);
+                //$vars[':params']   = str_replace("\n","\n" . self::TAB14, $params);
+                $vars[':params']   = $params;
             }
         }
         return YamlTests::render(self::TEMPLATE_ENDPOINT, $vars);
@@ -240,6 +241,9 @@ class ActionTest
             $vars[':expected'] = $this->convertJavaRegexToPhp($vars[':expected']);
             // Add /sx preg modifier to ignore whitespace
             $vars[':expected'] .= "sx";
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asString()';
+            }
             return YamlTests::render(
                 ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_MATCH_REGEX) : (self::TEMPLATE_MATCH_REGEX), 
                 $vars

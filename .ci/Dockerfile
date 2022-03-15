@@ -13,12 +13,12 @@ RUN apt-get install -y \
         zip \
         libyaml-dev \
         -qq > /dev/null \
-    && docker-php-ext-install zip 
+    && docker-php-ext-install zip > /dev/null
 
 # Install yaml extension for PHP
-RUN pecl channel-update pecl.php.net
+RUN pecl channel-update pecl.php.net > /dev/null
 RUN pecl install yaml > /dev/null 
-RUN docker-php-ext-enable yaml
+RUN docker-php-ext-enable yaml > /dev/null
 
 # Print PHP version
 RUN php -v
@@ -32,7 +32,7 @@ RUN composer --version
 COPY composer.json .
 
 # Install dependencies with composer
-RUN composer install --no-progress
+RUN composer install --no-progress > /dev/null
 
 COPY . .
 

@@ -32,7 +32,7 @@ RUN composer --version
 COPY composer.json .
 
 # Install dependencies with composer
-RUN composer install --no-progress &> /dev/null
+RUN composer install --no-progress > /dev/null
 
 COPY . .
 

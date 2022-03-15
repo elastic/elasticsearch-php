@@ -88,8 +88,10 @@ trait EndpointTrait
 
     /**
      * Serialize the body using the Content-Type
+     * 
+     * @param mixed $body
      */
-    protected function bodySerialize(array $body, string $contentType): string
+    protected function bodySerialize($body, string $contentType): string
     {
         if (strpos($contentType, 'application/x-ndjson') !== false) {
             return NDJsonSerializer::serialize($body, ['remove_null' => false]);

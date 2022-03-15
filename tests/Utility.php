@@ -167,42 +167,6 @@ class Utility
         self::ensureNoInitializingShards($client);
         self::wipeCluster($client);
         self::waitForClusterStateUpdatesToFinish($client);
-        self::checkForUnexpectedlyRecreatedObjects($client);
-    }
-
-    /**
-     * This method checks whether ILM policies or templates get recreated after they have been deleted. If so, we are probably deleting
-     * them unnecessarily, potentially causing test performance problems. This could happen for example if someone adds a new standard ILM
-     * policy but forgets to put it in the exclusion list in this test.
-     *
-     * @see ESRestTestCase.java:checkForUnexpectedlyRecreatedObjects()
-     */
-    private static function checkForUnexpectedlyRecreatedObjects(Client $client): void
-    {
-        if (self::$hasIlm) {
-            $policies = self::getAllUnexpectedIlmPolicies($client);
-            if (!empty($policies)) {
-                throw new Exception(sprintf(
-                    "Expected no ILM policies after deletions, but found %s", 
-                    implode(',', array_keys($policies))
-                ));
-            }
-        }
-    }
-
-    /**
-     * @see ESRestTestCase.java:getAllUnexpectedIlmPolicies()
-     */
-    private static function getAllUnexpectedIlmPolicies(Client $client): array
-    {
-        try {
-            return $client->ilm()->getLifecycle()->asArray();
-        } catch (ClientResponseException $e) {
-            if (in_array($e->getCode(), [400, 405])) {
-                return [];
-            }
-            throw $e;
-        }
     }
 
     /**

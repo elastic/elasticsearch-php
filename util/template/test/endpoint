@@ -1,4 +1,6 @@
+        :headers
         :catch$response = $this->client->:endpoint(
             :params
         );
+        :reset-headers
 :response-check

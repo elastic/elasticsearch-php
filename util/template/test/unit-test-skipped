@@ -17,6 +17,7 @@ declare(strict_types = 1);
 namespace :namespace;
 
 use PHPUnit\Framework\TestCase;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Tests\Utility;
 use stdClass;
 

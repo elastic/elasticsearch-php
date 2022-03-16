@@ -25,6 +25,7 @@ use stdClass;
 class ActionTest
 {
     const TEMPLATE_ENDPOINT             = __DIR__ . '/template/test/endpoint';
+    const TEMPLATE_ENDPOINT_TRY_CATCH   = __DIR__ . '/template/test/endpoint-try-catch';
     const TEMPLATE_MATCH_EQUAL          = __DIR__ . '/template/test/match-equal';
     const TEMPLATE_MATCH_REGEX          = __DIR__ . '/template/test/match-regex';
     const TEMPLATE_IS_FALSE             = __DIR__ . '/template/test/is-false';
@@ -69,6 +70,7 @@ class ActionTest
     private $skippedTest = false;
     private $output = '';
     private $phpUnitVersion;
+    private $clientParams = [];
 
     public function __construct(array $steps)
     {
@@ -89,7 +91,10 @@ class ActionTest
             ':endpoint'       => '',
             ':params'         => '',
             ':catch'          => '',
-            ':response-check' => ''
+            ':response-check' => '',
+            ':code'           => '',
+            ':headers'        => '',
+            ':reset-headers'  => ''
         ];
         foreach ($actions as $key => $value) {
             if (method_exists($this, $key)) {
@@ -97,12 +102,8 @@ class ActionTest
             } else {
                 // headers
                 if (!empty($this->headers)) {
-                    if ($value instanceof stdClass && empty(get_object_vars($value))) {
-                        $value = [];
-                    }
-                    $value['client'] = [
-                        'headers' => $this->formatHeaders($this->headers)
-                    ];
+                    $vars[':headers'] = $this->formatHeaders($this->headers);
+                    $vars[':reset-headers'] = $this->resetHeaders($this->headers);
                     $this->headers = [];
                 }
                 // Check if {} (new stdClass) is the parameter of an endpoint
@@ -119,7 +120,32 @@ class ActionTest
                 $vars[':params']   = $params;
             }
         }
+        // ignore client parameter
+        if (isset($this->clientParams['ignore'])) {
+            $vars[':code'] = $this->clientParams['ignore'];
+            return YamlTests::render(self::TEMPLATE_ENDPOINT_TRY_CATCH, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_ENDPOINT, $vars);
+    }
+
+    /**
+     * Adjust the client parameters (e.g. ignore)
+     */
+    private function adjustClientParams($params)
+    {
+        if (!is_array($params)) {
+            return $params;
+        }
+        $this->clientParams = [];
+        foreach ($params as $key => $value) {
+            switch($key) {
+                case 'ignore':
+                    $this->clientParams['ignore'] = $value;
+                    unset($params[$key]);
+                    break;
+            }        
+        }
+        return $params;
     }
 
     /**
@@ -479,36 +505,20 @@ class ActionTest
         return preg_replace("/stdClass::__set_state\(array\(\s+\)\)/", '(object) []', $value);
     }
 
-    /**
-     * Adjust the client parameters (e.g. ignore)
-     */
-    private function adjustClientParams($params)
+    private function formatHeaders(array $headers): string
     {
-        if (!is_array($params)) {
-            return $params;
+        $result = '';
+        foreach ($headers as $key => $value) {
+            $result .= sprintf("\$this->client->getTransport()->setHeader('%s','%s');\n", $key, $value);
         }
-        foreach ($params as $key => $value) {
-            if (in_array($key, ['ignore'])) {
-                if (isset($params['client'])) {
-                    $params['client'][$key] = $value;
-                } else {
-                    $params['client'] = [
-                        'ignore' => $value
-                    ];
-                }
-                unset($params[$key]);
-            }
-        }
-        return $params;
+        return $result;
     }
 
-    private function formatHeaders(array $headers): array
+    private function resetHeaders(array $headers): string
     {
-        $result = $headers;
+        $result = '';
         foreach ($headers as $key => $value) {
-            if (!is_array($value)) {
-                $result[$key] = [$value];
-            }
+            $result .= sprintf("\$this->client->getTransport()->setHeader('%s', null);\n", $key);
         }
         return $result;
     }

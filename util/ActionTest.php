@@ -26,10 +26,13 @@ class ActionTest
 {
     const TEMPLATE_ENDPOINT             = __DIR__ . '/template/test/endpoint';
     const TEMPLATE_ENDPOINT_TRY_CATCH   = __DIR__ . '/template/test/endpoint-try-catch';
+    const TEMPLATE_ENDPOINT_TRY_CATCH_ARRAY = __DIR__ . '/template/test/endpoint-try-catch-array';
     const TEMPLATE_MATCH_EQUAL          = __DIR__ . '/template/test/match-equal';
     const TEMPLATE_MATCH_REGEX          = __DIR__ . '/template/test/match-regex';
     const TEMPLATE_IS_FALSE             = __DIR__ . '/template/test/is-false';
+    const TEMPLATE_IS_FALSE_RESPONSE    = __DIR__ . '/template/test/is-false-response';
     const TEMPLATE_IS_TRUE              = __DIR__ . '/template/test/is-true';
+    const TEMPLATE_IS_TRUE_RESPONSE     = __DIR__ . '/template/test/is-true-response';
     const TEMPLATE_IS_NULL              = __DIR__ . '/template/test/is-null';
     const TEMPLATE_LENGTH               = __DIR__ . '/template/test/length';
     const TEMPLATE_SKIP_VERSION         = __DIR__ . '/template/test/skip-version';
@@ -103,7 +106,6 @@ class ActionTest
                 // headers
                 if (!empty($this->headers)) {
                     $vars[':headers'] = $this->formatHeaders($this->headers);
-                    $vars[':reset-headers'] = $this->resetHeaders($this->headers);
                     $this->headers = [];
                 }
                 // Check if {} (new stdClass) is the parameter of an endpoint
@@ -123,6 +125,9 @@ class ActionTest
         // ignore client parameter
         if (isset($this->clientParams['ignore'])) {
             $vars[':code'] = $this->clientParams['ignore'];
+            if (is_array($vars[':code'])) {
+                return YamlTests::render(self::TEMPLATE_ENDPOINT_TRY_CATCH_ARRAY, $vars);
+            }
             return YamlTests::render(self::TEMPLATE_ENDPOINT_TRY_CATCH, $vars);
         }
         return YamlTests::render(self::TEMPLATE_ENDPOINT, $vars);
@@ -274,9 +279,20 @@ class ActionTest
                 ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_MATCH_REGEX) : (self::TEMPLATE_MATCH_REGEX), 
                 $vars
             );
+        } elseif (is_array($expected)) {
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asArray()';
+            } 
+        } elseif (is_bool($expected)) {
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asBool()';
+            } 
         }
         if ($expected instanceof stdClass && empty(get_object_vars($expected))) {
             $vars[':expected'] = '[]';
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asArray()';
+            } 
         }
         return YamlTests::render(self::TEMPLATE_MATCH_EQUAL, $vars);
     }
@@ -286,6 +302,9 @@ class ActionTest
         $vars = [
             ':value' => $this->convertResponseField($value)
         ];
+        if ($vars[':value'] === '$response') {
+            return YamlTests::render(self::TEMPLATE_IS_TRUE_RESPONSE, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_IS_TRUE, $vars);
     }
 
@@ -294,6 +313,9 @@ class ActionTest
         $vars = [
             ':value' => $this->convertResponseField($value)
         ];
+        if ($vars[':value'] === '$response') {
+            return YamlTests::render(self::TEMPLATE_IS_FALSE_RESPONSE, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_IS_FALSE, $vars);
     }
 

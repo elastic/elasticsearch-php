@@ -113,7 +113,7 @@ trait ClientEndpointsTrait
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = array (
 		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json,text/plain',
+		  'Content-Type' => 'application/json',
 		);
 		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}

@@ -150,7 +150,9 @@ final class Client
                 $this->transport->setElasticMetaHeader(Client::CLIENT_NAME, Client::VERSION, true);
             }
             $this->transport->setAsyncOnSuccess(
-                $this->getResponseException() ? new AsyncOnSuccess : new AsyncOnSuccessNoException 
+                $request->getMethod() === 'HEAD'
+                    ? new AsyncOnSuccessNoException
+                    : ($this->getResponseException() ? new AsyncOnSuccess : new AsyncOnSuccessNoException)
             );
             return $this->transport->sendAsyncRequest($request);
         }     
@@ -163,7 +165,7 @@ final class Client
         $this->logger->info(sprintf("Response time in %.3f sec", microtime(true) - $start));       
 
         $result = new Elasticsearch;
-        $result->setResponse($response, $this->getResponseException());
+        $result->setResponse($response, $request->getMethod() === 'HEAD' ? false : $this->getResponseException());
         return $result;
     }
 }

@@ -56,10 +56,10 @@ class Sql extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -92,9 +92,9 @@ class Sql extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -131,9 +131,9 @@ class Sql extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['delimiter','format','keep_alive','wait_for_completion_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -166,9 +166,9 @@ class Sql extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -202,10 +202,10 @@ class Sql extends AbstractEndpoint
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['format','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -238,10 +238,10 @@ class Sql extends AbstractEndpoint
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

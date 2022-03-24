@@ -39,9 +39,9 @@ class Ssl extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

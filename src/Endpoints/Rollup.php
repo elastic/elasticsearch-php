@@ -57,9 +57,9 @@ class Rollup extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -96,9 +96,9 @@ class Rollup extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -135,9 +135,9 @@ class Rollup extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -171,9 +171,9 @@ class Rollup extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -203,15 +203,15 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function putJob(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
+		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_rollup/job/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -242,15 +242,15 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function rollup(array $params = [])
 	{
-		$this->checkRequiredParameters(['index','rollup_index'], $params);
+		$this->checkRequiredParameters(['index','rollup_index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_rollup/' . $this->encode($params['rollup_index']);
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -282,15 +282,15 @@ class Rollup extends AbstractEndpoint
 	 */
 	public function rollupSearch(array $params = [])
 	{
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_rollup_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['typed_keys','rest_total_hits_as_int','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -324,9 +324,9 @@ class Rollup extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -362,9 +362,9 @@ class Rollup extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

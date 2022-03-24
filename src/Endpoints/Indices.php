@@ -62,9 +62,9 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -101,10 +101,10 @@ class Indices extends AbstractEndpoint
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -147,9 +147,9 @@ class Indices extends AbstractEndpoint
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['fielddata','fields','query','ignore_unavailable','allow_no_indices','expand_wildcards','request','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -187,10 +187,10 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -229,9 +229,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -268,10 +268,10 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -304,9 +304,9 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -342,9 +342,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -382,9 +382,9 @@ class Indices extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -420,9 +420,9 @@ class Indices extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -456,9 +456,9 @@ class Indices extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -493,9 +493,9 @@ class Indices extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -530,9 +530,9 @@ class Indices extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -571,9 +571,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['run_expensive_tasks','flush','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -612,9 +612,9 @@ class Indices extends AbstractEndpoint
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -656,9 +656,9 @@ class Indices extends AbstractEndpoint
 			$method = 'HEAD';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -694,9 +694,9 @@ class Indices extends AbstractEndpoint
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -732,9 +732,9 @@ class Indices extends AbstractEndpoint
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -772,9 +772,9 @@ class Indices extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -815,9 +815,9 @@ class Indices extends AbstractEndpoint
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['force','wait_if_ongoing','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -859,9 +859,9 @@ class Indices extends AbstractEndpoint
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['flush','ignore_unavailable','allow_no_indices','expand_wildcards','max_num_segments','only_expunge_deletes','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -901,9 +901,9 @@ class Indices extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['local','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','include_defaults','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -950,9 +950,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -989,9 +989,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1034,9 +1034,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['include_defaults','ignore_unavailable','allow_no_indices','expand_wildcards','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1075,9 +1075,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1118,9 +1118,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','master_timeout','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1170,9 +1170,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','local','include_defaults','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1211,9 +1211,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1246,9 +1246,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1281,10 +1281,10 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1323,9 +1323,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1358,9 +1358,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1397,10 +1397,10 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1432,15 +1432,15 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putIndexTemplate(array $params = [])
 	{
-		$this->checkRequiredParameters(['name'], $params);
+		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_index_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1475,15 +1475,15 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putMapping(array $params = [])
 	{
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_mapping';
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','write_index_only','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1528,10 +1528,10 @@ class Indices extends AbstractEndpoint
 			$method = 'PUT';
 		}
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','preserve_existing','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1563,15 +1563,15 @@ class Indices extends AbstractEndpoint
 	 */
 	public function putTemplate(array $params = [])
 	{
-		$this->checkRequiredParameters(['name'], $params);
+		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['order','create','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1609,9 +1609,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['detailed','active_only','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1650,9 +1650,9 @@ class Indices extends AbstractEndpoint
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1688,9 +1688,9 @@ class Indices extends AbstractEndpoint
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1724,9 +1724,9 @@ class Indices extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1770,10 +1770,10 @@ class Indices extends AbstractEndpoint
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1813,9 +1813,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','verbose','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1855,9 +1855,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['status','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1895,10 +1895,10 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1935,10 +1935,10 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -1978,10 +1978,10 @@ class Indices extends AbstractEndpoint
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -2019,10 +2019,10 @@ class Indices extends AbstractEndpoint
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -2074,9 +2074,9 @@ class Indices extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['completion_fields','fielddata_fields','fields','groups','level','include_segment_file_sizes','include_unloaded_segments','expand_wildcards','forbid_closed_indices','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -2115,9 +2115,9 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -2152,10 +2152,10 @@ class Indices extends AbstractEndpoint
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -2204,10 +2204,10 @@ class Indices extends AbstractEndpoint
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['explain','ignore_unavailable','allow_no_indices','expand_wildcards','q','analyzer','analyze_wildcard','default_operator','df','lenient','rewrite','all_shards','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

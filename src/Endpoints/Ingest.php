@@ -58,9 +58,9 @@ class Ingest extends AbstractEndpoint
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -76,9 +76,9 @@ class Ingest extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -116,9 +116,9 @@ class Ingest extends AbstractEndpoint
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['summary','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -134,9 +134,9 @@ class Ingest extends AbstractEndpoint
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -168,15 +168,15 @@ class Ingest extends AbstractEndpoint
 	 */
 	public function putPipeline(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
+		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['if_version','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
@@ -215,10 +215,10 @@ class Ingest extends AbstractEndpoint
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['verbose','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/json',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

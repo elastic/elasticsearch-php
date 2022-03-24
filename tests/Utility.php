@@ -54,6 +54,11 @@ class Utility
     private static $hasShutdown = false;
 
     /**
+     * @var bool
+     */
+    private static $hasMl = false;
+
+    /**
      * Get the host URL based on ENV variables
      */
     public static function getHost(): ?string
@@ -151,6 +156,9 @@ class Utility
                 if ($module['name'] === 'x-pack-shutdown') {
                     self::$hasShutdown = true;
                 }
+                if ($module['name'] === 'x-pack-ml') {
+                    self::$hasMl = true;
+                }
             }
         }
     }
@@ -196,7 +204,7 @@ class Utility
             self::wipeRollupJobs($client);
             self::waitForPendingRollupTasks($client);        
         }
-        self::deleteAllSLMPolicies($client);  
+        self::deleteAllSLMPolicies($client); 
 
         // Clean up searchable snapshots indices before deleting snapshots and repositories
         if (self::$hasXPack && version_compare(self::getVersion($client), '7.7.99') > 0) {
@@ -224,7 +232,14 @@ class Utility
         if (self::$hasXPack) {
             self::deleteAllTasks($client);
         }
-
+        if (self::$hasMl) {    
+            self::deleteMlJobs($client);
+            self::deleteMlDataFrameAnalyticsJobs($client);
+            self::deleteMlCalendars($client);
+            self::deleteMlTrainingModels($client);
+        }
+        
+        self::deleteTransforms($client);
         self::deleteAllNodeShutdownMetadata($client);
     }
 
@@ -300,7 +315,7 @@ class Utility
         $repos = $client->snapshot()->getRepository([
             'repository' => '_all'
         ]);
-        foreach ($repos as $repository => $value) {
+        foreach ($repos->asArray() as $repository => $value) {
             if ($value['type'] === 'fs') {
                 $response = $client->snapshot()->get([
                     'repository' => $repository,
@@ -373,6 +388,77 @@ class Utility
     }
 
     /**
+     * Delete all the Machine Learning jobs
+     */
+    private static function deleteMlJobs(Client $client): void
+    {
+        $result = $client->ml()->getJobs();
+        foreach ($result['jobs'] as $job) {
+            $client->ml()->deleteJob([
+                'job_id' => $job['job_id'],
+                'force' => true
+            ]);
+        }
+    }
+
+
+    /**
+     * Delete all the data frame analytics jobs
+     */
+    private static function deleteMlDataFrameAnalyticsJobs(Client $client): void
+    {
+        $result = $client->ml()->getDataFrameAnalytics();
+        foreach ($result['data_frame_analytics'] as $data) {
+            $client->ml()->deleteDataFrameAnalytics([
+                'id' => $data['id'],
+                'force' => true
+            ]);
+        }
+    }
+
+    /**
+     * Delete all the calendars
+     */
+    private static function deleteMlCalendars(Client $client): void
+    {
+        $result = $client->ml()->getCalendars();
+        foreach ($result['calendars'] as $calendar) {
+            $client->ml()->deleteCalendar([
+                'calendar_id' => $calendar['calendar_id']
+            ]);
+        }
+    }
+
+    /**
+     * Delete all the transforms
+     */
+    private static function deleteTransforms(Client $client): void
+    {
+        $result = $client->transform()->getTransform();
+        foreach ($result['transforms'] as $transform) {
+            $result = $client->transform()->deleteTransform([
+                'transform_id' => $transform['id']
+            ]);
+        }
+    }
+
+    /**
+     * Delete all the training models, leaving out the ones created by _xpack 
+     */
+    private static function deleteMlTrainingModels(Client $client): void
+    {
+        $result = $client->ml()->getTrainedModels();
+        foreach ($result['trained_model_configs'] as $model) {
+            if ($model['created_by'] === '_xpack') {
+                continue;
+            }
+            $result = $client->ml()->deleteTrainedModel([
+                'model_id' => $model['model_id']
+            ]);
+        }
+    }
+
+    /**
      * Delete all SLM policies
      * 
      * @see ESRestTestCase.java:deleteAllSLMPolicies()
@@ -380,7 +466,7 @@ class Utility
     private static function deleteAllSLMPolicies(Client $client): void
     {
         $policies = $client->slm()->getLifecycle();
-        foreach ($policies as $policy) {
+        foreach ($policies->asArray() as $policy) {
             $client->slm()->deleteLifecycle([
                 'policy_id' => $policy['name']
             ]);
@@ -519,7 +605,7 @@ class Utility
         }
         // Always check for legacy templates
         $result = $client->indices()->getTemplate();
-        foreach ($result as $name => $value) {
+        foreach ($result->asArray() as $name => $value) {
             if (self::isXPackTemplate($name)) {
                 continue;
             }
@@ -542,7 +628,7 @@ class Utility
     {
         $settings = $client->cluster()->getSettings();
         $newSettings = [];
-        foreach ($settings as $name => $value) {
+        foreach ($settings->asArray() as $name => $value) {
             if (!empty($value) && is_array($value)) {
                 if (empty($newSettings[$name])) {
                     $newSettings[$name] = [];
@@ -645,7 +731,7 @@ class Utility
     private static function deleteAllILMPolicies(Client $client): void
     {
         $policies = $client->ilm()->getLifecycle();
-        foreach ($policies as $policy => $value) {
+        foreach ($policies->asArray() as $policy => $value) {
             if (!in_array($policy, self::preserveILMPolicyIds())) {
                 $client->ilm()->deleteLifecycle([
                     'policy' => $policy

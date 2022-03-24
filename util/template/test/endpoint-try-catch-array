@@ -8,4 +8,5 @@
                 throw $e;
             }
         }
+        :reset-client
 :response-check

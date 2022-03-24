@@ -97,7 +97,7 @@ class ActionTest
             ':response-check' => '',
             ':code'           => '',
             ':headers'        => '',
-            ':reset-headers'  => ''
+            ':reset-client'   => ''
         ];
         foreach ($actions as $key => $value) {
             if (method_exists($this, $key)) {
@@ -106,7 +106,8 @@ class ActionTest
                 // headers
                 if (!empty($this->headers)) {
                     $vars[':headers'] = $this->formatHeaders($this->headers);
-                    $this->headers = [];
+                    $vars[':reset-client'] = '$this->client = Utility::getClient();';
+                    $this->resetHeaders();
                 }
                 // Check if {} (new stdClass) is the parameter of an endpoint
                 if ($value instanceof stdClass && empty(get_object_vars($value))) {
@@ -236,6 +237,11 @@ class ActionTest
     private function headers(array $actions, array $params)
     {
         $this->headers = $actions;
+    }
+
+    private function resetHeaders()
+    {
+        $this->headers = [];
     }
 
     private function node_selector(array $actions)
@@ -531,16 +537,7 @@ class ActionTest
     {
         $result = '';
         foreach ($headers as $key => $value) {
-            $result .= sprintf("\$this->client->getTransport()->setHeader('%s','%s');\n", $key, $value);
-        }
-        return $result;
-    }
-
-    private function resetHeaders(array $headers): string
-    {
-        $result = '';
-        foreach ($headers as $key => $value) {
-            $result .= sprintf("\$this->client->getTransport()->setHeader('%s', null);\n", $key);
+            $result .= sprintf("\$this->client->getTransport()->setHeader('%s',\"%s\");\n", $key, $value);
         }
         return $result;
     }

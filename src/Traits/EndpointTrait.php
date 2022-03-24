@@ -41,6 +41,19 @@ trait EndpointTrait
     }
 
     /**
+     * Check if an array is associative, i.e. has a string as key
+     */
+    protected function isAssociativeArray(array $array): bool
+    {
+        foreach ($array as $k => $v) {
+            if (is_string($k)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Converts array to comma-separated list;
      * Converts boolean value to true', 'false' string
      * 

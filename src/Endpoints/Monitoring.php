@@ -64,10 +64,10 @@ class Monitoring extends AbstractEndpoint
 			$method = 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval','pretty','human','error_trace','source','filter_path']);
-		$headers = array (
-		  'Accept' => 'application/json',
-		  'Content-Type' => 'application/x-ndjson',
-		);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/x-ndjson',
+		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 }

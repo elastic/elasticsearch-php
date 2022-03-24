@@ -5,7 +5,7 @@ Elasticsearch PHP client
 
 [![Build status](https://github.com/elastic/elasticsearch-php/workflows/PHP%20test/badge.svg)](https://github.com/elastic/elasticsearch-php/actions) [![Latest Stable Version](https://poser.pugx.org/elasticsearch/elasticsearch/v/stable)](https://packagist.org/packages/elasticsearch/elasticsearch) [![Total Downloads](https://poser.pugx.org/elasticsearch/elasticsearch/downloads)](https://packagist.org/packages/elasticsearch/elasticsearch)
 
-This is the official PHP client for connecting to [Elasticsearch](https://www.elastic.co/elasticsearch/).
+This is the official PHP client for [Elasticsearch](https://www.elastic.co/elasticsearch/).
 
 ## Contents
 
@@ -21,15 +21,18 @@ This is the official PHP client for connecting to [Elasticsearch](https://www.el
 
 ## Getting started 🐣
 
-Using this client assumes that you have an [Elasticsearch](https://www.elastic.co/elasticsearch/) server installed and running.
+Using this client assumes that you have an [Elasticsearch](https://www.elastic.co/elasticsearch/)
+server installed and running.
 
-You can install the client in your project by using composer:
+You can install the client in your PHP project using [composer](https://getcomposer.org/):
 
 ```bash
 composer require elasticsearch/elasticsearch
 ```
 
-After the installation you can use the client as follows:
+After the installation you can connect to Elasticsearch using the `ClientBuilder`
+class. For instance, if your Elasticsearch is running on `localhost:9200`
+you can use the following code:
 
 ```php
 
@@ -49,34 +52,42 @@ The `$response` is an object of `Elastic\Elasticsearch\Response\Elasticsearch`
 class that implements `ElasticsearchInterface`, PSR-7 [ResponseInterface](https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface)
 and [ArrayAccess](https://www.php.net/manual/en/class.arrayaccess.php).
 
-You can manage the response as PSR-7, as follows:
+This means the `$response` is a [PSR-7](https://www.php-fig.org/psr/psr-7/)
+object:
 
 ```php
 echo $response->getStatusCode(); // 200
 echo (string) $response->getBody(); // Response body in JSON
 ```
 
-You can access the result of each endpoints using object or array interface,
-as follows:
+and also an "array", meaning you can access the response body as an
+associative array, as follows:
+
 
 ```php
-// Access body value as object
-echo $response->version->number; // 8.0.0
-// Access body value as array
 echo $response['version']['number']; // 8.0.0
 
 var_dump($response->asArray());  // response body content as array
+```
+
+Moreover, you can access the response body as object, string or bool:
+
+```php
+echo $response->version->number; // 8.0.0
+
 var_dump($response->asObject()); // response body content as object
 var_dump($response->asString()); // response body as string (JSON)
+var_dump($response->asBool());   // true if HTTP response code between 200 and 300
 ```
 
 ## Configuration
 
-Elasticsearch 8.0 offers security by default, that means it uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)
-for encrypt the communication between client and server.
+Elasticsearch 8.0 offers [security by default](https://www.elastic.co/blog/introducing-simplified-elastic-stack-security),
+that means it uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+for protect the communication between client and server.
 
 In order to configure `elasticsearch-php` for connecting to Elasticsearch 8.0 we
-need to have the certificate files (CA).
+need to have the certificate authority file (CA).
 
 You can install Elasticsearch in different ways, for instance using [Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 you need to execute the followind command:
@@ -84,37 +95,36 @@ you need to execute the followind command:
 ```bash
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.0.1
 ```
-
-Once you have the docker image installed you can execute Elasticsearch `8.0.1`,
-for instance using a single-node Elasticsearch cluster, as follows:
+Once you have the docker image installed you can execute Elasticsearch,
+for instance using a single-node cluster configuration, as follows:
 
 ```bash
 docker network create elastic
 docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.0.1
 ```
 
-This command will create an `elastic` Docker network and start Elasticsearch
-using the default port `9200`.
+This command creates an `elastic` Docker network and start Elasticsearch
+using the port `9200` (default).
 
-During the start of Elasticsearch a password is generated for the `elastic` user
-and output to the terminal (you might need to scroll back a bit in the terminal
-to view it). Please copy it since we will need to connect to Elasticsearch.
+When you run the docker imnage a password is generated for the `elastic` user
+and it's printed to the terminal (you might need to scroll back a bit in the terminal
+to view it). You have to copy it since we will need to connect to Elasticsearch.
 
-In order to get the `http_ca.crt` file certificate, you need to copy it from the
-Docker instance, using the following command:
+Now that Elasticsearch is running we can get the `http_ca.crt` file certificate.
+We need to copy it from the docker instance, using the following command:
 
 ```bash
 docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
 ```
 
-Once you have the `http_ca.crt` certificate and the `password` copied during the
-start of Elasticsearch we can use it to connect using `elasticsearch-php`
+Once we have the `http_ca.crt` certificate and the `password`, copied during the
+start of Elasticsearch, we can use it to connect with `elasticsearch-php`
 as follows:
 
 ```php
 $client = ClientBuilder::create()
     ->setHosts(['https://localhost:9200'])
-    ->setBasicAuthentication('elastic', 'password-here')
+    ->setBasicAuthentication('elastic', 'password copied during Elasticsearch start')
     ->setCABundle('path/to/http_ca.crt')
     ->build();
 ```
@@ -124,10 +134,10 @@ read the official documentation [here](https://www.elastic.co/guide/en/elasticse
 
 ### Use Elastic Cloud
 
-You can use [Elastic Cloud](https://www.elastic.co/cloud/) as server to connect using `elasticsearch-php`.
+You can use [Elastic Cloud](https://www.elastic.co/cloud/) as server with `elasticsearch-php`.
 Elastic Cloud is the PaaS solution offered by [Elastic](https://www.elastic.co).
 
-To connect to Elastic Cloud you just need the `Cloud ID` and the `API key`.
+For connecting to Elastic Cloud you just need the `Cloud ID` and the `API key`.
 
 You can get the `Cloud ID` from the `My deployment` page of your dashboard (see the red
 rectangle reported in the screenshot).
@@ -150,8 +160,8 @@ After this step you will get the `API key`in the API keys page.
 **IMPORTANT**: you need to copy and store the `API key`in a secure place, since you will not
 be able to view it again in Elastic Cloud.
 
-Once you have collected the `Cloud ID` and the `API key` you can use the `ClientBuilder` of
-`elasticsearch-php` to connect to your Elastic Cloud instance, as follows:
+Once you have collected the `Cloud ID` and the `API key` you can use `elasticsearch-php`
+to connect to your Elastic Cloud instance, as follows:
 
 ```php
 $client = ClientBuilder::create()

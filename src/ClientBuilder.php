@@ -107,6 +107,11 @@ class ClientBuilder
     private bool $sslVerification = true;
 
     /**
+     * SSL CA bundle
+     */
+    private string $sslCA;
+
+    /**
      * Elastic meta header
      * 
      * Enable or disable the x-elastic-client-meta header (default is true)
@@ -261,12 +266,23 @@ class ClientBuilder
     /**
      * Set SSL certificate
      * 
-     * @param string $cert The name of a file containing a PEM formatted certificate.
+     * @param string $cert The name of a file containing a PEM formatted certificate
      * @param string $password if the certificate requires a password
      */
     public function setSSLCert(string $cert, string $password = null): ClientBuilder
     {
         $this->sslCert = [$cert, $password];
+        return $this;
+    }
+
+    /**
+     * Set the Certificate Authority (CA) bundle 
+     * 
+     * @param string $cert The name of a file containing a PEM formatted certificate
+     */
+    public function setCABundle(string $cert): ClientBuilder
+    {
+        $this->sslCA = $cert;
         return $this;
     }
 
@@ -399,6 +415,9 @@ class ClientBuilder
         }
         if (!$this->sslVerification) {
             $config[RequestOptions::SSL_VERIFY] = false;
+        }
+        if (!empty($this->sslCA)) {
+            $config[RequestOptions::SSL_CA] = $this->sslCA;
         }
         return $config;
     }

@@ -275,33 +275,39 @@ class ClientBuilderTest extends TestCase
         $this->assertEquals(10, $client->getTransport()->getRetries());
     }
 
-    public function testSetSSLCert()
+    public function testSetSslCert()
     {
         $result = $this->builder->setSSLCert('/tmp/cert.pem');
         $this->assertEquals($this->builder, $result);
     }
 
-    public function testSetSSLCertWithPassword()
+    public function testSetSslCertWithPassword()
     {
         $result = $this->builder->setSSLCert('/tmp/cert.pem', 'xxx');
         $this->assertEquals($this->builder, $result);
     }
 
-    public function testSetSSLKey()
+    public function testSetSslKey()
     {
         $result = $this->builder->setSSLKey('xxx');
         $this->assertEquals($this->builder, $result);
     }
 
-    public function testSetSSLKeyWithPassword()
+    public function testSetSslKeyWithPassword()
     {
         $result = $this->builder->setSSLKey('xxx', 'yyy');
         $this->assertEquals($this->builder, $result);
     }
 
-    public function testSetSSLVerification()
+    public function testSetSslVerification()
     {
         $result = $this->builder->setSSLVerification(false);
+        $this->assertEquals($this->builder, $result);
+    }
+
+    public function testSetCaBundle()
+    {
+        $result = $this->builder->setCABundle('/tmp/ca.pem');
         $this->assertEquals($this->builder, $result);
     }
 

@@ -36,9 +36,11 @@ class Guzzle implements AdapterInterface
                 case Options::SSL_VERIFY:
                     $guzzleConfig[RequestOptions::VERIFY] = $value;
                     break;
+                case Options::SSL_CA:
+                    $guzzleConfig[RequestOptions::VERIFY] = $value;
             }
         }
         $class = get_class($client);
-        return new $class($clientOptions + $guzzleConfig);
+        return new $class(array_merge($clientOptions, $guzzleConfig));
     }
 }

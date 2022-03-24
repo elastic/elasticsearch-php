@@ -30,4 +30,9 @@ final class RequestOptions
      * SSL key
      */
     public const SSL_KEY = 'ssl_key';
+
+    /**
+     * SSL Certificate Authority (CA) bundle 
+     */
+    public const SSL_CA = 'ssl_ca';
 }

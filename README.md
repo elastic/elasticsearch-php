@@ -10,6 +10,7 @@ This is the official PHP client for connecting to [Elasticsearch](https://www.el
 ## Contents
 
 - [Getting started](#getting-started-)
+- [Configuration](#configuration)
 - [Usage](#usage)
 - [Backward Incompatible Changes](#backward-incompatible-changes-)
 - [FAQ](#faq-)
@@ -69,10 +70,189 @@ var_dump($response->asObject()); // response body content as object
 var_dump($response->asString()); // response body as string (JSON)
 ```
 
+## Configuration
+
+Elasticsearch 8.0 offers security by default, that means it uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+for encrypt the communication between client and server.
+
+In order to configure `elasticsearch-php` for connecting to Elasticsearch 8.0 we
+need to have the certificate files (CA).
+
+You can install Elasticsearch in different ways, for instance using [Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+you need to execute the followind command:
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.0.1
+```
+
+Once you have the docker image installed you can execute Elasticsearch `8.0.1`,
+for instance using a single-node Elasticsearch cluster, as follows:
+
+```bash
+docker network create elastic
+docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.0.1
+```
+
+This command will create an `elastic` Docker network and start Elasticsearch
+using the default port `9200`.
+
+During the start of Elasticsearch a password is generated for the `elastic` user
+and output to the terminal (you might need to scroll back a bit in the terminal
+to view it). Please copy it since we will need to connect to Elasticsearch.
+
+In order to get the `http_ca.crt` file certificate, you need to copy it from the
+Docker instance, using the following command:
+
+```bash
+docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+```
+
+Once you have the `http_ca.crt` certificate and the `password` copied during the
+start of Elasticsearch we can use it to connect using `elasticsearch-php`
+as follows:
+
+```php
+$client = ClientBuilder::create()
+    ->setHosts(['https://localhost:9200'])
+    ->setBasicAuthentication('elastic', 'password-here')
+    ->setCABundle('path/to/http_ca.crt')
+    ->build();
+```
+
+For more information about the Docker configuration of Elasticsearch you can
+read the official documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html).
+
+### Use Elastic Cloud
+
+You can use [Elastic Cloud](https://www.elastic.co/cloud/) as server to connect using `elasticsearch-php`.
+Elastic Cloud is the PaaS solution offered by [Elastic](https://www.elastic.co).
+
+To connect to Elastic Cloud you just need the `Cloud ID` and the `API key`.
+
+You can get the `Cloud ID` from the `My deployment` page of your dashboard (see the red
+rectangle reported in the screenshot).
+
+![Cloud ID](docs/images/cloud_id.png)
+
+You can generate an `API key` in the `Management` page under the section `Security`.
+
+![Security](docs/images/create_api_key.png)
+
+When you click on `Create API key` button you can choose a name and set the other
+options (eg. restrict privileges, expire after time, etc).
+
+![Choose an API name](docs/images/api_key_name.png)
+
+After this step you will get the `API key`in the API keys page. 
+
+![API key](docs/images/cloud_api_key.png)
+
+**IMPORTANT**: you need to copy and store the `API key`in a secure place, since you will not
+be able to view it again in Elastic Cloud.
+
+Once you have collected the `Cloud ID` and the `API key` you can use the `ClientBuilder` of
+`elasticsearch-php` to connect to your Elastic Cloud instance, as follows:
+
+```php
+$client = ClientBuilder::create()
+    ->setElasticCloudId('insert here the Cloud ID')
+    ->setApiKey('insert here the API key')
+    ->build();
+```
+
 ## Usage
 
-To be completed
+The `elasticsearch-php` client offers 400+ endpoints for interacting with Elasticsearch.
+A list of all these endpoints is available in the [official documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
+of Elasticsearch APIs.
 
+Here we reported the basic operation that you can perform with the client: index, search and delete.
+
+### Index a document
+
+You can store (index) a JSON document in Elasticsearch using the following code:
+
+```php
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
+
+$params = [
+    'index' => 'my_index',
+    'body'  => [ 'testField' => 'abc']
+];
+
+try {
+  $response = $client->index($params);
+} catch (ClientResponseException $e) {
+  // manage the 4xx error
+} catch (ServerResponseException $e) {
+  // manage the 5xx error
+} catch (Exception $e) {
+  // eg. network error like NoNodeAvailableException
+}
+
+print_r($response->asArray());  // response body content as array
+```
+Elasticsearch stores the `{"testField":"abc"}` JSON document in the `my_index` index.
+The `ID` of the document is created automatically by Elasticsearch and stored in
+`$response['_id']` field value. If you want to specify an `ID` for the document you need
+to store it in `$params['id']`.
+
+You can manage errors using `ClientResponseException` and `ServerResponseException`.
+The PSR-7 response is available using `$e->getResponse()` and the HTTP status code is
+available using `$e->getCode()`.
+
+### Search a document
+
+Elasticsearch provides many different way to search documents. The simplest search
+that you can perform is a [match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html),
+as follows:
+
+```php
+$params = [
+    'index' => 'my_index',
+    'body'  => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
+$response = $client->search($params);
+
+printf("Total docs: %d\n", $response['hits']['total']['value']);
+printf("Max score : %.4f\n", $response['hits']['max_score']);
+printf("Took      : %d ms\n", $response['took']);
+
+print_r($response['hits']['hits']); // documents
+```
+
+Using Elasticsearch you can perform different query search, for more information we suggest to
+read the official documention reported [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-your-data.html).
+
+### Delete a document
+
+You can delete a document specifing the `index` name and the `ID` of the document,
+as follows:
+
+```php
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+
+try {
+    $response = $client->delete([
+        'index' => 'my_index',
+        'id' => 'my_id'
+    ]);
+} catch (ClientResponseException $e) {
+    if ($e->getCode() === 404) {
+        // the document does not exist
+    }
+}
+if ($response['acknowledge'] === 1) {
+    // the document has been delete
+}
+```
 
 For more information about the Elasticsearch REST API you can read the official documentation
 [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html).

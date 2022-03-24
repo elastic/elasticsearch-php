@@ -11,7 +11,12 @@ This is the official PHP client for [Elasticsearch](https://www.elastic.co/elast
 
 - [Getting started](#getting-started-)
 - [Configuration](#configuration)
+  - [Use Elastic Cloud](#use-elastic-cloud)
 - [Usage](#usage)
+  - [Index a document](#index-a-document)
+  - [Search a document](#search-a-document)
+  - [Delete a document](#delete-a-document)
+- [Versioning](#versioning)
 - [Backward Incompatible Changes](#backward-incompatible-changes-)
 - [FAQ](#faq-)
 - [Contribute](#contribute-)
@@ -293,8 +298,6 @@ We tried to reduce the BC breaks as much as possible with `7.x` but there are so
 - we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
 
 You can have a look at the [BREAKING_CHANGES](BREAKING_CHANGES.md) file for more information.
-
-## Specific changes:
 
 ## FAQ 🔮
 

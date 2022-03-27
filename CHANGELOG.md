@@ -1,3 +1,48 @@
+## Release 8.0.0
+
+- Finally the 8.0.0 GA for [Elasticsearch 8](https://www.elastic.co/blog/whats-new-elastic-8-0-0).
+
+## Release 8.0.0-rc2
+
+- Added the common parameters in all the endpoints
+  [6427f8c](https://github.com/elastic/elasticsearch-php/commit/6427f8c42ba2afbe82c00adffdf93dd60b439432)
+
+## Release 8.0.0-rc1
+
+- Fixed query string in API endpoints + added a first integration test
+  [e404235](https://github.com/elastic/elasticsearch-php/commit/e404235890b53a99242f7fc5ddea6ee6b2459e8f)
+- Added AdapterOptions class and setNodePool() in ClientBuilder
+  [9150f71](https://github.com/elastic/elasticsearch-php/commit/9150f717488ddb74d83a119d215c0584aa98c95a)
+- Fixed urlencode in params, Exception in test code generation
+  [142327b](https://github.com/elastic/elasticsearch-php/commit/142327b3cb730042ec0b21b7c6076164bb0721ed)
+- Improved client/server response exception messages
+  [50de3e6](https://github.com/elastic/elasticsearch-php/commit/50de3e60fc9b0167a948a992fda78bc5e1a42152)
+
+## Release 8.0.0-alpha
+
+First alpha release of elasticsearch-php 8.0.0.
+
+This major release is a complete new PHP client for Elasticsearch. We build it from scratch!
+We tried to reduce the BC breaks as much as possible but there are some (big) differences: 
+
+### Architectural changes:
+
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`
+- we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library for HTTP communications;
+- we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
+  `ElasticsearchException` interface, as in 7.x
+- we changed the response type of each endpoints using an [Elasticsearch](src/Response/Elasticsearch.php) response class.
+  This class wraps a a [PSR-7](https://www.php-fig.org/psr/psr-7/) response allowing the access of the body response
+  as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
+- we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
+
+You can have a look at the [BREAKING_CHANGES](BREAKING_CHANGES.md) file for more information.
+
+## Release 7.17.0
+
+- Allow psr/log v3
+  [#1184](https://github.com/elastic/elasticsearch-php/pull/1184)
+
 ## Release 7.16.0
 
 - Added support of includePortInHostHeader in ClientBuilder::fromConfig

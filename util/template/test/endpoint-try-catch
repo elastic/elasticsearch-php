@@ -1,0 +1,12 @@
+        :headers
+        try {
+            :catch$response = $this->client->:endpoint(
+                :params
+            );           
+        } catch (ClientResponseException $e) {
+            if ($e->getCode() !== :code) {
+                throw $e;
+            }
+        }
+        :reset-client
+:response-check

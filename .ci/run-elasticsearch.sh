@@ -7,7 +7,7 @@
 # Export the TEST_SUITE variable, eg. 'free' or 'platinum' defaults to 'free'.
 # Export the NUMBER_OF_NODES variable to start more than 1 node
 
-# Version 1.6.0
+# Version 1.6.1
 # - Initial version of the run-elasticsearch.sh script
 # - Deleting the volume should not dependent on the container still running
 # - Fixed `ES_JAVA_OPTS` config
@@ -20,6 +20,7 @@
 # - Added ingest.geoip.downloader.enabled=false as it causes false positives in testing
 # - Moved ELASTIC_PASSWORD and xpack.security.enabled to the base arguments for "Security On by default"
 # - Use https only when TEST_SUITE is "platinum", when "free" use http
+# - Set xpack.security.enabled=false for "free" and xpack.security.enabled=true for "platinum"
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
@@ -34,7 +35,6 @@ cluster_name=${moniker}${suffix}
 declare -a volumes
 environment=($(cat <<-END
   --env ELASTIC_PASSWORD=$elastic_password
-  --env xpack.security.enabled=false
   --env node.name=$es_node_name
   --env cluster.name=$cluster_name
   --env cluster.initial_master_nodes=$master_node_name
@@ -73,6 +73,7 @@ END
 ))
 else
   environment+=($(cat <<-END
+    --env xpack.security.enabled=false
     --env xpack.security.http.ssl.enabled=false
 END
 ))
@@ -88,7 +89,7 @@ fi
 docker_pull_attempts=0
 until [ "$docker_pull_attempts" -ge 5 ]
 do
-   docker pull docker.elastic.co/elasticsearch/"$elasticsearch_container" && break
+   docker pull -q docker.elastic.co/elasticsearch/"$elasticsearch_container" && break
    docker_pull_attempts=$((docker_pull_attempts+1))
    echo "Failed to pull image, retrying in 10 seconds (retry $docker_pull_attempts/5)..."
    sleep 10
@@ -127,7 +128,7 @@ END
     --ulimit memlock=-1:-1 \
     --detach="$local_detach" \
     --health-cmd="curl $cert_validation_flags --fail $elasticsearch_url/_cluster/health || exit 1" \
-    --health-interval=2s \
+    --health-interval=5s \
     --health-retries=20 \
     --health-timeout=2s \
     --rm \

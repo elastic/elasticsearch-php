@@ -9,9 +9,9 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.3, 7.4, 8.0]
+        php-version: [7.4, 8.0, 8.1]
         os: [ubuntu-latest]
-        es-version: [8.0.0-SNAPSHOT]
+        es-version: [8.0-SNAPSHOT]
 
     steps:
     - name: Checkout
@@ -40,19 +40,13 @@ jobs:
       run: |
         composer install --prefer-dist
 
-    - name: PHP Coding Standards
-      run: |
-        composer run-script phpcs
-
     - name: PHP Static Analysis Tool
       run: |
         composer run-script phpstan
 
     - name: Unit tests
       run: |
-        vendor/bin/phpunit -c phpunit.xml.dist
-      env:
-        TEST_SUITE: free
+        composer run-script test
 
     - name: Configure sysctl limits
       run: |
@@ -68,7 +62,6 @@ jobs:
 
     - name: Integration tests
       run: |
-        vendor/bin/phpunit -c phpunit-integration-tests.xml
+        composer run-script integration-test   
       env:
-        ELASTICSEARCH_URL: http://localhost:9200
-        
+        TEST_SUITE: free

@@ -15,9 +15,8 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Util;
+namespace Elastic\Elasticsearch\Util;
 
-use Elasticsearch\Util\ActionTest;
 use Exception;
 use ParseError;
 use RecursiveDirectoryIterator;
@@ -38,11 +37,21 @@ class YamlTests
     const SKIPPED_TEST_OSS = [
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
+        'Cat\Templates\_10_BasicTest::FilteredTemplates' => 'regex mismatch',
+        'Cat\Templates\_10_BasicTest::SelectColumns' => 'regex mismatch',
         'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
-        'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false'
+        'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false',
+        'Indices\GetIndexTemplate\_10_BasicTest::*' => 'Bool mismatch',
+        'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
+        'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
+        'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
+        'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
     ];
 
     const SKIPPED_TEST_XPACK = [
+        'ApiKey\_10_BasicTest::TestGetApiKey' => 'Mismatch values',
+        'ApiKey\_20_QueryTest::TestQueryApiKey' => 'Mismatch values',
         'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
         'License\_20_Put_LicenseTest::CurrentLicenseIsTrialMeansNotEligleToStartTrial' => 'License issue',
         'License\_20_Put_LicenseTest::MustAcknowledgeToStartBasic' => 'License issue',
@@ -78,6 +87,8 @@ class YamlTests
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
         'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
         'Ssl\_10_BasicTest::TestGetSSLCertificates' => 'Mismatch values',
+        'Token\_10_BasicTest::TestInvalidateUsersTokens' => 'Mismatch values',
+        'Token\_10_BasicTest::TestInvalidateRealmsTokens' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
         'UnsignedLong\*' => 'Skipped all tests',
         'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
@@ -132,7 +143,9 @@ class YamlTests
         // Iterate over the Yaml test files
         foreach (new RecursiveIteratorIterator($it) as $file) {
             if ($file->getExtension() === 'yml') {
-                $test = yaml_parse_file($file->getPathname(), -1, $ndocs, [
+                $content = file_get_contents($file->getPathname());
+                $content = str_replace(' y: ', " 'y': ", $content); // replace "y:" with "'y':" due the y/true conversion in YAML 1.1
+                $test = yaml_parse($content, -1, $ndocs, [
                     YAML_MAP_TAG => function($value, $tag, $flags) {
                         return empty($value) ? new stdClass : $value;
                     }
@@ -225,7 +238,7 @@ class YamlTests
                 $test = self::render(
                     self::TEMPLATE_UNIT_TEST_SKIPPED,
                     [
-                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':namespace' => sprintf("Elastic\Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
                         ':test-name' => $testName,
                         ':tests'     => $functions,
                         ':yamlfile'  => sprintf(self::ELASTICSEARCH_GIT_URL, self::$minorEsVersion, $yamlFileName),
@@ -238,7 +251,7 @@ class YamlTests
                         ? self::TEMPLATE_UNIT_TEST_OSS
                         : self::TEMPLATE_UNIT_TEST_XPACK,
                     [
-                        ':namespace' => sprintf("Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
+                        ':namespace' => sprintf("Elastic\Elasticsearch\Tests\Yaml\%s\%s", self::$testSuite, $namespace),
                         ':test-name' => $testName,
                         ':tests'     => $functions,
                         ':setup'     => $setup,

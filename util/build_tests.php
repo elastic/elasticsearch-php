@@ -14,9 +14,9 @@
  */
 declare(strict_types = 1);
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\Util\YamlTests;
-use Elasticsearch\Tests\Utility;
+use Elastic\Transport\Exception\NoNodeAvailableException;
+use Elastic\Elasticsearch\Util\YamlTests;
+use Elastic\Elasticsearch\Tests\Utility;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -29,7 +29,7 @@ try {
 
 try {
     $serverInfo = $client->info();
-} catch (NoNodesAvailableException $e) {
+} catch (NoNodeAvailableException $e) {
     printf ("ERROR: Host %s is offline\n", Utility::getHost());
     exit(1);
 }
@@ -50,7 +50,7 @@ printf ("*****************************************\n");
 printf ("Using Elasticsearch %s version\n", $version);
 printf ("With build hash %s\n", $buildHash);
 
-$yamlOutputTest = __DIR__ . '/../tests/Elasticsearch/Tests/Yaml';
+$yamlOutputTest = __DIR__ . '/../tests/Yaml';
 $yamlTestFolder = sprintf("%s/rest-spec/%s/rest-api-spec/test/%s", __DIR__, $buildHash, strtolower($stack));
 
 $test = new YamlTests($yamlTestFolder, $yamlOutputTest, $version, $stack);

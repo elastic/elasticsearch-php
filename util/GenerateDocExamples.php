@@ -17,7 +17,7 @@ declare(strict_types = 1);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
 
 $fileToParse = require 'examples_to_parse.php';
 if (empty($fileToParse)) {

@@ -9,7 +9,7 @@ script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
-PHP_VERSION=${PHP_VERSION-7.4-cli}
+PHP_VERSION=${PHP_VERSION-8.0-cli}
 ELASTICSEARCH_URL=${ELASTICSEARCH_URL-"$elasticsearch_url"}
 elasticsearch_container=${elasticsearch_container-}
 

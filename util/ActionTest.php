@@ -15,26 +15,24 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Util;
+namespace Elastic\Elasticsearch\Util;
 
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
-use Elasticsearch\Util\YamlTests;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
 use PHPUnit\Runner\Version as PHPUnitVersion;
 use stdClass;
 
 class ActionTest
 {
     const TEMPLATE_ENDPOINT             = __DIR__ . '/template/test/endpoint';
+    const TEMPLATE_ENDPOINT_TRY_CATCH   = __DIR__ . '/template/test/endpoint-try-catch';
+    const TEMPLATE_ENDPOINT_TRY_CATCH_ARRAY = __DIR__ . '/template/test/endpoint-try-catch-array';
     const TEMPLATE_MATCH_EQUAL          = __DIR__ . '/template/test/match-equal';
     const TEMPLATE_MATCH_REGEX          = __DIR__ . '/template/test/match-regex';
     const TEMPLATE_IS_FALSE             = __DIR__ . '/template/test/is-false';
+    const TEMPLATE_IS_FALSE_RESPONSE    = __DIR__ . '/template/test/is-false-response';
     const TEMPLATE_IS_TRUE              = __DIR__ . '/template/test/is-true';
+    const TEMPLATE_IS_TRUE_RESPONSE     = __DIR__ . '/template/test/is-true-response';
     const TEMPLATE_IS_NULL              = __DIR__ . '/template/test/is-null';
     const TEMPLATE_LENGTH               = __DIR__ . '/template/test/length';
     const TEMPLATE_SKIP_VERSION         = __DIR__ . '/template/test/skip-version';
@@ -75,6 +73,7 @@ class ActionTest
     private $skippedTest = false;
     private $output = '';
     private $phpUnitVersion;
+    private $clientParams = [];
 
     public function __construct(array $steps)
     {
@@ -95,7 +94,10 @@ class ActionTest
             ':endpoint'       => '',
             ':params'         => '',
             ':catch'          => '',
-            ':response-check' => ''
+            ':response-check' => '',
+            ':code'           => '',
+            ':headers'        => '',
+            ':reset-client'   => ''
         ];
         foreach ($actions as $key => $value) {
             if (method_exists($this, $key)) {
@@ -103,13 +105,9 @@ class ActionTest
             } else {
                 // headers
                 if (!empty($this->headers)) {
-                    if ($value instanceof stdClass && empty(get_object_vars($value))) {
-                        $value = [];
-                    }
-                    $value['client'] = [
-                        'headers' => $this->formatHeaders($this->headers)
-                    ];
-                    $this->headers = [];
+                    $vars[':headers'] = $this->formatHeaders($this->headers);
+                    $vars[':reset-client'] = '$this->client = Utility::getClient();';
+                    $this->resetHeaders();
                 }
                 // Check if {} (new stdClass) is the parameter of an endpoint
                 if ($value instanceof stdClass && empty(get_object_vars($value))) {
@@ -121,10 +119,39 @@ class ActionTest
                     $params = $this->convertStdClass($params); // convert "stdClass::__set_state(array())" in "(object)[]"
                 }
                 $vars[':endpoint'] = $this->convertDotToArrow($key);
-                $vars[':params']   = str_replace("\n","\n" . self::TAB14, $params);
+                //$vars[':params']   = str_replace("\n","\n" . self::TAB14, $params);
+                $vars[':params']   = $params;
             }
         }
+        // ignore client parameter
+        if (isset($this->clientParams['ignore'])) {
+            $vars[':code'] = $this->clientParams['ignore'];
+            if (is_array($vars[':code'])) {
+                return YamlTests::render(self::TEMPLATE_ENDPOINT_TRY_CATCH_ARRAY, $vars);
+            }
+            return YamlTests::render(self::TEMPLATE_ENDPOINT_TRY_CATCH, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_ENDPOINT, $vars);
+    }
+
+    /**
+     * Adjust the client parameters (e.g. ignore)
+     */
+    private function adjustClientParams($params)
+    {
+        if (!is_array($params)) {
+            return $params;
+        }
+        $this->clientParams = [];
+        foreach ($params as $key => $value) {
+            switch($key) {
+                case 'ignore':
+                    $this->clientParams['ignore'] = $value;
+                    unset($params[$key]);
+                    break;
+            }        
+        }
+        return $params;
     }
 
     /**
@@ -176,22 +203,12 @@ class ActionTest
     {
         switch ($action) {
             case 'bad_request':
-                $expectedException = BadRequest400Exception::class;
-                break;
-            case 'unauthorized':  
-                $expectedException = Unauthorized401Exception::class;  
-                break;
+            case 'unauthorized':
             case 'forbidden':
-                $expectedException = Forbidden403Exception::class;
-                break;
             case 'missing':
-                $expectedException = Missing404Exception::class;
-                break;
             case 'request_timeout':
-                $expectedException = RequestTimeout408Exception::class;
-                break;
             case 'conflict':
-                $expectedException = Conflict409Exception::class;
+                $expectedException = ClientResponseException::class;
                 break;
             case 'request':
                 $expectedException = ElasticsearchException::class;
@@ -220,6 +237,11 @@ class ActionTest
     private function headers(array $actions, array $params)
     {
         $this->headers = $actions;
+    }
+
+    private function resetHeaders()
+    {
+        $this->headers = [];
     }
 
     private function node_selector(array $actions)
@@ -256,13 +278,27 @@ class ActionTest
             $vars[':expected'] = $this->convertJavaRegexToPhp($vars[':expected']);
             // Add /sx preg modifier to ignore whitespace
             $vars[':expected'] .= "sx";
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asString()';
+            }
             return YamlTests::render(
                 ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_MATCH_REGEX) : (self::TEMPLATE_MATCH_REGEX), 
                 $vars
             );
+        } elseif (is_array($expected)) {
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asArray()';
+            } 
+        } elseif (is_bool($expected)) {
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asBool()';
+            } 
         }
         if ($expected instanceof stdClass && empty(get_object_vars($expected))) {
             $vars[':expected'] = '[]';
+            if ($vars[':value'] === '$response') {
+                $vars[':value'] = '$response->asArray()';
+            } 
         }
         return YamlTests::render(self::TEMPLATE_MATCH_EQUAL, $vars);
     }
@@ -272,6 +308,9 @@ class ActionTest
         $vars = [
             ':value' => $this->convertResponseField($value)
         ];
+        if ($vars[':value'] === '$response') {
+            return YamlTests::render(self::TEMPLATE_IS_TRUE_RESPONSE, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_IS_TRUE, $vars);
     }
 
@@ -280,6 +319,9 @@ class ActionTest
         $vars = [
             ':value' => $this->convertResponseField($value)
         ];
+        if ($vars[':value'] === '$response') {
+            return YamlTests::render(self::TEMPLATE_IS_FALSE_RESPONSE, $vars);
+        }
         return YamlTests::render(self::TEMPLATE_IS_FALSE, $vars);
     }
 
@@ -491,36 +533,11 @@ class ActionTest
         return preg_replace("/stdClass::__set_state\(array\(\s+\)\)/", '(object) []', $value);
     }
 
-    /**
-     * Adjust the client parameters (e.g. ignore)
-     */
-    private function adjustClientParams($params)
+    private function formatHeaders(array $headers): string
     {
-        if (!is_array($params)) {
-            return $params;
-        }
-        foreach ($params as $key => $value) {
-            if (in_array($key, ['ignore'])) {
-                if (isset($params['client'])) {
-                    $params['client'][$key] = $value;
-                } else {
-                    $params['client'] = [
-                        'ignore' => $value
-                    ];
-                }
-                unset($params[$key]);
-            }
-        }
-        return $params;
-    }
-
-    private function formatHeaders(array $headers): array
-    {
-        $result = $headers;
+        $result = '';
         foreach ($headers as $key => $value) {
-            if (!is_array($value)) {
-                $result[$key] = [$value];
-            }
+            $result .= sprintf("\$this->client->getTransport()->setHeader('%s',\"%s\");\n", $key, $value);
         }
         return $result;
     }

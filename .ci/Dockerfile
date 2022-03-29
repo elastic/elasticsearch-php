@@ -1,22 +1,24 @@
-ARG PHP_VERSION=7.4-cli
+ARG PHP_VERSION=8.0-cli
 FROM php:${PHP_VERSION}
 
 WORKDIR /usr/src/app
 
 # Install git
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git
+RUN apt-get update -qq > /dev/null && \
+    apt-get install -y --no-install-recommends git -qq > /dev/null
 
 # Install zip extension for PHP
 RUN apt-get install -y \
         libzip-dev \
         zip \
         libyaml-dev \
-    && docker-php-ext-install zip 
+        -qq > /dev/null \
+    && docker-php-ext-install zip > /dev/null
 
 # Install yaml extension for PHP
-RUN pecl channel-update pecl.php.net
-RUN pecl install yaml && docker-php-ext-enable yaml
+RUN pecl channel-update pecl.php.net > /dev/null
+RUN pecl install yaml > /dev/null 
+RUN docker-php-ext-enable yaml > /dev/null
 
 # Print PHP version
 RUN php -v
@@ -30,7 +32,7 @@ RUN composer --version
 COPY composer.json .
 
 # Install dependencies with composer
-RUN composer install
+RUN composer install --no-progress > /dev/null
 
 COPY . .
 

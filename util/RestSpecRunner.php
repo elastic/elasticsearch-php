@@ -12,22 +12,14 @@
  * the GNU Lesser General Public License, Version 2.1, at your option.
  * See the LICENSE file in the project root for more information.
  */
-
-
 declare(strict_types = 1);
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\Tests\Utility;
+use Elastic\Transport\Exception\NoNodeAvailableException;
+use Elastic\Elasticsearch\Tests\Utility;
 
-// Set the default timezone. While this doesn't cause any tests to fail, PHP
-// complains if it is not set in 'date.timezone' of php.ini.
+// Set the default timezone. While this doesn't cause any tests to fail,
+// PHP can complains if it is not set in 'date.timezone' of php.ini.
 date_default_timezone_set('UTC');
-
-// Ensure that composer has installed all dependencies
-if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
-    die("Dependencies must be installed using composer:\n\nphp composer.phar install --dev\n\n"
-        . "See http://getcomposer.org for help with installing composer\n");
-}
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -41,13 +33,13 @@ $client = Utility::getClient();
 printf ("Getting the Elasticsearch build_hash:\n");
 try {
     $serverInfo = $client->info();
-    print_r($serverInfo);
-} catch (NoNodesAvailableException $e) {
+    print_r($serverInfo->asArray());
+} catch (NoNodeAvailableException $e) {
     printf ("ERROR: Host %s is offline\n", Utility::getHost());
     exit(1);
 }
-
 $version = $serverInfo['version']['number'];
+
 $artifactFile = sprintf("rest-resources-zip-%s.zip", $version);
 $tempFilePath = sprintf("%s/%s.zip", sys_get_temp_dir(), $serverInfo['version']['build_hash']);
 

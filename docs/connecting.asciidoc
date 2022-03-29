@@ -1,4 +1,4 @@
-[[connceting]]
+[[connecting]]
 == Connecting
 
 This page contains the information you need to connect and use the Client with 

@@ -26,30 +26,10 @@ This is the official PHP client for [Elasticsearch](https://www.elastic.co/elast
 
 ## Getting started 🐣
 
-<<<<<<< HEAD
-| Elasticsearch-PHP Branch | PHP Version |
-| ----------- | ------------------------ |
-| >= 7.16.0, < 8.0.0  | >= 7.3.0, <= 8.1.99 |
-| >= 7.12.0, < 8.0.0  | >= 7.3.0, <= 8.0.99 |
-| >= 7.11.0, < 8.0.0  | >= 7.1.0, <= 8.0.99 |
-| >= 7.0.0,  < 7.11.0 | >= 7.1.0, < 8.0.0 |
-| 6.x         | >= 7.0.0, < 8.0.0        |
-| 5.x         | >= 5.6.6, < 8.0.0        |
-| 2.x         | >= 5.4.0, < 7.0.0        |
-| 0.4, 1.x    | >= 5.3.9, < 7.0.0        |
-
- - If you are using Elasticsearch 7.x, you can use Elasticsearch-PHP 7.x branch.
- - If you are using Elasticsearch 6.x, you can use Elasticsearch-PHP 6.x branch.
- - If you are using Elasticsearch 5.x, you can use Elasticsearch-PHP 6.x branch.
- - If you are using Elasticsearch 1.x or 2.x, prefer using the Elasticsearch-PHP 2.0 branch.  The 1.0 branch is compatible however.
- - If you are using a version older than 1.0, you must install the `0.4` Elasticsearch-PHP branch. Since ES 0.90.x and below is now EOL, the corresponding `0.4` branch will not receive any more development or bugfixes.  Please upgrade.
- - You should never use Elasticsearch-PHP Master branch, as it tracks Elasticsearch master and may contain incomplete features or breaks in backwards compatibility. Only use ES-PHP master if you are developing against ES master for some reason.
-=======
 Using this client assumes that you have an [Elasticsearch](https://www.elastic.co/elasticsearch/)
 server installed and running.
 
 You can install the client in your PHP project using [composer](https://getcomposer.org/):
->>>>>>> 8.0
 
 ```bash
 composer require elasticsearch/elasticsearch

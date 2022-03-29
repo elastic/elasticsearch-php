@@ -1,5 +1,5 @@
 
-= Elasticsearch PHP Client
+= Elasticsearch-PHP
 
 include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 

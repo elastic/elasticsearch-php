@@ -84,7 +84,7 @@ $client = ClientBuilder::create()
 
 Note that the implementation is specified via a namespace path to the class.
 
-
+[discrete]
 === Custom Selector
 
 You can implement your own custom selector. Custom selectors must implement 

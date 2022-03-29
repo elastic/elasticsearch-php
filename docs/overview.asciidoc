@@ -14,17 +14,6 @@ added to the client (cluster state sniffing, round-robin requests, and so on)
 but largely it is very barebones. This was intentional; we want a common base 
 that more sophisticated libraries can build on top of.
 
-
-[discrete]
-[[psr-7-standard]]
-=== PSR 7 standard
-
-The {es} PHP client uses the https://www.php-fig.org/psr/[PSR] 7 standard. This 
-standard is a community effort that contains a set of interfaces defined by the 
-PHP Framework Interop Group. For more information, refer to the 
-https://www.php-fig.org/psr/psr-7/[PSR 7 standard documentation].
-
-
 * <<community_dsls>>
 * <<community-integrations>>
 * <<breaking_changes>>

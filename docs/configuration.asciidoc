@@ -15,7 +15,7 @@ To learn more about JSON in PHP, read <<php_json_objects>>.
 * <<set-retries>>
 * <<http-meta-data>>
 * <<enabling_logger>>
-* <<http-handler-config>>
+* <<http-client>>
 * <<namespaces>>
 * <<connection_pool>>
 * <<selectors>>
@@ -24,7 +24,6 @@ To learn more about JSON in PHP, read <<php_json_objects>>.
 * <<endpoint-closure>>
 * <<config-hash>>
 * <<per_request_configuration>>
-* <<future_mode>>
 
 
 include::php_json_objects.asciidoc[]
@@ -37,7 +36,7 @@ include::http-meta-data.asciidoc[]
 
 include::logger.asciidoc[]
 
-include::http-handler.asciidoc[]
+include::http-client.asciidoc[]
 
 include::namespaces.asciidoc[]
 
@@ -54,5 +53,3 @@ include::endpoint-closure.asciidoc[]
 include::config-hash.asciidoc[]
 
 include::per-request-configuration.asciidoc[]
-
-include::futures.asciidoc[]

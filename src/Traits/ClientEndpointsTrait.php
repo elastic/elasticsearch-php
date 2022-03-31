@@ -75,7 +75,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body']));
 	}
 
 

@@ -164,8 +164,6 @@ final class Client
         $response = $this->transport->sendRequest($request);
         $this->logger->info(sprintf("Response time in %.3f sec", microtime(true) - $start));       
 
-        $result = new Elasticsearch;
-        $result->setResponse($response, $request->getMethod() === 'HEAD' ? false : $this->getResponseException());
-        return $result;
+        return (new Elasticsearch())->setResponse($response, $request->getMethod() === 'HEAD' ? false : $this->getResponseException());     
     }
 }

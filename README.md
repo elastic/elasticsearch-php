@@ -18,6 +18,7 @@ This is the official PHP client for [Elasticsearch](https://www.elastic.co/elast
   - [Delete a document](#delete-a-document)
 - [Versioning](#versioning)
 - [Backward Incompatible Changes](#backward-incompatible-changes-)
+- [Mock the Elasticsearch client](#mock-the-elasticsearch-client)
 - [FAQ](#faq-)
 - [Contribute](#contribute-)
 - [License](#license-)
@@ -299,6 +300,56 @@ We tried to reduce the BC breaks as much as possible with `7.x` but there are so
 
 You can have a look at the [BREAKING_CHANGES](BREAKING_CHANGES.md) file for more information.
 
+## Mock the Elasticsearch client
+
+If you need to mock the Elasticsearch client you just need to mock a
+[PSR-18](https://www.php-fig.org/psr/psr-18/) HTTP Client.
+
+For instance, you can use the [php-http/mock-client](https://github.com/php-http/mock-client)
+as follows:
+
+```php
+use Elastic\Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Response\Elasticsearch;
+use Http\Mock\Client;
+use Nyholm\Psr7\Response;
+
+$mock = new Client(); // This is the mock client
+
+$client = ClientBuilder::create()
+    ->setHttpClient($mock)
+    ->build();
+
+// This is a PSR-7 response
+$response = new Response(
+    200, 
+    [Elasticsearch::HEADER_CHECK => Elasticsearch::PRODUCT_NAME],
+    'This is the body!'
+);
+$mock->addResponse($response);
+
+$result = $client->info(); // Just calling an Elasticsearch endpoint
+
+echo $result->asString(); // This is the body!
+```
+We are using the `ClientBuilder::setHttpClient()` to set the mock client.
+You can specify the response that you want to have using the `addResponse($response)`
+function. As you can see the `$response` is a PSR-7 response object. In this
+example we used the `Nyholm\Psr7\Response` object from the [nyholm/psr7](https://github.com/Nyholm/psr7)
+project. If you are using [PHPUnit](https://phpunit.de/) you can even mock the
+`ResponseInterface` as follows:
+
+```php
+$response = $this->createMock('Psr\Http\Message\ResponseInterface');
+```
+
+**Notice**: we added a special header in the HTTP response. This is the product check
+header, and it is required for guarantee that `elasticsearch-php` is communicating
+with an Elasticsearch server 8.0+.
+
+For more information you can read the [Mock client](https://docs.php-http.org/en/latest/clients/mock-client.html)
+section of PHP-HTTP documentation.
+
 ## FAQ 🔮
 
 ### Where do I report issues with the client?
@@ -315,7 +366,7 @@ We welcome contributors to the project. Before you begin, a couple notes...
 
 + If you want to contribute to this project you need to subscribe to a [Contributor Agreement](https://www.elastic.co/contributor-agreement).
 + Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/elastic/elasticsearch-php/issues).
-+ If you want to send a PR for version `8.0` please use the `8.0` branch. 
++ If you want to send a PR for version `8.0` please use the `8.0` branch, for `8.1` use the `8.1` branch and so on. 
 + Never send PR to `master` unless you want to contribute to the development version of the client (`master` represents the next major version).
 + Each PR should include a **unit test** using [PHPUnit](https://phpunit.de/). If you are not familiar with PHPUnit you can have a look at the [reference](https://phpunit.readthedocs.io/en/9.5/). 
 

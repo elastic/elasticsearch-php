@@ -1,3 +1,8 @@
+## Release 8.0.1
+
+- Fixed `NoNodeAvailableException` exception in endpoints
+  [e7d448d](https://github.com/elastic/elasticsearch-php/commit/e7d448d540f120eb3a3e3fe0d5866bf62fb67f3a)
+
 ## Release 8.0.0
 
 - Finally the 8.0.0 GA for [Elasticsearch 8](https://www.elastic.co/blog/whats-new-elastic-8-0-0).

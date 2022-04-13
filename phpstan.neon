@@ -1,4 +1,3 @@
 parameters:
     ignoreErrors:
         - '#PHPDoc tag @param has invalid value#'
-        - '#PHPDoc tag @throws with type#'

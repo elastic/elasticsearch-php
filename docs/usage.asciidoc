@@ -15,7 +15,7 @@ respectively.
 [discrete]
 ==== Info API
 
-You can get information about the Elasticsearch instance using the `info()` API,
+You can get information about the {es} instance using the `info()` API,
 as follows:
 
 [source,php]

@@ -23,7 +23,7 @@ as follows:
 $response = $client->info();
 ----------------------------
 
-The response that you get back contains the information about Elasticsearch. 
+The response that you get back contains the information about {es}. 
 The `$response` is an object of `Elastic\Elasticsearch\Response\Elasticsearch`
 class that implements `ElasticsearchInterface`, PSR-7 https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface[ResponseInterface]
 and https://www.php.net/manual/en/class.arrayaccess.php[ArrayAccess].

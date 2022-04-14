@@ -3,10 +3,15 @@
 
 The following pages have moved or been deleted.
 
+[role="exclude",id="experimental_and_beta_apis"]
+== Experimental and beta APIs
+
+This page has been removed.
+
 [role="exclude",id="security"]
 == Security
 
-This page has moved. See <<authentication>>.
+This page has moved. See <<connecting>>.
 
 [role="exclude",id="quickstart"]
 == Quickstart

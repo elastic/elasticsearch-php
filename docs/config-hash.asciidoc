@@ -4,7 +4,7 @@
 
 To help ease automated building of the client, all configurations can be 
 provided in a setting hash instead of calling the individual methods directly. 
-This functionality is exposed through the `ClientBuilder::FromConfig()` static 
+This functionality is exposed through the `ClientBuilder::fromConfig()` static 
 method, which accepts an array of configurations and returns a fully built 
 client.
 
@@ -17,17 +17,14 @@ $params = [
     'hosts' => [
         'localhost:9200'
     ],
-    'retries' => 2,
-    'handler' => ClientBuilder::singleHandler()
+    'retries' => 2
 ];
 $client = ClientBuilder::fromConfig($params);
 ----
 
-
 Unknown parameters throw an exception, to help the user find potential problems. 
 If this behavior is not desired (for example, you are using the hash for other 
-purposes, and may have keys unrelated to the {es} client), you can set 
-$quiet = true in fromConfig() to silence the exceptions.
+purposes), you can set `$quiet = true` in fromConfig() to silence the exceptions.
 
 [source,php]
 ----

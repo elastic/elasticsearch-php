@@ -1,0 +1,312 @@
+[discrete]
+[[client-usage]]
+=== Usage 
+
+This section is a crash-course overview of the client and its syntax. If you 
+are familiar with {es}, you'll notice that the methods are named just like REST 
+endpoints.
+
+You may also notice that the client is configured in a manner that facilitates 
+easy discovery via your IDE. All core actions are available under the `$client` 
+object (indexing, searching, getting, etc). Index and cluster management are 
+located under the `$client->indices()` and `$client->cluster()` objects, 
+respectively.
+
+[discrete]
+==== Info API
+
+You can get information about the {es} instance using the `info()` API,
+as follows:
+
+[source,php]
+----------------------------
+$response = $client->info();
+----------------------------
+
+The response that you get back contains the information about {es}. 
+The `$response` is an object of `Elastic\Elasticsearch\Response\Elasticsearch`
+class that implements `ElasticsearchInterface`, PSR-7 https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface[ResponseInterface]
+and https://www.php.net/manual/en/class.arrayaccess.php[ArrayAccess].
+
+This means the `$response` is a https://www.php-fig.org/psr/psr-7/[PSR-7]
+object:
+
+[source,php]
+----------------------------
+echo $response->getStatusCode(); // 200
+echo (string) $response->getBody(); // Response body in JSON
+----------------------------
+
+and also an "array", meaning you can access the response body as an
+associative array, as follows:
+
+[source,php]
+----------------------------
+echo $response['version']['number']; // 8.0.0
+
+var_dump($response->asArray());  // response body content as array
+----------------------------
+
+Moreover, you can also access the response body as object, string or bool:
+
+[source,php]
+----------------------------
+echo $response->version->number; // 8.0.0
+
+var_dump($response->asObject()); // response body content as object
+var_dump($response->asString()); // response body as string (JSON)
+var_dump($response->asBool());   // true if HTTP response code between 200 and 300
+----------------------------
+
+[discrete]
+==== Indexing a document
+
+To index a document, we need to specify three pieces of information: index, id 
+and a document body. This is done by constructing an associative array of 
+key:value pairs. The request body is itself an associative array with key:value 
+pairs corresponding to the data in your document:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'id'    => 'my_id',
+    'body'  => ['testField' => 'abc']
+];
+
+$response = $client->index($params);
+print_r($response->asArray());
+----------------------------
+
+The response that you get back indicates that the document was created in the 
+index that you specified. The response can be rendered as associatve array
+using the `asArray()` function. The array response contains a
+decoded version of the JSON that Elasticsearch returns:
+
+[source,php]
+----------------------------
+Array
+(
+    [_index] => my_index
+    [_type] => _doc
+    [_id] => my_id
+    [_version] => 1
+    [created] => 1
+)
+----------------------------
+
+[discrete]
+==== Set the body as JSON string
+
+If you want you can specify the `body`parameter as JSON string. This can be
+useful for testing (eg. copy & paste from online code examples) or if you
+have already some JSON documents to be stored in Elasticsearch.
+
+For instance, the previous index example can be re-written as follows:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'id'    => 'my_id',
+    'body'  => '{"testField" : "abc"}'
+];
+
+$response = $client->index($params);
+print_r($response->asArray());
+----------------------------
+
+[discrete]
+==== Getting a document
+
+Let's get the document that we just indexed. This returns the document:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'id'    => 'my_id'
+];
+
+$response = $client->get($params);
+print_r($response->asArray());
+----------------------------
+
+The response contains metadata such as index, version, and so on as well as a 
+`_source` field, which is the original document you sent to {es}.
+
+[source,php]
+----------------------------
+Array
+(
+    [_index] => my_index
+    [_type] => _doc
+    [_id] => my_id
+    [_version] => 1
+    [found] => 1
+    [_source] => Array
+        (
+            [testField] => abc
+        )
+
+)
+----------------------------
+
+
+[discrete]
+==== Searching for a document
+
+Searching is a hallmark of {es}, so let's perform a search. We are going to use 
+the `match` query as a demonstration:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'body'  => [
+        'query' => [
+            'match' => [
+                'testField' => 'abc'
+            ]
+        ]
+    ]
+];
+
+$response = $client->search($params);
+print_r($response->asArray());
+----------------------------
+
+The response here is different from the previous ones. You can see metadata 
+(`took`, `timed_out`, etc.) and an array named `hits`. This represents your 
+search results. Inside of `hits` is another array named `hits`, which contains 
+individual search results:
+
+[source,php]
+----------------------------
+Array
+(
+    [took] => 1
+    [timed_out] =>
+    [_shards] => Array
+        (
+            [total] => 5
+            [successful] => 5
+            [failed] => 0
+        )
+
+    [hits] => Array
+        (
+            [total] => 1
+            [max_score] => 0.30685282
+            [hits] => Array
+                (
+                    [0] => Array
+                        (
+                            [_index] => my_index
+                            [_type] => _doc
+                            [_id] => my_id
+                            [_score] => 0.30685282
+                            [_source] => Array
+                                (
+                                    [testField] => abc
+                                )
+                        )
+                )
+        )
+)
+----------------------------
+
+
+[discrete]
+==== Deleting a document
+
+Alright, let's go ahead and delete the document that we added previously:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'id'    => 'my_id'
+];
+
+$response = $client->delete($params);
+print_r($response->asArray());
+----------------------------
+
+This syntax is identical to the `get` syntax. The only difference is the 
+operation: `delete` instead of `get`. The response confirms the document is 
+deleted:
+
+[source,php]
+----------------------------
+Array
+(
+    [found] => 1
+    [_index] => my_index
+    [_type] => _doc
+    [_id] => my_id
+    [_version] => 2
+)
+----------------------------
+
+
+[discrete]
+==== Deleting an index
+
+Due to the dynamic nature of {es}, the first document you added automatically 
+built an index with some default settings. Delete that index and specify your 
+own settings later:
+
+[source,php]
+----------------------------
+$deleteParams = [
+    'index' => 'my_index'
+];
+$response = $client->indices()->delete($deleteParams);
+print_r($response->asArray());
+----------------------------
+
+The response:
+
+
+[source,php]
+----------------------------
+Array
+(
+    [acknowledged] => 1
+)
+----------------------------
+
+
+[discrete]
+==== Creating an index
+
+Now that you are starting fresh (no data or index), add a new index with custom 
+settings:
+
+[source,php]
+----------------------------
+$params = [
+    'index' => 'my_index',
+    'body' => [
+        'settings' => [
+            'number_of_shards' => 2,
+            'number_of_replicas' => 0
+        ]
+    ]
+];
+
+$response = $client->indices()->create($params);
+print_r($response->asArray());
+----------------------------
+
+{es} now creates that index with your chosen settings and return an 
+acknowledgement:
+
+[source,php]
+----------------------------
+Array
+(
+    [acknowledged] => 1
+)
+----------------------------

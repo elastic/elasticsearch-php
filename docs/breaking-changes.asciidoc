@@ -5,7 +5,7 @@ This major release is a complete new PHP client for {es}. We build it from scrat
 We tried to reduce the BC breaks as much as possible but there are some (big) differences: 
 
 [discrete]
-==== Architectural changes:
+==== Architectural changes
 
 - we changed the namespace, now everything is under `Elastic\Elasticsearch`
 - we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library for HTTP communications;

@@ -6,7 +6,7 @@ configure a few parameters to suit their needs, but it is possible to completely
 replace much of the internals if required.
 
 Custom configuration is accomplished before the client is instantiated, through 
-the ClientBuilder helper object. You can find all the configuration options and 
+the `ClientBuilder` class. You can find all the configuration options and 
 check sample code that helps you replace the various components.
 
 To learn more about JSON in PHP, read <<php_json_objects>>.
@@ -15,17 +15,10 @@ To learn more about JSON in PHP, read <<php_json_objects>>.
 * <<set-retries>>
 * <<http-meta-data>>
 * <<enabling_logger>>
-* <<http-handler-config>>
+* <<http-client>>
 * <<namespaces>>
-* <<connection_pool>>
-* <<selectors>>
-* <<serializers>>
-* <<connection-factory>>
-* <<endpoint-closure>>
+* <<node_pool>>
 * <<config-hash>>
-* <<per_request_configuration>>
-* <<future_mode>>
-
 
 include::php_json_objects.asciidoc[]
 
@@ -37,22 +30,10 @@ include::http-meta-data.asciidoc[]
 
 include::logger.asciidoc[]
 
-include::http-handler.asciidoc[]
+include::http-client.asciidoc[]
 
 include::namespaces.asciidoc[]
 
-include::connection-pool.asciidoc[]
-
-include::selectors.asciidoc[]
-
-include::serializers.asciidoc[]
-
-include::connection-factory.asciidoc[]
-
-include::endpoint-closure.asciidoc[]
+include::node-pool.asciidoc[]
 
 include::config-hash.asciidoc[]
-
-include::per-request-configuration.asciidoc[]
-
-include::futures.asciidoc[]

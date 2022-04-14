@@ -9,11 +9,8 @@ structure of other language clients (Ruby, Python, and so on). We hope that this
 consistency makes it easy to get started with a client and to seamlessly switch 
 from one language to the next with minimal effort.
 
-The client is designed to be "unopinionated". There are a few universal niceties 
-added to the client (cluster state sniffing, round-robin requests, and so on) 
-but largely it is very barebones. This was intentional; we want a common base 
-that more sophisticated libraries can build on top of.
-
+The client is designed to facilitate the API call using different way to read the
+results using associative array, object, string or https://www.php-fig.org/psr/psr-7/[PSR-7].
 
 [discrete]
 [[psr-7-standard]]
@@ -24,12 +21,6 @@ standard is a community effort that contains a set of interfaces defined by the
 PHP Framework Interop Group. For more information, refer to the 
 https://www.php-fig.org/psr/psr-7/[PSR 7 standard documentation].
 
-
-* <<community_dsls>>
-* <<community-integrations>>
 * <<breaking_changes>>
-
-
-include::community.asciidoc[]
 
 include::breaking-changes.asciidoc[]

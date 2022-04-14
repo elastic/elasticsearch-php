@@ -1,47 +1,49 @@
 [[breaking_changes]]
-=== Breaking changes from 6.x
+=== Breaking changes from 7.x
+
+This major release is a complete new PHP client for {es}. We build it from scratch!
+We tried to reduce the BC breaks as much as possible but there are some (big) differences: 
 
 [discrete]
-==== E_USER_DEPRECATED notice when using deprecated parameters
+==== Architectural changes
 
-Starting from elasticsearch-php 7.4.0, we generate a PHP 
-https://www.php.net/manual/en/errorfunc.constants.php[E_USER_DEPRECATED] notice 
-every time you use a deprecated parameters for {es}. We decided to add this 
-notice to facilitate the code refactoring with the new API specification of {es} 
-(for example the usage of typeless APIs, see below).
-
-From 7.4.1, we mitigated the usage of E_USER_DEPRICATED warning by using the `@` 
-https://www.php.net/manual/en/language.operators.errorcontrol.php[operator]. The 
-operator suppresses the error message, however, it is still possible to catch it 
-by using a custom error handler:
-
-[source,php]
-----
-set_error_handler(function ($errno, $errstr) {
-    var_dump($errstr);
-}, E_USER_DEPRECATED);
-
-@trigger_error('Deprecation message here', E_USER_DEPRECATED);
-----
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`
+- we used the https://github.com/elastic/elastic-transport-php[elastic-transport-php] library for HTTP communications;
+- we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
+  `ElasticsearchException` interface, as in 7.x
+- we changed the response type of each endpoint using an https://github.com/elastic/elasticsearch-php/blob/master/src/Response/Elasticsearch.php[Elasticsearch] response class.
+  This class wraps a https://www.php-fig.org/psr/psr-7/[PSR-7] response allowing the access of the body response
+  as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
+- we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
 
 [discrete]
-==== Moving from types to typeless APIs in {es} 7.0
+==== Specific changes
 
-{es} 7.0 deprecated APIs that accept types, introduced new typeless APIs, and 
-removed support for the _default_ mapping. Read 
-https://www.elastic.co/blog/moving-from-types-to-typeless-apis-in-elasticsearch-7-0[this]
-blog post for more information.
+The following functions has been removed:
 
-[discrete]
-==== Type hint and return type
+- `ClientBuilder::getEndpoint()`
+- `ClientBuilder::getRegisteredNamespacesBuilders()`
+- `ClientBuilder::getRegisteredNamespacesBuilders()`
+- `ClientBuilder::defaultHandler()`
+- `ClientBuilder::multiHandler()`
+- `ClientBuilder::singleHandler()`
+- `ClientBuilder::setConnectionFactory()`
+- `ClientBuilder::setConnectionPool()`, you can use `ClientBuilder::setNodePool` instead
+- `ClientBuilder::setEndpoint()`
+- `ClientBuilder::registerNamespace()`
+- `ClientBuilder::setTransport()`, you can specify an HTTP PSR-18 client using `ClientBuilder::setHttpClient()`
+- `ClientBuilder::setHandler()`
+- `ClientBuilder::setTracer()`, you can only set a Logger using  `ClientBuilder::setLogger()`
+- `ClientBuilder::setSerializer()`
+- `ClientBuilder::setConnectionParams()`, you can use `ClientBuilder::setHttpClientOptions()` instead
+- `ClientBuilder::setSelector()`, you can set a `Selector` using the `setNodePool`, see [here](https://github.com/elastic/elastic-transport-php/blob/8.x/README.md#use-a-custom-selector) for more information
+- `ClientBuilder::setSniffOnStart()`
+- `ClientBuilder::includePortInHostHeader()`
 
-Added type hints and return type declarations in all the code base where 
-possible. See PR https://github.com/elastic/elasticsearch-php/pull/897[#897].
+We removed the special `client` parameter passed in `$params` endpoints. In details: 
 
-[discrete]
-==== PHP 7.1+ Requirement
-
-We require using PHP 7.1+ for elasticsearch-php. PHP 7.0 is not supported since
-1st Jan 2019. Refer 
-https://www.php.net/supported-versions.php[PHP supported version] for more 
-information.
+- `$params['client']['never_retry']`
+- `$params['client']['verbose']`
+- `$params['client']['port_in_header']`
+- `$params['client']['future']`, you can set HTTP async using `Client::setAsync(true)`
+- `$params['client']['ignore']`, you can disable the Exception using `Client::setResponseException(false)`

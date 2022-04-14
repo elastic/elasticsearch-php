@@ -1,6 +1,9 @@
 [[release-notes]]
 == Release notes
 
+* <<rn-8-0-1>>
+* <<rn-8-0-0>>
+* <<rn-7-17-0>>
 * <<rn-7-16-0>>
 * <<rn-7-15-0>>
 * <<rn-7-14-0>>
@@ -28,6 +31,46 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-8-0-1]]
+=== 8.0.1
+
+* use of `NoNodeAvailableException` exception in endpoints, fixing
+  https://github.com/elastic/elasticsearch-php/issues/1209[#1209]
+  
+
+[discrete]
+[[rn-8-0-0]]
+=== 8.0.0
+
+This new major version of elasticsearch-php contains a brand new implementation
+compared with 7.x. It supports https://www.php-fig.org/psr/psr-7/[PSR-7] for HTTP
+messages and https://www.php-fig.org/psr/psr-18/[PSR-18] for HTTP client
+communications. We used the https://github.com/elastic/elastic-transport-php[elastic-transport-php]
+library for HTTP communications.
+
+We tried to reduce the BC breaks as much as possible with 7.x but there are some
+(big) differences:
+
+* we changed the namespace, now everything is under `Elastic\Elasticsearch`;
+* we changed the Exception model, using the namespace `Elastic\Elasticsearch\Exception`.
+  All the exceptions extends the `ElasticsearchException` interface, as in 7.x;
+* we changed the response type of each endpoints using an Elasticsearch response class.
+  This class wraps a a PSR-7 response allowing the access of the body response
+  as array or object. This means you can access the API response as in 7.x, no BC break here!
+
+You can have a look at the https://github.com/elastic/elasticsearch-php/blob/8.0/BREAKING_CHANGES.md[BREAKING_CHANGES]
+online document for more information.
+
+
+[discrete]
+[[rn-7-17-0]]
+=== 7.17.0
+
+* Allow psr/log v3
+  https://github.com/elastic/elasticsearch-php/pull/1184[#1184]
+
 
 [discrete]
 [[rn-7-16-0]]
@@ -86,7 +129,7 @@
 * Usage of PHPUnit 9 only + migrated xml configurations
   https://github.com/elastic/elasticsearch-php/commit/038b5dd043dc76b20b9f5f265ea914a38d33568d[038b5dd]
 
-
+  
 [discrete]
 [[rn-7-12-0]]
 === 7.12.0

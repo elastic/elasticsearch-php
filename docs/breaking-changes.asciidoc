@@ -17,7 +17,7 @@ We tried to reduce the BC breaks as much as possible but there are some (big) di
 - we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
 
 [discrete]
-==== Specific changes:
+==== Specific changes
 
 The following functions has been removed:
 

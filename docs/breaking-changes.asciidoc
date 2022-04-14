@@ -12,7 +12,7 @@ We tried to reduce the BC breaks as much as possible but there are some (big) di
 - we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
   `ElasticsearchException` interface, as in 7.x
 - we changed the response type of each endpoints using an [Elasticsearch](src/Response/Elasticsearch.php) response class.
-  This class wraps a a [PSR-7](https://www.php-fig.org/psr/psr-7/) response allowing the access of the body response
+  This class wraps a https://www.php-fig.org/psr/psr-7/[PSR-7] response allowing the access of the body response
   as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
 - we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
 

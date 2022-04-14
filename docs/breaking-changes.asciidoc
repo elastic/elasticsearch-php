@@ -8,7 +8,7 @@ We tried to reduce the BC breaks as much as possible but there are some (big) di
 ==== Architectural changes
 
 - we changed the namespace, now everything is under `Elastic\Elasticsearch`
-- we used the [elastic-transport-php](https://github.com/elastic/elastic-transport-php) library for HTTP communications;
+- we used the https://github.com/elastic/elastic-transport-php[elastic-transport-php] library for HTTP communications;
 - we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
   `ElasticsearchException` interface, as in 7.x
 - we changed the response type of each endpoints using an [Elasticsearch](src/Response/Elasticsearch.php) response class.

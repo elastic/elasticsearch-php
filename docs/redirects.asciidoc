@@ -17,3 +17,8 @@ This page has moved. See <<connecting>>.
 == Quickstart
 
 This page has moved. See <<installation>>.
+
+[role="exclude",id="ElasticsearchPHP_Endpoints"]
+== Reference – Endpoints
+
+This page has been removed.

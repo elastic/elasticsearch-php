@@ -16,3 +16,5 @@ include::configuration.asciidoc[]
 include::operations.asciidoc[]
 
 include::release-notes.asciidoc[]
+
+include::redirects.asciidoc[]

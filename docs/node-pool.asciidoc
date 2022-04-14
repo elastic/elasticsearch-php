@@ -30,7 +30,7 @@ default values: RoundRobin as `SelectorInterface` and NoResurrect as `ResurrectI
 The Round-robin algorithm select the nodes in order, from the first node in the array
 to the latest. When arrived to the latest nodes, it will start again from the first.
 
-Note: the order of the nodes is randomized at runtime to maximize the usage of all the hosts.
+NOTE: The order of the nodes is randomized at runtime to maximize the usage of all the hosts.
 
 The `NoResurrect` option does not try to resurrect the node that has been marked as dead. 
 If you want, you can specify the `ElasticsearchResurrect` class to check if a node that

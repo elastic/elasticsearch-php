@@ -69,7 +69,7 @@ online document for more information.
 === 7.17.0
 
 * Allow psr/log v3
-  https://github.com/elastic/elasticsearch-php/pull/1184
+  https://github.com/elastic/elasticsearch-php/pull/1184[#1184]
 
 
 [discrete]

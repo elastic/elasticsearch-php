@@ -50,7 +50,7 @@ be able to view it again in Elastic Cloud.
 
 [discrete]
 [[auth-http]]
-==== Security by default (HTTPS)
+=== Security by default (HTTPS)
 
 {es} 8.0 offers https://www.elastic.co/blog/introducing-simplified-elastic-stack-security[security by default],
 that means it uses https://en.wikipedia.org/wiki/Transport_Layer_Security[TLS]

@@ -43,7 +43,7 @@ $client = ClientBuilder::create()
 
 
 [discrete]
-==== Configure the HTTP async client
+==== Configuring the HTTP async client
 
 Elasticsearch-php can works using an asyncronous HTTP client that implements
 the https://github.com/php-http/httplug/blob/master/src/HttpAsyncClient.php[HttpAsyncClient] interface

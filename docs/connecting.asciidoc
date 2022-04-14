@@ -11,7 +11,7 @@ This page contains the information you need to connect and use the Client with
 
 [discrete]
 [[auth-ec]]
-==== Elastic Cloud
+=== Elastic Cloud
 
 You can connect to https://www.elastic.co/cloud/[Elastic Cloud] using an **API key**
 and a **Cloud ID**:
@@ -50,7 +50,7 @@ be able to view it again in Elastic Cloud.
 
 [discrete]
 [[auth-http]]
-==== Security by default (HTTPS)
+=== Security by default (HTTPS)
 
 {es} 8.0 offers https://www.elastic.co/blog/introducing-simplified-elastic-stack-security[security by default],
 that means it uses https://en.wikipedia.org/wiki/Transport_Layer_Security[TLS]

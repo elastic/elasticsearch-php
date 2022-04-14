@@ -21,7 +21,7 @@ $client = ClientBuilder::create()
 For instance, in this example we used the https://symfony.com/doc/current/http_client.html[Symfony HTTP Client].
 
 [discrete]
-==== Settings the client options
+==== Setting the client options
 
 If you want you can set the options for a specific PSR-18 client
 using the `ClientBuilder::setHttpClientOptions($options)` method.
@@ -43,7 +43,7 @@ $client = ClientBuilder::create()
 
 
 [discrete]
-==== Configure the HTTP async client
+==== Configuring the HTTP async client
 
 Elasticsearch-php can works using an asyncronous HTTP client that implements
 the https://github.com/php-http/httplug/blob/master/src/HttpAsyncClient.php[HttpAsyncClient] interface

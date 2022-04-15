@@ -22,6 +22,7 @@ use ParseError;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use stdClass;
+use Throwable;
 
 use function yaml_parse;
 
@@ -33,6 +34,10 @@ class YamlTests
     const TEMPLATE_FUNCTION_TEST     = __DIR__ . '/template/test/function-test';
     const TEMPLATE_FUNCTION_SKIPPED  = __DIR__ . '/template/test/function-skipped';
     const ELASTICSEARCH_GIT_URL      = 'https://github.com/elastic/elasticsearch/tree/%s/rest-api-spec/src/main/resources/rest-api-spec/test/%s';
+
+    const YAML_FILES_TO_OMIT = [
+        'platinum/eql/10_basic.yml'
+    ];
 
     const SKIPPED_TEST_OSS = [
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
@@ -142,22 +147,41 @@ class YamlTests
         $parsed = [];
         // Iterate over the Yaml test files
         foreach (new RecursiveIteratorIterator($it) as $file) {
-            if ($file->getExtension() === 'yml') {
-                $content = file_get_contents($file->getPathname());
-                $content = str_replace(' y: ', " 'y': ", $content); // replace "y:" with "'y':" due the y/true conversion in YAML 1.1
+            if ($file->getExtension() !== 'yml') {
+                continue;
+            }
+            $omit = false;
+            foreach (self::YAML_FILES_TO_OMIT as $fileOmit) {
+                if (false !== strpos($file->getPathname(), $fileOmit)) {
+                    $omit = true;
+                    break;
+                }
+            }
+            if ($omit) {
+                continue;
+            }
+            $content = file_get_contents($file->getPathname());
+            $content = str_replace(' y: ', " 'y': ", $content); // replace "y:" with "'y':" due the y/true conversion in YAML 1.1
+            try {
                 $test = yaml_parse($content, -1, $ndocs, [
                     YAML_MAP_TAG => function($value, $tag, $flags) {
                         return empty($value) ? new stdClass : $value;
                     }
                 ]);
-                if (false === $test) {
-                    throw new Exception(sprintf(
-                        "YAML parse error file %s",
-                        $file->getPathname()
-                    ));
-                }
-                $parsed[$file->getPathname()] = $test;
+            } catch (Throwable $e) {
+                throw new Exception(sprintf(
+                    "YAML parse error file %s: %s",
+                    $file->getPathname(),
+                    $e->getMessage()
+                ));
             }
+            if (false === $test) {
+                throw new Exception(sprintf(
+                    "YAML parse error file %s",
+                    $file->getPathname()
+                ));
+            }
+            $parsed[$file->getPathname()] = $test;
         }
         return $parsed;
     }

@@ -175,7 +175,6 @@ class Utility
         self::ensureNoInitializingShards($client);
         self::wipeCluster($client);
         self::waitForClusterStateUpdatesToFinish($client);
-        self::checkForUnexpectedlyRecreatedObjects($client);
     }
 
     /**
@@ -829,86 +828,5 @@ class Utility
             $result = $client->cluster()->pendingTasks();
             $stillWaiting = ! empty($result['tasks']);
         } while ($stillWaiting && time() < ($start + $timeout));
-    }
-
-    /**
-     * Returns all the unexpected ilm policies, removing $exclusions from the list
-     */
-    private static function getAllUnexpectedIlmPolicies(Client $client, array $exclusions): array
-    {
-        try {
-            $policies = $client->ilm()->getLifecycle();
-        } catch (ElasticsearchException $e) {
-            return [];
-        }
-        foreach ($policies as $name => $value) {
-            if (in_array($name, $exclusions)) {
-                unset($policies[$name]);
-            }
-        }
-        return $policies;
-    }
-
-    /**
-     * Returns all the unexpected templates
-     */
-    private static function getAllUnexpectedTemplates(Client $client): array
-    {
-        if (!self::$hasXPack) {
-            return [];
-        }
-        $unexpected = [];
-        // In case of bwc testing, if all nodes are before 7.7.0 then no need
-        // to attempt to delete component and composable index templates,
-        // because these were introduced in 7.7.0:
-        if (version_compare(self::getVersion($client), '7.6.99') > 0) {
-            $result = $client->indices()->getIndexTemplate();
-            foreach ($result['index_templates'] as $template) {
-                if (!self::isXPackTemplate($template['name'])) {
-                    $unexpected[$template['name']] = true;
-                }
-            }
-            $result = $client->cluster()->getComponentTemplate();
-            foreach ($result['component_templates'] as $template) {
-                if (!self::isXPackTemplate($template['name'])) {
-                    $unexpected[$template['name']] = true;
-                }
-            }
-        }
-        $result = $client->indices()->getIndexTemplate();
-        foreach ($result['index_templates'] as $template) {
-            if (!self::isXPackTemplate($template['name'])) {
-                $unexpected[$template['name']] = true;
-            }
-        }
-        return array_keys($unexpected);
-    }
-
-
-    /**
-     * This method checks whether ILM policies or templates get recreated after
-     * they have been deleted. If so, we are probably deleting them unnecessarily,
-     * potentially causing test performance problems. This could happen for example
-     * if someone adds a new standard ILM policy but forgets to put it in the
-     * exclusion list in this test.
-     */
-    private static function checkForUnexpectedlyRecreatedObjects(Client $client): void
-    {
-        if (self::$hasIlm) {
-            $policies = self::getAllUnexpectedIlmPolicies($client, self::preserveILMPolicyIds());
-            if (count($policies) > 0) {
-                throw new Exception(sprintf(
-                    "Expected no ILM policies after deletions, but found %s",
-                    implode(',', array_keys($policies))
-                ));
-            }
-        }
-        $templates = self::getAllUnexpectedTemplates($client);
-        if (count($templates) > 0) {
-            throw new Exception(sprintf(
-                "Expected no templates after deletions, but found %s",
-                implode(',', array_keys($templates))
-            ));
-        }
     }
 }

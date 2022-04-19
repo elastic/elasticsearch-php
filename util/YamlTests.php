@@ -34,14 +34,11 @@ class YamlTests
     const TEMPLATE_FUNCTION_SKIPPED  = __DIR__ . '/template/test/function-skipped';
     const ELASTICSEARCH_GIT_URL      = 'https://github.com/elastic/elasticsearch/tree/%s/rest-api-spec/src/main/resources/rest-api-spec/test/%s';
 
-<<<<<<< HEAD
-=======
     const YAML_FILES_TO_OMIT = [
         'platinum/eql/10_basic.yml',
         'free/cluster.desired_nodes/10_basic.yml', // use of _internal API
     ];
 
->>>>>>> 4f2937d8... Removed _internal YAML tests
     const SKIPPED_TEST_OSS = [
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',

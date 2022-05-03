@@ -38,6 +38,7 @@ class YamlTests
     const YAML_FILES_TO_OMIT = [
         'platinum/eql/10_basic.yml',
         'free/cluster.desired_nodes/10_basic.yml', // use of _internal API
+        'free/health/10_basic.yml' // use of _internal API
     ];
 
     const SKIPPED_TEST_OSS = [
@@ -45,12 +46,16 @@ class YamlTests
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Templates\_10_BasicTest::FilteredTemplates' => 'regex mismatch',
         'Cat\Templates\_10_BasicTest::SelectColumns' => 'regex mismatch',
-        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
+        'FieldCaps\_50_Fieldtype_FilterTest::NoFiltersIncludesAllTheFollowingFields' => 'Bool mismatch',
+        'FieldCaps\_50_Fieldtype_FilterTest::ExcludeParentObjects' => 'Bool mismatch',
+        'FieldCaps\_50_Fieldtype_FilterTest::ExcludeMultifields' => 'Bool mismatch',
+        'FieldCaps\_50_Fieldtype_FilterTest::ExcludeMultifieldsButIncludeRuntimeFields' => 'Bool mismatch',
         'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false',
         'Indices\GetIndexTemplate\_10_BasicTest::*' => 'Bool mismatch',
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
     ];

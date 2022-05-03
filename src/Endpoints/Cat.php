@@ -66,7 +66,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','local','h','help','s','v','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -111,7 +111,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','bytes','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -155,7 +155,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -197,7 +197,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -240,7 +240,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -279,7 +279,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -362,7 +362,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','health','help','pri','s','time','v','include_unloaded_segments','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -401,7 +401,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -446,7 +446,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -490,7 +490,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -535,7 +535,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['allow_no_match','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -582,7 +582,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['allow_no_match','from','size','bytes','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -621,7 +621,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -663,7 +663,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['bytes','format','full_id','master_timeout','h','help','s','time','v','include_unloaded_segments','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -703,7 +703,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -743,7 +743,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -789,7 +789,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','active_only','bytes','detailed','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -828,7 +828,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -871,7 +871,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -916,7 +916,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','bytes','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -961,7 +961,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -1004,7 +1004,7 @@ class Cat extends AbstractEndpoint
 
 		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -1048,7 +1048,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -1094,7 +1094,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -1140,7 +1140,7 @@ class Cat extends AbstractEndpoint
 		}
 		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
-			'Accept' => 'application/json',
+			'Accept' => 'text/plain,application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}

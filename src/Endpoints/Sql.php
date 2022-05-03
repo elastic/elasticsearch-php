@@ -42,7 +42,6 @@ class Sql extends AbstractEndpoint
 	 *     body: array, // (REQUIRED) Specify the cursor value in the `cursor` element to clean the cursor.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -188,7 +187,6 @@ class Sql extends AbstractEndpoint
 	 *     body: array, // (REQUIRED) Use the `query` element to start a query. Use the `cursor` element to continue a query.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -224,7 +222,6 @@ class Sql extends AbstractEndpoint
 	 *     body: array, // (REQUIRED) Specify the query in the `query` element.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx

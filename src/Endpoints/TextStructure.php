@@ -56,7 +56,6 @@ class TextStructure extends AbstractEndpoint
 	 *     body: array, // (REQUIRED) The contents of the file to be analyzed
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx

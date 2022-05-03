@@ -192,7 +192,6 @@ class AsyncSearch extends AbstractEndpoint
 	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx

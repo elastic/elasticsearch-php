@@ -24,6 +24,7 @@ use Elastic\Transport\Exception\UnknownContentTypeException;
 use Elastic\Transport\Serializer\CsvSerializer;
 use Elastic\Transport\Serializer\JsonSerializer;
 use Elastic\Transport\Serializer\NDJsonSerializer;
+use Elastic\Transport\Serializer\TextSerializer;
 use Elastic\Transport\Serializer\XmlSerializer;
 use Psr\Http\Message\ResponseInterface;
 
@@ -111,6 +112,10 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
         }
         if (strpos($contentType, 'text/csv') !== false) {
             $this->asArray = CsvSerializer::unserialize($this->asString());
+            return $this->asArray;
+        }
+        if (strpos($contentType, 'text/plain') !== false) {
+            $this->asArray = [$this->asString()];
             return $this->asArray;
         }
         throw new UnknownContentTypeException(sprintf(

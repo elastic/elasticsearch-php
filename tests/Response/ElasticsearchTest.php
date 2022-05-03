@@ -200,4 +200,20 @@ class ElasticsearchTest extends TestCase
 
         $this->assertEquals($array['foo'], $this->elasticsearch->foo);
     }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/1218
+     */
+    public function testAccessAsArrayWithTextPlainResponse()
+    {
+        $msg = "This is a text/plain response";
+        $body = $this->psr17Factory->createStream($msg);
+        $this->elasticsearch->setResponse(
+            $this->response200
+                ->withBody($body)
+                ->withHeader('Content-Type', 'text/plain')
+        );
+
+        $this->assertEquals($msg, $this->elasticsearch[0]);
+    }
 }

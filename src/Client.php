@@ -25,7 +25,7 @@ use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
-final class Client
+final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
     const VERSION = '8.x';
@@ -86,7 +86,7 @@ final class Client
     }
 
     /**
-     * Set the asyncronous HTTP request
+     * @inheritDoc
      */
     public function setAsync(bool $async): self
     {
@@ -95,7 +95,7 @@ final class Client
     }
 
     /**
-     * Get the asyncronous HTTP request setting
+     * @inheritDoc
      */
     public function getAsync(): bool
     {
@@ -103,7 +103,7 @@ final class Client
     }
 
     /**
-     * Enable or disable the x-elastic-client-meta header
+     * @inheritDoc
      */
     public function setElasticMetaHeader(bool $active): self
     {
@@ -112,7 +112,7 @@ final class Client
     }
 
     /**
-     * Get the status of x-elastic-client-meta header
+     * @inheritDoc
      */
     public function getElasticMetaHeader(): bool
     {
@@ -120,7 +120,7 @@ final class Client
     }
 
     /**
-     * Enable or disable the response Exception
+     * @inheritDoc
      */
     public function setResponseException(bool $active): self
     {
@@ -129,7 +129,7 @@ final class Client
     }
 
     /**
-     * Get the status of response Exception
+     * @inheritDoc
      */
     public function getResponseException(): bool
     {
@@ -137,10 +137,7 @@ final class Client
     }
 
     /**
-     * Send the HTTP request using the Elastic Transport.
-     * It manages syncronous and asyncronus requests using Client::getAsync()
-     * 
-     * @return Elasticsearch|Promise
+     * @inheritDoc
      */
     public function sendRequest(RequestInterface $request)
     {   

@@ -153,7 +153,7 @@ class ClientBuilder
      *                     ignore unknown settings
      * @throws ConfigException
      */
-    public static function fromConfig(array $config, bool $quiet = false): Client
+    public static function fromConfig(array $config, bool $quiet = false): \Elastic\Elasticsearch\ClientInterface
     {
         $builder = new static;
         foreach ($config as $key => $value) {
@@ -325,7 +325,7 @@ class ClientBuilder
     /**
      * Build and returns the Client object
      */
-    public function build(): Client
+    public function build(): \Elastic\Elasticsearch\ClientInterface
     {
         // Transport builder
         $builder = TransportBuilder::create();

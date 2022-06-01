@@ -14,7 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests;
 
-use Exception;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
@@ -76,7 +76,7 @@ class Utility
     /**
      * Build a Client based on ENV variables
      */
-    public static function getClient(): Client
+    public static function getClient(): ClientInterface
     {
         if (getenv('TEST_SUITE') === 'free') {
             return ClientBuilder::create()

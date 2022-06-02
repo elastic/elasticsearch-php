@@ -21,7 +21,6 @@ use Elastic\Elasticsearch\Traits\NamespaceTrait;
 use Elastic\Elasticsearch\Transport\AsyncOnSuccess;
 use Elastic\Elasticsearch\Transport\AsyncOnSuccessNoException;
 use Elastic\Transport\Transport;
-use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 

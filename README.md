@@ -384,7 +384,7 @@ section of PHP-HTTP documentation.
 ### Where do I report issues with the client?
 
 If something is not working as expected, please open an 
-[issue](https://github.com/elastic/elasticsearh-php/issues/new).
+[issue](https://github.com/elastic/elasticsearch-php/issues/new).
 
 ### Where else can I go to get help?
 

@@ -14,6 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests\Traits;
 
+use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Traits\EndpointTrait;
@@ -65,6 +66,26 @@ class EndpointTraitTest extends TestCase
         $this->bodySerialize(['foo' => 'bar'], 'Unknown-content-type');
     }
 
+    public function getCompatibilityHeaders()
+    {
+        return [
+            [['Content-Type' => 'application/json'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'json')]],
+            [['Accept' => 'application/json'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'json')]],
+            [['Content-Type' => 'application/x-ndjson'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')]],
+            [['Accept' => 'application/x-ndjson'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')]],
+            [['Content-Type' => 'application/text'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'text')]],
+            [['Accept' => 'application/text'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'text')]]
+        ];
+    }
+
+    /**
+     * @dataProvider getCompatibilityHeaders
+     */
+    public function testBuildCompatibilityHeaders(array $input, array $expected)
+    {
+        $this->assertEquals($expected, $this->buildCompatibilityHeaders($input));
+    }
+
     public function getRequestParts(): array
     {
         return [
@@ -88,6 +109,7 @@ class EndpointTraitTest extends TestCase
         $host = parse_url($url, PHP_URL_HOST);
         $port = parse_url($url, PHP_URL_PORT);
         $this->assertEquals(empty($port) ? $host : $host . ':' . $port, $request->getHeader('Host')[0]);
+        $headers = $this->buildCompatibilityHeaders($headers);
         foreach ($headers as $name => $value) {
             $header = $request->getHeader($name);
             $this->assertEquals($value, implode(',', $header));

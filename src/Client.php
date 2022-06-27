@@ -29,7 +29,8 @@ final class Client
 {
     const CLIENT_NAME = 'es';
     const VERSION = '8.3.0';
-
+    const API_COMPATIBILITY_HEADER = 'application/vnd.elasticsearch+%s; compatible-with=8';
+    
     use ClientEndpointsTrait;
     use EndpointTrait;
     use NamespaceTrait;

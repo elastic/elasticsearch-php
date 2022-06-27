@@ -14,6 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests\Integration;
 
+use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Tests\Utility;
 use PHPUnit\Framework\TestCase;
 
@@ -88,7 +89,7 @@ class MlTest extends TestCase
 
         $this->assertEquals(202, $response->getStatusCode());
         $request = $this->client->getTransport()->getLastRequest();
-        $this->assertEquals(['application/json'], $request->getHeader('Content-Type'));
+        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'json')], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -107,7 +108,7 @@ class MlTest extends TestCase
 
         $this->assertEquals(202, $response->getStatusCode());
         $request = $this->client->getTransport()->getLastRequest();
-        $this->assertEquals(['application/x-ndjson'], $request->getHeader('Content-Type'));
+        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')], $request->getHeader('Content-Type'));
     }
 
     /**

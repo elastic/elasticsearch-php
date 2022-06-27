@@ -14,6 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Traits;
 
+use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Transport\Serializer\JsonSerializer;
@@ -106,10 +107,12 @@ trait EndpointTrait
      */
     protected function bodySerialize($body, string $contentType): string
     {
-        if (strpos($contentType, 'application/x-ndjson') !== false) {
+        if (strpos($contentType, 'application/x-ndjson') !== false ||
+            strpos($contentType, 'application/vnd.elasticsearch+x-ndjson') !== false) {
             return NDJsonSerializer::serialize($body, ['remove_null' => false]);
         }
-        if (strpos($contentType, 'application/json') !== false) {
+        if (strpos($contentType, 'application/json') !== false ||
+            strpos($contentType, 'application/vnd.elasticsearch+json') !== false) {
             return JsonSerializer::serialize($body, ['remove_null' => false]);
         }
         throw new ContentTypeException(sprintf(
@@ -141,11 +144,34 @@ trait EndpointTrait
             $content = is_string($body) ? $body : $this->bodySerialize($body, $headers['Content-Type']);
             $request = $request->withBody($streamFactory->createStream($content));
         }
+        $headers = $this->buildCompatibilityHeaders($headers);
+
         // Headers
         foreach ($headers as $name => $value) {
             $request = $request->withHeader($name, $value);
         }
         return $request;
+    }
+
+    /**
+     * Build the API compatibility headers
+     * transfrom Content-Type and Accept adding vnd.elasticsearch+ and compatible-with
+     * 
+     * @see https://github.com/elastic/elasticsearch-php/pull/1142
+     */
+    protected function buildCompatibilityHeaders(array $headers): array
+    {
+        if (isset($headers['Content-Type'])) {
+            if (preg_match('/application\/(.+?)$/', $headers['Content-Type'], $matches)) {
+                $headers['Content-Type'] = sprintf(Client::API_COMPATIBILITY_HEADER, $matches[1]);
+            }
+        }
+        if (isset($headers['Accept'])) {
+            if (preg_match('/application\/(.+?)$/', $headers['Accept'], $matches)) {
+                $headers['Accept'] = sprintf(Client::API_COMPATIBILITY_HEADER, $matches[1]);
+            }
+        }
+        return $headers;
     }
 
     /**

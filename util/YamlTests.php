@@ -36,7 +36,10 @@ class YamlTests
     const ELASTICSEARCH_GIT_URL      = 'https://github.com/elastic/elasticsearch/tree/%s/rest-api-spec/src/main/resources/rest-api-spec/test/%s';
 
     const YAML_FILES_TO_OMIT = [
-        'platinum/eql/10_basic.yml'
+        'platinum/eql/10_basic.yml',
+        // use of _internal APIs
+        'free/cluster.desired_nodes/10_basic.yml', 
+        'free/health/'
     ];
 
     const SKIPPED_TEST_OSS = [

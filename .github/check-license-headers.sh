@@ -19,11 +19,13 @@ function check_license_header {
     local f
     f=$1
 
-    if ! diff -w .github/license-header.txt <(head -$NLINES2 "$f" | tail -$NLINES1) >/dev/null; then
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -w .github/license-header.txt <(head -$NLINES2 $f | tail -$NLINES1)'"
-        return 1
-    else
+    license=`cat .github/license-header.txt`
+    file=`cat $f` 
+    if [[ "$file" == *"$license"* ]]; then
         return 0
+    else
+        echo "check-license-headers: error: '$f' does not have required license header"
+        return 1
     fi
 }
 

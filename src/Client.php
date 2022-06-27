@@ -28,7 +28,7 @@ use Psr\Log\LoggerInterface;
 final class Client
 {
     const CLIENT_NAME = 'es';
-    const VERSION = '8.x';
+    const VERSION = '8.3.0';
 
     use ClientEndpointsTrait;
     use EndpointTrait;

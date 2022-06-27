@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\Exception\NoAliveException;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Http\Promise\Promise;
 
 /**
@@ -53,8 +53,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -94,8 +93,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -133,8 +131,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  a point-in-time id to close
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -183,8 +180,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  A query to restrict the results specified with the Query DSL (optional)
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -234,7 +230,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -279,7 +275,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -344,7 +340,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -381,7 +377,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -418,7 +414,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -464,7 +460,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -509,7 +505,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -558,7 +554,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -591,6 +587,8 @@ trait ClientEndpointsTrait
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     include_unmapped: boolean, // Indicates whether unmapped fields should be included in the response.
+	 *     filters: list, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
+	 *     types: list, // Only return results for fields that have one of the types in the list
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -599,8 +597,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  An index filter specified with the Query DSL
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -615,7 +612,7 @@ trait ClientEndpointsTrait
 			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','filters','types','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -650,7 +647,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -686,7 +683,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -710,6 +707,20 @@ trait ClientEndpointsTrait
 	 * Returns all script contexts.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function getScriptContext(array $params = [])
 	{
@@ -728,6 +739,20 @@ trait ClientEndpointsTrait
 	 * Returns available script types, languages and contexts
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function getScriptLanguages(array $params = [])
 	{
@@ -767,7 +792,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -815,7 +840,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -844,6 +869,20 @@ trait ClientEndpointsTrait
 	 * Returns basic information about the cluster.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function info(array $params = [])
 	{
@@ -876,7 +915,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -920,8 +959,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -968,8 +1006,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1014,8 +1051,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1067,8 +1103,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1112,7 +1147,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1136,6 +1171,20 @@ trait ClientEndpointsTrait
 	 * Returns whether the cluster is running.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function ping(array $params = [])
 	{
@@ -1169,7 +1218,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1213,8 +1262,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1263,8 +1311,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1301,7 +1348,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1336,8 +1383,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  The search definition template and its params
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1376,8 +1422,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  The script to execute
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1414,8 +1459,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  The scroll ID if not passed by URL or query parameter.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1497,8 +1541,7 @@ trait ClientEndpointsTrait
 	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1540,6 +1583,7 @@ trait ClientEndpointsTrait
 	 *     grid_type: enum, // Determines the geometry type for features in the aggs layer.
 	 *     size: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
 	 *     track_total_hits: boolean|long, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
+	 *     with_labels: boolean, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1549,7 +1593,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1561,7 +1605,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/vnd.mapbox-vector-tile',
 			'Content-Type' => 'application/json',
@@ -1590,8 +1634,7 @@ trait ClientEndpointsTrait
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1642,8 +1685,7 @@ trait ClientEndpointsTrait
 	 *     body: array, // (REQUIRED) The search definition template and its params
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1684,7 +1726,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1733,7 +1775,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1787,7 +1829,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1856,7 +1898,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -1893,7 +1935,7 @@ trait ClientEndpointsTrait
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *

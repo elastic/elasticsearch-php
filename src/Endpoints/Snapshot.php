@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\Exception\NoAliveException;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Http\Promise\Promise;
 
 /**
@@ -45,7 +45,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -84,7 +84,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -124,7 +124,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -164,7 +164,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -202,7 +202,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -239,7 +239,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -269,6 +269,7 @@ class Snapshot extends AbstractEndpoint
 	 *     snapshot: list, // (REQUIRED) A comma-separated list of snapshot names
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     ignore_unavailable: boolean, // Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
+	 *     index_names: boolean, // Whether to include the name of each index in the snapshot. Defaults to true.
 	 *     index_details: boolean, // Whether to include details of each index in the snapshot, if those details are available. Defaults to false.
 	 *     include_repository: boolean, // Whether to include the repository name in the snapshot info. Defaults to true.
 	 *     verbose: boolean, // Whether to show verbose snapshot info or only show the basic info found in the repository index blob
@@ -280,7 +281,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -292,7 +293,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_details','include_repository','verbose','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_names','index_details','include_repository','verbose','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -316,8 +317,7 @@ class Snapshot extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -366,7 +366,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -405,7 +405,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -443,8 +443,7 @@ class Snapshot extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -487,7 +486,7 @@ class Snapshot extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *

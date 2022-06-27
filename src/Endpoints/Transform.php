@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\Exception\NoAliveException;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Http\Promise\Promise;
 
 /**
@@ -45,7 +45,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -83,8 +83,7 @@ class Transform extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -125,7 +124,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -161,8 +160,7 @@ class Transform extends AbstractEndpoint
 	 *     body: array, //  The definition for the transform to preview
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -204,7 +202,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -226,6 +224,43 @@ class Transform extends AbstractEndpoint
 
 
 	/**
+	 * Resets an existing transform.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/reset-transform.html
+	 *
+	 * @param array{
+	 *     transform_id: string, // (REQUIRED) The id of the transform to reset
+	 *     force: boolean, // When `true`, the transform is reset regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be reset.
+	 *     timeout: time, // Controls the time to wait for the transform to reset
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function resetTransform(array $params = [])
+	{
+		$this->checkRequiredParameters(['transform_id'], $params);
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_reset';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Starts one or more transforms.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
@@ -241,7 +276,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -281,7 +316,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -319,7 +354,7 @@ class Transform extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -355,8 +390,7 @@ class Transform extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *

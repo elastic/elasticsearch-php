@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\Exception\NoAliveException;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Http\Promise\Promise;
 
 /**
@@ -32,6 +32,20 @@ class License extends AbstractEndpoint
 	 * Deletes licensing information for the cluster
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-license.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function delete(array $params = [])
 	{
@@ -61,8 +75,7 @@ class License extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -85,6 +98,20 @@ class License extends AbstractEndpoint
 	 * Retrieves information about the status of the basic license.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function getBasicStatus(array $params = [])
 	{
@@ -103,6 +130,20 @@ class License extends AbstractEndpoint
 	 * Retrieves information about the status of the trial license.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function getTrialStatus(array $params = [])
 	{
@@ -132,8 +173,7 @@ class License extends AbstractEndpoint
 	 *     body: array, //  licenses to be installed
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -167,8 +207,7 @@ class License extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -202,8 +241,7 @@ class License extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *

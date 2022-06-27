@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\Exception\NoAliveException;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Http\Promise\Promise;
 
 /**
@@ -43,7 +43,7 @@ class Enrich extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -79,7 +79,7 @@ class Enrich extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -113,8 +113,7 @@ class Enrich extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -153,7 +152,7 @@ class Enrich extends AbstractEndpoint
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoAliveException if all the hosts are offline
+	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
@@ -178,6 +177,20 @@ class Enrich extends AbstractEndpoint
 	 * Gets enrich coordinator statistics and information about enrich policies that are currently executing.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
 	 */
 	public function stats(array $params = [])
 	{

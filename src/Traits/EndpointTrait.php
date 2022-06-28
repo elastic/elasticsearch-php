@@ -162,14 +162,18 @@ trait EndpointTrait
     protected function buildCompatibilityHeaders(array $headers): array
     {
         if (isset($headers['Content-Type'])) {
-            if (preg_match('/application\/(.+?)$/', $headers['Content-Type'], $matches)) {
-                $headers['Content-Type'] = sprintf(Client::API_COMPATIBILITY_HEADER, $matches[1]);
+            if (preg_match('/application\/([^,]+)$/', $headers['Content-Type'], $matches)) {
+                $headers['Content-Type'] = sprintf(Client::API_COMPATIBILITY_HEADER, 'application', $matches[1]);
             }
         }
         if (isset($headers['Accept'])) {
-            if (preg_match('/application\/(.+?)$/', $headers['Accept'], $matches)) {
-                $headers['Accept'] = sprintf(Client::API_COMPATIBILITY_HEADER, $matches[1]);
+            $values = explode(',', $headers['Accept']);
+            foreach ($values as &$value) {
+                if (preg_match('/(application|text)\/([^,]+)/', $value, $matches)) { 
+                    $value = sprintf(Client::API_COMPATIBILITY_HEADER, $matches[1], $matches[2]);
+                }
             }
+            $headers['Accept'] = implode(',', $values);
         }
         return $headers;
     }

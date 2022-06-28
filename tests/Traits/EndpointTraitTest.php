@@ -69,12 +69,22 @@ class EndpointTraitTest extends TestCase
     public function getCompatibilityHeaders()
     {
         return [
-            [['Content-Type' => 'application/json'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'json')]],
-            [['Accept' => 'application/json'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'json')]],
-            [['Content-Type' => 'application/x-ndjson'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')]],
-            [['Accept' => 'application/x-ndjson'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')]],
-            [['Content-Type' => 'application/text'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'text')]],
-            [['Accept' => 'application/text'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'text')]]
+            [['Content-Type' => 'application/json'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')]],
+            [['Accept' => 'application/json'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')]],
+            [['Content-Type' => 'application/x-ndjson'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'x-ndjson')]],
+            [['Accept' => 'application/x-ndjson'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'x-ndjson')]],
+            [['Content-Type' => 'application/text'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'text')]],
+            [['Accept' => 'text/plain'], ['Accept' => sprintf(Client::API_COMPATIBILITY_HEADER, 'text', 'plain')]],
+            // Multiple values
+            [[
+                'Accept' => 'text/plain,application/json'
+            ], [
+                'Accept' => sprintf(
+                    "%s,%s", 
+                    sprintf(Client::API_COMPATIBILITY_HEADER, 'text', 'plain'), 
+                    sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')
+                )
+            ]],
         ];
     }
 

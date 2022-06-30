@@ -61,6 +61,7 @@ jobs:
       env:
         STACK_VERSION: ${{ matrix.es-version }}
         TEST_SUITE: platinum
+        DETACH: true
 
     - name: Integration tests
       run: |

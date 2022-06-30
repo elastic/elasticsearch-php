@@ -64,4 +64,4 @@ jobs:
       run: |
         composer run-script integration-test   
       env:
-        TEST_SUITE: free
+        TEST_SUITE: platinum

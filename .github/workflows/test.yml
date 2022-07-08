@@ -33,8 +33,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.composercache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-        restore-keys: ${{ runner.os }}-composer-
+        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+        restore-keys: ${{ runner.os }}-php-${{ matrix.php-version }}-
 
     - name: Install dependencies
       run: |
@@ -56,7 +56,7 @@ jobs:
         sudo sysctl -w vm.max_map_count=262144
 
     - name: Runs Elasticsearch ${{ matrix.es-version }}
-      uses: elastic/elastic-github-actions/elasticsearch@master
+      uses: elastic/elastic-github-actions/elasticsearch@trial-license
       with:
         stack-version: ${{ matrix.es-version }}
 

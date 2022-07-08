@@ -1,3 +1,29 @@
+## Release 8.3.0
+
+- Updated APIs for [Elasticsearch 8.3](https://github.com/elastic/elasticsearch/releases/tag/v8.3.0)
+  [fb117a8](https://github.com/elastic/elasticsearch-php/commit/fb117a813cd28e8c0b9f4350896b66c068bfd072)
+
+## Release 8.2.0
+
+- Updated APIs for [Elasticsearch 8.2](https://github.com/elastic/elasticsearch/releases/tag/v8.2.0)
+  [630cb0b](https://github.com/elastic/elasticsearch-php/commit/630cb0bdcd4b864d2ed8cef380665cdb90429eec)
+- Added the array support for `text/plain`
+  [#1220](https://github.com/elastic/elasticsearch-php/pull/1220) 
+
+## Release 8.1.0
+
+- Updated APIs for [Elasticsearch 8.1](https://github.com/elastic/elasticsearch/releases/tag/v8.1.0)
+  [e4c2ac9](https://github.com/elastic/elasticsearch-php/commit/e4c2ac9b2c71e06c99b7a43712ccd83711fe6510)
+
+## Release 8.0.1
+
+- Fixed `NoNodeAvailableException` exception in endpoints
+  [e7d448d](https://github.com/elastic/elasticsearch-php/commit/e7d448d540f120eb3a3e3fe0d5866bf62fb67f3a)
+
+## Release 8.0.0
+
+- Finally released 8.0.0 GA.
+
 ## Release 8.0.0-rc2
 
 - Added the common parameters in all the endpoints

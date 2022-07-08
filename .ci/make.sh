@@ -153,7 +153,13 @@ if [[ "$CMD" == "assemble" ]]; then
 fi
 
 if [[ "$CMD" == "bump" ]]; then
-    echo "TODO"
+    # Change version to src/Client.php
+    # sed -i "s/const VERSION = '[0-9]\+.[0-9]\+.[0-9]\+\(-dev\)\?'/const VERSION = '$VERSION'/g" $repo/src/Client.php 
+
+    # Change version to .ci/test-matrix.yml
+    
+    # Change version to .github/workflows/unified-release.yml
+
 fi
 
 if [[ "$CMD" == "codegen" ]]; then

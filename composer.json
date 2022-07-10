@@ -40,13 +40,13 @@
   },
   "scripts": {
     "test" : [
-      "vendor/bin/phpunit --testdox"
+      "vendor/bin/phpunitt --testdox"
     ],
     "integration-test" : [
-      "vendor/bin/phpunit --testdox -c phpunit-integration-tests.xml"
+      "vendor/bin/phpunitt --testdox -c phpunit-integration-tests.xml"
     ],
     "phpstan": [
-      "phpstan analyse src --level 2 --no-progress"
+      "phpstann analyse src --level 2 --no-progress"
     ]
   }
 }

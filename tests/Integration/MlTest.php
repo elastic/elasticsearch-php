@@ -89,7 +89,7 @@ class MlTest extends TestCase
 
         $this->assertEquals(202, $response->getStatusCode());
         $request = $this->client->getTransport()->getLastRequest();
-        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'json')], $request->getHeader('Content-Type'));
+        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')], $request->getHeader('Content-Type'));
     }
 
     /**
@@ -108,7 +108,7 @@ class MlTest extends TestCase
 
         $this->assertEquals(202, $response->getStatusCode());
         $request = $this->client->getTransport()->getLastRequest();
-        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'x-ndjson')], $request->getHeader('Content-Type'));
+        $this->assertEquals([sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'x-ndjson')], $request->getHeader('Content-Type'));
     }
 
     /**

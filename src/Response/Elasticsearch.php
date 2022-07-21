@@ -105,7 +105,8 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
             $this->asArray = JsonSerializer::unserialize($this->asString());
             return $this->asArray;
         }
-        if (strpos($contentType, 'application/x-ndjson') !== false) {
+        if (strpos($contentType, 'application/x-ndjson') !== false ||
+            strpos($contentType, 'application/vnd.elasticsearch+x-ndjson') !== false) {
             $this->asArray = NDJsonSerializer::unserialize($this->asString());
             return $this->asArray;
         }
@@ -132,12 +133,13 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
             return $this->asObject;
         }
         $contentType = $this->response->getHeaderLine('Content-Type');
-        if (strpos($contentType, 'application/json') !== false||
+        if (strpos($contentType, 'application/json') !== false ||
             strpos($contentType, 'application/vnd.elasticsearch+json') !== false) {
             $this->asObject = JsonSerializer::unserialize($this->asString(), ['type' => 'object']);
             return $this->asObject;
         }
-        if (strpos($contentType, 'application/x-ndjson') !== false) {
+        if (strpos($contentType, 'application/x-ndjson') !== false ||
+            strpos($contentType, 'application/vnd.elasticsearch+x-ndjson') !== false) {
             $this->asObject = NDJsonSerializer::unserialize($this->asString(), ['type' => 'object']);
             return $this->asObject;
         }

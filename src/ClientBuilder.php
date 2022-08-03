@@ -389,8 +389,11 @@ class ClientBuilder
             $transport->setHeader('Authorization', sprintf("ApiKey %s", $this->apiKey));
         }
 
-        // Elastic cloud optimized with gzip
-        if (!empty($this->cloudId)) {
+        /**
+         * Elastic cloud optimized with gzip
+         * @see https://github.com/elastic/elasticsearch-php/issues/1241 omit for Symfony HTTP Client    
+         */
+        if (!empty($this->cloudId) && !$this->isSymfonyHttpClient($transport->getClient())) {
             $transport->setHeader('Accept-Encoding', 'gzip');
         }
 
@@ -399,6 +402,14 @@ class ClientBuilder
         $client->setElasticMetaHeader($this->elasticMetaHeader);
 
         return $client;
+    }
+
+    /**
+     * Returns true if the transport HTTP client is Symfony
+     */
+    protected function isSymfonyHttpClient(ClientInterface $client): bool
+    {
+        return false !== strpos(get_class($client), 'Symfony\Component\HttpClient');
     }
 
     /**

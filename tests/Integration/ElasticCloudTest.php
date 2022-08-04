@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Integration;
 
 use Elastic\Elasticsearch\ClientBuilder;
+use Http\Promise\Promise;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpClient\HttplugClient;
@@ -50,7 +51,12 @@ class ElasticCloudTest extends TestCase
         $client = $this->clientBuilder->setAsyncHttpClient($symfonyClient)
             ->build();
 
-        $response = $client->info();
+        $client->setAsync(true);
+
+        $promise = $client->info();
+        $this->assertInstanceOf(Promise::class, $promise);
+        $response = $promise->wait();
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEmpty($response['name']);
         $this->assertNotEmpty($response['version']['number']);

@@ -346,12 +346,11 @@ class ClientBuilder
         // Http client
         if (!empty($this->httpClient)) {
             $builder->setClient($this->httpClient);
-        } else {
-            // Default HTTP client is Guzzle
-            $builder->setClient(
-                $this->setOptions(new GuzzleHttpClient(), $this->getConfig(), $this->httpClientOptions)
-            );
         }
+        // Set HTTP client options
+        $builder->setClient(
+            $this->setOptions($builder->getClient(), $this->getConfig(), $this->httpClientOptions)
+        );
 
         // Cloud id
         if (!empty($this->cloudId)) {

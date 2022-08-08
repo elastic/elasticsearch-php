@@ -22,7 +22,9 @@ use Elastic\Elasticsearch\Transport\Adapter\AdapterInterface;
 use Elastic\Elasticsearch\Transport\Adapter\AdapterOptions;
 use Elastic\Elasticsearch\Transport\RequestOptions;
 use Elastic\Transport\NodePool\NodePoolInterface;
+use Elastic\Transport\Transport;
 use Elastic\Transport\TransportBuilder;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use Http\Client\HttpAsyncClient;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
@@ -344,14 +346,11 @@ class ClientBuilder
         // Http client
         if (!empty($this->httpClient)) {
             $builder->setClient($this->httpClient);
-        } else {
-            // Set HTTP client options
-            if (!empty($this->getConfig()) || !empty($this->httpClientOptions)) {
-                $builder->setClient(
-                    $this->setOptions($builder->getClient(), $this->getConfig(), $this->httpClientOptions)
-                );
-            }
         }
+        // Set HTTP client options
+        $builder->setClient(
+            $this->setOptions($builder->getClient(), $this->getConfig(), $this->httpClientOptions)
+        );
 
         // Cloud id
         if (!empty($this->cloudId)) {
@@ -389,8 +388,11 @@ class ClientBuilder
             $transport->setHeader('Authorization', sprintf("ApiKey %s", $this->apiKey));
         }
 
-        // Elastic cloud optimized with gzip
-        if (!empty($this->cloudId)) {
+        /**
+         * Elastic cloud optimized with gzip
+         * @see https://github.com/elastic/elasticsearch-php/issues/1241 omit for Symfony HTTP Client    
+         */
+        if (!empty($this->cloudId) && !$this->isSymfonyHttpClient($transport)) {
             $transport->setHeader('Accept-Encoding', 'gzip');
         }
 
@@ -399,6 +401,20 @@ class ClientBuilder
         $client->setElasticMetaHeader($this->elasticMetaHeader);
 
         return $client;
+    }
+
+    /**
+     * Returns true if the transport HTTP client is Symfony
+     */
+    protected function isSymfonyHttpClient(Transport $transport): bool
+    {
+        if (false !== strpos(get_class($transport->getClient()), 'Symfony\Component\HttpClient')) {
+            return true;
+        }
+        if (false !== strpos(get_class($transport->getAsyncClient()), 'Symfony\Component\HttpClient')) {
+            return true;
+        }
+        return false;
     }
 
     /**

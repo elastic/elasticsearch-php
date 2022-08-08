@@ -15,30 +15,32 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Transport\Adapter;
 
 use Elastic\Elasticsearch\Transport\RequestOptions;
-use GuzzleHttp\RequestOptions As GuzzleOptions;
 use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpClient\HttpClient;
 
-class Guzzle implements AdapterInterface
+class Symfony implements AdapterInterface
 {
     public function setConfig(ClientInterface $client, array $config, array $clientOptions): ClientInterface
     {
-        $guzzleConfig = [];
+        $symfonyConfig = [];
         foreach ($config as $key => $value) {
             switch ($key) {
                 case RequestOptions::SSL_CERT:
-                    $guzzleConfig[GuzzleOptions::CERT] = $value;
+                    $symfonyConfig['local_cert'] = $value;
                     break;
                 case RequestOptions::SSL_KEY:
-                    $guzzleConfig[GuzzleOptions::SSL_KEY] = $value;
+                    $symfonyConfig['local_pk'] = $value;
                     break;
                 case RequestOptions::SSL_VERIFY:
-                    $guzzleConfig[GuzzleOptions::VERIFY] = $value;
+                    $symfonyConfig['verify_host'] = $value;
+                    $symfonyConfig['verify_peer'] = $value;
                     break;
                 case RequestOptions::SSL_CA:
-                    $guzzleConfig[GuzzleOptions::VERIFY] = $value;
+                    $symfonyConfig['cafile'] = $value;
             }
         }
         $class = get_class($client);
-        return new $class(array_merge($clientOptions, $guzzleConfig));
+        $httpClient = HttpClient::create(array_merge($clientOptions, $symfonyConfig));
+        return new $class($httpClient);
     }
 }

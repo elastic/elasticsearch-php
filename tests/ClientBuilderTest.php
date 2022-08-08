@@ -25,6 +25,8 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpClient\HttplugClient;
 
 class ClientBuilderTest extends TestCase
 {
@@ -330,5 +332,38 @@ class ClientBuilderTest extends TestCase
     {
         $result = $this->builder->setHttpClientOptions([]);
         $this->assertEquals($this->builder, $result);
+    }
+
+    public function testClientWithSymfonyPsr18Client()
+    {
+        $symfonyClient = new Psr18Client();
+        $client = ClientBuilder::create()
+            ->setHttpClient($symfonyClient)
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertEquals($symfonyClient, $client->getTransport()->getClient());    
+    }
+
+    public function testClientWithSymfonyHttplugClient()
+    {
+        $symfonyClient = new HttplugClient();
+        $client = ClientBuilder::create()
+            ->setHttpClient($symfonyClient)
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertEquals($symfonyClient, $client->getTransport()->getClient());    
+    }
+
+    public function testAsyncClientWithSymfonyHttplugClient()
+    {
+        $symfonyClient = new HttplugClient();
+        $client = ClientBuilder::create()
+            ->setAsyncHttpClient($symfonyClient)
+            ->build();
+
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertEquals($symfonyClient, $client->getTransport()->getAsyncClient());    
     }
 }

@@ -14,9 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests\Integration;
 
-use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Tests\Utility;
-use Elastic\Transport\Exception\NoNodeAvailableException;
 use PHPUnit\Framework\TestCase;
 
 /**

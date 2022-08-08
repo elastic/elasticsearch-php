@@ -20,6 +20,8 @@ namespace Elastic\Elasticsearch\Transport\Adapter;
 final class AdapterOptions
 {
     const HTTP_ADAPTERS = [
-        "GuzzleHttp\\Client" => "Elastic\\Elasticsearch\\Transport\\Adapter\\Guzzle"
+        "GuzzleHttp\\Client" => "Elastic\\Elasticsearch\\Transport\\Adapter\\Guzzle",
+        "Symfony\\Component\\HttpClient\\HttplugClient" => "Elastic\\Elasticsearch\\Transport\\Adapter\\Symfony",
+        "Symfony\\Component\\HttpClient\\Psr18Client" => "Elastic\\Elasticsearch\\Transport\\Adapter\\Symfony"
     ];
 }

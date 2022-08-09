@@ -18,7 +18,7 @@ This is the official PHP client for
   - [Search a document](#search-a-document)
   - [Delete a document](#delete-a-document)
 - [Versioning](#versioning)
-- [Backward Incompatible Changes](#backward-incompatible-changes-)
+- [Backward Incompatible Changes](#backward-incompatible-changes-boom)
 - [Mock the Elasticsearch client](#mock-the-elasticsearch-client)
 - [FAQ](#faq-)
 - [Contribute](#contribute-)

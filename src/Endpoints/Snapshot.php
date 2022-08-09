@@ -272,6 +272,13 @@ class Snapshot extends AbstractEndpoint
 	 *     index_names: boolean, // Whether to include the name of each index in the snapshot. Defaults to true.
 	 *     index_details: boolean, // Whether to include details of each index in the snapshot, if those details are available. Defaults to false.
 	 *     include_repository: boolean, // Whether to include the repository name in the snapshot info. Defaults to true.
+	 *     sort: enum, // Allows setting a sort order for the result. Defaults to start_time
+	 *     size: integer, // Maximum number of snapshots to return. Defaults to 0 which means return all that match without limit.
+	 *     order: enum, // Sort order
+	 *     from_sort_value: string, // Value of the current sort column at which to start retrieval.
+	 *     after: string, // Offset identifier to start pagination from as returned by the 'next' field in the response body.
+	 *     offset: integer, // Numeric offset to start pagination based on the snapshots matching the request. Defaults to 0
+	 *     slm_policy_filter: string, // Filter snapshots by a comma-separated list of SLM policy names that snapshots belong to. Accepts wildcards. Use the special pattern '_none' to match snapshots without an SLM policy
 	 *     verbose: boolean, // Whether to show verbose snapshot info or only show the basic info found in the repository index blob
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -293,7 +300,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_names','index_details','include_repository','verbose','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_names','index_details','include_repository','sort','size','order','from_sort_value','after','offset','slm_policy_filter','verbose','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

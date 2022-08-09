@@ -2340,6 +2340,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
+	 *     cache_size: string, // A byte-size value for configuring the inference cache size. For example, 20mb.
 	 *     number_of_allocations: int, // The number of model allocations on each node where the model is deployed.
 	 *     threads_per_allocation: int, // The number of threads used by each model allocation during inference.
 	 *     queue_capacity: int, // Controls how many inference requests are allowed in the queue at a time.
@@ -2365,7 +2366,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/deployment/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['number_of_allocations','threads_per_allocation','queue_capacity','timeout','wait_for','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['cache_size','number_of_allocations','threads_per_allocation','queue_capacity','timeout','wait_for','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

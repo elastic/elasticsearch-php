@@ -35,7 +35,8 @@ class YamlTests
     const YAML_FILES_TO_OMIT = [
         'platinum/eql/10_basic.yml',
         // use of _internal APIs
-        'free/cluster.desired_nodes/10_basic.yml', 
+        'free/cluster.desired_nodes/10_basic.yml',
+        'free/cluster.desired_nodes/20_dry_run.yml',
         'free/health/'
     ];
 

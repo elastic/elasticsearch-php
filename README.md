@@ -18,7 +18,7 @@ This is the official PHP client for
   - [Search a document](#search-a-document)
   - [Delete a document](#delete-a-document)
 - [Versioning](#versioning)
-- [Backward Incompatible Changes](#backward-incompatible-changes-)
+- [Backward Incompatible Changes](#backward-incompatible-changes-boom)
 - [Mock the Elasticsearch client](#mock-the-elasticsearch-client)
 - [FAQ](#faq-)
 - [Contribute](#contribute-)
@@ -118,7 +118,7 @@ docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elasti
 This command creates an `elastic` Docker network and start Elasticsearch
 using the port `9200` (default).
 
-When you run the docker imnage a password is generated for the `elastic` user
+When you run the docker image a password is generated for the `elastic` user
 and it's printed to the terminal (you might need to scroll back a bit in the 
 terminal to view it). You have to copy it since we will need to connect to 
 Elasticsearch.
@@ -384,7 +384,7 @@ section of PHP-HTTP documentation.
 ### Where do I report issues with the client?
 
 If something is not working as expected, please open an 
-[issue](https://github.com/elastic/elasticsearh-php/issues/new).
+[issue](https://github.com/elastic/elasticsearch-php/issues/new).
 
 ### Where else can I go to get help?
 

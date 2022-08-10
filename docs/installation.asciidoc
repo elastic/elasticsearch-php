@@ -29,7 +29,7 @@ create this object, as follows:
 --------------------------
 require 'vendor/autoload.php';
 
-$client = Elasticsearch\ClientBuilder::create()->build();
+$client = Elastic\Elasticsearch\ClientBuilder::create()->build();
 --------------------------
 +
 Client instantiation is performed with a static helper function `create()`. This 

@@ -637,7 +637,7 @@ class ClientBuilder
             if (! isset($this->connectionParams['client']['headers'])) {
                 $this->connectionParams['client']['headers'] = [];
             }
-            $apiVersioning = getenv('ELASTIC_CLIENT_APIVERSIONING');
+            $apiVersioning = $_SERVER['ELASTIC_CLIENT_APIVERSIONING'] ?? $_ENV['ELASTIC_CLIENT_APIVERSIONING'] ?? 'false';
             if (! isset($this->connectionParams['client']['headers']['Content-Type'])) {
                 if ($apiVersioning === 'true' || $apiVersioning === '1') {
                     $this->connectionParams['client']['headers']['Content-Type'] = ['application/vnd.elasticsearch+json;compatible-with=7'];

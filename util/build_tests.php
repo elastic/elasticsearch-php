@@ -43,7 +43,7 @@ if (!is_dir(sprintf("%s/rest-spec/%s", __DIR__, $buildHash))) {
     exit(1);
 }
 
-$stack = getenv('TEST_SUITE');
+$stack = $_SERVER['TEST_SUITE'] ?? $_ENV['TEST_SUITE'];
 printf ("*****************************************\n");
 printf ("** Bulding YAML tests for %s suite\n", strtoupper($stack));
 printf ("*****************************************\n");

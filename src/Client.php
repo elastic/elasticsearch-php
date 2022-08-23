@@ -25,7 +25,7 @@ use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
-final class Client
+final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
     const VERSION = '8.4.0';

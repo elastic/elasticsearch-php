@@ -22,14 +22,46 @@ use Psr\Log\LoggerInterface;
 
 interface ClientInterface
 {
+    /**
+     * Get the Elastic\Transport\Transport
+     */
     public function getTransport(): Transport;
+
+    /**
+     * Get the PSR-3 logger
+     */
     public function getLogger(): LoggerInterface;
+
+     /**
+     * Set the asyncronous HTTP request
+     */
     public function setAsync(bool $async): self;
+
+    /**
+     * Get the asyncronous HTTP request setting
+     */
     public function getAsync(): bool;
+
+    /**
+     * Enable or disable the x-elastic-client-meta header
+     */
     public function setElasticMetaHeader(bool $active): self;
+
+    /**
+     * Get the status of x-elastic-client-meta header
+     */
     public function getElasticMetaHeader(): bool;
+
+     /**
+     * Enable or disable the response Exception
+     */
     public function setResponseException(bool $active): self;
+
+     /**
+     * Get the status of response Exception
+     */
     public function getResponseException(): bool;
+
     /**
      * Send the HTTP request using the Elastic Transport.
      * It manages syncronous and asyncronus requests using Client::getAsync()
@@ -37,5 +69,4 @@ interface ClientInterface
      * @return Elasticsearch|Promise
      */
     public function sendRequest(RequestInterface $request);
-
 }

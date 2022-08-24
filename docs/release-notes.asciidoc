@@ -1,6 +1,7 @@
 [[release-notes]]
 == Release notes
 
+* <<rn-8-4-0>>
 * <<rn-8-3-0>>
 * <<rn-8-2-0>>
 * <<rn-8-1-0>>
@@ -34,6 +35,19 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-8-4-0]]
+=== 8.4.0
+
+* Added a `ClientInterface` to simplify the mock of the Client,
+  this is a fix for https://github.com/elastic/elasticsearch-php/issues/1227[#1227]
+  https://github.com/elastic/elasticsearch-php/pull/1249[#1249]
+* Added the support of Symfony HTTP client, fixing the issue https://github.com/elastic/elasticsearch-php/issues/1241[#1241]
+  https://github.com/elastic/elasticsearch-php/pull/1243[#1243]
+* Added the API compatibility header
+  https://github.com/elastic/elasticsearch-php/pull/1233[#1233]
+* Updated the API endpoints to Elasticserach 8.4.0
 
 [discrete]
 [[rn-8-3-0]]

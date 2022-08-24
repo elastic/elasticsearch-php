@@ -1,3 +1,15 @@
+## Release 8.4.0
+
+- Added a `ClientInterface` to simplify the mock of the Client,
+  this is a fix for [#1227](https://github.com/elastic/elasticsearch-php/issues/1227)
+  [#1249](https://github.com/elastic/elasticsearch-php/pull/1249)
+- Added the support of Symfony HTTP client, fixing the issue [#1241](https://github.com/elastic/elasticsearch-php/issues/1241)
+  [#1243](https://github.com/elastic/elasticsearch-php/pull/1243)
+- Added the API compatibility header
+  [#1233](https://github.com/elastic/elasticsearch-php/pull/1233)
+- Updated APIs for [Elasticsearch 8.4](https://github.com/elastic/elasticsearch/releases/tag/v8.4.0)
+  [7815caa](https://github.com/elastic/elasticsearch-php/commit/7815caac3d9342f13555481bd03ceb8d9c49a881)
+
 ## Release 8.3.0
 
 - Updated APIs for [Elasticsearch 8.3](https://github.com/elastic/elasticsearch/releases/tag/v8.3.0)

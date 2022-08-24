@@ -14,16 +14,16 @@ declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Endpoints;
 
-use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Traits\EndpointTrait;
 
 abstract class AbstractEndpoint
 {
     use EndpointTrait;
 
-    protected Client $client;
+    protected ClientInterface $client;
 
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }

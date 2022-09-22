@@ -354,7 +354,7 @@ class YamlTests
             } elseif ($value instanceof \stdClass) {
                 $value = 'new \stdClass';
             } elseif (is_numeric($value)) {
-                $value = (string) $value;
+                $value = var_export($value, true);
             }
             $output = str_replace($name, $value, $output);
         }

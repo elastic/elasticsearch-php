@@ -29,6 +29,11 @@ use Mockery as m;
  */
 class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 {
+    public function setUp(): void
+    {
+        $this->roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
+    }
+
     public function tearDown(): void
     {
         m::close();
@@ -36,8 +41,6 @@ class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 
     public function testTenConnections()
     {
-        $roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
-
         $mockConnections = [];
         $mockConnections[] = m::mock(ConnectionInterface::class)
             ->shouldReceive('isAlive')->times(16)->andReturn(true)->getMock();
@@ -47,7 +50,7 @@ class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
         }
 
         foreach (range(0, 15) as $index) {
-            $retConnection = $roundRobin->select($mockConnections);
+            $retConnection = $this->roundRobin->select($mockConnections);
 
             $this->assertSame($mockConnections[0], $retConnection);
         }
@@ -55,8 +58,6 @@ class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 
     public function testTenConnectionsFirstDies()
     {
-        $roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();
-
         $mockConnections = [];
         $mockConnections[] = m::mock(ConnectionInterface::class)
             ->shouldReceive('isAlive')->once()->andReturn(false)->getMock();
@@ -69,7 +70,7 @@ class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
         }
 
         foreach (range(0, 15) as $index) {
-            $retConnection = $roundRobin->select($mockConnections);
+            $retConnection = $this->roundRobin->select($mockConnections);
 
             $this->assertSame($mockConnections[1], $retConnection);
         }

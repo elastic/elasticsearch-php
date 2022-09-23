@@ -18,11 +18,16 @@ declare(strict_types = 1);
 
 namespace Elasticsearch\Tests;
 
+use CurlHandle;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Elasticsearch\Common\Exceptions\RuntimeException;
+use Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector;
+use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
 use Elasticsearch\Tests\ClientBuilder\DummyLogger;
+use GuzzleHttp\Ring\Client\CurlHandler;
+use GuzzleHttp\Ring\Client\MockHandler;
 use PHPUnit\Framework\TestCase;
 
 class ClientBuilderTest extends TestCase
@@ -374,6 +379,38 @@ class ClientBuilderTest extends TestCase
             $request = $client->transport->getLastConnection()->getLastRequestInfo();
             $this->assertTrue(isset($request['request']['headers']['Host'][0]));
             $this->assertEquals($url, $request['request']['headers']['Host'][0]);
+        }
+    }
+
+    /**
+     * @see https://github.com/elastic/elasticsearch-php/issues/1242
+     */
+    public function testRandomizedHostsDisableWithStickRoundRobinSelectorSelectFirstNode()
+    {
+        $hosts = ['one', 'two', 'three'];
+        $data = '{"foo":"bar}';
+
+        $handler = new MockHandler([
+            'status' => 200,
+            'transfer_stats' => [
+               'total_time' => 100
+            ],
+            'body' => fopen('data:text/plain,'.urlencode($data), 'rb'),
+            'effective_url' => 'one'
+          ]);
+
+        $client = ClientBuilder::create()
+            ->setHosts($hosts)
+            ->setHandler($handler)
+            ->setSelector(StickyRoundRobinSelector::class)
+            ->setConnectionPool(StaticNoPingConnectionPool::class, ['randomizeHosts' => false])
+            ->build();
+
+        try {
+            $result = $client->info();
+        } catch (ElasticsearchException $e) {
+            $request = $client->transport->getLastConnection()->getLastRequestInfo();
+            $this->assertEquals('one', $request['request']['headers']['Host'][0]);
         }
     }
 }

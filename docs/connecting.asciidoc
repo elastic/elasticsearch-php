@@ -13,7 +13,9 @@ This page contains the information you need to connect and use the Client with
 [[auth-ec]]
 === Elastic Cloud
 
-You can connect to https://www.elastic.co/cloud/[Elastic Cloud] using an **API key**
+You can connect to https://www.elastic.co/cloud/[Elastic Cloud] using an **
+
+key**
 and a **Cloud ID**:
 
 [source,php]
@@ -40,11 +42,11 @@ options (eg. restrict privileges, expire after time, etc).
 
 image::images/api_key_name.png[alt="Choose an API name",align="center"]
 
-After this step you will get the `API key`in the API keys page. 
+After this step you will get the `API key` in the API keys page. 
 
 image::images/cloud_api_key.png[alt="Cloud API key",align="center"]
 
-**IMPORTANT**: you need to copy and store the `API key`in a secure place, since you will not
+**IMPORTANT**: you need to copy and store the `API key` in a secure place, since you will not
 be able to view it again in Elastic Cloud.
 
 
@@ -60,7 +62,7 @@ In order to configure `elasticsearch-php` for connecting to {es} 8.0 we
 need to have the certificate authority file (CA).
 
 You can install {es} in different ways, for instance using https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html[Docker]
-you need to execute the followind command:
+you need to execute the following command:
 
 [source,shell]
 --------------------------

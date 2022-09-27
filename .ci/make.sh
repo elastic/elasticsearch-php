@@ -154,12 +154,16 @@ fi
 
 if [[ "$CMD" == "bump" ]]; then
     # Change version to src/Client.php
-    # sed -i "s/const VERSION = '[0-9]\+.[0-9]\+.[0-9]\+\(-dev\)\?'/const VERSION = '$VERSION'/g" $repo/src/Client.php 
+    sed -i "s/const VERSION = '[0-9]\+\.[0-9]\+\.[0-9]\+'/const VERSION = '$VERSION.0'/" $repo/src/Client.php
 
     # Change version to .ci/test-matrix.yml
-    
-    # Change version to .github/workflows/unified-release.yml
+    sed -i "s/[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION-SNAPSHOT/" $repo/.ci/test-matrix.yml
 
+    # Change version to .github/workflows/test.yml
+    sed -i "s/es-version: \[[0-9]\+\.[0-9]\+\.\?[0-9]\?-SNAPSHOT\]/es-version: \[$VERSION-SNAPSHOT\]/" $repo/.github/workflows/test.yml
+
+    # Change version to .github/workflows/unified-release.yml
+    sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION\.0-SNAPSHOT/" $repo/.github/workflows/unified-release.yml
 fi
 
 if [[ "$CMD" == "codegen" ]]; then

@@ -154,16 +154,18 @@ fi
 
 if [[ "$CMD" == "bump" ]]; then
     # Change version to src/Client.php
-    sed -i "s/const VERSION = '[0-9]\+\.[0-9]\+\.[0-9]\+'/const VERSION = '$VERSION.0'/" $repo/src/Client.php
-
-    # Change version to .ci/test-matrix.yml
-    sed -i "s/[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION-SNAPSHOT/" $repo/.ci/test-matrix.yml
-
-    # Change version to .github/workflows/test.yml
-    sed -i "s/es-version: \[[0-9]\+\.[0-9]\+\.\?[0-9]\?-SNAPSHOT\]/es-version: \[$VERSION-SNAPSHOT\]/" $repo/.github/workflows/test.yml
+    sed -i "s/const VERSION = '[0-9]\+\.[0-9]\+\.[0-9]\+'/const VERSION = '$VERSION'/" $repo/src/Client.php
 
     # Change version to .github/workflows/unified-release.yml
-    sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION\.0-SNAPSHOT/" $repo/.github/workflows/unified-release.yml
+    sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION-SNAPSHOT/" $repo/.github/workflows/unified-release.yml
+
+    MINOR_VERSION=`echo $VERSION | grep -Eo "[0-9]+.[0-9]+"`
+
+    # Change version to .ci/test-matrix.yml
+    sed -i "s/[0-9]\+\.[0-9]\+-SNAPSHOT/$MINOR_VERSION-SNAPSHOT/" $repo/.ci/test-matrix.yml
+
+    # Change version to .github/workflows/test.yml
+    sed -i "s/es-version: \[[0-9]\+\.[0-9]\+\.\?[0-9]\?-SNAPSHOT\]/es-version: \[$MINOR_VERSION-SNAPSHOT\]/" $repo/.github/workflows/test.yml
 fi
 
 if [[ "$CMD" == "codegen" ]]; then

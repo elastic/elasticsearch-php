@@ -20,6 +20,9 @@ RUN pecl channel-update pecl.php.net > /dev/null
 RUN pecl install yaml > /dev/null 
 RUN docker-php-ext-enable yaml > /dev/null
 
+# Print ext YAML version
+RUN php -i | grep -E "yaml|YAML|Module Version"
+
 # Print PHP version
 RUN php -v
 

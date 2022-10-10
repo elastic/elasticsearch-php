@@ -33,6 +33,7 @@ TASK=$1
 TASK_ARGS=()
 VERSION=$2
 STACK_VERSION=$VERSION
+WORKFLOW=${WORKFLOW-staging}
 set -euo pipefail
 
 product="elastic/elasticsearch-php"
@@ -142,7 +143,11 @@ if [[ "$CMD" == "assemble" ]]; then
     rsync -ar --exclude=.ci --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
     if compgen -G ".ci/output/*" > /dev/null; then
-        cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
+        if [[ "$WORKFLOW" == "snapshot" ]]; then 
+            cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION-SNAPSHOT.tar.gz * && cd -
+        else
+            cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
+        fi
         rm -Rf "${repo}/.ci/output/elasticsearch-php"
         echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
 		exit 0

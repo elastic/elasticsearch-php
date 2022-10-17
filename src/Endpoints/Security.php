@@ -32,7 +32,6 @@ class Security extends AbstractEndpoint
 	 * Creates or updates the user profile on behalf of another user.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -91,6 +90,41 @@ class Security extends AbstractEndpoint
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the attributes of multiple existing API keys.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The API key request to update the attributes of multiple API keys.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function bulkUpdateApiKeys(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_security/api_key/_bulk_update';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
@@ -616,7 +650,6 @@ class Security extends AbstractEndpoint
 	 * Disables a user profile so it's not visible in user profile searches.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-disable-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) Unique identifier for the user profile
@@ -689,7 +722,6 @@ class Security extends AbstractEndpoint
 	 * Enables a user profile so it's visible in user profile searches.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enable-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
@@ -799,6 +831,7 @@ class Security extends AbstractEndpoint
 	 *     username: string, // user name of the user who created this API key to be retrieved
 	 *     realm_name: string, // realm name of the user who created this API key to be retrieved
 	 *     owner: boolean, // flag to query API keys owned by the currently authenticated user
+	 *     with_limited_by: boolean, // flag to show the limited-by role descriptors of API Keys
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -817,7 +850,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner','with_limited_by','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1091,6 +1124,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: list, //  A comma-separated list of usernames
+	 *     with_profile_uid: boolean, // flag to retrieve profile uid (if exists) associated to the user
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1113,7 +1147,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/user';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['with_profile_uid','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1154,13 +1188,12 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves user profile for the given unique ID.
+	 * Retrieves user profiles for the given unique ID(s).
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
+	 *     uid: list, // (REQUIRED) A comma-separated list of unique identifier for user profiles
 	 *     data: list, // A comma-separated list of keys for which the corresponding application data are retrieved.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -1270,7 +1303,6 @@ class Security extends AbstractEndpoint
 	 * Determines whether the users associated with the specified profile IDs have all the requested privileges.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1633,6 +1665,7 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
 	 *
 	 * @param array{
+	 *     with_limited_by: boolean, // flag to show the limited-by role descriptors of API Keys
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1652,7 +1685,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/_query/api_key';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['with_limited_by','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1876,7 +1909,6 @@ class Security extends AbstractEndpoint
 	 * Get suggestions for user profiles that match specified search criteria.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     data: list, // A comma-separated list of keys for which the corresponding application data are retrieved.
@@ -1949,7 +1981,6 @@ class Security extends AbstractEndpoint
 	 * Update application specific data for the user profile of the given unique ID.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile

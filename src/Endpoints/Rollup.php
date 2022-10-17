@@ -215,45 +215,6 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Rollup an index
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The index to roll up
-	 *     rollup_index: string, // (REQUIRED) The name of the rollup index to create
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The rollup configuration
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function rollup(array $params = [])
-	{
-		$this->checkRequiredParameters(['index','rollup_index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_rollup/' . $this->encode($params['rollup_index']);
-		$method = 'POST';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
 	 * Enables searching rolled-up data using the standard query DSL.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html

@@ -45,6 +45,7 @@ class TextStructure extends AbstractEndpoint
 	 *     quote: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
 	 *     should_trim_fields: boolean, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
 	 *     grok_pattern: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
+	 *     ecs_compatibility: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
 	 *     timestamp_field: string, // Optional parameter to specify the timestamp field in the file
 	 *     timestamp_format: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
 	 *     explain: boolean, // Whether to include a commentary on how the structure was derived
@@ -68,7 +69,7 @@ class TextStructure extends AbstractEndpoint
 		$url = '/_text_structure/find_structure';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['lines_to_sample','line_merge_size_limit','timeout','charset','format','has_header_row','column_names','delimiter','quote','should_trim_fields','grok_pattern','timestamp_field','timestamp_format','explain','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['lines_to_sample','line_merge_size_limit','timeout','charset','format','has_header_row','column_names','delimiter','quote','should_trim_fields','grok_pattern','ecs_compatibility','timestamp_field','timestamp_format','explain','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',

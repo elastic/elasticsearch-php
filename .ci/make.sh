@@ -161,9 +161,6 @@ if [[ "$CMD" == "bump" ]]; then
     # Change version to src/Client.php
     sed -i "s/const VERSION = '[0-9]\+\.[0-9]\+\.[0-9]\+'/const VERSION = '$VERSION'/" $repo/src/Client.php
 
-    # Change version to .github/workflows/unified-release.yml
-    sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+-SNAPSHOT/$VERSION-SNAPSHOT/" $repo/.github/workflows/unified-release.yml
-
     MINOR_VERSION=`echo $VERSION | grep -Eo "[0-9]+.[0-9]+"`
 
     # Change version to .ci/test-matrix.yml

@@ -45,7 +45,7 @@ use Elastic\Transport\NodePool\Selector\RoundRobin;
 use Elastic\Transport\NodePool\SimpleNodePool;
 
 $nodePool = new SimpleNodePool(
-    new SimpleNodePool(),
+    new RoundRobin(),
     new ElasticsearchResurrect()
 );
 

@@ -1,0 +1,3 @@
+steps:
+  - label: ":php: Greetings"
+    command: "echo 'Hello, world!'"

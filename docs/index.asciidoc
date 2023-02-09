@@ -1,6 +1,8 @@
 
 = Elasticsearch-PHP
 
+:doctype:           book
+
 include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
 include::overview.asciidoc[]

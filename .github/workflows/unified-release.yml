@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stack_version: ['8.7.0-SNAPSHOT']
+        stack_version: ['8.8.0-SNAPSHOT']
 
     steps:
       - name: Checkout

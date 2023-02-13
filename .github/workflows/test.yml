@@ -22,6 +22,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-version }}
         extensions: yaml, zip, curl
+        coverage: none
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    

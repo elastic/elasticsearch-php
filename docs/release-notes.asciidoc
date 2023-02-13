@@ -255,7 +255,7 @@
   the phpdoc section (for example, 
   https://github.com/elastic/elasticsearch-php/blob/master/src/Elasticsearch/Client.php[$client->rankEval()]). 
   For more information read the 
-  https://www.elastic.co/guide/en/elasticsearch/client/php-api/master/experimental_and_beta_apis.html[experimental and beta APIs] 
+  https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/experimental_and_beta_apis.html[experimental and beta APIs] 
   section in the documentation. 
   https://github.com/elastic/elasticsearch-php/pull/966[#966]
 * Removed `AlreadyExpiredException` since it has been removed

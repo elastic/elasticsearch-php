@@ -52,5 +52,10 @@
     "phpstan": [
       "phpstan analyse src --level 2 --no-progress"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }

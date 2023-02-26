@@ -1346,7 +1346,7 @@ class Client
      * $params['body']                          = (array) The search definition using the Query DSL
      *
      * @param array $params Associative array of parameters
-     * @return array
+     * @return array|callable
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
      */
     public function search(array $params = [])

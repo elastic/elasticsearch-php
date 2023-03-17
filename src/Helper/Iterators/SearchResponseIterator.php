@@ -128,7 +128,7 @@ class SearchResponseIterator implements Iterator
     {
         $this->clearScroll();
         $this->currentKey = 0;
-        $this->currentScrolledResponse = $this->client->search($this->params);
+        $this->currentScrolledResponse = $this->client->search($this->params)->asArray();
         $this->scrollId = $this->currentScrolledResponse['_scroll_id'];
     }
 
@@ -147,7 +147,7 @@ class SearchResponseIterator implements Iterator
                     'scroll'    => $this->scroll_ttl
                 ]
             ]
-        );
+        )->asArray();
         $this->scrollId = $this->currentScrolledResponse['_scroll_id'];
         $this->currentKey++;
     }

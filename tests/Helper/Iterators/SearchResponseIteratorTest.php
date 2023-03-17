@@ -18,7 +18,9 @@ namespace Elastic\Elasticsearch\Tests\Helper\Iterators;
 
 use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Helper\Iterators\SearchResponseIterator;
+use Elastic\Elasticsearch\Response\Elasticsearch;
 use Mockery as m;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,6 +33,18 @@ class SearchResponseIteratorTest extends TestCase
     public function tearDown(): void
     {
         m::close();
+    }
+
+    private function elasticsearchResponse($data): Elasticsearch
+    {
+        $elasticsearch = new Elasticsearch();
+        $body = (new Psr17Factory())->createStream(json_encode($data));
+        $response = (new Psr17Factory())->createResponse(200)->withBody($body)
+            ->withHeader('X-Elastic-Product', 'Elasticsearch')
+            ->withHeader('Content-Type', 'application/json');
+        $elasticsearch->setResponse($response);
+
+        return $elasticsearch;
     }
 
     public function testWithNoResults(): void
@@ -51,7 +65,7 @@ class SearchResponseIteratorTest extends TestCase
         $mock_client->shouldReceive('search')
             ->twice()
             ->with($search_params)
-            ->andReturn(['_scroll_id' => 'scroll_id_01']);
+            ->andReturn($this->elasticsearchResponse(['_scroll_id' => 'scroll_id_01']));
 
         $mock_client->shouldReceive('clearScroll')
             ->twice()
@@ -81,8 +95,7 @@ class SearchResponseIteratorTest extends TestCase
             ->once()
             ->ordered()
             ->with($search_params)
-            ->andReturn(
-                [
+            ->andReturn($this->elasticsearchResponse([
                     '_scroll_id' => 'scroll_id_01',
                     'hits' => [
                         'hits' => [
@@ -91,7 +104,7 @@ class SearchResponseIteratorTest extends TestCase
                             ]
                         ]
                     ]
-                ]
+                ])
             );
 
         $mock_client->shouldReceive('scroll')
@@ -105,8 +118,7 @@ class SearchResponseIteratorTest extends TestCase
                     ]
                 ]
             )
-            ->andReturn(
-                [
+            ->andReturn($this->elasticsearchResponse([
                     '_scroll_id' => 'scroll_id_02',
                     'hits' => [
                         'hits' => [
@@ -115,7 +127,7 @@ class SearchResponseIteratorTest extends TestCase
                             ]
                         ]
                     ]
-                ]
+                ])
             );
 
         $mock_client->shouldReceive('scroll')
@@ -129,8 +141,7 @@ class SearchResponseIteratorTest extends TestCase
                     ]
                 ]
             )
-            ->andReturn(
-                [
+            ->andReturn($this->elasticsearchResponse([
                     '_scroll_id' => 'scroll_id_03',
                     'hits' => [
                         'hits' => [
@@ -139,7 +150,7 @@ class SearchResponseIteratorTest extends TestCase
                             ]
                         ]
                     ]
-                ]
+                ])
             );
 
         $mock_client->shouldReceive('scroll')
@@ -153,13 +164,13 @@ class SearchResponseIteratorTest extends TestCase
                     ]
                 ]
             )
-            ->andReturn(
+            ->andReturn($this->elasticsearchResponse(
                 [
                     '_scroll_id' => 'scroll_id_04',
                     'hits' => [
                         'hits' => []
                     ]
-                ]
+                ])
             );
 
         $mock_client->shouldReceive('scroll')

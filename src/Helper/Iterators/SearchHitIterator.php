@@ -14,9 +14,12 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Helper\Iterators;
 
+use Countable;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Iterator;
 
-class SearchHitIterator implements Iterator, \Countable
+class SearchHitIterator implements Iterator, Countable
 {
 
     /**
@@ -58,6 +61,8 @@ class SearchHitIterator implements Iterator, \Countable
      * Rewinds the internal SearchResponseIterator and itself
      *
      * @return void
+     * @throws ClientResponseException
+     * @throws ServerResponseException
      * @see    Iterator::rewind()
      */
     public function rewind(): void
@@ -66,14 +71,14 @@ class SearchHitIterator implements Iterator, \Countable
         $this->searchResponses->rewind();
 
         // The first page may be empty. In that case, the next page is fetched.
-        $current_page = $this->searchResponses->current();
-        if ($this->searchResponses->valid() && empty($current_page['hits']['hits'])) {
+        $currentPage = $this->searchResponses->current();
+        if ($this->searchResponses->valid() && empty($currentPage['hits']['hits'])) {
             $this->searchResponses->next();
         }
 
         $this->count = 0;
-        if (isset($current_page['hits']) && isset($current_page['hits']['total'])) {
-            $this->count = $current_page['hits']['total']['value'] ?? $current_page['hits']['total'];
+        if (isset($currentPage['hits']['total']['value'], $currentPage['hits']['total'])) {
+            $this->count = $currentPage['hits']['total']['value'] ?? $currentPage['hits']['total'];
         }
 
         $this->readPageData();
@@ -85,15 +90,17 @@ class SearchHitIterator implements Iterator, \Countable
      * pointer to the first hit in the page.
      *
      * @return void
+     * @throws ClientResponseException
+     * @throws ServerResponseException
      * @see    Iterator::next()
      */
     public function next(): void
     {
         $this->currentKey++;
         $this->currentHitIndex++;
-        $current_page = $this->searchResponses->current();
-        if (isset($current_page['hits']['hits'][$this->currentHitIndex])) {
-            $this->currentHitData = $current_page['hits']['hits'][$this->currentHitIndex];
+        $currentPage = $this->searchResponses->current();
+        if (isset($currentPage['hits']['hits'][$this->currentHitIndex])) {
+            $this->currentHitData = $currentPage['hits']['hits'][$this->currentHitIndex];
         } else {
             $this->searchResponses->next();
             $this->readPageData();
@@ -141,9 +148,9 @@ class SearchHitIterator implements Iterator, \Countable
     private function readPageData(): void
     {
         if ($this->searchResponses->valid()) {
-            $current_page = $this->searchResponses->current();
+            $currentPage = $this->searchResponses->current();
             $this->currentHitIndex = 0;
-            $this->currentHitData = $current_page['hits']['hits'][$this->currentHitIndex];
+            $this->currentHitData = $currentPage['hits']['hits'][$this->currentHitIndex];
         } else {
             $this->currentHitData = null;
         }

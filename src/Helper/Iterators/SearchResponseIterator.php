@@ -50,22 +50,22 @@ class SearchResponseIterator implements Iterator
     /**
      * @var string duration
      */
-    private $scroll_ttl;
+    private $scrollTtl;
 
     /**
      * Constructor
      *
      * @param ClientInterface $client
-     * @param array  $search_params Associative array of parameters
+     * @param array  $searchParams Associative array of parameters
      * @see   ClientInterface::search()
      */
-    public function __construct(ClientInterface $client, array $search_params)
+    public function __construct(ClientInterface $client, array $searchParams)
     {
         $this->client = $client;
-        $this->params = $search_params;
+        $this->params = $searchParams;
 
-        if (isset($search_params['scroll'])) {
-            $this->scroll_ttl = $search_params['scroll'];
+        if (isset($searchParams['scroll'])) {
+            $this->scrollTtl = $searchParams['scroll'];
         }
     }
 
@@ -83,12 +83,12 @@ class SearchResponseIterator implements Iterator
     /**
      * Sets the time to live duration of a scroll window
      *
-     * @param  string $time_to_live
+     * @param  string $timeToLive
      * @return $this
      */
-    public function setScrollTimeout(string $time_to_live): SearchResponseIterator
+    public function setScrollTimeout(string $timeToLive): SearchResponseIterator
     {
-        $this->scroll_ttl = $time_to_live;
+        $this->scrollTtl = $timeToLive;
         return $this;
     }
 
@@ -136,6 +136,8 @@ class SearchResponseIterator implements Iterator
      * Fetches every "page" after the first one using the lastest "scroll_id"
      *
      * @return void
+     * @throws ClientResponseException
+     * @throws ServerResponseException
      * @see    Iterator::next()
      */
     public function next(): void
@@ -144,7 +146,7 @@ class SearchResponseIterator implements Iterator
             [
                 'body' => [
                     'scroll_id' => $this->scrollId,
-                    'scroll'    => $this->scroll_ttl
+                    'scroll'    => $this->scrollTtl
                 ]
             ]
         )->asArray();

@@ -74,7 +74,7 @@ class SearchResponseIteratorTest extends TestCase
         $this->assertCount(0, $responses);
     }
 
-    public function testWithHits()
+    public function testWithHits(): void
     {
         $search_params = [
             'scroll'      => '5m',

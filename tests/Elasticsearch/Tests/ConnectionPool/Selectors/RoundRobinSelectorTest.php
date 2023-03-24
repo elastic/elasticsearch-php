@@ -22,7 +22,7 @@ use Elasticsearch;
 use Elasticsearch\Connections\ConnectionInterface;
 
 /**
- * Class SnifferTest
+ * Class RoundRobinSelectorTest
  *
  * @subpackage Tests\ConnectionPool\RoundRobinSelectorTest
  */

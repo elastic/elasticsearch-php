@@ -18,7 +18,7 @@ namespace Elasticsearch;
 
 class Utility
 {
-    const ENV_URL_PLUS_AS_SPACE = 'ES_URL_PLUS_AS_SPACE';
+    const ENV_URL_PLUS_AS_SPACE = 'ELASTIC_CLIENT_URL_PLUS_AS_SPACE';
 
     /**
      * Get the ENV variable with a thread safe fallback criteria

@@ -32,6 +32,27 @@ use React\Promise\Promise;
 
 class TransportTest extends TestCase
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+    /**
+     * @var LoggerInterface
+     */
+    protected $trace;
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+    /**
+     * @var AbstractConnectionPool
+     */
+    protected $connectionPool;
+    /**
+     * @var Connection
+     */
+    protected $connection;
+
     public function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);

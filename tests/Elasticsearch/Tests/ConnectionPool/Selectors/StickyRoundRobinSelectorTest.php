@@ -29,6 +29,11 @@ use Mockery as m;
  */
 class StickyRoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector
+     */
+    protected $roundRobin;
+
     public function setUp(): void
     {
         $this->roundRobin = new Elasticsearch\ConnectionPool\Selectors\StickyRoundRobinSelector();

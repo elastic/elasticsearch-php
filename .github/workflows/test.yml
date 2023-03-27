@@ -71,5 +71,5 @@ jobs:
       run: |
         vendor/bin/phpunit -c phpunit-integration-tests.xml
       env:
-        TEST_SUITE: platinum
+        ELASTICSEARCH_URL: http://localhost:9200
         

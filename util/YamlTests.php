@@ -41,17 +41,27 @@ class YamlTests
     ];
 
     const SKIPPED_TEST_OSS = [
+        'Aggregations\_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
+        'Aggregations\_Percentiles_BucketTest::*' => 'Array index with float',
+        'Aggregations\_Time_SeriesTest::BasicTest' => 'Unknown aggregation type [time_series]',
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Templates\_10_BasicTest::FilteredTemplates' => 'regex mismatch',
         'Cat\Templates\_10_BasicTest::SelectColumns' => 'regex mismatch',
+        'Cluster\DesiredBalance\_10_BasicTest::TestEmptyDesiredBalance' => 'Use internal API',
+        'Cluster\DesiredBalance\_10_BasicTest::TestGetDesiredBalanceForSingleShard' => 'Use internal API',
+        'Cluster\PrevalidateNodeRemoval\_10_BasicTest::*' => 'Use internal API',
         'FieldCaps\_50_Fieldtype_FilterTest::*' => 'Bool mismatch',
         'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false',
         'Indices\GetIndexTemplate\_10_BasicTest::*' => 'Bool mismatch',
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'Indices\Split\_40_Routing_Partition_SizeTest::Nested' => "Error reading 'n' field from YAML",
+        'Indices\Split\_50_Routing_RequiredTest::Nested' => "Error reading 'n' field from YAML",
+        'Indices\Split\_60_NestedTest::Nested' => "Error reading 'n' field from YAML",
         'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
+        'Search\_400_Synthetic_SourceTest::StoredKeywordWithoutSiblingFields' => "Error reading 'n' field from YAML",
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
     ];
@@ -164,6 +174,7 @@ class YamlTests
             }
             $content = file_get_contents($file->getPathname());
             $content = str_replace(' y: ', " 'y': ", $content); // replace "y:" with "'y':" due the y/true conversion in YAML 1.1
+            $content = str_replace(' n: ', " 'n': ", $content); // replace "n:" with "'n':" due the n/false conversion in YAML 1.1
             try {
                 $test = yaml_parse($content, -1, $ndocs, [
                     YAML_MAP_TAG => function($value, $tag, $flags) {

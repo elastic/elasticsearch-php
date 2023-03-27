@@ -41,10 +41,6 @@ jobs:
       run: |
         composer install --prefer-dist
 
-    - name: ignore ignore-platform-reqs if it is using php 8
-      run: |
-        composer install --prefer-dist
-
     - name: PHP Coding Standards
       run: |
         composer run-script phpcs

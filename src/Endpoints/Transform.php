@@ -115,6 +115,7 @@ class Transform extends AbstractEndpoint
 	 *     transform_id: string, // (REQUIRED) The id of the transform for which to get stats. '_all' or '*' implies all transforms
 	 *     from: number, // skips a number of transform stats, defaults to 0
 	 *     size: number, // specifies a max number of transform stats to get, defaults to 100
+	 *     timeout: time, // Controls the time to wait for the stats
 	 *     allow_no_match: boolean, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -136,7 +137,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_stats';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','timeout','allow_no_match','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -261,12 +262,50 @@ class Transform extends AbstractEndpoint
 
 
 	/**
+	 * Schedules now a transform.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html
+	 *
+	 * @param array{
+	 *     transform_id: string, // (REQUIRED) The id of the transform.
+	 *     timeout: time, // Controls the time to wait for the scheduling to take place
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function scheduleNowTransform(array $params = [])
+	{
+		$this->checkRequiredParameters(['transform_id'], $params);
+		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_schedule_now';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Starts one or more transforms.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to start
+	 *     from: string, // Restricts the set of transformed entities to those changed after this time
 	 *     timeout: time, // Controls the time to wait for the transform to start
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -288,7 +327,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

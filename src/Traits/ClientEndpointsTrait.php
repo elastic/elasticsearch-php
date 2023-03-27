@@ -814,6 +814,46 @@ trait ClientEndpointsTrait
 
 
 	/**
+	 * Returns the health of the cluster.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html
+	 *
+	 * @param array{
+	 *     feature: string, //  A feature of the cluster, as returned by the top-level health API
+	 *     timeout: time, // Explicit operation timeout
+	 *     verbose: boolean, // Opt in for more information about the health of the system
+	 *     size: int, // Limit the number of affected resources the health API returns
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function healthReport(array $params = [])
+	{
+		if (isset($params['feature'])) {
+			$url = '/_health_report/' . $this->encode($params['feature']);
+			$method = 'GET';
+		} else {
+			$url = '/_health_report';
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['timeout','verbose','size','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Creates or updates a document in an index.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html

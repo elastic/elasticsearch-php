@@ -30,6 +30,8 @@ use stdClass;
  */
 class :test-name extends TestCase
 {   
+    protected ClientInterface $client;
+    
     protected function setUp(): void
     {
         $this->client = Utility::getClient();

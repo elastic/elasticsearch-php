@@ -17,6 +17,7 @@ declare(strict_types = 1);
 namespace :namespace;
 
 use PHPUnit\Framework\TestCase;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Tests\Utility;
 use stdClass;
@@ -31,6 +32,8 @@ use stdClass;
  */
 class :test-name extends TestCase
 {
+    protected ClientInterface $client;
+
     protected function setUp(): void
     {
         $this->client = Utility::getClient();

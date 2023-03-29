@@ -30,19 +30,10 @@ use stdClass;
  */
 class :test-name extends TestCase
 {   
-    public static function setUpBeforeClass(): void
-    {
-        Utility::initYamlXPackUsers(Utility::getClient());
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        Utility::removeYamlXPackUsers(Utility::getClient());
-    }
-
     protected function setUp(): void
     {
         $this->client = Utility::getClient();
+        Utility::initYamlXPackUsers($this->client);
         $this->yamlSetup();
     }
 
@@ -50,6 +41,7 @@ class :test-name extends TestCase
     {
         $this->client = Utility::getClient();
         $this->yamlTearDown();
+        Utility::removeYamlXPackUsers($this->client);
         Utility::cleanUpCluster($this->client);
     }
 

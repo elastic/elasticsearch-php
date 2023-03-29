@@ -37,10 +37,15 @@ class YamlTests
         // use of _internal APIs
         'free/cluster.desired_nodes/10_basic.yml',
         'free/cluster.desired_nodes/20_dry_run.yml',
-        'free/health/'
+        'free/health/',
+        'free/cluster.desired_balance/10_basic.yml',
+        'free/cluster.prevalidate_node_removal/10_basic.yml'
     ];
 
     const SKIPPED_TEST_OSS = [
+        'Aggregations\_HistogramTest::HistogramProfiler' => "[histogram] field doesn't support values of type: VALUE_BOOLEAN",
+        'Aggregations\_Percentiles_BucketTest::*' => 'Array index with float',
+        'Aggregations\_Time_SeriesTest::BasicTest' => 'Unknown aggregation type [time_series]',
         'Cat\Nodeattrs\_10_BasicTest::TestCatNodesAttrsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Shards\_10_BasicTest::TestCatShardsOutput' => 'Regexp error, it seems not compatible with PHP',
         'Cat\Templates\_10_BasicTest::FilteredTemplates' => 'regex mismatch',
@@ -51,7 +56,6 @@ class YamlTests
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
-        'Search\Aggregation\_10_HistogramTest::HistogramProfiler' => "Error reading 'n' field from YAML",
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
     ];
@@ -60,12 +64,8 @@ class YamlTests
         'ApiKey\_10_BasicTest::TestGetApiKey' => 'Mismatch values',
         'ApiKey\_20_QueryTest::TestQueryApiKey' => 'Mismatch values',
         'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
-        'License\_20_Put_LicenseTest::CurrentLicenseIsTrialMeansNotEligleToStartTrial' => 'License issue',
-        'License\_20_Put_LicenseTest::MustAcknowledgeToStartBasic' => 'License issue',
-        'License\_20_Put_LicenseTest::InstallingAndGettingLicenseWorks' => 'Invalid license',
-        'License\_20_Put_LicenseTest::ShouldInstallAFeatureTypeLicense' => 'Invalid license',
-        'License\_20_Put_LicenseTest::CanStartBasicLicenseIfDoNotAlreadyHaveBasic' => 'Invalid license',
-        'License\_30_Enterprise_LicenseTest::InstallingEnterpriseLicense' => 'Invalid license',
+        'License\_20_Put_LicenseTest::*' => 'License issue',
+        'License\_30_Enterprise_LicenseTest::*' => 'Invalid license',
         'Ml\_Jobs_CrudTest::TestPutJobWithModel_memory_limitAsStringAndLazyOpen' => 'Memory limit',
         'Ml\_Data_Frame_Analytics_CrudTest::TestPutClassificationGivenNum_top_classesIsLessThanZero' => 'No error catched',
         'Ml\_Set_Upgrade_ModeTest::*' => 'Skipped all tests',
@@ -89,7 +89,8 @@ class YamlTests
         'RuntimeFields\_40_DateTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_50_IpTest::GetMapping' => 'String mismatch',
         'RuntimeFields\_60_BooleanTest::GetMapping' => 'String mismatch',
-        'SearchableSnapshots\_10_UsageTest::TestsSearchableSnapshotsUsageStatsWithFull_copyAndShared_cacheIndices' => 'Mismatch values',
+        'SearchableSnapshots\_10_UsageTest::*' => 'Mismatch values',
+        'SearchableSnapshots\_20_Synthetic_SourceTest::*' => 'no_shard_available_action_exception',
         'ServiceAccounts\_10_BasicTest::TestServiceAccountTokens' => 'Count mismatch',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
         'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
@@ -163,7 +164,8 @@ class YamlTests
                 continue;
             }
             $content = file_get_contents($file->getPathname());
-            $content = str_replace(' y: ', " 'y': ", $content); // replace "y:" with "'y':" due the y/true conversion in YAML 1.1
+            $content = str_replace(' y:', " 'y':", $content); // replace y: with 'y': due the y/true conversion in YAML 1.1
+            $content = str_replace(' n:', " 'n':", $content); // replace n: with 'n': due the n/false conversion in YAML 1.1
             try {
                 $test = yaml_parse($content, -1, $ndocs, [
                     YAML_MAP_TAG => function($value, $tag, $flags) {

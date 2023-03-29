@@ -192,6 +192,17 @@ class Utility
             'level' => 'shards'
         ]);
     }
+    /**
+     * Determines whether the system feature reset API should be invoked between tests. The default implementation is to reset
+     * all feature states, deleting system indices, system associated indices, and system data streams.
+     * 
+     * @see https://github.com/elastic/elasticsearch/blob/main/test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java#L546
+     */
+
+    private static function resetFeaturesStates(Client $client): bool
+    {
+        return self::$hasMl || version_compare(self::getVersion($client), '8.6.99') > 0;
+    }
 
      /**
      * Delete the cluster
@@ -212,6 +223,9 @@ class Utility
         }
 
         self::wipeSnapshots($client);
+        if (self::resetFeaturesStates($client)) {
+            $client->features()->resetFeatures();
+        }
         self::wipeDataStreams($client);
         self::wipeAllIndices($client);
 

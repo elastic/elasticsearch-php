@@ -64,7 +64,7 @@ class YamlTests
         'ApiKey\_10_BasicTest::TestGetApiKey' => 'Mismatch values',
         'ApiKey\_20_QueryTest::TestQueryApiKey' => 'Mismatch values',
         'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
-        'Health\_10_UsageTest::UsageStatsOnTheHealthAPI' => 'Undefined array key "green"',
+        'Health\_10_UsageTest::UsageStatsOnTheHealthAPI' => 'Undefined array key \"green\"',
         'License\_20_Put_LicenseTest::*' => 'License issue',
         'License\_30_Enterprise_LicenseTest::*' => 'Invalid license',
         'Ml\_Jobs_CrudTest::TestPutJobWithModel_memory_limitAsStringAndLazyOpen' => 'Memory limit',

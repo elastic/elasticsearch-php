@@ -1,6 +1,8 @@
 [[release-notes]]
 == Release notes
 
+* <<rn-8-7-0>>
+* <<rn-8-6-1>>
 * <<rn-8-5-0>>
 * <<rn-8-4-0>>
 * <<rn-8-3-0>>
@@ -36,6 +38,20 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-8-7-0]]
+=== 8.7.0
+
+* Updated the API endpoints to Elasticserach 8.7.0
+* Allow plugin for `php-http/discovery` library
+  https://github.com/elastic/elasticsearch-php/pull/1294[#1294]
+
+[discrete]
+[[rn-8-6-1]]
+=== 8.6.1
+
+* Updated the API endpoints to Elasticserach 8.6.0
 
 [discrete]
 [[rn-8-5-0]]

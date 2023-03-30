@@ -1,3 +1,47 @@
+## Release 8.7.0
+
+- Added 2 new endpoints:
+  - [healthReport](https://github.com/elastic/elasticsearch-php/blob/8.7/src/Traits/ClientEndpointsTrait.php#L839),
+    documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html)
+  - [Transform.scheduleNowTransform](https://github.com/elastic/elasticsearch-php/blob/8.7/src/Endpoints/Transform.php#L286),
+    documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html)
+- Added the `delete_user_annotations` boolean parameter in `Ml.deleteJob`.
+  Should annotations added by the user be deleted
+- Added the `delete_user_annotations` boolean parameter in `Ml.resetJob`.
+  Should annotations added by the user be deleted
+- Added the `timeout` time parameter in `Transform.getTransformStats`.
+  Controls the time to wait for the stats
+- Added the `from` string parameter in `Transform.startTransform`.
+  Restricts the set of transformed entities to those changed after this time
+- Allow plugin for `php-http/discovery` library
+  [#1294](https://github.com/elastic/elasticsearch-php/pull/1294)
+
+## Release 8.6.1
+
+- Added a new endpoint [Ml.updateTrainedModelDeployment](https://github.com/elastic/elasticsearch-php/blob/v8.6.1/src/Endpoints/Ml.php#L2743), documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html) 
+- Added the `priority` string parameter for `Ml.startTrainedModelDeployment`.
+  The deployment priority.
+
+## Release 8.5.0
+
+- Added 2 new endpoints:
+  - [Ml.clearTrainedModelDeploymentCache](https://github.com/elastic/elasticsearch-php/blob/v8.5.0/src/Endpoints/Ml.php#L52),    documentation [here](https://www.elastic.co/guide/en/
+elasticsearch/reference/master/clear-trained-model-deployment-cache.html)
+  - [Security.bulkUpdateApiKeys](https://github.com/elastic/elasticsearch-php/blob/v8.5.0/src/Endpoints/Security.php#L118), documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html)
+- Added 1 new experimental endpoint:
+  - [Indices.downsample](), documentation [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rolluphtml)
+- Added the `with_limited_by` boolean parameter in the endpoint `Security.getApiKey`.
+  Flag to show the limited-by role descriptors of API Keys.
+- Added the `with_profile_uid` boolean parameter in the endpoint `Security.getUser`.
+  Flag to retrieve profile uid (if exists) associated to the user.
+- Changed the description of `uid` parameter in the endpoint `Security.getUserProfile`.
+  A comma-separated list of unique identifier for user profiles.
+- Added the `with_limited_by` boolean parameter in the endpoint `Security.queryApiKeys`.
+  Flag to show the limited-by role descriptors of API Keys.
+- Added the `ecs_compatibility` string parameter in the endpoint `TextStructure.findStructure`.
+  Optional parameter to specify the compatibility mode with ECS Grok patterns -
+  may be either 'v1' or 'disabled'.
+
 ## Release 8.4.0
 
 - Added a `ClientInterface` to simplify the mock of the Client,

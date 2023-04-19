@@ -20,7 +20,6 @@ namespace Elasticsearch\Tests\Serializers;
 
 use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
 use Elasticsearch\Serializers\SmartSerializer;
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,6 +28,11 @@ use PHPUnit\Framework\TestCase;
  */
 class SmartSerializerTest extends TestCase
 {
+    /**
+     * @var SmartSerializer
+     */
+    protected $serializer;
+
     public function setUp(): void
     {
         $this->serializer = new SmartSerializer();

@@ -48,29 +48,50 @@ class UtilityTest extends TestCase
         $this->assertEquals('true', Utility::getEnv(Utility::ENV_URL_PLUS_AS_SPACE));
     }
 
-    public function testUrlencodeWithDefault()
+    public function testUrlWithPlusAsDefault()
     {
         $url = Utility::urlencode('bar baz');
         $this->assertEquals('bar+baz', $url);
     }
 
-    public function testUrlencodeWithDollarServer()
+    public function testUrlWithPlusWithDollarServer()
     {
         $_SERVER[Utility::ENV_URL_PLUS_AS_SPACE] = 'true';   
         $url = Utility::urlencode('bar baz');
-        $this->assertEquals('bar%20baz', $url);
+        $this->assertEquals('bar+baz', $url);
     }
 
-    public function testUrlencodeWithDollarEnv()
+    public function testUrlWithPlusWithDollarEnv()
     {
         $_ENV[Utility::ENV_URL_PLUS_AS_SPACE] = 'true';   
+        $url = Utility::urlencode('bar baz');
+        $this->assertEquals('bar+baz', $url);
+    }
+
+    public function testUrlWithPlusWithPutEnv()
+    {
+        putenv(Utility::ENV_URL_PLUS_AS_SPACE . '=true');   
+        $url = Utility::urlencode('bar baz');
+        $this->assertEquals('bar+baz', $url);
+    }
+
+    public function testUrlWith2BWithDollarServer()
+    {
+        $_SERVER[Utility::ENV_URL_PLUS_AS_SPACE] = 'false';   
         $url = Utility::urlencode('bar baz');
         $this->assertEquals('bar%20baz', $url);
     }
 
-    public function testUrlencodeWithPutEnv()
+    public function testUrlWith2BWithDollarEnv()
     {
-        putenv(Utility::ENV_URL_PLUS_AS_SPACE . '=true');   
+        $_ENV[Utility::ENV_URL_PLUS_AS_SPACE] = 'false';   
+        $url = Utility::urlencode('bar baz');
+        $this->assertEquals('bar%20baz', $url);
+    }
+
+    public function testUrlWith2BWithPutEnv()
+    {
+        putenv(Utility::ENV_URL_PLUS_AS_SPACE . '=false');   
         $url = Utility::urlencode('bar baz');
         $this->assertEquals('bar%20baz', $url);
     }

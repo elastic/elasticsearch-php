@@ -40,8 +40,9 @@ class Utility
      */
     public static function urlencode(string $url): string
     {
-        return self::getEnv(self::ENV_URL_PLUS_AS_SPACE) === 'true'
-            ? rawurlencode($url)
-            : urlencode($url);
+        $plusAsSpace = self::getEnv(self::ENV_URL_PLUS_AS_SPACE);
+        return $plusAsSpace === false || $plusAsSpace === 'true'
+            ? urlencode($url)
+            : rawurlencode($url);
     }
 }

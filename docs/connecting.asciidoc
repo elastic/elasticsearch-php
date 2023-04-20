@@ -219,8 +219,8 @@ client, you're all set! The compatibility mode is enabled by default.
 [[space-encode-url]]
 === Space encode in URL
 
-If you use a space character in an index name, elasticsearch-php will convert it into
-a `+`, since this space must be encoded in a URL. The same applies for `id` and `type`
+If you use a space character in an index name, elasticsearch-php converts it into
+a `+`, since this space must be encoded in a URL. The same applies to the `id` and `type`
 parameters.
 
 Starting from Elasticsearch 7.4, a `+` in URL will be encoded as `%2B` by all the REST

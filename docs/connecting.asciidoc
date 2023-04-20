@@ -223,7 +223,7 @@ If you use a space character in an index name, elasticsearch-php converts it int
 a `+`, since this space must be encoded in a URL. The same applies to the `id` and `type`
 parameters.
 
-Starting from Elasticsearch 7.4, a `+` in URL will be encoded as `%2B` by all the REST
+Starting from Elasticsearch 7.4, a `+` in URL is encoded as `%2B` by all the REST
 API functionality. Prior versions handled a `+` as a single space. If your
 application requires handling `+` as a single space you can return to the old
 behaviour by setting the Elasticsearch system property `es.rest.url_plus_as_space` to `true`.

@@ -232,7 +232,7 @@ for mote information.
 
 Starting from elasticsearch-php 7.17.2, we introduced an environmental variable `ELASTIC_CLIENT_URL_PLUS_AS_SPACE`
 that can be used to encode a space using `+`, setting the variable to `true`.
-If `ELASTIC_CLIENT_URL_PLUS_AS_SPACE` is set to `false` a space will be encoded using `%20`
+If `ELASTIC_CLIENT_URL_PLUS_AS_SPACE` is set to `false`, a space is encoded using `%20`
 as specified in https://www.rfc-editor.org/rfc/rfc3986[RFC 3986].
 
 For instance, if you are using a space character in an index name, this will be

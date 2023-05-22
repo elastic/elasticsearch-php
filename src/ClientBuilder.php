@@ -21,6 +21,7 @@ use Elastic\Elasticsearch\Exception\InvalidArgumentException;
 use Elastic\Elasticsearch\Transport\Adapter\AdapterInterface;
 use Elastic\Elasticsearch\Transport\Adapter\AdapterOptions;
 use Elastic\Elasticsearch\Transport\RequestOptions;
+use Elastic\Transport\Exception\NoAsyncClientException;
 use Elastic\Transport\NodePool\NodePoolInterface;
 use Elastic\Transport\Transport;
 use Elastic\Transport\TransportBuilder;
@@ -411,8 +412,12 @@ class ClientBuilder
         if (false !== strpos(get_class($transport->getClient()), 'Symfony\Component\HttpClient')) {
             return true;
         }
-        if (false !== strpos(get_class($transport->getAsyncClient()), 'Symfony\Component\HttpClient')) {
-            return true;
+        try {
+            if (false !== strpos(get_class($transport->getAsyncClient()), 'Symfony\Component\HttpClient')) {
+                return true;
+            }
+        } catch (NoAsyncClientException $e) {
+            return false;
         }
         return false;
     }

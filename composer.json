@@ -26,7 +26,8 @@
     "symfony/finder": "~4.0",
     "nyholm/psr7": "^1.5",
     "php-http/mock-client": "^1.5",
-    "symfony/http-client": "^5.0|^6.0"
+    "symfony/http-client": "^5.0|^6.0",
+    "php-http/message-factory": "^1.1"
   },
   "autoload": {
     "psr-4": {

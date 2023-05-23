@@ -2036,6 +2036,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained models to store
 	 *     defer_definition_decompression: boolean, // If set to `true` and a `compressed_definition` is provided, the request defers definition decompression and skips relevant validations.
+	 *     wait_for_completion: boolean, // Whether to wait for all child operations(e.g. model download) to complete, before returning or not. Default to false
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2057,7 +2058,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . $this->encode($params['model_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['defer_definition_decompression','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['defer_definition_decompression','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -2375,6 +2376,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
 	 *     cache_size: string, // A byte-size value for configuring the inference cache size. For example, 20mb.
+	 *     deployment_id: string, // The Id of the new deployment. Defaults to the model_id if not set.
 	 *     number_of_allocations: int, // The total number of allocations this model is assigned across machine learning nodes.
 	 *     threads_per_allocation: int, // The number of threads used by each model allocation during inference.
 	 *     priority: string, // The deployment priority.
@@ -2401,7 +2403,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/deployment/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['cache_size','number_of_allocations','threads_per_allocation','priority','queue_capacity','timeout','wait_for','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['cache_size','deployment_id','number_of_allocations','threads_per_allocation','priority','queue_capacity','timeout','wait_for','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

@@ -120,7 +120,7 @@ class Cat extends AbstractEndpoint
 	/**
 	 * Returns information about existing component_templates templates.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-compoentn-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-component-templates.html
 	 *
 	 * @param array{
 	 *     name: string, //  A pattern that returned component template names must match

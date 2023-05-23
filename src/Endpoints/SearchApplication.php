@@ -26,16 +26,16 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class Watcher extends AbstractEndpoint
+class SearchApplication extends AbstractEndpoint
 {
 	/**
-	 * Acknowledges a watch, manually throttling the execution of the watch's actions.
+	 * Deletes a search application.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     watch_id: string, // (REQUIRED) Watch ID
-	 *     action_id: list, //  A comma-separated list of the action ids to be acked
+	 *     name: string, // (REQUIRED) The name of the search application
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -50,119 +50,10 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function ackWatch(array $params = [])
+	public function delete(array $params = [])
 	{
-		$this->checkRequiredParameters(['watch_id'], $params);
-		if (isset($params['action_id'])) {
-			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack/' . $this->encode($params['action_id']);
-			$method = 'PUT';
-		} else {
-			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack';
-			$method = 'PUT';
-		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Activates a currently inactive watch.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
-	 *
-	 * @param array{
-	 *     watch_id: string, // (REQUIRED) Watch ID
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function activateWatch(array $params = [])
-	{
-		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_activate';
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Deactivates a currently active watch.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
-	 *
-	 * @param array{
-	 *     watch_id: string, // (REQUIRED) Watch ID
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function deactivateWatch(array $params = [])
-	{
-		$this->checkRequiredParameters(['watch_id'], $params);
-		$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_deactivate';
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Removes a watch from Watcher.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
-	 *
-	 * @param array{
-	 *     id: string, // (REQUIRED) Watch ID
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function deleteWatch(array $params = [])
-	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . $this->encode($params['id']);
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_application/search_application/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -174,19 +65,90 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Forces the execution of a stored watch.
+	 * Delete a behavioral analytics collection.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     id: string, //  Watch ID
-	 *     debug: boolean, // indicates whether the watch should execute in debug mode
+	 *     name: string, // (REQUIRED) The name of the analytics collection to be deleted
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Execution control
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteBehavioralAnalytics(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_application/analytics/' . $this->encode($params['name']);
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Returns the details about a search application.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the search application
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function get(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_application/search_application/' . $this->encode($params['name']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Returns the existing behavioral analytics collections.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     name: list, //  A comma-separated list of analytics collections to limit the returned information
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -195,15 +157,89 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function executeWatch(array $params = [])
+	public function getBehavioralAnalytics(array $params = [])
 	{
-		if (isset($params['id'])) {
-			$url = '/_watcher/watch/' . $this->encode($params['id']) . '/_execute';
-			$method = 'PUT';
+		if (isset($params['name'])) {
+			$url = '/_application/analytics/' . $this->encode($params['name']);
+			$method = 'GET';
 		} else {
-			$url = '/_watcher/watch/_execute';
-			$method = 'PUT';
+			$url = '/_application/analytics';
+			$method = 'GET';
 		}
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Returns the existing search applications.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     from: int, // Starting offset (default: 0)
+	 *     size: int, // specifies a max number of results to get
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function list(array $params = [])
+	{
+		$url = '/_application/search_application';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['q','from','size','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Creates a behavioral analytics event for existing collection.
+	 *
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     collection_name: string, // (REQUIRED) The name of behavioral analytics collection
+	 *     event_type: string, // (REQUIRED) Behavioral analytics event type. Available: page_view, search, search_click
+	 *     debug: boolean, // If true, returns event information that will be stored
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The event definition
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function postBehavioralAnalyticsEvent(array $params = [])
+	{
+		$this->checkRequiredParameters(['collection_name','event_type','body'], $params);
+		$url = '/_application/analytics/' . $this->encode($params['collection_name']) . '/event/' . $this->encode($params['event_type']);
+		$method = 'POST';
+
 		$url = $this->addQueryString($url, $params, ['debug','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
@@ -214,50 +250,20 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieve settings for the watcher system index
+	 * Creates or updates a search application.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the search application to be created or updated
+	 *     create: boolean, // If true, requires that a search application with the specified resource_id does not already exist. (default: false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getSettings(array $params = [])
-	{
-		$url = '/_watcher/settings';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Retrieves a watch by its ID.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
-	 *
-	 * @param array{
-	 *     id: string, // (REQUIRED) Watch ID
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The search application configuration, including `indices`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -267,53 +273,13 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getWatch(array $params = [])
+	public function put(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . $this->encode($params['id']);
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Creates a new watch, or updates an existing one.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
-	 *
-	 * @param array{
-	 *     id: string, // (REQUIRED) Watch ID
-	 *     active: boolean, // Specify whether the watch is in/active by default
-	 *     version: number, // Explicit version number for concurrency control
-	 *     if_seq_no: number, // only update the watch if the last operation that has changed the watch has the specified sequence number
-	 *     if_primary_term: number, // only update the watch if the last operation that has changed the watch has the specified primary term
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The watch
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function putWatch(array $params = [])
-	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_watcher/watch/' . $this->encode($params['id']);
+		$this->checkRequiredParameters(['name','body'], $params);
+		$url = '/_application/search_application/' . $this->encode($params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['active','version','if_seq_no','if_primary_term','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['create','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -323,166 +289,69 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves stored watches.
+	 * Creates a behavioral analytics collection.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the analytics collection to be created or updated
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  From, size, query, sort and search_after
 	 * } $params
 	 *
+	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function queryWatches(array $params = [])
+	public function putBehavioralAnalytics(array $params = [])
 	{
-		$url = '/_watcher/_query/watches';
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_application/analytics/' . $this->encode($params['name']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Perform a search against a search application
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) The name of the search application to be searched
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  Search parameters, including template parameters that override defaults
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function search(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Starts Watcher if it is not already running.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
-	 *
-	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function start(array $params = [])
-	{
-		$url = '/_watcher/_start';
-		$method = 'POST';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Retrieves the current Watcher metrics.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
-	 *
-	 * @param array{
-	 *     metric: list, //  Controls what additional stat metrics should be include in the response
-	 *     emit_stacktraces: boolean, // Emits stack traces of currently running watches
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function stats(array $params = [])
-	{
-		if (isset($params['metric'])) {
-			$url = '/_watcher/stats/' . $this->encode($params['metric']);
-			$method = 'GET';
-		} else {
-			$url = '/_watcher/stats';
-			$method = 'GET';
-		}
-		$url = $this->addQueryString($url, $params, ['emit_stacktraces','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Stops Watcher if it is running.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
-	 *
-	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function stop(array $params = [])
-	{
-		$url = '/_watcher/_stop';
-		$method = 'POST';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Update settings for the watcher system index
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
-	 *
-	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object with the new index settings
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function updateSettings(array $params = [])
-	{
-		$this->checkRequiredParameters(['body'], $params);
-		$url = '/_watcher/settings';
-		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [

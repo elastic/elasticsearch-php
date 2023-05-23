@@ -69,7 +69,7 @@ class Logstash extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html
 	 *
 	 * @param array{
-	 *     id: string, // (REQUIRED) A comma-separated list of Pipeline IDs
+	 *     id: string, //  A comma-separated list of Pipeline IDs
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -77,7 +77,6 @@ class Logstash extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -86,10 +85,13 @@ class Logstash extends AbstractEndpoint
 	 */
 	public function getPipeline(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_logstash/pipeline/' . $this->encode($params['id']);
-		$method = 'GET';
-
+		if (isset($params['id'])) {
+			$url = '/_logstash/pipeline/' . $this->encode($params['id']);
+			$method = 'GET';
+		} else {
+			$url = '/_logstash/pipeline';
+			$method = 'GET';
+		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',

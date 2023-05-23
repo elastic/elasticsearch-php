@@ -37,6 +37,7 @@ use Elastic\Elasticsearch\Endpoints\Ml;
 use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
 use Elastic\Elasticsearch\Endpoints\Rollup;
+use Elastic\Elasticsearch\Endpoints\SearchApplication;
 use Elastic\Elasticsearch\Endpoints\SearchableSnapshots;
 use Elastic\Elasticsearch\Endpoints\Security;
 use Elastic\Elasticsearch\Endpoints\Shutdown;
@@ -245,6 +246,15 @@ trait NamespaceTrait
 			$this->namespace['Rollup'] = new Rollup($this);
 		}
 		return $this->namespace['Rollup'];
+	}
+
+
+	public function searchApplication(): SearchApplication
+	{
+		if (!isset($this->namespace['SearchApplication'])) {
+			$this->namespace['SearchApplication'] = new SearchApplication($this);
+		}
+		return $this->namespace['SearchApplication'];
 	}
 
 

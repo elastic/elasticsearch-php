@@ -36,6 +36,7 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to delete
 	 *     force: boolean, // When `true`, the transform is deleted regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be deleted.
+	 *     delete_dest_index: boolean, // When `true`, the destination index is deleted together with the transform. The default value is `false`, meaning that the destination index will not be deleted.
 	 *     timeout: time, // Controls the time to wait for the transform deletion
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -57,7 +58,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($params['transform_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['force','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['force','delete_dest_index','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

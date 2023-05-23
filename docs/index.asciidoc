@@ -18,6 +18,8 @@ include::configuration.asciidoc[]
 
 include::operations.asciidoc[]
 
+include::helpers.asciidoc[]
+
 include::release-notes.asciidoc[]
 
 include::redirects.asciidoc[]

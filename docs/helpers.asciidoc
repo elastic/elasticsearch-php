@@ -22,7 +22,7 @@ An example as follows:
 
 [source,php]
 ----
-use Elasticsearch\Helper\Iterators\SearchResponseIterator;
+use Elastic\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 
 $search_params = [
     'scroll'      => '5m', // period to retain the search context
@@ -58,8 +58,8 @@ An example as follows:
 
 [source,php]
 ----
-use Elasticsearch\Helper\Iterators\SearchHitIterator;
-use Elasticsearch\Helper\Iterators\SearchResponseIterator;
+use Elastic\Elasticsearch\Helper\Iterators\SearchHitIterator;
+use Elastic\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 
 $search_params = [
     'scroll'      => '5m', // period to retain the search context

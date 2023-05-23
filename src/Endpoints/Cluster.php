@@ -181,6 +181,7 @@ class Cluster extends AbstractEndpoint
 	 *     name: list, //  The comma separated names of the component templates
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     include_defaults: boolean, // Return all default configurations for the component template (default: false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -203,7 +204,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_component_template';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','local','include_defaults','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

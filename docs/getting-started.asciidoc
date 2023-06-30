@@ -1,3 +1,4 @@
+[[getting-started-php]]
 == Getting started
 
 This page guides you through the installation process of the PHP client, shows 

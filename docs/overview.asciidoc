@@ -12,6 +12,9 @@ from one language to the next with minimal effort.
 The client is designed to facilitate the API call using different way to read the
 results using associative array, object, string or https://www.php-fig.org/psr/psr-7/[PSR-7].
 
+Refer to the <<getting-started-php>> page for a step-by-step quick start with 
+the PHP client.
+
 [discrete]
 [[psr-7-standard]]
 === PSR 7 standard

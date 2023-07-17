@@ -36,6 +36,7 @@ use Elastic\Elasticsearch\Endpoints\Migration;
 use Elastic\Elasticsearch\Endpoints\Ml;
 use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
+use Elastic\Elasticsearch\Endpoints\QueryRuleset;
 use Elastic\Elasticsearch\Endpoints\Rollup;
 use Elastic\Elasticsearch\Endpoints\SearchApplication;
 use Elastic\Elasticsearch\Endpoints\SearchableSnapshots;
@@ -45,6 +46,9 @@ use Elastic\Elasticsearch\Endpoints\Slm;
 use Elastic\Elasticsearch\Endpoints\Snapshot;
 use Elastic\Elasticsearch\Endpoints\Sql;
 use Elastic\Elasticsearch\Endpoints\Ssl;
+use Elastic\Elasticsearch\Endpoints\SynonymRule;
+use Elastic\Elasticsearch\Endpoints\Synonyms;
+use Elastic\Elasticsearch\Endpoints\SynonymsSets;
 use Elastic\Elasticsearch\Endpoints\Tasks;
 use Elastic\Elasticsearch\Endpoints\TextStructure;
 use Elastic\Elasticsearch\Endpoints\Transform;
@@ -240,6 +244,15 @@ trait NamespaceTrait
 	}
 
 
+	public function queryRuleset(): QueryRuleset
+	{
+		if (!isset($this->namespace['QueryRuleset'])) {
+			$this->namespace['QueryRuleset'] = new QueryRuleset($this);
+		}
+		return $this->namespace['QueryRuleset'];
+	}
+
+
 	public function rollup(): Rollup
 	{
 		if (!isset($this->namespace['Rollup'])) {
@@ -318,6 +331,33 @@ trait NamespaceTrait
 			$this->namespace['Ssl'] = new Ssl($this);
 		}
 		return $this->namespace['Ssl'];
+	}
+
+
+	public function synonymRule(): SynonymRule
+	{
+		if (!isset($this->namespace['SynonymRule'])) {
+			$this->namespace['SynonymRule'] = new SynonymRule($this);
+		}
+		return $this->namespace['SynonymRule'];
+	}
+
+
+	public function synonyms(): Synonyms
+	{
+		if (!isset($this->namespace['Synonyms'])) {
+			$this->namespace['Synonyms'] = new Synonyms($this);
+		}
+		return $this->namespace['Synonyms'];
+	}
+
+
+	public function synonymsSets(): SynonymsSets
+	{
+		if (!isset($this->namespace['SynonymsSets'])) {
+			$this->namespace['SynonymsSets'] = new SynonymsSets($this);
+		}
+		return $this->namespace['SynonymsSets'];
 	}
 
 

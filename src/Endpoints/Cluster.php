@@ -297,6 +297,41 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
+	 * Returns different information about the cluster.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html
+	 *
+	 * @param array{
+	 *     target: list, // (REQUIRED) Limit the information returned to the specified target.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function info(array $params = [])
+	{
+		$this->checkRequiredParameters(['target'], $params);
+		$url = '/_info/' . $this->encode($params['target']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Returns a list of any cluster-level changes (e.g. create index, update mapping,
 	 * allocate or fail shard) which have not yet been executed.
 	 *

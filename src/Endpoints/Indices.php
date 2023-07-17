@@ -427,7 +427,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Deletes the data lifecycle of the selected data streams.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-delete-lifecycle.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -815,9 +815,9 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information about the index's current DLM lifecycle, such as any potential encountered error, time since creation etc.
+	 * Retrieves information about the index's current data stream lifecycle, such as any potential encountered error, time since creation etc.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -1072,7 +1072,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns the data lifecycle of the selected data streams.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-get-lifecycle.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -1554,7 +1554,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Updates the data lifecycle of the selected data streams.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-put-lifecycle.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

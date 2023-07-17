@@ -13,11 +13,6 @@ This is the official PHP client for
 - [Installation](#installation)
 - [Connecting](#connecting)
 - [Usage](#usage)
-  - [Create an index](#create-an-index)
-  - [Index a document](#index-a-document)
-  - [Search a document](#search-a-document)
-  - [Delete a document](#delete-a-document)
-  - [Delete an index](#delete-an-index)
 - [Versioning](#versioning)
 - [Backward Incompatible Changes](#backward-incompatible-changes-boom)
 - [Mock the Elasticsearch client](#mock-the-elasticsearch-client)
@@ -47,30 +42,13 @@ of Elasticsearch APIs.
 Here we reported the basic operation that you can perform with the client: 
 index, search and delete.
 
-### Create an index
-
-Refer to the [Creating an index section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_creating_an_index)
-of the getting started documentation.
-
-### Index a document
-
-Refer to the [Indexing a document section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_indexing_documents)
-of the getting started documentation.
-
-### Search a document
-
-Refer to the [Searching documents section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_searching_documents)
-of the getting started documentation.
-
-### Delete a document
-
-Refer to the [Deleting a document section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_deleting_documents)
-of the getting started page.
-
-### Delete an index
-
-Refer to the [Deleting an index section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_deleting_an_index)
-of the getting started page.
+* [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_creating_an_index)
+* [Indexing a document](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_indexing_documents)
+* [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_getting_documents)
+* [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_searching_documents)
+* [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_updating_documents)
+* [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_deleting_documents)
+* [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_deleting_an_index)
 
 ### Versioning
 

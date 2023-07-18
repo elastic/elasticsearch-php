@@ -8,7 +8,6 @@ operations with it.
 [discrete]
 === Requirements
 
-* TO DO
 * http://getcomposer.org[composer]
 
 If you don't have composer you can install it by running the following commands:

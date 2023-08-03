@@ -200,4 +200,12 @@ class ElasticsearchTest extends TestCase
 
         $this->assertEquals($array['foo'], $this->elasticsearch->foo);
     }
+
+    public function testWithStatusForPsr7Version1And2Compatibility()
+    {
+        $this->elasticsearch->setResponse($this->response200);
+
+        $this->elasticsearch = $this->elasticsearch->withStatus(400);
+        $this->assertEquals(400, $this->elasticsearch->getStatusCode());
+    }
 }

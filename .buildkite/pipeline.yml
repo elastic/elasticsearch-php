@@ -1,3 +1,20 @@
 steps:
-  - label: ":php: Greetings"
-    command: "echo 'Hello, world!'"
+  - label: ":elasticsearch: :php: ES PHP ({{ matrix.php }}) Test Suite: {{ matrix.suite }}"
+    agents:
+      provider: "gcp"
+    env:
+      PHP_VERSION: "{{ matrix.php }}"
+      TEST_SUITE: "{{ matrix.suite }}"
+      STACK_VERSION: 8.9-SNAPSHOT
+    matrix:
+      setup:
+        suite:
+          - "free"
+          - "platinum"
+        php:
+          - "8.2-cli"
+          - "8.1-cli"
+          - "8.0-cli"
+          - "7.4-cli"
+    command: ./.buildkite/run-tests
+    artifact_paths: "*.xml"

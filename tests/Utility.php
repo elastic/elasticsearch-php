@@ -331,28 +331,10 @@ class Utility
         ]);
         foreach ($repos->asArray() as $repository => $value) {
             if ($value['type'] === 'fs') {
-                $response = $client->snapshot()->get([
+                $client->snapshot()->delete([
                     'repository' => $repository,
-                    'snapshot' => '_all',
-                    'ignore_unavailable' => true
+                    'snapshot' => '*'
                 ]);
-                if (isset($response['responses'])) {
-                    $response = $response['responses'][0];
-                }
-                if (isset($response['snapshots'])) {
-                    foreach ($response['snapshots'] as $snapshot) {
-                        try {
-                            $client->snapshot()->delete([
-                                'repository' => $repository,
-                                'snapshot' => $snapshot['snapshot']
-                            ]);
-                        } catch (ClientResponseException $e) {
-                            if ($e->getCode() !== 404) {
-                                throw $e;
-                            }
-                        }
-                    }
-                }
             }
             try {
                 $client->snapshot()->deleteRepository([
@@ -684,11 +666,24 @@ class Utility
         if (strpos($name, '.deprecation-') !== false) {
             return true;
         }
+        if (strpos($name, '.fleet-') !== false) {
+            return true;
+        }
+        if (strpos($name, 'behavioral_analytics-') !== false) {
+            return true;
+        }
+        if (strpos($name, 'profiling-') !== false) {
+            return true;
+        }
+        if (strpos($name, 'elastic-connectors') !== false) {
+            return true;
+        }
         switch ($name) {
             case ".watches":
             case "security_audit_log":
             case ".slm-history":
             case ".async-search":
+            case ".profiling-ilm-lock":
             case "saml-service-provider":
             case "logs":
             case "logs-settings":
@@ -704,6 +699,9 @@ class Utility
             case "logstash-index-template":
             case "security-index-template":
             case "data-streams-mappings":
+            case "ecs@dynamic_templates":
+            case "search-acl-filter":
+            case ".kibana-reporting":
                 return true;
             default:
                 return false;
@@ -731,9 +729,16 @@ class Utility
             "90-days-default",
             "180-days-default",
             "365-days-default",
+            ".fleet-files-ilm-policy",
+            ".fleet-file-data-ilm-policy",
             ".fleet-actions-results-ilm-policy",
+            ".fleet-file-fromhost-data-ilm-policy",
+            ".fleet-file-fromhost-meta-ilm-policy",
+            ".fleet-file-tohost-data-ilm-policy",
+            ".fleet-file-tohost-meta-ilm-policy",
             ".deprecation-indexing-ilm-policy",
-            ".monitoring-8-ilm-policy"
+            ".monitoring-8-ilm-policy",
+            "behavioral_analytics-events-default_policy"
         ];
     }
 

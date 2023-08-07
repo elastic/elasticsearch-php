@@ -1,3 +1,108 @@
+## Release 8.9.0
+
+- Fixed issue with psr/http-message, changed PSR-7 versions to 1.1 and 2.0
+  [#1344](https://github.com/elastic/elasticsearch-php/pull/1344)
+- Added 12 new APIs: 11 EXPERIMENTAL and 1 stable:
+  - `Cluster.info` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/cluster.info.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html
+  - `QueryRuleset.delete` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/query_ruleset.delete.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html
+  - `QueryRuleset.get` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/query_ruleset.get.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html
+  - `QueryRuleset.put` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/query_ruleset.put.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html
+  - `SearchApplication.renderQuery` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.render_query.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html
+  - `Security.createCrossClusterApiKey` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/security.create_cross_cluster_api_key.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html
+  - `Security.updateCrossClusterApiKey` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/security.update_cross_cluster_api_key.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html
+  - `SynonymRule.put` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/synonym_rule.put.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+  - `Synonyms.delete` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.delete.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms.html
+  - `Synonyms.get` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.get.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms.html
+  - `Synonyms.put` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.put.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms.html
+  - `SynonymsSets.get` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/8.9/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms_sets.get.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms.html
+
+## Release 8.8.0
+
+- Added SearchHitIterators and SearchResponseIterator helpers revised with new version 
+  [#1302](https://github.com/elastic/elasticsearch-php/pull/1302)
+- Added 15 new APIs: 13 EXPERIMENTAL and 2 stable:
+  - `Indices.deleteDataLifecycle` (new EXPERIMENTAL API)
+      - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.delete_data_lifecycle.json
+      - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-delete-lifecycle.html
+  - `Indices.explainDataLifecycle` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.explain_data_lifecycle.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html
+  - `Indices.getDataLifecycle` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_data_lifecycle.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-get-lifecycle.html
+  - `Indices.putDataLifecycle` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_data_lifecycle.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-put-lifecycle.html
+  - `SearchApplication.delete` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.delete.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+  - `SearchApplication.deleteBehavioralAnalytics` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.delete_behavioral_analytics.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html
+  - `SearchApplication.get` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.get.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html
+  - `SearchApplication.getBehavioralAnalytics` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.get_behavioral_analytics.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html
+  - `SearchApplication.list` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.list.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+  - `SearchApplication.postBehavioralAnalyticsEvent` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.post_behavioral_analytics_event.json
+    - Documentation: TBD
+  - `SearchApplication.put` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.put.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+  - `SearchApplication.putBehavioralAnalytics` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.put_behavioral_analytics.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html
+  - `SearchApplication.search` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/search_application.search.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html
+  - `Watcher.getSettings` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/watcher.get_settings.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html
+  - `Watcher.updateSettings` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/watcher.update_settings.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
+- ES 8.8.0 updates some API:
+  - `search`: Added the `include_named_queries_score` boolean parameter. Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
+  - `Cluster.getComponentTemplate`: Added `include_defaults` boolean parameters. Return all default configurations for the component template (default: false)
+  - `Indices.getDataStream`: Added `include_defaults` boolean parameter. Return all relevant default configurations for the data stream (default: false)
+  - `Indices.getIndexTemplate`: Added `include_defaults` boolean parameter. Return all relevant default configurations for the index template (default: false)
+  - `Indices.simulateIndexTemplate`: Added `include_defaults` boolean parameter. Return all relevant default configurations for this index template simulation (default: false)
+  - `Indices.simulateTemplate`: Added `include_defaults` boolean parameter. Return all relevant default configurations for this template simulation (default: false)
+  - `Logstash.getPipeline`: Make `id` parameter optional.
+  - `Ml.putTrainedModel`: Added `wait_for_completion` boolean parameter. Whether to wait for all child operations
+(e.g. model download) to complete, before returning or not. Default to false
+  - `Ml.startTrainedModelDeployment`: Added `deployment_id` string parameter. The Id of the new deployment. Defaults to the model_id if not set.
+  - `Transform.deleteTransform`: Added `delete_dest_index` boolean parameter. When `true`, the destination index is deleted together with the transform. The default value is `false`, meaning that the destination index will not be deleted.
+
 ## Release 8.7.0
 
 - Added 2 new endpoints:

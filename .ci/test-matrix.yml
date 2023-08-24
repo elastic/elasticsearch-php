@@ -1,6 +1,6 @@
 ---
 STACK_VERSION:
-  - 8.9-SNAPSHOT
+  - 8.11-SNAPSHOT
 
 PHP_VERSION:
   - 8.2-cli

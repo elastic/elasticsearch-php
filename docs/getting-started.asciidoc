@@ -51,7 +51,7 @@ endpoint.
 [source,php]
 ----
 $client = ClientBuilder::create()
-   ->setElasticsearchEndpoint('<elasticsearch-endpoint>')
+   ->setHosts(['<elasticsearch-endpoint>'])
    ->setApiKey('<api-key>')
    ->build();
 ----

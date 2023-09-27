@@ -36,3 +36,4 @@ Client instantiation is performed with a static helper function `create()`. This
 creates a ClientBuilder object, which helps you to set custom configurations. 
 When you are done configuring, call the `build()` method to generate a `Client` 
 object. For further info, consult the <<configuration>> section.
+

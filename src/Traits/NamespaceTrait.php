@@ -46,9 +46,7 @@ use Elastic\Elasticsearch\Endpoints\Slm;
 use Elastic\Elasticsearch\Endpoints\Snapshot;
 use Elastic\Elasticsearch\Endpoints\Sql;
 use Elastic\Elasticsearch\Endpoints\Ssl;
-use Elastic\Elasticsearch\Endpoints\SynonymRule;
 use Elastic\Elasticsearch\Endpoints\Synonyms;
-use Elastic\Elasticsearch\Endpoints\SynonymsSets;
 use Elastic\Elasticsearch\Endpoints\Tasks;
 use Elastic\Elasticsearch\Endpoints\TextStructure;
 use Elastic\Elasticsearch\Endpoints\Transform;
@@ -334,30 +332,12 @@ trait NamespaceTrait
 	}
 
 
-	public function synonymRule(): SynonymRule
-	{
-		if (!isset($this->namespace['SynonymRule'])) {
-			$this->namespace['SynonymRule'] = new SynonymRule($this);
-		}
-		return $this->namespace['SynonymRule'];
-	}
-
-
 	public function synonyms(): Synonyms
 	{
 		if (!isset($this->namespace['Synonyms'])) {
 			$this->namespace['Synonyms'] = new Synonyms($this);
 		}
 		return $this->namespace['Synonyms'];
-	}
-
-
-	public function synonymsSets(): SynonymsSets
-	{
-		if (!isset($this->namespace['SynonymsSets'])) {
-			$this->namespace['SynonymsSets'] = new SynonymsSets($this);
-		}
-		return $this->namespace['SynonymsSets'];
 	}
 
 

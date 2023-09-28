@@ -291,6 +291,9 @@ class YamlTests
                     ]
                 );
             }
+            // Fix ${var} string interpolation deprecated for PHP 8.2
+            // @see https://php.watch/versions/8.2/$%7Bvar%7D-string-interpolation-deprecated
+            $test = $this->fixStringInterpolationInCurlyBracket($test);
             file_put_contents($testDirName . '/' . $testName . '.php', $test);
             try {
                 eval(substr($test, 5)); // remove <?php header
@@ -307,6 +310,16 @@ class YamlTests
             'tests' => $numTest,
             'files' => $numFile
         ];
+    }
+
+    /**
+     * Convert ${var} in {$var} for PHP 8.2 deprecation notice
+     * 
+     * @see https://php.watch/versions/8.2/$%7Bvar%7D-string-interpolation-deprecated
+     */
+    private function fixStringInterpolationInCurlyBracket(string $code): string
+    {
+        return preg_replace('/\${([^}]+)}/', '{\$$1}', $code);
     }
 
     private function extractTestNamespace(string $path)

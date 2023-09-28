@@ -175,12 +175,15 @@ class ActionTest
 
     private function set(array $action): string
     {
-        $key = key($action);
-        $this->variables[] = $action[$key];
-        return YamlTests::render(self::TEMPLATE_SET_VARIABLE, [
-            ':var'   => $action[$key],
-            ':value' => $this->convertResponseField($key)
-        ]);
+        $output = '';
+        foreach ($action as $key => $var) {
+            $this->variables[] = $var;
+            $output .= YamlTests::render(self::TEMPLATE_SET_VARIABLE, [
+                ':var'   => $var,
+                ':value' => $this->convertResponseField($key)
+            ]);
+        }
+        return $output;
     }
 
     private function warnings(array $action, array &$vars)

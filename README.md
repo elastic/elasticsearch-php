@@ -27,7 +27,7 @@ This is the official PHP client for
 Refer to the [Installation section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_installation)
 of the getting started documentation.
 
-## Connecting
+## Connecting
 
 Refer to the [Connecting section](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/getting-started-php.html#_connecting)
 of the getting started documentation.

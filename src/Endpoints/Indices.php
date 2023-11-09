@@ -502,7 +502,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Deletes an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -539,7 +539,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Deletes an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template-v1.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -741,7 +741,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns information about whether a particular index template exists.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/index-templates.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -779,7 +779,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns information about whether a particular index template exists.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-template-exists-v1.html
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) The comma separated names of the index templates
@@ -1194,7 +1194,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template.html
 	 *
 	 * @param array{
 	 *     name: string, //  A pattern that returned template names must match
@@ -1328,7 +1328,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template-v1.html
 	 *
 	 * @param array{
 	 *     name: list, //  The comma separated names of the index templates
@@ -1594,7 +1594,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Creates or updates an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-template.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -1724,7 +1724,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Creates or updates an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates-v1.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -2088,7 +2088,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Simulate matching the given index name against the index templates in the system
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-index.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the index (it must be a concrete index name)
@@ -2129,7 +2129,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Simulate resolving the given template name or body
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-template.html
 	 *
 	 * @param array{
 	 *     name: string, //  The name of the index template

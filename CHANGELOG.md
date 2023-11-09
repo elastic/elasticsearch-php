@@ -1,3 +1,22 @@
+## Release 8.11.0
+
+- Added 5 new EXPERIMENTAL APIs:
+  - `Esql.query `
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/esql.query.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
+  - `Inference.deleteModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.delete_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html
+  - `Inference.getModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.get_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html
+  - `Inference.inference`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.inference.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+  - `Inference.putModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html
+
 ## Release 8.10.0
 
 - Added 10 new APIs: 8 EXPERIMENTAL and 2 stable:

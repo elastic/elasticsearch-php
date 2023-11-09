@@ -514,7 +514,7 @@ class Utility
         }
         try {
             $client->indices()->delete([
-                'index' => '*,-.ds-ilm-history-*',
+                'index' => '*,-.ds-ilm-history-*,-.ds-.slm-history-*',
                 'expand_wildcards' => $expand
             ]);
         } catch (ClientResponseException $e) {
@@ -648,6 +648,9 @@ class Utility
      */
     private static function isXPackTemplate(string $name): bool
     {
+        if (strpos($name, '@') !== false) {
+            return true;
+        }
         if (strpos($name, '.monitoring-') !== false) {
             return true;
         }
@@ -678,6 +681,10 @@ class Utility
         if (strpos($name, 'elastic-connectors') !== false) {
             return true;
         }
+        if (strpos($name, 'apm-') === 0 || strpos($name, 'traces-apm') === 0 ||
+            strpos($name, 'metrics-apm') === 0 || strpos($name, 'logs-apm') === 0) {
+            return true;
+        }
         switch ($name) {
             case ".watches":
             case "security_audit_log":
@@ -699,7 +706,6 @@ class Utility
             case "logstash-index-template":
             case "security-index-template":
             case "data-streams-mappings":
-            case "ecs@dynamic_templates":
             case "search-acl-filter":
             case ".kibana-reporting":
                 return true;
@@ -721,14 +727,24 @@ class Utility
             "watch-history-ilm-policy", 
             "watch-history-ilm-policy-16",
             "ml-size-based-ilm-policy", 
-            "logs", 
+            "logs",
+            "logs@lifecycle", 
             "metrics",
+            "metrics@lifecycle",
+            "profiling",
+            "profiling@lifecycle",
             "synthetics",
+            "synthetics@lifecycle",
             "7-days-default",
+            "7-days@lifecycle",
             "30-days-default",
+            "30-days@lifecycle",
             "90-days-default",
+            "90-days@lifecycle",
             "180-days-default",
+            "180-days@lifecycle",
             "365-days-default",
+            "365-days@lifecycle",
             ".fleet-files-ilm-policy",
             ".fleet-file-data-ilm-policy",
             ".fleet-actions-results-ilm-policy",

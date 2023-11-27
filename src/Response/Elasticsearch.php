@@ -196,6 +196,8 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
      * ArrayAccess interface
      * 
      * @see https://www.php.net/manual/en/class.arrayaccess.php
+     *
+     * @return mixed
      */
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)

@@ -10,5 +10,5 @@
 /phpunit-yaml-free-tests.xml export-ignore
 /phpunit-yaml-platinum-tests.xml export-ignore
 /phpunit.xml.dist export-ignore
-#/docs export-ignore
+/docs export-ignore
 /.buildkite export-ignore

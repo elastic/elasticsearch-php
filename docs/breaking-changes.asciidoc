@@ -36,7 +36,7 @@ The following functions has been removed:
 - `ClientBuilder::setTracer()`, you can only set a Logger using  `ClientBuilder::setLogger()`
 - `ClientBuilder::setSerializer()`
 - `ClientBuilder::setConnectionParams()`, you can use `ClientBuilder::setHttpClientOptions()` instead
-- `ClientBuilder::setSelector()`, you can set a `Selector` using the `setNodePool`, see [here](https://github.com/elastic/elastic-transport-php/blob/8.x/README.md#use-a-custom-selector) for more information
+- `ClientBuilder::setSelector()`, you can set a `Selector` using the `setNodePool`, see https://github.com/elastic/elastic-transport-php/blob/8.x/README.md#use-a-custom-selector[here] for more information
 - `ClientBuilder::setSniffOnStart()`
 - `ClientBuilder::includePortInHostHeader()`
 

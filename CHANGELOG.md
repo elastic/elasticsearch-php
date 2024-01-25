@@ -1,3 +1,63 @@
+## Release 8.11.0
+
+- Added 5 new EXPERIMENTAL APIs:
+  - `Esql.query `
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/esql.query.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
+  - `Inference.deleteModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.delete_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html
+  - `Inference.getModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.get_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html
+  - `Inference.inference`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.inference.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+  - `Inference.putModel`
+    - API: https://github.com/elastic/elasticsearch/blob/v8.11.0/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_model.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html
+
+## Release 8.10.0
+
+- Added 10 new APIs: 8 EXPERIMENTAL and 2 stable:
+  - `QueryRuleset.list` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/query_ruleset.list.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html
+  - `Security.getSettings` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/security.get_settings.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html
+  - `Security.updateSettings` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/security.update_settings.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html
+  - `Synonyms.delete`
+    - Removed this API in favor of `deleteSynonym`.
+  - `Synonyms.deleteSynonym` (new EXPERIMENTAL API)
+    - This API replaces `Synonyms.delete`. Removed `synonyms_set` in favor of `id`
+parameter (string). The id of the synonyms set to be deleted.
+  - `Synonyms.deleteSynonymRule` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.delete_synonym_rule.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html
+  - `Synonyms.get`
+    - Removed this function in favor of `getSynonym`. 
+  - `Synonyms.getSynonym` (new EXPERIMENTAL API)
+    - This API replaces `Synonyms.getSynonym`. Removed `synonyms_set` in favor of `id`
+required parameter (string). The name of the synonyms set to be retrieved.
+  - `Synonyms.getSynonymRule` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.get_synonym_rule.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html
+  - `Synonyms.getSynonymsSets` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.get_synonyms_sets.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html
+  - `Synonyms.put`
+    - Removed this function in favor of `putSynonym`.
+  - `Synonyms.putSynonym` (new EXPERIMENTAL API)
+    - This API replaces `Synonyms.put`. Removed `synonyms_set` in favor of `id`
+required parameter (string). The id of the synonyms set to be created or updated.
+  - `Synonyms.putSynonymRule` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/synonyms.put_synonym_rule.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+
+
 ## Release 8.9.0
 
 - Fixed issue with psr/http-message, changed PSR-7 versions to 1.1 and 2.0

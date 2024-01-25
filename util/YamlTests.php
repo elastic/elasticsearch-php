@@ -56,6 +56,7 @@ class YamlTests
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'Search\Vectors\_90_Sparse_VectorTest::SparseVectorIn800X8110' => 'Undefined array key error',
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
         'Tsdb\_20_MappingTest::UnsupportedMetricTypePosition' => 'Fixed in Elasticsearch 8.9',
@@ -79,6 +80,7 @@ class YamlTests
         'Ml\_Explain_Data_Frame_AnalyticsTest::TestNonemptyDataFrameGivenBody' => 'Expected a different value',
         'Ml\_Get_Trained_Model_StatsTest::*' => 'Skipped all tests',
         'Ml\_Get_Trained_Model_StatsTest::TestGetStatsGivenTrainedModels' => 'cannot assign model_alias',
+        'Ml\_Inference_RescoreTest::*' => 'unknown field [learn_to_rank]',
         'Rollup\_Put_JobTest::TestPutJobWithTemplates' => 'version not converted from variable',
         'RuntimeFields\_100_Geo_PointTest::GetMapping' => 'Substring mismatch',
         'RuntimeFields\_10_KeywordTest::GetMapping' => 'Substring mismatch',
@@ -291,6 +293,9 @@ class YamlTests
                     ]
                 );
             }
+            // Fix ${var} string interpolation deprecated for PHP 8.2
+            // @see https://php.watch/versions/8.2/$%7Bvar%7D-string-interpolation-deprecated
+            $test = $this->fixStringInterpolationInCurlyBracket($test);
             file_put_contents($testDirName . '/' . $testName . '.php', $test);
             try {
                 eval(substr($test, 5)); // remove <?php header
@@ -307,6 +312,16 @@ class YamlTests
             'tests' => $numTest,
             'files' => $numFile
         ];
+    }
+
+    /**
+     * Convert ${var} in {$var} for PHP 8.2 deprecation notice
+     * 
+     * @see https://php.watch/versions/8.2/$%7Bvar%7D-string-interpolation-deprecated
+     */
+    private function fixStringInterpolationInCurlyBracket(string $code): string
+    {
+        return preg_replace('/\${([^}]+)}/', '{\$$1}', $code);
     }
 
     private function extractTestNamespace(string $path)

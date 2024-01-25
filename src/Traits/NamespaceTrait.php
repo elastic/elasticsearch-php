@@ -24,11 +24,13 @@ use Elastic\Elasticsearch\Endpoints\Cluster;
 use Elastic\Elasticsearch\Endpoints\DanglingIndices;
 use Elastic\Elasticsearch\Endpoints\Enrich;
 use Elastic\Elasticsearch\Endpoints\Eql;
+use Elastic\Elasticsearch\Endpoints\Esql;
 use Elastic\Elasticsearch\Endpoints\Features;
 use Elastic\Elasticsearch\Endpoints\Fleet;
 use Elastic\Elasticsearch\Endpoints\Graph;
 use Elastic\Elasticsearch\Endpoints\Ilm;
 use Elastic\Elasticsearch\Endpoints\Indices;
+use Elastic\Elasticsearch\Endpoints\Inference;
 use Elastic\Elasticsearch\Endpoints\Ingest;
 use Elastic\Elasticsearch\Endpoints\License;
 use Elastic\Elasticsearch\Endpoints\Logstash;
@@ -46,9 +48,7 @@ use Elastic\Elasticsearch\Endpoints\Slm;
 use Elastic\Elasticsearch\Endpoints\Snapshot;
 use Elastic\Elasticsearch\Endpoints\Sql;
 use Elastic\Elasticsearch\Endpoints\Ssl;
-use Elastic\Elasticsearch\Endpoints\SynonymRule;
 use Elastic\Elasticsearch\Endpoints\Synonyms;
-use Elastic\Elasticsearch\Endpoints\SynonymsSets;
 use Elastic\Elasticsearch\Endpoints\Tasks;
 use Elastic\Elasticsearch\Endpoints\TextStructure;
 use Elastic\Elasticsearch\Endpoints\Transform;
@@ -136,6 +136,15 @@ trait NamespaceTrait
 	}
 
 
+	public function esql(): Esql
+	{
+		if (!isset($this->namespace['Esql'])) {
+			$this->namespace['Esql'] = new Esql($this);
+		}
+		return $this->namespace['Esql'];
+	}
+
+
 	public function features(): Features
 	{
 		if (!isset($this->namespace['Features'])) {
@@ -178,6 +187,15 @@ trait NamespaceTrait
 			$this->namespace['Indices'] = new Indices($this);
 		}
 		return $this->namespace['Indices'];
+	}
+
+
+	public function inference(): Inference
+	{
+		if (!isset($this->namespace['Inference'])) {
+			$this->namespace['Inference'] = new Inference($this);
+		}
+		return $this->namespace['Inference'];
 	}
 
 
@@ -334,30 +352,12 @@ trait NamespaceTrait
 	}
 
 
-	public function synonymRule(): SynonymRule
-	{
-		if (!isset($this->namespace['SynonymRule'])) {
-			$this->namespace['SynonymRule'] = new SynonymRule($this);
-		}
-		return $this->namespace['SynonymRule'];
-	}
-
-
 	public function synonyms(): Synonyms
 	{
 		if (!isset($this->namespace['Synonyms'])) {
 			$this->namespace['Synonyms'] = new Synonyms($this);
 		}
 		return $this->namespace['Synonyms'];
-	}
-
-
-	public function synonymsSets(): SynonymsSets
-	{
-		if (!isset($this->namespace['SynonymsSets'])) {
-			$this->namespace['SynonymsSets'] = new SynonymsSets($this);
-		}
-		return $this->namespace['SynonymsSets'];
 	}
 
 

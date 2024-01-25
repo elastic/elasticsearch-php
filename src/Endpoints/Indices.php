@@ -425,13 +425,13 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Deletes the data lifecycle of the selected data streams.
+	 * Deletes the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: list, // (REQUIRED) A comma-separated list of data streams of which the data lifecycle will be deleted; use `*` to get all data streams
+	 *     name: list, // (REQUIRED) A comma-separated list of data streams of which the data stream lifecycle will be deleted; use `*` to get all data streams
 	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
 	 *     timeout: time, // Explicit timestamp for the document
 	 *     master_timeout: time, // Specify timeout for connection to master
@@ -502,7 +502,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Deletes an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -539,7 +539,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Deletes an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template-v1.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -741,7 +741,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns information about whether a particular index template exists.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/index-templates.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -779,7 +779,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns information about whether a particular index template exists.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-template-exists-v1.html
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) The comma separated names of the index templates
@@ -1070,7 +1070,7 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Returns the data lifecycle of the selected data streams.
+	 * Returns the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
@@ -1194,7 +1194,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template.html
 	 *
 	 * @param array{
 	 *     name: string, //  A pattern that returned template names must match
@@ -1328,7 +1328,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Returns an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template-v1.html
 	 *
 	 * @param array{
 	 *     name: list, //  The comma separated names of the index templates
@@ -1552,7 +1552,7 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Updates the data lifecycle of the selected data streams.
+	 * Updates the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
@@ -1567,7 +1567,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The data lifecycle configuration that consist of the data retention
+	 *     body: array, //  The data stream lifecycle configuration that consist of the data retention
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1594,7 +1594,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Creates or updates an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-template.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -1724,7 +1724,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Creates or updates an index template.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates-v1.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
@@ -1850,6 +1850,7 @@ class Indices extends AbstractEndpoint
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     resource: string, // changed resource to reload analyzers from if applicable
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1870,7 +1871,7 @@ class Indices extends AbstractEndpoint
 		$url = '/' . $this->encode($params['index']) . '/_reload_search_analyzers';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','resource','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -2087,7 +2088,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Simulate matching the given index name against the index templates in the system
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-index.html
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the index (it must be a concrete index name)
@@ -2128,7 +2129,7 @@ class Indices extends AbstractEndpoint
 	/**
 	 * Simulate resolving the given template name or body
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-template.html
 	 *
 	 * @param array{
 	 *     name: string, //  The name of the index template

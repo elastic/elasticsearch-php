@@ -26,16 +26,17 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class QueryRuleset extends AbstractEndpoint
+class Inference extends AbstractEndpoint
 {
 	/**
-	 * Deletes a query ruleset.
+	 * Delete model in the Inference API
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset to delete
+	 *     task_type: string, // (REQUIRED) The model task type
+	 *     model_id: string, // (REQUIRED) The model Id
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -50,10 +51,10 @@ class QueryRuleset extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function delete(array $params = [])
+	public function deleteModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['ruleset_id'], $params);
-		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
+		$this->checkRequiredParameters(['task_type','model_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -65,13 +66,14 @@ class QueryRuleset extends AbstractEndpoint
 
 
 	/**
-	 * Returns the details about a query ruleset.
+	 * Get a model in the Inference API
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset
+	 *     task_type: string, // (REQUIRED) The model task type
+	 *     model_id: string, // (REQUIRED) The model Id
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -86,10 +88,10 @@ class QueryRuleset extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(array $params = [])
+	public function getModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['ruleset_id'], $params);
-		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
+		$this->checkRequiredParameters(['task_type','model_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -101,54 +103,20 @@ class QueryRuleset extends AbstractEndpoint
 
 
 	/**
-	 * Lists query rulesets.
+	 * Perform inference on a model
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     from: int, // Starting offset (default: 0)
-	 *     size: int, // specifies a max number of results to get (default: 100)
+	 *     task_type: string, // (REQUIRED) The model task type
+	 *     model_id: string, // (REQUIRED) The model Id
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function list(array $params = [])
-	{
-		$url = '/_query_rules';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Creates or updates a query ruleset.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to be created or updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The query ruleset configuration, including `rules`
+	 *     body: array, //  The inference payload
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -158,10 +126,49 @@ class QueryRuleset extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function put(array $params = [])
+	public function inference(array $params = [])
 	{
-		$this->checkRequiredParameters(['ruleset_id','body'], $params);
-		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
+		$this->checkRequiredParameters(['task_type','model_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Configure a model for use in the Inference API
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The model task type
+	 *     model_id: string, // (REQUIRED) The model Id
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The model's task and service settings
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putModel(array $params = [])
+	{
+		$this->checkRequiredParameters(['task_type','model_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

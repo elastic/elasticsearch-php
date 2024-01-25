@@ -26,22 +26,23 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class SynonymsSets extends AbstractEndpoint
+class Esql extends AbstractEndpoint
 {
 	/**
-	 * Retrieves a summary of all defined synonym sets
+	 * Executes an ESQL request
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     from: int, // Starting offset
-	 *     size: int, // specifies a max number of results to get
+	 *     format: string, // a short version of the Accept header, e.g. json, yaml
+	 *     delimiter: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Use the `query` element to start a query. Use `time_zone` to specify an execution time zone and `columnar` to format the answer.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -50,14 +51,16 @@ class SynonymsSets extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(array $params = [])
+	public function query(array $params = [])
 	{
-		$url = '/_synonyms';
-		$method = 'GET';
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_query';
+		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','delimiter','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}

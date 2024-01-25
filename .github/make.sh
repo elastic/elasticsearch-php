@@ -5,9 +5,9 @@
 # Skeleton for common build entry script for all elastic
 # clients. Needs to be adapted to individual client usage.
 #
-# Must be called: ./.ci/make.sh <target> <params>
+# Must be called: ./.github/make.sh <target> <params>
 #
-# Version: 1.1.0
+# Version: 1.1.1
 #
 # Targets:
 # ---------------------------
@@ -37,8 +37,8 @@ WORKFLOW=${WORKFLOW-staging}
 set -euo pipefail
 
 product="elastic/elasticsearch-php"
-output_folder=".ci/output"
-codegen_folder=".ci/output"
+output_folder=".github/output"
+codegen_folder=".github/output"
 OUTPUT_DIR="$repo/${output_folder}"
 REPO_BINDING="${OUTPUT_DIR}:/sln/${output_folder}"
 mkdir -p "$OUTPUT_DIR"
@@ -115,7 +115,7 @@ esac
 
 #echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-#docker build --file .ci/Dockerfile --tag ${product} \
+#docker build --file .github/Dockerfile --tag ${product} \
 #  --build-arg USER_ID="$(id -u)" \
 #  --build-arg GROUP_ID="$(id -g)" .
 
@@ -140,15 +140,15 @@ esac
 
 if [[ "$CMD" == "assemble" ]]; then
     echo -e "\033[34;1mINFO: copy artefacts\033[0m"
-    rsync -ar --exclude=.ci --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
+    rsync -ar --exclude=.github --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
-    if compgen -G ".ci/output/*" > /dev/null; then
+    if compgen -G ".github/output/*" > /dev/null; then
         if [[ "$WORKFLOW" == "snapshot" ]]; then 
-            cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION-SNAPSHOT.tar.gz * && cd -
+            cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION-SNAPSHOT.tar.gz * && cd -
         else
-            cd $repo/.ci/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
+            cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
         fi
-        rm -Rf "${repo}/.ci/output/elasticsearch-php"
+        rm -Rf "${repo}/.github/output/elasticsearch-php"
         echo -e "\033[32;1mTARGET: successfully assembled client v$VERSION\033[0m"
 		exit 0
     else
@@ -166,8 +166,8 @@ if [[ "$CMD" == "bump" ]]; then
 
     MINOR_VERSION=`echo $VERSION | grep -Eo "[0-9]+.[0-9]+"`
 
-    # Change version to .ci/test-matrix.yml
-    sed -i "s/[0-9]\+\.[0-9]\+-SNAPSHOT/$MINOR_VERSION-SNAPSHOT/" $repo/.ci/test-matrix.yml
+    # Change version to .github/pipeline.yml
+    sed -i "s/STACK_VERSION: [0-9]\+\.[0-9]\+-SNAPSHOT/STACK_VERSION: $MINOR_VERSION-SNAPSHOT/" $repo/.github/pipeline.yml
 
     # Change version to .github/workflows/test.yml
     sed -i "s/es-version: \[[0-9]\+\.[0-9]\+\.\?[0-9]\?-SNAPSHOT\]/es-version: \[$MINOR_VERSION-SNAPSHOT\]/" $repo/.github/workflows/test.yml

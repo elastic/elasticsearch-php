@@ -10,7 +10,7 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "^8.0",
+    "php": "^7.4 || ^8.0",
     "elastic/transport": "^8.8",
     "psr/http-client": "^1.0",
     "psr/http-message": "^1.1 || ^2.0",

@@ -1,3 +1,107 @@
+## Release 8.12.0
+
+- Added 22 new EXPERIMENTAL APIs and 1 new stable API:
+  - `bulk`
+    - Adds `list_executed_pipelines` boolean parameter. Sets `list_executed_pipelines` for all incoming documents. Defaults to unset (false).
+  - `indices.put_settings`
+    - Adds `reopen` boolean parameter. Whether to close and reopen the index to apply non-dynamic settings. If set to `true` the indices to which the settings are being applied will be closed temporarily and then reopened in order to apply the changes. The default is `false`.
+  - `open_point_in_time`
+    - Adds `body` object/Hash parameter. An index_filter specified with the Query DSL.
+  - `security.get_api_key`
+    - Adds `active_only` boolean parameter. Flag to limit response to only active (not invalidated or expired) API keys.
+  - `profiling.status` (new API)
+    - Returns basic information about the status of Universal Profiling.
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/profiling.status.json
+    - Documentation: https://www.elastic.co/guide/en/observability/current/universal-profiling.html
+  - `simulate.ingest` (new EXPERIMENTAL API)
+    - Simulates running ingest with example documents. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/simulate-ingest-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/simulate.ingest.json
+  - `connector.post` (new EXPERIMENTAL API)
+    - Creates a connector. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/create-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.post.json
+  - `connector.put` (new EXPERIMENTAL API)
+    - Creates or updates a connector. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/create-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.put.json
+  - `connector.delete` (new EXPERIMENTAL API)
+    - Deletes a connector.
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/delete-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.delete.json
+  - `connector.get` (new EXPERIMENTAL API)
+    - Returns the details about a connector. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/get-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.get.json
+  - `connector.list` (new EXPERIMENTAL API)
+    - Lists all connectors.
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/list-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.list.json
+  - `connector.check_in` (new EXPERIMENTAL API)
+    - Updates the last_seen timestamp in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/check-in-connector-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.check_in.json
+  - `connector.update_configuration` (new EXPERIMENTAL API)
+    - Updates the connector configuration. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-configuration-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_configuration.json
+  - `connector.update_error` (new EXPERIMENTAL API)
+    - Updates the error field in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-error-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_error.json
+  - `connector.update_filtering` (new EXPERIMENTAL API)
+    - Updates the filtering field in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-filtering-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_filtering.json
+  - `connector.last_sync` (new EXPERIMENTAL API)
+    - Updates the stats of last sync in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-last-sync-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.last_sync.json
+  - `connector.update_name` (new EXPERIMENTAL API)
+    - Updates the name and/or description fields in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-name-description-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_name.json
+  - `connector.update_pipeline` (new EXPERIMENTAL API)
+    - Updates the pipeline field in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-pipeline-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_pipeline.json
+  - `connector.update_scheduling` (new EXPERIMENTAL API)
+    - Updates the scheduling field in the connector document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/update-connector-scheduling-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_scheduling.json
+  - `connector_sync_job.cancel` (new EXPERIMENTAL API)
+    - Cancels a connector sync job. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/cancel-connector-sync-job-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.cancel.json
+  - `connector_sync_job.check_in` (new EXPERIMENTAL API)
+    - Checks in a connector sync job (refreshes 'last_seen'). 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/check-in-connector-sync-job-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.check_in.json
+  - `connector_sync_job.delete` (new EXPERIMENTAL API)
+    - Deletes a connector sync job.
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/delete-connector-sync-job-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.delete.json
+  - `connector_sync_job.error` (new EXPERIMENTAL API)
+    - Sets an error for a connector sync job. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/set-connector-sync-job-error-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.error.json
+  - `connector_sync_job.get` (new EXPERIMENTAL API)
+    - Returns the details about a connector sync job. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/get-connector-sync-job-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.get.json
+  - `connector_sync_job.list` (new EXPERIMENTAL API)
+    - Lists all connector sync jobs. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/list-connector-sync-jobs-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.list.json
+  - `connector_sync_job.post` (new EXPERIMENTAL API)
+    - Creates a connector sync job. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/create-connector-sync-job-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.post.json
+  - `connector_sync_job.update_stats` (new EXPERIMENTAL API)
+    - Updates the stats fields in the connector sync job document. 
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.12/set-connector-sync-job-stats-api.html
+    - API: https://github.com/elastic/elasticsearch/blob/8.12/rest-api-spec/src/main/resources/rest-api-spec/api/connector_sync_job.update_stats.json
+
 ## Release 8.11.0
 
 - Added 5 new EXPERIMENTAL APIs:

@@ -2,6 +2,7 @@
 == Release notes
 
 * <<rn-8-11-0>>
+* <<rn-8-11-0>>
 * <<rn-8-10-0>>
 * <<rn-8-9-0>>
 * <<rn-8-8-0>>
@@ -42,6 +43,13 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-8-12-0]]
+=== 8.12.0
+
+* Updated the API endpoints to Elasticserach 8.11.0
+* Tested the library with PHP 8.3
 
 [discrete]
 [[rn-8-11-0]]

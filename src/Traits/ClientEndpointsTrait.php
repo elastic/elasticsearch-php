@@ -45,6 +45,7 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
 	 *     require_alias: boolean, // Sets require_alias for all incoming documents. Defaults to unset (false)
+	 *     list_executed_pipelines: boolean, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -69,7 +70,7 @@ trait ClientEndpointsTrait
 			$url = '/_bulk';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias','list_executed_pipelines','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
@@ -1186,6 +1187,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  An index_filter specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1204,6 +1206,7 @@ trait ClientEndpointsTrait
 		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		return $this->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}

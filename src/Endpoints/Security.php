@@ -867,6 +867,7 @@ class Security extends AbstractEndpoint
 	 *     realm_name: string, // realm name of the user who created this API key to be retrieved
 	 *     owner: boolean, // flag to query API keys owned by the currently authenticated user
 	 *     with_limited_by: boolean, // flag to show the limited-by role descriptors of API Keys
+	 *     active_only: boolean, // flag to limit response to only active (not invalidated or expired) API keys
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -885,7 +886,7 @@ class Security extends AbstractEndpoint
 		$url = '/_security/api_key';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner','with_limited_by','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['id','name','username','realm_name','owner','with_limited_by','active_only','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

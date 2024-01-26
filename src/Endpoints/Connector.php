@@ -26,16 +26,52 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class SearchApplication extends AbstractEndpoint
+class Connector extends AbstractEndpoint
 {
 	/**
-	 * Deletes a search application.
+	 * Updates the last_seen timestamp in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-search-application.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the search application
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function checkIn(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_check_in';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Deletes a connector.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be deleted.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -52,8 +88,8 @@ class SearchApplication extends AbstractEndpoint
 	 */
 	public function delete(array $params = [])
 	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/search_application/' . $this->encode($params['name']);
+		$this->checkRequiredParameters(['connector_id'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -65,49 +101,13 @@ class SearchApplication extends AbstractEndpoint
 
 
 	/**
-	 * Delete a behavioral analytics collection.
+	 * Returns the details about a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the analytics collection to be deleted
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function deleteBehavioralAnalytics(array $params = [])
-	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/analytics/' . $this->encode($params['name']);
-		$method = 'DELETE';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Returns the details about a search application.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the search application
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be returned.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -124,8 +124,8 @@ class SearchApplication extends AbstractEndpoint
 	 */
 	public function get(array $params = [])
 	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/search_application/' . $this->encode($params['name']);
+		$this->checkRequiredParameters(['connector_id'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']);
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -137,53 +137,52 @@ class SearchApplication extends AbstractEndpoint
 
 
 	/**
-	 * Returns the existing behavioral analytics collections.
+	 * Updates the stats of last sync in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of analytics collections to limit the returned information
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Object with stats related to the last connector sync run.
 	 * } $params
 	 *
+	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getBehavioralAnalytics(array $params = [])
+	public function lastSync(array $params = [])
 	{
-		if (isset($params['name'])) {
-			$url = '/_application/analytics/' . $this->encode($params['name']);
-			$method = 'GET';
-		} else {
-			$url = '/_application/analytics';
-			$method = 'GET';
-		}
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_last_sync';
+		$method = 'PUT';
+
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
 
 
 	/**
-	 * Returns the existing search applications.
+	 * Lists all connectors.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     q: string, // Query in the Lucene query string syntax
 	 *     from: int, // Starting offset (default: 0)
-	 *     size: int, // specifies a max number of results to get
+	 *     size: int, // specifies a max number of results to get (default: 100)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -199,10 +198,10 @@ class SearchApplication extends AbstractEndpoint
 	 */
 	public function list(array $params = [])
 	{
-		$url = '/_application/search_application';
+		$url = '/_connector';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['q','from','size','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -211,37 +210,33 @@ class SearchApplication extends AbstractEndpoint
 
 
 	/**
-	 * Creates a behavioral analytics event for existing collection.
+	 * Creates a connector.
 	 *
-	 * @see http://todo.com/tbd
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     collection_name: string, // (REQUIRED) The name of behavioral analytics collection
-	 *     event_type: string, // (REQUIRED) Behavioral analytics event type. Available: page_view, search, search_click
-	 *     debug: boolean, // If true, returns event information that will be stored
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The event definition
+	 *     body: array, // (REQUIRED) The connector configuration.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function postBehavioralAnalyticsEvent(array $params = [])
+	public function post(array $params = [])
 	{
-		$this->checkRequiredParameters(['collection_name','event_type','body'], $params);
-		$url = '/_application/analytics/' . $this->encode($params['collection_name']) . '/event/' . $this->encode($params['event_type']);
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_connector';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['debug','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -251,20 +246,19 @@ class SearchApplication extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a search application.
+	 * Creates or updates a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the search application to be created or updated
-	 *     create: boolean, // If true, requires that a search application with the specified resource_id does not already exist. (default: false)
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be created or updated.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search application configuration, including `indices`
+	 *     body: array, // (REQUIRED) The connector configuration.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -276,83 +270,9 @@ class SearchApplication extends AbstractEndpoint
 	 */
 	public function put(array $params = [])
 	{
-		$this->checkRequiredParameters(['name','body'], $params);
-		$url = '/_application/search_application/' . $this->encode($params['name']);
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']);
 		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['create','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Creates a behavioral analytics collection.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the analytics collection to be created or updated
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function putBehavioralAnalytics(array $params = [])
-	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/analytics/' . $this->encode($params['name']);
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Renders a query for given search application search parameters
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the search application to render the query for
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Search parameters, which will override any default search parameters defined in the search application template
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function renderQuery(array $params = [])
-	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_render_query';
-		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
@@ -364,19 +284,19 @@ class SearchApplication extends AbstractEndpoint
 
 
 	/**
-	 * Perform a search against a search application
+	 * Updates the connector configuration.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-configuration-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the search application to be searched
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Search parameters, including template parameters that override defaults
+	 *     body: array, // (REQUIRED) Mapping between field names to configuration.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -386,11 +306,201 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function search(array $params = [])
+	public function updateConfiguration(array $params = [])
 	{
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_search';
-		$method = empty($params['body']) ? 'GET' : 'POST';
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_configuration';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the error field in the connector document.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-error-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) An object containing the connector's error.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function updateError(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_error';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the filtering field in the connector document.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) A list of connector filtering configurations.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function updateFiltering(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_filtering';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the name and/or description fields in the connector document.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) An object containing the connector's name and/or description.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function updateName(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_name';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the pipeline field in the connector document.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-pipeline-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) An object with connector ingest pipeline configuration.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function updatePipeline(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_pipeline';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Updates the scheduling field in the connector document.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) An object containing the connector's scheduling configuration.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function updateScheduling(array $params = [])
+	{
+		$this->checkRequiredParameters(['connector_id','body'], $params);
+		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_scheduling';
+		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [

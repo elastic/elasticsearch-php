@@ -25,6 +25,8 @@ class MlTest extends TestCase
 {
     const JOB_ID = 'total-requests';
 
+    protected Client $client;
+    
     public function setUp(): void
     {
         $this->client = Utility::getClient();

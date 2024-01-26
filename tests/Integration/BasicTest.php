@@ -14,6 +14,7 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests\Integration;
 
+use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Tests\Utility;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +23,8 @@ use PHPUnit\Framework\TestCase;
  */
 class BasicTest extends TestCase
 {
+    protected Client $client;
+    
     public function setUp(): void
     {
         $this->client = Utility::getClient();

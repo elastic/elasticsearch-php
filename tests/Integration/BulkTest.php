@@ -24,6 +24,8 @@ class BulkTest extends TestCase
 {
     const TEST_INDEX = 'test';
 
+    protected Client $client;
+    
     public function setUp(): void
     {
         $this->client = Utility::getClient();

@@ -24,6 +24,7 @@ use Psr\Http\Client\ClientInterface;
 class GuzzleTest extends TestCase
 {
     protected Guzzle $guzzleAdapter;
+    protected ClientInterface $client;
 
     public function setUp(): void
     {

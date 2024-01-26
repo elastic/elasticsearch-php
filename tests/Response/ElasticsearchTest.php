@@ -21,9 +21,16 @@ use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class ElasticsearchTest extends TestCase
 {
+    protected Psr17Factory $psr17Factory;
+    protected ResponseInterface $elasticsearch;
+    protected ResponseInterface $response200;
+    protected ResponseInterface $response400;
+    protected ResponseInterface $response500;
+
     public function setUp(): void
     {
         $this->psr17Factory = new Psr17Factory();

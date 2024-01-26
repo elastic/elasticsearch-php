@@ -23,6 +23,9 @@ use PHPUnit\Framework\TestCase;
 
 class AsyncOnSuccessTest extends TestCase
 {
+    protected Psr17Factory $psr17Factory;
+    protected AsyncOnSuccess $asyncOnSuccess;
+    
     public function setUp(): void
     {
         $this->asyncOnSuccess = new AsyncOnSuccess();

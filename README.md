@@ -64,6 +64,25 @@ the major version of the corresponding Enterprise Search implementation.
 For example, for Elasticsearch `7.16`, use `7.16` of this library or above, but
 not `8.0`.
 
+## Compatibility
+
+The Elasticsearch client is compatible with currently maintained PHP versions.
+
+Language clients are forward compatible; meaning that clients support
+communicating with greater or equal minor versions of Elasticsearch without
+breaking. It does not mean that the client automatically supports new features
+of newer Elasticsearch versions; it is only possible after a release of a new
+client version. For example, a 8.12 client version won't automatically support
+the new features of the 8.13 version of Elasticsearch, the 8.13 client version
+is required for that. Elasticsearch language clients are only backwards
+compatible with default distributions and without guarantees made.
+
+| Elasticsearch Version | Elasticsearch-PHP Branch | Supported |
+| --------------------- | ------------------------ | --------- |
+| main                  | main                     |           |
+| 8.x                   | 8.x                      | 8.x       |
+| 7.x                   | 7.x                      | 7.17      |
+
 ## Backward Incompatible Changes :boom:
 
 The 8.0.0 version of `elasticsearch-php` contains a new implementation compared

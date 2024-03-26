@@ -15,17 +15,20 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Response;
 
 use ArrayAccess;
+use DateTime;
 use Elastic\Elasticsearch\Exception\ArrayAccessException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Traits\MessageResponseTrait;
 use Elastic\Elasticsearch\Traits\ProductCheckTrait;
+use Elastic\Elasticsearch\Utility;
 use Elastic\Transport\Exception\UnknownContentTypeException;
 use Elastic\Transport\Serializer\CsvSerializer;
 use Elastic\Transport\Serializer\JsonSerializer;
 use Elastic\Transport\Serializer\NDJsonSerializer;
 use Elastic\Transport\Serializer\XmlSerializer;
 use Psr\Http\Message\ResponseInterface;
+use stdClass;
 
 /**
  * Wraps a PSR-7 ResponseInterface offering helpers to deserialize the body response
@@ -223,5 +226,64 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
     public function offsetUnset($offset): void
     {
         throw new ArrayAccessException('The array is reading only');
+    }
+
+    /**
+     * Map the response body to an object of a specific class
+     * by default the class is the PHP standard one (stdClass)
+     * 
+     * This mapping works only for ES|QL results (with columns and values)
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html
+     * 
+     * @return object[] 
+     */
+    public function mapTo(string $class = stdClass::class): array
+    {
+        $response = $this->asArray();
+        if (!isset($response['columns']) || !isset($response['values'])) {
+            throw new UnknownContentTypeException(sprintf(
+                "The response is not a valid ES|QL result. I cannot mapTo(\"%s\")",
+                $class
+            )); 
+        }
+        $iterator = [];
+        $ncol = count($response['columns']);
+        foreach ($response['values'] as $value) {
+            $obj = new $class;
+            for ($i=0; $i < $ncol; $i++) {
+                $field = Utility::formatVariableName($response['columns'][$i]['name']);
+                if ($class !== stdClass::class && !property_exists($obj, $field)) {
+                    continue;
+                }
+                switch($response['columns'][$i]['type']) {
+                    case 'boolean':
+                        $obj->{$field} = (bool) $value[$i];
+                        break;
+                    case 'date':
+                        $obj->{$field} = new DateTime($value[$i]);
+                        break;
+                    case 'alias':
+                    case 'text':
+                    case 'keyword':
+                    case 'ip':
+                        $obj->{$field} = (string) $value[$i];
+                        break;
+                    case 'integer':
+                        $obj->{$field} = (int) $value[$i];
+                        break;
+                    case 'long':
+                    case 'double':
+                        $obj->{$field} = (float) $value[$i];
+                        break;
+                    case 'null':
+                        $obj->{$field} = null;
+                        break;
+                    default:
+                        $obj->{$field} = $value[$i];
+                }
+            }
+            $iterator[] = $obj;
+        }
+        return $iterator;
     }
 }

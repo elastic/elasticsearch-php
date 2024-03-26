@@ -14,15 +14,17 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Tests\Response;
 
+use DateTime;
 use Elastic\Elasticsearch\Exception\ArrayAccessException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ProductCheckException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
+use Elastic\Transport\Exception\UnknownContentTypeException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-
+use stdClass;
 class ElasticsearchTest extends TestCase
 {
     protected Psr17Factory $psr17Factory;
@@ -214,5 +216,85 @@ class ElasticsearchTest extends TestCase
 
         $this->elasticsearch = $this->elasticsearch->withStatus(400);
         $this->assertEquals(400, $this->elasticsearch->getStatusCode());
+    }
+
+    public function testMapToStdClassAsDefault()
+    {
+        $array = [
+            'columns' => [
+                ['name' => 'a', 'type' =>  'integer'],
+                ['name' => 'b', 'type' =>  'date']
+            ],
+            'values' => [
+                [1, '2023-10-23T12:15:03.360Z'],
+                [3, '2023-10-23T13:55:01.543Z']
+            ]
+        ];
+        $body = $this->psr17Factory->createStream(json_encode($array));
+        $this->elasticsearch->setResponse($this->response200->withBody($body));
+
+        $iterator = $this->elasticsearch->mapTo();
+        $this->assertIsArray($iterator);
+        $this->assertEquals(stdClass::class, get_class($iterator[0]));
+        $this->assertEquals(stdClass::class, get_class($iterator[1]));
+        $this->assertEquals('integer', gettype($iterator[0]->a));
+        $this->assertEquals(DateTime::class, get_class($iterator[0]->b));
+        $this->assertEquals('integer', gettype($iterator[1]->a));
+        $this->assertEquals(DateTime::class, get_class($iterator[1]->b));
+    }
+
+    public function testMapToStdClass()
+    {
+        $array = [
+            'columns' => [
+                ['name' => 'a', 'type' =>  'integer'],
+                ['name' => 'b', 'type' =>  'date']
+            ],
+            'values' => [
+                [1, '2023-10-23T12:15:03.360Z'],
+                [3, '2023-10-23T13:55:01.543Z']
+            ]
+        ];
+        $body = $this->psr17Factory->createStream(json_encode($array));
+        $this->elasticsearch->setResponse($this->response200->withBody($body));
+
+        $iterator = $this->elasticsearch->mapTo(stdClass::class);
+        $this->assertIsArray($iterator);
+        $this->assertEquals(stdClass::class, get_class($iterator[0]));
+        $this->assertEquals(stdClass::class, get_class($iterator[1]));
+    }
+
+    public function testMapToWithoutEsqlResponseWillThrowException()
+    {
+        $array = ['foo' => 'bar'];
+        $body = $this->psr17Factory->createStream(json_encode($array));
+        $this->elasticsearch->setResponse($this->response200->withBody($body));
+
+        $this->expectException(UnknownContentTypeException::class);
+        $iterator = $this->elasticsearch->mapTo();
+    }
+
+    public function testMapToCustomClass()
+    {
+        $array = [
+            'columns' => [
+                ['name' => 'a', 'type' =>  'integer'],
+                ['name' => 'b', 'type' =>  'date']
+            ],
+            'values' => [
+                [1, '2023-10-23T12:15:03.360Z'],
+                [3, '2023-10-23T13:55:01.543Z']
+            ]
+        ];
+        $body = $this->psr17Factory->createStream(json_encode($array));
+        $this->elasticsearch->setResponse($this->response200->withBody($body));
+
+        $iterator = $this->elasticsearch->mapTo(TestMapClass::class);
+
+        $this->assertIsArray($iterator);
+        $this->assertEquals(TestMapClass::class, get_class($iterator[0]));
+        $this->assertEquals('integer', gettype($iterator[0]->a));
+        $this->assertEquals(DateTime::class, get_class($iterator[0]->b));
+        $this->assertEquals('', $iterator[0]->c);
     }
 }

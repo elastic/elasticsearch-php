@@ -221,6 +221,7 @@ class ConnectorSyncJob extends AbstractEndpoint
 	 *     size: int, // specifies a max number of results to get (default: 100)
 	 *     status: string, // Sync job status, which sync jobs are fetched for
 	 *     connector_id: string, // Id of the connector to fetch the sync jobs for
+	 *     job_type: list, // A comma-separated list of job types
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -239,7 +240,7 @@ class ConnectorSyncJob extends AbstractEndpoint
 		$url = '/_connector/_sync_job';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','status','connector_id','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','status','connector_id','job_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

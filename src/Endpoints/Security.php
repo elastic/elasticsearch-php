@@ -1764,6 +1764,41 @@ class Security extends AbstractEndpoint
 
 
 	/**
+	 * Retrieves information for Users using a subset of query DSL
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
+	 *
+	 * @param array{
+	 *     with_profile_uid: boolean, // flag to retrieve profile uid (if exists) associated with the user
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  From, size, query, sort and search_after
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function queryUser(array $params = [])
+	{
+		$url = '/_security/_query/user';
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		$url = $this->addQueryString($url, $params, ['with_profile_uid','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Exchanges a SAML Response message for an Elasticsearch access token and refresh token pair
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html

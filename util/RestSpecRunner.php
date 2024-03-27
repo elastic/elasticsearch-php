@@ -39,7 +39,8 @@ try {
 $version = $serverInfo['version']['number'];
 
 $artifactFile = sprintf("rest-resources-zip-%s.zip", $version);
-$tempFilePath = sprintf("%s/%s.zip", sys_get_temp_dir(), $serverInfo['version']['build_hash']);
+$buildHash = $serverInfo['version']['build_hash'];
+$tempFilePath = sprintf("%s/%s.zip", sys_get_temp_dir(), $buildHash);
 
 if (!file_exists($tempFilePath)) {
     // Download of Elasticsearch rest-api artifacts
@@ -49,14 +50,23 @@ if (!file_exists($tempFilePath)) {
         exit(1);
     }
     $content = json_decode($json, true);
+    $found = false;
     foreach ($content['version']['builds'] as $builds) {
-        if ($builds['projects']['elasticsearch']['commit_hash'] === $serverInfo['version']['build_hash']) {
+        if ($builds['projects']['elasticsearch']['commit_hash'] === $buildHash) {
             // Download the artifact ZIP file (rest-resources-zip-$version.zip)
             printf("Download %s\n", $builds['projects']['elasticsearch']['packages'][$artifactFile]['url']);
             if (!copy($builds['projects']['elasticsearch']['packages'][$artifactFile]['url'], $tempFilePath)) {
                 printf ("ERROR: failed to download %s\n", $artifactFile);
             }
+            $found = true;
             break;
+        }
+    }
+    if (!$found) {
+        $build = $content['version']['builds'][0]; // pick the most recent
+        $resource = $build["projects"]["elasticsearch"]["packages"][sprintf("rest-resources-zip-%s.zip", $version)]['url'];
+        if (!copy($resource, $tempFilePath)) {
+            printf ("ERROR: failed to download %s\n", $resource);
         }
     }
 } else {
@@ -64,13 +74,13 @@ if (!file_exists($tempFilePath)) {
 }
 
 if (!file_exists($tempFilePath)) {
-    printf("ERROR: the commit_hash %s has not been found\n", $serverInfo['version']['build_hash']);
+    printf("ERROR: I cannot download file %s\n", $tempFilePath);
     exit(1);
 }
 $zip = new ZipArchive();
 $zip->open($tempFilePath);
-printf("Extracting %s\ninto %s/rest-spec/%s\n", $tempFilePath, __DIR__, $serverInfo['version']['build_hash']);
-$zip->extractTo(sprintf("%s/rest-spec/%s", __DIR__, $serverInfo['version']['build_hash']));
+printf("Extracting %s\ninto %s/rest-spec/%s\n", $tempFilePath, __DIR__, $buildHash);
+$zip->extractTo(sprintf("%s/rest-spec/%s", __DIR__, $buildHash));
 $zip->close();
 
 printf ("Rest-spec API installed successfully!\n\n");

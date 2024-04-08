@@ -1,0 +1,13 @@
+// cluster/update-settings.asciidoc:45
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'persistent' => [
+            'indices.recovery.max_bytes_per_sec' => '50mb',
+        ],
+    ],
+];
+$response = $client->cluster()->putSettings($params);
+----

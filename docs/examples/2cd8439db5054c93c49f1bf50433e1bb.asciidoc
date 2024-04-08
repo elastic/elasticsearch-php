@@ -1,0 +1,27 @@
+// cluster/reroute.asciidoc:195
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'commands' => [
+            [
+                'move' => [
+                    'index' => 'test',
+                    'shard' => 0,
+                    'from_node' => 'node1',
+                    'to_node' => 'node2',
+                ],
+            ],
+            [
+                'allocate_replica' => [
+                    'index' => 'test',
+                    'shard' => 1,
+                    'node' => 'node3',
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->cluster()->reroute($params);
+----

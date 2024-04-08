@@ -1,0 +1,6 @@
+// health/health.asciidoc:478
+
+[source, php]
+----
+$response = $client->healthReport();
+----

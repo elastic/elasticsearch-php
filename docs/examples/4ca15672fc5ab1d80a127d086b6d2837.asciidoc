@@ -1,0 +1,6 @@
+// cluster/allocation-explain.asciidoc:342
+
+[source, php]
+----
+$response = $client->cluster()->allocationExplain();
+----

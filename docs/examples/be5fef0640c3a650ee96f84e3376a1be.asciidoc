@@ -1,0 +1,27 @@
+// docs/update.asciidoc:333
+
+[source, php]
+----
+$params = [
+    'index' => 'test',
+    'id' => '1',
+    'body' => [
+        'scripted_upsert' => true,
+        'script' => [
+            'source' => '
+      if ( ctx.op == \'create\' ) {
+        ctx._source.counter = params.count
+      } else {
+        ctx._source.counter += params.count
+      }
+    ',
+            'params' => [
+                'count' => 4,
+            ],
+        ],
+        'upsert' => [
+        ],
+    ],
+];
+$response = $client->update($params);
+----

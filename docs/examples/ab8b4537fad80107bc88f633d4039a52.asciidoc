@@ -1,0 +1,15 @@
+// indices/create-index.asciidoc:210
+
+[source, php]
+----
+$params = [
+    'index' => 'logs',
+    'body' => [
+        'aliases' => [
+            '<logs_{now/M}>' => [
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

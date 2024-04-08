@@ -1,0 +1,16 @@
+// search/search.asciidoc:956
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'body' => [
+        'query' => [
+            'term' => [
+                'user.id' => 'kimchy',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

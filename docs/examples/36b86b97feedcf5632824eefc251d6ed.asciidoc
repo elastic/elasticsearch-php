@@ -1,0 +1,16 @@
+// getting-started.asciidoc:245
+
+[source, php]
+----
+$params = [
+    'index' => 'books',
+    'body' => [
+        'query' => [
+            'match' => [
+                'name' => 'brave',
+            ],
+        ],
+    ],
+];
+$response = $client->search($params);
+----

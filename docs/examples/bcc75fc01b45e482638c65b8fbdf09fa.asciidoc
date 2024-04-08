@@ -1,0 +1,9 @@
+// getting-started.asciidoc:228
+
+[source, php]
+----
+$params = [
+    'index' => 'books',
+];
+$response = $client->search($params);
+----

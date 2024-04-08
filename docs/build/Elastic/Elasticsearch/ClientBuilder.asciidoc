@@ -1,0 +1,309 @@
+
+
+[[Elastic_Elasticsearch_ClientBuilder]]
+=== Elastic\Elasticsearch\ClientBuilder
+
+
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elastic_Elasticsearch_ClientBuildercreate_create,`create()`>>
+* <<Elastic_Elasticsearch_ClientBuilderfromConfig_fromConfig,`fromConfig()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetHttpClient_setHttpClient,`setHttpClient()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetAsyncHttpClient_setAsyncHttpClient,`setAsyncHttpClient()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetLogger_setLogger,`setLogger()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetNodePool_setNodePool,`setNodePool()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetHosts_setHosts,`setHosts()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetApiKey_setApiKey,`setApiKey()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetBasicAuthentication_setBasicAuthentication,`setBasicAuthentication()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetElasticCloudId_setElasticCloudId,`setElasticCloudId()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetRetries_setRetries,`setRetries()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetSSLCert_setSSLCert,`setSSLCert()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetCABundle_setCABundle,`setCABundle()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetSSLKey_setSSLKey,`setSSLKey()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification,`setSSLVerification()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetElasticMetaHeader_setElasticMetaHeader,`setElasticMetaHeader()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetHttpClientOptions_setHttpClientOptions,`setHttpClientOptions()`>>
+* <<Elastic_Elasticsearch_ClientBuilderbuild_build,`build()`>>
+* <<Elastic_Elasticsearch_ClientBuilderisSymfonyHttpClient_isSymfonyHttpClient,`isSymfonyHttpClient()`>>
+* <<Elastic_Elasticsearch_ClientBuildergetConfig_getConfig,`getConfig()`>>
+* <<Elastic_Elasticsearch_ClientBuildersetOptions_setOptions,`setOptions()`>>
+
+
+
+
+[[Elastic_Elasticsearch_ClientBuildercreate_create]]
+.`create()`
+****
+[source,php]
+----
+/*
+Create an instance of ClientBuilder
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuilderfromConfig_fromConfig]]
+.`fromConfig(array $config, bool $quiet = false)`
+****
+[source,php]
+----
+/*
+Build a new client from the provided config.  Hash keys
+should correspond to the method name e.g. ['nodePool']
+corresponds to setNodePool().
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetHttpClient_setHttpClient]]
+.`setHttpClient(Psr\Http\Client\ClientInterface $httpClient)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetAsyncHttpClient_setAsyncHttpClient]]
+.`setAsyncHttpClient(Http\Client\HttpAsyncClient $asyncHttpClient)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetLogger_setLogger]]
+.`setLogger(Psr\Log\LoggerInterface $logger)`
+****
+[source,php]
+----
+/*
+Set the PSR-3 Logger
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetNodePool_setNodePool]]
+.`setNodePool(Elastic\Transport\NodePool\NodePoolInterface $nodePool)`
+****
+[source,php]
+----
+/*
+Set the NodePool
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetHosts_setHosts]]
+.`setHosts(array $hosts)`
+****
+[source,php]
+----
+/*
+Set the hosts (nodes)
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetApiKey_setApiKey]]
+.`setApiKey(string $apiKey, string $id = null)`
+****
+[source,php]
+----
+/*
+Set the ApiKey
+If the id is not specified we store the ApiKey otherwise
+we store as Base64(id:ApiKey)
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetBasicAuthentication_setBasicAuthentication]]
+.`setBasicAuthentication(string $username, string $password)`
+****
+[source,php]
+----
+/*
+Set the Basic Authentication
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetElasticCloudId_setElasticCloudId]]
+.`setElasticCloudId(string $cloudId)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetRetries_setRetries]]
+.`setRetries(int $retries)`
+****
+[source,php]
+----
+/*
+Set number or retries
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetSSLCert_setSSLCert]]
+.`setSSLCert(string $cert, string $password = null)`
+****
+[source,php]
+----
+/*
+Set SSL certificate
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetCABundle_setCABundle]]
+.`setCABundle(string $cert)`
+****
+[source,php]
+----
+/*
+Set the Certificate Authority (CA) bundle
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetSSLKey_setSSLKey]]
+.`setSSLKey(string $key, string $password = null)`
+****
+[source,php]
+----
+/*
+Set SSL key
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetSSLVerification_setSSLVerification]]
+.`setSSLVerification(bool $value = true)`
+****
+[source,php]
+----
+/*
+Enable or disable the SSL verification
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetElasticMetaHeader_setElasticMetaHeader]]
+.`setElasticMetaHeader(bool $value = true)`
+****
+[source,php]
+----
+/*
+Enable or disable the x-elastic-client-meta header
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetHttpClientOptions_setHttpClientOptions]]
+.`setHttpClientOptions(array $options)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuilderbuild_build]]
+.`build()`
+****
+[source,php]
+----
+/*
+Build and returns the Client object
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuilderisSymfonyHttpClient_isSymfonyHttpClient]]
+.`isSymfonyHttpClient(Elastic\Transport\Transport $transport)`
+****
+[source,php]
+----
+/*
+Returns true if the transport HTTP client is Symfony
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildergetConfig_getConfig]]
+.`getConfig()`
+****
+[source,php]
+----
+/*
+Returns the configuration to be used in the HTTP client
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientBuildersetOptions_setOptions]]
+.`setOptions(Psr\Http\Client\ClientInterface $client, array $config, array $clientOptions = [])`
+****
+[source,php]
+----
+/*
+Set the configuration for the specific HTTP client using an adapter
+*/
+----
+****
+
+

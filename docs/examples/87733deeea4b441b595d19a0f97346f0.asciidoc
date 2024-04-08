@@ -1,0 +1,9 @@
+// health/health.asciidoc:471
+
+[source, php]
+----
+$params = [
+    'feature' => 'shards_availability',
+];
+$response = $client->healthReport($params);
+----

@@ -1,0 +1,10 @@
+// docs/reindex.asciidoc:794
+
+[source, php]
+----
+$params = [
+    'index' => 'my-new-index-000001',
+    'id' => '1',
+];
+$response = $client->get($params);
+----

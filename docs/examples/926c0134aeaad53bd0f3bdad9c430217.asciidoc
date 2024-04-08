@@ -1,0 +1,14 @@
+// docs/reindex.asciidoc:763
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'id' => '1',
+    'body' => [
+        'text' => 'words words',
+        'flag' => 'foo',
+    ],
+];
+$response = $client->index($params);
+----

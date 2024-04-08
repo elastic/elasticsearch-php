@@ -1,0 +1,10 @@
+
+[[ElasticsearchPHP_Namespaces]]
+== Reference - Namespaces
+
+This is a complete list of available namespaces:
+
+* <<Elastic, Elastic>>
+* <<Elastic_Elasticsearch, Elastic\Elasticsearch>>
+include::Elastic.asciidoc[]
+include::Elastic/Elasticsearch.asciidoc[]

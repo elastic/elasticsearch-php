@@ -1,0 +1,28 @@
+// docs/reindex.asciidoc:1062
+
+[source, php]
+----
+$params = [
+    'body' => [
+
+{
+  "source": {
+    "remote": {
+      "host": "http://otherhost:9200",
+      ...
+    },
+    "index": "source",
+    "size": 10,
+    "query": {
+      "match": {
+        "test": "data"
+      }
+    }
+  },
+  "dest": {
+    "index": "dest"
+  }
+}    ],
+];
+$response = $client->reindex($params);
+----

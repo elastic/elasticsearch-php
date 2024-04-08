@@ -1,0 +1,6 @@
+// cluster/get-settings.asciidoc:10
+
+[source, php]
+----
+$response = $client->cluster()->getSettings();
+----

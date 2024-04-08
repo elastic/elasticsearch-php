@@ -1,0 +1,15 @@
+// indices/create-index.asciidoc:148
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'body' => [
+        'settings' => [
+            'number_of_shards' => 3,
+            'number_of_replicas' => 2,
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+----

@@ -1,0 +1,13 @@
+// cluster/allocation-explain.asciidoc:101
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'index' => 'my-index-000001',
+        'shard' => 0,
+        'primary' => true,
+    ],
+];
+$response = $client->cluster()->allocationExplain($params);
+----

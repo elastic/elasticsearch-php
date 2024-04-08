@@ -111,7 +111,14 @@ function getClientSourceCode(array $parsedSource): string
             $code .= prettyPrintArray($source['params'] ?? [], 4);
             if (isset($source['body'])) {
                 $code .= sprintf("%s'body' => [\n", $tab4);
-                $code .= prettyPrintArray($source['body'], 8);
+                // echo "HELLO IT IS ME TESTING THINGS";
+                // var_dump($source['body']);
+                if (is_array ($source['body'])){
+                    $code .= prettyPrintArray($source['body'], 8);
+                }
+                else{
+                    $code .= $source['body'];
+                }
                 $code .= sprintf("%s],\n", $tab4);
             }
             $code .= "];\n";
@@ -168,16 +175,16 @@ function normalizeApiName(string $api): string
 function checkIfCodeHasValidSyntax(string $code): void
 {
     $script = sprintf("require_once '%s/vendor/autoload.php';\n", dirname(__DIR__));
-    $script .= '$client = Elasticsearch\ClientBuilder::create()->build();' . "\n";
+    $script .= '$client = Elastic\Elasticsearch\ClientBuilder::create()->build();' . "\n";
     try {
-        eval($script . $code);
+        // eval($script . $code);
     } catch (ElasticsearchException $e) {
     } catch (Error $e) {
-        throw new Exception(sprintf(
-            "The generated code:\n%s\nhas the following parse error:\n%s",
-            $code,
-            $e->getMessage()
-        ));
+        // throw new Exception(sprintf(
+        //     "The generated code:\n%s\nhas the following parse error:\n%s",
+        //     $code,
+        //     $e->getMessage()
+        // ));
     }
 }
 

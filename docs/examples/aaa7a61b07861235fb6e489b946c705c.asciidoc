@@ -1,0 +1,15 @@
+// docs/index_.asciidoc:487
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'id' => '1',
+    'body' => [
+        'user' => [
+            'id' => 'elkbee',
+        ],
+    ],
+];
+$response = $client->index($params);
+----

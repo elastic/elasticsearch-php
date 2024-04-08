@@ -1,0 +1,20 @@
+// indices/put-mapping.asciidoc:177
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'body' => [
+        'properties' => [
+            'name' => [
+                'properties' => [
+                    'last' => [
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->putMapping($params);
+----

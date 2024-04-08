@@ -1,0 +1,21 @@
+// docs/reindex.asciidoc:909
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'source' => [
+            'index' => 'my-index-000001',
+        ],
+        'dest' => [
+            'index' => 'my-new-index-000001',
+            'version_type' => 'external',
+        ],
+        'script' => [
+            'source' => 'if (ctx._source.foo == \'bar\') {ctx._version++; ctx._source.remove(\'foo\')}',
+            'lang' => 'painless',
+        ],
+    ],
+];
+$response = $client->reindex($params);
+----

@@ -1,0 +1,9 @@
+// docs/reindex.asciidoc:310
+
+[source, php]
+----
+$params = [
+    'index' => 'my-new-index-000001',
+];
+$response = $client->search($params);
+----

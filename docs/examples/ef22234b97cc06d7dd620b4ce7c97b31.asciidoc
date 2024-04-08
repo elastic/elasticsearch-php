@@ -1,0 +1,17 @@
+// docs/reindex.asciidoc:694
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'max_docs' => 1,
+        'source' => [
+            'index' => 'my-index-000001',
+        ],
+        'dest' => [
+            'index' => 'my-new-index-000001',
+        ],
+    ],
+];
+$response = $client->reindex($params);
+----

@@ -1,0 +1,9 @@
+// indices/delete-index.asciidoc:10
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+];
+$response = $client->indices()->delete($params);
+----

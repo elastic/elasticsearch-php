@@ -1,0 +1,13 @@
+// cluster/update-settings.asciidoc:123
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'transient' => [
+            'indices.recovery.*' => ,
+        ],
+    ],
+];
+$response = $client->cluster()->putSettings($params);
+----

@@ -1,0 +1,17 @@
+// docs/index_.asciidoc:594
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index-000001',
+    'id' => '1',
+    'body' => [
+        '@timestamp' => '2099-11-15T13:12:00',
+        'message' => 'GET /search HTTP/1.1 200 1070000',
+        'user' => [
+            'id' => 'kimchy',
+        ],
+    ],
+];
+$response = $client->index($params);
+----

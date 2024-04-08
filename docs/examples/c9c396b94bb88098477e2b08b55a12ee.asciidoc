@@ -1,0 +1,54 @@
+// docs/bulk.asciidoc:766
+
+[source, php]
+----
+$params = [
+    'index' => 'my-index',
+    'body' => [
+        'mappings' => [
+            'dynamic_templates' => [
+                [
+                    'geo_point' => [
+                        'mapping' => [
+                            'type' => 'geo_point',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+$response = $client->indices()->create($params);
+$params = [
+    'body' => [
+        [
+            'index' => [
+                '_index' => 'my_index',
+                '_id' => '1',
+                'dynamic_templates' => [
+                    'work_location' => 'geo_point',
+                ],
+            ],
+        ],
+        [
+            'field' => 'value1',
+            'work_location' => '41.12,-71.34',
+            'raw_location' => '41.12,-71.34',
+        ],
+        [
+            'create' => [
+                '_index' => 'my_index',
+                '_id' => '2',
+                'dynamic_templates' => [
+                    'home_location' => 'geo_point',
+                ],
+            ],
+        ],
+        [
+            'field' => 'value2',
+            'home_location' => '41.12,-71.34',
+        ],
+    ],
+];
+$response = $client->bulk($params);
+----

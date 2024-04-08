@@ -1,0 +1,146 @@
+
+
+[[Elastic_Elasticsearch_Client]]
+=== Elastic\Elasticsearch\Client
+
+
+
+
+*Methods*
+
+The class defines the following methods:
+
+* <<Elastic_Elasticsearch_ClientgetTransport_getTransport,`getTransport()`>>
+* <<Elastic_Elasticsearch_ClientgetLogger_getLogger,`getLogger()`>>
+* <<Elastic_Elasticsearch_ClientdefaultTransportSettings_defaultTransportSettings,`defaultTransportSettings()`>>
+* <<Elastic_Elasticsearch_ClientsetAsync_setAsync,`setAsync()`>>
+* <<Elastic_Elasticsearch_ClientgetAsync_getAsync,`getAsync()`>>
+* <<Elastic_Elasticsearch_ClientsetElasticMetaHeader_setElasticMetaHeader,`setElasticMetaHeader()`>>
+* <<Elastic_Elasticsearch_ClientgetElasticMetaHeader_getElasticMetaHeader,`getElasticMetaHeader()`>>
+* <<Elastic_Elasticsearch_ClientsetResponseException_setResponseException,`setResponseException()`>>
+* <<Elastic_Elasticsearch_ClientgetResponseException_getResponseException,`getResponseException()`>>
+* <<Elastic_Elasticsearch_ClientsendRequest_sendRequest,`sendRequest()`>>
+
+
+
+
+[[Elastic_Elasticsearch_ClientgetTransport_getTransport]]
+.`getTransport()`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientgetLogger_getLogger]]
+.`getLogger()`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientdefaultTransportSettings_defaultTransportSettings]]
+.`defaultTransportSettings(Elastic\Transport\Transport $transport)`
+****
+[source,php]
+----
+/*
+Set the default settings for Elasticsearch
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientsetAsync_setAsync]]
+.`setAsync(bool $async)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientgetAsync_getAsync]]
+.`getAsync()`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientsetElasticMetaHeader_setElasticMetaHeader]]
+.`setElasticMetaHeader(bool $active)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientgetElasticMetaHeader_getElasticMetaHeader]]
+.`getElasticMetaHeader()`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientsetResponseException_setResponseException]]
+.`setResponseException(bool $active)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientgetResponseException_getResponseException]]
+.`getResponseException()`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+
+
+[[Elastic_Elasticsearch_ClientsendRequest_sendRequest]]
+.`sendRequest(Psr\Http\Message\RequestInterface $request)`
+****
+[source,php]
+----
+/*
+*/
+----
+****
+
+

@@ -1,0 +1,21 @@
+// docs/reindex.asciidoc:668
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'source' => [
+            'index' => 'my-index-000001',
+            'query' => [
+                'term' => [
+                    'user.id' => 'kimchy',
+                ],
+            ],
+        ],
+        'dest' => [
+            'index' => 'my-new-index-000001',
+        ],
+    ],
+];
+$response = $client->reindex($params);
+----

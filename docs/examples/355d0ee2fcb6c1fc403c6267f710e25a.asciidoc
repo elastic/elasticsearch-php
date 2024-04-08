@@ -1,0 +1,19 @@
+// docs/reindex.asciidoc:716
+
+[source, php]
+----
+$params = [
+    'body' => [
+        'source' => [
+            'index' => [
+                'my-index-000001',
+                'my-index-000002',
+            ],
+        ],
+        'dest' => [
+            'index' => 'my-new-index-000002',
+        ],
+    ],
+];
+$response = $client->reindex($params);
+----

@@ -1,0 +1,12 @@
+
+[[ElasticsearchPHP_Endpoints]]
+== Reference - Endpoints
+
+This is a complete list of namespaces and their associated endpoints.
+
+NOTE: This is auto-generated documentation
+
+* <<Elastic_Elasticsearch_Client, Elastic\Elasticsearch\Client>>
+* <<Elastic_Elasticsearch_ClientBuilder, Elastic\Elasticsearch\ClientBuilder>>
+include::Elastic/Elasticsearch/Client.asciidoc[]
+include::Elastic/Elasticsearch/ClientBuilder.asciidoc[]

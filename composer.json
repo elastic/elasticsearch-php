@@ -26,8 +26,9 @@
     "symfony/finder": "~4.0",
     "nyholm/psr7": "^1.5",
     "php-http/mock-client": "^1.5",
-    "symfony/http-client": "^5.0|^6.0",
-    "psr/http-factory" : "^1.0"
+    "symfony/http-client": "^5.0|^6.0|^7.0",
+    "psr/http-factory" : "^1.0",
+    "php-http/message-factory" : "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -51,7 +52,7 @@
       "vendor/bin/phpunit --testdox -c phpunit-integration-cloud-tests.xml"
     ],
     "phpstan": [
-      "phpstan analyse src --level 2 --no-progress"
+      "phpstan analyse src --level 2 --no-progress --memory-limit 256M"
     ]
   },
   "config": {

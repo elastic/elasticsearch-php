@@ -35,8 +35,8 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     task_type: string, // (REQUIRED) The model task type
-	 *     model_id: string, // (REQUIRED) The model Id
+	 *     inference_id: string, // (REQUIRED) The model Id
+	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -53,10 +53,14 @@ class Inference extends AbstractEndpoint
 	 */
 	public function deleteModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_type','model_id'], $params);
-		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
-		$method = 'DELETE';
-
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
+			$method = 'DELETE';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'DELETE';
+		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
@@ -72,8 +76,8 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     task_type: string, // (REQUIRED) The model task type
-	 *     model_id: string, // (REQUIRED) The model Id
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -90,10 +94,14 @@ class Inference extends AbstractEndpoint
 	 */
 	public function getModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_type','model_id'], $params);
-		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
-		$method = 'GET';
-
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
+			$method = 'GET';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'GET';
+		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
@@ -109,8 +117,8 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     task_type: string, // (REQUIRED) The model task type
-	 *     model_id: string, // (REQUIRED) The model Id
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -128,10 +136,14 @@ class Inference extends AbstractEndpoint
 	 */
 	public function inference(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_type','model_id'], $params);
-		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
-		$method = 'POST';
-
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
+			$method = 'POST';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'POST';
+		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
@@ -148,8 +160,8 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     task_type: string, // (REQUIRED) The model task type
-	 *     model_id: string, // (REQUIRED) The model Id
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -167,10 +179,14 @@ class Inference extends AbstractEndpoint
 	 */
 	public function putModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['task_type','model_id'], $params);
-		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['model_id']);
-		$method = 'PUT';
-
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
+			$method = 'PUT';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'PUT';
+		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',

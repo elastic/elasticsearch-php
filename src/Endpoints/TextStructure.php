@@ -76,4 +76,40 @@ class TextStructure extends AbstractEndpoint
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}
+
+
+	/**
+	 * Tests a Grok pattern on some text.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html
+	 *
+	 * @param array{
+	 *     ecs_compatibility: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The Grok pattern and text.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function testGrokPattern(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_text_structure/test_grok_pattern';
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		$url = $this->addQueryString($url, $params, ['ecs_compatibility','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
 }

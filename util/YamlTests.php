@@ -39,7 +39,8 @@ class YamlTests
         'free/cluster.desired_nodes/20_dry_run.yml',
         'free/health/',
         'free/cluster.desired_balance/10_basic.yml',
-        'free/cluster.prevalidate_node_removal/10_basic.yml'
+        'free/cluster.prevalidate_node_removal/10_basic.yml',
+        'free/cluster.desired_nodes/11_old_format.yml'
     ];
 
     const SKIPPED_TEST_OSS = [
@@ -55,6 +56,7 @@ class YamlTests
         'Indices\GetIndexTemplate\_10_BasicTest::*' => 'Bool mismatch',
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
+        'Indices\ResolveCluster\_10_Basic_Resolve_ClusterTest::TestResolveClusterOptionalParamsAreAccepted' => 'Bool mismatch',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
         'Search\Vectors\_90_Sparse_VectorTest::SparseVectorIn800X8110' => 'Undefined array key error',
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
@@ -66,6 +68,7 @@ class YamlTests
         'ApiKey\_10_BasicTest::TestGetApiKey' => 'Mismatch values',
         'ApiKey\_20_QueryTest::TestQueryApiKey' => 'Mismatch values',
         'DataStream\_80_Resolve_Index_Data_StreamsTest::*' => 'Skipped all tests',
+        'Dlm\_10_UsageTest::TestDataStreamLifecycleUsageStats' => 'Mismatch values',
         'Esql\_30_TypesTest::Unsigned_long' => 'Format number issue',
         'Health\_10_UsageTest::UsageStatsOnTheHealthAPI' => 'Undefined array key \"green\"',
         'License\_20_Put_LicenseTest::*' => 'License issue',
@@ -105,6 +108,7 @@ class YamlTests
         'Token\_10_BasicTest::TestInvalidateRealmsTokens' => 'Mismatch values',
         'Transform\_Transforms_CrudTest::TestDeleteTransformWhenItDoesNotExist' => 'Invalid version format: TRANSFORM HTTP/1.1',
         'UnsignedLong\*' => 'Skipped all tests',
+        'Users\_40_QueryTest::TestQueryUser' => 'Mismatch values',
         'Vectors\_30_Sparse_Vector_BasicTest::DeprecatedFunctionSignature' => 'Failed asserting contains string',
     ];
 

@@ -28,7 +28,7 @@ use Psr\Log\LoggerInterface;
 final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
-    const VERSION = '8.12.0';
+    const VERSION = '8.13.0';
     const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=8';
     
     use ClientEndpointsTrait;

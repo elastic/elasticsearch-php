@@ -1,7 +1,8 @@
 [[release-notes]]
 == Release notes
 
-* <<rn-8-11-0>>
+* <<rn-8-13-0>>
+* <<rn-8-12-0>>
 * <<rn-8-11-0>>
 * <<rn-8-10-0>>
 * <<rn-8-9-0>>
@@ -45,10 +46,19 @@
 * <<rn-7-0-0>>
 
 [discrete]
+[[rn-8-13-0]]
+=== 8.13.0
+
+* Updated the API endpoints to Elasticserach 8.13.0
+* Added the Added the mapTo($class) function to Elasticsearch response for mapping the result
+  of https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html[ES|QL]
+  query to an object of stdClass or a specific class https://github.com/elastic/elasticsearch-php/issues/1398[#1398]
+
+[discrete]
 [[rn-8-12-0]]
 === 8.12.0
 
-* Updated the API endpoints to Elasticserach 8.11.0
+* Updated the API endpoints to Elasticserach 8.12.0
 * Tested the library with PHP 8.3
 
 [discrete]

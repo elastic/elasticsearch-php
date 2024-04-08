@@ -1,3 +1,86 @@
+## Release 8.13.0
+
+- Added the `mapTo($class)` function to Elasticsearch response for mapping the result
+ of [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html)
+ query to an object of stdClass or of a specific class
+ [#1398](https://github.com/elastic/elasticsearch-php/issues/1398)
+
+This release introduces 6 new APIs and 6 EXPERIMENTAL APIs.
+
+- Specific changes per endpoints
+  - `AsyncSearch.status`
+    - Added the `keep_alive` parameter (time), specify the time interval in which the results (partial or final) for this search will be available.
+  - `Connector.list`
+    - Added the following parameters:
+      - `index_name`: list, a comma-separated list of connector index names to fetch connector documents for;
+      - `connector_name`: list, a comma-separated list of connector names to fetch connector documents for;
+      - `service_type`: list, a comma-separated list of connector service types to fetch connector documents for;
+      - `query`: string, a search string for querying connectors, filtering results by matching against connector names, descriptions, and index names;
+  - `Connector.updateApiKeyId` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_api_key_id.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-api-key-id-api.html
+  - `Connector.updateIndexName` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_index_name.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-index-name-api.html
+  - `Connector.updateNative` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_native.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/connector-apis.html
+  - `Connector.updateServiceType` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_service_type.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-service-type-api.html
+  - `Connector.updateStatus` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/connector.update_status.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-status-api.html
+  - `ConnectorSyncJob.list`
+    - Added the `job_type` parameter (list), a comma-separated list of job types.
+  - `Esql.asyncQuery` (new EXPERIMENTAL API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/esql.async_query.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html
+  - `Esql.asyncQueryGet` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/esql.async_query_get.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html
+  - `Esql.query`
+    - Added the `drop_null_columns` parameter (boolean) to sepcify if null columns should be removed from the results. If yes, their name and type will be returned in a new `all_columns` section.
+  - `Indices.resolveCluster` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/get_script.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html
+  - `Indices.rollover`
+    - Added the `lazy` parameter (boolean), if set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
+  - `Inference.deleteModel`
+    - The `model_id` parameter has been renamed to `inference_id`.
+  - `Inference.getModel`
+    - The `model_id` parameter has been renamed in `inference_id`.
+  - `Inference.inference`
+    - The `model_id` parameter has been renamed in `inference_id`.
+  - `Inference.putModel`
+    - The `model_id` parameter has been renamed in `inference_id`.
+  - `Profiling.flamegraph` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/profiling.flamegraph.json
+    - Documentation: https://www.elastic.co/guide/en/observability/current/universal-profiling.html
+  - `Profiling.stacktraces` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/profiling.stacktraces.json
+    - Documentation: https://www.elastic.co/guide/en/observability/current/universal-profiling.html
+  - `Security.queryUser` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/security.query_user.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
+  - `Synonyms.deleteSynonym`
+    - This API is now stable.
+  - `Synonyms.deleteSynonymRule`
+    - This API is now stable.
+  - `Synonyms.getSynonym`
+    - This API is now stable.
+  - `Synonyms.getSynonymRule`
+    - This API is now stable.
+  - `Synonyms.getSynonymsSets`
+    - This API is now stable.
+  - `Synonyms.putSynonym`
+    - This API is now stable.
+  - `Synonyms.putSynonymRule`
+    - This API is now stable.
+  - `TextStructure.testGrokPattern` (new API)
+    - API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/text_structure.test_grok_pattern.json
+    - Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html
+
 ## Release 8.12.0
 
 - Added 22 new EXPERIMENTAL APIs and 1 new stable API:

@@ -45,6 +45,7 @@ trait ClientEndpointsTrait
 	 *     _source_includes: list, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
 	 *     require_alias: boolean, // Sets require_alias for all incoming documents. Defaults to unset (false)
+	 *     require_data_stream: boolean, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
 	 *     list_executed_pipelines: boolean, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -70,7 +71,7 @@ trait ClientEndpointsTrait
 			$url = '/_bulk';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias','list_executed_pipelines','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','type','_source','_source_excludes','_source_includes','pipeline','require_alias','require_data_stream','list_executed_pipelines','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
@@ -590,6 +591,7 @@ trait ClientEndpointsTrait
 	 *     include_unmapped: boolean, // Indicates whether unmapped fields should be included in the response.
 	 *     filters: list, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
 	 *     types: list, // Only return results for fields that have one of the types in the list
+	 *     include_empty_fields: boolean, // Include empty fields in result
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -613,7 +615,7 @@ trait ClientEndpointsTrait
 			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','filters','types','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','filters','types','include_empty_fields','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -873,6 +875,7 @@ trait ClientEndpointsTrait
 	 *     if_primary_term: number, // only perform the index operation if the last operation that has changed the document has the specified primary term
 	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
 	 *     require_alias: boolean, // When true, requires destination to be an alias. Default is false
+	 *     require_data_stream: boolean, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -898,7 +901,7 @@ trait ClientEndpointsTrait
 			$url = '/' . $this->encode($params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

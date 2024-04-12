@@ -123,6 +123,7 @@ class SearchResponseIterator implements Iterator
      * @return void
      * @see    Iterator::rewind()
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->clearScroll();
@@ -137,6 +138,7 @@ class SearchResponseIterator implements Iterator
      * @return void
      * @see    Iterator::next()
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $this->current_scrolled_response = $this->client->scroll([
@@ -153,6 +155,7 @@ class SearchResponseIterator implements Iterator
      * @return bool
      * @see    Iterator::valid()
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return isset($this->current_scrolled_response['hits']['hits'][0]);
@@ -164,6 +167,7 @@ class SearchResponseIterator implements Iterator
      * @return array
      * @see    Iterator::current()
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->current_scrolled_response;
@@ -175,6 +179,7 @@ class SearchResponseIterator implements Iterator
      * @return int
      * @see    Iterator::key()
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->current_key;

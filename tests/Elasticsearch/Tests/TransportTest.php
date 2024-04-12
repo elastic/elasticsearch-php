@@ -29,6 +29,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use React\Promise\Deferred;
 
+#[\AllowDynamicProperties]
 class TransportTest extends TestCase
 {
     public function setUp(): void

@@ -26,6 +26,7 @@ use Mockery;
  * Class SearchResponseIteratorTest
  *
  */
+#[\AllowDynamicProperties]
 class SearchHitIteratorTest extends \PHPUnit\Framework\TestCase
 {
 

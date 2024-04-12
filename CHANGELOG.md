@@ -1,3 +1,9 @@
+## Release 6.8.3
+
+- Allow PSR/2 [#1154](https://github.com/elastic/elasticsearch-php/pull/1154)
+- Fixed PHP 8 deprecation notice [3d2d852](https://github.com/elastic/elasticsearch-php/commit/3d2d8527f74a05f08bcbfdc3d8da897b9d4e412e)
+
+
 ## Release 6.8.2
 
 - Fix #1131 class naming for some endpoints used in `elasticsearch-php` < 6.8.

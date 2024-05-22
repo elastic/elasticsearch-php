@@ -22,9 +22,7 @@ include::configuration.asciidoc[]
 
 include::operations.asciidoc[]
 
-include::helpers.asciidoc[]
-
-include::esql.asciidoc[]
+include::helpers/index.asciidoc[]
 
 include::release-notes.asciidoc[]
 

@@ -1,7 +1,7 @@
 [[esql]]
-== ES|QL in the PHP client
+=== ES|QL in the PHP client
 ++++
-<titleabbrev>Using ES|QL</titleabbrev>
+<titleabbrev>ES|QL</titleabbrev>
 ++++
 
 This page helps you understand and use {ref}/esql.html[ES|QL] in the

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Updating documents | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Updating documents | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="operations.html" title="Operations"/>
+<link rel="prev" href="getting_documents.html" title="Getting documents"/>
+<link rel="next" href="deleting_documents.html" title="Deleting documents"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="operations.html">Operations</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="getting_documents.html">« Getting documents</a>
+</span>
+<span class="next">
+<a href="deleting_documents.html">Deleting documents »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title"><a id="updating_documents"></a>Updating documents<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/crud.asciidoc">edit</a></h2>
+</div></div></div>
+<p>Updating a document allows you to either completely replace the contents of the
+existing document, or perform a partial update to just some fields (either
+changing an existing field or adding new fields).</p>
+<h4><a id="_partial_document_update"></a>Partial document update<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/crud.asciidoc">edit</a></h4>
+<p>If you want to partially update a document (for example, change an existing
+field or add a new one) you can do so by specifying the <code class="literal">doc</code> in the <code class="literal">body</code>
+parameter. This merges the fields in <code class="literal">doc</code> with the existing document.</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">$params = [
+    'index' =&gt; 'my_index',
+    'id'    =&gt; 'my_id',
+    'body'  =&gt; [
+        'doc' =&gt; [
+            'new_field' =&gt; 'abc'
+        ]
+    ]
+];
+
+// Update doc at /my_index/_doc/my_id
+$response = $client-&gt;update($params);</pre>
+</div>
+<p>&#8203;<br></p>
+<h4><a id="_scripted_document_update"></a>Scripted document update<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/crud.asciidoc">edit</a></h4>
+<p>Sometimes you need to perform a scripted update, such as incrementing a counter
+or appending a new value to an array. To perform a scripted update, you need to
+provide a script and usually a set of parameters:</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">$params = [
+    'index' =&gt; 'my_index',
+    'id'    =&gt; 'my_id',
+    'body'  =&gt; [
+        'script' =&gt; 'ctx._source.counter += count',
+        'params' =&gt; [
+            'count' =&gt; 4
+        ]
+    ]
+];
+
+$response = $client-&gt;update($params);</pre>
+</div>
+<p>&#8203;<br></p>
+<h4><a id="_upserts"></a>Upserts<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/crud.asciidoc">edit</a></h4>
+<p>Upserts are "Update or Insert" operations. This means an upsert attempts to run
+your update script, but if the document does not exist (or the field you are
+trying to update doesn&#8217;t exist), default values are inserted instead.</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">$params = [
+    'index' =&gt; 'my_index',
+    'id'    =&gt; 'my_id',
+    'body'  =&gt; [
+        'script' =&gt; [
+            'source' =&gt; 'ctx._source.counter += params.count',
+            'params' =&gt; [
+                'count' =&gt; 4
+            ],
+        ],
+        'upsert' =&gt; [
+            'counter' =&gt; 1
+        ],
+    ]
+];
+
+$response = $client-&gt;update($params);</pre>
+</div>
+<p>&#8203;<br></p>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="getting_documents.html">« Getting documents</a>
+</span>
+<span class="next">
+<a href="deleting_documents.html">Deleting documents »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

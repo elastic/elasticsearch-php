@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Enabling the Logger | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Enabling the Logger | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="configuration.html" title="Configuration"/>
+<link rel="prev" href="http-meta-data.html" title="HTTP Meta Data"/>
+<link rel="next" href="http-client.html" title="Configure the HTTP client"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="configuration.html">Configuration</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="http-meta-data.html">« HTTP Meta Data</a>
+</span>
+<span class="next">
+<a href="http-client.html">Configure the HTTP client »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title"><a id="enabling_logger"></a>Enabling the Logger<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/logger.asciidoc">edit</a></h2>
+</div></div></div>
+<p>Elasticsearch-PHP supports logging, but it is not enabled by default for
+performance reasons. If you wish to enable logging, you need to select a logging
+implementation, install it, then enable the logger in the Client. The
+recommended logger is <a href="https://github.com/Seldaek/monolog" class="ulink" target="_top">Monolog</a>, but any
+logger that implements the <a href="https://www.php-fig.org/psr/psr-3/" class="ulink" target="_top">PSR-3</a> interface works.</p>
+<p>To begin using Monolog, just require it using composer:</p>
+<div class="pre_wrapper lang-shell">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-shell">composer require monolog/monolog</pre>
+</div>
+<p>Once Monolog (or another logger) is installed, you need to create a log object
+and inject it into the client:</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$logger = new Logger('name');
+$logger-&gt;pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
+
+$client = ClientBuilder::create()
+    -&gt;setLogger($logger)        // Set your custom logger
+    -&gt;build();                  // Build the client object</pre>
+</div>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="http-meta-data.html">« HTTP Meta Data</a>
+</span>
+<span class="next">
+<a href="http-client.html">Configure the HTTP client »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

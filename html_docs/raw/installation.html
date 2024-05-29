@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Installation | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Installation | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="prev" href="getting-started-php.html" title="Getting started"/>
+<link rel="next" href="connecting.html" title="Connecting"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="getting-started-php.html">« Getting started</a>
+</span>
+<span class="next">
+<a href="connecting.html">Connecting »</a>
+</span>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div>
+<h1 class="title"><a id="installation"></a>Installation<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/installation.asciidoc">edit</a></h1>
+</div></div></div>
+<p>Elasticsearch-php can be used starting from PHP 7.4.
+To install the library you need to use <a href="http://getcomposer.org" class="ulink" target="_top">composer</a> with the
+following command:</p>
+<div class="pre_wrapper lang-shell">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-shell">composer require elasticsearch/elasticsearch</pre>
+</div>
+<p>If you don&#8217;t have composer you can install it as follows:</p>
+<div class="pre_wrapper lang-shell">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-shell">curl -s http://getcomposer.org/installer | php
+php composer.phar install</pre>
+</div>
+<p>More information about
+<a href="https://getcomposer.org/" class="ulink" target="_top">Composer can be found at their website</a>.</p>
+<p>When you have installed elasticsearch-php you can start using it
+with the <code class="literal">Client</code> class. You can use the <code class="literal">ClientBuilder</code> class to
+create this object, as follows:</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">require 'vendor/autoload.php';
+
+$client = Elastic\Elasticsearch\ClientBuilder::create()-&gt;build();</pre>
+</div>
+<p>+
+Client instantiation is performed with a static helper function <code class="literal">create()</code>. This
+creates a ClientBuilder object, which helps you to set custom configurations.
+When you are done configuring, call the <code class="literal">build()</code> method to generate a <code class="literal">Client</code>
+object. For further info, consult the <a class="xref" href="configuration.html" title="Configuration"><em>Configuration</em></a> section.</p>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="getting-started-php.html">« Getting started</a>
+</span>
+<span class="next">
+<a href="connecting.html">Connecting »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

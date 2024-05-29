@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Release notes | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Release notes | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="prev" href="esql.html" title="ES|QL in the PHP client"/>
+<link rel="next" href="redirects.html" title="Appendix A: Deleted pages"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="esql.html">« ES|QL in the PHP client</a>
+</span>
+<span class="next">
+<a href="redirects.html">Appendix A: Deleted pages »</a>
+</span>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div>
+<h1 class="title"><a id="release-notes"></a>Release notes<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h1>
+</div></div></div>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-13-0" title="8.13.0">8.13.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-12-0" title="8.12.0">8.12.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-11-0" title="8.11.0">8.11.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-10-0" title="8.10.0">8.10.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-9-0" title="8.9.0">8.9.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-8-0" title="8.8.0">8.8.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-7-0" title="8.7.0">8.7.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-6-1" title="8.6.1">8.6.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-5-0" title="8.5.0">8.5.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-4-0" title="8.4.0">8.4.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-3-0" title="8.3.0">8.3.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-2-0" title="8.2.0">8.2.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-1-0" title="8.1.0">8.1.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-0-1" title="8.0.1">8.0.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-8-0-0" title="8.0.0">8.0.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-17-0" title="7.17.0">7.17.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-16-0" title="7.16.0">7.16.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-15-0" title="7.15.0">7.15.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-14-0" title="7.14.0">7.14.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-13-1" title="7.13.1">7.13.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-13-0" title="7.13.0">7.13.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-12-0" title="7.12.0">7.12.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-11-0" title="7.11.0">7.11.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-10-0" title="7.10.0">7.10.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-9-1" title="7.9.1">7.9.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-9-0" title="7.9.0">7.9.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-8-0" title="7.8.0">7.8.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-7-0" title="7.7.0">7.7.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-6-1" title="7.6.1">7.6.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-6-0" title="7.6.0">7.6.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-5-1" title="7.5.1">7.5.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-5-0" title="7.5.0">7.5.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-4-1" title="7.4.1">7.4.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-4-0" title="7.4.0">7.4.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-3-0" title="7.3.0">7.3.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-2-2" title="7.2.2">7.2.2</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-2-1" title="7.2.1">7.2.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-2-0" title="7.2.0">7.2.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-1-1" title="7.1.1">7.1.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-1-0" title="7.1.0">7.1.0</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-0-2" title="7.0.2">7.0.2</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-0-1" title="7.0.1">7.0.1</a>
+</li>
+<li class="listitem">
+<a class="xref" href="release-notes.html#rn-7-0-0" title="7.0.0">7.0.0</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-13-0"></a>8.13.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.13.0
+</li>
+<li class="listitem">
+Added the Added the mapTo($class) function to Elasticsearch response for mapping the result
+of <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html" class="ulink" target="_top">ES|QL</a>
+query to an object of stdClass or a specific class <a href="https://github.com/elastic/elasticsearch-php/issues/1398" class="ulink" target="_top">#1398</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-12-0"></a>8.12.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.12.0
+</li>
+<li class="listitem">
+Tested the library with PHP 8.3
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-11-0"></a>8.11.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.11.0
+</li>
+<li class="listitem">
+Fixed path in hosts configuration is ignored
+<a href="https://github.com/elastic/elasticsearch-php/issues/1377" class="ulink" target="_top">#1377</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-10-0"></a>8.10.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.10.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-9-0"></a>8.9.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.9.0
+</li>
+<li class="listitem">
+Fixed issue with psr/http-message, changed PSR-7 versions to 1.1 and 2.0
+<a href="https://github.com/elastic/elasticsearch-php/pull/1344" class="ulink" target="_top">#1344</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-8-0"></a>8.8.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.8.0
+</li>
+<li class="listitem">
+Added SearchHitIterators and SearchResponseIterator helpers revised with new version
+<a href="https://github.com/elastic/elasticsearch-php/pull/1302" class="ulink" target="_top">#1302</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-7-0"></a>8.7.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.7.0
+</li>
+<li class="listitem">
+Allow plugin for <code class="literal">php-http/discovery</code> library
+<a href="https://github.com/elastic/elasticsearch-php/pull/1294" class="ulink" target="_top">#1294</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-6-1"></a>8.6.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.6.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-5-0"></a>8.5.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.5.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-4-0"></a>8.4.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added a <code class="literal">ClientInterface</code> to simplify the mock of the Client,
+this is a fix for <a href="https://github.com/elastic/elasticsearch-php/issues/1227" class="ulink" target="_top">#1227</a>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1249" class="ulink" target="_top">#1249</a>
+</li>
+<li class="listitem">
+Added the support of Symfony HTTP client, fixing the issue <a href="https://github.com/elastic/elasticsearch-php/issues/1241" class="ulink" target="_top">#1241</a>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1243" class="ulink" target="_top">#1243</a>
+</li>
+<li class="listitem">
+Added the API compatibility header
+<a href="https://github.com/elastic/elasticsearch-php/pull/1233" class="ulink" target="_top">#1233</a>
+</li>
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.4.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-3-0"></a>8.3.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.3.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-2-0"></a>8.2.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.2.0
+</li>
+<li class="listitem">
+Added the array support for <code class="literal">text/plain</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1220" class="ulink" target="_top">#1220</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-1-0"></a>8.1.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints to Elasticserach 8.1.0
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-0-1"></a>8.0.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+use of <code class="literal">NoNodeAvailableException</code> exception in endpoints, fixing
+<a href="https://github.com/elastic/elasticsearch-php/issues/1209" class="ulink" target="_top">#1209</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-8-0-0"></a>8.0.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<p>This new major version of elasticsearch-php contains a brand new implementation
+compared with 7.x. It supports <a href="https://www.php-fig.org/psr/psr-7/" class="ulink" target="_top">PSR-7</a> for HTTP
+messages and <a href="https://www.php-fig.org/psr/psr-18/" class="ulink" target="_top">PSR-18</a> for HTTP client
+communications. We used the <a href="https://github.com/elastic/elastic-transport-php" class="ulink" target="_top">elastic-transport-php</a>
+library for HTTP communications.</p>
+<p>We tried to reduce the BC breaks as much as possible with 7.x but there are some
+(big) differences:</p>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+we changed the namespace, now everything is under <code class="literal">Elastic\Elasticsearch</code>;
+</li>
+<li class="listitem">
+we changed the Exception model, using the namespace <code class="literal">Elastic\Elasticsearch\Exception</code>.
+All the exceptions extends the <code class="literal">ElasticsearchException</code> interface, as in 7.x;
+</li>
+<li class="listitem">
+we changed the response type of each endpoints using an Elasticsearch response class.
+This class wraps a a PSR-7 response allowing the access of the body response
+as array or object. This means you can access the API response as in 7.x, no BC break here!
+</li>
+</ul>
+</div>
+<p>You can have a look at the <a href="https://github.com/elastic/elasticsearch-php/blob/8.0/BREAKING_CHANGES.md" class="ulink" target="_top">BREAKING_CHANGES</a>
+online document for more information.</p>
+<h3><a id="rn-7-17-0"></a>7.17.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Allow psr/log v3
+<a href="https://github.com/elastic/elasticsearch-php/pull/1184" class="ulink" target="_top">#1184</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-16-0"></a>7.16.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added support of includePortInHostHeader in ClientBuilder::fromConfig
+<a href="https://github.com/elastic/elasticsearch-php/pull/1181" class="ulink" target="_top">#1181</a>
+</li>
+<li class="listitem">
+Fixed UTF-16 issue in SmartSerializer with single unpaired surrogate in unicode escape
+<a href="https://github.com/elastic/elasticsearch-php/pull/1179" class="ulink" target="_top">#1179</a>
+</li>
+<li class="listitem">
+Replace trait with abstract class to avoid Deprecated Functionality issue in PHP 8.1
+<a href="https://github.com/elastic/elasticsearch-php/pull/1175" class="ulink" target="_top">#1175</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-15-0"></a>7.15.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated endpoints for Elasticsearch 7.15.0
+<a href="https://github.com/elastic/elasticsearch-php/commit/995f6d4bde7de76004e95d7a434b1d59da7a7e75" class="ulink" target="_top">995f6d4</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-14-0"></a>7.14.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Usage of psr/log version 2
+<a href="https://github.com/elastic/elasticsearch-php/pull/1154" class="ulink" target="_top">#1154</a>
+</li>
+<li class="listitem">
+Update search iterators to send <code class="literal">scroll_id</code> inside the request body
+<a href="https://github.com/elastic/elasticsearch-php/pull/1134" class="ulink" target="_top">#1134</a>
+</li>
+<li class="listitem">
+Added the <code class="literal">ingest.geoip.downloader.enabled=false</code> setting for ES
+<a href="https://github.com/elastic/elasticsearch-php/commit/586735109dc18f22bfdf3b73ab0621b37e857be1" class="ulink" target="_top">5867351</a>
+</li>
+<li class="listitem">
+Removed phpcs for autogenerated files (endpoints)
+<a href="https://github.com/elastic/elasticsearch-php/commit/651c57b2e6bf98a0fd48220949966e630e5a804a" class="ulink" target="_top">651c57b</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-13-1"></a>7.13.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added port in url for trace and logger messages
+<a href="https://github.com/elastic/elasticsearch-php/pull/1126" class="ulink" target="_top">#1126</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-13-0"></a>7.13.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+(DOCS) Added the HTTP meta data section
+<a href="https://github.com/elastic/elasticsearch-php/pull/1143" class="ulink" target="_top">#1143</a>
+</li>
+<li class="listitem">
+Added support for API Compatibility Header
+<a href="https://github.com/elastic/elasticsearch-php/pull/1142" class="ulink" target="_top">#1142</a>
+</li>
+<li class="listitem">
+(DOCS) Added Helpers section to PHP book
+<a href="https://github.com/elastic/elasticsearch-php/pull/1129" class="ulink" target="_top">#1129</a>
+</li>
+<li class="listitem">
+Added the API description in phpdoc section for each endpoint
+<a href="https://github.com/elastic/elasticsearch-php/commit/9e05c8108b638b60cc676b6a4f4be97c7df9eb64" class="ulink" target="_top">9e05c81</a>
+</li>
+<li class="listitem">
+Usage of PHPUnit 9 only + migrated xml configurations
+<a href="https://github.com/elastic/elasticsearch-php/commit/038b5dd043dc76b20b9f5f265ea914a38d33568d" class="ulink" target="_top">038b5dd</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-12-0"></a>7.12.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the endpoints for ES 7.12 + removed <code class="literal">cpliakas/git-wrapper</code> in favor of
+<code class="literal">symplify/git-wrapper</code>
+<a href="https://github.com/elastic/elasticsearch-php/commit/136d5b9717b3806c6b34ef8a5076bfe7cee8b46e" class="ulink" target="_top">136d5b9</a>
+</li>
+<li class="listitem">
+Fixed warning header as array in YAML tests generator
+<a href="https://github.com/elastic/elasticsearch-php/commit/0d81be131bfc7eff6ef82468e61c16077a892aab" class="ulink" target="_top">0d81be1</a>
+</li>
+<li class="listitem">
+Refactored TEST_SUITE with free, platinum + removed old YamlRunnerTest
+<a href="https://github.com/elastic/elasticsearch-php/commit/f69d96fc283580177002b4088c279c3d0c07befe" class="ulink" target="_top">f69d96f</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-11-0"></a>7.11.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added the <code class="literal">X-Elastic-Client-Meta</code> header which is used by Elastic Cloud and
+can be disabled with <code class="literal">ClientBuilder::setElasticMetaHeader(false)</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1089" class="ulink" target="_top">#1089</a>
+</li>
+<li class="listitem">
+Replaced <code class="literal">array_walk</code> with <code class="literal">array_map</code> in <code class="literal">Connection::getURI</code> for PHP 8
+compatibility
+<a href="https://github.com/elastic/elasticsearch-php/pull/1075" class="ulink" target="_top">#1075</a>
+</li>
+<li class="listitem">
+Remove unnecessary <code class="literal">InvalidArgumentExceptions</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1069" class="ulink" target="_top">#1069</a>
+</li>
+<li class="listitem">
+Introducing PHP 8 compatibility
+<a href="https://github.com/elastic/elasticsearch-php/pull/1063" class="ulink" target="_top">#1063</a>
+</li>
+<li class="listitem">
+Replace Sami by Doctum and fix <code class="literal">.gitignore</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1062" class="ulink" target="_top">#1062</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-10-0"></a>7.10.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated endpoints and namespaces for Elasticsearch 7.10
+<a href="https://github.com/elastic/elasticsearch-php/commit/3ceb7484a111aa20126168460c79f098c4fe0792" class="ulink" target="_top">3ceb748</a>
+</li>
+<li class="listitem">
+Fixed ClientBuilder::fromConfig allowing multiple function parameters (for
+example, <code class="literal">setApiKey</code>)
+<a href="https://github.com/elastic/elasticsearch-php/pull/1076" class="ulink" target="_top">#1076</a>
+</li>
+<li class="listitem">
+Refactored the YAML tests using generated PHPUnit code
+[85fadc2](<a href="https://github.com/elastic/elasticsearch-php/commit/85fadc2bd4b2b309b19761a50ff13010d43a524d" class="ulink" target="_top">https://github.com/elastic/elasticsearch-php/commit/85fadc2bd4b2b309b19761a50ff13010d43a524d</a>)
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-9-1"></a>7.9.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed using object instead of array in onFailure transport event
+<a href="https://github.com/elastic/elasticsearch-php/pull/1066" class="ulink" target="_top">#1066</a>
+</li>
+<li class="listitem">
+Fixed reset custom header after endpoint call
+<a href="https://github.com/elastic/elasticsearch-php/pull/1065" class="ulink" target="_top">#1065</a>
+</li>
+<li class="listitem">
+Show generic error messages when server returns no response
+<a href="https://github.com/elastic/elasticsearch-php/pull/1056" class="ulink" target="_top">#1056</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-9-0"></a>7.9.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated endpoints and namespaces for Elasticsearch 7.9
+<a href="https://github.com/elastic/elasticsearch-php/commit/28bf0ed6df6bc95f83f369509431d97907bfdeb0" class="ulink" target="_top">28bf0ed</a>
+</li>
+<li class="listitem">
+Moved <code class="literal">scroll_id</code> into <code class="literal">body</code> for search operations in the documentation
+<a href="https://github.com/elastic/elasticsearch-php/pull/1052" class="ulink" target="_top">#1052</a>
+</li>
+<li class="listitem">
+Fixed PHP 7.4 preloading feature for autoload.php
+<a href="https://github.com/elastic/elasticsearch-php/pull/1051" class="ulink" target="_top">#1051</a>
+</li>
+<li class="listitem">
+Improved message of JSON errors using <code class="literal">json_last_error_msg()</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1045" class="ulink" target="_top">#1045</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-8-0"></a>7.8.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated endpoints and namespaces for Elasticsearch 7.8
+<a href="https://github.com/elastic/elasticsearch-php/commit/f2a0828d5ee9d126ad63e2a1d43f70b4013845e2" class="ulink" target="_top">f2a0828</a>
+</li>
+<li class="listitem">
+Improved documentation
+<a href="https://github.com/elastic/elasticsearch-php/pull/1038" class="ulink" target="_top">#1038</a>,
+<a href="https://github.com/elastic/elasticsearch-php/pull/1027" class="ulink" target="_top">#1027</a>,
+<a href="https://github.com/elastic/elasticsearch-php/pull/1025" class="ulink" target="_top">#1025</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-7-0"></a>7.7.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Removed setId() into endpoints, fixed <code class="literal">util/GenerateEndpoints.php</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/1026" class="ulink" target="_top">#1026</a>
+</li>
+<li class="listitem">
+Fixes JsonErrorException with code instead of message
+<a href="https://github.com/elastic/elasticsearch-php/pull/1022" class="ulink" target="_top">#1022</a>
+</li>
+<li class="listitem">
+Better exception message for Could not parse URI
+<a href="https://github.com/elastic/elasticsearch-php/pull/1016" class="ulink" target="_top">#1016</a>
+</li>
+<li class="listitem">
+Added JUnit log for PHPUnit
+<a href="https://github.com/elastic/elasticsearch-php/commit/88b7e1ce80a5a52c1d64d00c55fef77097bbd8a9" class="ulink" target="_top">88b7e1c</a>
+</li>
+<li class="listitem">
+Added the XPack endpoints
+<a href="https://github.com/elastic/elasticsearch-php/commit/763d91a3d506075316b84a38b2bed7a098da5028" class="ulink" target="_top">763d91a</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-6-1"></a>7.6.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed issue with <code class="literal">guzzlehttp/ringphp</code> and <code class="literal">guzzle/streams</code> using forks
+<code class="literal">ezimuel/ringphp</code> and <code class="literal">ezimuel/guzzlestreams</code>
+<a href="https://github.com/elastic/elasticsearch-php/commit/92a6a4adda5eafd1823c7c9c386e2c7e5e75cd08" class="ulink" target="_top">92a6a4a</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-6-0"></a>7.6.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Generated the new endpoints for Elasticsearch 7.6.0
+<a href="https://github.com/elastic/elasticsearch-php/commit/be31f317af704f333b43bbcc7c01ddc7c91ec6f8" class="ulink" target="_top">be31f31</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-5-1"></a>7.5.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixes port missing in log <a href="https://github.com/elastic/elasticsearch-php/issues/925" class="ulink" target="_top">#925</a>
+<a href="https://github.com/elastic/elasticsearch-php/commit/125594b40d167ef1509b3ee49a3f93426390c426" class="ulink" target="_top">75e0888</a>
+</li>
+<li class="listitem">
+Added <code class="literal">ClientBuilder::includePortInHostHeader()</code> to add the <code class="literal">port</code> in the
+<code class="literal">Host</code> header. This fixes <a href="https://github.com/elastic/elasticsearch-php/issues/993" class="ulink" target="_top">#993</a>.
+By default the <code class="literal">port</code> is not included in the <code class="literal">Host</code> header.
+<a href="https://github.com/elastic/elasticsearch-php/pull/997" class="ulink" target="_top">#997</a>
+</li>
+<li class="listitem">
+Replace abandoned packages: ringphp, streams and phpstan-shim
+<a href="https://github.com/elastic/elasticsearch-php/pull/996" class="ulink" target="_top">#996</a>
+</li>
+<li class="listitem">
+Fixed gzip compression when setting Cloud Id
+<a href="https://github.com/elastic/elasticsearch-php/pull/986" class="ulink" target="_top">#986</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-5-0"></a>7.5.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed <code class="literal">Client::extractArgument</code> iterable casting to array; this allows passing
+a <code class="literal">Traversable</code> body for some endpoints (for example, Bulk, Msearch,
+MsearchTemplate)
+<a href="https://github.com/elastic/elasticsearch-php/pull/983" class="ulink" target="_top">#983</a>
+</li>
+<li class="listitem">
+Fixed the Response Exception if the <code class="literal">reason</code> field is null
+<a href="https://github.com/elastic/elasticsearch-php/pull/980" class="ulink" target="_top">#980</a>
+</li>
+<li class="listitem">
+Added support for PHP 7.4
+<a href="https://github.com/elastic/elasticsearch-php/pull/976" class="ulink" target="_top">#976</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-4-1"></a>7.4.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+We added the suppress operator <code class="literal">@</code> for the deprecation messages
+<code class="literal">@trigger_error()</code>. With this approach, we don&#8217;t break existing application
+that convert PHP errors in Exception (for example, using Laravel with issue
+<a href="https://github.com/babenkoivan/scout-elasticsearch-driver/issues/297" class="ulink" target="_top">297</a>)
+Using the <code class="literal">@</code> operator is still possible to intercept the deprecation message
+using a custom error handler.
+<a href="https://github.com/elastic/elasticsearch-php/pull/973" class="ulink" target="_top">#973</a>
+</li>
+<li class="listitem">
+Add missing leading slash in the URL of put mapping endpoint
+<a href="https://github.com/elastic/elasticsearch-php/pull/970" class="ulink" target="_top">#970</a>
+</li>
+<li class="listitem">
+Fix pre 7.2 endpoint class name with aliases + reapply fix #947. This PR
+solved the unexpected BC break introduce in 7.4.0 with the code
+generation tool
+<a href="https://github.com/elastic/elasticsearch-php/pull/968" class="ulink" target="_top">#968</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-4-0"></a>7.4.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added the code generation for endpoints and namespaces based on the
+<a href="https://github.com/elastic/elasticsearch/tree/v7.4.2/rest-api-spec/src/main/resources/rest-api-spec/api" class="ulink" target="_top">REST API specification</a>
+of Elasticsearch. This tool is available in <code class="literal">util/GenerateEndpoints.php</code>.
+<a href="https://github.com/elastic/elasticsearch-php/pull/966" class="ulink" target="_top">#966</a>
+</li>
+<li class="listitem">
+Fixed the asciidoc
+<a href="https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/ElasticsearchPHP_Endpoints.html" class="ulink" target="_top">endpoints documentation</a>
+based on the code generation using <a href="https://github.com/FriendsOfPHP/Sami" class="ulink" target="_top">Sami</a>
+project <a href="https://github.com/elastic/elasticsearch-php/pull/966" class="ulink" target="_top">#966</a>
+</li>
+<li class="listitem">
+All the <code class="literal">experimental</code> and <code class="literal">beta</code> APIs are now signed with a <code class="literal">@note</code> tag in
+the phpdoc section (for example,
+<a href="https://github.com/elastic/elasticsearch-php/blob/master/src/Elasticsearch/Client.php" class="ulink" target="_top">$client&#8594;rankEval()</a>).
+For more information read the
+<a href="https://www.elastic.co/guide/en/elasticsearch/client/php-api/master/experimental_and_beta_apis.html" class="ulink" target="_top">experimental and beta APIs</a>
+section in the documentation.
+<a href="https://github.com/elastic/elasticsearch-php/pull/966" class="ulink" target="_top">#966</a>
+</li>
+<li class="listitem">
+Removed <code class="literal">AlreadyExpiredException</code> since it has been removed
+from Elasticsearch with <a href="https://github.com/elastic/elasticsearch/pull/24857" class="ulink" target="_top">#24857</a>
+<a href="https://github.com/elastic/elasticsearch-php/pull/954" class="ulink" target="_top">#954</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-3-0"></a>7.3.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added support for simplified access to the <code class="literal">X-Opaque-Id</code> header
+<a href="https://github.com/elastic/elasticsearch-php/pull/952" class="ulink" target="_top">#952</a>
+</li>
+<li class="listitem">
+Added the HTTP port in the log messages
+<a href="https://github.com/elastic/elasticsearch-php/pull/950" class="ulink" target="_top">#950</a>
+</li>
+<li class="listitem">
+Fixed hostname with underscore (ClientBuilder::prependMissingScheme)
+<a href="https://github.com/elastic/elasticsearch-php/pull/949" class="ulink" target="_top">#949</a>
+</li>
+<li class="listitem">
+Removed unused Monolog in ClientBuilder
+<a href="https://github.com/elastic/elasticsearch-php/pull/948" class="ulink" target="_top">#948</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-2-2"></a>7.2.2<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Reintroduced the optional parameter in
+<code class="literal">Elasticsearch\Namespaces\IndicesNamespace::getAliases()</code>.
+This fixes the BC break introduced in 7.2.0 and 7.2.1.
+<a href="https://github.com/elastic/elasticsearch-php/pull/947" class="ulink" target="_top">#947</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-2-1"></a>7.2.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Reintroduced <code class="literal">Elasticsearch\Namespaces\IndicesNamespace::getAliases()</code> as proxy
+to <code class="literal">IndicesNamespace::getAlias()</code> to prevent BC breaks. The <code class="literal">getAliases()</code> is
+marked as deprecated and it will be removed from <code class="literal">elasticsearch-php 8.0</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/943" class="ulink" target="_top">#943</a>
+</li>
+</ul>
+</div>
+<h4><a id="_docs"></a>Docs<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h4>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed missing put mapping code snippet in code examples
+<a href="https://github.com/elastic/elasticsearch-php/pull/938" class="ulink" target="_top">#938</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-2-0"></a>7.2.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Updated the API endpoints for working with Elasticsearch 7.2.0:
+</li>
+<li class="listitem">
+added <code class="literal">wait_for_active_shards</code> parameter to <code class="literal">indices.close</code> API;
+</li>
+<li class="listitem">
+added <code class="literal">expand_wildcards</code> parameter to <code class="literal">cluster.health</code> API;
+</li>
+<li class="listitem">
+added include_unloaded_segments`, <code class="literal">expand_wildcards</code>, <code class="literal">forbid_closed_indices</code>
+    parameters to <code class="literal">indices.stats</code> API.
+<a href="https://github.com/elastic/elasticsearch-php/pull/933/commits/27d721ba44b8c199388650c5a1c8bd69757229aa" class="ulink" target="_top">27d721b</a>
+</li>
+<li class="listitem">
+Updated the phpdoc parameters for all the API endpoints
+<a href="https://github.com/elastic/elasticsearch-php/pull/933/commits/27d721ba44b8c199388650c5a1c8bd69757229aa" class="ulink" target="_top">27d721b</a>
+</li>
+<li class="listitem">
+Improved the Travis CI speed using cache feature with composer
+<a href="https://github.com/elastic/elasticsearch-php/pull/929" class="ulink" target="_top">#929</a>
+</li>
+<li class="listitem">
+Fixed <code class="literal">php_uname()</code> usage checking if it is disabled
+<a href="https://github.com/elastic/elasticsearch-php/pull/927" class="ulink" target="_top">#927</a>
+</li>
+<li class="listitem">
+Added support of Elastic Cloud ID and API key authentication
+<a href="https://github.com/elastic/elasticsearch-php/pull/923" class="ulink" target="_top">#923</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-1-1"></a>7.1.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed <code class="literal">ClientBuilder::setSSLVerification()</code> to accept string or boolean
+<a href="https://github.com/elastic/elasticsearch-php/pull/917" class="ulink" target="_top">#917</a>
+</li>
+<li class="listitem">
+Fix type hinting for <code class="literal">setBody</code> in
+<code class="literal">Elasticsearch\Endpoints\Ingest\Pipeline\Put</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/913" class="ulink" target="_top">#913</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-1-0"></a>7.1.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Added warning log for Elasticsearch response containing the <code class="literal">Warning</code> header
+<a href="https://github.com/elastic/elasticsearch-php/pull/911" class="ulink" target="_top">#911</a>
+</li>
+<li class="listitem">
+Fixed #838 hosting company is blocking ports because of <code class="literal">YamlRunnerTest.php</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/844" class="ulink" target="_top">#844</a>
+</li>
+<li class="listitem">
+Specialized inheritance of <code class="literal">NoNodesAvailableException</code> to extend
+<code class="literal">ServerErrorResponseException</code> instead of the generic <code class="literal">\Exception</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/607" class="ulink" target="_top">#607</a>
+</li>
+<li class="listitem">
+Fixed scroll TTL is extracted but not set as a body param
+<a href="https://github.com/elastic/elasticsearch-php/pull/907" class="ulink" target="_top">#907</a>
+</li>
+</ul>
+</div>
+<h4><a id="_testing"></a>Testing<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h4>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Improved the speed of integration tests removing snapshots delete from
+<code class="literal">YamlRunnerTest::clean</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/911" class="ulink" target="_top">#911</a>
+</li>
+<li class="listitem">
+Reduced the number of skipping YAML integration tests from 20 to 6
+<a href="https://github.com/elastic/elasticsearch-php/pull/911" class="ulink" target="_top">#911</a>
+</li>
+</ul>
+</div>
+<h4><a id="_docs_2"></a>Docs<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h4>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Documentation updated for Elasticsearch 7
+<a href="https://github.com/elastic/elasticsearch-php/pull/904" class="ulink" target="_top">#904</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-0-2"></a>7.0.2<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed incorrect return type hint when using async requests/futures
+<a href="https://github.com/elastic/elasticsearch-php/pull/905" class="ulink" target="_top">#905</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-0-1"></a>7.0.1<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Fixed SniffingConnectionPool removing the return type of Connection::sniff()
+<a href="https://github.com/elastic/elasticsearch-php/pull/899" class="ulink" target="_top">#899</a>
+</li>
+</ul>
+</div>
+<h3><a id="rn-7-0-0"></a>7.0.0<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/release-notes.asciidoc">edit</a></h3>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Requirement of PHP 7.1 instead of 7.0 that is not supported since 1 Jan 2019.
+<a href="https://github.com/elastic/elasticsearch-php/pull/897" class="ulink" target="_top">#897</a>
+</li>
+<li class="listitem">
+Code refactoring using type hints and return type declarations where possible
+<a href="https://github.com/elastic/elasticsearch-php/pull/897" class="ulink" target="_top">#897</a>
+</li>
+<li class="listitem">
+Update vendor libraries (PHPUnit 7.5, Symfony YAML 4.3, and so on)
+<a href="https://github.com/elastic/elasticsearch-php/pull/897" class="ulink" target="_top">#897</a>
+</li>
+<li class="listitem">
+Updated all the API endpoints using the
+<a href="https://github.com/elastic/elasticsearch/tree/v7.0.0/rest-api-spec/src/main/resources/rest-api-spec/api" class="ulink" target="_top">latest 7.0.0 specs</a>
+of Elasticsearch <a href="https://github.com/elastic/elasticsearch-php/pull/897" class="ulink" target="_top">#897</a>
+</li>
+<li class="listitem">
+Added the <code class="literal">User-Agent</code> in each HTTP request
+<a href="https://github.com/elastic/elasticsearch-php/pull/898" class="ulink" target="_top">#898</a>
+</li>
+<li class="listitem">
+Simplified the logging methods
+<code class="literal">logRequestFail($request, $response, $exception)</code> and
+<code class="literal">logRequestSuccess($request, $response)</code> in
+<code class="literal">Elasticsearch\Connections\Connection</code>
+<a href="https://github.com/elastic/elasticsearch-php/pull/876" class="ulink" target="_top">#876</a>
+</li>
+<li class="listitem">
+Fix <code class="literal">json_encode</code> for unicode(emoji) characters
+<a href="https://github.com/elastic/elasticsearch-php/pull/856" class="ulink" target="_top">#856</a>
+</li>
+<li class="listitem">
+Fix HTTP port specification using CURLOPT_PORT, not anymore in the host
+<a href="https://github.com/elastic/elasticsearch-php/pull/782" class="ulink" target="_top">#782</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="esql.html">« ES|QL in the PHP client</a>
+</span>
+<span class="next">
+<a href="redirects.html">Appendix A: Deleted pages »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

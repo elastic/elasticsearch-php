@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Getting documents | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Getting documents | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="operations.html" title="Operations"/>
+<link rel="prev" href="indexing_documents.html" title="Indexing documents"/>
+<link rel="next" href="updating_documents.html" title="Updating documents"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="operations.html">Operations</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="indexing_documents.html">« Indexing documents</a>
+</span>
+<span class="next">
+<a href="updating_documents.html">Updating documents »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title"><a id="getting_documents"></a>Getting documents<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/crud.asciidoc">edit</a></h2>
+</div></div></div>
+<p>Elasticsearch provides realtime GETs of documents. This means that as soon as the
+document is indexed and your client receives an acknowledgement, you can
+immediately retrieve the document from any shard. Get operations are performed
+by requesting a document by its full <code class="literal">index/type/id</code> path:</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">$params = [
+    'index' =&gt; 'my_index',
+    'id'    =&gt; 'my_id'
+];
+
+// Get doc at /my_index/_doc/my_id
+$response = $client-&gt;get($params);</pre>
+</div>
+<p>&#8203;<br></p>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="indexing_documents.html">« Indexing documents</a>
+</span>
+<span class="next">
+<a href="updating_documents.html">Updating documents »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Overview | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Overview | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="prev" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="next" href="breaking_changes.html" title="Breaking changes from 7.x"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+</span>
+<span class="next">
+<a href="breaking_changes.html">Breaking changes from 7.x »</a>
+</span>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div>
+<h1 class="title"><a id="overview"></a>Overview<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/overview.asciidoc">edit</a></h1>
+</div></div></div>
+<p>This is the official PHP client for Elasticsearch. It is designed to be a low-level
+client that does not stray from the REST API.</p>
+<p>All methods closely match the REST API, and furthermore, match the method
+structure of other language clients (Ruby, Python, and so on). We hope that this
+consistency makes it easy to get started with a client and to seamlessly switch
+from one language to the next with minimal effort.</p>
+<p>The client is designed to facilitate the API call using different way to read the
+results using associative array, object, string or <a href="https://www.php-fig.org/psr/psr-7/" class="ulink" target="_top">PSR-7</a>.</p>
+<p>Refer to the <a class="xref" href="getting-started-php.html" title="Getting started"><em>Getting started</em></a> page for a step-by-step quick start with
+the PHP client.</p>
+<h3><a id="psr-7-standard"></a>PSR 7 standard<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/overview.asciidoc">edit</a></h3>
+<p>The Elasticsearch PHP client uses the <a href="https://www.php-fig.org/psr/" class="ulink" target="_top">PSR</a> 7 standard. This
+standard is a community effort that contains a set of interfaces defined by the
+PHP Framework Interop Group. For more information, refer to the
+<a href="https://www.php-fig.org/psr/psr-7/" class="ulink" target="_top">PSR 7 standard documentation</a>.</p>
+<h3><a id="version-compatibility"></a>Elasticsearch and PHP version Compatibility<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/overview.asciidoc">edit</a></h3>
+<p>The Elasticsearch client is compatible with currently maintained PHP versions.</p>
+<p>Language clients are forward compatible; meaning that clients support
+communicating with greater or equal minor versions of Elasticsearch without breaking. It
+does not mean that the client automatically supports new features of newer Elasticsearch
+versions; it is only possible after a release of a new client version. For
+example, a 8.12 client version won&#8217;t automatically support the new features of
+the 8.13 version of Elasticsearch, the 8.13 client version is required for that.
+Elasticsearch language clients are only backwards compatible with default distributions
+and without guarantees made.</p>
+<div class="informaltable">
+<table border="1" cellpadding="4px">
+<colgroup>
+<col class="col_1"/>
+<col class="col_2"/>
+<col class="col_3"/>
+</colgroup>
+<thead>
+<tr>
+<th align="left" valign="top">Elasticsearch Version</th>
+<th align="left" valign="top">Elasticsearch-PHP Branch</th>
+<th align="left" valign="top">Supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p>main</p></td>
+<td align="left" valign="top"><p>main</p></td>
+<td align="left" valign="top"><p></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p>8.x</p></td>
+<td align="left" valign="top"><p>8.x</p></td>
+<td align="left" valign="top"><p>8.x</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p>7.x</p></td>
+<td align="left" valign="top"><p>7.x</p></td>
+<td align="left" valign="top"><p>7.17</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+<a class="xref" href="breaking_changes.html" title="Breaking changes from 7.x">Breaking changes from 7.x</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+</span>
+<span class="next">
+<a href="breaking_changes.html">Breaking changes from 7.x »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

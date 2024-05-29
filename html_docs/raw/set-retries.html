@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Set retries | Elasticsearch-PHP | Elastic</title>
+<meta class="elastic" name="content" content="Set retries | Elasticsearch-PHP">
+
+<link rel="home" href="index.html" title="Elasticsearch-PHP"/>
+<link rel="up" href="configuration.html" title="Configuration"/>
+<link rel="prev" href="host-config.html" title="Host Configuration"/>
+<link rel="next" href="http-meta-data.html" title="HTTP Meta Data"/>
+<meta class="elastic" name="product_version" content=""/>
+<meta class="elastic" name="product_name" content=""/>
+<meta class="elastic" name="website_area" content="documentation"/>
+<meta name="DC.type" content="Learn/Docs/"/>
+<meta name="DC.subject" content=""/>
+<meta name="DC.identifier" content=""/>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="/guide/">Elastic Docs</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="index.html">Elasticsearch-PHP</a></span>
+<span class="chevron-right">›</span><span class="breadcrumb-link"><a href="configuration.html">Configuration</a></span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="host-config.html">« Host Configuration</a>
+</span>
+<span class="next">
+<a href="http-meta-data.html">HTTP Meta Data »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title"><a id="set-retries"></a>Set retries<a class="edit_me" rel="nofollow" title="Edit this page on GitHub" href="https://github.com/elastic/elasticsearch-php/edit/master/docs/set-retries.asciidoc">edit</a></h2>
+</div></div></div>
+<p>By default, the client will retry <code class="literal">n</code> times, where <code class="literal">n = number of nodes</code> in your
+cluster. A retry is only performed if the operation results in a "hard"
+exception: connection refusal, connection timeout, DNS lookup timeout, etc. 4xx
+and 5xx errors are not considered retriable events, since the node returns an
+operational response.</p>
+<p>If you would like to disable retries, or change the number, you can do so with
+the <code class="literal">setRetries()</code> method:</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">$client = ClientBuilder::create()
+    -&gt;setRetries(2)
+    -&gt;build();</pre>
+</div>
+<p>When the client runs out of retries, it will throw the last exception that it
+received. For example, if you have ten alive nodes, and <code class="literal">setRetries(5)</code>, the
+client attempts to execute the command up to five times. If all five nodes
+result in a connection timeout (for example), the client will throw an
+<code class="literal">NoNodeAvailableException</code>.</p>
+<div class="pre_wrapper lang-php">
+<div class="console_code_copy" title="Copy to clipboard"></div>
+<pre class="programlisting prettyprint lang-php">use Elastic\Transport\Exception\NoNodeAvailableException;
+
+$client = ClientBuilder::create()
+    -&gt;build();
+
+try {
+    $reponse = $client-&gt;info();
+} catch (NoNodeAvailableException $e) {
+    printf("No nodes alive: %s", $e-&gt;getMessage());
+}</pre>
+</div>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="host-config.html">« Host Configuration</a>
+</span>
+<span class="next">
+<a href="http-meta-data.html">HTTP Meta Data »</a>
+</span>
+</div>
+</div>
+</body>
+</html>

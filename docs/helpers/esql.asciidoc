@@ -13,9 +13,10 @@ There are two ways to use ES|QL in the PHP client:
 is the most flexible approach, but it's also the most complex because you must handle
 results in their raw form. You can choose the precise format of results,
 such as JSON, CSV, or text.
-* Use ES|QL `mapTo($class)` helper. This mapper takes care of parsing the raw
+* Use ES|QL `mapTo($class)` helper. This mapper take care of parsing the raw
 response and converting into an array of objects. If you don't specify the class
-using the `$class` parameter, the mapper uses https://www.php.net/manual/en/class.stdclass.php[stdClass].
+using the `$class` parameter the mapping will use the https://www.php.net/manual/en/class.stdclass.php[stdClass]
+of PHP.
 
 [discrete]
 [[esql-how-to]]
@@ -27,11 +28,10 @@ results should be returned. You can choose a
 JSON, then fine-tune it with parameters like column separators
 and locale.
 
-The default response from Elasticsearch is a table in JSON, where `columns`
-is an array of descriptions and `values` is an array of rows containing the values.
+The default response from Elasticsearch is a table in JSON specified using `columns`
+as array of descriptions and `values` as array of rows with the values.
 
-[[query-script]]
-Here's an example query and PHP script:
+An example is as follows:
 
 ```php
 $query = <<<EOD
@@ -54,7 +54,7 @@ foreach ($result['values'] as $value) {
 }
 ```
 
-Here's the JSON response from Elasticsearch:
+Given the following JSON response from Elasticsearch:
 
 ```json
 {
@@ -96,7 +96,7 @@ Here's the JSON response from Elasticsearch:
 }
 ```
 
-Using this response, the PHP script (provided <<query-script,above>>) produces the following output:
+The output of the revious PHP script is as follows:
 
 ```php
 author : Stephen King
@@ -133,9 +133,9 @@ $result = $client->esql()->query([
 var_dump($result->asArray());
 ```
 
-The response looks something like this: 
+The response will look something as follows:
 
-```json
+```
 array(12) {
   [0]=>
   array(6) {
@@ -168,7 +168,7 @@ array(12) {
     string(4) "2002"
   }
 ```
-In the response, the first row contains the column descriptions and the other rows contain
+where the first row is the column descriptions and the other rows contain
 the values, using a plain PHP array.
 
 
@@ -179,8 +179,8 @@ the values, using a plain PHP array.
 Although the `esql()->query()` API covers many use cases, your application
 might require a custom mapping.
 
-You can map the ES|QL result into an array of objects, using the `mapTo()`
-function. Here's an example:
+You can map the ES|QL result into an array of object, using the `mapTo()`
+function, as follows:
 
 ```php
 $result = $client->esql()->query([
@@ -199,10 +199,10 @@ foreach ($books as $book) {
 }
 ```
 
-You can also specify a class name for the mapping. 
+You can also specify the class name to be used for the mapping.
 All the values will be assigned to the properties of the class.  
 
-Here's an example mapper that returns an array of `Book` objects:
+Here's an example mapper that returns an array of `Book` objects.
 
 ```php
 class Book

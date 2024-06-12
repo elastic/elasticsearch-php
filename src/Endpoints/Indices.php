@@ -1969,6 +1969,7 @@ class Indices extends AbstractEndpoint
 	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
 	 *     lazy: boolean, // If set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
+	 *     target_failure_store: boolean, // If set to true, the rollover action will be applied on the failure store of the data stream.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1994,7 +1995,7 @@ class Indices extends AbstractEndpoint
 			$url = '/' . $this->encode($params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','lazy','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','lazy','target_failure_store','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

@@ -371,6 +371,7 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to be searched
+	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -392,7 +393,7 @@ class SearchApplication extends AbstractEndpoint
 		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['typed_keys','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

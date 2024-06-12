@@ -22,7 +22,6 @@ use Elastic\Elasticsearch\Endpoints\Cat;
 use Elastic\Elasticsearch\Endpoints\Ccr;
 use Elastic\Elasticsearch\Endpoints\Cluster;
 use Elastic\Elasticsearch\Endpoints\Connector;
-use Elastic\Elasticsearch\Endpoints\ConnectorSyncJob;
 use Elastic\Elasticsearch\Endpoints\DanglingIndices;
 use Elastic\Elasticsearch\Endpoints\Enrich;
 use Elastic\Elasticsearch\Endpoints\Eql;
@@ -119,15 +118,6 @@ trait NamespaceTrait
 			$this->namespace['Connector'] = new Connector($this);
 		}
 		return $this->namespace['Connector'];
-	}
-
-
-	public function connectorSyncJob(): ConnectorSyncJob
-	{
-		if (!isset($this->namespace['ConnectorSyncJob'])) {
-			$this->namespace['ConnectorSyncJob'] = new ConnectorSyncJob($this);
-		}
-		return $this->namespace['ConnectorSyncJob'];
 	}
 
 

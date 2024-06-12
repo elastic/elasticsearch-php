@@ -76,7 +76,7 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     inference_id: string, //  The inference Id
 	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -85,7 +85,6 @@ class Inference extends AbstractEndpoint
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -94,12 +93,14 @@ class Inference extends AbstractEndpoint
 	 */
 	public function getModel(array $params = [])
 	{
-		$this->checkRequiredParameters(['inference_id'], $params);
-		if (isset($params['task_type'])) {
+		if (isset($params['task_type']) && isset($params['inference_id'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
 			$method = 'GET';
-		} else {
+		} elseif (isset($params['inference_id'])) {
 			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'GET';
+		} else {
+			$url = '/_inference';
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

@@ -32,7 +32,6 @@ class Esql extends AbstractEndpoint
 	 * Executes an ESQL request asynchronously
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     format: string, // a short version of the Accept header, e.g. json, yaml
@@ -109,7 +108,6 @@ class Esql extends AbstractEndpoint
 	 * Executes an ESQL request
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     format: string, // a short version of the Accept header, e.g. json, yaml

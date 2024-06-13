@@ -1,22 +1,30 @@
+# Declare your Buildkite pipelines below
 ---
+# yaml-language-server: $schema=https://gist.githubusercontent.com/elasticmachine/988b80dae436cafea07d9a4a460a011d/raw/rre.schema.json
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: 76f58964-9833-4fee-995e-ac20f4e32263
-  namespace: terrazzo-local
+  name: buildkite-pipeline-elasticsearch-php
+  description: Buildkite Pipeline for elasticsearch-php
+  links:
+    - title: Pipeline
+      url: https://buildkite.com/elastic/elasticsearch-php
+
 spec:
+  type: buildkite-pipeline
+  owner: group:devtools-team
+  system: buildkite
   implementation:
     apiVersion: buildkite.elastic.dev/v1
     kind: Pipeline
     metadata:
-      description: Elasticsearch PHP Client
       name: elasticsearch-php
+      description: 
     spec:
-      default_branch: null
       repository: elastic/elasticsearch-php
+      pipeline_file: ".buildkite/pipeline.yml"
       teams:
-        devtools-team: {}
+        devtools-team:
+          access_level: MANAGE_BUILD_AND_READ
         everyone:
           access_level: READ_ONLY
-  owner: group:devtools-team
-  type: buildkite-pipeline

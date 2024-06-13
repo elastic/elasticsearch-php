@@ -1,7 +1,9 @@
+---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: buildkite-pipeline-elasticsearch-php
+  name: 76f58964-9833-4fee-995e-ac20f4e32263
+  namespace: terrazzo-local
 spec:
   implementation:
     apiVersion: buildkite.elastic.dev/v1
@@ -10,10 +12,11 @@ spec:
       description: Elasticsearch PHP Client
       name: elasticsearch-php
     spec:
+      default_branch: null
       repository: elastic/elasticsearch-php
       teams:
-        clients-team: {}
+        devtools-team: {}
         everyone:
           access_level: READ_ONLY
-  owner: group:clients-team
+  owner: group:devtools-team
   type: buildkite-pipeline

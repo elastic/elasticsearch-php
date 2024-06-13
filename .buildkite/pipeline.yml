@@ -1,5 +1,6 @@
 ---
 # $yaml-language-server: $schema=https://raw.githubusercontent.com/buildkite/pipeline-schema/main/schema.json
+steps:
   - label: ":elasticsearch: :php: ES PHP ({{ matrix.php }}) Test Suite: {{ matrix.suite }}"
     agents:
       provider: "gcp"

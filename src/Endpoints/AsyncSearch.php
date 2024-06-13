@@ -108,6 +108,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
+	 *     keep_alive: time, // Specify the time interval in which the results (partial or final) for this search will be available
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -128,7 +129,7 @@ class AsyncSearch extends AbstractEndpoint
 		$url = '/_async_search/status/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['keep_alive','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

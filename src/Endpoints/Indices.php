@@ -1684,6 +1684,7 @@ class Indices extends AbstractEndpoint
 	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     timeout: time, // Explicit operation timeout
 	 *     preserve_existing: boolean, // Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`
+	 *     reopen: boolean, // Whether to close and reopen the index to apply non-dynamic settings. If set to `true` the indices to which the settings are being applied will be closed temporarily and then reopened in order to apply the changes. The default is `false`
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
@@ -1712,7 +1713,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_settings';
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','preserve_existing','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','preserve_existing','reopen','ignore_unavailable','allow_no_indices','expand_wildcards','flat_settings','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1880,6 +1881,45 @@ class Indices extends AbstractEndpoint
 
 
 	/**
+	 * Resolves the specified index expressions to return information about each cluster, including the local cluster, if included.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html
+	 *
+	 * @param array{
+	 *     name: list, // (REQUIRED) A comma-separated list of cluster:index names or wildcard expressions
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function resolveCluster(array $params = [])
+	{
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_resolve/cluster/' . $this->encode($params['name']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Returns information about any matching indices, aliases, and data streams
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html
@@ -1928,6 +1968,8 @@ class Indices extends AbstractEndpoint
 	 *     dry_run: boolean, // If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false
 	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
+	 *     lazy: boolean, // If set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
+	 *     target_failure_store: boolean, // If set to true, the rollover action will be applied on the failure store of the data stream.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1953,7 +1995,7 @@ class Indices extends AbstractEndpoint
 			$url = '/' . $this->encode($params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','lazy','target_failure_store','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

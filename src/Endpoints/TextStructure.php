@@ -29,6 +29,99 @@ use Http\Promise\Promise;
 class TextStructure extends AbstractEndpoint
 {
 	/**
+	 * Finds the structure of a text field in an index.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-field-structure.html
+	 *
+	 * @param array{
+	 *     index: string, // The index containing the analyzed field
+	 *     field: string, // The field that should be analyzed
+	 *     documents_to_sample: int, // How many documents should be included in the analysis
+	 *     timeout: time, // Timeout after which the analysis will be aborted
+	 *     format: enum, // Optional parameter to specify the high level file format
+	 *     column_names: list, // Optional parameter containing a comma separated list of the column names for a delimited file
+	 *     delimiter: string, // Optional parameter to specify the delimiter character for a delimited file - must be a single character
+	 *     quote: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
+	 *     should_trim_fields: boolean, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
+	 *     grok_pattern: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
+	 *     ecs_compatibility: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     timestamp_field: string, // Optional parameter to specify the timestamp field in the file
+	 *     timestamp_format: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
+	 *     explain: boolean, // Whether to include a commentary on how the structure was derived
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function findFieldStructure(array $params = [])
+	{
+		$this->checkRequiredParameters(['index','field'], $params);
+		$url = '/_text_structure/find_field_structure';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['index','field','documents_to_sample','timeout','format','column_names','delimiter','quote','should_trim_fields','grok_pattern','ecs_compatibility','timestamp_field','timestamp_format','explain','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Finds the structure of a list of messages. The messages must contain data that is suitable to be ingested into Elasticsearch.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html
+	 *
+	 * @param array{
+	 *     timeout: time, // Timeout after which the analysis will be aborted
+	 *     format: enum, // Optional parameter to specify the high level file format
+	 *     column_names: list, // Optional parameter containing a comma separated list of the column names for a delimited file
+	 *     delimiter: string, // Optional parameter to specify the delimiter character for a delimited file - must be a single character
+	 *     quote: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
+	 *     should_trim_fields: boolean, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
+	 *     grok_pattern: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
+	 *     ecs_compatibility: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     timestamp_field: string, // Optional parameter to specify the timestamp field in the file
+	 *     timestamp_format: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
+	 *     explain: boolean, // Whether to include a commentary on how the structure was derived
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) JSON object with one field [messages], containing an array of messages to be analyzed
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function findMessageStructure(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_text_structure/find_message_structure';
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		$url = $this->addQueryString($url, $params, ['timeout','format','column_names','delimiter','quote','should_trim_fields','grok_pattern','ecs_compatibility','timestamp_field','timestamp_format','explain','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
 	 * Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html
@@ -73,6 +166,42 @@ class TextStructure extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Tests a Grok pattern on some text.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html
+	 *
+	 * @param array{
+	 *     ecs_compatibility: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The Grok pattern and text.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function testGrokPattern(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_text_structure/test_grok_pattern';
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		$url = $this->addQueryString($url, $params, ['ecs_compatibility','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
 	}

@@ -336,6 +336,38 @@ class ActionTest
         ]);
     }
 
+    private function requires(array $requires)
+    {
+        if (isset($requires['test_runner_features'])) {
+            if (is_string($requires['test_runner_features'])) {
+                $requires['test_runner_features'] = [$requires['test_runner_features']];
+            }
+            foreach ($requires['test_runner_features'] as $req) {
+                if (!in_array($requires['test_runner_features'], self::SUPPORTED_FEATURES)) {
+                    return YamlTests::render(self::TEMPLATE_SKIP_FEATURE, [
+                        ':testname' => "__CLASS__ . '::' . __FUNCTION__",
+                        ':feature'  => sprintf("'%s'", $req)
+                    ]);
+                }
+            }
+        }
+        if (isset($requires['cluster_features'])) {
+            if (is_string($requires['cluster_features'])) {
+                $part = explode('_', $requires['cluster_features']);
+                if ($part[0] === 'gte') {
+                    $version = str_replace ('v','', $part[1]);
+                    if (version_compare(YamlTests::$esVersion, $version, '<')) {
+                        return YamlTests::render(self::TEMPLATE_SKIP_VERSION, [
+                            ':testname'  => "__CLASS__ . '::' . __FUNCTION__",
+                            ':esversion' => sprintf("'%s'", YamlTests::$esVersion),
+                            ':reason'    => sprintf("'%s'", $requires['reason'] ?? '')
+                        ]);
+                    }
+                }
+            } 
+        }
+    }
+
     private function skip(array $actions)
     {
         if (isset($actions['version']) && isset($actions['reason'])) {
@@ -388,7 +420,21 @@ class ActionTest
                         break;
                 }
             }
-
+        }
+        if (isset($actions['cluster_features'])) {
+            if (is_string($actions['cluster_features'])) {
+                $part = explode('_', $actions['cluster_features']);
+                if ($part[0] === 'gte') {
+                    $version = str_replace ('v','', $part[1]);
+                    if (version_compare(YamlTests::$esVersion, $version, '>=')) {
+                        return YamlTests::render(self::TEMPLATE_SKIP_VERSION, [
+                            ':testname'  => "__CLASS__ . '::' . __FUNCTION__",
+                            ':esversion' => sprintf("'%s'", YamlTests::$esVersion),
+                            ':reason'    => sprintf("'%s'", $actions['reason'] ?? '')
+                        ]);
+                    }
+                }
+            } 
         }
     }
 

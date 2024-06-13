@@ -9,13 +9,13 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.4, 8.0, 8.1, 8.2]
+        php-version: [7.4, 8.0, 8.1, 8.2, 8.3]
         os: [ubuntu-latest]
-        es-version: [8.9-SNAPSHOT]
+        es-version: [8.14-SNAPSHOT]
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Use PHP ${{ matrix.php-version }}
       uses: shivammathur/setup-php@v2
@@ -30,7 +30,7 @@ jobs:
       id: composercache
       run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
     - name: Cache dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ steps.composercache.outputs.dir }}
         key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}

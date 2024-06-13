@@ -6,6 +6,8 @@
 include::{docs-root}/shared/versions/stack/{source_branch}.asciidoc[]
 include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
+:es-docs: https://www.elastic.co/guide/en/elasticsearch/reference/{branch} 
+
 include::overview.asciidoc[]
 
 include::getting-started.asciidoc[]
@@ -20,7 +22,7 @@ include::configuration.asciidoc[]
 
 include::operations.asciidoc[]
 
-include::helpers.asciidoc[]
+include::helpers/index.asciidoc[]
 
 include::release-notes.asciidoc[]
 

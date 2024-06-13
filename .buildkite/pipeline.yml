@@ -5,13 +5,14 @@ steps:
     env:
       PHP_VERSION: "{{ matrix.php }}"
       TEST_SUITE: "{{ matrix.suite }}"
-      STACK_VERSION: 8.10-SNAPSHOT
+      STACK_VERSION: 8.14.0-SNAPSHOT
     matrix:
       setup:
         suite:
           - "free"
           - "platinum"
         php:
+          - "8.3-cli"
           - "8.2-cli"
           - "8.1-cli"
           - "8.0-cli"

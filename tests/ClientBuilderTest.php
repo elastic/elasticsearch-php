@@ -32,7 +32,11 @@ class ClientBuilderTest extends TestCase
 {
     protected ClientInterface $httpClient;
     protected LoggerInterface $logger;
-
+    protected HttpAsyncClient $asyncHttpClient;
+    protected NodePoolInterface $nodePool;
+    protected Psr17Factory $psr17Factory;
+    protected ClientBuilder $builder;
+    
     public function setUp(): void
     {
         $this->httpClient = $this->createStub(ClientInterface::class);

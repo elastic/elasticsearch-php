@@ -20,6 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Elastic\Transport\NodePool\NodePoolInterface;
+use Elastic\Transport\Transport;
 use Elastic\Transport\TransportBuilder;
 use Http\Mock\Client as MockClient;
 use Http\Promise\Promise;
@@ -29,6 +30,12 @@ use Psr\Log\LoggerInterface;
 
 class ClientTest extends TestCase
 {
+    protected LoggerInterface $logger;
+    protected MockClient $httpClient;
+    protected Transport $transport;
+    protected Psr17Factory $psr17Factory;
+    protected Client $client;
+    
     public function setUp(): void
     {
         $this->logger = $this->createStub(LoggerInterface::class);

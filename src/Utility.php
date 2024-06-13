@@ -45,4 +45,18 @@ class Utility
             ? urlencode($url)
             : rawurlencode($url);
     }
+
+    /**
+     * Remove all the characters not valid for a PHP variable name
+     * The valid characters are: a-z, A-Z, 0-9 and _ (underscore)
+     * The variable name CANNOT start with a number
+     */
+    public static function formatVariableName(string $var): string
+    {
+        // If the first character is a digit, we append the underscore
+        if (is_int($var[0])) {
+            $var = '_' . $var;
+        }
+        return preg_replace('/[^a-zA-Z0-9_]/', '', $var);
+    }
 }

@@ -25,7 +25,8 @@ use Symfony\Component\HttpClient\Psr18Client;
 class SymfonyTest extends TestCase
 {
     protected Symfony $symfonyAdapter;
-
+    protected ClientInterface $client;
+    
     public function setUp(): void
     {
         $this->symfonyAdapter = new Symfony;

@@ -26,63 +26,20 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class Inference extends AbstractEndpoint
+class Profiling extends AbstractEndpoint
 {
 	/**
-	 * Delete model in the Inference API
+	 * Extracts a UI-optimized structure to render flamegraphs from Universal Profiling.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     inference_id: string, // (REQUIRED) The model Id
-	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function deleteModel(array $params = [])
-	{
-		$this->checkRequiredParameters(['inference_id'], $params);
-		if (isset($params['task_type'])) {
-			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
-			$method = 'DELETE';
-		} else {
-			$url = '/_inference/' . $this->encode($params['inference_id']);
-			$method = 'DELETE';
-		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
-
-
-	/**
-	 * Get a model in the Inference API
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     inference_id: string, //  The inference Id
-	 *     task_type: string, //  The task type
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The filter conditions for the flamegraph
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -91,60 +48,12 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getModel(array $params = [])
+	public function flamegraph(array $params = [])
 	{
-		if (isset($params['task_type']) && isset($params['inference_id'])) {
-			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
-			$method = 'GET';
-		} elseif (isset($params['inference_id'])) {
-			$url = '/_inference/' . $this->encode($params['inference_id']);
-			$method = 'GET';
-		} else {
-			$url = '/_inference';
-			$method = 'GET';
-		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
-	}
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_profiling/flamegraph';
+		$method = 'POST';
 
-
-	/**
-	 * Perform inference on a model
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type: string, //  The task type
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The inference payload
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function inference(array $params = [])
-	{
-		$this->checkRequiredParameters(['inference_id'], $params);
-		if (isset($params['task_type'])) {
-			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
-			$method = 'POST';
-		} else {
-			$url = '/_inference/' . $this->encode($params['inference_id']);
-			$method = 'POST';
-		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
@@ -155,39 +64,101 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a model for use in the Inference API
+	 * Extracts raw stacktrace information from Universal Profiling.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type: string, //  The task type
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The model's task and service settings
+	 *     body: array, // (REQUIRED) The filter conditions for stacktraces
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putModel(array $params = [])
+	public function stacktraces(array $params = [])
 	{
-		$this->checkRequiredParameters(['inference_id'], $params);
-		if (isset($params['task_type'])) {
-			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
-			$method = 'PUT';
-		} else {
-			$url = '/_inference/' . $this->encode($params['inference_id']);
-			$method = 'PUT';
-		}
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_profiling/stacktraces';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Returns basic information about the status of Universal Profiling.
+	 *
+	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
+	 *
+	 * @param array{
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     timeout: time, // Explicit operation timeout
+	 *     wait_for_resources_created: boolean, // Whether to return immediately or wait until resources have been created
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function status(array $params = [])
+	{
+		$url = '/_profiling/status';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','wait_for_resources_created','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+	}
+
+
+	/**
+	 * Extracts a list of topN functions from Universal Profiling.
+	 *
+	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
+	 *
+	 * @param array{
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The filter conditions for stacktraces
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function topnFunctions(array $params = [])
+	{
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_profiling/topn/functions';
+		$method = 'POST';
+
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',

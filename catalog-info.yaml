@@ -19,7 +19,7 @@ spec:
     kind: Pipeline
     metadata:
       name: elasticsearch-php
-      description: 
+      description: Elasticsearch PHP Client
     spec:
       repository: elastic/elasticsearch-php
       pipeline_file: ".buildkite/pipeline.yml"

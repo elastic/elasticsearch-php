@@ -1,4 +1,6 @@
-<img align="right" width="auto" height="auto" src="https://www.elastic.co/static-res/images/elastic-logo-200.png"/>
+<p align="center">
+    <img src="https://github.com/elastic/elasticsearch-py/raw/main/docs/logo-elastic-glyph-color.svg" width="20%" alt="Elastic logo" />
+</p>
 
 # Elasticsearch PHP client
 

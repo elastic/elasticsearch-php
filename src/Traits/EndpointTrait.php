@@ -18,10 +18,12 @@ use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Utility;
+use Elastic\Transport\OpenTelemetry;
 use Elastic\Transport\Serializer\JsonSerializer;
 use Elastic\Transport\Serializer\NDJsonSerializer;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 use function http_build_query;
 use function strpos;
@@ -29,6 +31,19 @@ use function sprintf;
 
 trait EndpointTrait
 {
+    const SEARCH_ENDPOINTS = [
+        'search',
+        'async_search.submit',
+        'msearch',
+        'eql.search',
+        'terms_enum',
+        'search_template',
+        'msearch_template',
+        'render_search_template',
+        'esql.query',
+        'knnSearch'
+    ];
+
     /**
      * Check if an array containts nested array
      */
@@ -129,10 +144,10 @@ trait EndpointTrait
      */
     protected function createRequest(string $method, string $url, array $headers, $body = null): RequestInterface
     {
-        $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
+        $requestFactory = Psr17FactoryDiscovery::findServerRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
-        $request = $requestFactory->createRequest($method, $url);
+        $request = $requestFactory->createServerRequest($method, $url);
         // Body request
         if (!empty($body)) {
             if (!isset($headers['Content-Type'])) {
@@ -193,5 +208,40 @@ trait EndpointTrait
                 ));
             }
         }
+    }
+
+    /**
+     * Add the OpenTelemetry attributes to the PSR-7 ServerRequest
+     */
+    protected function addOtelAttributes(
+        array $params, 
+        array $requiredPathParts, 
+        ServerRequestInterface $request, 
+        string $endpoint
+    ): ServerRequestInterface
+    {
+        // Check if OpenTelemetry instrumentation is enbaled 
+        if (!getenv(OpenTelemetry::ENV_VARIABLE_ENABLED)) {
+            return $request;
+        }       
+        $otel = [];
+        foreach ($requiredPathParts as $part) {
+            if (isset($params[$part])) {
+                $otel["db.elasticsearch.path_parts.$part"] = $params[$part];
+            }
+        }
+        if (in_array($endpoint, self::SEARCH_ENDPOINTS)) {
+            $body = $request->getBody()->getContents();
+            if (!empty($body)) {
+                $otel['db.query.text'] = OpenTelemetry::redactBody($body);
+            }
+        }
+        return $request->withAttribute(
+            OpenTelemetry::PSR7_OTEL_ATTRIBUTE_NAME,
+            array_merge($otel, [
+                'db.system' => 'elasticsearch',
+                'db.operation.name' => $endpoint
+            ])
+        );
     }
 }

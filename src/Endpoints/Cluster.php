@@ -34,6 +34,7 @@ class Cluster extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
 	 *
 	 * @param array{
+	 *     master_timeout: time, // Timeout for connection to master node
 	 *     include_yes_decisions: boolean, // Return 'YES' decisions in explanation (default: false)
 	 *     include_disk_info: boolean, // Return information about disk usage and shard sizes (default: false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -55,12 +56,14 @@ class Cluster extends AbstractEndpoint
 		$url = '/_cluster/allocation/explain';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['include_yes_decisions','include_disk_info','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','include_yes_decisions','include_disk_info','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.allocation_explain');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -97,7 +100,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cluster.delete_component_template');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -131,7 +136,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.delete_voting_config_exclusions');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -168,7 +175,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cluster.exists_component_template');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -208,7 +217,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cluster.get_component_template');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -244,7 +255,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.get_settings');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -292,7 +305,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cluster.health');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -327,7 +342,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['target'], $request, 'cluster.info');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -362,7 +379,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.pending_tasks');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -398,7 +417,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.post_voting_config_exclusions');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -438,7 +459,9 @@ class Cluster extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cluster.put_component_template');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -476,7 +499,9 @@ class Cluster extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.put_settings');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -508,7 +533,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.remote_info');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -548,7 +575,9 @@ class Cluster extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cluster.reroute');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -597,7 +626,9 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['metric', 'index'], $request, 'cluster.state');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -636,6 +667,8 @@ class Cluster extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'cluster.stats');
+		return $this->client->sendRequest($request);
 	}
 }

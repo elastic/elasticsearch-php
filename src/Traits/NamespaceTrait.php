@@ -40,7 +40,7 @@ use Elastic\Elasticsearch\Endpoints\Ml;
 use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
 use Elastic\Elasticsearch\Endpoints\Profiling;
-use Elastic\Elasticsearch\Endpoints\QueryRuleset;
+use Elastic\Elasticsearch\Endpoints\QueryRules;
 use Elastic\Elasticsearch\Endpoints\Rollup;
 use Elastic\Elasticsearch\Endpoints\SearchApplication;
 use Elastic\Elasticsearch\Endpoints\SearchableSnapshots;
@@ -283,12 +283,12 @@ trait NamespaceTrait
 	}
 
 
-	public function queryRuleset(): QueryRuleset
+	public function queryRules(): QueryRules
 	{
-		if (!isset($this->namespace['QueryRuleset'])) {
-			$this->namespace['QueryRuleset'] = new QueryRuleset($this);
+		if (!isset($this->namespace['QueryRules'])) {
+			$this->namespace['QueryRules'] = new QueryRules($this);
 		}
-		return $this->namespace['QueryRuleset'];
+		return $this->namespace['QueryRules'];
 	}
 
 

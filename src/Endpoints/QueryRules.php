@@ -26,15 +26,16 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class Ingest extends AbstractEndpoint
+class QueryRules extends AbstractEndpoint
 {
 	/**
-	 * Deletes a geoip database configuration
+	 * Deletes an individual query rule within a ruleset.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-rule.html
 	 *
 	 * @param array{
-	 *     id: list, // (REQUIRED) A comma-separated list of geoip database configurations to delete
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset this rule exists in
+	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to delete.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -49,10 +50,10 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteGeoipDatabase(array $params = [])
+	public function deleteRule(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
+		$this->checkRequiredParameters(['ruleset_id','rule_id'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -60,20 +61,18 @@ class Ingest extends AbstractEndpoint
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.delete_geoip_database');
+		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.delete_rule');
 		return $this->client->sendRequest($request);
 	}
 
 
 	/**
-	 * Deletes a pipeline.
+	 * Deletes a query ruleset.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html
 	 *
 	 * @param array{
-	 *     id: string, // (REQUIRED) Pipeline ID
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     timeout: time, // Explicit operation timeout
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset to delete
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -88,183 +87,35 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deletePipeline(array $params = [])
+	public function deleteRuleset(array $params = [])
 	{
-		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
+		$this->checkRequiredParameters(['ruleset_id'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.delete_pipeline');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Returns statistical information about geoip databases
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html
-	 *
-	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function geoIpStats(array $params = [])
-	{
-		$url = '/_ingest/geoip/stats';
-		$method = 'GET';
-
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'ingest.geo_ip_stats');
+		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.delete_ruleset');
 		return $this->client->sendRequest($request);
 	}
 
 
 	/**
-	 * Returns geoip database configuration.
+	 * Returns the details about an individual query rule within a ruleset.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-rule.html
 	 *
 	 * @param array{
-	 *     id: list, //  A comma-separated list of geoip database configurations to get; use `*` to get all geoip database configurations
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset the rule exists within
+	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to be retrieved.
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getGeoipDatabase(array $params = [])
-	{
-		if (isset($params['id'])) {
-			$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
-			$method = 'GET';
-		} else {
-			$url = '/_ingest/geoip/database';
-			$method = 'GET';
-		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.get_geoip_database');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Returns a pipeline.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
-	 *
-	 * @param array{
-	 *     id: string, //  Comma separated list of pipeline ids. Wildcards supported
-	 *     summary: boolean, // Return pipelines without their definitions (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getPipeline(array $params = [])
-	{
-		if (isset($params['id'])) {
-			$url = '/_ingest/pipeline/' . $this->encode($params['id']);
-			$method = 'GET';
-		} else {
-			$url = '/_ingest/pipeline';
-			$method = 'GET';
-		}
-		$url = $this->addQueryString($url, $params, ['summary','master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.get_pipeline');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Returns a list of the built-in patterns.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
-	 *
-	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function processorGrok(array $params = [])
-	{
-		$url = '/_ingest/processor/grok';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'ingest.processor_grok');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Puts the configuration for a geoip database to be downloaded
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
-	 *
-	 * @param array{
-	 *     id: string, // (REQUIRED) The id of the database configuration
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The database configuration definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -274,38 +125,34 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putGeoipDatabase(array $params = [])
+	public function getRule(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
-		$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
-		$method = 'PUT';
+		$this->checkRequiredParameters(['ruleset_id','rule_id'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
+		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.put_geoip_database');
+		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.get_rule');
 		return $this->client->sendRequest($request);
 	}
 
 
 	/**
-	 * Creates or updates a pipeline.
+	 * Returns the details about a query ruleset.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html
 	 *
 	 * @param array{
-	 *     id: string, // (REQUIRED) Pipeline ID
-	 *     if_version: int, // Required version for optimistic concurrency control for pipeline updates
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     timeout: time, // Explicit operation timeout
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The ingest definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -315,37 +162,35 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putPipeline(array $params = [])
+	public function getRuleset(array $params = [])
 	{
-		$this->checkRequiredParameters(['id','body'], $params);
-		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
-		$method = 'PUT';
+		$this->checkRequiredParameters(['ruleset_id'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
+		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['if_version','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.put_pipeline');
+		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.get_ruleset');
 		return $this->client->sendRequest($request);
 	}
 
 
 	/**
-	 * Allows to simulate a pipeline with example documents.
+	 * Lists query rulesets.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html
 	 *
 	 * @param array{
-	 *     id: string, //  Pipeline ID
-	 *     verbose: boolean, // Verbose mode. Display data output for each processor in executed pipeline
+	 *     from: int, // Starting offset (default: 0)
+	 *     size: int, // specifies a max number of results to get (default: 100)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The simulate definition
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -354,23 +199,96 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function simulate(array $params = [])
+	public function listRulesets(array $params = [])
 	{
-		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['id'])) {
-			$url = '/_ingest/pipeline/' . $this->encode($params['id']) . '/_simulate';
-			$method = empty($params['body']) ? 'GET' : 'POST';
-		} else {
-			$url = '/_ingest/pipeline/_simulate';
-			$method = empty($params['body']) ? 'GET' : 'POST';
-		}
-		$url = $this->addQueryString($url, $params, ['verbose','pretty','human','error_trace','source','filter_path']);
+		$url = '/_query_rules';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'query_rules.list_rulesets');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Creates or updates a query rule within a ruleset.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-rule.html
+	 *
+	 * @param array{
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset this rule should be added to. The ruleset will be created if it does not exist.
+	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to be created or updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The query rule configuration, including the type of rule, the criteria to match the rule, and the action that should be taken if the rule matches.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putRule(array $params = [])
+	{
+		$this->checkRequiredParameters(['ruleset_id','rule_id','body'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.simulate');
+		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.put_rule');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Creates or updates a query ruleset.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html
+	 *
+	 * @param array{
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to be created or updated.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The query ruleset configuration, including `rules`
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putRuleset(array $params = [])
+	{
+		$this->checkRequiredParameters(['ruleset_id','body'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.put_ruleset');
 		return $this->client->sendRequest($request);
 	}
 }

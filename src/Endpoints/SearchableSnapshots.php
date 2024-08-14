@@ -62,7 +62,9 @@ class SearchableSnapshots extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'searchable_snapshots.cache_stats');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -103,7 +105,9 @@ class SearchableSnapshots extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'searchable_snapshots.clear_cache');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -144,7 +148,9 @@ class SearchableSnapshots extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'searchable_snapshots.mount');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -182,6 +188,8 @@ class SearchableSnapshots extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'searchable_snapshots.stats');
+		return $this->client->sendRequest($request);
 	}
 }

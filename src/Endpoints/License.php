@@ -34,6 +34,8 @@ class License extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-license.html
 	 *
 	 * @param array{
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -52,11 +54,13 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.delete');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -90,7 +94,9 @@ class License extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.get');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -122,7 +128,9 @@ class License extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.get_basic_status');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -154,7 +162,9 @@ class License extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.get_trial_status');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -165,6 +175,8 @@ class License extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -184,12 +196,14 @@ class License extends AbstractEndpoint
 		$url = '/_license';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['acknowledge','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['acknowledge','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.post');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -200,6 +214,8 @@ class License extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -218,11 +234,13 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_basic';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['acknowledge','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['acknowledge','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.post_start_basic');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -234,6 +252,8 @@ class License extends AbstractEndpoint
 	 * @param array{
 	 *     type: string, // The type of trial license to generate (default: "trial")
 	 *     acknowledge: boolean, // whether the user has acknowledged acknowledge messages (default: false)
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -252,10 +272,12 @@ class License extends AbstractEndpoint
 		$url = '/_license/start_trial';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['type','acknowledge','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['type','acknowledge','master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'license.post_start_trial');
+		return $this->client->sendRequest($request);
 	}
 }

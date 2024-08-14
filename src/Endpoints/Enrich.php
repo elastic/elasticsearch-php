@@ -35,6 +35,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -55,11 +56,13 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.delete_policy');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -71,6 +74,7 @@ class Enrich extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
 	 *     wait_for_completion: boolean, // Should the request should block until the execution is complete.
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -91,11 +95,13 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/policy/' . $this->encode($params['name']) . '/_execute';
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.execute_policy');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -106,6 +112,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, //  A comma-separated list of enrich policy names
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -128,11 +135,13 @@ class Enrich extends AbstractEndpoint
 			$url = '/_enrich/policy';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.get_policy');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -143,6 +152,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -164,12 +174,14 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.put_policy');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -179,6 +191,7 @@ class Enrich extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
 	 *
 	 * @param array{
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -197,10 +210,12 @@ class Enrich extends AbstractEndpoint
 		$url = '/_enrich/_stats';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'enrich.stats');
+		return $this->client->sendRequest($request);
 	}
 }

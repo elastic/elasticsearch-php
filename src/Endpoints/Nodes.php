@@ -61,7 +61,9 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id', 'max_archive_version'], $request, 'nodes.clear_repositories_metering_archive');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -97,7 +99,9 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'nodes.get_repositories_metering_info');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -141,7 +145,9 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'nodes.hot_threads');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -187,7 +193,9 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id', 'metric'], $request, 'nodes.info');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -227,7 +235,9 @@ class Nodes extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'nodes.reload_secure_settings');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -287,7 +297,9 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id', 'metric', 'index_metric'], $request, 'nodes.stats');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -332,6 +344,8 @@ class Nodes extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id', 'metric'], $request, 'nodes.usage');
+		return $this->client->sendRequest($request);
 	}
 }

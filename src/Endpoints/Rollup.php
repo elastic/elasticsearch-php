@@ -60,7 +60,9 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.delete_job');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -91,14 +93,16 @@ class Rollup extends AbstractEndpoint
 			$url = '/_rollup/job/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
-			$url = '/_rollup/job/';
+			$url = '/_rollup/job';
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.get_jobs');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -129,14 +133,16 @@ class Rollup extends AbstractEndpoint
 			$url = '/_rollup/data/' . $this->encode($params['id']);
 			$method = 'GET';
 		} else {
-			$url = '/_rollup/data/';
+			$url = '/_rollup/data';
 			$method = 'GET';
 		}
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.get_rollup_caps');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -172,7 +178,9 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'rollup.get_rollup_index_caps');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -210,7 +218,9 @@ class Rollup extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.put_job');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -250,7 +260,9 @@ class Rollup extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'rollup.rollup_search');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -286,7 +298,9 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.start_job');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -324,6 +338,8 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.stop_job');
+		return $this->client->sendRequest($request);
 	}
 }

@@ -61,7 +61,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.cleanup_repository');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -101,7 +103,9 @@ class Snapshot extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot', 'target_snapshot'], $request, 'snapshot.clone');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -141,7 +145,9 @@ class Snapshot extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'snapshot.create');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -181,7 +187,9 @@ class Snapshot extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.create_repository');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -194,6 +202,7 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: list, // (REQUIRED) A comma-separated list of snapshot names
 	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -214,11 +223,13 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'snapshot.delete');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -255,7 +266,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.delete_repository');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -304,7 +317,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'snapshot.get');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -343,7 +358,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.get_repository');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -389,7 +406,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.repository_analyze');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -429,7 +448,9 @@ class Snapshot extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'snapshot.restore');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -472,7 +493,9 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository', 'snapshot'], $request, 'snapshot.status');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -509,6 +532,8 @@ class Snapshot extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'snapshot.verify_repository');
+		return $this->client->sendRequest($request);
 	}
 }

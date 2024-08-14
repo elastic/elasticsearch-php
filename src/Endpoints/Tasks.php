@@ -66,7 +66,9 @@ class Tasks extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'tasks.cancel');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -104,7 +106,9 @@ class Tasks extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'tasks.get');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -144,6 +148,8 @@ class Tasks extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'tasks.list');
+		return $this->client->sendRequest($request);
 	}
 }

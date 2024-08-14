@@ -60,7 +60,9 @@ class Shutdown extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.delete_node');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -71,6 +73,7 @@ class Shutdown extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id: string, //  Which node for which to retrieve the shutdown status
+	 *     master_timeout: time, // Timeout for processing on master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -93,12 +96,14 @@ class Shutdown extends AbstractEndpoint
 			$url = '/_nodes/shutdown';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.get_node');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -135,6 +140,8 @@ class Shutdown extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.put_node');
+		return $this->client->sendRequest($request);
 	}
 }

@@ -68,7 +68,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cat.aliases');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -113,7 +115,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'cat.allocation');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -157,7 +161,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cat.component_templates');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -199,7 +205,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cat.count');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -242,7 +250,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['fields'], $request, 'cat.fielddata');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -281,7 +291,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.health');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -315,7 +327,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.help');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -364,7 +378,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cat.indices');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -403,7 +419,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.master');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -448,7 +466,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'cat.ml_data_frame_analytics');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -492,7 +512,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'cat.ml_datafeeds');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -537,7 +559,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'cat.ml_jobs');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -584,7 +608,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'cat.ml_trained_models');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -623,7 +649,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.nodeattrs');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -665,7 +693,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.nodes');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -705,7 +735,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.pending_tasks');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -745,7 +777,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.plugins');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -791,7 +825,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cat.recovery');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -830,7 +866,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.repositories');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -873,7 +911,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cat.segments');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -918,7 +958,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'cat.shards');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -963,7 +1005,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['repository'], $request, 'cat.snapshots');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -1006,7 +1050,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'cat.tasks');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -1050,7 +1096,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'cat.templates');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -1096,7 +1144,9 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['thread_pool_patterns'], $request, 'cat.thread_pool');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -1142,6 +1192,8 @@ class Cat extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['transform_id'], $request, 'cat.transforms');
+		return $this->client->sendRequest($request);
 	}
 }

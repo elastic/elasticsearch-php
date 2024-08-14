@@ -166,7 +166,7 @@ class ActionTest
             $param2 = $matches[2][0];
             $this->variables[] = $key;
             return YamlTests::render(self::TEMPLATE_TRANSFORM_AND_SET, [
-                ':var'   => $key,
+                ':var'   => $this->convertVariableNameforPhp($key),
                 ':param' => sprintf("\$response['%s'] . ':' . \$response['%s']", $param1, $param2)
             ]);
         }
@@ -179,7 +179,7 @@ class ActionTest
         foreach ($action as $key => $var) {
             $this->variables[] = $var;
             $output .= YamlTests::render(self::TEMPLATE_SET_VARIABLE, [
-                ':var'   => $var,
+                ':var'   => $this->convertVariableNameforPhp($var),
                 ':value' => $this->convertResponseField($key)
             ]);
         }
@@ -587,5 +587,13 @@ class ActionTest
             $result .= sprintf("\$this->client->getTransport()->setHeader('%s',\"%s\");\n", $key, $value);
         }
         return $result;
+    }
+
+    /**
+     * Convert a variable name in a valid PHP variable name
+     */
+    private function convertVariableNameforPhp(string $var): string
+    {
+        return str_replace('-', '_', $var);
     }
 }

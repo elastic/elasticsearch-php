@@ -59,7 +59,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.delete_lifecycle');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -94,7 +96,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.execute_lifecycle');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -126,7 +130,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'slm.execute_retention');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -163,7 +169,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.get_lifecycle');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -195,7 +203,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'slm.get_stats');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -227,7 +237,9 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'slm.get_status');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -264,7 +276,9 @@ class Slm extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.put_lifecycle');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -274,6 +288,8 @@ class Slm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
 	 *
 	 * @param array{
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -292,11 +308,13 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'slm.start');
+		return $this->client->sendRequest($request);
 	}
 
 
@@ -306,6 +324,8 @@ class Slm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html
 	 *
 	 * @param array{
+	 *     master_timeout: time, // Timeout for processing on master node
+	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -324,10 +344,12 @@ class Slm extends AbstractEndpoint
 		$url = '/_slm/stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		return $this->client->sendRequest($this->createRequest($method, $url, $headers, $params['body'] ?? null));
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'slm.stop');
+		return $this->client->sendRequest($request);
 	}
 }

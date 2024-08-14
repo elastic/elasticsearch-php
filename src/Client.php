@@ -31,6 +31,19 @@ final class Client implements ClientInterface
     const VERSION = '8.15.0';
     const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=8';
     
+    const SEARCH_ENDPOINTS = [
+        'search',
+        'async_search.submit',
+        'msearch',
+        'eql.search',
+        'terms_enum',
+        'search_template',
+        'msearch_template',
+        'render_search_template',
+        'esql.query',
+        'knnSearch'
+    ];
+    
     use ClientEndpointsTrait;
     use EndpointTrait;
     use NamespaceTrait;

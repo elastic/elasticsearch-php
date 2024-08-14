@@ -31,19 +31,6 @@ use function sprintf;
 
 trait EndpointTrait
 {
-    const SEARCH_ENDPOINTS = [
-        'search',
-        'async_search.submit',
-        'msearch',
-        'eql.search',
-        'terms_enum',
-        'search_template',
-        'msearch_template',
-        'render_search_template',
-        'esql.query',
-        'knnSearch'
-    ];
-
     /**
      * Check if an array containts nested array
      */
@@ -230,7 +217,7 @@ trait EndpointTrait
                 $otel["db.elasticsearch.path_parts.$part"] = $params[$part];
             }
         }
-        if (in_array($endpoint, self::SEARCH_ENDPOINTS)) {
+        if (in_array($endpoint, Client::SEARCH_ENDPOINTS)) {
             $body = $request->getBody()->getContents();
             if (!empty($body)) {
                 $otel['db.query.text'] = OpenTelemetry::redactBody($body);

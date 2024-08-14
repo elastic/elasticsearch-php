@@ -1,4 +1,10 @@
-## release 8.14.0
+## Release 8.15.0
+
+Updated the APIs to Elasticsearch [8.15.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.15.0.html) and added the support of OpenTelemetry.
+Read the elastic-transport-php [README](https://github.com/elastic/elastic-transport-php?tab=readme-ov-file#opentelemetry)
+for more information about OpenTelemetry support.
+
+## Release 8.14.0
 
 This release introduces 3 new APIs and 10 EXPERIMENTAL APIs.
 

@@ -226,7 +226,7 @@ class ClientBuilder
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
      */
-    public function setApiKey(string $apiKey, string $id = null): ClientBuilder
+    public function setApiKey(string $apiKey, ?string $id = null): ClientBuilder
     {
         if (empty($id)) {
             $this->apiKey = $apiKey;
@@ -272,7 +272,7 @@ class ClientBuilder
      * @param string $cert The name of a file containing a PEM formatted certificate
      * @param string $password if the certificate requires a password
      */
-    public function setSSLCert(string $cert, string $password = null): ClientBuilder
+    public function setSSLCert(string $cert, ?string $password = null): ClientBuilder
     {
         $this->sslCert = [$cert, $password];
         return $this;
@@ -295,7 +295,7 @@ class ClientBuilder
      * @param string $key The name of a file containing a private SSL key
      * @param string $password if the private key requires a password
      */
-    public function setSSLKey(string $key, string $password = null): ClientBuilder
+    public function setSSLKey(string $key, ?string $password = null): ClientBuilder
     {
         $this->sslKey = [$key, $password];
         return $this;

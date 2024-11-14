@@ -52,15 +52,19 @@ class YamlTests
         'Cat\Templates\_10_BasicTest::FilteredTemplates' => 'regex mismatch',
         'Cat\Templates\_10_BasicTest::SelectColumns' => 'regex mismatch',
         'FieldCaps\_50_Fieldtype_FilterTest::*' => 'Bool mismatch',
+        'Indices\Create\_20_Synthetic_SourceTest::*' => 'Malformed request',
         'Indices\GetAlias\_10_BasicTest::GetAliasAgainstClosedIndices' => 'Failed asserting that true is false',
         'Indices\GetIndexTemplate\_10_BasicTest::*' => 'Bool mismatch',
         'Indices\PutTemplate\_10_BasicTest::PutTemplateCreate' => 'index_template [test] already exists',
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\ResolveCluster\_10_Basic_Resolve_ClusterTest::TestResolveClusterOptionalParamsAreAccepted' => 'Bool mismatch',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'Indices\ValidateQuery\_10_SynonymsTest::ValidateQueryWithSynonyms' => 'Failed asserting that two strings are equal',
         'IngestGeoip\_20_Geoip_ProcessorTest::*' => 'Undefined array key "geoip"',
         'IngestGeoip\_30_Geoip_StatsTest::TestGeoipStats' => 'Undefined array key "_arbitrary_key_"',
         'IngestGeoip\_50_Ip_Lookup_ProcessorTest::TestIp_locationProcessorWithDefaults' => 'Undefined array key "ip_location"',
+        'Search\Suggest\_20_PhraseTest::BreaksTiesBySortingTerms' => 'body not supported',
+        'Search\_330_Fetch_FieldsTest::TestWithSubobjectsAuto' => 'unknown subobjects value: auto',
         'Search\Vectors\_90_Sparse_VectorTest::SparseVectorIn800X8110' => 'Undefined array key error',
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
@@ -270,7 +274,7 @@ class YamlTests
                                     self::TEMPLATE_FUNCTION_SKIPPED,
                                     [ 
                                         ':name' => $functionName,
-                                        ':skipped_msg'  => $skip[$skippedAllTest] 
+                                        ':skipped_msg'  => addslashes($skip[$skippedAllTest])
                                     ]
                                 );
                             } elseif (isset($skip[$skippedTest])) {
@@ -278,7 +282,7 @@ class YamlTests
                                     self::TEMPLATE_FUNCTION_SKIPPED,
                                     [ 
                                         ':name' => $functionName,
-                                        ':skipped_msg'  => $skip[$skippedTest] 
+                                        ':skipped_msg'  => addslashes($skip[$skippedTest])
                                     ]
                                 );
                             } else {

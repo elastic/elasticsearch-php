@@ -99,7 +99,9 @@ class ActionTest
         ];
         foreach ($actions as $key => $value) {
             if (method_exists($this, $key)) {
-                $this->$key($value, $vars);
+                if (!empty($value)) {
+                    $this->$key($value, $vars);
+                }
             } else {
                 // headers
                 if (!empty($this->headers)) {

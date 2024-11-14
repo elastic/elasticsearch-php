@@ -58,10 +58,14 @@ class YamlTests
         'Indices\Refresh\_10_BasicTest::IndicesRefreshTestEmptyArray' => 'empty array?',
         'Indices\ResolveCluster\_10_Basic_Resolve_ClusterTest::TestResolveClusterOptionalParamsAreAccepted' => 'Bool mismatch',
         'Indices\SimulateIndexTemplate\_10_BasicTest::SimulateIndexTemplateWithIndexNotMatchingAnyTemplate' => 'Bool mismatch',
+        'IngestGeoip\_20_Geoip_ProcessorTest::*' => 'Undefined array key "geoip"',
+        'IngestGeoip\_30_Geoip_StatsTest::TestGeoipStats' => 'Undefined array key "_arbitrary_key_"',
+        'IngestGeoip\_50_Ip_Lookup_ProcessorTest::TestIp_locationProcessorWithDefaults' => 'Undefined array key "ip_location"',
         'Search\Vectors\_90_Sparse_VectorTest::SparseVectorIn800X8110' => 'Undefined array key error',
         'Snapshot\Create\_10_BasicTest::CreateASnapshot' => 'Invalid snapshot name [test_snapshot]',
         'Snapshot\Create\_10_BasicTest::CreateASnapshotAndCleanUpRepository' => 'Invalid snapshot name [test_snapshot]',
         'Tsdb\_20_MappingTest::UnsupportedMetricTypePosition' => 'Fixed in Elasticsearch 8.9',
+        
     ];
 
     const SKIPPED_TEST_XPACK = [
@@ -117,6 +121,7 @@ class YamlTests
         'SearchableSnapshots\_20_Synthetic_SourceTest::*' => 'no_shard_available_action_exception',
         'ServiceAccounts\_10_BasicTest::TestServiceAccountTokens' => 'Count mismatch',
         'Snapshot\_10_BasicTest::CreateASourceOnlySnapshotAndThenRestoreIt' => 'Snapshot name already exists',
+        'Snapshot\_10_BasicTest::FailedToSnapshotIndicesWithSyntheticSource' => 'Failed asserting that 1 matches expected 0',
         'Snapshot\_20_Operator_Privileges_DisabledTest::OperatorOnlySettingsCanBeSetAndRestoredByNonoperatorUserWhenOperatorPrivilegesIsDisabled' => 'Count mismatch',
         'Spatial\_130_Geo_Shape_RuntimeTest::GetMapping' => 'Escape string issue',
         'Sql\_SqlTest::PagingThroughResults' => 'Mismatch values',

@@ -1751,6 +1751,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1773,7 +1774,7 @@ trait ClientEndpointsTrait
 			$url = '/_search_shards';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

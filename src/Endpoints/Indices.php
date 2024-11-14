@@ -293,6 +293,8 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the data stream
+	 *     timeout: time, // Specify timeout for acknowledging the cluster state update
+	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -313,7 +315,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/' . $this->encode($params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -448,7 +450,6 @@ class Indices extends AbstractEndpoint
 	 * Deletes the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams of which the data stream lifecycle will be deleted; use `*` to get all data streams
@@ -493,6 +494,7 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams to delete; use `*` to delete all data streams
 	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -513,7 +515,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/' . $this->encode($params['name']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -858,7 +860,6 @@ class Indices extends AbstractEndpoint
 	 * Retrieves information about the index's current data stream lifecycle, such as any potential encountered error, time since creation etc.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to explain
@@ -1125,12 +1126,12 @@ class Indices extends AbstractEndpoint
 	 * Returns the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams to get; use `*` to get all data streams
 	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
 	 *     include_defaults: boolean, // Return all relevant default configurations for the data stream (default: false)
+	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1151,7 +1152,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/' . $this->encode($params['name']) . '/_lifecycle';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['expand_wildcards','include_defaults','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','include_defaults','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1170,6 +1171,8 @@ class Indices extends AbstractEndpoint
 	 *     name: list, //  A comma-separated list of data streams to get; use `*` to get all data streams
 	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
 	 *     include_defaults: boolean, // Return all relevant default configurations for the data stream (default: false)
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     verbose: boolean, // Whether the maximum timestamp for each data stream should be calculated and returned (default: false)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1192,7 +1195,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_data_stream';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['expand_wildcards','include_defaults','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','include_defaults','master_timeout','verbose','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1438,6 +1441,8 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the alias to migrate
+	 *     timeout: time, // Specify timeout for acknowledging the cluster state update
+	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1458,7 +1463,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/_migrate/' . $this->encode($params['name']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1555,6 +1560,7 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the data stream
+	 *     master_timeout: time, // Specify timeout for connection to master
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1575,7 +1581,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_data_stream/_promote/' . $this->encode($params['name']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -1631,7 +1637,6 @@ class Indices extends AbstractEndpoint
 	 * Updates the data stream lifecycle of the selected data streams.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams whose lifecycle will be updated; use `*` to set the lifecycle to all data streams
@@ -2021,6 +2026,8 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of names or wildcard expressions
 	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2041,7 +2048,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_resolve/index/' . $this->encode($params['name']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','ignore_unavailable','allow_no_indices','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

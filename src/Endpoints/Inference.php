@@ -205,4 +205,49 @@ class Inference extends AbstractEndpoint
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.put');
 		return $this->client->sendRequest($request);
 	}
+
+
+	/**
+	 * Perform streaming inference
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-stream-inference-api.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     task_type: string, //  The task type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The inference payload
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function streamInference(array $params = [])
+	{
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']) . '/_stream';
+			$method = 'POST';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']) . '/_stream';
+			$method = 'POST';
+		}
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'text/event-stream',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.stream_inference');
+		return $this->client->sendRequest($request);
+	}
 }

@@ -639,7 +639,7 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id: list, //  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
+	 *     include_remotes: boolean, // Include remote cluster data into the response (default: false)
 	 *     timeout: time, // Explicit operation timeout
 	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
@@ -663,7 +663,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_cluster/stats';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['flat_settings','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['include_remotes','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

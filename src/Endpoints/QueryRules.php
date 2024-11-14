@@ -291,4 +291,44 @@ class QueryRules extends AbstractEndpoint
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.put_ruleset');
 		return $this->client->sendRequest($request);
 	}
+
+
+	/**
+	 * Tests a query ruleset to identify the rules that would match input criteria
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/test-query-ruleset.html
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to test.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The match criteria to test against the ruleset
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function test(array $params = [])
+	{
+		$this->checkRequiredParameters(['ruleset_id','body'], $params);
+		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_test';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.test');
+		return $this->client->sendRequest($request);
+	}
 }

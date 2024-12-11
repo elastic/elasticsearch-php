@@ -255,7 +255,7 @@ class Connection implements ConnectionInterface
 
     private function wrapHandler(callable $handler): callable
     {
-        return function (array $request, Connection $connection, $options, ?Transport $transport = null) use ($handler) {
+        return function (array $request, Connection $connection, ?Transport $transport = null, array $options = []) use ($handler) {
 
             $this->lastRequest = [];
             $this->lastRequest['request'] = $request;

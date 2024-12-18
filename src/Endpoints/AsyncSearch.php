@@ -152,11 +152,11 @@ class AsyncSearch extends AbstractEndpoint
 	 *     index: list, //  A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
 	 *     wait_for_completion_timeout: time, // Specify the time that the request should block waiting for the final response
 	 *     keep_on_completion: boolean, // Control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false)
-	 *     keep_alive: time, // Update the time interval in which the results (partial or final) for this search will be available
 	 *     batched_reduce_size: number, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as the granularity at which progress results will be made available.
 	 *     request_cache: boolean, // Specify if request cache should be used for this request or not, defaults to true
 	 *     analyzer: string, // The analyzer to use for the query string
 	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     ccs_minimize_roundtrips: boolean, // When doing a cross-cluster search, setting it to true may improve overall search latency, particularly when searching clusters with a large number of shards. However, when set to true, the progress of searches on the remote clusters will not be received until the search finishes on all clusters.
 	 *     default_operator: enum, // The default operator for query string query (AND or OR)
 	 *     df: string, // The field to use as default where no field prefix is given in the query string
 	 *     explain: boolean, // Specify whether to return detailed information about score computation as part of a hit
@@ -169,6 +169,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     q: string, // Query in the Lucene query string syntax
 	 *     routing: list, // A comma-separated list of specific routing values
 	 *     search_type: enum, // Search operation type
@@ -214,7 +215,7 @@ class AsyncSearch extends AbstractEndpoint
 			$url = '/_async_search';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive','batched_reduce_size','request_cache','analyzer','analyze_wildcard','default_operator','df','explain','stored_fields','docvalue_fields','from','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','batched_reduce_size','request_cache','analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','rest_total_hits_as_int','q','routing','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

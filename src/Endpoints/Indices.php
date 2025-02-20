@@ -36,16 +36,16 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma separated list of indices to add a block to
 	 *     block: string, // (REQUIRED) The block to add (one of read, write, read_only or metadata)
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -77,13 +77,13 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
 	 *
 	 * @param array{
-	 *     index: string, //  The name of the index to scope the operation
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
+	 *     index?: string, //  The name of the index to scope the operation
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -118,19 +118,19 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index name to limit the operation
-	 *     fielddata: boolean, // Clear field data
-	 *     fields: list, // A comma-separated list of fields to clear when using the `fielddata` parameter (default: all)
-	 *     query: boolean, // Clear query caches
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     request: boolean, // Clear request cache
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index name to limit the operation
+	 *     fielddata?: boolean, // Clear field data
+	 *     fields?: list, // A comma-separated list of fields to clear when using the `fielddata` parameter (default: all)
+	 *     query?: boolean, // Clear query caches
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     request?: boolean, // Clear request cache
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -166,15 +166,15 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the source index to clone
 	 *     target: string, // (REQUIRED) The name of the target index to clone into
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the cloned index before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for on the cloned index before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -208,17 +208,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma separated list of indices to close
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards?: string, // Sets the number of active shards to wait for before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -251,15 +251,15 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards: string, // Set the number of active shards to wait for before the operation returns.
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the index (`settings` and `mappings`)
+	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for before the operation returns.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The configuration for the index (`settings` and `mappings`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -293,13 +293,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the data stream
-	 *     timeout: time, // Specify timeout for acknowledging the cluster state update
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Specify timeout for acknowledging the cluster state update
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -331,12 +331,12 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: list, //  A comma-separated list of data stream names; use `_all` or empty string to perform the operation on all data streams
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -371,16 +371,16 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
-	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open, closed, or hidden indices
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices?: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open, closed, or hidden indices
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -414,13 +414,13 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names (supports wildcards); use `_all` for all indices
 	 *     name: list, // (REQUIRED) A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
-	 *     timeout: time, // Explicit timestamp for the document
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit timestamp for the document
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -453,14 +453,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams of which the data stream lifecycle will be deleted; use `*` to get all data streams
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     timeout: time, // Explicit timestamp for the document
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     timeout?: time, // Explicit timestamp for the document
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -493,13 +493,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams to delete; use `*` to delete all data streams
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -532,13 +532,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -571,13 +571,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -611,16 +611,16 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) Comma-separated list of indices or data streams to analyze the disk usage
-	 *     run_expensive_tasks: boolean, // Must be set to [true] in order for the task to be performed. Defaults to false.
-	 *     flush: boolean, // Whether flush or not before analyzing the index disk usage. Defaults to true
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     run_expensive_tasks?: boolean, // Must be set to [true] in order for the task to be performed. Defaults to false.
+	 *     flush?: boolean, // Whether flush or not before analyzing the index disk usage. Defaults to true
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -655,11 +655,11 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index to downsample
 	 *     target_index: string, // (REQUIRED) The name of the target index to store downsampled data
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The downsampling configuration
 	 * } $params
 	 *
@@ -694,17 +694,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
-	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     ignore_unavailable?: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices?: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     include_defaults?: boolean, // Whether to return all default setting for each of the indices.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -737,16 +737,16 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of alias names to return
-	 *     index: list, //  A comma-separated list of index names to filter aliases
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names to filter aliases
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -783,14 +783,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout?: time, // Explicit operation timeout for connection to master node
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -823,14 +823,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) The comma separated names of the index templates
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout?: time, // Explicit operation timeout for connection to master node
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -863,13 +863,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to explain
-	 *     include_defaults: boolean, // indicates if the API should return the default values the system uses for the index's lifecycle
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     include_defaults?: boolean, // indicates if the API should return the default values the system uses for the index's lifecycle
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -903,15 +903,15 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     fields: list, // A comma-separated list of fields to include in the stats if only a subset of fields should be returned (supports wildcards)
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     fields?: list, // A comma-separated list of fields to include in the stats if only a subset of fields should be returned (supports wildcards)
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -943,17 +943,17 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string for all indices
-	 *     force: boolean, // Whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal)
-	 *     wait_if_ongoing: boolean, // If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string for all indices
+	 *     force?: boolean, // Whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal)
+	 *     wait_if_ongoing?: boolean, // If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -987,19 +987,19 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     flush: boolean, // Specify whether the index should be flushed after performing the operation (default: true)
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     max_num_segments: number, // The number of segments the index should be merged into (default: dynamic)
-	 *     only_expunge_deletes: boolean, // Specify whether the operation should only expunge deleted documents
-	 *     wait_for_completion: boolean, // Should the request wait until the force merge is completed.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     flush?: boolean, // Specify whether the index should be flushed after performing the operation (default: true)
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     max_num_segments?: number, // The number of segments the index should be merged into (default: dynamic)
+	 *     only_expunge_deletes?: boolean, // Specify whether the operation should only expunge deleted documents
+	 *     wait_for_completion?: boolean, // Should the request wait until the force merge is completed.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1034,19 +1034,19 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     ignore_unavailable: boolean, // Ignore unavailable indexes (default: false)
-	 *     allow_no_indices: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     features: enum, // Return only information on specified index features
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     ignore_unavailable?: boolean, // Ignore unavailable indexes (default: false)
+	 *     allow_no_indices?: boolean, // Ignore if a wildcard expression resolves to no concrete indices (default: false)
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     features?: enum, // Return only information on specified index features
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     include_defaults?: boolean, // Whether to return all default setting for each of the indices.
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1078,17 +1078,17 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of alias names to return
-	 *     index: list, //  A comma-separated list of index names to filter aliases
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: list, //  A comma-separated list of alias names to return
+	 *     index?: list, //  A comma-separated list of index names to filter aliases
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1129,14 +1129,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams to get; use `*` to get all data streams
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     include_defaults: boolean, // Return all relevant default configurations for the data stream (default: false)
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     include_defaults?: boolean, // Return all relevant default configurations for the data stream (default: false)
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1168,16 +1168,16 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of data streams to get; use `*` to get all data streams
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     include_defaults: boolean, // Return all relevant default configurations for the data stream (default: false)
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     verbose: boolean, // Whether the maximum timestamp for each data stream should be calculated and returned (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: list, //  A comma-separated list of data streams to get; use `*` to get all data streams
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     include_defaults?: boolean, // Return all relevant default configurations for the data stream (default: false)
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     verbose?: boolean, // Whether the maximum timestamp for each data stream should be calculated and returned (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1212,17 +1212,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     fields: list, // (REQUIRED) A comma-separated list of fields
-	 *     index: list, //  A comma-separated list of index names
-	 *     include_defaults: boolean, // Whether the default mapping values should be returned as well
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names
+	 *     include_defaults?: boolean, // Whether the default mapping values should be returned as well
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1258,16 +1258,16 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template.html
 	 *
 	 * @param array{
-	 *     name: string, //  A pattern that returned template names must match
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     include_defaults: boolean, // Return all relevant default configurations for the index template (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string, //  A pattern that returned template names must match
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout?: time, // Explicit operation timeout for connection to master node
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     include_defaults?: boolean, // Return all relevant default configurations for the index template (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1301,17 +1301,17 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1345,20 +1345,20 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     name: list, //  The name of the settings that should be included
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     include_defaults: boolean, // Whether to return all default setting for each of the indices.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     name?: list, //  The name of the settings that should be included
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     include_defaults?: boolean, // Whether to return all default setting for each of the indices.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1398,15 +1398,15 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template-v1.html
 	 *
 	 * @param array{
-	 *     name: list, //  The comma separated names of the index templates
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: list, //  The comma separated names of the index templates
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     master_timeout?: time, // Explicit operation timeout for connection to master node
+	 *     local?: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1441,13 +1441,13 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the alias to migrate
-	 *     timeout: time, // Specify timeout for acknowledging the cluster state update
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Specify timeout for acknowledging the cluster state update
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1479,12 +1479,12 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The data stream modifications
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, // (REQUIRED) The data stream modifications
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1517,17 +1517,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma separated list of indices to open
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards?: string, // Sets the number of active shards to wait for before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1560,12 +1560,12 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the data stream
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1599,14 +1599,14 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names the alias should point to (supports wildcards); use `_all` to perform the operation on all indices.
 	 *     name: string, // (REQUIRED) The name of the alias to be created or updated
-	 *     timeout: time, // Explicit timestamp for the document
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The settings for the alias, such as `routing` or `filter`
+	 *     timeout?: time, // Explicit timestamp for the document
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The settings for the alias, such as `routing` or `filter`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1640,15 +1640,15 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of data streams whose lifecycle will be updated; use `*` to set the lifecycle to all data streams
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     timeout: time, // Explicit timestamp for the document
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The data stream lifecycle configuration that consist of the data retention
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     timeout?: time, // Explicit timestamp for the document
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The data stream lifecycle configuration that consist of the data retention
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1682,14 +1682,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     create: boolean, // Whether the index template should only be added if new or can also replace an existing one
-	 *     cause: string, // User defined reason for creating/updating the index template
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     create?: boolean, // Whether the index template should only be added if new or can also replace an existing one
+	 *     cause?: string, // User defined reason for creating/updating the index template
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The template definition
 	 * } $params
 	 *
@@ -1724,17 +1724,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     write_index_only: boolean, // When true, applies mappings only to the write index of an alias or data stream
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     write_index_only?: boolean, // When true, applies mappings only to the write index of an alias or data stream
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The mapping definition
 	 * } $params
 	 *
@@ -1768,20 +1768,20 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     timeout: time, // Explicit operation timeout
-	 *     preserve_existing: boolean, // Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`
-	 *     reopen: boolean, // Whether to close and reopen the index to apply non-dynamic settings. If set to `true` the indices to which the settings are being applied will be closed temporarily and then reopened in order to apply the changes. The default is `false`
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     flat_settings: boolean, // Return settings in flat format (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     timeout?: time, // Explicit operation timeout
+	 *     preserve_existing?: boolean, // Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`
+	 *     reopen?: boolean, // Whether to close and reopen the index to apply non-dynamic settings. If set to `true` the indices to which the settings are being applied will be closed temporarily and then reopened in order to apply the changes. The default is `false`
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     flat_settings?: boolean, // Return settings in flat format (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The index settings to be updated
 	 * } $params
 	 *
@@ -1819,14 +1819,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     order: number, // The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
-	 *     create: boolean, // Whether the index template should only be added if new or can also replace an existing one
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     order?: number, // The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
+	 *     create?: boolean, // Whether the index template should only be added if new or can also replace an existing one
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The template definition
 	 * } $params
 	 *
@@ -1860,14 +1860,14 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     detailed: boolean, // Whether to display detailed information about shard recovery
-	 *     active_only: boolean, // Display only those recoveries that are currently on-going
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     detailed?: boolean, // Whether to display detailed information about shard recovery
+	 *     active_only?: boolean, // Display only those recoveries that are currently on-going
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1901,15 +1901,15 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1944,15 +1944,15 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: list, // (REQUIRED) A comma-separated list of index names to reload analyzers for
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     resource: string, // changed resource to reload analyzers from if applicable
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     resource?: string, // changed resource to reload analyzers from if applicable
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1985,15 +1985,15 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of cluster:index names or wildcard expressions
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled?: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2026,14 +2026,14 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: list, // (REQUIRED) A comma-separated list of names or wildcard expressions
-	 *     expand_wildcards: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     expand_wildcards?: enum, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2067,19 +2067,19 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     alias: string, // (REQUIRED) The name of the alias to rollover
-	 *     new_index: string, //  The name of the rollover index
-	 *     timeout: time, // Explicit operation timeout
-	 *     dry_run: boolean, // If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
-	 *     lazy: boolean, // If set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
-	 *     target_failure_store: boolean, // If set to true, the rollover action will be applied on the failure store of the data stream.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The conditions that needs to be met for executing rollover
+	 *     new_index?: string, //  The name of the rollover index
+	 *     timeout?: time, // Explicit operation timeout
+	 *     dry_run?: boolean, // If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
+	 *     lazy?: boolean, // If set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
+	 *     target_failure_store?: boolean, // If set to true, the rollover action will be applied on the failure store of the data stream.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The conditions that needs to be met for executing rollover
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2116,16 +2116,16 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     verbose: boolean, // Includes detailed memory usage by Lucene.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     verbose?: boolean, // Includes detailed memory usage by Lucene.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2159,16 +2159,16 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     status: list, // A comma-separated list of statuses used to filter on shards to get store information for
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     status?: list, // A comma-separated list of statuses used to filter on shards to get store information for
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2204,15 +2204,15 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the source index to shrink
 	 *     target: string, // (REQUIRED) The name of the target index to shrink into
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2246,16 +2246,16 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the index (it must be a concrete index name)
-	 *     create: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
-	 *     cause: string, // User defined reason for dry-run creating the new template for simulation purposes
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     include_defaults: boolean, // Return all relevant default configurations for this index template simulation (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  New index template definition, which will be included in the simulation, as if it already exists in the system
+	 *     create?: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
+	 *     cause?: string, // User defined reason for dry-run creating the new template for simulation purposes
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     include_defaults?: boolean, // Return all relevant default configurations for this index template simulation (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  New index template definition, which will be included in the simulation, as if it already exists in the system
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2288,17 +2288,17 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-template.html
 	 *
 	 * @param array{
-	 *     name: string, //  The name of the index template
-	 *     create: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
-	 *     cause: string, // User defined reason for dry-run creating the new template for simulation purposes
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     include_defaults: boolean, // Return all relevant default configurations for this template simulation (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  New index template definition to be simulated, if no index template name is specified
+	 *     name?: string, //  The name of the index template
+	 *     create?: boolean, // Whether the index template we optionally defined in the body should only be dry-run added if new or can also replace an existing one
+	 *     cause?: string, // User defined reason for dry-run creating the new template for simulation purposes
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     include_defaults?: boolean, // Return all relevant default configurations for this template simulation (default: false)
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  New index template definition to be simulated, if no index template name is specified
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2335,15 +2335,15 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the source index to split
 	 *     target: string, // (REQUIRED) The name of the target index to split into
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     wait_for_active_shards: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for on the shrunken index before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2376,22 +2376,22 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html
 	 *
 	 * @param array{
-	 *     metric: list, //  Limit the information returned the specific metrics.
-	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     completion_fields: list, // A comma-separated list of fields for the `completion` index metric (supports wildcards)
-	 *     fielddata_fields: list, // A comma-separated list of fields for the `fielddata` index metric (supports wildcards)
-	 *     fields: list, // A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)
-	 *     groups: list, // A comma-separated list of search groups for `search` index metric
-	 *     level: enum, // Return stats aggregated at cluster, index or shard level
-	 *     include_segment_file_sizes: boolean, // Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested)
-	 *     include_unloaded_segments: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     forbid_closed_indices: boolean, // If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     metric?: list, //  Limit the information returned the specific metrics.
+	 *     index?: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     completion_fields?: list, // A comma-separated list of fields for the `completion` index metric (supports wildcards)
+	 *     fielddata_fields?: list, // A comma-separated list of fields for the `fielddata` index metric (supports wildcards)
+	 *     fields?: list, // A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)
+	 *     groups?: list, // A comma-separated list of search groups for `search` index metric
+	 *     level?: enum, // Return stats aggregated at cluster, index or shard level
+	 *     include_segment_file_sizes?: boolean, // Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested)
+	 *     include_unloaded_segments?: boolean, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     forbid_closed_indices?: boolean, // If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2432,17 +2432,17 @@ class Indices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to unfreeze
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     wait_for_active_shards: string, // Sets the number of active shards to wait for before the operation returns.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Explicit operation timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_active_shards?: string, // Sets the number of active shards to wait for before the operation returns.
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2474,13 +2474,13 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
 	 *
 	 * @param array{
-	 *     timeout: time, // Request timeout
-	 *     master_timeout: time, // Specify timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: time, // Request timeout
+	 *     master_timeout?: time, // Specify timeout for connection to master
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
 	 *     body: array, // (REQUIRED) The definition of `actions` to perform
 	 * } $params
 	 *
@@ -2513,25 +2513,25 @@ class Indices extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-	 *     explain: boolean, // Return detailed information about the error
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     q: string, // Query in the Lucene query string syntax
-	 *     analyzer: string, // The analyzer to use for the query string
-	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator: enum, // The default operator for query string query (AND or OR)
-	 *     df: string, // The field to use as default where no field prefix is given in the query string
-	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     rewrite: boolean, // Provide a more detailed explanation showing the actual Lucene query that will be executed.
-	 *     all_shards: boolean, // Execute validation on all shards instead of one random shard per index
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The query definition specified with the Query DSL
+	 *     index?: list, //  A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
+	 *     explain?: boolean, // Return detailed information about the error
+	 *     ignore_unavailable?: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     q?: string, // Query in the Lucene query string syntax
+	 *     analyzer?: string, // The analyzer to use for the query string
+	 *     analyze_wildcard?: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     default_operator?: enum, // The default operator for query string query (AND or OR)
+	 *     df?: string, // The field to use as default where no field prefix is given in the query string
+	 *     lenient?: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     rewrite?: boolean, // Provide a more detailed explanation showing the actual Lucene query that will be executed.
+	 *     all_shards?: boolean, // Execute validation on all shards instead of one random shard per index
+	 *     pretty?: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: list, // A comma-separated list of filters used to reduce the response.
+	 *     body?: array, //  The query definition specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline

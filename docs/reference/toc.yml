@@ -1,0 +1,27 @@
+toc:
+  - file: index.md
+  - file: getting-started.md
+  - file: installation.md
+  - file: connecting.md
+  - file: configuration.md
+    children:
+      - file: php_json_objects.md
+      - file: host-config.md
+      - file: set-retries.md
+      - file: http-meta-data.md
+      - file: enabling_logger.md
+      - file: http-client.md
+      - file: namespaces.md
+      - file: node_pool.md
+  - file: operations.md
+    children:
+      - file: index_management.md
+      - file: search_operations.md
+      - file: indexing_documents.md
+      - file: getting_documents.md
+      - file: updating_documents.md
+      - file: deleting_documents.md
+  - file: client-helpers.md
+    children:
+      - file: iterators.md
+      - file: esql.md

@@ -1,19 +1,19 @@
-[[iterators]]
-=== Iterators
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/iterators.html
+---
+
+# Iterators [iterators]
 
 The PHP client includes helpers for iterating through results by page or by hits.
 
-[[search-response-iterator]]
-==== Search response iterator
+## Search response iterator [search-response-iterator]
 
-Use the `SearchResponseIterator` to iterate page by page in a search 
-result using 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html#paginate-search-results[pagination].
+Use the `SearchResponseIterator` to iterate page by page in a search result using [pagination](elasticsearch://docs/reference/elasticsearch/rest-apis/paginate-search-results.md).
 
-Here's an example:
+Here’s an example:
 
-[source,php]
-----
+```php
 use Elastic\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 
 $search_params = [
@@ -35,21 +35,16 @@ foreach($pages as $page) {
     // e.g. prints the number of document per page (100)
     echo count($page['hits']['hits']), PHP_EOL;
 }
-----
+```
 
 
-[discrete]
-[[search-hit-iterator]]
-==== Search hit iterator
+### Search hit iterator [search-hit-iterator]
 
-Use the `SearchHitIterator` to iterate in a `SearchResponseIterator` 
-without worrying about 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html#paginate-search-results[pagination].
+Use the `SearchHitIterator` to iterate in a `SearchResponseIterator` without worrying about [pagination](elasticsearch://docs/reference/elasticsearch/rest-apis/paginate-search-results.md).
 
-Here's an example:
+Here’s an example:
 
-[source,php]
-----
+```php
 use Elastic\Elasticsearch\Helper\Iterators\SearchHitIterator;
 use Elastic\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 
@@ -73,4 +68,6 @@ foreach($hits as $hit) {
     // e.g. prints the document id
     echo $hit['_id'], PHP_EOL;
 }
-----
+```
+
+

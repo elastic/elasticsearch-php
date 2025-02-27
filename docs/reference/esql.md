@@ -1,37 +1,28 @@
-[[esql]]
-=== ES|QL in the PHP client
-++++
-<titleabbrev>ES|QL</titleabbrev>
-++++
+---
+navigation_title: "ES|QL"
+mapped_pages:
+  - https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/esql.html
+---
 
-This page helps you understand and use {ref}/esql.html[ES|QL] in the
-PHP client.
+# ES|QL in the PHP client [esql]
+
+
+This page helps you understand and use [ES|QL](docs-content://explore-analyze/query-filter/languages/esql.md) in the PHP client.
 
 There are two ways to use ES|QL in the PHP client:
 
-* Use the Elasticsearch {es-docs}/esql-apis.html[ES|QL API] directly: This
-is the most flexible approach, but it's also the most complex because you must handle
-results in their raw form. You can choose the precise format of results,
-such as JSON, CSV, or text.
-* Use ES|QL `mapTo($class)` helper. This mapper takes care of parsing the raw
-response and converting into an array of objects. If you don't specify the class
-using the `$class` parameter, the mapper uses https://www.php.net/manual/en/class.stdclass.php[stdClass].
+* Use the Elasticsearch [ES|QL API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) directly: This is the most flexible approach, but it’s also the most complex because you must handle results in their raw form. You can choose the precise format of results, such as JSON, CSV, or text.
+* Use ES|QL `mapTo($class)` helper. This mapper takes care of parsing the raw response and converting into an array of objects. If you don’t specify the class using the `$class` parameter, the mapper uses [stdClass](https://www.php.net/manual/en/class.stdclass.php).
 
-[discrete]
-[[esql-how-to]]
-==== How to use the ES|QL API
 
-The {es-docs}/esql-query-api.html[ES|QL query API] allows you to specify how
-results should be returned. You can choose a
-{es-docs}/esql-rest.html#esql-rest-format[response format] such as CSV, text, or
-JSON, then fine-tune it with parameters like column separators
-and locale.
+## How to use the ES|QL API [esql-how-to]
 
-The default response from Elasticsearch is a table in JSON, where `columns`
-is an array of descriptions and `values` is an array of rows containing the values.
+The [ES|QL query API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) allows you to specify how results should be returned. You can choose a [response format](docs-content://explore-analyze/query-filter/languages/esql-rest.md#esql-rest-format) such as CSV, text, or JSON, then fine-tune it with parameters like column separators and locale.
 
-[[query-script]]
-Here's an example query and PHP script:
+The default response from Elasticsearch is a table in JSON, where `columns` is an array of descriptions and `values` is an array of rows containing the values.
+
+$$$query-script$$$
+Here’s an example query and PHP script:
 
 ```php
 $query = <<<EOD
@@ -54,7 +45,7 @@ foreach ($result['values'] as $value) {
 }
 ```
 
-Here's the JSON response from Elasticsearch:
+Here’s the JSON response from Elasticsearch:
 
 ```json
 {
@@ -96,7 +87,7 @@ Here's the JSON response from Elasticsearch:
 }
 ```
 
-Using this response, the PHP script (provided <<query-script,above>>) produces the following output:
+Using this response, the PHP script (provided [above](#query-script)) produces the following output:
 
 ```php
 author : Stephen King
@@ -133,7 +124,7 @@ $result = $client->esql()->query([
 var_dump($result->asArray());
 ```
 
-The response looks something like this: 
+The response looks something like this:
 
 ```json
 array(12) {
@@ -168,19 +159,15 @@ array(12) {
     string(4) "2002"
   }
 ```
-In the response, the first row contains the column descriptions and the other rows contain
-the values, using a plain PHP array.
+
+In the response, the first row contains the column descriptions and the other rows contain the values, using a plain PHP array.
 
 
-[discrete]
-[[esql-custom-mapping]]
-==== Define your own mapping
+## Define your own mapping [esql-custom-mapping]
 
-Although the `esql()->query()` API covers many use cases, your application
-might require a custom mapping.
+Although the `esql()->query()` API covers many use cases, your application might require a custom mapping.
 
-You can map the ES|QL result into an array of objects, using the `mapTo()`
-function. Here's an example:
+You can map the ES|QL result into an array of objects, using the `mapTo()` function. Here’s an example:
 
 ```php
 $result = $client->esql()->query([
@@ -199,10 +186,9 @@ foreach ($books as $book) {
 }
 ```
 
-You can also specify a class name for the mapping. 
-All the values will be assigned to the properties of the class.  
+You can also specify a class name for the mapping. All the values will be assigned to the properties of the class.
 
-Here's an example mapper that returns an array of `Book` objects:
+Here’s an example mapper that returns an array of `Book` objects:
 
 ```php
 class Book
@@ -219,3 +205,4 @@ $result = $client->esql()->query([
 ]);
 $books = $result->mapTo(Book::class); // Array of Book
 ```
+

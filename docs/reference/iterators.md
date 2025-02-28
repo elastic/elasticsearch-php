@@ -9,7 +9,7 @@ The PHP client includes helpers for iterating through results by page or by hits
 
 ## Search response iterator [search-response-iterator]
 
-Use the `SearchResponseIterator` to iterate page by page in a search result using [pagination](elasticsearch://docs/reference/elasticsearch/rest-apis/paginate-search-results.md).
+Use the `SearchResponseIterator` to iterate page by page in a search result using [pagination](elasticsearch://reference/elasticsearch/rest-apis/paginate-search-results.md).
 
 Here’s an example:
 
@@ -40,7 +40,7 @@ foreach($pages as $page) {
 
 ### Search hit iterator [search-hit-iterator]
 
-Use the `SearchHitIterator` to iterate in a `SearchResponseIterator` without worrying about [pagination](elasticsearch://docs/reference/elasticsearch/rest-apis/paginate-search-results.md).
+Use the `SearchHitIterator` to iterate in a `SearchResponseIterator` without worrying about [pagination](elasticsearch://reference/elasticsearch/rest-apis/paginate-search-results.md).
 
 Here’s an example:
 

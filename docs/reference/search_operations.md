@@ -221,7 +221,7 @@ The scrolling functionality of {{es}} is used to paginate over many documents in
 
 Scrolling works by maintaining a "point in time" snapshot of the index which is then used to page over. This window allows consistent paging even if there is background indexing/updating/deleting. First, you execute a search request with `scroll` enabled. This returns a "page" of documents, and a `scroll_id` which is used to continue paginating through the hits.
 
-More details about scrolling can be found in the [reference documentation](elasticsearch://docs/reference/elasticsearch/rest-apis/paginate-search-results.md#scroll-search-results).
+More details about scrolling can be found in the [reference documentation](elasticsearch://reference/elasticsearch/rest-apis/paginate-search-results.md#scroll-search-results).
 
 This is an example which can be used as a template for more advanced operations:
 

@@ -17,14 +17,14 @@ $client = ClientBuilder::create()
     ->build();
 ```
 
-For instance, in this example we used the [Symfony HTTP Client](https://symfony.com/doc/current/http_client.md).
+For instance, in this example we used the [Symfony HTTP Client](https://symfony.com/doc/current/http_client.html).
 
 
 ## Setting the client options [_setting_the_client_options]
 
 If you want you can set the options for a specific PSR-18 client using the `ClientBuilder::setHttpClientOptions($options)` method. The `$options` is an array of key:value options that are specifics to the HTTP client used.
 
-For instance, if you are using Guzzle (default) and you need to use a [proxy](https://docs.guzzlephp.org/en/stable/request-options.md#proxy) you can use the following settings:
+For instance, if you are using Guzzle (default) and you need to use a [proxy](https://docs.guzzlephp.org/en/stable/request-options.html#proxy) you can use the following settings:
 
 ```php
 $client = ClientBuilder::create()
@@ -121,5 +121,5 @@ $promise->then(
 );
 ```
 
-More information about Promise are available at the [HTTPlug documentation page](https://docs.php-http.org/en/latest/components/promise.md).
+More information about Promise are available at the [HTTPlug documentation page](https://docs.php-http.org/en/latest/components/promise.html).
 

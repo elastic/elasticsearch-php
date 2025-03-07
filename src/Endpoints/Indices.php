@@ -83,7 +83,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
+	 *     body: array<mixed>, //  Define analyzer/tokenizer parameters and the text on which the analysis should be performed
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -174,7 +174,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     body: array<mixed>, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -259,7 +259,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the index (`settings` and `mappings`)
+	 *     body: array<mixed>, //  The configuration for the index (`settings` and `mappings`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -660,7 +660,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The downsampling configuration
+	 *     body: array<mixed>, // (REQUIRED) The downsampling configuration
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1484,7 +1484,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The data stream modifications
+	 *     body: array<mixed>, // (REQUIRED) The data stream modifications
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1606,7 +1606,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The settings for the alias, such as `routing` or `filter`
+	 *     body: array<mixed>, //  The settings for the alias, such as `routing` or `filter`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1648,7 +1648,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The data stream lifecycle configuration that consist of the data retention
+	 *     body: array<mixed>, //  The data stream lifecycle configuration that consist of the data retention
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1690,7 +1690,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The template definition
+	 *     body: array<mixed>, // (REQUIRED) The template definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1735,7 +1735,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The mapping definition
+	 *     body: array<mixed>, // (REQUIRED) The mapping definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1782,7 +1782,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The index settings to be updated
+	 *     body: array<mixed>, // (REQUIRED) The index settings to be updated
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1827,7 +1827,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The template definition
+	 *     body: array<mixed>, // (REQUIRED) The template definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2079,7 +2079,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The conditions that needs to be met for executing rollover
+	 *     body: array<mixed>, //  The conditions that needs to be met for executing rollover
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2212,7 +2212,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     body: array<mixed>, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2255,7 +2255,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  New index template definition, which will be included in the simulation, as if it already exists in the system
+	 *     body: array<mixed>, //  New index template definition, which will be included in the simulation, as if it already exists in the system
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2298,7 +2298,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  New index template definition to be simulated, if no index template name is specified
+	 *     body: array<mixed>, //  New index template definition to be simulated, if no index template name is specified
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2343,7 +2343,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The configuration for the target index (`settings` and `aliases`)
+	 *     body: array<mixed>, //  The configuration for the target index (`settings` and `aliases`)
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2481,7 +2481,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The definition of `actions` to perform
+	 *     body: array<mixed>, // (REQUIRED) The definition of `actions` to perform
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2531,7 +2531,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The query definition specified with the Query DSL
+	 *     body: array<mixed>, //  The query definition specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline

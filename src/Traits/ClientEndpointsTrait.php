@@ -52,7 +52,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
+	 *     body: array<mixed>, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -94,7 +94,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
+	 *     body: array<mixed>, //  A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -134,7 +134,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  a point-in-time id to close
+	 *     body: array<mixed>, //  a point-in-time id to close
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -185,7 +185,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  A query to restrict the results specified with the Query DSL (optional)
+	 *     body: array<mixed>, //  A query to restrict the results specified with the Query DSL (optional)
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -236,7 +236,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The document
+	 *     body: array<mixed>, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -350,7 +350,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search definition using the Query DSL
+	 *     body: array<mixed>, // (REQUIRED) The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -574,7 +574,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The query definition using the Query DSL
+	 *     body: array<mixed>, //  The query definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -621,7 +621,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  An index filter specified with the Query DSL
+	 *     body: array<mixed>, //  An index filter specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -919,7 +919,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The document
+	 *     body: array<mixed>, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -998,7 +998,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The search definition
+	 *     body: array<mixed>, //  The search definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1046,7 +1046,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
+	 *     body: array<mixed>, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1095,7 +1095,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
+	 *     body: array<mixed>, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1142,7 +1142,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
+	 *     body: array<mixed>, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1196,7 +1196,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
+	 *     body: array<mixed>, //  Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1243,7 +1243,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  An index_filter specified with the Query DSL
+	 *     body: array<mixed>, //  An index_filter specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1319,7 +1319,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The document
+	 *     body: array<mixed>, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1366,7 +1366,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.
+	 *     body: array<mixed>, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1417,7 +1417,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.
+	 *     body: array<mixed>, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1493,7 +1493,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The search definition template and its params
+	 *     body: array<mixed>, //  The search definition template and its params
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1534,7 +1534,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The script to execute
+	 *     body: array<mixed>, //  The script to execute
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1573,7 +1573,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The scroll ID if not passed by URL or query parameter.
+	 *     body: array<mixed>, //  The scroll ID if not passed by URL or query parameter.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1659,7 +1659,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The search definition using the Query DSL
+	 *     body: array<mixed>, //  The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1712,7 +1712,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Search request body.
+	 *     body: array<mixed>, //  Search request body.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1810,7 +1810,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search definition template and its params
+	 *     body: array<mixed>, // (REQUIRED) The search definition template and its params
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1852,7 +1852,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  field name, string which is the prefix expected in matching terms, timeout and size for max number of results
+	 *     body: array<mixed>, //  field name, string which is the prefix expected in matching terms, timeout and size for max number of results
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1903,7 +1903,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Define parameters and or supply a document to get termvectors for. See documentation.
+	 *     body: array<mixed>, //  Define parameters and or supply a document to get termvectors for. See documentation.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1959,7 +1959,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request definition requires either `script` or partial `doc`
+	 *     body: array<mixed>, // (REQUIRED) The request definition requires either `script` or partial `doc`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2030,7 +2030,7 @@ trait ClientEndpointsTrait
 	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The search definition using the Query DSL
+	 *     body: array<mixed>, //  The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing

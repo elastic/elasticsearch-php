@@ -1,3 +1,8 @@
+## Release 6.8.4
+
+- Upgrade `ezimuel/ringphp` to 1.3.0 to support React Promise v3 for Elasticsearch
+  [#1430](https://github.com/elastic/elasticsearch-php/pull/1430)
+
 ## Release 6.8.3
 
 - Allow PSR/2 [#1154](https://github.com/elastic/elasticsearch-php/pull/1154)

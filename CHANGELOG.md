@@ -2,6 +2,8 @@
 
 - Upgrade `ezimuel/ringphp` to 1.3.0 to support React Promise v3 for Elasticsearch
   [#1430](https://github.com/elastic/elasticsearch-php/pull/1430)
+- Fixed implicitly nullable parameters being deprecated in PHP 8.4 notice issue
+  [#1420](https://github.com/elastic/elasticsearch-php/pull/1420)
 
 ## Release 6.8.3
 

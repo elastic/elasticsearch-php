@@ -24,7 +24,10 @@ use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
 use Elasticsearch\Connections\ConnectionFactory;
 use Elasticsearch\Connections\ConnectionFactoryInterface;
 use Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use Elasticsearch\ConnectionPool\ConnectionPoolInterface;
 use Elasticsearch\ConnectionPool\Selectors;
+use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Elasticsearch\Serializers\SerializerInterface;
 use Elasticsearch\Serializers\SmartSerializer;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
@@ -50,24 +53,24 @@ class ClientBuilder
     /** @var NamespaceBuilderInterface[] */
     private $registeredNamespacesBuilders = [];
 
-    /** @var  ConnectionFactoryInterface */
+    /** @var ConnectionFactoryInterface */
     private $connectionFactory;
 
     private $handler;
 
-    /** @var  LoggerInterface */
+    /** @var LoggerInterface */
     private $logger;
 
-    /** @var  LoggerInterface */
+    /** @var LoggerInterface */
     private $tracer;
 
-    /** @var string */
+    /** @var string|ConnectionPoolInterface */
     private $connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
 
-    /** @var  string */
+    /** @var string|SerializerInterface */
     private $serializer = '\Elasticsearch\Serializers\SmartSerializer';
 
-    /** @var  string */
+    /** @var string|SelectorInterface */
     private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
 
     /** @var  array */

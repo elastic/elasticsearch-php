@@ -17,8 +17,8 @@ found at `.buildkite/run-elasticsearch.sh`.
 
 There are several environment variables that control integration tests:
 
-- `PYTHON_VERSION`: Version of Python to use, defaults to `3.9`
-- `TEST_SUITE`: Connection class to use, defaults to `Urllib3HttpConnection`
+- `TEST_SUITE`: `free` or `platinum` for running Elasticsearch in different
+  versions.
 - `STACK_VERSION`: Version of Elasticsearch to use. These should be
   the same as tags of `docker.elastic.co/elasticsearch/elasticsearch`
   such as `8.0.0-SNAPSHOT`, `7.x-SNAPSHOT`, etc. Defaults to the
@@ -67,7 +67,6 @@ The process for contributing to any of the Elasticsearch repositories is similar
    # Run the integration tests (optional)
    $ STACK_VERSION="8.17.0" .buildkite/run-tests
    ```
-
 
 3. Rebase your changes.
    Update your local repository with the most recent code from the main

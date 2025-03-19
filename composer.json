@@ -21,7 +21,7 @@
     "ext-yaml": "*",
     "ext-zip": "*",
     "mockery/mockery": "^1.5",
-    "phpstan/phpstan": "^1.4",
+    "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^9.5",
     "symfony/finder": "~4.0",
     "nyholm/psr7": "^1.5",

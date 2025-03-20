@@ -28,7 +28,7 @@ You can get the `Cloud ID` from the `My deployment` page of your dashboard (see 
 
 You can generate an `API key` in the `Management` page under the section `Security`.
 
-:::{image} ../images/create_api_key.png
+:::{image} images/create_api_key.png
 :alt: Create API key
 :::
 

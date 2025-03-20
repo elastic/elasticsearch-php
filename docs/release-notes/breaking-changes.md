@@ -1,14 +1,11 @@
 ---
-navigation_title: "Elasticsearch PHP Client"
+navigation_title: "Breaking changes"
 ---
 
 # Elasticsearch PHP Client breaking changes [elasticsearch-php-client-breaking-changes]
-Before you upgrade, carefully review the Elasticsearch PHP Client breaking changes and take the necessary steps to mitigate any issues. 
-
-To learn how to upgrade, check out <uprade docs>.
+Breaking changes can impact your Elastic applications, potentially disrupting normal operations. Before you upgrade, carefully review the Elasticsearch PHP Client breaking changes and take the necessary steps to mitigate any issues. To learn how to upgrade, check [Upgrade](docs-content://deploy-manage/upgrade.md).
 
 % ## Next version [elasticsearch-php-client-nextversion-breaking-changes]
-% **Release date:** Month day, year
 
 % ::::{dropdown} Title of breaking change 
 % Description of the breaking change.
@@ -18,7 +15,6 @@ To learn how to upgrade, check out <uprade docs>.
 % ::::
 
 % ## 9.0.0 [elasticsearch-php-client-900-breaking-changes]
-% **Release date:** March 25, 2025
 
 % ::::{dropdown} Title of breaking change 
 % Description of the breaking change.

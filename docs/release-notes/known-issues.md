@@ -1,5 +1,5 @@
 ---
-navigation_title: "Elasticsearch PHP Client"
+navigation_title: "Known issues"
 
 ---
 

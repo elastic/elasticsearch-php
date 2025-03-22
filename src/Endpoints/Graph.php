@@ -34,15 +34,15 @@ class Graph extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
 	 *
 	 * @param array{
-	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     routing: string, // Specific routing value
-	 *     timeout: time, // Explicit operation timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Graph Query DSL
+	 *     index: string, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     routing?: string, // Specific routing value
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array, // Graph Query DSL. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -52,8 +52,9 @@ class Graph extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function explore(array $params = [])
+	public function explore(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_graph/explore';
 		$method = empty($params['body']) ? 'GET' : 'POST';

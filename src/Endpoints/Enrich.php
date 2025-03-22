@@ -35,12 +35,12 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,8 +50,9 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deletePolicy(array $params = [])
+	public function deletePolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -60,7 +61,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.delete_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -73,13 +74,13 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     wait_for_completion: boolean, // Should the request should block until the execution is complete.
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     wait_for_completion?: bool, // Should the request should block until the execution is complete.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -89,8 +90,9 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function executePolicy(array $params = [])
+	public function executePolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_enrich/policy/' . $this->encode($params['name']) . '/_execute';
 		$method = 'PUT';
@@ -99,7 +101,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.execute_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -111,13 +113,13 @@ class Enrich extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of enrich policy names
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string, // A comma-separated list of enrich policy names
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -126,8 +128,9 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getPolicy(array $params = [])
+	public function getPolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['name'])) {
 			$url = '/_enrich/policy/' . $this->encode($params['name']);
 			$method = 'GET';
@@ -139,7 +142,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.get_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -152,13 +155,13 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The enrich policy to register
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array, // (REQUIRED) The enrich policy to register. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -168,8 +171,9 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putPolicy(array $params = [])
+	public function putPolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_enrich/policy/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -179,7 +183,7 @@ class Enrich extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.put_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -191,12 +195,12 @@ class Enrich extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -205,8 +209,9 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stats(array $params = [])
+	public function stats(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_enrich/_stats';
 		$method = 'GET';
 
@@ -214,7 +219,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'enrich.stats');
 		return $this->client->sendRequest($request);
 	}

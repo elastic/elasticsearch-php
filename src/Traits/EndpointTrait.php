@@ -22,7 +22,6 @@ use Elastic\Transport\OpenTelemetry;
 use Elastic\Transport\Serializer\JsonSerializer;
 use Elastic\Transport\Serializer\NDJsonSerializer;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 use function http_build_query;
@@ -129,7 +128,7 @@ trait EndpointTrait
      * 
      * @param array|string $body
      */
-    protected function createRequest(string $method, string $url, array $headers, $body = null): RequestInterface
+    protected function createRequest(string $method, string $url, array $headers, $body = null): ServerRequestInterface
     {
         $requestFactory = Psr17FactoryDiscovery::findServerRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();

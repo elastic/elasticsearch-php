@@ -35,12 +35,12 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,8 +50,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteAutoFollowPattern(array $params = [])
+	public function deleteAutoFollowPattern(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -60,7 +61,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'ccr.delete_auto_follow_pattern');
 		return $this->client->sendRequest($request);
 	}
@@ -73,14 +74,14 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index
-	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before returning. Defaults to 0. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The name of the leader index and other optional ccr related parameters
+	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before returning. Defaults to 0. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array, // (REQUIRED) The name of the leader index and other optional ccr related parameters. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -90,8 +91,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function follow(array $params = [])
+	public function follow(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/follow';
 		$method = 'PUT';
@@ -101,7 +103,7 @@ class Ccr extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.follow');
 		return $this->client->sendRequest($request);
 	}
@@ -113,13 +115,13 @@ class Ccr extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
 	 *
 	 * @param array{
-	 *     index: list, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index: string, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -129,8 +131,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function followInfo(array $params = [])
+	public function followInfo(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/info';
 		$method = 'GET';
@@ -139,7 +142,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.follow_info');
 		return $this->client->sendRequest($request);
 	}
@@ -151,13 +154,13 @@ class Ccr extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html
 	 *
 	 * @param array{
-	 *     index: list, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
-	 *     timeout: time, // Explicit operation timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index: string, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -167,8 +170,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function followStats(array $params = [])
+	public function followStats(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/stats';
 		$method = 'GET';
@@ -177,7 +181,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.follow_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -190,13 +194,13 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) the name of the leader index for which specified follower retention leases should be removed
-	 *     timeout: time, // Explicit operation timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) the name and UUID of the follower index, the name of the cluster containing the follower index, and the alias from the perspective of that cluster for the remote cluster containing the leader index
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array, // (REQUIRED) the name and UUID of the follower index, the name of the cluster containing the follower index, and the alias from the perspective of that cluster for the remote cluster containing the leader index. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -206,8 +210,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function forgetFollower(array $params = [])
+	public function forgetFollower(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/forget_follower';
 		$method = 'POST';
@@ -217,7 +222,7 @@ class Ccr extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.forget_follower');
 		return $this->client->sendRequest($request);
 	}
@@ -229,13 +234,13 @@ class Ccr extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
 	 *
 	 * @param array{
-	 *     name: string, //  The name of the auto follow pattern.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string, // The name of the auto follow pattern.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -244,8 +249,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getAutoFollowPattern(array $params = [])
+	public function getAutoFollowPattern(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['name'])) {
 			$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 			$method = 'GET';
@@ -257,7 +263,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'ccr.get_auto_follow_pattern');
 		return $this->client->sendRequest($request);
 	}
@@ -270,12 +276,12 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern that should pause discovering new indices to follow.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -285,8 +291,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function pauseAutoFollowPattern(array $params = [])
+	public function pauseAutoFollowPattern(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_ccr/auto_follow/' . $this->encode($params['name']) . '/pause';
 		$method = 'POST';
@@ -295,7 +302,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'ccr.pause_auto_follow_pattern');
 		return $this->client->sendRequest($request);
 	}
@@ -308,12 +315,12 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index that should pause following its leader index.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -323,8 +330,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function pauseFollow(array $params = [])
+	public function pauseFollow(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/pause_follow';
 		$method = 'POST';
@@ -333,7 +341,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.pause_follow');
 		return $this->client->sendRequest($request);
 	}
@@ -346,13 +354,13 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The specification of the auto follow pattern
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array, // (REQUIRED) The specification of the auto follow pattern. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -362,8 +370,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putAutoFollowPattern(array $params = [])
+	public function putAutoFollowPattern(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_ccr/auto_follow/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -373,7 +382,7 @@ class Ccr extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'ccr.put_auto_follow_pattern');
 		return $this->client->sendRequest($request);
 	}
@@ -386,12 +395,12 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern to resume discovering new indices to follow.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -401,8 +410,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function resumeAutoFollowPattern(array $params = [])
+	public function resumeAutoFollowPattern(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_ccr/auto_follow/' . $this->encode($params['name']) . '/resume';
 		$method = 'POST';
@@ -411,7 +421,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'ccr.resume_auto_follow_pattern');
 		return $this->client->sendRequest($request);
 	}
@@ -424,13 +434,13 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follow index to resume following.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The name of the leader index and other optional ccr related parameters
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array, // The name of the leader index and other optional ccr related parameters. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -440,8 +450,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function resumeFollow(array $params = [])
+	public function resumeFollow(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/resume_follow';
 		$method = 'POST';
@@ -463,13 +474,13 @@ class Ccr extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html
 	 *
 	 * @param array{
-	 *     timeout: time, // Explicit operation timeout
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -478,8 +489,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stats(array $params = [])
+	public function stats(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ccr/stats';
 		$method = 'GET';
 
@@ -487,7 +499,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'ccr.stats');
 		return $this->client->sendRequest($request);
 	}
@@ -500,12 +512,12 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index that should be turned into a regular index.
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -515,8 +527,9 @@ class Ccr extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function unfollow(array $params = [])
+	public function unfollow(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ccr/unfollow';
 		$method = 'POST';
@@ -525,7 +538,7 @@ class Ccr extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'ccr.unfollow');
 		return $this->client->sendRequest($request);
 	}

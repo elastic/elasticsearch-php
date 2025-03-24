@@ -34,12 +34,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The grant type and user's credential
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The grant type and user's credential. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -48,8 +48,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function activateUserProfile(array $params = [])
+	public function activateUserProfile(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/profile/_activate';
 		$method = 'POST';
@@ -59,7 +60,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.activate_user_profile');
 		return $this->client->sendRequest($request);
 	}
@@ -71,11 +72,11 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -84,8 +85,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function authenticate(array $params = [])
+	public function authenticate(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/_authenticate';
 		$method = 'GET';
 
@@ -93,7 +95,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.authenticate');
 		return $this->client->sendRequest($request);
 	}
@@ -105,13 +107,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-delete-role.html
 	 *
 	 * @param array{
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The roles to delete
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The roles to delete. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -120,8 +122,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function bulkDeleteRole(array $params = [])
+	public function bulkDeleteRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/role';
 		$method = 'DELETE';
@@ -131,7 +134,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.bulk_delete_role');
 		return $this->client->sendRequest($request);
 	}
@@ -143,13 +146,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-put-role.html
 	 *
 	 * @param array{
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The roles to add
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The roles to add. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -158,8 +161,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function bulkPutRole(array $params = [])
+	public function bulkPutRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/role';
 		$method = 'POST';
@@ -169,7 +173,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.bulk_put_role');
 		return $this->client->sendRequest($request);
 	}
@@ -181,12 +185,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The API key request to update the attributes of multiple API keys.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The API key request to update the attributes of multiple API keys.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -195,8 +199,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function bulkUpdateApiKeys(array $params = [])
+	public function bulkUpdateApiKeys(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/api_key/_bulk_update';
 		$method = 'POST';
@@ -206,7 +211,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.bulk_update_api_keys');
 		return $this->client->sendRequest($request);
 	}
@@ -218,14 +223,14 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html
 	 *
 	 * @param array{
-	 *     username: string, //  The username of the user to change the password for
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) the new password for the user
+	 *     username?: string, // The username of the user to change the password for
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) the new password for the user. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -234,8 +239,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function changePassword(array $params = [])
+	public function changePassword(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['username'])) {
 			$url = '/_security/user/' . $this->encode($params['username']) . '/_password';
@@ -249,7 +255,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.change_password');
 		return $this->client->sendRequest($request);
 	}
@@ -261,12 +267,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html
 	 *
 	 * @param array{
-	 *     ids: list, // (REQUIRED) A comma-separated list of IDs of API keys to clear from the cache
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     ids: string|array<string>, // (REQUIRED) A comma-separated list of IDs of API keys to clear from the cache
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -276,8 +282,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearApiKeyCache(array $params = [])
+	public function clearApiKeyCache(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['ids'], $params);
 		$url = '/_security/api_key/' . $this->encode($params['ids']) . '/_clear_cache';
 		$method = 'POST';
@@ -286,7 +293,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['ids'], $request, 'security.clear_api_key_cache');
 		return $this->client->sendRequest($request);
 	}
@@ -298,12 +305,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
 	 *
 	 * @param array{
-	 *     application: list, // (REQUIRED) A comma-separated list of application names
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     application: string|array<string>, // (REQUIRED) A comma-separated list of application names
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -313,8 +320,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCachedPrivileges(array $params = [])
+	public function clearCachedPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['application'], $params);
 		$url = '/_security/privilege/' . $this->encode($params['application']) . '/_clear_cache';
 		$method = 'POST';
@@ -323,7 +331,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['application'], $request, 'security.clear_cached_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -335,13 +343,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html
 	 *
 	 * @param array{
-	 *     realms: list, // (REQUIRED) Comma-separated list of realms to clear
-	 *     usernames: list, // Comma-separated list of usernames to clear from the cache
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     realms: string|array<string>, // (REQUIRED) Comma-separated list of realms to clear
+	 *     usernames?: string|array<string>, // Comma-separated list of usernames to clear from the cache
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -351,8 +359,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCachedRealms(array $params = [])
+	public function clearCachedRealms(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['realms'], $params);
 		$url = '/_security/realm/' . $this->encode($params['realms']) . '/_clear_cache';
 		$method = 'POST';
@@ -361,7 +370,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['realms'], $request, 'security.clear_cached_realms');
 		return $this->client->sendRequest($request);
 	}
@@ -373,12 +382,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html
 	 *
 	 * @param array{
-	 *     name: list, // (REQUIRED) Role name
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name: string|array<string>, // (REQUIRED) Role name
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -388,8 +397,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCachedRoles(array $params = [])
+	public function clearCachedRoles(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_security/role/' . $this->encode($params['name']) . '/_clear_cache';
 		$method = 'POST';
@@ -398,7 +408,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.clear_cached_roles');
 		return $this->client->sendRequest($request);
 	}
@@ -412,12 +422,12 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
-	 *     name: list, // (REQUIRED) A comma-separated list of service token names
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name: string|array<string>, // (REQUIRED) A comma-separated list of service token names
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -427,8 +437,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCachedServiceTokens(array $params = [])
+	public function clearCachedServiceTokens(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
 		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']) . '/_clear_cache';
 		$method = 'POST';
@@ -437,7 +448,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['namespace', 'service', 'name'], $request, 'security.clear_cached_service_tokens');
 		return $this->client->sendRequest($request);
 	}
@@ -449,13 +460,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
 	 *
 	 * @param array{
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The api key request to create an API key
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The api key request to create an API key. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -464,8 +475,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function createApiKey(array $params = [])
+	public function createApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/api_key';
 		$method = 'PUT';
@@ -475,7 +487,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.create_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -487,12 +499,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request to create a cross-cluster API key
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The request to create a cross-cluster API key. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -501,8 +513,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function createCrossClusterApiKey(array $params = [])
+	public function createCrossClusterApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/cross_cluster/api_key';
 		$method = 'POST';
@@ -512,7 +525,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.create_cross_cluster_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -526,13 +539,13 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
-	 *     name: string, //  An identifier for the token name
-	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string, // An identifier for the token name
+	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -542,8 +555,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function createServiceToken(array $params = [])
+	public function createServiceToken(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['namespace','service'], $params);
 		if (isset($params['name'])) {
 			$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']);
@@ -556,8 +570,45 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['namespace', 'service', 'name'], $request, 'security.create_service_token');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Delegate PKI authentication.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-delegate-pki-authentication.html
+	 *
+	 * @param array{
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The X509Certificate chain.. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function delegatePki(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_security/delegate_pki';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->addOtelAttributes($params, [], $request, 'security.delegate_pki');
 		return $this->client->sendRequest($request);
 	}
 
@@ -570,12 +621,12 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     application: string, // (REQUIRED) Application name
 	 *     name: string, // (REQUIRED) Privilege name
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -585,8 +636,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deletePrivileges(array $params = [])
+	public function deletePrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['application','name'], $params);
 		$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -595,7 +647,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['application', 'name'], $request, 'security.delete_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -608,12 +660,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role name
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -623,8 +675,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteRole(array $params = [])
+	public function deleteRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_security/role/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -633,7 +686,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.delete_role');
 		return $this->client->sendRequest($request);
 	}
@@ -646,12 +699,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -661,8 +714,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteRoleMapping(array $params = [])
+	public function deleteRoleMapping(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_security/role_mapping/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -671,7 +725,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.delete_role_mapping');
 		return $this->client->sendRequest($request);
 	}
@@ -686,12 +740,12 @@ class Security extends AbstractEndpoint
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name: string, // (REQUIRED) An identifier for the token name
-	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -701,8 +755,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteServiceToken(array $params = [])
+	public function deleteServiceToken(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
 		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -711,7 +766,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['namespace', 'service', 'name'], $request, 'security.delete_service_token');
 		return $this->client->sendRequest($request);
 	}
@@ -724,12 +779,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) username
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -739,8 +794,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteUser(array $params = [])
+	public function deleteUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['username'], $params);
 		$url = '/_security/user/' . $this->encode($params['username']);
 		$method = 'DELETE';
@@ -749,7 +805,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.delete_user');
 		return $this->client->sendRequest($request);
 	}
@@ -762,12 +818,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to disable
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -777,8 +833,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function disableUser(array $params = [])
+	public function disableUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['username'], $params);
 		$url = '/_security/user/' . $this->encode($params['username']) . '/_disable';
 		$method = 'PUT';
@@ -787,7 +844,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.disable_user');
 		return $this->client->sendRequest($request);
 	}
@@ -800,12 +857,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) Unique identifier for the user profile
-	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -815,8 +872,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function disableUserProfile(array $params = [])
+	public function disableUserProfile(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['uid'], $params);
 		$url = '/_security/profile/' . $this->encode($params['uid']) . '/_disable';
 		$method = 'PUT';
@@ -825,7 +883,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['uid'], $request, 'security.disable_user_profile');
 		return $this->client->sendRequest($request);
 	}
@@ -838,12 +896,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to enable
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -853,8 +911,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function enableUser(array $params = [])
+	public function enableUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['username'], $params);
 		$url = '/_security/user/' . $this->encode($params['username']) . '/_enable';
 		$method = 'PUT';
@@ -863,7 +922,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.enable_user');
 		return $this->client->sendRequest($request);
 	}
@@ -876,12 +935,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
-	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -891,8 +950,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function enableUserProfile(array $params = [])
+	public function enableUserProfile(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['uid'], $params);
 		$url = '/_security/profile/' . $this->encode($params['uid']) . '/_enable';
 		$method = 'PUT';
@@ -901,7 +961,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['uid'], $request, 'security.enable_user_profile');
 		return $this->client->sendRequest($request);
 	}
@@ -913,11 +973,11 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-kibana-enrollment.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -926,8 +986,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function enrollKibana(array $params = [])
+	public function enrollKibana(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/enroll/kibana';
 		$method = 'GET';
 
@@ -936,7 +997,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.enroll_kibana');
 		return $this->client->sendRequest($request);
 	}
@@ -948,11 +1009,11 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-node-enrollment.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -961,8 +1022,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function enrollNode(array $params = [])
+	public function enrollNode(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/enroll/node';
 		$method = 'GET';
 
@@ -971,7 +1033,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.enroll_node');
 		return $this->client->sendRequest($request);
 	}
@@ -983,19 +1045,19 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-api-key.html
 	 *
 	 * @param array{
-	 *     id: string, // API key id of the API key to be retrieved
-	 *     name: string, // API key name of the API key to be retrieved
-	 *     username: string, // user name of the user who created this API key to be retrieved
-	 *     realm_name: string, // realm name of the user who created this API key to be retrieved
-	 *     owner: boolean, // flag to query API keys owned by the currently authenticated user
-	 *     with_limited_by: boolean, // flag to show the limited-by role descriptors of API Keys
-	 *     with_profile_uid: boolean, // flag to also retrieve the API Key's owner profile uid, if it exists
-	 *     active_only: boolean, // flag to limit response to only active (not invalidated or expired) API keys
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id?: string, // API key id of the API key to be retrieved
+	 *     name?: string, // API key name of the API key to be retrieved
+	 *     username?: string, // user name of the user who created this API key to be retrieved
+	 *     realm_name?: string, // realm name of the user who created this API key to be retrieved
+	 *     owner?: bool, // flag to query API keys owned by the currently authenticated user
+	 *     with_limited_by?: bool, // flag to show the limited-by role descriptors of API Keys
+	 *     with_profile_uid?: bool, // flag to also retrieve the API Key's owner profile uid, if it exists
+	 *     active_only?: bool, // flag to limit response to only active (not invalidated or expired) API keys
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1004,8 +1066,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getApiKey(array $params = [])
+	public function getApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/api_key';
 		$method = 'GET';
 
@@ -1013,7 +1076,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.get_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -1025,11 +1088,11 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-builtin-privileges.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1038,8 +1101,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getBuiltinPrivileges(array $params = [])
+	public function getBuiltinPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/privilege/_builtin';
 		$method = 'GET';
 
@@ -1047,7 +1111,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.get_builtin_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -1059,13 +1123,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html
 	 *
 	 * @param array{
-	 *     application: string, //  Application name
-	 *     name: string, //  Privilege name
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     application?: string, // Application name
+	 *     name?: string, // Privilege name
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1074,8 +1138,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getPrivileges(array $params = [])
+	public function getPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['application']) && isset($params['name'])) {
 			$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
 			$method = 'GET';
@@ -1090,7 +1155,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['application', 'name'], $request, 'security.get_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -1102,12 +1167,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of role names
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string|array<string>, // A comma-separated list of role names
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1116,8 +1181,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRole(array $params = [])
+	public function getRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['name'])) {
 			$url = '/_security/role/' . $this->encode($params['name']);
 			$method = 'GET';
@@ -1129,7 +1195,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.get_role');
 		return $this->client->sendRequest($request);
 	}
@@ -1141,12 +1207,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of role-mapping names
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string|array<string>, // A comma-separated list of role-mapping names
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1155,8 +1221,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRoleMapping(array $params = [])
+	public function getRoleMapping(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['name'])) {
 			$url = '/_security/role_mapping/' . $this->encode($params['name']);
 			$method = 'GET';
@@ -1168,7 +1235,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.get_role_mapping');
 		return $this->client->sendRequest($request);
 	}
@@ -1180,13 +1247,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html
 	 *
 	 * @param array{
-	 *     namespace: string, //  An identifier for the namespace
-	 *     service: string, //  An identifier for the service name
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     namespace?: string, // An identifier for the namespace
+	 *     service?: string, // An identifier for the service name
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1195,8 +1262,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getServiceAccounts(array $params = [])
+	public function getServiceAccounts(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['namespace']) && isset($params['service'])) {
 			$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']);
 			$method = 'GET';
@@ -1211,7 +1279,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['namespace', 'service'], $request, 'security.get_service_accounts');
 		return $this->client->sendRequest($request);
 	}
@@ -1225,11 +1293,11 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1239,8 +1307,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getServiceCredentials(array $params = [])
+	public function getServiceCredentials(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['namespace','service'], $params);
 		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential';
 		$method = 'GET';
@@ -1249,7 +1318,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['namespace', 'service'], $request, 'security.get_service_credentials');
 		return $this->client->sendRequest($request);
 	}
@@ -1261,12 +1330,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Timeout for connection to master
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for connection to master
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1275,8 +1344,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getSettings(array $params = [])
+	public function getSettings(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/settings';
 		$method = 'GET';
 
@@ -1285,7 +1355,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.get_settings');
 		return $this->client->sendRequest($request);
 	}
@@ -1297,12 +1367,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The token request to get
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The token request to get. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1311,8 +1381,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getToken(array $params = [])
+	public function getToken(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/oauth2/token';
 		$method = 'POST';
@@ -1322,7 +1393,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.get_token');
 		return $this->client->sendRequest($request);
 	}
@@ -1334,13 +1405,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html
 	 *
 	 * @param array{
-	 *     username: list, //  A comma-separated list of usernames
-	 *     with_profile_uid: boolean, // flag to retrieve profile uid (if exists) associated to the user
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     username?: string|array<string>, // A comma-separated list of usernames
+	 *     with_profile_uid?: bool, // flag to retrieve profile uid (if exists) associated to the user
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1349,8 +1420,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getUser(array $params = [])
+	public function getUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['username'])) {
 			$url = '/_security/user/' . $this->encode($params['username']);
 			$method = 'GET';
@@ -1362,7 +1434,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.get_user');
 		return $this->client->sendRequest($request);
 	}
@@ -1374,11 +1446,11 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1387,8 +1459,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getUserPrivileges(array $params = [])
+	public function getUserPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/user/_privileges';
 		$method = 'GET';
 
@@ -1396,7 +1469,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.get_user_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -1408,13 +1481,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html
 	 *
 	 * @param array{
-	 *     uid: list, // (REQUIRED) A comma-separated list of unique identifier for user profiles
-	 *     data: list, // A comma-separated list of keys for which the corresponding application data are retrieved.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     uid: string|array<string>, // (REQUIRED) A comma-separated list of unique identifier for user profiles
+	 *     data?: string|array<string>, // A comma-separated list of keys for which the corresponding application data are retrieved.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1424,8 +1497,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getUserProfile(array $params = [])
+	public function getUserProfile(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['uid'], $params);
 		$url = '/_security/profile/' . $this->encode($params['uid']);
 		$method = 'GET';
@@ -1434,7 +1508,7 @@ class Security extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['uid'], $request, 'security.get_user_profile');
 		return $this->client->sendRequest($request);
 	}
@@ -1446,13 +1520,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html
 	 *
 	 * @param array{
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The api key request to create an API key
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The api key request to create an API key. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1461,8 +1535,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function grantApiKey(array $params = [])
+	public function grantApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/api_key/grant';
 		$method = 'POST';
@@ -1472,7 +1547,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.grant_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -1484,13 +1559,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html
 	 *
 	 * @param array{
-	 *     user: string, //  Username
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The privileges to test
+	 *     user?: string, // Username
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The privileges to test. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1499,8 +1574,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function hasPrivileges(array $params = [])
+	public function hasPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['user'])) {
 			$url = '/_security/user/' . $this->encode($params['user']) . '/_has_privileges';
@@ -1514,7 +1590,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['user'], $request, 'security.has_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -1526,12 +1602,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The privileges to check and the list of profile IDs
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The privileges to check and the list of profile IDs. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1540,8 +1616,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function hasPrivilegesUserProfile(array $params = [])
+	public function hasPrivilegesUserProfile(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/profile/_has_privileges';
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1551,7 +1628,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.has_privileges_user_profile');
 		return $this->client->sendRequest($request);
 	}
@@ -1563,12 +1640,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The api key request to invalidate API key(s)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The api key request to invalidate API key(s). If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1577,8 +1654,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function invalidateApiKey(array $params = [])
+	public function invalidateApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/api_key';
 		$method = 'DELETE';
@@ -1588,7 +1666,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.invalidate_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -1600,12 +1678,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The token to invalidate
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The token to invalidate. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1614,8 +1692,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function invalidateToken(array $params = [])
+	public function invalidateToken(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/oauth2/token';
 		$method = 'DELETE';
@@ -1625,7 +1704,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.invalidate_token');
 		return $this->client->sendRequest($request);
 	}
@@ -1637,12 +1716,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-authenticate.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The OpenID Connect response to authenticate
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The OpenID Connect response to authenticate. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1651,8 +1730,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function oidcAuthenticate(array $params = [])
+	public function oidcAuthenticate(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/oidc/authenticate';
 		$method = 'POST';
@@ -1662,7 +1742,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.oidc_authenticate');
 		return $this->client->sendRequest($request);
 	}
@@ -1674,12 +1754,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-logout.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Access token and refresh token to invalidate
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Access token and refresh token to invalidate. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1688,8 +1768,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function oidcLogout(array $params = [])
+	public function oidcLogout(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/oidc/logout';
 		$method = 'POST';
@@ -1699,7 +1780,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.oidc_logout');
 		return $this->client->sendRequest($request);
 	}
@@ -1711,12 +1792,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-prepare-authentication.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The OpenID Connect authentication realm configuration
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The OpenID Connect authentication realm configuration. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1725,8 +1806,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function oidcPrepareAuthentication(array $params = [])
+	public function oidcPrepareAuthentication(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/oidc/prepare';
 		$method = 'POST';
@@ -1736,7 +1818,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.oidc_prepare_authentication');
 		return $this->client->sendRequest($request);
 	}
@@ -1748,13 +1830,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-privileges.html
 	 *
 	 * @param array{
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The privilege(s) to add
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The privilege(s) to add. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1763,8 +1845,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putPrivileges(array $params = [])
+	public function putPrivileges(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/privilege';
 		$method = 'PUT';
@@ -1774,7 +1857,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.put_privileges');
 		return $this->client->sendRequest($request);
 	}
@@ -1787,13 +1870,13 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role name
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The role to add
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The role to add. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1803,8 +1886,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putRole(array $params = [])
+	public function putRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_security/role/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -1814,7 +1898,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.put_role');
 		return $this->client->sendRequest($request);
 	}
@@ -1827,13 +1911,13 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The role mapping to add
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The role mapping to add. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1843,8 +1927,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putRoleMapping(array $params = [])
+	public function putRoleMapping(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_security/role_mapping/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -1854,7 +1939,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'security.put_role_mapping');
 		return $this->client->sendRequest($request);
 	}
@@ -1867,13 +1952,13 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the User
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The user to add
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The user to add. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1883,8 +1968,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putUser(array $params = [])
+	public function putUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['username','body'], $params);
 		$url = '/_security/user/' . $this->encode($params['username']);
 		$method = 'PUT';
@@ -1894,7 +1980,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.put_user');
 		return $this->client->sendRequest($request);
 	}
@@ -1906,15 +1992,15 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
 	 *
 	 * @param array{
-	 *     with_limited_by: boolean, // flag to show the limited-by role descriptors of API Keys
-	 *     with_profile_uid: boolean, // flag to also retrieve the API Key's owner profile uid, if it exists
-	 *     typed_keys: boolean, // flag to prefix aggregation names by their respective types in the response
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  From, size, query, sort and search_after
+	 *     with_limited_by?: bool, // flag to show the limited-by role descriptors of API Keys
+	 *     with_profile_uid?: bool, // flag to also retrieve the API Key's owner profile uid, if it exists
+	 *     typed_keys?: bool, // flag to prefix aggregation names by their respective types in the response
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // From, size, query, sort and search_after. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1923,8 +2009,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function queryApiKeys(array $params = [])
+	public function queryApiKeys(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/_query/api_key';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1945,12 +2032,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  From, size, query, sort and search_after
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // From, size, query, sort and search_after. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1959,8 +2046,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function queryRole(array $params = [])
+	public function queryRole(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/_query/role';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1981,13 +2069,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
 	 *
 	 * @param array{
-	 *     with_profile_uid: boolean, // flag to retrieve profile uid (if exists) associated with the user
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  From, size, query, sort and search_after
+	 *     with_profile_uid?: bool, // flag to retrieve profile uid (if exists) associated with the user
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // From, size, query, sort and search_after. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1996,8 +2084,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function queryUser(array $params = [])
+	public function queryUser(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/_query/user';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -2018,12 +2107,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The SAML response to authenticate
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The SAML response to authenticate. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2032,8 +2121,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlAuthenticate(array $params = [])
+	public function samlAuthenticate(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/saml/authenticate';
 		$method = 'POST';
@@ -2043,7 +2133,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.saml_authenticate');
 		return $this->client->sendRequest($request);
 	}
@@ -2055,12 +2145,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-complete-logout.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The logout response to verify
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The logout response to verify. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2069,8 +2159,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlCompleteLogout(array $params = [])
+	public function samlCompleteLogout(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/saml/complete_logout';
 		$method = 'POST';
@@ -2080,7 +2171,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.saml_complete_logout');
 		return $this->client->sendRequest($request);
 	}
@@ -2092,12 +2183,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-invalidate.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The LogoutRequest message
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The LogoutRequest message. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2106,8 +2197,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlInvalidate(array $params = [])
+	public function samlInvalidate(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/saml/invalidate';
 		$method = 'POST';
@@ -2117,7 +2209,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.saml_invalidate');
 		return $this->client->sendRequest($request);
 	}
@@ -2129,12 +2221,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The tokens to invalidate
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The tokens to invalidate. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2143,8 +2235,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlLogout(array $params = [])
+	public function samlLogout(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/saml/logout';
 		$method = 'POST';
@@ -2154,7 +2247,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.saml_logout');
 		return $this->client->sendRequest($request);
 	}
@@ -2166,12 +2259,12 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The realm for which to create the authentication request, identified by either its name or the ACS URL
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The realm for which to create the authentication request, identified by either its name or the ACS URL. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2180,8 +2273,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlPrepareAuthentication(array $params = [])
+	public function samlPrepareAuthentication(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/saml/prepare';
 		$method = 'POST';
@@ -2191,7 +2285,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.saml_prepare_authentication');
 		return $this->client->sendRequest($request);
 	}
@@ -2204,11 +2298,11 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     realm_name: string, // (REQUIRED) The name of the SAML realm to get the metadata for
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2218,8 +2312,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function samlServiceProviderMetadata(array $params = [])
+	public function samlServiceProviderMetadata(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['realm_name'], $params);
 		$url = '/_security/saml/metadata/' . $this->encode($params['realm_name']);
 		$method = 'GET';
@@ -2229,7 +2324,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, ['realm_name'], $request, 'security.saml_service_provider_metadata');
 		return $this->client->sendRequest($request);
 	}
@@ -2241,13 +2336,13 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html
 	 *
 	 * @param array{
-	 *     data: list, // A comma-separated list of keys for which the corresponding application data are retrieved.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The suggestion definition for user profiles
+	 *     data?: string|array<string>, // A comma-separated list of keys for which the corresponding application data are retrieved.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The suggestion definition for user profiles. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2256,8 +2351,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function suggestUserProfiles(array $params = [])
+	public function suggestUserProfiles(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_security/profile/_suggest';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -2279,12 +2375,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the API key to update
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The API key request to update attributes of an API key.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The API key request to update attributes of an API key.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2294,8 +2390,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateApiKey(array $params = [])
+	public function updateApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_security/api_key/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -2318,12 +2415,12 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the cross-cluster API key to update
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request to update attributes of a cross-cluster API key.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The request to update attributes of a cross-cluster API key.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2333,8 +2430,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateCrossClusterApiKey(array $params = [])
+	public function updateCrossClusterApiKey(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_security/cross_cluster/api_key/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -2344,7 +2442,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'security.update_cross_cluster_api_key');
 		return $this->client->sendRequest($request);
 	}
@@ -2356,14 +2454,14 @@ class Security extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Timeout for connection to master
-	 *     timeout: time, // Timeout for acknowledgements from all nodes
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object with the new settings for each index, if any
+	 *     master_timeout?: int|string, // Timeout for connection to master
+	 *     timeout?: int|string, // Timeout for acknowledgements from all nodes
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object with the new settings for each index, if any. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -2372,8 +2470,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateSettings(array $params = [])
+	public function updateSettings(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_security/settings';
 		$method = 'PUT';
@@ -2383,7 +2482,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'security.update_settings');
 		return $this->client->sendRequest($request);
 	}
@@ -2396,15 +2495,15 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
-	 *     if_seq_no: number, // only perform the update operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term: number, // only perform the update operation if the last operation that has changed the document has the specified primary term
-	 *     refresh: enum, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The application data to update
+	 *     if_seq_no?: int, // only perform the update operation if the last operation that has changed the document has the specified sequence number
+	 *     if_primary_term?: int, // only perform the update operation if the last operation that has changed the document has the specified primary term
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The application data to update. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2414,8 +2513,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateUserProfileData(array $params = [])
+	public function updateUserProfileData(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['uid','body'], $params);
 		$url = '/_security/profile/' . $this->encode($params['uid']) . '/_data';
 		$method = 'PUT';
@@ -2425,7 +2525,7 @@ class Security extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, ['uid'], $request, 'security.update_user_profile_data');
 		return $this->client->sendRequest($request);
 	}

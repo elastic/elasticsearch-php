@@ -34,12 +34,12 @@ class Profiling extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The filter conditions for the flamegraph
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The filter conditions for the flamegraph. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -48,8 +48,9 @@ class Profiling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function flamegraph(array $params = [])
+	public function flamegraph(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_profiling/flamegraph';
 		$method = 'POST';
@@ -59,7 +60,7 @@ class Profiling extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'profiling.flamegraph');
 		return $this->client->sendRequest($request);
 	}
@@ -71,12 +72,12 @@ class Profiling extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The filter conditions for stacktraces
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The filter conditions for stacktraces. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -85,8 +86,9 @@ class Profiling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stacktraces(array $params = [])
+	public function stacktraces(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_profiling/stacktraces';
 		$method = 'POST';
@@ -96,7 +98,7 @@ class Profiling extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'profiling.stacktraces');
 		return $this->client->sendRequest($request);
 	}
@@ -108,14 +110,14 @@ class Profiling extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     timeout: time, // Explicit operation timeout
-	 *     wait_for_resources_created: boolean, // Whether to return immediately or wait until resources have been created
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     wait_for_resources_created?: bool, // Whether to return immediately or wait until resources have been created
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -124,8 +126,9 @@ class Profiling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function status(array $params = [])
+	public function status(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_profiling/status';
 		$method = 'GET';
 
@@ -133,7 +136,7 @@ class Profiling extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers);
 		$request = $this->addOtelAttributes($params, [], $request, 'profiling.status');
 		return $this->client->sendRequest($request);
 	}
@@ -145,12 +148,12 @@ class Profiling extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The filter conditions for stacktraces
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The filter conditions for stacktraces. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -159,8 +162,9 @@ class Profiling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function topnFunctions(array $params = [])
+	public function topnFunctions(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_profiling/topn/functions';
 		$method = 'POST';
@@ -170,7 +174,7 @@ class Profiling extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->createRequest($method, $url, $headers, $params['body']);
 		$request = $this->addOtelAttributes($params, [], $request, 'profiling.topn_functions');
 		return $this->client->sendRequest($request);
 	}

@@ -36,14 +36,14 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type?: string, // The task type
-	 *     dry_run?: bool, // If true the endpoint will not be deleted and a list of ingest processors which reference this endpoint will be returned.
-	 *     force?: bool, // If true the endpoint will be forcefully stopped (regardless of whether or not it is referenced by any ingest processors or semantic text fields).
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     task_type: string, //  The task type
+	 *     dry_run: boolean, // If true the endpoint will not be deleted and a list of ingest processors which reference this endpoint will be returned.
+	 *     force: boolean, // If true the endpoint will be forcefully stopped (regardless of whether or not it is referenced by any ingest processors or semantic text fields).
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -53,9 +53,8 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function delete(?array $params = null)
+	public function delete(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['inference_id'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
@@ -68,7 +67,7 @@ class Inference extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.delete');
 		return $this->client->sendRequest($request);
 	}
@@ -81,13 +80,13 @@ class Inference extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     inference_id?: string, // The inference Id
-	 *     task_type?: string, // The task type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     inference_id: string, //  The inference Id
+	 *     task_type: string, //  The task type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -96,9 +95,8 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(?array $params = null)
+	public function get(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['task_type']) && isset($params['inference_id'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
 			$method = 'GET';
@@ -113,7 +111,7 @@ class Inference extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.get');
 		return $this->client->sendRequest($request);
 	}
@@ -127,13 +125,13 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type?: string, // The task type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The inference payload. If body is a string must be a valid JSON.
+	 *     task_type: string, //  The task type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The inference payload
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -143,9 +141,8 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function inference(?array $params = null)
+	public function inference(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['inference_id'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
@@ -173,13 +170,13 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type?: string, // The task type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     task_type: string, //  The task type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The inference endpoint's task and service settings
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -189,9 +186,8 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function put(?array $params = null)
+	public function put(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['inference_id'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
@@ -219,13 +215,13 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type?: string, // The task type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The inference payload. If body is a string must be a valid JSON.
+	 *     task_type: string, //  The task type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The inference payload
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -235,9 +231,8 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function streamInference(?array $params = null)
+	public function streamInference(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['inference_id'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']) . '/_stream';
@@ -253,51 +248,6 @@ class Inference extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.stream_inference');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Update inference
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-inference-api.html
-	 *
-	 * @param array{
-	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     task_type?: string, // The task type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function update(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
-		if (isset($params['task_type'])) {
-			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']) . '/_update';
-			$method = 'POST';
-		} else {
-			$url = '/_inference/' . $this->encode($params['inference_id']) . '/_update';
-			$method = 'POST';
-		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.update');
 		return $this->client->sendRequest($request);
 	}
 }

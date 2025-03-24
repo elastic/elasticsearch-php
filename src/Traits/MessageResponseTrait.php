@@ -29,9 +29,6 @@ trait MessageResponseTrait
         return $this->response->getProtocolVersion();
     }
 
-    /**
-     * @return MessageInterface
-     */
     public function withProtocolVersion($version): MessageInterface
     {
         return $this->response->withProtocolVersion($version);
@@ -57,41 +54,26 @@ trait MessageResponseTrait
         return $this->response->getHeaderLine($name);
     }
 
-    /**
-     * @return MessageInterface
-     */
     public function withHeader(string $name, $value): MessageInterface
     {
         return $this->response->withHeader($name, $value);
     }
 
-    /**
-     * @return MessageInterface
-     */
     public function withAddedHeader(string $name, $value): MessageInterface
     {
         return $this->response->withAddedHeader($name, $value);
     }
 
-    /**
-     * @return MessageInterface
-     */
     public function withoutHeader(string $name): MessageInterface
     {
         return $this->response->withoutHeader($name);
     }
 
-    /**
-     * @return StreamInterface
-     */
     public function getBody(): StreamInterface
     {
         return $this->response->getBody();
     }
 
-    /**
-     * @return MessageInterface
-     */
     public function withBody(StreamInterface $body): MessageInterface
     {
         return $this->response->withBody($body);
@@ -102,9 +84,6 @@ trait MessageResponseTrait
         return $this->response->getStatusCode();
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function withStatus(int $code, string $reasonPhrase = ''): ResponseInterface
     {
         return $this->response->withStatus($code, $reasonPhrase);

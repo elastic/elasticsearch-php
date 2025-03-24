@@ -34,25 +34,25 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html
 	 *
 	 * @param array{
-	 *     index?: string, // Default index for items which don't provide one
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     type?: string, // Default document type for items which don't provide one
-	 *     _source?: string, // True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
-	 *     _source_excludes?: string, // Default list of fields to exclude from the returned _source field, can be overridden on each sub-request
-	 *     _source_includes?: string, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     require_alias?: bool, // Sets require_alias for all incoming documents. Defaults to unset (false)
-	 *     require_data_stream?: bool, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
-	 *     list_executed_pipelines?: bool, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines. If body is a string must be a valid JSON.
+	 *     index: string, //  Default index for items which don't provide one
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
+	 *     routing: string, // Specific routing value
+	 *     timeout: time, // Explicit operation timeout
+	 *     type: string, // Default document type for items which don't provide one
+	 *     _source: list, // True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
+	 *     _source_excludes: list, // Default list of fields to exclude from the returned _source field, can be overridden on each sub-request
+	 *     _source_includes: list, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
+	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
+	 *     require_alias: boolean, // Sets require_alias for all incoming documents. Defaults to unset (false)
+	 *     require_data_stream: boolean, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
+	 *     list_executed_pipelines: boolean, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The operation definition and data (action-data pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -61,9 +61,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function bulk(?array $params = null)
+	public function bulk(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_bulk';
@@ -77,7 +76,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'bulk');
 		return $this->sendRequest($request);
 	}
@@ -89,13 +88,13 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
 	 *
 	 * @param array{
-	 *     scroll_id?: string, // A comma-separated list of scroll IDs to clear
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter. If body is a string must be a valid JSON.
+	 *     scroll_id: list, //  A comma-separated list of scroll IDs to clear
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  A comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -104,9 +103,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearScroll(?array $params = null)
+	public function clearScroll(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['scroll_id'])) {
 			$url = '/_search/scroll/' . $this->encode($params['scroll_id']);
 			$method = 'DELETE';
@@ -131,12 +129,12 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // a point-in-time id to close. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  a point-in-time id to close
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -145,9 +143,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function closePointInTime(?array $params = null)
+	public function closePointInTime(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/_pit';
 		$method = 'DELETE';
 
@@ -168,27 +165,27 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of indices to restrict the results
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     min_score?: float, // Include only documents with a specific `_score` value in the result
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     terminate_after?: float, // The maximum count for each shard, upon reaching which the query execution will terminate early
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // A query to restrict the results specified with the Query DSL (optional). If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of indices to restrict the results
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     min_score: number, // Include only documents with a specific `_score` value in the result
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     analyzer: string, // The analyzer to use for the query string
+	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The field to use as default where no field prefix is given in the query string
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     terminate_after: number, // The maximum count for each shard, upon reaching which the query execution will terminate early
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  A query to restrict the results specified with the Query DSL (optional)
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -197,9 +194,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function count(?array $params = null)
+	public function count(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -228,19 +224,19 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The document. If body is a string must be a valid JSON.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
+	 *     routing: string, // Specific routing value
+	 *     timeout: time, // Explicit operation timeout
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -250,9 +246,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function create(?array $params = null)
+	public function create(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_create/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -262,7 +257,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'create');
 		return $this->sendRequest($request);
 	}
@@ -276,19 +271,19 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     if_seq_no?: float, // only perform the delete operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: float, // only perform the delete operation if the last operation that has changed the document has the specified primary term
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
+	 *     routing: string, // Specific routing value
+	 *     timeout: time, // Explicit operation timeout
+	 *     if_seq_no: number, // only perform the delete operation if the last operation that has changed the document has the specified sequence number
+	 *     if_primary_term: number, // only perform the delete operation if the last operation that has changed the document has the specified primary term
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -298,9 +293,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function delete(?array $params = null)
+	public function delete(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'DELETE';
@@ -309,7 +303,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'delete');
 		return $this->sendRequest($request);
 	}
@@ -321,42 +315,42 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     from?: float, // Starting offset (default: 0)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     conflicts?: string, // What to do when the delete by query hits version conflicts?
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     search_timeout?: int|string, // Explicit timeout for each search request. Defaults to no timeout.
-	 *     max_docs?: float, // Maximum number of documents to process (default: all documents)
-	 *     sort?: string, // A comma-separated list of <field>:<direction> pairs
-	 *     terminate_after?: float, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string, // Specific 'tag' of the request for logging and statistical purposes
-	 *     version?: bool, // Specify whether to return document version as part of a hit
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the delete by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     scroll_size?: float, // Size on the scroll request powering the delete by query
-	 *     wait_for_completion?: bool, // Should the request should block until the delete by query is complete.
-	 *     requests_per_second?: float, // The throttle for this request in sub-requests per second. -1 means no throttle.
-	 *     slices?: float|number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The search definition using the Query DSL. If body is a string must be a valid JSON.
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     analyzer: string, // The analyzer to use for the query string
+	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The field to use as default where no field prefix is given in the query string
+	 *     from: number, // Starting offset (default: 0)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     conflicts: enum, // What to do when the delete by query hits version conflicts?
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
+	 *     search_type: enum, // Search operation type
+	 *     search_timeout: time, // Explicit timeout for each search request. Defaults to no timeout.
+	 *     max_docs: number, // Maximum number of documents to process (default: all documents)
+	 *     sort: list, // A comma-separated list of <field>:<direction> pairs
+	 *     terminate_after: number, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+	 *     stats: list, // Specific 'tag' of the request for logging and statistical purposes
+	 *     version: boolean, // Specify whether to return document version as part of a hit
+	 *     request_cache: boolean, // Specify if request cache should be used for this request or not, defaults to index level setting
+	 *     refresh: boolean, // Should the affected indexes be refreshed?
+	 *     timeout: time, // Time each individual bulk request should wait for shards that are unavailable.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the delete by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     scroll_size: number, // Size on the scroll request powering the delete by query
+	 *     wait_for_completion: boolean, // Should the request should block until the delete by query is complete.
+	 *     requests_per_second: number, // The throttle for this request in sub-requests per second. -1 means no throttle.
+	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -366,9 +360,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteByQuery(?array $params = null)
+	public function deleteByQuery(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_delete_by_query';
 		$method = 'POST';
@@ -378,7 +371,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'delete_by_query');
 		return $this->sendRequest($request);
 	}
@@ -391,12 +384,12 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: float, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -406,9 +399,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteByQueryRethrottle(?array $params = null)
+	public function deleteByQueryRethrottle(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
 		$url = '/_delete_by_query/' . $this->encode($params['task_id']) . '/_rethrottle';
 		$method = 'POST';
@@ -417,7 +409,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'delete_by_query_rethrottle');
 		return $this->sendRequest($request);
 	}
@@ -430,13 +422,13 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -446,9 +438,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteScript(?array $params = null)
+	public function deleteScript(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_scripts/' . $this->encode($params['id']);
 		$method = 'DELETE';
@@ -457,7 +448,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'delete_script');
 		return $this->sendRequest($request);
 	}
@@ -471,21 +462,21 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     stored_fields?: string, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     stored_fields: list, // A comma-separated list of stored fields to return in the response
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     realtime: boolean, // Specify whether to perform the operation in realtime or search mode
+	 *     refresh: boolean, // Refresh the shard containing the document before performing the operation
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -495,9 +486,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function exists(?array $params = null)
+	public function exists(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'HEAD';
@@ -506,7 +496,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'exists');
 		return $this->sendRequest($request);
 	}
@@ -520,20 +510,20 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     realtime: boolean, // Specify whether to perform the operation in realtime or search mode
+	 *     refresh: boolean, // Refresh the shard containing the document before performing the operation
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -543,9 +533,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function existsSource(?array $params = null)
+	public function existsSource(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_source/' . $this->encode($params['id']);
 		$method = 'HEAD';
@@ -554,7 +543,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'exists_source');
 		return $this->sendRequest($request);
 	}
@@ -568,24 +557,24 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     analyze_wildcard?: bool, // Specify whether wildcards and prefix queries in the query string query should be analyzed (default: false)
-	 *     analyzer?: string, // The analyzer for the query string query
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The default field for query string query (default: _all)
-	 *     stored_fields?: string, // A comma-separated list of stored fields to return in the response
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The query definition using the Query DSL. If body is a string must be a valid JSON.
+	 *     analyze_wildcard: boolean, // Specify whether wildcards and prefix queries in the query string query should be analyzed (default: false)
+	 *     analyzer: string, // The analyzer for the query string query
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The default field for query string query (default: _all)
+	 *     stored_fields: list, // A comma-separated list of stored fields to return in the response
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The query definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -595,9 +584,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function explain(?array $params = null)
+	public function explain(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_explain/' . $this->encode($params['id']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -619,21 +607,21 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     fields?: string, // A comma-separated list of field names
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     include_unmapped?: bool, // Indicates whether unmapped fields should be included in the response.
-	 *     filters?: string, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
-	 *     types?: string, // Only return results for fields that have one of the types in the list
-	 *     include_empty_fields?: bool, // Include empty fields in result
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // An index filter specified with the Query DSL. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+	 *     fields: list, // A comma-separated list of field names
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     include_unmapped: boolean, // Indicates whether unmapped fields should be included in the response.
+	 *     filters: list, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
+	 *     types: list, // Only return results for fields that have one of the types in the list
+	 *     include_empty_fields: boolean, // Include empty fields in result
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  An index filter specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -642,9 +630,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function fieldCaps(?array $params = null)
+	public function fieldCaps(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -671,22 +658,22 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     stored_fields?: string, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     force_synthetic_source: boolean, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
+	 *     stored_fields: list, // A comma-separated list of stored fields to return in the response
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     realtime: boolean, // Specify whether to perform the operation in realtime or search mode
+	 *     refresh: boolean, // Refresh the shard containing the document before performing the operation
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -696,9 +683,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(?array $params = null)
+	public function get(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -707,7 +693,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'get');
 		return $this->sendRequest($request);
 	}
@@ -720,12 +706,12 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -735,9 +721,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getScript(?array $params = null)
+	public function getScript(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_scripts/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -746,7 +731,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'get_script');
 		return $this->sendRequest($request);
 	}
@@ -758,11 +743,11 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -771,9 +756,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getScriptContext(?array $params = null)
+	public function getScriptContext(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/_script_context';
 		$method = 'GET';
 
@@ -781,7 +765,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'get_script_context');
 		return $this->sendRequest($request);
 	}
@@ -793,11 +777,11 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -806,9 +790,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getScriptLanguages(?array $params = null)
+	public function getScriptLanguages(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/_script_language';
 		$method = 'GET';
 
@@ -816,7 +799,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'get_script_languages');
 		return $this->sendRequest($request);
 	}
@@ -830,20 +813,20 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     realtime: boolean, // Specify whether to perform the operation in realtime or search mode
+	 *     refresh: boolean, // Refresh the shard containing the document before performing the operation
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -853,9 +836,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getSource(?array $params = null)
+	public function getSource(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_source/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -864,7 +846,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'get_source');
 		return $this->sendRequest($request);
 	}
@@ -876,15 +858,15 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html
 	 *
 	 * @param array{
-	 *     feature?: string, // A feature of the cluster, as returned by the top-level health API
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     verbose?: bool, // Opt in for more information about the health of the system
-	 *     size?: int, // Limit the number of affected resources the health API returns
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     feature: string, //  A feature of the cluster, as returned by the top-level health API
+	 *     timeout: time, // Explicit operation timeout
+	 *     verbose: boolean, // Opt in for more information about the health of the system
+	 *     size: int, // Limit the number of affected resources the health API returns
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -893,9 +875,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function healthReport(?array $params = null)
+	public function healthReport(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['feature'])) {
 			$url = '/_health_report/' . $this->encode($params['feature']);
 			$method = 'GET';
@@ -907,7 +888,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['feature'], $request, 'health_report');
 		return $this->sendRequest($request);
 	}
@@ -919,26 +900,26 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
 	 *
 	 * @param array{
-	 *     id?: string, // Document ID
+	 *     id: string, //  Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     op_type?: string, // Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     if_seq_no?: float, // only perform the index operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: float, // only perform the index operation if the last operation that has changed the document has the specified primary term
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     require_alias?: bool, // When true, requires destination to be an alias. Default is false
-	 *     require_data_stream?: bool, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The document. If body is a string must be a valid JSON.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     op_type: enum, // Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID
+	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
+	 *     routing: string, // Specific routing value
+	 *     timeout: time, // Explicit operation timeout
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     if_seq_no: number, // only perform the index operation if the last operation that has changed the document has the specified sequence number
+	 *     if_primary_term: number, // only perform the index operation if the last operation that has changed the document has the specified primary term
+	 *     pipeline: string, // The pipeline id to preprocess incoming documents with
+	 *     require_alias: boolean, // When true, requires destination to be an alias. Default is false
+	 *     require_data_stream: boolean, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -948,9 +929,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function index(?array $params = null)
+	public function index(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
 		if (isset($params['id'])) {
 			$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
@@ -964,7 +944,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'index');
 		return $this->sendRequest($request);
 	}
@@ -976,11 +956,11 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -989,9 +969,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function info(?array $params = null)
+	public function info(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/';
 		$method = 'GET';
 
@@ -999,7 +978,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'info');
 		return $this->sendRequest($request);
 	}
@@ -1012,14 +991,14 @@ trait ClientEndpointsTrait
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) A comma-separated list of index names to search; use `_all` to perform the operation on all indices
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The search definition. If body is a string must be a valid JSON.
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` to perform the operation on all indices
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The search definition
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1029,9 +1008,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function knnSearch(?array $params = null)
+	public function knnSearch(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1053,22 +1031,22 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html
 	 *
 	 * @param array{
-	 *     index?: string, // The name of the index
-	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     stored_fields?: string, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.. If body is a string must be a valid JSON.
+	 *     index: string, //  The name of the index
+	 *     force_synthetic_source: boolean, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
+	 *     stored_fields: list, // A comma-separated list of stored fields to return in the response
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     realtime: boolean, // Specify whether to perform the operation in realtime or search mode
+	 *     refresh: boolean, // Refresh the shard containing the document before performing the operation
+	 *     routing: string, // Specific routing value
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1077,9 +1055,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function mget(?array $params = null)
+	public function mget(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_mget';
@@ -1093,7 +1070,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'mget');
 		return $this->sendRequest($request);
 	}
@@ -1105,20 +1082,20 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to use as default
-	 *     search_type?: string, // Search operation type
-	 *     max_concurrent_searches?: float, // Controls the maximum number of concurrent searches the multi search api will execute
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     pre_filter_shard_size?: float, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
-	 *     max_concurrent_shard_requests?: float, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names to use as default
+	 *     search_type: enum, // Search operation type
+	 *     max_concurrent_searches: number, // Controls the maximum number of concurrent searches the multi search api will execute
+	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     pre_filter_shard_size: number, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
+	 *     max_concurrent_shard_requests: number, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1127,9 +1104,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function msearch(?array $params = null)
+	public function msearch(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_msearch';
@@ -1143,7 +1119,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'msearch');
 		return $this->sendRequest($request);
 	}
@@ -1155,18 +1131,18 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to use as default
-	 *     search_type?: string, // Search operation type
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     max_concurrent_searches?: float, // Controls the maximum number of concurrent searches the multi search api will execute
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names to use as default
+	 *     search_type: enum, // Search operation type
+	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     max_concurrent_searches: number, // Controls the maximum number of concurrent searches the multi search api will execute
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The request definitions (metadata-search request definition pairs), separated by newlines
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1175,9 +1151,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function msearchTemplate(?array $params = null)
+	public function msearchTemplate(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_msearch/template';
@@ -1191,7 +1166,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'msearch_template');
 		return $this->sendRequest($request);
 	}
@@ -1203,25 +1178,25 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html
 	 *
 	 * @param array{
-	 *     index?: string, // The index in which the document resides.
-	 *     ids?: string, // A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
-	 *     term_statistics?: bool, // Specifies if total term frequency and document frequency should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     field_statistics?: bool, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     fields?: string, // A comma-separated list of fields to return. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     offsets?: bool, // Specifies if term offsets should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     positions?: bool, // Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     payloads?: bool, // Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     routing?: string, // Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     realtime?: bool, // Specifies if requests are real-time as opposed to near-real-time (default: true).
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.. If body is a string must be a valid JSON.
+	 *     index: string, //  The index in which the document resides.
+	 *     ids: list, // A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
+	 *     term_statistics: boolean, // Specifies if total term frequency and document frequency should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     field_statistics: boolean, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     fields: list, // A comma-separated list of fields to return. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     offsets: boolean, // Specifies if term offsets should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     positions: boolean, // Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     payloads: boolean, // Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     routing: string, // Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     realtime: boolean, // Specifies if requests are real-time as opposed to near-real-time (default: true).
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1230,9 +1205,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function mtermvectors(?array $params = null)
+	public function mtermvectors(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1257,19 +1231,19 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) A comma-separated list of index names to open point in time; use `_all` or empty string to perform the operation on all indices
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // Specific routing value
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     keep_alive?: string, // Specific the time to live for the point in time
-	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // An index_filter specified with the Query DSL. If body is a string must be a valid JSON.
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to open point in time; use `_all` or empty string to perform the operation on all indices
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     routing: string, // Specific routing value
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     keep_alive: string, // Specific the time to live for the point in time
+	 *     allow_partial_search_results: boolean, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  An index_filter specified with the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1279,9 +1253,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function openPointInTime(?array $params = null)
+	public function openPointInTime(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','keep_alive'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_pit';
 		$method = 'POST';
@@ -1303,11 +1276,11 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1316,9 +1289,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function ping(?array $params = null)
+	public function ping(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/';
 		$method = 'HEAD';
 
@@ -1326,7 +1298,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ping');
 		return $this->sendRequest($request);
 	}
@@ -1339,15 +1311,15 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
-	 *     context?: string, // Script context
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The document. If body is a string must be a valid JSON.
+	 *     context: string, //  Script context
+	 *     timeout: time, // Explicit operation timeout
+	 *     master_timeout: time, // Specify timeout for connection to master
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The document
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1357,9 +1329,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putScript(?array $params = null)
+	public function putScript(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','body'], $params);
 		if (isset($params['context'])) {
 			$url = '/_scripts/' . $this->encode($params['id']) . '/' . $this->encode($params['context']);
@@ -1373,7 +1344,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'context'], $request, 'put_script');
 		return $this->sendRequest($request);
 	}
@@ -1385,17 +1356,17 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-rank-eval.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     search_type?: string, // Search operation type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     search_type: enum, // Search operation type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The ranking evaluation search definition, including search requests, document ratings and ranking metric definition.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1404,9 +1375,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function rankEval(?array $params = null)
+	public function rankEval(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_rank_eval';
@@ -1420,7 +1390,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'rank_eval');
 		return $this->sendRequest($request);
 	}
@@ -1434,20 +1404,20 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
 	 *
 	 * @param array{
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     wait_for_completion?: bool, // Should the request should block until the reindex is complete.
-	 *     requests_per_second?: float, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
-	 *     scroll?: int|string, // Control how long to keep the search context alive
-	 *     slices?: float|number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
-	 *     max_docs?: float, // Maximum number of documents to process (default: all documents)
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.. If body is a string must be a valid JSON.
+	 *     refresh: boolean, // Should the affected indexes be refreshed?
+	 *     timeout: time, // Time each individual bulk request should wait for shards that are unavailable.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     wait_for_completion: boolean, // Should the request should block until the reindex is complete.
+	 *     requests_per_second: number, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
+	 *     scroll: time, // Control how long to keep the search context alive
+	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     max_docs: number, // Maximum number of documents to process (default: all documents)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The search definition using the Query DSL and the prototype for the index request.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1456,9 +1426,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function reindex(?array $params = null)
+	public function reindex(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_reindex';
 		$method = 'POST';
@@ -1468,7 +1437,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'reindex');
 		return $this->sendRequest($request);
 	}
@@ -1481,12 +1450,12 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: float, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1496,9 +1465,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function reindexRethrottle(?array $params = null)
+	public function reindexRethrottle(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
 		$url = '/_reindex/' . $this->encode($params['task_id']) . '/_rethrottle';
 		$method = 'POST';
@@ -1507,7 +1475,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'reindex_rethrottle');
 		return $this->sendRequest($request);
 	}
@@ -1519,13 +1487,13 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html
 	 *
 	 * @param array{
-	 *     id?: string, // The id of the stored search template
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The search definition template and its params. If body is a string must be a valid JSON.
+	 *     id: string, //  The id of the stored search template
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The search definition template and its params
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1534,9 +1502,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function renderSearchTemplate(?array $params = null)
+	public function renderSearchTemplate(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['id'])) {
 			$url = '/_render/template/' . $this->encode($params['id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1562,12 +1529,12 @@ trait ClientEndpointsTrait
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The script to execute. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The script to execute
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1576,9 +1543,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function scriptsPainlessExecute(?array $params = null)
+	public function scriptsPainlessExecute(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/_scripts/painless/_execute';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1599,15 +1565,15 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll
 	 *
 	 * @param array{
-	 *     scroll_id?: string, // The scroll ID
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The scroll ID if not passed by URL or query parameter.. If body is a string must be a valid JSON.
+	 *     scroll_id: string, //  The scroll ID
+	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The scroll ID if not passed by URL or query parameter.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1616,9 +1582,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function scroll(?array $params = null)
+	public function scroll(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['scroll_id'])) {
 			$url = '/_search/scroll/' . $this->encode($params['scroll_id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1643,58 +1608,58 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
-	 *     stored_fields?: string, // A comma-separated list of stored fields to return as part of a hit
-	 *     docvalue_fields?: string, // A comma-separated list of fields to return as the docvalue representation of a field for each hit
-	 *     from?: float, // Starting offset (default: 0)
-	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     size?: float, // Number of hits to return (default: 10)
-	 *     sort?: string, // A comma-separated list of <field>:<direction> pairs
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     terminate_after?: float, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string, // Specific 'tag' of the request for logging and statistical purposes
-	 *     suggest_field?: string, // Specify which field to use for suggestions
-	 *     suggest_mode?: string, // Specify suggest mode
-	 *     suggest_size?: float, // How many suggestions to return in response
-	 *     suggest_text?: string, // The source text for which the suggestions should be returned
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     track_scores?: bool, // Whether to calculate and return scores even if they are not used for sorting
-	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
-	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     version?: bool, // Specify whether to return document version as part of a hit
-	 *     seq_no_primary_term?: bool, // Specify whether to return sequence number and primary term of the last modification of each hit
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     batched_reduce_size?: float, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
-	 *     max_concurrent_shard_requests?: float, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
-	 *     pre_filter_shard_size?: float, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     min_compatible_shard_node?: string, // The minimum compatible version that all shards involved in search should have for this request to be successful
-	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The search definition using the Query DSL. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     analyzer: string, // The analyzer to use for the query string
+	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The field to use as default where no field prefix is given in the query string
+	 *     explain: boolean, // Specify whether to return detailed information about score computation as part of a hit
+	 *     stored_fields: list, // A comma-separated list of stored fields to return as part of a hit
+	 *     docvalue_fields: list, // A comma-separated list of fields to return as the docvalue representation of a field for each hit
+	 *     from: number, // Starting offset (default: 0)
+	 *     force_synthetic_source: boolean, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
+	 *     search_type: enum, // Search operation type
+	 *     size: number, // Number of hits to return (default: 10)
+	 *     sort: list, // A comma-separated list of <field>:<direction> pairs
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     terminate_after: number, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+	 *     stats: list, // Specific 'tag' of the request for logging and statistical purposes
+	 *     suggest_field: string, // Specify which field to use for suggestions
+	 *     suggest_mode: enum, // Specify suggest mode
+	 *     suggest_size: number, // How many suggestions to return in response
+	 *     suggest_text: string, // The source text for which the suggestions should be returned
+	 *     timeout: time, // Explicit operation timeout
+	 *     track_scores: boolean, // Whether to calculate and return scores even if they are not used for sorting
+	 *     track_total_hits: boolean|long, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
+	 *     allow_partial_search_results: boolean, // Indicate if an error should be returned if there is a partial search failure or timeout
+	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     version: boolean, // Specify whether to return document version as part of a hit
+	 *     seq_no_primary_term: boolean, // Specify whether to return sequence number and primary term of the last modification of each hit
+	 *     request_cache: boolean, // Specify if request cache should be used for this request or not, defaults to index level setting
+	 *     batched_reduce_size: number, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
+	 *     max_concurrent_shard_requests: number, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
+	 *     pre_filter_shard_size: number, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     min_compatible_shard_node: string, // The minimum compatible version that all shards involved in search should have for this request to be successful
+	 *     include_named_queries_score: boolean, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1703,9 +1668,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function search(?array $params = null)
+	public function search(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1731,24 +1695,24 @@ trait ClientEndpointsTrait
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) Comma-separated list of data streams, indices, or aliases to search
+	 *     index: list, // (REQUIRED) Comma-separated list of data streams, indices, or aliases to search
 	 *     field: string, // (REQUIRED) Field containing geospatial data to return
 	 *     zoom: int, // (REQUIRED) Zoom level for the vector tile to search
 	 *     x: int, // (REQUIRED) X coordinate for the vector tile to search
 	 *     y: int, // (REQUIRED) Y coordinate for the vector tile to search
-	 *     exact_bounds?: bool, // If false, the meta layer's feature is the bounding box of the tile. If true, the meta layer's feature is a bounding box resulting from a `geo_bounds` aggregation.
-	 *     extent?: int, // Size, in pixels, of a side of the vector tile.
-	 *     grid_precision?: int, // Additional zoom levels available through the aggs layer. Accepts 0-8.
-	 *     grid_type?: string, // Determines the geometry type for features in the aggs layer.
-	 *     size?: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
-	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
-	 *     with_labels?: bool, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // Search request body.. If body is a string must be a valid JSON.
+	 *     exact_bounds: boolean, // If false, the meta layer's feature is the bounding box of the tile. If true, the meta layer's feature is a bounding box resulting from a `geo_bounds` aggregation.
+	 *     extent: int, // Size, in pixels, of a side of the vector tile.
+	 *     grid_precision: int, // Additional zoom levels available through the aggs layer. Accepts 0-8.
+	 *     grid_type: enum, // Determines the geometry type for features in the aggs layer.
+	 *     size: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
+	 *     track_total_hits: boolean|long, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
+	 *     with_labels: boolean, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  Search request body.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1758,9 +1722,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function searchMvt(?array $params = null)
+	public function searchMvt(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','field','zoom','x','y'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1782,19 +1745,19 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // Specific routing value
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     index: list, //  A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     routing: string, // Specific routing value
+	 *     local: boolean, // Return local information, do not retrieve the state from master node (default: false)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     master_timeout: time, // Explicit operation timeout for connection to master node
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1803,21 +1766,20 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function searchShards(?array $params = null)
+	public function searchShards(array $params = [])
 	{
-		$params = $params ?? [];
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_search_shards';
-			$method = 'GET';
+			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_search_shards';
-			$method = 'GET';
+			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
 		$url = $this->addQueryString($url, $params, ['preference','routing','local','ignore_unavailable','allow_no_indices','expand_wildcards','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'search_shards');
 		return $this->sendRequest($request);
 	}
@@ -1829,26 +1791,26 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html
 	 *
 	 * @param array{
-	 *     index?: string, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
-	 *     profile?: bool, // Specify whether to profile the query execution
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The search definition template and its params. If body is a string must be a valid JSON.
+	 *     index: list, //  A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled: boolean, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
+	 *     search_type: enum, // Search operation type
+	 *     explain: boolean, // Specify whether to return detailed information about score computation as part of a hit
+	 *     profile: boolean, // Specify whether to profile the query execution
+	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     ccs_minimize_roundtrips: boolean, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The search definition template and its params
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1857,9 +1819,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function searchTemplate(?array $params = null)
+	public function searchTemplate(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_search/template';
@@ -1873,7 +1834,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'search_template');
 		return $this->sendRequest($request);
 	}
@@ -1885,13 +1846,13 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // field name, string which is the prefix expected in matching terms, timeout and size for max number of results. If body is a string must be a valid JSON.
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  field name, string which is the prefix expected in matching terms, timeout and size for max number of results
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1901,9 +1862,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function termsEnum(?array $params = null)
+	public function termsEnum(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1926,24 +1886,24 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index in which the document resides.
-	 *     id?: string, // The id of the document, when not specified a doc param should be supplied.
-	 *     term_statistics?: bool, // Specifies if total term frequency and document frequency should be returned.
-	 *     field_statistics?: bool, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
-	 *     fields?: string, // A comma-separated list of fields to return.
-	 *     offsets?: bool, // Specifies if term offsets should be returned.
-	 *     positions?: bool, // Specifies if term positions should be returned.
-	 *     payloads?: bool, // Specifies if term payloads should be returned.
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random).
-	 *     routing?: string, // Specific routing value.
-	 *     realtime?: bool, // Specifies if request is real-time as opposed to near-real-time (default: true).
-	 *     version?: float, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // Define parameters and or supply a document to get termvectors for. See documentation.. If body is a string must be a valid JSON.
+	 *     id: string, //  The id of the document, when not specified a doc param should be supplied.
+	 *     term_statistics: boolean, // Specifies if total term frequency and document frequency should be returned.
+	 *     field_statistics: boolean, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
+	 *     fields: list, // A comma-separated list of fields to return.
+	 *     offsets: boolean, // Specifies if term offsets should be returned.
+	 *     positions: boolean, // Specifies if term positions should be returned.
+	 *     payloads: boolean, // Specifies if term payloads should be returned.
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random).
+	 *     routing: string, // Specific routing value.
+	 *     realtime: boolean, // Specifies if request is real-time as opposed to near-real-time (default: true).
+	 *     version: number, // Explicit version number for concurrency control
+	 *     version_type: enum, // Specific version type
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  Define parameters and or supply a document to get termvectors for. See documentation.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1953,9 +1913,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function termvectors(?array $params = null)
+	public function termvectors(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		if (isset($params['id'])) {
 			$url = '/' . $this->encode($params['index']) . '/_termvectors/' . $this->encode($params['id']);
@@ -1983,24 +1942,24 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the update operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     _source?: string, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string, // A list of fields to extract and return from the _source field
-	 *     lang?: string, // The script language (default: painless)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     retry_on_conflict?: float, // Specify how many times should the operation be retried when a conflict occurs (default: 0)
-	 *     routing?: string, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     if_seq_no?: float, // only perform the update operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: float, // only perform the update operation if the last operation that has changed the document has the specified primary term
-	 *     require_alias?: bool, // When true, requires destination is an alias. Default is false
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The request definition requires either `script` or partial `doc`. If body is a string must be a valid JSON.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the update operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     _source: list, // True or false to return the _source field or not, or a list of fields to return
+	 *     _source_excludes: list, // A list of fields to exclude from the returned _source field
+	 *     _source_includes: list, // A list of fields to extract and return from the _source field
+	 *     lang: string, // The script language (default: painless)
+	 *     refresh: enum, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
+	 *     retry_on_conflict: number, // Specify how many times should the operation be retried when a conflict occurs (default: 0)
+	 *     routing: string, // Specific routing value
+	 *     timeout: time, // Explicit operation timeout
+	 *     if_seq_no: number, // only perform the update operation if the last operation that has changed the document has the specified sequence number
+	 *     if_primary_term: number, // only perform the update operation if the last operation that has changed the document has the specified primary term
+	 *     require_alias: boolean, // When true, requires destination is an alias. Default is false
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The request definition requires either `script` or partial `doc`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2010,9 +1969,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function update(?array $params = null)
+	public function update(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_update/' . $this->encode($params['id']);
 		$method = 'POST';
@@ -2022,7 +1980,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'update');
 		return $this->sendRequest($request);
 	}
@@ -2035,44 +1993,44 @@ trait ClientEndpointsTrait
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     from?: float, // Starting offset (default: 0)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     conflicts?: string, // What to do when the update by query hits version conflicts?
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     pipeline?: string, // Ingest pipeline to set on index requests made by this action. (default: none)
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     search_timeout?: int|string, // Explicit timeout for each search request. Defaults to no timeout.
-	 *     max_docs?: float, // Maximum number of documents to process (default: all documents)
-	 *     sort?: string, // A comma-separated list of <field>:<direction> pairs
-	 *     terminate_after?: float, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string, // Specific 'tag' of the request for logging and statistical purposes
-	 *     version?: bool, // Specify whether to return document version as part of a hit
-	 *     version_type?: bool, // Should the document increment the version number (internal) on hit or not (reindex)
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     scroll_size?: float, // Size on the scroll request powering the update by query
-	 *     wait_for_completion?: bool, // Should the request should block until the update by query operation is complete.
-	 *     requests_per_second?: float, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
-	 *     slices?: float|number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array, // The search definition using the Query DSL. If body is a string must be a valid JSON.
+	 *     index: list, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     analyzer: string, // The analyzer to use for the query string
+	 *     analyze_wildcard: boolean, // Specify whether wildcard and prefix queries should be analyzed (default: false)
+	 *     default_operator: enum, // The default operator for query string query (AND or OR)
+	 *     df: string, // The field to use as default where no field prefix is given in the query string
+	 *     from: number, // Starting offset (default: 0)
+	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     conflicts: enum, // What to do when the update by query hits version conflicts?
+	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     lenient: boolean, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
+	 *     pipeline: string, // Ingest pipeline to set on index requests made by this action. (default: none)
+	 *     preference: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     q: string, // Query in the Lucene query string syntax
+	 *     routing: list, // A comma-separated list of specific routing values
+	 *     scroll: time, // Specify how long a consistent view of the index should be maintained for scrolled search
+	 *     search_type: enum, // Search operation type
+	 *     search_timeout: time, // Explicit timeout for each search request. Defaults to no timeout.
+	 *     max_docs: number, // Maximum number of documents to process (default: all documents)
+	 *     sort: list, // A comma-separated list of <field>:<direction> pairs
+	 *     terminate_after: number, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+	 *     stats: list, // Specific 'tag' of the request for logging and statistical purposes
+	 *     version: boolean, // Specify whether to return document version as part of a hit
+	 *     version_type: boolean, // Should the document increment the version number (internal) on hit or not (reindex)
+	 *     request_cache: boolean, // Specify if request cache should be used for this request or not, defaults to index level setting
+	 *     refresh: boolean, // Should the affected indexes be refreshed?
+	 *     timeout: time, // Time each individual bulk request should wait for shards that are unavailable.
+	 *     wait_for_active_shards: string, // Sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
+	 *     scroll_size: number, // Size on the scroll request powering the update by query
+	 *     wait_for_completion: boolean, // Should the request should block until the update by query operation is complete.
+	 *     requests_per_second: number, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
+	 *     slices: number|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, //  The search definition using the Query DSL
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2082,9 +2040,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateByQuery(?array $params = null)
+	public function updateByQuery(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_update_by_query';
 		$method = 'POST';
@@ -2107,12 +2064,12 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: float, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     requests_per_second: number, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2122,9 +2079,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateByQueryRethrottle(?array $params = null)
+	public function updateByQueryRethrottle(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['task_id','requests_per_second'], $params);
 		$url = '/_update_by_query/' . $this->encode($params['task_id']) . '/_rethrottle';
 		$method = 'POST';
@@ -2133,7 +2089,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'update_by_query_rethrottle');
 		return $this->sendRequest($request);
 	}

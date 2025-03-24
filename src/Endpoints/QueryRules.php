@@ -36,11 +36,11 @@ class QueryRules extends AbstractEndpoint
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset this rule exists in
 	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to delete.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,9 +50,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteRule(?array $params = null)
+	public function deleteRule(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id','rule_id'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
 		$method = 'DELETE';
@@ -61,7 +60,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.delete_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -74,11 +73,11 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset to delete
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -88,9 +87,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteRuleset(?array $params = null)
+	public function deleteRuleset(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
 		$method = 'DELETE';
@@ -99,7 +97,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.delete_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -113,11 +111,11 @@ class QueryRules extends AbstractEndpoint
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset the rule exists within
 	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to be retrieved.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -127,9 +125,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRule(?array $params = null)
+	public function getRule(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id','rule_id'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
 		$method = 'GET';
@@ -138,7 +135,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.get_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -151,11 +148,11 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the query ruleset
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -165,9 +162,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRuleset(?array $params = null)
+	public function getRuleset(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
 		$method = 'GET';
@@ -176,7 +172,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.get_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -188,13 +184,13 @@ class QueryRules extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset (default: 0)
-	 *     size?: int, // specifies a max number of results to get (default: 100)
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     from: int, // Starting offset (default: 0)
+	 *     size: int, // specifies a max number of results to get (default: 100)
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -203,9 +199,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function listRulesets(?array $params = null)
+	public function listRulesets(array $params = [])
 	{
-		$params = $params ?? [];
 		$url = '/_query_rules';
 		$method = 'GET';
 
@@ -213,7 +208,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'query_rules.list_rulesets');
 		return $this->client->sendRequest($request);
 	}
@@ -227,12 +222,12 @@ class QueryRules extends AbstractEndpoint
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset this rule should be added to. The ruleset will be created if it does not exist.
 	 *     rule_id: string, // (REQUIRED) The unique identifier of the rule to be created or updated.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The query rule configuration, including the type of rule, the criteria to match the rule, and the action that should be taken if the rule matches.. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The query rule configuration, including the type of rule, the criteria to match the rule, and the action that should be taken if the rule matches.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -242,9 +237,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putRule(?array $params = null)
+	public function putRule(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id','rule_id','body'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_rule/' . $this->encode($params['rule_id']);
 		$method = 'PUT';
@@ -254,7 +248,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.put_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -267,12 +261,12 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to be created or updated.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The query ruleset configuration, including `rules`. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The query ruleset configuration, including `rules`
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -282,9 +276,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putRuleset(?array $params = null)
+	public function putRuleset(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id','body'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']);
 		$method = 'PUT';
@@ -294,7 +287,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.put_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -308,12 +301,12 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to test.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) The match criteria to test against the ruleset. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) The match criteria to test against the ruleset
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -323,9 +316,8 @@ class QueryRules extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function test(?array $params = null)
+	public function test(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['ruleset_id','body'], $params);
 		$url = '/_query_rules/' . $this->encode($params['ruleset_id']) . '/_test';
 		$method = 'POST';
@@ -335,7 +327,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.test');
 		return $this->client->sendRequest($request);
 	}

@@ -34,12 +34,12 @@ class Sql extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-sql-cursor-api.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) Specify the cursor value in the `cursor` element to clean the cursor.. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Specify the cursor value in the `cursor` element to clean the cursor.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -48,9 +48,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCursor(?array $params = null)
+	public function clearCursor(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_sql/close';
 		$method = 'POST';
@@ -60,7 +59,7 @@ class Sql extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'sql.clear_cursor');
 		return $this->client->sendRequest($request);
 	}
@@ -73,11 +72,11 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -87,9 +86,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteAsync(?array $params = null)
+	public function deleteAsync(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_sql/async/delete/' . $this->encode($params['id']);
 		$method = 'DELETE';
@@ -98,7 +96,7 @@ class Sql extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'sql.delete_async');
 		return $this->client->sendRequest($request);
 	}
@@ -111,15 +109,15 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     delimiter?: string, // Separator for CSV results
-	 *     format?: string, // Short version of the Accept header, e.g. json, yaml
-	 *     keep_alive?: int|string, // Retention period for the search and its results
-	 *     wait_for_completion_timeout?: int|string, // Duration to wait for complete results
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     delimiter: string, // Separator for CSV results
+	 *     format: string, // Short version of the Accept header, e.g. json, yaml
+	 *     keep_alive: time, // Retention period for the search and its results
+	 *     wait_for_completion_timeout: time, // Duration to wait for complete results
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -129,9 +127,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getAsync(?array $params = null)
+	public function getAsync(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_sql/async/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -140,7 +137,7 @@ class Sql extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'sql.get_async');
 		return $this->client->sendRequest($request);
 	}
@@ -153,11 +150,11 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -167,9 +164,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getAsyncStatus(?array $params = null)
+	public function getAsyncStatus(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_sql/async/status/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -178,7 +174,7 @@ class Sql extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'sql.get_async_status');
 		return $this->client->sendRequest($request);
 	}
@@ -190,13 +186,13 @@ class Sql extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) Use the `query` element to start a query. Use the `cursor` element to continue a query.. If body is a string must be a valid JSON.
+	 *     format: string, // a short version of the Accept header, e.g. json, yaml
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Use the `query` element to start a query. Use the `cursor` element to continue a query.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -205,9 +201,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function query(?array $params = null)
+	public function query(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_sql';
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -217,7 +212,7 @@ class Sql extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'sql.query');
 		return $this->client->sendRequest($request);
 	}
@@ -229,12 +224,12 @@ class Sql extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate-api.html
 	 *
 	 * @param array{
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array, // (REQUIRED) Specify the query in the `query` element.. If body is a string must be a valid JSON.
+	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     body: array, // (REQUIRED) Specify the query in the `query` element.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -243,9 +238,8 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function translate(?array $params = null)
+	public function translate(array $params = [])
 	{
-		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_sql/translate';
 		$method = empty($params['body']) ? 'GET' : 'POST';
@@ -255,7 +249,7 @@ class Sql extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'sql.translate');
 		return $this->client->sendRequest($request);
 	}

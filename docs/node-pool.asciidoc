@@ -1,0 +1,72 @@
+[[node_pool]]
+=== Node Pool
+
+The node pool is a component of https://github.com/elastic/elastic-transport-php[elastic-transport-php]
+library used by elasticsearch-php.
+
+This component is responsible for maintaining the current list of nodes. 
+Theoretically, nodes are either dead or alive. However, in the real world, things
+are never so clear. Nodes are sometimes in a gray-zone of _"probably dead but not
+confirmed"_, _"timed-out but unclear why"_ or _"recently dead but now alive"_.
+The job of the node pool is to manage this set of unruly connections and try to
+provide the best behavior to the client.
+
+If a node pool is unable to find an alive node to query against, it 
+returns a `NoNodeAvailableException`.
+
+By default, the number of retries is equal to the number of nodes in your 
+cluster. For example, your cluster may have 10 nodes. You execute a 
+request and 9 out of the 10 nodes fail due to connection timeouts. The tenth 
+node succeeds and the query executes. The first nine nodes are marked dead 
+and their "dead" timers begin ticking.
+
+When the next request is sent to the client, nodes 1-9 are still considered 
+"dead", so they are skipped. The request is sent to the only known alive node 
+(#10), if this node fails, a `NoNodesAvailableException` is returned.
+
+The `SimpleNodePool` is the default node pool algorithm. It uses the following
+default values: RoundRobin as `SelectorInterface` and NoResurrect as `ResurrectInterface`.
+
+The Round-robin algorithm select the nodes in order, from the first node in the array
+to the latest. When arrived to the latest nodes, it will start again from the first.
+
+NOTE: The order of the nodes is randomized at runtime to maximize the usage of all the hosts.
+
+The `NoResurrect` option does not try to resurrect the node that has been marked as dead. 
+If you want, you can specify the `ElasticsearchResurrect` class to check if a node that
+was dead is online again (resurrected).
+
+You can use the following configuration to enable the `ElasticsearchResurrect` class:
+
+[source,php]
+----
+use Elastic\Transport\NodePool\Resurrect\ElasticsearchResurrect;
+use Elastic\Transport\NodePool\Selector\RoundRobin;
+use Elastic\Transport\NodePool\SimpleNodePool;
+
+$nodePool = new SimpleNodePool(
+    new RoundRobin(),
+    new ElasticsearchResurrect()
+);
+
+$transport = TransportBuilder::create()
+    ->setHosts(['localhost:9200'])
+    ->setNodePool($nodePool)
+    ->build();
+----
+
+
+[discrete]
+==== Using a custom NodePool, Selector and Resurrect
+
+If you want you can implement your custom node pool algorithm. We provided a 
+https://github.com/elastic/elastic-transport-php/blob/master/src/NodePool/NodePoolInterface.php[NodePoolInterface]
+
+You can also customize the Selector and the Resurrect components of the node pool.
+You can use the following interfaces for the implementation:
+
+* https://github.com/elastic/elastic-transport-php/blob/master/src/NodePool/Selector/SelectorInterface.php[SelectorInterface]
+* https://github.com/elastic/elastic-transport-php/blob/master/src/NodePool/Resurrect/ResurrectInterface.php[ResurrectInterface]
+
+For more information about the Node Pool you can read the
+https://github.com/elastic/elastic-transport-php/blob/master/README.md[elastic-transport-php documentation].

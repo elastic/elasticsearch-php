@@ -1,0 +1,49 @@
+[[breaking_changes]]
+=== Breaking changes from 7.x
+
+This major release is a complete new PHP client for {es}. We build it from scratch!
+We tried to reduce the BC breaks as much as possible but there are some (big) differences: 
+
+[discrete]
+==== Architectural changes
+
+- we changed the namespace, now everything is under `Elastic\Elasticsearch`
+- we used the https://github.com/elastic/elastic-transport-php[elastic-transport-php] library for HTTP communications;
+- we changed the `Exception` model, using the namespace `Elastic\Elasticsearch\Exception`. All the exceptions extends the
+  `ElasticsearchException` interface, as in 7.x
+- we changed the response type of each endpoint using an https://github.com/elastic/elasticsearch-php/blob/master/src/Response/Elasticsearch.php[Elasticsearch] response class.
+  This class wraps a https://www.php-fig.org/psr/psr-7/[PSR-7] response allowing the access of the body response
+  as array or object. This means you can access the API response as in 7.x, no BC break here! :angel:
+- we changed the `ConnectionPool` in `NodePool`. The `connection` naming was ambigous since the objects are nodes (hosts)
+
+[discrete]
+==== Specific changes
+
+The following functions has been removed:
+
+- `ClientBuilder::getEndpoint()`
+- `ClientBuilder::getRegisteredNamespacesBuilders()`
+- `ClientBuilder::getRegisteredNamespacesBuilders()`
+- `ClientBuilder::defaultHandler()`
+- `ClientBuilder::multiHandler()`
+- `ClientBuilder::singleHandler()`
+- `ClientBuilder::setConnectionFactory()`
+- `ClientBuilder::setConnectionPool()`, you can use `ClientBuilder::setNodePool` instead
+- `ClientBuilder::setEndpoint()`
+- `ClientBuilder::registerNamespace()`
+- `ClientBuilder::setTransport()`, you can specify an HTTP PSR-18 client using `ClientBuilder::setHttpClient()`
+- `ClientBuilder::setHandler()`
+- `ClientBuilder::setTracer()`, you can only set a Logger using  `ClientBuilder::setLogger()`
+- `ClientBuilder::setSerializer()`
+- `ClientBuilder::setConnectionParams()`, you can use `ClientBuilder::setHttpClientOptions()` instead
+- `ClientBuilder::setSelector()`, you can set a `Selector` using the `setNodePool`, see https://github.com/elastic/elastic-transport-php/blob/8.x/README.md#use-a-custom-selector[here] for more information
+- `ClientBuilder::setSniffOnStart()`
+- `ClientBuilder::includePortInHostHeader()`
+
+We removed the special `client` parameter passed in `$params` endpoints. In details: 
+
+- `$params['client']['never_retry']`
+- `$params['client']['verbose']`
+- `$params['client']['port_in_header']`
+- `$params['client']['future']`, you can set HTTP async using `Client::setAsync(true)`
+- `$params['client']['ignore']`, you can disable the Exception using `Client::setResponseException(false)`

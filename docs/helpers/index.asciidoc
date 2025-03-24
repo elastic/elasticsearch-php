@@ -1,0 +1,10 @@
+[[client-helpers]]
+== Client helpers
+
+The PHP client comes with the following helpers:
+
+* <<iterators>>
+* <<esql>>
+
+include::iterators.asciidoc[]
+include::esql.asciidoc[]

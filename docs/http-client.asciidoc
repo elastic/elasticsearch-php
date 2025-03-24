@@ -1,0 +1,148 @@
+[[http-client]]
+=== Configure the HTTP client
+
+Elasticsearch-php uses https://github.com/elastic/elastic-transport-php[elastic-transport-php]
+for managing the HTTP tranport. This is an HTTP client provided by Elastic
+that can be configured to use any https://www.php-fig.org/psr/psr-18/[PSR-18] client library.
+
+Elasticsearch-php uses Guzzle as default HTTP client but you can specify
+any other client using the `setHttpClient()` function, as follows:
+
+
+[source,php]
+----
+use Symfony\Component\HttpClient\Psr18Client;
+
+$client = ClientBuilder::create()
+    ->setHttpClient(new Psr18Client)
+    ->build();
+----
+
+For instance, in this example we used the https://symfony.com/doc/current/http_client.html[Symfony HTTP Client].
+
+[discrete]
+==== Setting the client options
+
+If you want you can set the options for a specific PSR-18 client
+using the `ClientBuilder::setHttpClientOptions($options)` method.
+The `$options` is an array of key:value options that are 
+specifics to the HTTP client used.
+
+For instance, if you are using Guzzle (default) and you need to use a
+https://docs.guzzlephp.org/en/stable/request-options.html#proxy[proxy]
+you can use the following settings:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+    ->setHttpClientOptions([
+        'proxy' => 'http://localhost:8125'
+    ])
+    ->build();
+----
+
+
+[discrete]
+==== Configuring the HTTP async client
+
+Elasticsearch-php can works using an asyncronous HTTP client that implements
+the https://github.com/php-http/httplug/blob/master/src/HttpAsyncClient.php[HttpAsyncClient] interface
+of the http://httplug.io/[HTTPlug] project.
+
+Unfortunately, there is not yet a PSR standard for HTTP async client.
+We used the HTTPlug interface that is quite simple, as follows:
+
+[source,php]
+----
+namespace Http\Client;
+
+use Http\Promise\Promise;
+use Psr\Http\Message\RequestInterface; // PSR-7 response
+
+interface HttpAsyncClient
+{
+    /**
+     * @return Promise
+     */
+    public function sendAsyncRequest(RequestInterface $request);
+}
+----
+
+You can enable the HTTP async in elasticsearch-php using the `setAsync()` function,
+as follows:
+
+[source,php]
+----
+$client = ClientBuilder::create()
+    ->build();
+
+$client->setAsync(true);
+
+$promise = [];
+for ($i=0; $i<10; $i++) {
+    $promise[] = $client->index([
+        'index' => 'my-index'
+        'body' => [
+            'foo' => base64_encode(random_bytes(24))
+        ]
+    ]);
+}
+----
+
+The previous example stores 10 random documents using the HTTP asyncronous feature.
+The `$promise` response is an object of https://github.com/php-http/promise/blob/master/src/Promise.php[promises/a+]
+interface.
+
+A promise represents a single result of an asynchronous operation.
+It is not necessarily available at a specific time, but should become in the future.
+
+If you need to know the response you can just call the `wait()` function,
+as follows:
+
+[source,php]
+----
+$promise = $client->index([
+    'index' => 'my-index',
+    'body' => [
+        'foo' => 'bar'
+    ]
+]);
+$result = $promise->wait();
+print_r($result->asArray());
+----
+
+The `wait()` function block the execution until we will recevie the
+HTTP response from {es}.
+
+Instead of waiting, you can handle things asynchronously using the
+`then()` function, as follows:
+
+[source,php]
+----
+use Psr\Http\Message\ResponseInterface; // PSR-7
+
+$promise = $client->index([
+    'index' => 'my-index',
+    'body' => [
+        'foo' => 'bar'
+    ]
+]);
+
+$promise->then(
+    // The success callback
+    function (ResponseInterface $response) {
+        // Success
+        // insert here the logic for managing the response
+        return $response;
+    },
+    // The failure callback
+    function (\Exception $exception) {
+        // Error
+        throw $exception;
+    }
+);
+----
+
+More information about Promise are available at the
+https://docs.php-http.org/en/latest/components/promise.html[HTTPlug documentation page].
+

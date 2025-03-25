@@ -62,7 +62,7 @@ trait EndpointTrait
      * 
      * @param mixed $value
      */
-    private function convertValue($value): string
+    protected function convertValue($value): string
     {
         // Convert a boolean value in 'true' or 'false' string
         if (is_bool($value)) {

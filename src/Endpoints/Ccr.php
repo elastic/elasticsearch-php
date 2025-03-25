@@ -135,7 +135,7 @@ class Ccr extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_ccr/info';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_ccr/info';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -174,7 +174,7 @@ class Ccr extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_ccr/stats';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_ccr/stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);

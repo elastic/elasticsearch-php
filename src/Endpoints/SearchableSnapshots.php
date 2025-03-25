@@ -53,7 +53,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_searchable_snapshots/' . $this->encode($params['node_id']) . '/cache/stats';
+			$url = '/_searchable_snapshots/' . $this->encode($this->convertValue($params['node_id'])) . '/cache/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/cache/stats';
@@ -97,7 +97,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/cache/clear';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		} else {
 			$url = '/_searchable_snapshots/cache/clear';
@@ -182,7 +182,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/stats';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_searchable_snapshots/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/stats';

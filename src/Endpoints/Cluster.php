@@ -212,7 +212,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_component_template/' . $this->encode($params['name']);
+			$url = '/_component_template/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_component_template';
@@ -302,7 +302,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cluster/health/' . $this->encode($params['index']);
+			$url = '/_cluster/health/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/health';
@@ -343,7 +343,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['target'], $params);
-		$url = '/_info/' . $this->encode($params['target']);
+		$url = '/_info/' . $this->encode($this->convertValue($params['target']));
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -628,10 +628,10 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index']) && isset($params['metric'])) {
-			$url = '/_cluster/state/' . $this->encode($params['metric']) . '/' . $this->encode($params['index']);
+			$url = '/_cluster/state/' . $this->encode($this->convertValue($params['metric'])) . '/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_cluster/state/' . $this->encode($params['metric']);
+			$url = '/_cluster/state/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/state';
@@ -673,7 +673,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_cluster/stats/nodes/' . $this->encode($params['node_id']);
+			$url = '/_cluster/stats/nodes/' . $this->encode($this->convertValue($params['node_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_cluster/stats';

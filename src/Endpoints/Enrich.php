@@ -132,7 +132,7 @@ class Enrich extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_enrich/policy/' . $this->encode($params['name']);
+			$url = '/_enrich/policy/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_enrich/policy';

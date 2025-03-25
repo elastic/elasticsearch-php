@@ -59,7 +59,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_cat/aliases/' . $this->encode($params['name']);
+			$url = '/_cat/aliases/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/aliases';
@@ -107,7 +107,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_cat/allocation/' . $this->encode($params['node_id']);
+			$url = '/_cat/allocation/' . $this->encode($this->convertValue($params['node_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/allocation';
@@ -199,7 +199,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cat/count/' . $this->encode($params['index']);
+			$url = '/_cat/count/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/count';
@@ -245,7 +245,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['fields'])) {
-			$url = '/_cat/fielddata/' . $this->encode($params['fields']);
+			$url = '/_cat/fielddata/' . $this->encode($this->convertValue($params['fields']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/fielddata';
@@ -376,7 +376,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cat/indices/' . $this->encode($params['index']);
+			$url = '/_cat/indices/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/indices';
@@ -833,7 +833,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cat/recovery/' . $this->encode($params['index']);
+			$url = '/_cat/recovery/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/recovery';
@@ -921,7 +921,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cat/segments/' . $this->encode($params['index']);
+			$url = '/_cat/segments/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/segments';
@@ -969,7 +969,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/_cat/shards/' . $this->encode($params['index']);
+			$url = '/_cat/shards/' . $this->encode($this->convertValue($params['index']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/shards';
@@ -1017,7 +1017,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['repository'])) {
-			$url = '/_cat/snapshots/' . $this->encode($params['repository']);
+			$url = '/_cat/snapshots/' . $this->encode($this->convertValue($params['repository']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/snapshots';
@@ -1159,7 +1159,7 @@ class Cat extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['thread_pool_patterns'])) {
-			$url = '/_cat/thread_pool/' . $this->encode($params['thread_pool_patterns']);
+			$url = '/_cat/thread_pool/' . $this->encode($this->convertValue($params['thread_pool_patterns']));
 			$method = 'GET';
 		} else {
 			$url = '/_cat/thread_pool';

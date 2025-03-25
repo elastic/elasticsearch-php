@@ -171,7 +171,7 @@ class Slm extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['policy_id'])) {
-			$url = '/_slm/policy/' . $this->encode($params['policy_id']);
+			$url = '/_slm/policy/' . $this->encode($this->convertValue($params['policy_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_slm/policy';

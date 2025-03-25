@@ -55,7 +55,7 @@ class Ingest extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
+		$url = '/_ingest/geoip/database/' . $this->encode($this->convertValue($params['id']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -95,7 +95,7 @@ class Ingest extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/ip_location/database/' . $this->encode($params['id']);
+		$url = '/_ingest/ip_location/database/' . $this->encode($this->convertValue($params['id']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -207,7 +207,7 @@ class Ingest extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['id'])) {
-			$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
+			$url = '/_ingest/geoip/database/' . $this->encode($this->convertValue($params['id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ingest/geoip/database';
@@ -247,7 +247,7 @@ class Ingest extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['id'])) {
-			$url = '/_ingest/ip_location/database/' . $this->encode($params['id']);
+			$url = '/_ingest/ip_location/database/' . $this->encode($this->convertValue($params['id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ingest/ip_location/database';

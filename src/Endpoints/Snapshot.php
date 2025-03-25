@@ -225,7 +225,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($this->convertValue($params['snapshot']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
@@ -265,7 +265,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . $this->encode($params['repository']);
+		$url = '/_snapshot/' . $this->encode($this->convertValue($params['repository']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
@@ -317,7 +317,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['repository','snapshot'], $params);
-		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']);
+		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($this->convertValue($params['snapshot']));
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','ignore_unavailable','index_names','index_details','include_repository','sort','size','order','from_sort_value','after','offset','slm_policy_filter','verbose','pretty','human','error_trace','source','filter_path']);
@@ -356,7 +356,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['repository'])) {
-			$url = '/_snapshot/' . $this->encode($params['repository']);
+			$url = '/_snapshot/' . $this->encode($this->convertValue($params['repository']));
 			$method = 'GET';
 		} else {
 			$url = '/_snapshot';
@@ -491,7 +491,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['repository']) && isset($params['snapshot'])) {
-			$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_status';
+			$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($this->convertValue($params['snapshot'])) . '/_status';
 			$method = 'GET';
 		} elseif (isset($params['repository'])) {
 			$url = '/_snapshot/' . $this->encode($params['repository']) . '/_status';

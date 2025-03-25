@@ -170,7 +170,7 @@ class SearchApplication extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_application/analytics/' . $this->encode($params['name']);
+			$url = '/_application/analytics/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_application/analytics';

@@ -56,7 +56,7 @@ class Graph extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_graph/explore';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_graph/explore';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['routing','timeout','pretty','human','error_trace','source','filter_path']);

@@ -55,7 +55,7 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['node_id','max_archive_version'], $params);
-		$url = '/_nodes/' . $this->encode($params['node_id']) . '/_repositories_metering/' . $this->encode($params['max_archive_version']);
+		$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/_repositories_metering/' . $this->encode($params['max_archive_version']);
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -94,7 +94,7 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['node_id'], $params);
-		$url = '/_nodes/' . $this->encode($params['node_id']) . '/_repositories_metering';
+		$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/_repositories_metering';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -138,7 +138,7 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/hot_threads';
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/hot_threads';
 			$method = 'GET';
 		} else {
 			$url = '/_nodes/hot_threads';
@@ -181,13 +181,13 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id']) && isset($params['metric'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/' . $this->encode($params['metric']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} elseif (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id']));
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_nodes/' . $this->encode($params['metric']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} else {
 			$url = '/_nodes';
@@ -229,7 +229,7 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/reload_secure_settings';
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/reload_secure_settings';
 			$method = 'POST';
 		} else {
 			$url = '/_nodes/reload_secure_settings';
@@ -281,19 +281,19 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['metric']) && isset($params['index_metric']) && isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/stats/' . $this->encode($params['metric']) . '/' . $this->encode($params['index_metric']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/stats/' . $this->encode($this->convertValue($params['metric'])) . '/' . $this->encode($this->convertValue($params['index_metric']));
 			$method = 'GET';
 		} elseif (isset($params['metric']) && isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/stats/' . $this->encode($params['metric']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/stats/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} elseif (isset($params['metric']) && isset($params['index_metric'])) {
-			$url = '/_nodes/stats/' . $this->encode($params['metric']) . '/' . $this->encode($params['index_metric']);
+			$url = '/_nodes/stats/' . $this->encode($this->convertValue($params['metric'])) . '/' . $this->encode($this->convertValue($params['index_metric']));
 			$method = 'GET';
 		} elseif (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/stats';
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/stats';
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_nodes/stats/' . $this->encode($params['metric']);
+			$url = '/_nodes/stats/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} else {
 			$url = '/_nodes/stats';
@@ -335,13 +335,13 @@ class Nodes extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['metric']) && isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/usage/' . $this->encode($params['metric']);
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/usage/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} elseif (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/usage';
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/usage';
 			$method = 'GET';
 		} elseif (isset($params['metric'])) {
-			$url = '/_nodes/usage/' . $this->encode($params['metric']);
+			$url = '/_nodes/usage/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} else {
 			$url = '/_nodes/usage';

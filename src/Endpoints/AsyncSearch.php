@@ -214,7 +214,7 @@ class AsyncSearch extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_async_search';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_async_search';
 			$method = 'POST';
 		} else {
 			$url = '/_async_search';

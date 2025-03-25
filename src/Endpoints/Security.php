@@ -286,7 +286,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['ids'], $params);
-		$url = '/_security/api_key/' . $this->encode($params['ids']) . '/_clear_cache';
+		$url = '/_security/api_key/' . $this->encode($this->convertValue($params['ids'])) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -324,7 +324,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['application'], $params);
-		$url = '/_security/privilege/' . $this->encode($params['application']) . '/_clear_cache';
+		$url = '/_security/privilege/' . $this->encode($this->convertValue($params['application'])) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -363,7 +363,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['realms'], $params);
-		$url = '/_security/realm/' . $this->encode($params['realms']) . '/_clear_cache';
+		$url = '/_security/realm/' . $this->encode($this->convertValue($params['realms'])) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['usernames','pretty','human','error_trace','source','filter_path']);
@@ -401,7 +401,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_security/role/' . $this->encode($params['name']) . '/_clear_cache';
+		$url = '/_security/role/' . $this->encode($this->convertValue($params['name'])) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -441,7 +441,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['namespace','service','name'], $params);
-		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($params['name']) . '/_clear_cache';
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']) . '/credential/token/' . $this->encode($this->convertValue($params['name'])) . '/_clear_cache';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1185,7 +1185,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_security/role/' . $this->encode($params['name']);
+			$url = '/_security/role/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_security/role';
@@ -1225,7 +1225,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_security/role_mapping/' . $this->encode($params['name']);
+			$url = '/_security/role_mapping/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_security/role_mapping';
@@ -1424,7 +1424,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['username'])) {
-			$url = '/_security/user/' . $this->encode($params['username']);
+			$url = '/_security/user/' . $this->encode($this->convertValue($params['username']));
 			$method = 'GET';
 		} else {
 			$url = '/_security/user';
@@ -1501,7 +1501,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['uid'], $params);
-		$url = '/_security/profile/' . $this->encode($params['uid']);
+		$url = '/_security/profile/' . $this->encode($this->convertValue($params['uid']));
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['data','pretty','human','error_trace','source','filter_path']);

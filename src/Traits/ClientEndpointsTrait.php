@@ -108,7 +108,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['scroll_id'])) {
-			$url = '/_search/scroll/' . $this->encode($params['scroll_id']);
+			$url = '/_search/scroll/' . $this->encode($this->convertValue($params['scroll_id']));
 			$method = 'DELETE';
 		} else {
 			$url = '/_search/scroll';
@@ -201,7 +201,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_count';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_count';
@@ -370,7 +370,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_delete_by_query';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_delete_by_query';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);
@@ -646,7 +646,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_field_caps';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_field_caps';
@@ -1033,7 +1033,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_knn_search';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['routing','pretty','human','error_trace','source','filter_path']);
@@ -1132,7 +1132,7 @@ trait ClientEndpointsTrait
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_msearch';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_msearch';
@@ -1180,7 +1180,7 @@ trait ClientEndpointsTrait
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_msearch/template';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_msearch/template';
@@ -1283,7 +1283,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','keep_alive'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_pit';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_pit';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','pretty','human','error_trace','source','filter_path']);
@@ -1409,7 +1409,7 @@ trait ClientEndpointsTrait
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_rank_eval';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_rank_eval';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_rank_eval';
@@ -1707,7 +1707,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_search';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_search';
@@ -1762,7 +1762,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','field','zoom','x','y'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
@@ -1807,7 +1807,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_search_shards';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_search_shards';
 			$method = 'GET';
 		} else {
 			$url = '/_search_shards';
@@ -1862,7 +1862,7 @@ trait ClientEndpointsTrait
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_search/template';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_search/template';
@@ -1905,7 +1905,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_terms_enum';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2086,7 +2086,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_update_by_query';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_update_by_query';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','pipeline','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','version_type','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);

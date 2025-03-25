@@ -55,7 +55,7 @@ class Watcher extends AbstractEndpoint
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['watch_id'], $params);
 		if (isset($params['action_id'])) {
-			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack/' . $this->encode($params['action_id']);
+			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack/' . $this->encode($this->convertValue($params['action_id']));
 			$method = 'PUT';
 		} else {
 			$url = '/_watcher/watch/' . $this->encode($params['watch_id']) . '/_ack';
@@ -445,7 +445,7 @@ class Watcher extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['metric'])) {
-			$url = '/_watcher/stats/' . $this->encode($params['metric']);
+			$url = '/_watcher/stats/' . $this->encode($this->convertValue($params['metric']));
 			$method = 'GET';
 		} else {
 			$url = '/_watcher/stats';

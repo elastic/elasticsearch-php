@@ -60,7 +60,7 @@ class Synonyms extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'synonyms.delete_synonym');
 		return $this->client->sendRequest($request);
 	}
@@ -100,7 +100,7 @@ class Synonyms extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['set_id', 'rule_id'], $request, 'synonyms.delete_synonym_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -140,7 +140,7 @@ class Synonyms extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'synonyms.get_synonym');
 		return $this->client->sendRequest($request);
 	}
@@ -180,7 +180,7 @@ class Synonyms extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['set_id', 'rule_id'], $request, 'synonyms.get_synonym_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -217,7 +217,7 @@ class Synonyms extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'synonyms.get_synonyms_sets');
 		return $this->client->sendRequest($request);
 	}
@@ -257,7 +257,7 @@ class Synonyms extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'synonyms.put_synonym');
 		return $this->client->sendRequest($request);
 	}
@@ -298,7 +298,7 @@ class Synonyms extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['set_id', 'rule_id'], $request, 'synonyms.put_synonym_rule');
 		return $this->client->sendRequest($request);
 	}

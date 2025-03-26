@@ -61,7 +61,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.delete_job');
 		return $this->client->sendRequest($request);
 	}
@@ -102,7 +102,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.get_jobs');
 		return $this->client->sendRequest($request);
 	}
@@ -143,7 +143,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.get_rollup_caps');
 		return $this->client->sendRequest($request);
 	}
@@ -182,7 +182,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'rollup.get_rollup_index_caps');
 		return $this->client->sendRequest($request);
 	}
@@ -223,7 +223,7 @@ class Rollup extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.put_job');
 		return $this->client->sendRequest($request);
 	}
@@ -266,7 +266,7 @@ class Rollup extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'rollup.rollup_search');
 		return $this->client->sendRequest($request);
 	}
@@ -305,7 +305,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.start_job');
 		return $this->client->sendRequest($request);
 	}
@@ -346,7 +346,7 @@ class Rollup extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'rollup.stop_job');
 		return $this->client->sendRequest($request);
 	}

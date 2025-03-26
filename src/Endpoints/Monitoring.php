@@ -68,7 +68,7 @@ class Monitoring extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['type'], $request, 'monitoring.bulk');
 		return $this->client->sendRequest($request);
 	}

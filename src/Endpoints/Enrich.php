@@ -61,7 +61,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.delete_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -101,7 +101,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.execute_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -142,7 +142,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.get_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -183,7 +183,7 @@ class Enrich extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'enrich.put_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -219,7 +219,7 @@ class Enrich extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'enrich.stats');
 		return $this->client->sendRequest($request);
 	}

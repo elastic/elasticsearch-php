@@ -65,7 +65,7 @@ class Fleet extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'fleet.global_checkpoints');
 		return $this->client->sendRequest($request);
 	}
@@ -108,7 +108,7 @@ class Fleet extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'fleet.msearch');
 		return $this->client->sendRequest($request);
 	}

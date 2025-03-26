@@ -61,7 +61,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.delete_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -99,7 +99,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.delete_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -138,7 +138,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.get_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -176,7 +176,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.get_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -213,7 +213,7 @@ class QueryRules extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'query_rules.list_rulesets');
 		return $this->client->sendRequest($request);
 	}
@@ -254,7 +254,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id', 'rule_id'], $request, 'query_rules.put_rule');
 		return $this->client->sendRequest($request);
 	}
@@ -294,7 +294,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.put_ruleset');
 		return $this->client->sendRequest($request);
 	}
@@ -335,7 +335,7 @@ class QueryRules extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['ruleset_id'], $request, 'query_rules.test');
 		return $this->client->sendRequest($request);
 	}

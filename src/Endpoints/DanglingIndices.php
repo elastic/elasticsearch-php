@@ -63,7 +63,7 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index_uuid'], $request, 'dangling_indices.delete_dangling_index');
 		return $this->client->sendRequest($request);
 	}
@@ -104,7 +104,7 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index_uuid'], $request, 'dangling_indices.import_dangling_index');
 		return $this->client->sendRequest($request);
 	}
@@ -139,7 +139,7 @@ class DanglingIndices extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'dangling_indices.list_dangling_indices');
 		return $this->client->sendRequest($request);
 	}

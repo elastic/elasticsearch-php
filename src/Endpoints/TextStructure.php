@@ -72,7 +72,7 @@ class TextStructure extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'text_structure.find_field_structure');
 		return $this->client->sendRequest($request);
 	}
@@ -121,7 +121,7 @@ class TextStructure extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'text_structure.find_message_structure');
 		return $this->client->sendRequest($request);
 	}
@@ -174,7 +174,7 @@ class TextStructure extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'text_structure.find_structure');
 		return $this->client->sendRequest($request);
 	}
@@ -213,7 +213,7 @@ class TextStructure extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'text_structure.test_grok_pattern');
 		return $this->client->sendRequest($request);
 	}

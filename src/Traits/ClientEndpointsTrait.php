@@ -77,7 +77,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'bulk');
 		return $this->sendRequest($request);
 	}
@@ -262,7 +262,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'create');
 		return $this->sendRequest($request);
 	}
@@ -309,7 +309,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'delete');
 		return $this->sendRequest($request);
 	}
@@ -378,7 +378,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'delete_by_query');
 		return $this->sendRequest($request);
 	}
@@ -417,7 +417,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'delete_by_query_rethrottle');
 		return $this->sendRequest($request);
 	}
@@ -457,7 +457,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'delete_script');
 		return $this->sendRequest($request);
 	}
@@ -506,7 +506,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'exists');
 		return $this->sendRequest($request);
 	}
@@ -554,7 +554,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'exists_source');
 		return $this->sendRequest($request);
 	}
@@ -707,7 +707,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'get');
 		return $this->sendRequest($request);
 	}
@@ -746,7 +746,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'get_script');
 		return $this->sendRequest($request);
 	}
@@ -781,7 +781,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'get_script_context');
 		return $this->sendRequest($request);
 	}
@@ -816,7 +816,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'get_script_languages');
 		return $this->sendRequest($request);
 	}
@@ -864,7 +864,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'get_source');
 		return $this->sendRequest($request);
 	}
@@ -907,7 +907,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['feature'], $request, 'health_report');
 		return $this->sendRequest($request);
 	}
@@ -964,7 +964,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'index');
 		return $this->sendRequest($request);
 	}
@@ -999,7 +999,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'info');
 		return $this->sendRequest($request);
 	}
@@ -1093,7 +1093,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'mget');
 		return $this->sendRequest($request);
 	}
@@ -1143,7 +1143,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'msearch');
 		return $this->sendRequest($request);
 	}
@@ -1191,7 +1191,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'msearch_template');
 		return $this->sendRequest($request);
 	}
@@ -1326,7 +1326,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ping');
 		return $this->sendRequest($request);
 	}
@@ -1373,7 +1373,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'context'], $request, 'put_script');
 		return $this->sendRequest($request);
 	}
@@ -1420,7 +1420,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'rank_eval');
 		return $this->sendRequest($request);
 	}
@@ -1468,7 +1468,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'reindex');
 		return $this->sendRequest($request);
 	}
@@ -1507,7 +1507,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'reindex_rethrottle');
 		return $this->sendRequest($request);
 	}
@@ -1817,7 +1817,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'search_shards');
 		return $this->sendRequest($request);
 	}
@@ -1873,7 +1873,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'search_template');
 		return $this->sendRequest($request);
 	}
@@ -2022,7 +2022,7 @@ trait ClientEndpointsTrait
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'update');
 		return $this->sendRequest($request);
 	}
@@ -2133,7 +2133,7 @@ trait ClientEndpointsTrait
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'update_by_query_rethrottle');
 		return $this->sendRequest($request);
 	}

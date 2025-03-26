@@ -61,7 +61,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.clear_trained_model_deployment_cache');
 		return $this->client->sendRequest($request);
 	}
@@ -142,7 +142,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id'], $request, 'ml.delete_calendar');
 		return $this->client->sendRequest($request);
 	}
@@ -181,7 +181,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id', 'event_id'], $request, 'ml.delete_calendar_event');
 		return $this->client->sendRequest($request);
 	}
@@ -220,7 +220,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id', 'job_id'], $request, 'ml.delete_calendar_job');
 		return $this->client->sendRequest($request);
 	}
@@ -260,7 +260,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ml.delete_data_frame_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -299,7 +299,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'ml.delete_datafeed');
 		return $this->client->sendRequest($request);
 	}
@@ -381,7 +381,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['filter_id'], $request, 'ml.delete_filter');
 		return $this->client->sendRequest($request);
 	}
@@ -426,7 +426,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id', 'forecast_id'], $request, 'ml.delete_forecast');
 		return $this->client->sendRequest($request);
 	}
@@ -467,7 +467,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.delete_job');
 		return $this->client->sendRequest($request);
 	}
@@ -506,7 +506,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id', 'snapshot_id'], $request, 'ml.delete_model_snapshot');
 		return $this->client->sendRequest($request);
 	}
@@ -546,7 +546,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.delete_trained_model');
 		return $this->client->sendRequest($request);
 	}
@@ -586,7 +586,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_alias', 'model_id'], $request, 'ml.delete_trained_model_alias');
 		return $this->client->sendRequest($request);
 	}
@@ -624,7 +624,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.estimate_model_memory');
 		return $this->client->sendRequest($request);
 	}
@@ -662,7 +662,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.evaluate_data_frame');
 		return $this->client->sendRequest($request);
 	}
@@ -889,7 +889,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id'], $request, 'ml.get_calendar_events');
 		return $this->client->sendRequest($request);
 	}
@@ -1025,7 +1025,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ml.get_data_frame_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -1069,7 +1069,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ml.get_data_frame_analytics_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1110,7 +1110,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'ml.get_datafeed_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1152,7 +1152,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'ml.get_datafeeds');
 		return $this->client->sendRequest($request);
 	}
@@ -1194,7 +1194,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['filter_id'], $request, 'ml.get_filters');
 		return $this->client->sendRequest($request);
 	}
@@ -1283,7 +1283,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.get_job_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1325,7 +1325,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.get_jobs');
 		return $this->client->sendRequest($request);
 	}
@@ -1367,7 +1367,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'ml.get_memory_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1407,7 +1407,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id', 'snapshot_id'], $request, 'ml.get_model_snapshot_upgrade_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1601,7 +1601,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.get_trained_models');
 		return $this->client->sendRequest($request);
 	}
@@ -1644,7 +1644,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.get_trained_models_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -1685,7 +1685,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.infer_trained_model');
 		return $this->client->sendRequest($request);
 	}
@@ -1720,7 +1720,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.info');
 		return $this->client->sendRequest($request);
 	}
@@ -1800,7 +1800,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id'], $request, 'ml.post_calendar_events');
 		return $this->client->sendRequest($request);
 	}
@@ -1842,7 +1842,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => is_string($params['body']) || $this->isAssociativeArray($params['body']) ? 'application/json' : 'application/x-ndjson',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.post_data');
 		return $this->client->sendRequest($request);
 	}
@@ -2007,7 +2007,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['calendar_id', 'job_id'], $request, 'ml.put_calendar_job');
 		return $this->client->sendRequest($request);
 	}
@@ -2047,7 +2047,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ml.put_data_frame_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -2091,7 +2091,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'ml.put_datafeed');
 		return $this->client->sendRequest($request);
 	}
@@ -2131,7 +2131,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['filter_id'], $request, 'ml.put_filter');
 		return $this->client->sendRequest($request);
 	}
@@ -2175,7 +2175,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.put_job');
 		return $this->client->sendRequest($request);
 	}
@@ -2217,7 +2217,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.put_trained_model');
 		return $this->client->sendRequest($request);
 	}
@@ -2258,7 +2258,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_alias', 'model_id'], $request, 'ml.put_trained_model_alias');
 		return $this->client->sendRequest($request);
 	}
@@ -2299,7 +2299,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id', 'part'], $request, 'ml.put_trained_model_definition_part');
 		return $this->client->sendRequest($request);
 	}
@@ -2339,7 +2339,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.put_trained_model_vocabulary');
 		return $this->client->sendRequest($request);
 	}
@@ -2379,7 +2379,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.reset_job');
 		return $this->client->sendRequest($request);
 	}
@@ -2458,7 +2458,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.set_upgrade_mode');
 		return $this->client->sendRequest($request);
 	}
@@ -2589,7 +2589,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['model_id'], $request, 'ml.start_trained_model_deployment');
 		return $this->client->sendRequest($request);
 	}
@@ -2758,7 +2758,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ml.update_data_frame_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -2802,7 +2802,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['datafeed_id'], $request, 'ml.update_datafeed');
 		return $this->client->sendRequest($request);
 	}
@@ -2842,7 +2842,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['filter_id'], $request, 'ml.update_filter');
 		return $this->client->sendRequest($request);
 	}
@@ -2882,7 +2882,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id'], $request, 'ml.update_job');
 		return $this->client->sendRequest($request);
 	}
@@ -2923,7 +2923,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id', 'snapshot_id'], $request, 'ml.update_model_snapshot');
 		return $this->client->sendRequest($request);
 	}
@@ -3005,7 +3005,7 @@ class Ml extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['job_id', 'snapshot_id'], $request, 'ml.upgrade_job_snapshot');
 		return $this->client->sendRequest($request);
 	}
@@ -3043,7 +3043,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.validate');
 		return $this->client->sendRequest($request);
 	}
@@ -3081,7 +3081,7 @@ class Ml extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'ml.validate_detector');
 		return $this->client->sendRequest($request);
 	}

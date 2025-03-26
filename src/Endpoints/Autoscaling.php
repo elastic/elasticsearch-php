@@ -62,7 +62,7 @@ class Autoscaling extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'autoscaling.delete_autoscaling_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -98,7 +98,7 @@ class Autoscaling extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'autoscaling.get_autoscaling_capacity');
 		return $this->client->sendRequest($request);
 	}
@@ -137,7 +137,7 @@ class Autoscaling extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'autoscaling.get_autoscaling_policy');
 		return $this->client->sendRequest($request);
 	}
@@ -179,7 +179,7 @@ class Autoscaling extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'autoscaling.put_autoscaling_policy');
 		return $this->client->sendRequest($request);
 	}

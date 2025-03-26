@@ -62,7 +62,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.delete_lifecycle');
 		return $this->client->sendRequest($request);
 	}
@@ -102,7 +102,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.execute_lifecycle');
 		return $this->client->sendRequest($request);
 	}
@@ -139,7 +139,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'slm.execute_retention');
 		return $this->client->sendRequest($request);
 	}
@@ -181,7 +181,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['policy_id'], $request, 'slm.get_lifecycle');
 		return $this->client->sendRequest($request);
 	}
@@ -218,7 +218,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'slm.get_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -255,7 +255,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'slm.get_status');
 		return $this->client->sendRequest($request);
 	}
@@ -334,7 +334,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'slm.start');
 		return $this->client->sendRequest($request);
 	}
@@ -371,7 +371,7 @@ class Slm extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'slm.stop');
 		return $this->client->sendRequest($request);
 	}

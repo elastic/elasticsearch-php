@@ -62,7 +62,7 @@ class Migration extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'migration.deprecations');
 		return $this->client->sendRequest($request);
 	}
@@ -97,7 +97,7 @@ class Migration extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'migration.get_feature_upgrade_status');
 		return $this->client->sendRequest($request);
 	}
@@ -132,7 +132,7 @@ class Migration extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'migration.post_feature_upgrade');
 		return $this->client->sendRequest($request);
 	}

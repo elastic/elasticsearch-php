@@ -61,7 +61,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.delete');
 		return $this->client->sendRequest($request);
 	}
@@ -100,7 +100,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.delete_behavioral_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -139,7 +139,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.get');
 		return $this->client->sendRequest($request);
 	}
@@ -180,7 +180,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.get_behavioral_analytics');
 		return $this->client->sendRequest($request);
 	}
@@ -219,7 +219,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'search_application.list');
 		return $this->client->sendRequest($request);
 	}
@@ -262,7 +262,7 @@ class SearchApplication extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['collection_name', 'event_type'], $request, 'search_application.post_behavioral_analytics_event');
 		return $this->client->sendRequest($request);
 	}
@@ -304,7 +304,7 @@ class SearchApplication extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.put');
 		return $this->client->sendRequest($request);
 	}
@@ -343,7 +343,7 @@ class SearchApplication extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['name'], $request, 'search_application.put_behavioral_analytics');
 		return $this->client->sendRequest($request);
 	}

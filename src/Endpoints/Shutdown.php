@@ -63,7 +63,7 @@ class Shutdown extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.delete_node');
 		return $this->client->sendRequest($request);
 	}
@@ -105,7 +105,7 @@ class Shutdown extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.get_node');
 		return $this->client->sendRequest($request);
 	}
@@ -147,7 +147,7 @@ class Shutdown extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'shutdown.put_node');
 		return $this->client->sendRequest($request);
 	}

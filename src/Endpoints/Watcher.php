@@ -65,7 +65,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['watch_id', 'action_id'], $request, 'watcher.ack_watch');
 		return $this->client->sendRequest($request);
 	}
@@ -103,7 +103,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['watch_id'], $request, 'watcher.activate_watch');
 		return $this->client->sendRequest($request);
 	}
@@ -141,7 +141,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['watch_id'], $request, 'watcher.deactivate_watch');
 		return $this->client->sendRequest($request);
 	}
@@ -179,7 +179,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'watcher.delete_watch');
 		return $this->client->sendRequest($request);
 	}
@@ -259,7 +259,7 @@ class Watcher extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'watcher.get_settings');
 		return $this->client->sendRequest($request);
 	}
@@ -297,7 +297,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'watcher.get_watch');
 		return $this->client->sendRequest($request);
 	}
@@ -414,7 +414,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'watcher.start');
 		return $this->client->sendRequest($request);
 	}
@@ -455,7 +455,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['metric'], $request, 'watcher.stats');
 		return $this->client->sendRequest($request);
 	}
@@ -491,7 +491,7 @@ class Watcher extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'watcher.stop');
 		return $this->client->sendRequest($request);
 	}
@@ -531,7 +531,7 @@ class Watcher extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'watcher.update_settings');
 		return $this->client->sendRequest($request);
 	}

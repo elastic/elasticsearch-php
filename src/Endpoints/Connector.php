@@ -61,7 +61,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.check_in');
 		return $this->client->sendRequest($request);
 	}
@@ -101,7 +101,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.delete');
 		return $this->client->sendRequest($request);
 	}
@@ -140,7 +140,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.get');
 		return $this->client->sendRequest($request);
 	}
@@ -181,7 +181,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.last_sync');
 		return $this->client->sendRequest($request);
 	}
@@ -223,7 +223,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'connector.list');
 		return $this->client->sendRequest($request);
 	}
@@ -343,7 +343,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_cancel');
 		return $this->client->sendRequest($request);
 	}
@@ -382,7 +382,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_check_in');
 		return $this->client->sendRequest($request);
 	}
@@ -423,7 +423,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_claim');
 		return $this->client->sendRequest($request);
 	}
@@ -462,7 +462,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_delete');
 		return $this->client->sendRequest($request);
 	}
@@ -503,7 +503,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_error');
 		return $this->client->sendRequest($request);
 	}
@@ -542,7 +542,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_get');
 		return $this->client->sendRequest($request);
 	}
@@ -583,7 +583,7 @@ class Connector extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'connector.sync_job_list');
 		return $this->client->sendRequest($request);
 	}
@@ -622,7 +622,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'connector.sync_job_post');
 		return $this->client->sendRequest($request);
 	}
@@ -663,7 +663,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_sync_job_id'], $request, 'connector.sync_job_update_stats');
 		return $this->client->sendRequest($request);
 	}
@@ -703,7 +703,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_active_filtering');
 		return $this->client->sendRequest($request);
 	}
@@ -744,7 +744,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_api_key_id');
 		return $this->client->sendRequest($request);
 	}
@@ -785,7 +785,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_configuration');
 		return $this->client->sendRequest($request);
 	}
@@ -826,7 +826,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_error');
 		return $this->client->sendRequest($request);
 	}
@@ -867,7 +867,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_features');
 		return $this->client->sendRequest($request);
 	}
@@ -908,7 +908,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_filtering');
 		return $this->client->sendRequest($request);
 	}
@@ -949,7 +949,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_filtering_validation');
 		return $this->client->sendRequest($request);
 	}
@@ -990,7 +990,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_index_name');
 		return $this->client->sendRequest($request);
 	}
@@ -1031,7 +1031,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_name');
 		return $this->client->sendRequest($request);
 	}
@@ -1072,7 +1072,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_native');
 		return $this->client->sendRequest($request);
 	}
@@ -1113,7 +1113,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_pipeline');
 		return $this->client->sendRequest($request);
 	}
@@ -1154,7 +1154,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_scheduling');
 		return $this->client->sendRequest($request);
 	}
@@ -1195,7 +1195,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_service_type');
 		return $this->client->sendRequest($request);
 	}
@@ -1236,7 +1236,7 @@ class Connector extends AbstractEndpoint
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers, $params['body']);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.update_status');
 		return $this->client->sendRequest($request);
 	}

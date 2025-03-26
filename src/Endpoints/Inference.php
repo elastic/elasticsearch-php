@@ -68,7 +68,7 @@ class Inference extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.delete');
 		return $this->client->sendRequest($request);
 	}
@@ -113,7 +113,7 @@ class Inference extends AbstractEndpoint
 		$headers = [
 			'Accept' => 'application/json',
 		];
-		$request = $this->createRequest($method, $url, $headers);
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.get');
 		return $this->client->sendRequest($request);
 	}

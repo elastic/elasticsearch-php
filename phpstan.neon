@@ -1,6 +1,6 @@
 parameters:
-    level: 2
+    level: 5
     paths:
         - src
     ignoreErrors:
-        - '#PHPDoc tag @param has invalid value#'
+        - '#Offset ''body'' on array\{\}\|array\{#'

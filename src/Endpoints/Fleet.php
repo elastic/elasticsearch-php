@@ -35,15 +35,15 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index.
-	 *     wait_for_advance: boolean, // Whether to wait for the global checkpoint to advance past the specified current checkpoints
-	 *     wait_for_index: boolean, // Whether to wait for the target index to exist and all primary shards be active
-	 *     checkpoints: list, // Comma separated list of checkpoints
-	 *     timeout: time, // Timeout to wait for global checkpoint to advance
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     wait_for_advance?: bool, // Whether to wait for the global checkpoint to advance past the specified current checkpoints
+	 *     wait_for_index?: bool, // Whether to wait for the target index to exist and all primary shards be active
+	 *     checkpoints?: string|array<string>, // Comma separated list of checkpoints
+	 *     timeout?: int|string, // Timeout to wait for global checkpoint to advance
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -53,8 +53,9 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function globalCheckpoints(array $params = [])
+	public function globalCheckpoints(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_fleet/global_checkpoints';
 		$method = 'GET';
@@ -76,13 +77,13 @@ class Fleet extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: string, //  The index name to use as the default
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The request definitions (metadata-fleet search request definition pairs), separated by newlines
+	 *     index?: string, // The index name to use as the default
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The request definitions (metadata-fleet search request definition pairs), separated by newlines. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -91,8 +92,9 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function msearch(array $params = [])
+	public function msearch(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_msearch';
@@ -119,15 +121,15 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index name to search.
-	 *     wait_for_checkpoints: list, // Comma separated list of checkpoints, one per shard
-	 *     wait_for_checkpoints_timeout: time, // Explicit wait_for_checkpoints timeout
-	 *     allow_partial_search_results: boolean, // Indicate if an error should be returned if there is a partial search failure or timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The search definition using the Query DSL
+	 *     wait_for_checkpoints?: string|array<string>, // Comma separated list of checkpoints, one per shard
+	 *     wait_for_checkpoints_timeout?: int|string, // Explicit wait_for_checkpoints timeout
+	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The search definition using the Query DSL. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -137,8 +139,9 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function search(array $params = [])
+	public function search(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';

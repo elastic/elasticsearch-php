@@ -1,5 +1,7 @@
 ---
 navigation_title: "Breaking changes"
+mapped_pages:
+  - https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/breaking_changes.html
 ---
 
 # Elasticsearch PHP Client breaking changes [elasticsearch-php-client-breaking-changes]
@@ -7,7 +9,7 @@ Breaking changes can impact your Elastic applications, potentially disrupting no
 
 % ## Next version [elasticsearch-php-client-nextversion-breaking-changes]
 
-% ::::{dropdown} Title of breaking change 
+% ::::{dropdown} Title of breaking change
 % Description of the breaking change.
 % For more information, check [PR #](PR link).
 % **Impact**<br> Impact of the breaking change.
@@ -16,7 +18,7 @@ Breaking changes can impact your Elastic applications, potentially disrupting no
 
 % ## 9.0.0 [elasticsearch-php-client-900-breaking-changes]
 
-% ::::{dropdown} Title of breaking change 
+% ::::{dropdown} Title of breaking change
 % Description of the breaking change.
 % For more information, check [PR #](PR link).
 % **Impact**<br> Impact of the breaking change.

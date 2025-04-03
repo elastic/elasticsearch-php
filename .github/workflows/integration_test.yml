@@ -1,4 +1,4 @@
-name: PHP tests
+name: PHP integration tests
 
 on: [push, pull_request]
 
@@ -40,10 +40,11 @@ jobs:
       run: |
         composer install --prefer-dist
 
-    - name: PHP Static Analysis Tool
+    - name: Run Elasticsearch using start-local
       run: |
-        composer run-script phpstan
+        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} -esonly
 
-    - name: Unit tests
+    - name: Integration tests
       run: |
-        composer run-script test
+        source elastic-start-local/.env
+        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="platinum" composer run-script integration-test

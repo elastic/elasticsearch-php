@@ -31,16 +31,16 @@ class SearchableSnapshots extends AbstractEndpoint
 	/**
 	 * Retrieve node-level cache statistics about searchable snapshots.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     node_id: list, //  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -49,10 +49,11 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function cacheStats(array $params = [])
+	public function cacheStats(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_searchable_snapshots/' . $this->encode($params['node_id']) . '/cache/stats';
+			$url = '/_searchable_snapshots/' . $this->encode($this->convertValue($params['node_id'])) . '/cache/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/cache/stats';
@@ -71,19 +72,19 @@ class SearchableSnapshots extends AbstractEndpoint
 	/**
 	 * Clear the cache of searchable snapshots.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names
-	 *     ignore_unavailable: boolean, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices: boolean, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards: enum, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: string|array<string>, // A comma-separated list of index names
+	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -92,10 +93,11 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function clearCache(array $params = [])
+	public function clearCache(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/cache/clear';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_searchable_snapshots/cache/clear';
 			$method = 'POST';
 		} else {
 			$url = '/_searchable_snapshots/cache/clear';
@@ -114,20 +116,20 @@ class SearchableSnapshots extends AbstractEndpoint
 	/**
 	 * Mount a snapshot as a searchable index.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-mount-snapshot.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-mount-snapshot.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) The name of the repository containing the snapshot of the index to mount
 	 *     snapshot: string, // (REQUIRED) The name of the snapshot of the index to mount
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     wait_for_completion: boolean, // Should this request wait until the operation has completed before returning
-	 *     storage: string, // Selects the kind of local storage used to accelerate searches. Experimental, and defaults to `full_copy`
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The restore configuration for mounting the snapshot as searchable
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
+	 *     storage?: string, // Selects the kind of local storage used to accelerate searches. Experimental, and defaults to `full_copy`
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The restore configuration for mounting the snapshot as searchable. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -137,8 +139,9 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function mount(array $params = [])
+	public function mount(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['repository','snapshot','body'], $params);
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/' . $this->encode($params['snapshot']) . '/_mount';
 		$method = 'POST';
@@ -157,16 +160,16 @@ class SearchableSnapshots extends AbstractEndpoint
 	/**
 	 * Retrieve shard-level statistics about searchable snapshots.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
 	 *
 	 * @param array{
-	 *     index: list, //  A comma-separated list of index names
-	 *     level: enum, // Return stats aggregated at cluster, index or shard level
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     index?: string|array<string>, // A comma-separated list of index names
+	 *     level?: string, // Return stats aggregated at cluster, index or shard level
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -175,10 +178,11 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stats(array $params = [])
+	public function stats(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['index'])) {
-			$url = '/' . $this->encode($params['index']) . '/_searchable_snapshots/stats';
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_searchable_snapshots/stats';
 			$method = 'GET';
 		} else {
 			$url = '/_searchable_snapshots/stats';

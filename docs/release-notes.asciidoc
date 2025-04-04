@@ -67,7 +67,7 @@
 [[rn-8-16-0]]
 === 8.16.0
 
-* Updated the API endpoints to Elasticserach 8.15.0
+* Updated the API endpoints to Elasticserach 8.16.0
 * Added the support of PHP 8.4
   https://github.com/elastic/elasticsearch-php/pull/1415[#1415]
 

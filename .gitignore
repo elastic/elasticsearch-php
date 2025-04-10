@@ -35,6 +35,7 @@ util/doctum.phar
 # PHPUnit
 /phpunit.xml
 .phpunit.result.cache
+.phpunit.cache/
 
 # Code coverage
 build

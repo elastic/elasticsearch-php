@@ -25,7 +25,6 @@ use Elastic\Transport\Exception\NoAsyncClientException;
 use Elastic\Transport\NodePool\NodePoolInterface;
 use Elastic\Transport\Transport;
 use Elastic\Transport\TransportBuilder;
-use GuzzleHttp\Client as GuzzleHttpClient;
 use Http\Client\HttpAsyncClient;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
@@ -393,7 +392,7 @@ class ClientBuilder
          * Elastic cloud optimized with gzip
          * @see https://github.com/elastic/elasticsearch-php/issues/1241 omit for Symfony HTTP Client    
          */
-        if (!empty($this->cloudId) && !$this->isSymfonyHttpClient($transport)) {
+        if ((!empty($this->cloudId) || $this->isCloudOrServerless($this->hosts)) && !$this->isSymfonyHttpClient($transport)) {
             $transport->setHeader('Accept-Encoding', 'gzip');
         }
 
@@ -402,6 +401,31 @@ class ClientBuilder
         $client->setElasticMetaHeader($this->elasticMetaHeader);
 
         return $client;
+    }
+
+    /**
+     * Check if the hosts contains only one url and if it is from
+     * Elastic Cloud or Serverless
+     */
+    protected function isCloudOrServerless(array $hosts): bool
+    {
+        if (empty($hosts) || count($hosts)>1) {
+            return false;
+        }
+        $url = $hosts[0];
+        // Serverless
+        if (preg_match('/\.elastic\.cloud/i', $url)) {
+            return true;
+        }
+        // Elastic Cloud gcp
+        if (preg_match('/\.cloud\.es\.io/i', $url)) {
+            return true;
+        }
+        // Elastic Cloud aws or azure
+        if (preg_match('/\.elastic-cloud\.com/i', $url)) {
+            return true;
+        }
+        return false;
     }
 
     /**

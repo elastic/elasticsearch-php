@@ -38,7 +38,7 @@ class AliasTest extends TestCase
         $this->client = Utility::getClient();
     }
 
-    public function getIndexNames(): array
+    public static function getIndexNames(): array
     {
         $data = [];
         foreach (self::NAME_INDICES as $index) {

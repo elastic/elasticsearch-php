@@ -24,7 +24,7 @@ class EndpointTraitTest extends TestCase
 {
     use EndpointTrait;
 
-    public function getQueryStrings(): array
+    public static function getQueryStrings(): array
     {
         return [
             ['http://localhost:9200', ['refresh' => true], ['refresh'], 'http://localhost:9200?refresh=true'],
@@ -43,7 +43,7 @@ class EndpointTraitTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function getBodySerialized(): array
+    public static function getBodySerialized(): array
     {
         return [
             [[ 'foo' => 'bar'], 'application/json', '{"foo":"bar"}'],
@@ -66,7 +66,7 @@ class EndpointTraitTest extends TestCase
         $this->bodySerialize(['foo' => 'bar'], 'Unknown-content-type');
     }
 
-    public function getCompatibilityHeaders()
+    public static function getCompatibilityHeaders()
     {
         return [
             [['Content-Type' => 'application/json'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')]],
@@ -96,7 +96,7 @@ class EndpointTraitTest extends TestCase
         $this->assertEquals($expected, $this->buildCompatibilityHeaders($input));
     }
 
-    public function getRequestParts(): array
+    public static function getRequestParts(): array
     {
         return [
             [ 'GET', 'http://localhost:9200', ['Foo' => 'bar', 'Content-Type' => 'application/json'], []],
@@ -133,7 +133,7 @@ class EndpointTraitTest extends TestCase
         }
     }
 
-    public function getRequiredParams(): array
+    public static function getRequiredParams(): array
     {
         return [
             [['index'], ['index' => '1'], false],

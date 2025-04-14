@@ -16,7 +16,9 @@ Breaking changes can impact your Elastic applications, potentially disrupting no
 % **Action**<br> Steps for mitigating deprecation impact.
 % ::::
 
-% ## 9.0.0 [elasticsearch-php-client-900-breaking-changes]
+## 9.0.0 [elasticsearch-php-client-900-breaking-changes]
+
+_No breaking changes_
 
 % ::::{dropdown} Title of breaking change
 % Description of the breaking change.

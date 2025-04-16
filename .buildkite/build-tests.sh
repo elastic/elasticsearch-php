@@ -43,7 +43,7 @@ docker run \
   --workdir="/usr/src/app" \
   --volume=${repo}/tests:/usr/src/app/tests \
   --env STACK_VERSION=${STACK_VERSION} \
-  --env TEST_GROUP=${TEST_GROUP} \
+  --env TEST_SUITE=${TEST_SUITE} \
   --env PHP_VERSION=${PHP_VERSION} \
   --ulimit nofile=65535:65535 \
   --name elasticsearch-php \

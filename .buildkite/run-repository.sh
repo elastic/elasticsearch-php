@@ -20,6 +20,11 @@ echo -e "\033[34;1mINFO:\033[0m URL ${ELASTICSEARCH_URL}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m CONTAINER ${elasticsearch_container}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m PHP_VERSION ${PHP_VERSION}\033[0m"
 
+echo -e "\033[1m>>>>> Running Elasticsearch >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+
+curl -fsSL https://elastic.co/start-local | sh -s -- -v ${STACK_VERSION} -esonly
+source elastic-start-local/.env
+
 echo -e "\033[1m>>>>> Build docker container >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 docker build \

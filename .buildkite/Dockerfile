@@ -15,9 +15,6 @@ RUN apt-get install -y \
         -qq > /dev/null \
     && docker-php-ext-install zip > /dev/null
 
-# Install docker
-RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin > /dev/null
-
 # Install yaml extension for PHP
 RUN pecl channel-update pecl.php.net > /dev/null
 RUN pecl install yaml > /dev/null 

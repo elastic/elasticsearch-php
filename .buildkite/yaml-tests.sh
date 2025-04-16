@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Run Elasticsearch using start-local
-curl -fsSL https://elastic.co/start-local | sh -s -- -v ${STACK_VERSION} -esonly
-source elastic-start-local/.env
-
 # Clone the elasticsearch-clients-tests repository
 git clone https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
 

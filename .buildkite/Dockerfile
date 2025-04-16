@@ -32,9 +32,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Print composer version
 RUN composer --version
 
-COPY . .
+COPY composer.json .
 
 # Install dependencies with composer
 RUN composer install --no-progress > /dev/null
+
+COPY . .
 
 CMD ["bash", ".buildkite/run-tests.sh"]

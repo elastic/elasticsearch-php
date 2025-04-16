@@ -41,7 +41,6 @@ docker run \
   --env TEST_SUITE=${TEST_SUITE} \
   --env PHP_VERSION=${PHP_VERSION} \
   --env ELASTICSEARCH_URL=${ELASTICSEARCH_URL} \
-  --env ES_LOCAL_PASSWORD=${ES_LOCAL_PASSWORD} \
   --ulimit nofile=65535:65535 \
   --name elasticsearch-php \
   --rm \

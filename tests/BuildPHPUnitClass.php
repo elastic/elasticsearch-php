@@ -29,7 +29,7 @@ use function yaml_parse;
  * 
  * @link https://github.com/elastic/elasticsearch/tree/main/rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test
  */
-class BuildUnitTest
+class BuildPHPUnitClass
 {
     protected mixed $yaml;
 

@@ -17,5 +17,5 @@ steps:
           - "8.3-cli"
           - "8.2-cli"
           - "8.1-cli"
-    command: ./.buildkite/build-tests.sh
+    command: ./.buildkite/run-tests
     artifact_paths: "*.xml"

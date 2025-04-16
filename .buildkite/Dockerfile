@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.4-cli
+ARG PHP_VERSION=8.0-cli
 FROM php:${PHP_VERSION}
 
 WORKDIR /usr/src/app
@@ -39,4 +39,4 @@ RUN composer install --no-progress > /dev/null
 
 COPY . .
 
-CMD ["bash", ".buildkite/run-tests.sh"]
+CMD ["bash", ".buildkite/yaml-tests.sh"]

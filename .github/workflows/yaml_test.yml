@@ -1,0 +1,50 @@
+name: PHP integration tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php-version: [8.1, 8.2, 8.3, 8.4]
+        os: [ubuntu-latest]
+        es-version: [9.0.0-SNAPSHOT]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Use PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: yaml, zip, curl
+        coverage: none
+      env:
+        COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   
+    - name: Get composer cache directory
+      id: composercache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composercache.outputs.dir }}
+        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+        restore-keys: ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+    - name: Install dependencies
+      run: |
+        composer install --prefer-dist
+
+    - name: Run Elasticsearch using start-local
+      run: |
+        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} -esonly
+
+    - name: YAML tests
+      run: |
+        source elastic-start-local/.env
+        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="platinum" composer run-script integration-test

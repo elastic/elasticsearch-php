@@ -5,7 +5,7 @@
   </php>
   <testsuites>
     <testsuite name="YAML serverless tests">
-      <directory>tests/Yaml/Platinum</directory>
+      <directory>tests/Yaml</directory>
     </testsuite>
   </testsuites>
   <groups>

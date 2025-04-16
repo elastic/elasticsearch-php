@@ -1,4 +1,4 @@
-name: PHP integration tests
+name: PHP YAML tests
 
 on: [push, pull_request]
 
@@ -12,6 +12,7 @@ jobs:
         php-version: [8.1, 8.2, 8.3, 8.4]
         os: [ubuntu-latest]
         es-version: [9.0.0-SNAPSHOT]
+        test-suite: [stack]
 
     steps:
     - name: Checkout
@@ -44,7 +45,12 @@ jobs:
       run: |
         curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} -esonly
 
+    - name: Build PHPUnit tests
+      run: |
+        git clone https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
+        php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests ${{ matrix.test-suite }} tests/Yaml
+
     - name: YAML tests
       run: |
         source elastic-start-local/.env
-        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="platinum" composer run-script integration-test
+        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" vendor/bin/phpunit -c "phpunit-yaml-${{ matrix.test-suite }}-tests.xml"

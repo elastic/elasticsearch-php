@@ -12,7 +12,7 @@ PHP_VERSION=${PHP_VERSION-8.4-cli}
 elasticsearch_container=${elasticsearch_container-}
 
 echo -e "\033[34;1mINFO:\033[0m VERSION ${STACK_VERSION}\033[0m"
-echo -e "\033[34;1mINFO:\033[0m TEST_GROUP ${TEST_GROUP}\033[0m"
+echo -e "\033[34;1mINFO:\033[0m TEST_SUITE ${TEST_SUITE}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m CONTAINER ${elasticsearch_container}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m PHP_VERSION ${PHP_VERSION}\033[0m"
 

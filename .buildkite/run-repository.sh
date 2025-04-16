@@ -13,7 +13,10 @@ set -euo pipefail
 PHP_VERSION=${PHP_VERSION-8.4-cli}
 ELASTICSEARCH_URL=${ELASTICSEARCH_URL-"$elasticsearch_url"}
 elasticsearch_container=${elasticsearch_container-}
-ES_LOCAL_PASSWORD=${ES_LOCAL_PASSWORD-"changeme"}
+
+echo "--- :elasticsearch: Starting Elasticsearch"
+curl -fsSL https://elastic.co/start-local | sh -s -- -v ${STACK_VERSION} -esonly
+source elastic-start-local/.env
 
 echo -e "\033[34;1mINFO:\033[0m VERSION ${STACK_VERSION}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m TEST_SUITE ${TEST_SUITE}\033[0m"

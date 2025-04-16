@@ -7,12 +7,5 @@ script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
-echo "--- :elasticsearch: Starting Elasticsearch"
-curl -fsSL https://elastic.co/start-local | sh -s -- -v ${STACK_VERSION} -esonly
-source elastic-start-local/.env
-
-echo "--- :test: Building YAML tests"
-git clone https://github.com/elastic/elasticsearch-clients-tests.git $script_path/tests/elasticsearch-clients-tests
-
 echo "+++ :php: Run Client"
-bash $script_path/run-repository.sh
+bash "$script_path/run-repository.sh"

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Clone the elasticsearch-clients-tests repository
+git clone https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
+
 # Build the YAML tests
 php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests ${TEST_SUITE} tests/Yaml
 

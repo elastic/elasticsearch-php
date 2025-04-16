@@ -29,7 +29,7 @@ final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
     const VERSION = '9.0.0';
-    const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=8';
+    const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=9';
     
     const SEARCH_ENDPOINTS = [
         'search',

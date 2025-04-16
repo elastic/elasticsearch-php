@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0-cli
+ARG PHP_VERSION=8.4-cli
 FROM php:${PHP_VERSION}
 
 WORKDIR /usr/src/app
@@ -32,11 +32,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Print composer version
 RUN composer --version
 
-COPY composer.json .
+COPY . .
 
 # Install dependencies with composer
 RUN composer install --no-progress > /dev/null
 
-COPY . .
-
-CMD ["bash", ".buildkite/yaml-tests.sh"]
+CMD ["bash", ".buildkite/run-tests.sh"]

@@ -202,6 +202,52 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Perform inference
+	 *
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     task_type?: string, // The task type
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function inference(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['inference_id'], $params);
+		if (isset($params['task_type'])) {
+			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
+			$method = 'POST';
+		} else {
+			$url = '/_inference/' . $this->encode($params['inference_id']);
+			$method = 'POST';
+		}
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['inference_id', 'task_type'], $request, 'inference.inference');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Configure an inference endpoint for use in the Inference API
 	 *
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html

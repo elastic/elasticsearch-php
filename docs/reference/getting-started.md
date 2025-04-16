@@ -53,15 +53,11 @@ $client = ClientBuilder::create()
 
 Your Elasticsearch endpoint can be found on the ***My deployment*** page of your deployment:
 
-:::{image} images/es_endpoint.jpg
-:alt: Finding Elasticsearch endpoint
-:::
+![Finding Elasticsearch endpoint](images/es_endpoint.jpg)
 
 You can generate an API key on the ***Management*** page under Security.
 
-:::{image} images/create_api_key.png
-:alt: Create API key
-:::
+![Create API key](images/create_api_key.png)
 
 For other connection options, refer to the [*Connecting*](/reference/connecting.md) section.
 

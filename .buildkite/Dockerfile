@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0-cli
+ARG PHP_VERSION=8.4-cli
 FROM php:${PHP_VERSION}
 
 WORKDIR /usr/src/app
@@ -14,6 +14,9 @@ RUN apt-get install -y \
         libyaml-dev \
         -qq > /dev/null \
     && docker-php-ext-install zip > /dev/null
+
+# Install docker
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin > /dev/null
 
 # Install yaml extension for PHP
 RUN pecl channel-update pecl.php.net > /dev/null

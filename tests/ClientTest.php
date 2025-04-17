@@ -19,7 +19,6 @@ use Elastic\Elasticsearch\Exception\ProductCheckException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use Elastic\Transport\NodePool\NodePoolInterface;
 use Elastic\Transport\Transport;
 use Elastic\Transport\TransportBuilder;
 use Http\Mock\Client as MockClient;

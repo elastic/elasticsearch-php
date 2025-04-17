@@ -47,4 +47,4 @@ jobs:
     - name: Integration tests
       run: |
         source elastic-start-local/.env
-        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="platinum" composer run-script integration-test
+        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="free" composer run-script integration-test

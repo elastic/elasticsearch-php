@@ -27,6 +27,7 @@ util/cache/
 util/*.zip
 util/output/
 util/rest-spec
+elastic-start-local/
 
 # Doctum docs generator
 /doctum.phar

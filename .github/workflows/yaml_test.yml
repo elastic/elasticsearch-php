@@ -13,6 +13,7 @@ jobs:
         os: [ubuntu-latest]
         es-version: [9.0.0-SNAPSHOT]
         test-suite: [stack]
+        branch-client-tests: [9.0]
 
     steps:
     - name: Checkout
@@ -47,10 +48,10 @@ jobs:
 
     - name: Build PHPUnit tests
       run: |
-        git clone https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
+        git clone -b ${{ matrix.branch-client-tests }} https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
         php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests ${{ matrix.test-suite }} tests/Yaml
 
     - name: YAML tests
       run: |
         source elastic-start-local/.env
-        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" vendor/bin/phpunit -c "phpunit-yaml-${{ matrix.test-suite }}-tests.xml"
+        ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="free" vendor/bin/phpunit -c "phpunit-yaml-${{ matrix.test-suite }}-tests.xml"

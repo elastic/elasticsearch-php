@@ -389,10 +389,10 @@ class ClientBuilder
         }
 
         /**
-         * Elastic cloud optimized with gzip
+         * Elastic cloud or serverless optimized with gzip
          * @see https://github.com/elastic/elasticsearch-php/issues/1241 omit for Symfony HTTP Client    
          */
-        if ((!empty($this->cloudId) || $this->isCloudOrServerless($this->hosts)) && !$this->isSymfonyHttpClient($transport)) {
+        if ((!empty($this->cloudId) || $this->isCloud($this->hosts) || $this->isServerless($this->hosts)) && !$this->isSymfonyHttpClient($transport)) {
             $transport->setHeader('Accept-Encoding', 'gzip');
         }
 
@@ -404,25 +404,35 @@ class ClientBuilder
     }
 
     /**
-     * Check if the hosts contains only one url and if it is from
-     * Elastic Cloud or Serverless
+     * Check if the hosts contains an Elastic Cloud url
      */
-    protected function isCloudOrServerless(array $hosts): bool
+    protected function isCloud(array $hosts): bool
     {
         if (empty($hosts) || count($hosts)>1) {
             return false;
         }
         $url = $hosts[0];
-        // Serverless
-        if (preg_match('/\.elastic\.cloud/i', $url)) {
-            return true;
-        }
         // Elastic Cloud gcp
         if (preg_match('/\.cloud\.es\.io/i', $url)) {
             return true;
         }
         // Elastic Cloud aws or azure
         if (preg_match('/\.elastic-cloud\.com/i', $url)) {
+            return true;
+        }
+        return false;
+    }
+
+     /**
+     * Check if the hosts contains an Elastic Serverless url 
+     */
+    protected function isServerless(array $hosts): bool
+    {
+        if (empty($hosts) || count($hosts)>1) {
+            return false;
+        }
+        $url = $hosts[0];
+        if (preg_match('/\.elastic\.cloud/i', $url)) {
             return true;
         }
         return false;

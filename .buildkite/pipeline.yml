@@ -8,10 +8,11 @@ steps:
       PHP_VERSION: "{{ matrix.php }}"
       TEST_SUITE: "{{ matrix.suite }}"
       STACK_VERSION: 9.0.0-SNAPSHOT
+      BRANCH_CLIENT_TESTS: 9.0
     matrix:
       setup:
         suite:
-          - "stack"
+          - "platinum"
         php:
           - "8.4-cli"
           - "8.3-cli"

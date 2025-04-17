@@ -2,6 +2,7 @@ parameters:
     level: 5
     paths:
         - src
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Offset ''body'' on array\{\}\|array\{#'
         - '#Access to an undefined property Elastic\\Elasticsearch\\Client::\$client.#'

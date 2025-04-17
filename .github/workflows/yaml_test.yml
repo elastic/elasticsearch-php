@@ -13,7 +13,7 @@ jobs:
         os: [ubuntu-latest]
         es-version: [9.0.0-SNAPSHOT]
         test-suite: [stack]
-        branch-client-tests: [9.0]
+        branch-client-tests: ["9.0"]
 
     steps:
     - name: Checkout

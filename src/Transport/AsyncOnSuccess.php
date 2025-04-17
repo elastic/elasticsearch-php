@@ -14,16 +14,24 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Transport;
 
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Elastic\Transport\Async\OnSuccessInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class AsyncOnSuccess implements OnSuccessInterface
 {
+    public function __construct(protected ?ClientInterface $client = null)
+    {
+    }
+
     public function success(ResponseInterface $response, int $count): Elasticsearch
     {
         $result = new Elasticsearch;
         $result->setResponse($response, true);
+        if (isset($this->client)) {
+            $this->client->setServerless($result->isServerless());
+        }
         return $result;
     }
 }

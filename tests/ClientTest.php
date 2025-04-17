@@ -193,4 +193,57 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Promise::class, $result);
         $this->assertInstanceOf(Elasticsearch::class, $result->wait());
     }
+
+    public function testSetServerless()
+    {
+        $this->client->setServerless(true);
+        $this->assertTrue($this->client->getServerless());
+    }
+
+    public function testServerlessIsDefaultFalse()
+    {
+        $this->assertFalse($this->client->getServerless());
+    }
+
+    public function testIsServerlessTrueWhenReponseFromServerless()
+    {
+        $request = $this->psr17Factory->createRequest('GET', 'localhost:9200');
+        $response = $this->psr17Factory->createResponse(200)
+            ->withHeader('X-Elastic-Product', 'Elasticsearch')
+            ->withHeader(Client::API_VERSION_HEADER, Client::API_VERSION);
+        $this->httpClient->addResponse($response);
+
+        $result = $this->client->sendRequest($request);
+        $this->assertTrue($this->client->getServerless());
+    }
+
+    public function testIsServerlessTrueWhenReponseFromServerlessWithAsyncOnSuccess()
+    {
+        $request = $this->psr17Factory->createRequest('GET', 'localhost:9200');
+        $response = $this->psr17Factory->createResponse(200)
+            ->withHeader('X-Elastic-Product', 'Elasticsearch')
+            ->withHeader(Client::API_VERSION_HEADER, Client::API_VERSION);
+        $this->httpClient->addResponse($response);
+
+        $this->client->setAsync(true);
+        $result = $this->client->sendRequest($request);
+        $this->assertInstanceOf(Promise::class, $result);
+        $result->wait();
+        $this->assertTrue($this->client->getServerless());
+    }
+
+    public function testIsServerlessTrueWhenReponseFromServerlessWithAsyncOnSuccessNoException()
+    {
+        $request = $this->psr17Factory->createRequest('HEAD', 'localhost:9200');
+        $response = $this->psr17Factory->createResponse(200)
+            ->withHeader('X-Elastic-Product', 'Elasticsearch')
+            ->withHeader(Client::API_VERSION_HEADER, Client::API_VERSION);
+        $this->httpClient->addResponse($response);
+
+        $this->client->setAsync(true);
+        $result = $this->client->sendRequest($request);
+        $this->assertInstanceOf(Promise::class, $result);
+        $result->wait();
+        $this->assertTrue($this->client->getServerless());
+    }
 }

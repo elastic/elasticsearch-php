@@ -4,3 +4,4 @@ parameters:
         - src
     ignoreErrors:
         - '#Offset ''body'' on array\{\}\|array\{#'
+        - '#Access to an undefined property Elastic\\Elasticsearch\\Client::\$client.#'

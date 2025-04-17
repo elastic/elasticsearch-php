@@ -400,6 +400,9 @@ class ClientBuilder
         // Enable or disable the x-elastic-client-meta header
         $client->setElasticMetaHeader($this->elasticMetaHeader);
 
+        if ($this->isServerless($this->hosts)) {
+            $client->setServerless(true);
+        }
         return $client;
     }
 

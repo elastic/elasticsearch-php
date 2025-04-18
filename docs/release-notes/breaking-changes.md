@@ -18,7 +18,7 @@ Breaking changes can impact your Elastic applications, potentially disrupting no
 
 ## 9.0.0 [elasticsearch-php-client-900-breaking-changes]
 
-_No breaking changes_
+- **Use of PHP 8.1+:** Starting from 9.0.0 the `elasticsearch-php` client requires PHP 8.1+.
 
 % ::::{dropdown} Title of breaking change
 % Description of the breaking change.

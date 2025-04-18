@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/elastic/elasticsearch-py/raw/main/docs/logo-elastic-glyph-color.svg" width="20%" alt="Elastic logo" />
+     <img src="https://github.com/elastic/elasticsearch-py/raw/main/docs/images/logo-elastic-glyph-color.svg" width="20%" alt="Elastic logo" />
 </p>
 
 # Elasticsearch PHP client
@@ -9,9 +9,12 @@
 This is the official PHP client for
 [Elasticsearch](https://www.elastic.co/elasticsearch/).
 
-**[Download the latest version of Elasticsearch](https://www.elastic.co/downloads/elasticsearch)**
-or
-**[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
+You can run [Elasticsearch](https://www.elastic.co/elasticsearch) and [Kibana](https://www.elastic.co/kibana) on your local machine using this command:
+
+```bash
+curl -fsSL https://elastic.co/start-local | sh
+```
+or **[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
 **for a free trial of Elastic Cloud**.
 
 ## Contents
@@ -40,7 +43,7 @@ of the getting started documentation.
 
 ## Usage
 
-The `elasticsearch-php` client offers 400+ endpoints for interacting with
+The `elasticsearch-php` client offers 500+ endpoints for interacting with
 Elasticsearch. A list of all these endpoints is available in the
 [official documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
 of Elasticsearch APIs.
@@ -63,8 +66,8 @@ This client is versioned and released alongside Elasticsearch server.
 To guarantee compatibility, use the most recent version of this library within
 the major version of the corresponding Enterprise Search implementation.
 
-For example, for Elasticsearch `7.16`, use `7.16` of this library or above, but
-not `8.0`.
+For example, for Elasticsearch `8.16`, use `8.16` of this library or above, but
+not `9.0`.
 
 ## Compatibility
 
@@ -82,33 +85,24 @@ compatible with default distributions and without guarantees made.
 | Elasticsearch Version | Elasticsearch-PHP Branch | Supported |
 | --------------------- | ------------------------ | --------- |
 | main                  | main                     |           |
+| 9.x                   | 9.x                      | 9.x       |
 | 8.x                   | 8.x                      | 8.x       |
-| 7.x                   | 7.x                      | 7.17      |
 
 ## Backward Incompatible Changes :boom:
 
-The 8.0.0 version of `elasticsearch-php` contains a new implementation compared
-with 7.x. It supports [PSR-7](https://www.php-fig.org/psr/psr-7/) for HTTP
-messages and [PSR-18](https://www.php-fig.org/psr/psr-18/) for HTTP client
-communications.
+The 9.0.0 version of `elasticsearch-php` contains the same architecture of 8.x.
+It supports [PSR-7](https://www.php-fig.org/psr/psr-7/) for HTTP messages and
+[PSR-18](https://www.php-fig.org/psr/psr-18/) for HTTP client communications.
 
-We tried to reduce the BC breaks as much as possible with `7.x` but there are
-some (big) differences:
+We tried to avoid BC breaks for `9.x`, here the main changes:
 
-- we changed the namespace, now everything is under `Elastic\Elasticsearch`
-- we used the
-  [elastic-transport-php](https://github.com/elastic/elastic-transport-php)
-  library for HTTP communications;
-- we changed the `Exception` model, using the namespace
-  `Elastic\Elasticsearch\Exception`. All the exceptions extends the
-  `ElasticsearchException` interface, as in 7.x
-- we changed the response type of each endpoints using an
-  [Elasticsearch](src/Response/Elasticsearch.php) response class. This class
-  wraps a a [PSR-7](https://www.php-fig.org/psr/psr-7/) response allowing the
-  access of the body response as array or object. This means you can access the
-  API response as in 7.x, no BC break here! :angel:
-- we changed the `ConnectionPool` in `NodePool`. The `connection` naming was
-  ambigous since the objects are nodes (hosts)
+- **Compatibility with Elasticsearch 9.0:** All changes and additions to Elasticsearch APIs for its 9.0 release are reflected in this release.
+- **Serverless client merged in:** the `elastic/elasticsearch-serverless` client is being deprecated, and its functionality has been merged back into this client. This should have zero impact on the way the client works by default. If an endpoint is available in serverless, the PHP function will contains a `@group serverless` phpdoc attribute.
+If you try to use an endpoint that is not available in serverless you will get a `410` HTTP error with a message as follows:
+"this endpoint exists but is not available when running in serverless mode".
+The 9.0.0 client can recognize that it is communicating with a serverless instance if you are using a URL managed by Elastic (e.g. `*.elastic.cloud`).
+If you are using a proxy, the client will be able to recognize that the host is serverless from the first response. Alternatively, you can explicitly indicate that the host is serverless using the `Client::setServerless(true)` function (`false` by default).
+- **New transport library with PSR-18 cURL client as default:** we've removed the Guzzle dependency from the client. By default, the built-in cURL-based HTTP client will be used if no other PSR-18 compatible clients are detected. See release [9.0.0](https://github.com/elastic/elastic-transport-php/releases/tag/v9.0.0) of elastic-transport-php.
 
 You can have a look at the [BREAKING_CHANGES](BREAKING_CHANGES.md) file for more
 information.

@@ -1,3 +1,7 @@
+# 9.0
+
+- **Use of PHP 8.1+:** Starting from 9.0.0 the `elasticsearch-php` client requires PHP 8.1+.
+
 # 8.0
 
 This major release is a complete new PHP client for Elasticsearch. We build it from scratch!

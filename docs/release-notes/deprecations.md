@@ -18,7 +18,7 @@ Review the deprecated functionality for Elasticsearch PHP Client. While deprecat
 
 ## 9.0.0 [elasticsearch-php-client-900-deprecations]
 
-_No deprecations_
+- **Utility::urlencode():** this function has been deprecated in favor of [rawurlencode()](https://www.php.net/manual/en/function.rawurlencode.php) of PHP (see [#1278](https://github.com/elastic/elasticsearch-php/issues/1278)).
 
 % Description of the deprecation and steps to update implementation.
 % For more information, check [PR #](PR link).

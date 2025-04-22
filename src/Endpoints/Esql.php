@@ -31,18 +31,18 @@ class Esql extends AbstractEndpoint
 	/**
 	 * Executes an ESQL request asynchronously
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html
 	 *
 	 * @param array{
-	 *     format: string, // a short version of the Accept header, e.g. json, yaml
-	 *     delimiter: string, // The character to use between values within a CSV row. Only valid for the csv format.
-	 *     drop_null_columns: boolean, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
+	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -51,8 +51,9 @@ class Esql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function asyncQuery(array $params = [])
+	public function asyncQuery(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_query/async';
 		$method = 'POST';
@@ -69,20 +70,17 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the results of a previously submitted async query request given its ID.
+	 * Delete an async query request given its ID.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-delete-api.html
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
-	 *     wait_for_completion_timeout: time, // Specify the time that the request should block waiting for the final response
-	 *     keep_alive: time, // Specify the time interval in which the results (partial or final) for this search will be available
-	 *     drop_null_columns: boolean, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -92,8 +90,50 @@ class Esql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function asyncQueryGet(array $params = [])
+	public function asyncQueryDelete(?array $params = null)
 	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id'], $params);
+		$url = '/_query/async/' . $this->encode($params['id']);
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'esql.async_query_delete');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Retrieves the results of a previously submitted async query request given its ID.
+	 *
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html
+	 *
+	 * @param array{
+	 *     id: string, // (REQUIRED) The async query ID
+	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
+	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
+	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function asyncQueryGet(?array $params = null)
+	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_query/async/' . $this->encode($params['id']);
 		$method = 'GET';
@@ -109,20 +149,59 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Executes an ESQL request
+	 * Stops a previously submitted async query request given its ID and collects the results.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-stop-api.html
 	 *
 	 * @param array{
-	 *     format: string, // a short version of the Accept header, e.g. json, yaml
-	 *     delimiter: string, // The character to use between values within a CSV row. Only valid for the csv format.
-	 *     drop_null_columns: boolean, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.
+	 *     id: string, // (REQUIRED) The async query ID
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function asyncQueryStop(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id'], $params);
+		$url = '/_query/async/' . $this->encode($params['id']) . '/stop';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'esql.async_query_stop');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Executes an ESQL request
+	 *
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
+	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -131,8 +210,9 @@ class Esql extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function query(array $params = [])
+	public function query(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_query';
 		$method = 'POST';

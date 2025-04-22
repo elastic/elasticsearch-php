@@ -31,16 +31,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Deletes a search application.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-search-application.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-search-application.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,8 +51,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function delete(array $params = [])
+	public function delete(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/search_application/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -69,16 +71,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Delete a behavioral analytics collection.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the analytics collection to be deleted
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -88,8 +91,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteBehavioralAnalytics(array $params = [])
+	public function deleteBehavioralAnalytics(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/analytics/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -107,16 +111,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Returns the details about a search application.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -126,8 +131,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(array $params = [])
+	public function get(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/search_application/' . $this->encode($params['name']);
 		$method = 'GET';
@@ -145,16 +151,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Returns the existing behavioral analytics collections.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     name: list, //  A comma-separated list of analytics collections to limit the returned information
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     name?: string|array<string>, // A comma-separated list of analytics collections to limit the returned information
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -163,10 +170,11 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getBehavioralAnalytics(array $params = [])
+	public function getBehavioralAnalytics(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_application/analytics/' . $this->encode($params['name']);
+			$url = '/_application/analytics/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} else {
 			$url = '/_application/analytics';
@@ -185,18 +193,19 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Returns the existing search applications.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     q: string, // Query in the Lucene query string syntax
-	 *     from: int, // Starting offset (default: 0)
-	 *     size: int, // specifies a max number of results to get
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     q?: string, // Query in the Lucene query string syntax
+	 *     from?: int, // Starting offset (default: 0)
+	 *     size?: int, // specifies a max number of results to get
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -205,8 +214,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function list(array $params = [])
+	public function list(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_application/search_application';
 		$method = 'GET';
 
@@ -223,19 +233,19 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Creates a behavioral analytics event for existing collection.
 	 *
-	 * @see http://todo.com/tbd
+	 * @link http://todo.com/tbd
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     collection_name: string, // (REQUIRED) The name of behavioral analytics collection
 	 *     event_type: string, // (REQUIRED) Behavioral analytics event type. Available: page_view, search, search_click
-	 *     debug: boolean, // If true, returns event information that will be stored
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The event definition
+	 *     debug?: bool, // If true, returns event information that will be stored
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The event definition. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -245,8 +255,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function postBehavioralAnalyticsEvent(array $params = [])
+	public function postBehavioralAnalyticsEvent(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['collection_name','event_type','body'], $params);
 		$url = '/_application/analytics/' . $this->encode($params['collection_name']) . '/event/' . $this->encode($params['event_type']);
 		$method = 'POST';
@@ -265,18 +276,19 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Creates or updates a search application.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to be created or updated
-	 *     create: boolean, // If true, requires that a search application with the specified resource_id does not already exist. (default: false)
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search application configuration, including `indices`
+	 *     create?: bool, // If true, requires that a search application with the specified resource_id does not already exist. (default: false)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The search application configuration, including `indices`. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -286,8 +298,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function put(array $params = [])
+	public function put(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_application/search_application/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -306,16 +319,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Creates a behavioral analytics collection.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the analytics collection to be created or updated
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -325,8 +339,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putBehavioralAnalytics(array $params = [])
+	public function putBehavioralAnalytics(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/analytics/' . $this->encode($params['name']);
 		$method = 'PUT';
@@ -344,17 +359,17 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Renders a query for given search application search parameters
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to render the query for
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Search parameters, which will override any default search parameters defined in the search application template
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // Search parameters, which will override any default search parameters defined in the search application template. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -364,8 +379,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function renderQuery(array $params = [])
+	public function renderQuery(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_render_query';
 		$method = 'POST';
@@ -384,18 +400,19 @@ class SearchApplication extends AbstractEndpoint
 	/**
 	 * Perform a search against a search application
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to be searched
-	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Search parameters, including template parameters that override defaults
+	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // Search parameters, including template parameters that override defaults. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -405,8 +422,9 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function search(array $params = [])
+	public function search(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_application/search_application/' . $this->encode($params['name']) . '/_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';

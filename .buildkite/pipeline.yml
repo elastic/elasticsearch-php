@@ -7,17 +7,16 @@ steps:
     env:
       PHP_VERSION: "{{ matrix.php }}"
       TEST_SUITE: "{{ matrix.suite }}"
-      STACK_VERSION: 8.16.0-SNAPSHOT
+      STACK_VERSION: 9.0.0-SNAPSHOT
+      BRANCH_CLIENT_TESTS: 9.0
     matrix:
       setup:
         suite:
-          - "free"
           - "platinum"
         php:
+          - "8.4-cli"
           - "8.3-cli"
           - "8.2-cli"
           - "8.1-cli"
-          - "8.0-cli"
-          - "7.4-cli"
     command: ./.buildkite/run-tests
     artifact_paths: "*.xml"

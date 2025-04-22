@@ -63,6 +63,16 @@ interface ClientInterface
     public function getResponseException(): bool;
 
     /**
+     * Set Elastic Serverless to true or false
+     */
+    public function setServerless(bool $value): self;
+
+    /**
+     * Returns true if the client is set (or connected) to Serverless
+     */
+    public function getServerless(): bool;
+    
+    /**
      * Send the HTTP request using the Elastic Transport.
      * It manages syncronous and asyncronus requests using Client::getAsync()
      * 

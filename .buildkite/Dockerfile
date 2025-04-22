@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0-cli
+ARG PHP_VERSION=8.4-cli
 FROM php:${PHP_VERSION}
 
 WORKDIR /usr/src/app

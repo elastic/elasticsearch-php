@@ -1,3 +1,8 @@
 parameters:
+    level: 5
+    paths:
+        - src
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
-        - '#PHPDoc tag @param has invalid value#'
+        - '#Offset ''body'' on array\{\}\|array\{#'
+        - '#Access to an undefined property Elastic\\Elasticsearch\\Client::\$client.#'

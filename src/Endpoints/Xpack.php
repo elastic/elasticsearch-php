@@ -31,16 +31,17 @@ class Xpack extends AbstractEndpoint
 	/**
 	 * Retrieves information about the installed X-Pack features.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
 	 *
 	 * @param array{
-	 *     categories: list, // Comma-separated list of info categories. Can be any of: build, license, features
-	 *     accept_enterprise: boolean, // If this param is used it must be set to true
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     human?: bool, // Defines whether additional human-readable information is included in the response. In particular, it adds descriptions and a tag line. The default value is true.
+	 *     categories?: string|array<string>, // Comma-separated list of info categories. Can be any of: build, license, features
+	 *     accept_enterprise?: bool, // If this param is used it must be set to true
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -49,12 +50,13 @@ class Xpack extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function info(array $params = [])
+	public function info(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_xpack';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['categories','accept_enterprise','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['human','categories','accept_enterprise','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -67,15 +69,15 @@ class Xpack extends AbstractEndpoint
 	/**
 	 * Retrieves usage information about the installed X-Pack features.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Specify timeout for watch write operation
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Specify timeout for watch write operation
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -84,8 +86,9 @@ class Xpack extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function usage(array $params = [])
+	public function usage(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_xpack/usage';
 		$method = 'GET';
 

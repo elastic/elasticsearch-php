@@ -31,16 +31,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the last_seen timestamp in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,8 +51,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function checkIn(array $params = [])
+	public function checkIn(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_check_in';
 		$method = 'PUT';
@@ -69,17 +71,19 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Deletes a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be deleted.
-	 *     delete_sync_jobs: boolean, // Determines whether associated sync jobs are also deleted.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     hard?: bool, // If true, the connector doc is deleted. If false, connector doc is marked as deleted (soft-deleted).
+	 *     delete_sync_jobs?: bool, // Determines whether associated sync jobs are also deleted.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -89,13 +93,14 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function delete(array $params = [])
+	public function delete(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['delete_sync_jobs','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['hard','delete_sync_jobs','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -108,16 +113,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Returns the details about a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be returned.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     include_deleted?: bool, // A flag indicating whether to return connectors that have been soft-deleted.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -127,13 +134,14 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function get(array $params = [])
+	public function get(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['include_deleted','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -146,17 +154,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the stats of last sync in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Object with stats related to the last connector sync run.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Object with stats related to the last connector sync run.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -166,8 +174,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function lastSync(array $params = [])
+	public function lastSync(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_last_sync';
 		$method = 'PUT';
@@ -186,21 +195,23 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Lists all connectors.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     from: int, // Starting offset (default: 0)
-	 *     size: int, // Specifies a max number of results to get (default: 100)
-	 *     index_name: list, // A comma-separated list of connector index names to fetch connector documents for
-	 *     connector_name: list, // A comma-separated list of connector names to fetch connector documents for
-	 *     service_type: list, // A comma-separated list of connector service types to fetch connector documents for
-	 *     query: string, // A search string for querying connectors, filtering results by matching against connector names, descriptions, and index names
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     from?: int, // Starting offset (default: 0)
+	 *     size?: int, // Specifies a max number of results to get (default: 100)
+	 *     index_name?: string|array<string>, // A comma-separated list of connector index names to fetch connector documents for
+	 *     connector_name?: string|array<string>, // A comma-separated list of connector names to fetch connector documents for
+	 *     service_type?: string|array<string>, // A comma-separated list of connector service types to fetch connector documents for
+	 *     query?: string, // A search string for querying connectors, filtering results by matching against connector names, descriptions, and index names
+	 *     include_deleted?: bool, // A flag indicating whether to return connectors that have been soft-deleted.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -209,12 +220,13 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function list(array $params = [])
+	public function list(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_connector';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','index_name','connector_name','service_type','query','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','index_name','connector_name','service_type','query','include_deleted','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -227,16 +239,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Creates a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The connector configuration.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The connector configuration.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -245,8 +258,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function post(array $params = [])
+	public function post(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_connector';
 		$method = 'POST';
 
@@ -264,17 +278,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Creates or updates a connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     connector_id: string, //  The unique identifier of the connector to be created or updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The connector configuration.
+	 *     connector_id?: string, // The unique identifier of the connector to be created or updated.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The connector configuration.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -283,8 +298,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function put(array $params = [])
+	public function put(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['connector_id'])) {
 			$url = '/_connector/' . $this->encode($params['connector_id']);
 			$method = 'PUT';
@@ -306,16 +322,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Cancels a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be canceled
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -325,8 +342,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobCancel(array $params = [])
+	public function syncJobCancel(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']) . '/_cancel';
 		$method = 'PUT';
@@ -344,16 +362,16 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Checks in a connector sync job (refreshes 'last_seen').
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be checked in
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -363,8 +381,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobCheckIn(array $params = [])
+	public function syncJobCheckIn(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']) . '/_check_in';
 		$method = 'PUT';
@@ -382,17 +401,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Claims a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/claim-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/claim-connector-sync-job-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be claimed.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Data to claim a sync job.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Data to claim a sync job.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -402,8 +421,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobClaim(array $params = [])
+	public function syncJobClaim(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id','body'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']) . '/_claim';
 		$method = 'PUT';
@@ -422,16 +442,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Deletes a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be deleted.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -441,8 +462,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobDelete(array $params = [])
+	public function syncJobDelete(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']);
 		$method = 'DELETE';
@@ -460,17 +482,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Sets an error for a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to set an error for.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The error to set in the connector sync job.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The error to set in the connector sync job.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -480,8 +502,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobError(array $params = [])
+	public function syncJobError(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id','body'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']) . '/_error';
 		$method = 'PUT';
@@ -500,16 +523,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Returns the details about a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be returned.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -519,8 +543,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobGet(array $params = [])
+	public function syncJobGet(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']);
 		$method = 'GET';
@@ -538,20 +563,21 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Lists all connector sync jobs.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     from: int, // Starting offset (default: 0)
-	 *     size: int, // specifies a max number of results to get (default: 100)
-	 *     status: string, // Sync job status, which sync jobs are fetched for
-	 *     connector_id: string, // Id of the connector to fetch the sync jobs for
-	 *     job_type: list, // A comma-separated list of job types
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     from?: int, // Starting offset (default: 0)
+	 *     size?: int, // specifies a max number of results to get (default: 100)
+	 *     status?: string, // Sync job status, which sync jobs are fetched for
+	 *     connector_id?: string, // Id of the connector to fetch the sync jobs for
+	 *     job_type?: string|array<string>, // A comma-separated list of job types
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -560,8 +586,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobList(array $params = [])
+	public function syncJobList(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_connector/_sync_job';
 		$method = 'GET';
 
@@ -578,16 +605,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Creates a connector sync job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The connector sync job data.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The connector sync job data.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -596,8 +624,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobPost(array $params = [])
+	public function syncJobPost(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_connector/_sync_job';
 		$method = 'POST';
@@ -616,17 +645,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the stats fields in the connector sync job document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The stats to update for the connector sync job.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The stats to update for the connector sync job.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -636,8 +665,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function syncJobUpdateStats(array $params = [])
+	public function syncJobUpdateStats(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_sync_job_id','body'], $params);
 		$url = '/_connector/_sync_job/' . $this->encode($params['connector_sync_job_id']) . '/_stats';
 		$method = 'PUT';
@@ -656,16 +686,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Activates the draft filtering rules if they are in a validated state.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -675,8 +706,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateActiveFiltering(array $params = [])
+	public function updateActiveFiltering(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_filtering/_activate';
 		$method = 'PUT';
@@ -695,17 +727,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the API key id and/or API key secret id fields in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-api-key-id-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-api-key-id-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's API key id and/or Connector Secret document id for that API key.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's API key id and/or Connector Secret document id for that API key.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -715,8 +748,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateApiKeyId(array $params = [])
+	public function updateApiKeyId(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_api_key_id';
 		$method = 'PUT';
@@ -735,17 +769,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the connector configuration.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-configuration-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-configuration-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Mapping between field names to configuration.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Mapping between field names to configuration.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -755,8 +790,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateConfiguration(array $params = [])
+	public function updateConfiguration(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_configuration';
 		$method = 'PUT';
@@ -775,17 +811,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the error field in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-error-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-error-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's error.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's error.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -795,8 +832,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateError(array $params = [])
+	public function updateError(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_error';
 		$method = 'PUT';
@@ -815,17 +853,17 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the connector features in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-features-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-features-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's features definition.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's features definition.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -835,8 +873,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateFeatures(array $params = [])
+	public function updateFeatures(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_features';
 		$method = 'PUT';
@@ -855,17 +894,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the filtering field in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) A list of connector filtering configurations.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) A list of connector filtering configurations.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -875,8 +915,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateFiltering(array $params = [])
+	public function updateFiltering(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_filtering';
 		$method = 'PUT';
@@ -895,17 +936,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the validation info of the draft filtering rules.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) Validation info for the draft filtering rules
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) Validation info for the draft filtering rules. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -915,8 +957,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateFilteringValidation(array $params = [])
+	public function updateFilteringValidation(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_filtering/_validation';
 		$method = 'PUT';
@@ -935,17 +978,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the index name of the connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-index-name-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-index-name-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's index name.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's index name.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -955,8 +999,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateIndexName(array $params = [])
+	public function updateIndexName(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_index_name';
 		$method = 'PUT';
@@ -975,17 +1020,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the name and/or description fields in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's name and/or description.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's name and/or description.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -995,8 +1041,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateName(array $params = [])
+	public function updateName(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_name';
 		$method = 'PUT';
@@ -1015,17 +1062,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the is_native flag of the connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/connector-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/connector-apis.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's is_native flag
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's is_native flag. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1035,8 +1083,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateNative(array $params = [])
+	public function updateNative(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_native';
 		$method = 'PUT';
@@ -1055,17 +1104,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the pipeline field in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-pipeline-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-pipeline-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object with connector ingest pipeline configuration.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object with connector ingest pipeline configuration.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1075,8 +1125,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updatePipeline(array $params = [])
+	public function updatePipeline(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_pipeline';
 		$method = 'PUT';
@@ -1095,17 +1146,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the scheduling field in the connector document.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's scheduling configuration.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's scheduling configuration.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1115,8 +1167,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateScheduling(array $params = [])
+	public function updateScheduling(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_scheduling';
 		$method = 'PUT';
@@ -1135,17 +1188,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the service type of the connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-service-type-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-service-type-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's service type.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's service type.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1155,8 +1209,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateServiceType(array $params = [])
+	public function updateServiceType(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_service_type';
 		$method = 'PUT';
@@ -1175,17 +1230,18 @@ class Connector extends AbstractEndpoint
 	/**
 	 * Updates the status of the connector.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-status-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-status-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) An object containing the connector's status.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) An object containing the connector's status.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1195,8 +1251,9 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function updateStatus(array $params = [])
+	public function updateStatus(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['connector_id','body'], $params);
 		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_status';
 		$method = 'PUT';

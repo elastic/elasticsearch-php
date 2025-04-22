@@ -41,7 +41,7 @@ class BasicTest extends TestCase
     /**
      * Get the stock market values
      */
-    public function getDocuments(): array
+    public static function getDocuments(): array
     {
         $docs = [];
         foreach (file(__DIR__ . '/stocks.csv', FILE_IGNORE_NEW_LINES) as $line) {

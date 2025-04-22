@@ -12,7 +12,7 @@
  */
 declare(strict_types = 1);
 
-namespace Elastic\Elasticsearch\Tests;
+namespace Elastic\Elasticsearch\Tests\Transport;
 
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Elastic\Elasticsearch\Transport\AsyncOnSuccessNoException;

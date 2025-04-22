@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-# Checkout the YAML test from Elasticsearch tag
-php util/RestSpecRunner.php
+# Clone the elasticsearch-clients-tests repository
+git clone -b ${BRANCH_CLIENT_TESTS} https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
 
-# Generate the YAML tests for PHPUnit
-php util/build_tests.php
+# Build the YAML tests
+php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests stack tests/Yaml
 
 # Run YAML tests
-vendor/bin/phpunit -c "phpunit-yaml-${TEST_SUITE}-tests.xml"
+vendor/bin/phpunit -c "phpunit-yaml-stack-tests.xml"
+
+# Remove Yaml tests
+rm -rf tests/Yaml
+
+# Remove elasticsearch-clients-tests folder
+rm -rf tests/elasticsearch-clients-tests

@@ -3,32 +3,32 @@
   "description": "PHP Client for Elasticsearch",
   "keywords": [
     "search",
-    "client", 
+    "client",
     "elasticsearch",
     "elastic"
   ],
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "^7.4 || ^8.0",
-    "elastic/transport": "^8.10",
+    "php": "^8.1",
+    "elastic/transport": "^9.0",
     "psr/http-client": "^1.0",
-    "psr/http-message": "^1.1 || ^2.0",
-    "psr/log": "^1|^2|^3",
-    "guzzlehttp/guzzle": "^7.0"
+    "psr/http-message": "^2.0",
+    "psr/log": "^2.0|^3.0"
   },
   "require-dev": {
     "ext-yaml": "*",
     "ext-zip": "*",
-    "mockery/mockery": "^1.5",
-    "phpstan/phpstan": "^1.4",
-    "phpunit/phpunit": "^9.5",
-    "symfony/finder": "~4.0",
-    "nyholm/psr7": "^1.5",
-    "php-http/mock-client": "^1.5",
-    "symfony/http-client": "^5.0|^6.0|^7.0",
+    "mockery/mockery": "^1.6",
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^10.0",
+    "symfony/finder": "^6.0",
+    "nyholm/psr7": "^1.8",
+    "php-http/mock-client": "^1.6",
     "psr/http-factory" : "^1.0",
-    "php-http/message-factory" : "^1.0"
+    "guzzlehttp/guzzle": "^7.0",
+    "symfony/http-client": "^6.0|^7.0",
+    "nette/php-generator": "^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -52,7 +52,7 @@
       "vendor/bin/phpunit --testdox -c phpunit-integration-cloud-tests.xml"
     ],
     "phpstan": [
-      "phpstan analyse src --level 2 --no-progress --memory-limit 256M"
+      "phpstan analyse --no-progress --memory-limit 256M"
     ]
   },
   "config": {

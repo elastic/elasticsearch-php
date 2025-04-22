@@ -22,27 +22,19 @@ Where <cloud-id> and <api-key> can be retrieved using the Elastic Cloud web UI.
 
 You can get the `Cloud ID` from the `My deployment` page of your dashboard (see the red rectangle reported in the screenshot).
 
-:::{image} ../images/cloud_id.png
-:alt: Elastic Cloud ID
-:::
+![Elastic Cloud ID](images/cloud_id.png)
 
 You can generate an `API key` in the `Management` page under the section `Security`.
 
-:::{image} ../images/create_api_key.png
-:alt: Create API key
-:::
+![Create API key](images/create_api_key.png)
 
 When you click on `Create API key` button you can choose a name and set the other options (eg. restrict privileges, expire after time, etc).
 
-:::{image} ../images/api_key_name.png
-:alt: Choose an API name
-:::
+![Choose an API name](images/api_key_name.png)
 
 After this step you will get the `API key`in the API keys page.
 
-:::{image} ../images/cloud_api_key.png
-:alt: Cloud API key
-:::
+![Cloud API key](images/cloud_api_key.png)
 
 ***IMPORTANT***: you need to copy and store the `API key`in a secure place, since you will not be able to view it again in Elastic Cloud.
 

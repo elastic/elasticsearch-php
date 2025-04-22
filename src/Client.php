@@ -23,13 +23,16 @@ use Elastic\Elasticsearch\Transport\AsyncOnSuccessNoException;
 use Elastic\Transport\Transport;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
-    const VERSION = '8.17.0';
-    const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=8';
+    const VERSION = '9.0.0';
+    const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=9';
+    const API_VERSION_HEADER = 'elastic-api-version';
+    const API_VERSION = '2023-10-31';
     
     const SEARCH_ENDPOINTS = [
         'search',
@@ -50,6 +53,7 @@ final class Client implements ClientInterface
     
     protected Transport $transport;
     protected LoggerInterface $logger;
+    protected bool $serverless = false;
 
     /**
      * Specify is the request is asyncronous
@@ -159,6 +163,23 @@ final class Client implements ClientInterface
     /**
      * @inheritdoc
      */
+    public function setServerless(bool $value): self
+    {
+        $this->serverless = $value;
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getServerless(): bool
+    {
+        return $this->serverless;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function sendRequest(RequestInterface $request)
     {   
         // If async returns a Promise
@@ -168,8 +189,8 @@ final class Client implements ClientInterface
             }
             $this->transport->setAsyncOnSuccess(
                 $request->getMethod() === 'HEAD'
-                    ? new AsyncOnSuccessNoException
-                    : ($this->getResponseException() ? new AsyncOnSuccess : new AsyncOnSuccessNoException)
+                    ? new AsyncOnSuccessNoException($this)
+                    : ($this->getResponseException() ? new AsyncOnSuccess($this) : new AsyncOnSuccessNoException($this))
             );
             return $this->transport->sendAsyncRequest($request);
         }     
@@ -183,6 +204,7 @@ final class Client implements ClientInterface
 
         $result = new Elasticsearch;
         $result->setResponse($response, $request->getMethod() === 'HEAD' ? false : $this->getResponseException());
+        $this->serverless = $result->isServerless();
         return $result;
     }
 }

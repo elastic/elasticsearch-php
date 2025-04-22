@@ -1,9 +1,13 @@
 ---
-navigation_title: "Elasticsearch PHP Client"
+navigation_title: "Known issues"
 
 ---
 
 # Elasticsearch PHP Client known issues [elasticsearch-php-client-known-issues]
+
+## 9.0.0 
+
+_No known issues_
 
 % Use the following template to add entries to this page.
 

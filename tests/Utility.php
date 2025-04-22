@@ -78,6 +78,12 @@ class Utility
      */
     public static function getClient(): Client
     {
+        if (getenv('TEST_SUITE') === 'serverless' || getenv('TEST_SUITE') === 'cloud') {
+            return ClientBuilder::create()
+                ->setHosts([self::getHost()])
+                ->setApiKey(getenv('ELASTIC_API_KEY'))
+                ->build();
+        }
         if (getenv('TEST_SUITE') === 'free') {
             return ClientBuilder::create()
                 ->setHosts([self::getHost()])

@@ -15,17 +15,17 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Traits;
 
 use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
-use Elastic\Elasticsearch\Utility;
 use Elastic\Transport\OpenTelemetry;
 use Elastic\Transport\Serializer\JsonSerializer;
 use Elastic\Transport\Serializer\NDJsonSerializer;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 use function http_build_query;
+use function rawurlencode;
 use function strpos;
 use function sprintf;
 
@@ -63,7 +63,7 @@ trait EndpointTrait
      * 
      * @param mixed $value
      */
-    private function convertValue($value): string
+    protected function convertValue($value): string
     {
         // Convert a boolean value in 'true' or 'false' string
         if (is_bool($value)) {
@@ -82,7 +82,7 @@ trait EndpointTrait
      */
     protected function encode($value): string
     {
-        return Utility::urlencode($this->convertValue($value));
+        return rawurlencode($this->convertValue($value));
     }
 
     /**
@@ -129,7 +129,7 @@ trait EndpointTrait
      * 
      * @param array|string $body
      */
-    protected function createRequest(string $method, string $url, array $headers, $body = null): RequestInterface
+    protected function createRequest(string $method, string $url, array $headers, $body = null): ServerRequestInterface
     {
         $requestFactory = Psr17FactoryDiscovery::findServerRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
@@ -147,7 +147,13 @@ trait EndpointTrait
             $content = is_string($body) ? $body : $this->bodySerialize($body, $headers['Content-Type']);
             $request = $request->withBody($streamFactory->createStream($content));
         }
-        $headers = $this->buildCompatibilityHeaders($headers);
+
+        $client = $this->client ?? $this;
+        if ($client instanceof ClientInterface && $client->getServerless()) {
+            $headers[Client::API_VERSION_HEADER] = Client::API_VERSION;
+        } else {
+            $headers = $this->buildCompatibilityHeaders($headers);
+        }
 
         // Headers
         foreach ($headers as $name => $value) {

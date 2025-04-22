@@ -15,16 +15,23 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Traits;
 
 use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Exception\ContentTypeException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Traits\EndpointTrait;
+use Elastic\Transport\TransportBuilder;
+use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class EndpointTraitTest extends TestCase
 {
+    protected ClientInterface $client;
+
     use EndpointTrait;
 
-    public function getQueryStrings(): array
+    public static function getQueryStrings(): array
     {
         return [
             ['http://localhost:9200', ['refresh' => true], ['refresh'], 'http://localhost:9200?refresh=true'],
@@ -43,7 +50,7 @@ class EndpointTraitTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function getBodySerialized(): array
+    public static function getBodySerialized(): array
     {
         return [
             [[ 'foo' => 'bar'], 'application/json', '{"foo":"bar"}'],
@@ -66,7 +73,7 @@ class EndpointTraitTest extends TestCase
         $this->bodySerialize(['foo' => 'bar'], 'Unknown-content-type');
     }
 
-    public function getCompatibilityHeaders()
+    public static function getCompatibilityHeaders()
     {
         return [
             [['Content-Type' => 'application/json'], ['Content-Type' => sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json')]],
@@ -96,7 +103,7 @@ class EndpointTraitTest extends TestCase
         $this->assertEquals($expected, $this->buildCompatibilityHeaders($input));
     }
 
-    public function getRequestParts(): array
+    public static function getRequestParts(): array
     {
         return [
             [ 'GET', 'http://localhost:9200', ['Foo' => 'bar', 'Content-Type' => 'application/json'], []],
@@ -133,7 +140,7 @@ class EndpointTraitTest extends TestCase
         }
     }
 
-    public function getRequiredParams(): array
+    public static function getRequiredParams(): array
     {
         return [
             [['index'], ['index' => '1'], false],
@@ -152,5 +159,43 @@ class EndpointTraitTest extends TestCase
             $this->expectException(MissingParameterException::class);
             $this->checkRequiredParameters($required, $params);
         }
+    }
+
+    public function testCreateRequestContainsApiVersionIfServerlessTrue()
+    {
+        $logger = new NullLogger();
+        $httpClient = new MockClient();
+
+        $transport = TransportBuilder::create()
+            ->setClient($httpClient)
+            ->build();
+
+        $this->client = new Client($transport, $logger);
+        $this->client->setServerless(true);
+
+        $request = $this->createRequest('GET', 'localhost:9200', []);
+
+        $this->assertEquals(Client::API_VERSION, $request->getHeader(Client::API_VERSION_HEADER)[0]);
+    }
+
+    public function testCreateRequestContainsCompatibilityModeIfServerlessFalse()
+    {
+        $logger = new NullLogger();
+        $httpClient = new MockClient();
+
+        $transport = TransportBuilder::create()
+            ->setClient($httpClient)
+            ->build();
+
+        $this->client = new Client($transport, $logger);
+        $this->client->setServerless(false);
+
+        $request = $this->createRequest('GET', 'localhost:9200', [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ]);
+
+        $this->assertEquals(sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json'), $request->getHeader('Content-Type')[0]);
+        $this->assertEquals(sprintf(Client::API_COMPATIBILITY_HEADER, 'application', 'json'), $request->getHeader('Accept')[0]);
     }
 }

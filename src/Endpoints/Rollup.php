@@ -31,16 +31,16 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Deletes an existing rollup job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the job to delete
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -50,8 +50,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteJob(array $params = [])
+	public function deleteJob(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_rollup/job/' . $this->encode($params['id']);
 		$method = 'DELETE';
@@ -69,16 +70,16 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Retrieves the configuration, stats, and status of rollup jobs.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     id: string, //  The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all jobs
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id?: string, // The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all jobs
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -87,8 +88,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getJobs(array $params = [])
+	public function getJobs(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['id'])) {
 			$url = '/_rollup/job/' . $this->encode($params['id']);
 			$method = 'GET';
@@ -109,16 +111,16 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Returns the capabilities of any rollup jobs that have been configured for a specific index or index pattern.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     id: string, //  The ID of the index to check rollup capabilities on, or left blank for all jobs
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id?: string, // The ID of the index to check rollup capabilities on, or left blank for all jobs
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -127,8 +129,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRollupCaps(array $params = [])
+	public function getRollupCaps(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['id'])) {
 			$url = '/_rollup/data/' . $this->encode($params['id']);
 			$method = 'GET';
@@ -149,16 +152,16 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Returns the rollup capabilities of all jobs inside of a rollup index (e.g. the index where rollup data is stored).
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The rollup index or index pattern to obtain rollup capabilities from.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -168,8 +171,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getRollupIndexCaps(array $params = [])
+	public function getRollupIndexCaps(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_rollup/data';
 		$method = 'GET';
@@ -187,17 +191,17 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Creates a rollup job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the job to create
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The job configuration
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The job configuration. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -207,8 +211,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putJob(array $params = [])
+	public function putJob(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_rollup/job/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -227,19 +232,19 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Enables searching rolled-up data using the standard query DSL.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: list, // (REQUIRED) The indices or index-pattern(s) (containing rollup or regular data) that should be searched
-	 *     typed_keys: boolean, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     rest_total_hits_as_int: boolean, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The search request body
+	 *     index: string|array<string>, // (REQUIRED) The indices or index-pattern(s) (containing rollup or regular data) that should be searched
+	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The search request body. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -249,10 +254,11 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function rollupSearch(array $params = [])
+	public function rollupSearch(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_rollup_search';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_rollup_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['typed_keys','rest_total_hits_as_int','pretty','human','error_trace','source','filter_path']);
@@ -269,16 +275,16 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Starts an existing, stopped rollup job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the job to start
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -288,8 +294,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function startJob(array $params = [])
+	public function startJob(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_rollup/job/' . $this->encode($params['id']) . '/_start';
 		$method = 'POST';
@@ -307,18 +314,18 @@ class Rollup extends AbstractEndpoint
 	/**
 	 * Stops an existing, started rollup job.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the job to stop
-	 *     wait_for_completion: boolean, // True if the API should block until the job has fully stopped, false if should be executed async. Defaults to false.
-	 *     timeout: time, // Block for (at maximum) the specified duration while waiting for the job to stop.  Defaults to 30s.
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     wait_for_completion?: bool, // True if the API should block until the job has fully stopped, false if should be executed async. Defaults to false.
+	 *     timeout?: int|string, // Block for (at maximum) the specified duration while waiting for the job to stop.  Defaults to 30s.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -328,8 +335,9 @@ class Rollup extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stopJob(array $params = [])
+	public function stopJob(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_rollup/job/' . $this->encode($params['id']) . '/_stop';
 		$method = 'POST';

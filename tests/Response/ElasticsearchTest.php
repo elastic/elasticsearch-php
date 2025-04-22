@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Response;
 
 use DateTime;
+use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\ArrayAccessException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ProductCheckException;
@@ -296,5 +297,24 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals('integer', gettype($iterator[0]->a));
         $this->assertEquals(DateTime::class, get_class($iterator[0]->b));
         $this->assertEquals('', $iterator[0]->c);
+    }
+
+    public function testIsServerlessFalseByDefault()
+    {
+        $this->assertFalse($this->elasticsearch->isServerless());
+    }
+
+    public function testIsServerlessTrueWithServerlessResponse()
+    {
+        $this->elasticsearch->setResponse(
+            $this->response200->withHeader(Client::API_VERSION_HEADER, Client::API_VERSION)
+        );
+        $this->assertTrue($this->elasticsearch->isServerless());
+    }
+
+    public function testIsServerlessFalseIfNotServerlessResponse()
+    {
+        $this->elasticsearch->setResponse($this->response200);
+        $this->assertFalse($this->elasticsearch->isServerless());
     }
 }

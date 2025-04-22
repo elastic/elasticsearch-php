@@ -9,7 +9,7 @@ script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
-PHP_VERSION=${PHP_VERSION-8.2-cli}
+PHP_VERSION=${PHP_VERSION-8.4-cli}
 ELASTICSEARCH_URL=${ELASTICSEARCH_URL-"$elasticsearch_url"}
 elasticsearch_container=${elasticsearch_container-}
 
@@ -18,6 +18,7 @@ echo -e "\033[34;1mINFO:\033[0m TEST_SUITE ${TEST_SUITE}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m URL ${ELASTICSEARCH_URL}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m CONTAINER ${elasticsearch_container}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m PHP_VERSION ${PHP_VERSION}\033[0m"
+echo -e "\033[34;1mINFO:\033[0m BRANCH_CLIENT_TESTS ${BRANCH_CLIENT_TESTS}\033[0m"
 
 echo -e "\033[1m>>>>> Build docker container >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
@@ -40,6 +41,7 @@ docker run \
   --env TEST_SUITE=${TEST_SUITE} \
   --env PHP_VERSION=${PHP_VERSION} \
   --env ELASTICSEARCH_URL=${ELASTICSEARCH_URL} \
+  --env BRANCH_CLIENT_TESTS=${BRANCH_CLIENT_TESTS} \
   --ulimit nofile=65535:65535 \
   --name elasticsearch-php \
   --rm \

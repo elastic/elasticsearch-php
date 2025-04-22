@@ -27,6 +27,7 @@ util/cache/
 util/*.zip
 util/output/
 util/rest-spec
+elastic-start-local/
 
 # Doctum docs generator
 /doctum.phar
@@ -35,6 +36,7 @@ util/doctum.phar
 # PHPUnit
 /phpunit.xml
 .phpunit.result.cache
+.phpunit.cache/
 
 # Code coverage
 build

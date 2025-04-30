@@ -21,7 +21,7 @@
     "ext-yaml": "*",
     "ext-zip": "*",
     "mockery/mockery": "^1.5",
-    "phpstan/phpstan": "^1.4",
+    "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^9.5",
     "symfony/finder": "~4.0",
     "nyholm/psr7": "^1.5",
@@ -51,7 +51,7 @@
       "vendor/bin/phpunit --testdox -c phpunit-integration-cloud-tests.xml"
     ],
     "phpstan": [
-      "phpstan analyse src --level 2 --no-progress --memory-limit 256M"
+      "phpstan analyse --no-progress --memory-limit 256M"
     ]
   },
   "config": {

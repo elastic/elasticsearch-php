@@ -31,15 +31,15 @@ class Ingest extends AbstractEndpoint
 	/**
 	 * Deletes a geoip database configuration
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-geoip-database-api.html
 	 *
 	 * @param array{
-	 *     id: list, // (REQUIRED) A comma-separated list of geoip database configurations to delete
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id: string|array<string>, // (REQUIRED) A comma-separated list of geoip database configurations to delete
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -49,10 +49,11 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteGeoipDatabase(array $params = [])
+	public function deleteGeoipDatabase(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
-		$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
+		$url = '/_ingest/geoip/database/' . $this->encode($this->convertValue($params['id']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -66,19 +67,17 @@ class Ingest extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a pipeline.
+	 * Deletes an ip location database configuration
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-ip-location-database-api.html
 	 *
 	 * @param array{
-	 *     id: string, // (REQUIRED) Pipeline ID
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     timeout: time, // Explicit operation timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id: string|array<string>, // (REQUIRED) A comma-separated list of ip location database configurations to delete
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -88,8 +87,49 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deletePipeline(array $params = [])
+	public function deleteIpLocationDatabase(?array $params = null)
 	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id'], $params);
+		$url = '/_ingest/ip_location/database/' . $this->encode($this->convertValue($params['id']));
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.delete_ip_location_database');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Deletes a pipeline.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
+	 *
+	 * @param array{
+	 *     id: string, // (REQUIRED) Pipeline ID
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function deletePipeline(?array $params = null)
+	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id'], $params);
 		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 		$method = 'DELETE';
@@ -110,11 +150,11 @@ class Ingest extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -123,8 +163,9 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function geoIpStats(array $params = [])
+	public function geoIpStats(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ingest/geoip/stats';
 		$method = 'GET';
 
@@ -141,15 +182,15 @@ class Ingest extends AbstractEndpoint
 	/**
 	 * Returns geoip database configuration.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-geoip-database-api.html
 	 *
 	 * @param array{
-	 *     id: list, //  A comma-separated list of geoip database configurations to get; use `*` to get all geoip database configurations
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id?: string|array<string>, // A comma-separated list of geoip database configurations to get; use `*` to get all geoip database configurations
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -158,10 +199,11 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getGeoipDatabase(array $params = [])
+	public function getGeoipDatabase(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['id'])) {
-			$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
+			$url = '/_ingest/geoip/database/' . $this->encode($this->convertValue($params['id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ingest/geoip/database';
@@ -178,19 +220,17 @@ class Ingest extends AbstractEndpoint
 
 
 	/**
-	 * Returns a pipeline.
+	 * Returns the specified ip location database configuration
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-ip-location-database-api.html
 	 *
 	 * @param array{
-	 *     id: string, //  Comma separated list of pipeline ids. Wildcards supported
-	 *     summary: boolean, // Return pipelines without their definitions (default: false)
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     id?: string|array<string>, // A comma-separated list of ip location database configurations to get; use `*` to get all ip location database configurations
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -199,8 +239,51 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getPipeline(array $params = [])
+	public function getIpLocationDatabase(?array $params = null)
 	{
+		$params = $params ?? [];
+		if (isset($params['id'])) {
+			$url = '/_ingest/ip_location/database/' . $this->encode($this->convertValue($params['id']));
+			$method = 'GET';
+		} else {
+			$url = '/_ingest/ip_location/database';
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.get_ip_location_database');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Returns a pipeline.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
+	 *
+	 * @param array{
+	 *     id?: string, // Comma separated list of pipeline ids. Wildcards supported
+	 *     summary?: bool, // Return pipelines without their definitions (default: false)
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getPipeline(?array $params = null)
+	{
+		$params = $params ?? [];
 		if (isset($params['id'])) {
 			$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 			$method = 'GET';
@@ -224,11 +307,11 @@ class Ingest extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -237,8 +320,9 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function processorGrok(array $params = [])
+	public function processorGrok(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ingest/processor/grok';
 		$method = 'GET';
 
@@ -255,16 +339,16 @@ class Ingest extends AbstractEndpoint
 	/**
 	 * Puts the configuration for a geoip database to be downloaded
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-geoip-database-api.html
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the database configuration
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The database configuration definition
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The database configuration definition. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -274,8 +358,9 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putGeoipDatabase(array $params = [])
+	public function putGeoipDatabase(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_ingest/geoip/database/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -283,9 +368,50 @@ class Ingest extends AbstractEndpoint
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.put_geoip_database');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Puts the configuration for a ip location database to be downloaded
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-ip-location-database-api.html
+	 *
+	 * @param array{
+	 *     id: string, // (REQUIRED) The id of the database configuration
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The database configuration definition. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putIpLocationDatabase(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id','body'], $params);
+		$url = '/_ingest/ip_location/database/' . $this->encode($params['id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'ingest.put_ip_location_database');
 		return $this->client->sendRequest($request);
 	}
 
@@ -297,15 +423,15 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Pipeline ID
-	 *     if_version: int, // Required version for optimistic concurrency control for pipeline updates
-	 *     master_timeout: time, // Explicit operation timeout for connection to master node
-	 *     timeout: time, // Explicit operation timeout
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The ingest definition
+	 *     if_version?: int, // Required version for optimistic concurrency control for pipeline updates
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The ingest definition. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -315,8 +441,9 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putPipeline(array $params = [])
+	public function putPipeline(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_ingest/pipeline/' . $this->encode($params['id']);
 		$method = 'PUT';
@@ -338,14 +465,14 @@ class Ingest extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
 	 *
 	 * @param array{
-	 *     id: string, //  Pipeline ID
-	 *     verbose: boolean, // Verbose mode. Display data output for each processor in executed pipeline
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) The simulate definition
+	 *     id?: string, // Pipeline ID
+	 *     verbose?: bool, // Verbose mode. Display data output for each processor in executed pipeline
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The simulate definition. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -354,8 +481,9 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function simulate(array $params = [])
+	public function simulate(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['id'])) {
 			$url = '/_ingest/pipeline/' . $this->encode($params['id']) . '/_simulate';

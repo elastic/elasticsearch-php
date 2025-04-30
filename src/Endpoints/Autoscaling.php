@@ -35,13 +35,13 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -51,8 +51,9 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteAutoscalingPolicy(array $params = [])
+	public function deleteAutoscalingPolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'DELETE';
@@ -73,12 +74,12 @@ class Autoscaling extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
 	 *
 	 * @param array{
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -87,8 +88,9 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getAutoscalingCapacity(array $params = [])
+	public function getAutoscalingCapacity(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_autoscaling/capacity';
 		$method = 'GET';
 
@@ -109,12 +111,12 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -124,8 +126,9 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getAutoscalingPolicy(array $params = [])
+	public function getAutoscalingPolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
 		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'GET';
@@ -147,14 +150,14 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout: time, // Timeout for processing on master node
-	 *     timeout: time, // Timeout for acknowledgement of update from all nodes in cluster
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, // (REQUIRED) the specification of the autoscaling policy
+	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) the specification of the autoscaling policy. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -164,8 +167,9 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putAutoscalingPolicy(array $params = [])
+	public function putAutoscalingPolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['name','body'], $params);
 		$url = '/_autoscaling/policy/' . $this->encode($params['name']);
 		$method = 'PUT';

@@ -35,11 +35,11 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -49,8 +49,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function deleteLifecycle(array $params = [])
+	public function deleteLifecycle(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['policy'], $params);
 		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'DELETE';
@@ -72,13 +73,13 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to explain
-	 *     only_managed: boolean, // filters the indices included in the response to ones managed by ILM
-	 *     only_errors: boolean, // filters the indices included in the response to ones in an ILM error state, implies only_managed
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     only_managed?: bool, // filters the indices included in the response to ones managed by ILM
+	 *     only_errors?: bool, // filters the indices included in the response to ones in an ILM error state, implies only_managed
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -88,8 +89,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function explainLifecycle(array $params = [])
+	public function explainLifecycle(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ilm/explain';
 		$method = 'GET';
@@ -110,12 +112,12 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html
 	 *
 	 * @param array{
-	 *     policy: string, //  The name of the index lifecycle policy
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     policy?: string, // The name of the index lifecycle policy
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -124,8 +126,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getLifecycle(array $params = [])
+	public function getLifecycle(?array $params = null)
 	{
+		$params = $params ?? [];
 		if (isset($params['policy'])) {
 			$url = '/_ilm/policy/' . $this->encode($params['policy']);
 			$method = 'GET';
@@ -149,11 +152,11 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -162,8 +165,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function getStatus(array $params = [])
+	public function getStatus(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ilm/status';
 		$method = 'GET';
 
@@ -183,13 +187,13 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html
 	 *
 	 * @param array{
-	 *     dry_run: boolean, // If set to true it will simulate the migration, providing a way to retrieve the ILM policies and indices that need to be migrated. The default is false
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  Optionally specify a legacy index template name to delete and optionally specify a node attribute name used for index shard routing (defaults to "data")
+	 *     dry_run?: bool, // If set to true it will simulate the migration, providing a way to retrieve the ILM policies and indices that need to be migrated. The default is false
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // Optionally specify a legacy index template name to delete and optionally specify a node attribute name used for index shard routing (defaults to "data"). If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -198,8 +202,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function migrateToDataTiers(array $params = [])
+	public function migrateToDataTiers(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ilm/migrate_to_data_tiers';
 		$method = 'POST';
 
@@ -221,12 +226,12 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index whose lifecycle step is to change
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The new lifecycle step to move to
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The new lifecycle step to move to. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -236,8 +241,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function moveToStep(array $params = [])
+	public function moveToStep(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/_ilm/move/' . $this->encode($params['index']);
 		$method = 'POST';
@@ -260,12 +266,12 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
-	 *     body: array, //  The lifecycle policy definition to register
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The lifecycle policy definition to register. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -275,8 +281,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function putLifecycle(array $params = [])
+	public function putLifecycle(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['policy'], $params);
 		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'PUT';
@@ -299,11 +306,11 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to remove policy on
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -313,8 +320,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function removePolicy(array $params = [])
+	public function removePolicy(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ilm/remove';
 		$method = 'POST';
@@ -336,11 +344,11 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the indices (comma-separated) whose failed lifecycle step is to be retry
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -350,8 +358,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function retry(array $params = [])
+	public function retry(?array $params = null)
 	{
+		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_ilm/retry';
 		$method = 'POST';
@@ -372,11 +381,11 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -385,8 +394,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function start(array $params = [])
+	public function start(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ilm/start';
 		$method = 'POST';
 
@@ -406,11 +416,11 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
 	 *
 	 * @param array{
-	 *     pretty: boolean, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human: boolean, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace: boolean, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path: list, // A comma-separated list of filters used to reduce the response.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -419,8 +429,9 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function stop(array $params = [])
+	public function stop(?array $params = null)
 	{
+		$params = $params ?? [];
 		$url = '/_ilm/stop';
 		$method = 'POST';
 

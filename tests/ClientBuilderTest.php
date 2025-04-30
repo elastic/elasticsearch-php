@@ -349,6 +349,9 @@ class ClientBuilderTest extends TestCase
         $this->assertEquals($symfonyClient, $client->getTransport()->getClient());    
     }
 
+    /**
+     * @requires PHP 8.1.0
+     */
     public function testClientWithSymfonyHttplugClient()
     {
         $symfonyClient = new HttplugClient();
@@ -360,6 +363,9 @@ class ClientBuilderTest extends TestCase
         $this->assertEquals($symfonyClient, $client->getTransport()->getClient());    
     }
 
+     /**
+     * @requires PHP 8.1.0
+     */
     public function testAsyncClientWithSymfonyHttplugClient()
     {
         $symfonyClient = new HttplugClient();

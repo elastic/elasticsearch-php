@@ -22,6 +22,9 @@ use Psr\Http\Client\ClientInterface;
 use Symfony\Component\HttpClient\HttplugClient;
 use Symfony\Component\HttpClient\Psr18Client;
 
+/**
+ * @requires PHP 8.1.0
+ */
 class SymfonyTest extends TestCase
 {
     protected Symfony $symfonyAdapter;

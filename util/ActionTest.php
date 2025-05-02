@@ -99,6 +99,10 @@ class ActionTest
         ];
         foreach ($actions as $key => $value) {
             if (method_exists($this, $key)) {
+                if (empty($value)) {
+                    printf("Empty: %s, %s\n", $key, var_export($actions, true));
+                    exit(1);
+                }
                 $this->$key($value, $vars);
             } else {
                 // headers
@@ -286,6 +290,8 @@ class ActionTest
                 ($this->phpUnitVersion > 8) ? (self::TEMPLATE_PHPUNIT9_MATCH_REGEX) : (self::TEMPLATE_MATCH_REGEX), 
                 $vars
             );
+        } elseif (is_string($expected) && substr($expected,0,5) === '$body') {
+            $vars[':expected'] = $this->convertResponseField($expected);
         } elseif (is_array($expected)) {
             if ($vars[':value'] === '$response') {
                 $vars[':value'] = '$response->asArray()';

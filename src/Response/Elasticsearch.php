@@ -138,7 +138,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
             return $this->asArray;
         }
         throw new UnknownContentTypeException(sprintf(
-            "Cannot deserialize the reponse as array with Content-Type: %s",
+            "Cannot deserialize the response as array with Content-Type: %s",
             $contentType
         ));
     }
@@ -171,7 +171,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
             return $this->asObject;
         }
         throw new UnknownContentTypeException(sprintf(
-            "Cannot deserialize the reponse as object with Content-Type: %s",
+            "Cannot deserialize the response as object with Content-Type: %s",
             $contentType
         ));
     }

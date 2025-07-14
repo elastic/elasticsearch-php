@@ -14,6 +14,7 @@ steps:
         suite:
           - "platinum"
         php:
+          - "8.5-rc-cli"
           - "8.4-cli"
           - "8.3-cli"
           - "8.2-cli"

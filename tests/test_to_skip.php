@@ -26,9 +26,11 @@ return [
     'entsearch/10_basic.yml',
     'entsearch/20_connector.yml',
     'entsearch/30_sync_jobs_stack.yml',
+    'esql/30_queries.yml',
     'indices/alias.yml',
     'indices/10_data_lifecycle.yml',
     'indices/20_data_lifecycle.yml',
+    'indices/data_steam_settings.yml',
     'indices/disk_usage.yml',
     'indices/exists_template.yml',
     'indices/exists.yml',
@@ -71,5 +73,6 @@ return [
     'snapshot/10_basic.yml',
     'ssl.yml',
     'tasks.yml',
-    'transform/10_basic.yml'
+    'transform/10_basic.yml',
+    'watcher/10_basic.yml'
 ];

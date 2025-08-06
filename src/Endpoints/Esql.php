@@ -37,10 +37,7 @@ class Esql extends AbstractEndpoint
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but
-	 * the query can continue to execute on other clusters and shards.
-	 * If `false`, the entire query will fail if there are
-	 * any failures.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -278,10 +275,7 @@ class Esql extends AbstractEndpoint
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but
-	 * the query can continue to execute on other clusters and shards.
-	 * If `false`, the entire query will fail if there are
-	 * any failures.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

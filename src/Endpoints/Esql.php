@@ -37,6 +37,10 @@ class Esql extends AbstractEndpoint
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but
+	 * the query can continue to execute on other clusters and shards.
+	 * If `false`, the entire query will fail if there are
+	 * any failures.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -58,7 +62,7 @@ class Esql extends AbstractEndpoint
 		$url = '/_query/async';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['format','delimiter','drop_null_columns','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','delimiter','drop_null_columns','allow_partial_results','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -114,6 +118,7 @@ class Esql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
 	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
@@ -138,7 +143,7 @@ class Esql extends AbstractEndpoint
 		$url = '/_query/async/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive','drop_null_columns','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','wait_for_completion_timeout','keep_alive','drop_null_columns','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -187,6 +192,83 @@ class Esql extends AbstractEndpoint
 
 
 	/**
+	 * Executes a get ESQL query request
+	 *
+	 * @group serverless
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     id: string, // (REQUIRED) The query ID
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getQuery(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id'], $params);
+		$url = '/_query/queries/' . $this->encode($params['id']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'esql.get_query');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Executes a list ESQL queries request
+	 *
+	 * @group serverless
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function listQueries(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_query/queries';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'esql.list_queries');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Executes an ESQL request
 	 *
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
@@ -196,6 +278,10 @@ class Esql extends AbstractEndpoint
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but
+	 * the query can continue to execute on other clusters and shards.
+	 * If `false`, the entire query will fail if there are
+	 * any failures.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -217,7 +303,7 @@ class Esql extends AbstractEndpoint
 		$url = '/_query';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['format','delimiter','drop_null_columns','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','delimiter','drop_null_columns','allow_partial_results','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

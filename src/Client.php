@@ -29,7 +29,7 @@ use Psr\Log\LoggerInterface;
 final class Client implements ClientInterface
 {
     const CLIENT_NAME = 'es';
-    const VERSION = '9.0.0';
+    const VERSION = '9.1.0';
     const API_COMPATIBILITY_HEADER = '%s/vnd.elasticsearch+%s; compatible-with=9';
     const API_VERSION_HEADER = 'elastic-api-version';
     const API_VERSION = '2023-10-31';

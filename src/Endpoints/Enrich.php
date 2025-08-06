@@ -199,7 +199,7 @@ class Enrich extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

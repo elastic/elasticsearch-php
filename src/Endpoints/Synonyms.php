@@ -76,6 +76,7 @@ class Synonyms extends AbstractEndpoint
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be deleted
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -97,7 +98,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['set_id']) . '/' . $this->encode($params['rule_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -236,6 +237,7 @@ class Synonyms extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be created or updated
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -258,7 +260,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -278,6 +280,7 @@ class Synonyms extends AbstractEndpoint
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated with the synonym rule
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be updated or created
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -300,7 +303,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['set_id']) . '/' . $this->encode($params['rule_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

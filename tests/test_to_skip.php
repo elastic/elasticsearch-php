@@ -30,7 +30,7 @@ return [
     'indices/alias.yml',
     'indices/10_data_lifecycle.yml',
     'indices/20_data_lifecycle.yml',
-    'indices/data_steam_settings.yml',
+    'indices/data_stream_settings.yml',
     'indices/disk_usage.yml',
     'indices/exists_template.yml',
     'indices/exists.yml',

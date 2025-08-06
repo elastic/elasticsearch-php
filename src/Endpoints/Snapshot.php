@@ -381,6 +381,7 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     blob_count?: int, // Number of blobs to create during the test. Defaults to 100.
 	 *     concurrency?: int, // Number of operations to run concurrently during the test. Defaults to 10.
+	 *     register_operation_count?: int, // The minimum number of linearizable register operations to perform in total. Defaults to 10.
 	 *     read_node_count?: int, // Number of nodes on which to read a blob after writing. Defaults to 10.
 	 *     early_read_node_count?: int, // Number of nodes on which to perform an early read on a blob, i.e. before writing has completed. Early reads are rare actions so the 'rare_action_probability' parameter is also relevant. Defaults to 2.
 	 *     seed?: int, // Seed for the random number generator used to create the test workload. Defaults to a random value.
@@ -411,7 +412,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_analyze';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','register_operation_count','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

@@ -195,6 +195,8 @@ class Cluster extends AbstractEndpoint
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     include_defaults?: bool, // Return all default configurations for the component template (default: false)
+	 *     flat_settings?: bool, // Return settings in flat format (default: false)
+	 *     settings_filter?: string, // Filter out results, for example to filter out sensitive information. Supports wildcards or full settings keys
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -218,7 +220,7 @@ class Cluster extends AbstractEndpoint
 			$url = '/_component_template';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['master_timeout','local','include_defaults','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','local','include_defaults','flat_settings','settings_filter','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -441,7 +443,7 @@ class Cluster extends AbstractEndpoint
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
 	 *     create?: bool, // Whether the index template should only be added if new or can also replace an existing one
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     cause?: string, // User defined reason for create the component template
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -465,7 +467,7 @@ class Cluster extends AbstractEndpoint
 		$url = '/_component_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['create','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

@@ -237,6 +237,8 @@ trait ClientEndpointsTrait
 	 *     version_type?: string, // Specific version type
 	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
 	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
+	 *     require_alias?: bool, // When true, requires destination to be an alias. Default is false
+	 *     require_data_stream?: bool, // When true, requires destination to be a data stream (existing or to be created). Default is false
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -259,7 +261,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_create/' . $this->encode($params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline','include_source_on_error','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1116,6 +1118,12 @@ trait ClientEndpointsTrait
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
+	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1141,7 +1149,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','routing','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
@@ -1267,6 +1275,7 @@ trait ClientEndpointsTrait
 	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     keep_alive?: string, // Specific the time to live for the point in time
 	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
+	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node executed concurrently when opening this point-in-time. This value should be used to limit the impact of opening the point-in-time on the cluster
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1289,7 +1298,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_pit';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1445,6 +1454,7 @@ trait ClientEndpointsTrait
 	 *     scroll?: int|string, // Control how long to keep the search context alive
 	 *     slices?: int|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
 	 *     max_docs?: int, // Maximum number of documents to process (default: all documents)
+	 *     require_alias?: bool, // When true, requires destination to be an alias.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1466,7 +1476,7 @@ trait ClientEndpointsTrait
 		$url = '/_reindex';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['refresh','timeout','wait_for_active_shards','wait_for_completion','requests_per_second','scroll','slices','max_docs','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','timeout','wait_for_active_shards','wait_for_completion','requests_per_second','scroll','slices','max_docs','require_alias','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1743,6 +1753,7 @@ trait ClientEndpointsTrait
 	 *     extent?: int, // Size, in pixels, of a side of the vector tile.
 	 *     grid_precision?: int, // Additional zoom levels available through the aggs layer. Accepts 0-8.
 	 *     grid_type?: string, // Determines the geometry type for features in the aggs layer.
+	 *     grid_agg?: string, // Aggregation used to create a grid for `field`.
 	 *     size?: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
 	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
 	 *     with_labels?: bool, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
@@ -1768,7 +1779,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','grid_agg','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/vnd.mapbox-vector-tile',
 			'Content-Type' => 'application/json',

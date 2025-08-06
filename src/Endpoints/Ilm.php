@@ -35,6 +35,8 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -56,7 +58,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -75,6 +77,7 @@ class Ilm extends AbstractEndpoint
 	 *     index: string, // (REQUIRED) The name of the index to explain
 	 *     only_managed?: bool, // filters the indices included in the response to ones managed by ILM
 	 *     only_errors?: bool, // filters the indices included in the response to ones in an ILM error state, implies only_managed
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -96,7 +99,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/' . $this->encode($params['index']) . '/_ilm/explain';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['only_managed','only_errors','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['only_managed','only_errors','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -113,6 +116,8 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy?: string, // The name of the index lifecycle policy
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -136,7 +141,7 @@ class Ilm extends AbstractEndpoint
 			$url = '/_ilm/policy';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -266,6 +271,8 @@ class Ilm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -288,7 +295,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/policy/' . $this->encode($params['policy']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -381,6 +388,8 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
 	 *
 	 * @param array{
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -400,7 +409,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -416,6 +425,8 @@ class Ilm extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
 	 *
 	 * @param array{
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -435,7 +446,7 @@ class Ilm extends AbstractEndpoint
 		$url = '/_ilm/stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

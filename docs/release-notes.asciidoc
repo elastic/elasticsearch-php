@@ -1,6 +1,10 @@
 [[release-notes]]
 == Release notes
 
+* <<rn-8-19-0>>
+* <<rn-8-18-0>>
+* <<rn-8-17-0>>
+* <<rn-8-16-0>>
 * <<rn-8-15-0>>
 * <<rn-8-14-0>>
 * <<rn-8-13-0>>
@@ -46,6 +50,32 @@
 * <<rn-7-0-2>>
 * <<rn-7-0-1>>
 * <<rn-7-0-0>>
+
+[discrete]
+[[rn-8-19-0]]
+=== 8.19.0
+
+* Updated the API endpoints to Elasticserach 8.19.0
+
+[discrete]
+[[rn-8-18-0]]
+=== 8.18.0
+
+* Updated the API endpoints to Elasticserach 8.18.0
+
+[discrete]
+[[rn-8-17-0]]
+=== 8.17.0
+
+* Updated the API endpoints to Elasticserach 8.17.0
+
+[discrete]
+[[rn-8-16-0]]
+=== 8.16.0
+
+* Updated the API endpoints to Elasticserach 8.16.0
+* Added the support of PHP 8.4 https://github.com/elastic/elasticsearch-php/pull/1415[#1415]
+
 
 [discrete]
 [[rn-8-15-0]]

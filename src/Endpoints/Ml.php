@@ -2647,7 +2647,6 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to stop
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
-	 *     allow_no_datafeeds?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     force?: bool, // True if the datafeed should be forcefully stopped.
 	 *     timeout?: int|string, // Controls the time to wait until a datafeed has stopped. Default to 20 seconds
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2672,7 +2671,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

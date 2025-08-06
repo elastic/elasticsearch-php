@@ -1,3 +1,20 @@
+## Release 8.19.0
+
+- Updated the APIs to Elasticsearch [8.19.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.19.0.html)
+
+## Release 8.18.0
+
+- Updated the APIs to Elasticsearch [8.18.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.18.0.html)
+
+## Release 8.17.0
+
+- Updated the APIs to Elasticsearch [8.17.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.17.0.html)
+
+## Release 8.16.0
+
+- Updated the APIs to Elasticsearch [8.16.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.16.0.html)
+- Added the support of PHP 8.4 [#1415](https://github.com/elastic/elasticsearch-php/pull/1415)
+
 ## Release 8.15.0
 
 Updated the APIs to Elasticsearch [8.15.0](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-8.15.0.html) and added the support of OpenTelemetry.

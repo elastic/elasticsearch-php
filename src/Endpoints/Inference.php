@@ -370,6 +370,47 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Configure a Amazon SageMaker inference endpoint
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     amazonsagemaker_inference_id: string, // (REQUIRED) The inference Id
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putAmazonsagemaker(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','amazonsagemaker_inference_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['amazonsagemaker_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'amazonsagemaker_inference_id'], $request, 'inference.put_amazonsagemaker');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Configure an Anthropic inference endpoint
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html
@@ -529,6 +570,88 @@ class Inference extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_type', 'cohere_inference_id'], $request, 'inference.put_cohere');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Configure a custom inference endpoint
+	 *
+	 * @see https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     custom_inference_id: string, // (REQUIRED) The inference Id
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putCustom(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','custom_inference_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['custom_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'custom_inference_id'], $request, 'inference.put_custom');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Configure a DeepSeek inference endpoint
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-deepseek.html
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     deepseek_inference_id: string, // (REQUIRED) The inference Id
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putDeepseek(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','deepseek_inference_id'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['deepseek_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'deepseek_inference_id'], $request, 'inference.put_deepseek');
 		return $this->client->sendRequest($request);
 	}
 

@@ -29,8 +29,8 @@ Notice that the `ClientBuilder` object allows chaining method calls for brevity.
 
 ```php
 $hosts = [
-    '192.168.1.1:9200',         // IP + Port
-    '192.168.1.2',              // Just IP
+    '192.0.2.0:9200',         // IP + Port
+    '192.0.2.0',              // Just IP
     'mydomain.server.com:9201', // Domain + Port
     'mydomain2.server.com',     // Just Domain
     'https://localhost',        // SSL to localhost

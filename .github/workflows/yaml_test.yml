@@ -44,7 +44,7 @@ jobs:
 
     - name: Run Elasticsearch using start-local
       run: |
-        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} -esonly
+        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} --esonly
 
     - name: Build PHPUnit tests
       run: |

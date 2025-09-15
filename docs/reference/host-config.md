@@ -13,12 +13,12 @@ This behavior can be changed by using the `setHosts()` method on `ClientBuilder`
 
 ```php
 $hosts = [
-    '192.168.1.1:9200',         // IP + Port
-    '192.168.1.2',              // Just IP
+    '192.0.2.0:9200',         // IP + Port
+    '192.0.2.0',              // Just IP
     'mydomain.server.com:9201', // Domain + Port
     'mydomain2.server.com',     // Just Domain
     'https://localhost',        // SSL to localhost
-    'https://192.168.1.3:9200'  // SSL to IP + Port
+    'https://192.0.2.0:9200'  // SSL to IP + Port
 ];
 $client = ClientBuilder::create()           // Instantiate a new ClientBuilder
                     ->setHosts($hosts)      // Set the hosts
@@ -29,12 +29,12 @@ Notice that the `ClientBuilder` object allows chaining method calls for brevity.
 
 ```php
 $hosts = [
-    '192.168.1.1:9200',         // IP + Port
-    '192.168.1.2',              // Just IP
+    '192.0.2.0:9200',         // IP + Port
+    '192.0.2.0',              // Just IP
     'mydomain.server.com:9201', // Domain + Port
     'mydomain2.server.com',     // Just Domain
     'https://localhost',        // SSL to localhost
-    'https://192.168.1.3:9200'  // SSL to IP + Port
+    'https://192.0.2.0:9200'  // SSL to IP + Port
 ];
 $clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
 $clientBuilder->setHosts($hosts);           // Set the hosts

@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Transport\Adapter;
 
 use Elastic\Elasticsearch\Transport\RequestOptions;
+use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions As GuzzleOptions;
 use Psr\Http\Client\ClientInterface;
 
@@ -38,7 +39,10 @@ class Guzzle implements AdapterInterface
                     $guzzleConfig[GuzzleOptions::VERIFY] = $value;
             }
         }
+        /** @var Client $client */
+        $clientOptions = array_merge($clientOptions, $client->getConfig());
         $class = get_class($client);
+
         return new $class(array_merge($clientOptions, $guzzleConfig));
     }
 }

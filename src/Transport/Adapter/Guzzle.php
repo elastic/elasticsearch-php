@@ -40,7 +40,10 @@ class Guzzle implements AdapterInterface
             }
         }
         /** @var Client $client */
-        $clientOptions = array_merge($clientOptions, $client->getConfig());
+        if(method_exists($client, 'getConfig')){
+            $clientOptions = array_merge($clientOptions, $client->getConfig());
+        }
+
         $class = get_class($client);
 
         return new $class(array_merge($clientOptions, $guzzleConfig));

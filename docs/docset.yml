@@ -9,3 +9,5 @@ toc:
   - toc: release-notes
 subs:
   es:   "Elasticsearch"
+  es-serverless:   "Elasticsearch Serverless"
+  serverless-short:   "Serverless"

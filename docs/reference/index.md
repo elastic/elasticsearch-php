@@ -7,7 +7,7 @@ navigation_title: PHP
 
 # {{es}} PHP client overview [overview]
 
-{{es}} PHP client is designed to be a low-level client. All methods closely match the REST API and the method structure of other language clients as well. For example, Ruby, Python, and so on. This makes it easier to get started with a client and seamlessly switch from one language to another with minimal effort.
+The {{es}} PHP client is designed to be a low-level client. All methods closely match the REST API and the method structure of other language clients. This makes it easier to get started with a client and switch from one language to another.
 
 It provides a response-handling layer that makes it easier to access HTTP responses in different formats. The PSR-18 HTTP response can be accessed as a PHP array, object, or a raw string. For more details, refer to [blog post for {{es}} PHP client](https://www.elastic.co/blog/introducing-the-new-php-client-for-elasticsearch-8).
 Additionally, the client provides helpers to map an ES|QL result directly to a PHP object. For more information, refer to [map php result to an object](https://www.elastic.co/search-labs/blog/esql-php-map-object-class).

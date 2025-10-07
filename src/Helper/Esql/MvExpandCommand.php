@@ -15,22 +15,22 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Helper\Esql;
 
 /**
- * Implementation of the `WHERE` processing command.
+ * Implementation of the `MV_EXPAND` processing command.
  *
  * This class inherits from EsqlBase to make it possible to chain all the commands
  * that belong to an ES|QL query in a single expression.
  */
-class WhereCommand extends EsqlBase {
-    private array $expressions;
+class MvExpandCommand extends EsqlBase {
+    private string $column;
 
-    public function __construct(EsqlBase $parent, array $expressions)
+    public function __construct(EsqlBase $parent, string $column)
     {
         parent::__construct($parent);
-        $this->expressions = $expressions;
+        $this->column = $column;
     }
 
     protected function render_internal(): string
     {
-        return "WHERE " . implode(" AND ", $this->expressions);
+        return "MV_EXPAND " . $this->format_id($this->column);
     }
 }

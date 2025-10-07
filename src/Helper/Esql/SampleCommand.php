@@ -15,22 +15,22 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Helper\Esql;
 
 /**
- * Implementation of the `WHERE` processing command.
+ * Implementation of the `SAMPLE` processing command.
  *
  * This class inherits from EsqlBase to make it possible to chain all the commands
  * that belong to an ES|QL query in a single expression.
  */
-class WhereCommand extends EsqlBase {
-    private array $expressions;
+class SampleCommand extends EsqlBase {
+    private float $probability;
 
-    public function __construct(EsqlBase $parent, array $expressions)
+    public function __construct(EsqlBase $parent, float $probability)
     {
         parent::__construct($parent);
-        $this->expressions = $expressions;
+        $this->probability = $probability;
     }
 
     protected function render_internal(): string
     {
-        return "WHERE " . implode(" AND ", $this->expressions);
+        return "SAMPLE " . json_encode($this->probability);
     }
 }

@@ -1,0 +1,54 @@
+<?php
+/**
+ * Elasticsearch PHP Client
+ *
+ * @link      https://github.com/elastic/elasticsearch-php
+ * @copyright Copyright (c) Elasticsearch B.V (https://www.elastic.co)
+ * @license   https://opensource.org/licenses/MIT MIT License
+ *
+ * Licensed to Elasticsearch B.V under one or more agreements.
+ * Elasticsearch B.V licenses this file to you under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
+declare(strict_types = 1);
+
+namespace Elastic\Elasticsearch\Helper\Esql;
+
+/**
+ * Implementation of the `EVAL` processing command.
+ *
+ * This class inherits from EsqlBase to make it possible to chain all the commands
+ * that belong to an ES|QL query in a single expression.
+ */
+class EvalCommand extends EsqlBase {
+    private array $columns;
+    private array $named_columns;
+
+    public function __construct(EsqlBase $parent, array $columns)
+    {
+        parent::__construct($parent);
+        if ($this->is_named_argument_list($columns)) {
+            $this->named_columns = $columns;
+        }
+        else {
+            $this->columns = $columns;
+        }
+    }
+
+    protected function render_internal(): string
+    {
+        if ($this->named_columns) {
+            $items = array_map(
+                function(string $key): string {
+                    return $this->format_id($key) . " = " .
+                        $this->format_id($this->named_columns[$key]);
+                },
+                array_keys($this->named_columns)
+            );
+        }
+        else {
+            $items = array_map(fn($value): string => $this->format_id($value), $this->columns);
+        }
+        return "EVAL " . implode(", ", $items);
+    }
+}

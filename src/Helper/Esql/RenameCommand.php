@@ -14,23 +14,36 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Helper\Esql;
 
+use RuntimeException;
+
 /**
- * Implementation of the `WHERE` processing command.
+ * Implementation of the `RENAME` processing command.
  *
  * This class inherits from EsqlBase to make it possible to chain all the commands
  * that belong to an ES|QL query in a single expression.
  */
-class WhereCommand extends EsqlBase {
-    private array $expressions;
+class RenameCommand extends EsqlBase {
+    private array $named_columns;
 
-    public function __construct(EsqlBase $parent, array $expressions)
+    public function __construct(EsqlBase $parent, array $columns)
     {
+        if (!$this->is_named_argument_list($columns)) {
+            throw new RuntimeException("Only named arguments are valid");
+        }
         parent::__construct($parent);
-        $this->expressions = $expressions;
+        $this->named_columns = $columns;
     }
 
     protected function render_internal(): string
     {
-        return "WHERE " . implode(" AND ", $this->expressions);
+        $items = array_map(
+            function(string $key): string {
+                return $this->format_id($key) . " AS " .
+                    $this->format_id($this->named_columns[$key]);
+            },
+            array_keys($this->named_columns)
+        );
+
+        return "RENAME " . implode(", ", $items);
     }
 }

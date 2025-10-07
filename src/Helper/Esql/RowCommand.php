@@ -14,6 +14,12 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Helper\Esql;
 
+/**
+ * Implementation of the `ROW` source command.
+ *
+ * This class inherits from EsqlBase to make it possible to chain all the commands
+ * that belong to an ES|QL query in a single expression.
+ */
 class RowCommand extends EsqlBase {
     private array $params;
 

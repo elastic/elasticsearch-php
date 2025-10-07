@@ -15,22 +15,21 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Helper\Esql;
 
 /**
- * Implementation of the `WHERE` processing command.
+ * Implementation of the `SHOW` source command.
  *
  * This class inherits from EsqlBase to make it possible to chain all the commands
  * that belong to an ES|QL query in a single expression.
  */
-class WhereCommand extends EsqlBase {
-    private array $expressions;
+class ShowCommand extends EsqlBase {
+    private string $item;
 
-    public function __construct(EsqlBase $parent, array $expressions)
+    public function __construct(string $item)
     {
-        parent::__construct($parent);
-        $this->expressions = $expressions;
+        $this->item = $item;
     }
 
     protected function render_internal(): string
     {
-        return "WHERE " . implode(" AND ", $this->expressions);
+        return "SHOW " . $this->format_id($this->item);
     }
 }

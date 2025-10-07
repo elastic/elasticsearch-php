@@ -14,17 +14,23 @@ declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Helper\Esql;
 
+/**
+ * Implementation of the `LIMIT` processing command.
+ *
+ * This class inherits from EsqlBase to make it possible to chain all the commands
+ * that belong to an ES|QL query in a single expression.
+ */
 class LimitCommand extends EsqlBase {
-    private int $maxNumberOfRows;
+    private int $max_number_of_rows;
 
-    public function __construct(EsqlBase $parent, int $maxNumberOfRows)
+    public function __construct(EsqlBase $parent, int $max_number_of_rows)
     {
         parent::__construct($parent);
-        $this->maxNumberOfRows = $maxNumberOfRows;
+        $this->max_number_of_rows = $max_number_of_rows;
     }
 
     protected function render_internal(): string
     {
-        return "LIMIT " . json_encode($this->maxNumberOfRows);
+        return "LIMIT " . json_encode($this->max_number_of_rows);
     }
 }

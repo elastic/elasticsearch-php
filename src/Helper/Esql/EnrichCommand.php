@@ -22,9 +22,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
  */
 class EnrichCommand extends EsqlBase {
     private string $policy;
-    private string $match_field;
-    private array $fields;
-    private array $named_fields;
+    private string $match_field = "";
+    private array $fields = [];
+    private array $named_fields = [];
 
     public function __construct(EsqlBase $parent, string $policy)
     {
@@ -72,10 +72,12 @@ class EnrichCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
-        $on = $this->match_field ? " ON " . $this->format_id($this->match_field) : "";
-        if ($this->named_fields) {
+        $on = ($this->match_field != "") ? " ON " . $this->format_id($this->match_field) : "";
+        $with = "";
+        $items = [];
+        if (sizeof($this->named_fields)) {
             $items = array_map(
                 function(string $key): string {
                     return $this->format_id($key) . " = " .
@@ -84,9 +86,12 @@ class EnrichCommand extends EsqlBase {
                 array_keys($this->named_fields)
             );
         }
-        else {
+        else if (sizeof($this->fields)) {
             $items = array_map(fn($value): string => $this->format_id($value), $this->fields);
         }
-        return "ENRICH " . $this->policy . implode(", ", $items);
+        if (sizeof($items)) {
+            $with = " WITH " . implode(", ", $items);
+        }
+        return "ENRICH " . $this->policy . $on . $with;
     }
 }

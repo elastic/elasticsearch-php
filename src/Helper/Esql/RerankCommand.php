@@ -23,10 +23,10 @@ use RuntimeException;
  * that belong to an ES|QL query in a single expression.
  */
 class RerankCommand extends EsqlBase {
-    private string $query;
-    private array $named_query;
-    private array $fields;
-    private string $inference_id;
+    private string $query = "";
+    private array $named_query = [];
+    private array $fields = [];
+    private string $inference_id = "";
 
     public function __construct(EsqlBase $parent, array $query)
     {
@@ -68,20 +68,20 @@ class RerankCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
-        if (!$this->fields) {
+        if (sizeof($this->fields) == 0) {
             throw new RuntimeException(
                 "The rerank command requires one or more fields to rerank on"
             );
         }
-        if (!$this->inference_id) {
+        if ($this->inference_id == "") {
             throw new RuntimeException(
                 "The rerank command requires an inference ID"
             );
         }
         $with = ["inference_id" => $this->inference_id];
-        if ($this->named_query) {
+        if (sizeof($this->named_query)) {
             $column = array_keys($this->named_query)[0];
             $value = array_values($this->named_query)[0];
             $query = $this->format_id($column) . " = " . json_encode($value);
@@ -91,6 +91,6 @@ class RerankCommand extends EsqlBase {
         }
         return "RERANK " . $query .
             " ON " . implode(", ", array_map(array($this, "format_id"), $this->fields)) .
-            "WITH " . json_encode($with);
+            " WITH " . json_encode($with);
     }
 }

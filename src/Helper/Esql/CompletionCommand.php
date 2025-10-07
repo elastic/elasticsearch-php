@@ -24,8 +24,8 @@ use RuntimeException;
  */
 class CompletionCommand extends EsqlBase {
     private string $prompt;
-    private array $named_prompt;
-    private string $inference_id;
+    private array $named_prompt = [];
+    private string $inference_id = "";
 
     public function __construct(EsqlBase $parent, array $prompt)
     {
@@ -54,7 +54,7 @@ class CompletionCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         if (!$this->inference_id) {
             throw new RuntimeException("The completion command requires an inference ID");

@@ -19,50 +19,6 @@ use RuntimeException;
 abstract class EsqlBase {
     private ?EsqlBase $parent = null;
 
-    protected function format_kv(array $map): string
-    {
-        return implode(", ", array_map(
-            function($k, $v) {
-                return $k . "=" . json_encode($v);
-            },
-            array_keys($map),
-            $map,
-        ));
-    }
-
-    public function render(): string
-    {
-        $query = "";
-        if ($this->parent) {
-            $query .= $this->parent->render() . "\n| ";
-        }
-        $query .= $this->render_internal();
-        return $query;
-    }
-
-    protected abstract function render_internal(): string;
-
-    public function __construct(?EsqlBase $parent)
-    {
-        $this->parent = $parent;
-    }
-
-    public function __toString(): string
-    {
-        return $this->render() . "\n";
-    }
-
-    protected function is_named_argument_list(array $args): bool {
-        $named_count = array_sum(array_map('is_string', array_keys($args)));
-        if ($named_count == sizeof($args)) {
-            return true;
-        }
-        if ($named_count != 0) {
-            throw new RuntimeException("foo");
-        }
-        return false;
-    }
-
     protected function format_id(string $id, bool $allow_patterns = false): string
     {
         if ($allow_patterns && str_contains($id, "*")) {
@@ -77,6 +33,28 @@ abstract class EsqlBase {
         return "`" . str_replace("`", "``", $id) . "`";
     }
 
+    protected function format_kv(array $map): string
+    {
+        return implode(", ", array_map(
+            function($k, $v) {
+                return $k . " = " . json_encode($v);
+            },
+            array_keys($map),
+            $map,
+        ));
+    }
+
+    protected function is_named_argument_list(array $args): bool {
+        $named_count = array_sum(array_map('is_string', array_keys($args)));
+        if ($named_count == sizeof($args)) {
+            return true;
+        }
+        if ($named_count != 0) {
+            throw new RuntimeException("foo");
+        }
+        return false;
+    }
+
     protected function is_forked(): bool
     {
         if (get_class($this) == "ForkCommand") {
@@ -86,6 +64,28 @@ abstract class EsqlBase {
             return $this->parent->is_forked();
         }
         return false;
+    }
+
+    public function __construct(?EsqlBase $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    public function render(): string
+    {
+        $query = "";
+        if ($this->parent) {
+            $query .= $this->parent->render() . "\n| ";
+        }
+        $query .= $this->renderInternal();
+        return $query;
+    }
+
+    protected abstract function renderInternal(): string;
+
+    public function __toString(): string
+    {
+        return $this->render() . "\n";
     }
 
     /**
@@ -105,7 +105,7 @@ abstract class EsqlBase {
      *         .where("type IS NOT NULL")
      *     )
      */
-    public function change_point(string $value): ChangePointCommand
+    public function changePoint(string $value): ChangePointCommand
     {
         return new ChangePointCommand($this, $value);
     }
@@ -394,7 +394,7 @@ abstract class EsqlBase {
      *         .lookup_join("languages_lookup").on("language_code")
      *     )
      */
-    public function lookup_join(string $lookup_index): LookupJoinCommand
+    public function lookupJoin(string $lookup_index): LookupJoinCommand
     {
         return new LookupJoinCommand($this, $lookup_index);
     }
@@ -409,7 +409,7 @@ abstract class EsqlBase {
      * 
      *     query = ESQL.row(a=[1, 2, 3], b="b", j=["a", "b"]).mv_expand("a")
      */
-    public function mv_expand(string $column): MvExpandCommand
+    public function mvExpand(string $column): MvExpandCommand
     {
         return new MvExpandCommand($this, $column);
     }

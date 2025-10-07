@@ -21,8 +21,8 @@ namespace Elastic\Elasticsearch\Helper\Esql;
  * that belong to an ES|QL query in a single expression.
  */
 class EvalCommand extends EsqlBase {
-    private array $columns;
-    private array $named_columns;
+    private array $columns = [];
+    private array $named_columns = [];
 
     public function __construct(EsqlBase $parent, array $columns)
     {
@@ -35,9 +35,9 @@ class EvalCommand extends EsqlBase {
         }
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
-        if ($this->named_columns) {
+        if (sizeof($this->named_columns)) {
             $items = array_map(
                 function(string $key): string {
                     return $this->format_id($key) . " = " .

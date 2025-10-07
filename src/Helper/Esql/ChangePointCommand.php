@@ -23,8 +23,8 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class ChangePointCommand extends EsqlBase {
     private string $value;
     private string $key = "";
-    private string $type_name = "type";
-    private string $pvalue_name = "value";
+    private string $type_name = "";
+    private string $pvalue_name = "";
 
     public function __construct(EsqlBase $parent, string $value)
     {
@@ -60,7 +60,7 @@ class ChangePointCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         $key = $this->key ? " ON " . $this->format_id($this->key) : "";
         $names = ($this->type_name && $this->pvalue_name) ?

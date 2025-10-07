@@ -29,7 +29,7 @@ class MvExpandCommand extends EsqlBase {
         $this->column = $column;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "MV_EXPAND " . $this->format_id($this->column);
     }

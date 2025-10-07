@@ -34,7 +34,7 @@ class RenameCommand extends EsqlBase {
         $this->named_columns = $columns;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         $items = array_map(
             function(string $key): string {

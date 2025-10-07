@@ -26,7 +26,7 @@ class Branch extends EsqlBase {
         parent::__construct(null);
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "";
     }

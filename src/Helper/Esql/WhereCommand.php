@@ -29,7 +29,7 @@ class WhereCommand extends EsqlBase {
         $this->expressions = $expressions;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "WHERE " . implode(" AND ", $this->expressions);
     }

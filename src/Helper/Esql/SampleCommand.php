@@ -29,7 +29,7 @@ class SampleCommand extends EsqlBase {
         $this->probability = $probability;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "SAMPLE " . json_encode($this->probability);
     }

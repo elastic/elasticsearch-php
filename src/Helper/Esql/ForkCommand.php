@@ -39,7 +39,7 @@ class ForkCommand extends EsqlBase {
         $this->branches = [$fork1, $fork2, $fork3, $fork4, $fork5, $fork6, $fork7, $fork8];
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         $cmds = "";
         foreach ($this->branches as $branch) {
@@ -49,7 +49,7 @@ class ForkCommand extends EsqlBase {
                     $cmds = "( " . $cmd . " )";
                 }
                 else {
-                    $cmds += "\n       ( " . $cmd . " )";
+                    $cmds .= "\n       ( " . $cmd . " )";
                 }
             }
         }

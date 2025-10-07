@@ -28,7 +28,7 @@ class RowCommand extends EsqlBase {
         $this->params = $params;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "ROW " . $this->format_kv($this->params);
     }

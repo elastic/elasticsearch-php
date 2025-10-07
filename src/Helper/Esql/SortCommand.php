@@ -29,12 +29,12 @@ class SortCommand extends EsqlBase {
         $this->columns = $columns;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         $sorts = [];
         foreach ($this->columns as $column) {
             array_push($sorts, implode(
-                " ", array_map(array($this, "format_id"), str_split($column))
+                " ", array_map(array($this, "format_id"), explode(" ", $column))
             ));
         }
         return "SORT " . implode(", ", $sorts);

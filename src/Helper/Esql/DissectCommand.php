@@ -44,7 +44,7 @@ class DissectCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         $sep = $this->separator ? " APPEND_SEPARATOR=" . json_encode($this->separator) : "";
         return "DISSECT " . $this->format_id($this->input) . " " . json_encode($this->pattern) . $sep;

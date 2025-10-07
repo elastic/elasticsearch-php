@@ -28,7 +28,7 @@ class ShowCommand extends EsqlBase {
         $this->item = $item;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "SHOW " . $this->format_id($this->item);
     }

@@ -47,7 +47,7 @@ class LookupJoinCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         if (!$this->field) {
             throw new RuntimeException ("Joins require a field to join on.");

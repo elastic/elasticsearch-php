@@ -29,7 +29,7 @@ class LimitCommand extends EsqlBase {
         $this->max_number_of_rows = $max_number_of_rows;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
         return "LIMIT " . json_encode($this->max_number_of_rows);
     }

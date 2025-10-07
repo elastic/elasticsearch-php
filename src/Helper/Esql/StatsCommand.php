@@ -21,9 +21,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
  * that belong to an ES|QL query in a single expression.
  */
 class StatsCommand extends EsqlBase {
-    private array $expressions;
-    private array $named_expressions;
-    private array $grouping_expressions;
+    private array $expressions = [];
+    private array $named_expressions = [];
+    private array $grouping_expressions = [];
 
     public function __construct(EsqlBase $parent, array $expressions)
     {
@@ -51,9 +51,9 @@ class StatsCommand extends EsqlBase {
         return $this;
     }
 
-    protected function render_internal(): string
+    protected function renderInternal(): string
     {
-        if ($this->named_expressions) {
+        if (sizeof($this->named_expressions)) {
             $items = array_map(
                 function(string $key): string {
                     return $this->format_id($key) . " = " .
@@ -66,7 +66,7 @@ class StatsCommand extends EsqlBase {
             $items = array_map(fn($value): string => $this->format_id($value), $this->expressions);
         }
         $by = "";
-        if ($this->grouping_expressions) {
+        if (sizeof($this->grouping_expressions)) {
             $by = "\n        BY " . implode(", ", $this->grouping_expressions);
         }
         return "STATS " . implode(",\n        ", $items) . $by;

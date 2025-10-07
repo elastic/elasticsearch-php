@@ -48,7 +48,7 @@ abstract class Query {
      *     query2 = ESQL.row(a=[1, 2])
      *     query3 = ESQL.row(a=functions.round(1.23, 0))
      */
-    public static function row(string ...$params): RowCommand
+    public static function row(mixed ...$params): RowCommand
     {
         return new RowCommand($params);
     }

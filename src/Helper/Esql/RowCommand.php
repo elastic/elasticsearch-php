@@ -30,6 +30,6 @@ class RowCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        return "ROW " . $this->format_kv($this->params);
+        return "ROW " . $this->formatKeyValues($this->params, jsonEncode: true);
     }
 }

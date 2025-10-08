@@ -33,7 +33,7 @@ class CompletionCommand extends EsqlBase {
             throw new RuntimeException("Only one prompt is supported");
         }
         parent::__construct($parent);
-        if ($this->is_named_argument_list($prompt)) {
+        if ($this->isNamedArgumentList($prompt)) {
             $this->named_prompt = $prompt;
         }
         else {
@@ -62,12 +62,12 @@ class CompletionCommand extends EsqlBase {
         $with = ["inference_id" => $this->inference_id];
         if ($this->named_prompt) {
             return "COMPLETION " .
-                $this->format_id(array_keys($this->named_prompt)[0]) . " = " .
-                $this->format_id(array_values($this->named_prompt)[0]) .
+                $this->formatId(array_keys($this->named_prompt)[0]) . " = " .
+                $this->formatId(array_values($this->named_prompt)[0]) .
                 " WITH " . json_encode($with);
         }
         else {
-            return "COMPLETION " . $this->format_id($this->prompt) .
+            return "COMPLETION " . $this->formatId($this->prompt) .
                 " WITH " . json_encode($with);
         }
     }

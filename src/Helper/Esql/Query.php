@@ -16,19 +16,19 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 
 abstract class Query {
     /**
-     * The `FROM` source command returns a table with data from a data stream,
-     * index, or alias.
+    The `FROM` source command returns a table with data from a data stream,
+    index, or alias.
      *
-     * @param string $indices A list of indices, data streams or aliases. Supports 
-     *                        wildcards and date math.
+    @param string $indices A list of indices, data streams or aliases. Supports 
+                           wildcards and date math.
      *
-     * Examples:
+    Examples:
      *
-     *     query1 = ESQL.from_("employees")
-     *     query2 = ESQL.from_("<logs-{now/d}>")
-     *     query3 = ESQL.from_("employees-00001", "other-employees-*")
-     *     query4 = ESQL.from_("cluster_one:employees-00001", "cluster_two:other-employees-*")
-     *     query5 = ESQL.from_("employees").metadata("_id")
+        $query1 = Query::from("employees");
+        $query2 = Query::from("<logs-{now/d}>");
+        $query3 = Query::from("employees-00001", "other-employees-*");
+        $query4 = Query::from("cluster_one:employees-00001", "cluster_two:other-employees-*");
+        $query5 = Query::from("employees")->metadata("_id");
      */
     public static function from(string ...$indices): FromCommand
     {
@@ -36,17 +36,16 @@ abstract class Query {
     }
 
     /**
-     * The ``ROW`` source command produces a row with one or more columns with
-     * values that you specify. This can be useful for testing.
+    The ``ROW`` source command produces a row with one or more columns with
+    values that you specify. This can be useful for testing.
      *
-     * @param string ...$params the column values to produce, given as keyword
-     *                          arguments.
+    @param string ...$params the column values to produce, given as keyword
+                             arguments.
      *
-     * Examples:
+    Examples:
      *
-     *     query1 = ESQL.row(a=1, b="two", c=None)
-     *     query2 = ESQL.row(a=[1, 2])
-     *     query3 = ESQL.row(a=functions.round(1.23, 0))
+        $query1 = Query::row(a: 1, b: "two", c: null);
+        $query2 = Query::row(a: [2, 1]);
      */
     public static function row(mixed ...$params): RowCommand
     {
@@ -54,14 +53,14 @@ abstract class Query {
     }
 
     /**
-     * The `SHOW` source command returns information about the deployment and
-     * its capabilities.
+    The `SHOW` source command returns information about the deployment and
+    its capabilities.
      *
-     * @param string $item Can only be `INFO`.
+    @param string $item Can only be `INFO`.
      *
-     * Examples:
+    Examples:
      *
-     *     query = ESQL.show("INFO")
+        $query = Query::show("INFO");
      */
     public static function show(string $item): ShowCommand
     {
@@ -69,14 +68,15 @@ abstract class Query {
     }
 
     /**
-     * This method can only be used inside a `FORK` command to create each branch.
+    This method can only be used inside a `FORK` command to create each branch.
      *
-     * Examples:
+    Examples:
      *
-     *     query = ESQL.from_("employees").fork(
-     *         ESQL.branch().where("emp_no == 10001"),
-     *         ESQL.branch().where("emp_no == 10002"),
-     *     )
+        $query = Query::from("employees")
+            ->fork(
+                Query::branch()->where("emp_no == 10001"),
+                Query::branch()->where("emp_no == 10002"),
+            )
      */
     public static function branch(): Branch
     {

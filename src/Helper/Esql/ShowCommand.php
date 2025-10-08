@@ -30,6 +30,6 @@ class ShowCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        return "SHOW " . $this->format_id($this->item);
+        return "SHOW " . $this->formatId($this->item);
     }
 }

@@ -34,7 +34,7 @@ class RerankCommand extends EsqlBase {
             throw new RuntimeException("Only one query is supported");
         }
         parent::__construct($parent);
-        if ($this->is_named_argument_list($query)) {
+        if ($this->isNamedArgumentList($query)) {
             $this->named_query = $query;
         }
         else {
@@ -84,13 +84,13 @@ class RerankCommand extends EsqlBase {
         if (sizeof($this->named_query)) {
             $column = array_keys($this->named_query)[0];
             $value = array_values($this->named_query)[0];
-            $query = $this->format_id($column) . " = " . json_encode($value);
+            $query = $this->formatId($column) . " = " . json_encode($value);
         }
         else {
             $query = json_encode($this->query);
         }
         return "RERANK " . $query .
-            " ON " . implode(", ", array_map(array($this, "format_id"), $this->fields)) .
+            " ON " . implode(", ", array_map(array($this, "formatId"), $this->fields)) .
             " WITH " . json_encode($with);
     }
 }

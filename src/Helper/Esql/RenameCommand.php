@@ -27,7 +27,7 @@ class RenameCommand extends EsqlBase {
 
     public function __construct(EsqlBase $parent, array $columns)
     {
-        if (!$this->is_named_argument_list($columns)) {
+        if (!$this->isNamedArgumentList($columns)) {
             throw new RuntimeException("Only named arguments are valid");
         }
         parent::__construct($parent);
@@ -36,14 +36,6 @@ class RenameCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        $items = array_map(
-            function(string $key): string {
-                return $this->format_id($key) . " AS " .
-                    $this->format_id($this->named_columns[$key]);
-            },
-            array_keys($this->named_columns)
-        );
-
-        return "RENAME " . implode(", ", $items);
+        return "RENAME " . $this->formatKeyValues($this->named_columns, joinText: "AS");
     }
 }

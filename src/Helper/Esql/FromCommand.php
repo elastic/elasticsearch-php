@@ -40,7 +40,7 @@ class FromCommand extends EsqlBase {
         $s = "FROM " . implode(", ", $this->indices);
         if (sizeof($this->metadata_fields)) {
             $s .= " METADATA " . implode(
-                ", ", array_map(array($this, "format_id"), $this->metadata_fields)
+                ", ", array_map(array($this, "formatId"), $this->metadata_fields)
             );
         }
         return $s;

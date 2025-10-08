@@ -22,7 +22,7 @@ class EsqlTest extends TestCase
 {
     public function testFrom(): void
     {
-   $query = Query::from("employees");
+        $query = Query::from("employees");
         $this->assertEquals(
             "FROM employees\n",
             $query->__toString()

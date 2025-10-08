@@ -53,6 +53,6 @@ class LookupJoinCommand extends EsqlBase {
             throw new RuntimeException ("Joins require a field to join on.");
         }
         return "LOOKUP JOIN " . $this->lookup_index .
-            " ON " . $this->format_id($this->field);
+            " ON " . $this->formatId($this->field);
     }
 }

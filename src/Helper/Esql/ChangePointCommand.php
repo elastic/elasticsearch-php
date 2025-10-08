@@ -62,10 +62,10 @@ class ChangePointCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        $key = $this->key ? " ON " . $this->format_id($this->key) : "";
+        $key = $this->key ? " ON " . $this->formatId($this->key) : "";
         $names = ($this->type_name && $this->pvalue_name) ?
-            " AS " . $this->format_id($this->type_name) . ", " .
-                $this->format_id($this->pvalue_name)
+            " AS " . $this->formatId($this->type_name) . ", " .
+                $this->formatId($this->pvalue_name)
             : "";
         return "CHANGE_POINT " . $this->value . $key . $names;
     }

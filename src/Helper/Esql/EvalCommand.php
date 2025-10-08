@@ -27,7 +27,7 @@ class EvalCommand extends EsqlBase {
     public function __construct(EsqlBase $parent, array $columns)
     {
         parent::__construct($parent);
-        if ($this->is_named_argument_list($columns)) {
+        if ($this->isNamedArgumentList($columns)) {
             $this->named_columns = $columns;
         }
         else {
@@ -38,17 +38,14 @@ class EvalCommand extends EsqlBase {
     protected function renderInternal(): string
     {
         if (sizeof($this->named_columns)) {
-            $items = array_map(
-                function(string $key): string {
-                    return $this->format_id($key) . " = " .
-                        $this->format_id($this->named_columns[$key]);
-                },
-                array_keys($this->named_columns)
-            );
+            $eval = $this->formatKeyValues($this->named_columns);
         }
         else {
-            $items = array_map(fn($value): string => $this->format_id($value), $this->columns);
+            $eval = implode(
+                ",  ",
+                array_map(fn($value): string => $this->formatId($value), $this->columns)
+            );
         }
-        return "EVAL " . implode(", ", $items);
+        return "EVAL " . $eval;
     }
 }

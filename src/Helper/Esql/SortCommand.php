@@ -34,7 +34,7 @@ class SortCommand extends EsqlBase {
         $sorts = [];
         foreach ($this->columns as $column) {
             array_push($sorts, implode(
-                " ", array_map(array($this, "format_id"), explode(" ", $column))
+                " ", array_map(array($this, "formatId"), explode(" ", $column))
             ));
         }
         return "SORT " . implode(", ", $sorts);

@@ -33,6 +33,6 @@ class GrokCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        return "GROK " . $this->format_id($this->input) . " " . json_encode($this->pattern);
+        return "GROK " . $this->formatId($this->input) . " " . json_encode($this->pattern);
     }
 }

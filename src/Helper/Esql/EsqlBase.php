@@ -19,7 +19,11 @@ use RuntimeException;
 abstract class EsqlBase {
     private ?EsqlBase $parent = null;
 
-    protected function format_id(string $id, bool $allow_patterns = false): string
+    /**
+     * Formatting helper that renders an identifier using proper escaping rules.
+     * Used by several ES|QL commands.
+     */
+    protected function formatId(string $id, bool $allow_patterns = false): string
     {
         if ($allow_patterns && str_contains($id, "*")) {
             // patterns cannot be escaped
@@ -33,18 +37,29 @@ abstract class EsqlBase {
         return "`" . str_replace("`", "``", $id) . "`";
     }
 
-    protected function format_kv(array $map): string
+    /**
+     * Formatting helper that renders an associative array as needed by ES|QL.
+     * Used by several ES|QL commands.
+     */
+    protected function formatKeyValues(
+        array $map, string $joinText = "=",
+        string $implodeText = ", ",
+        bool $jsonEncode = false): string
     {
-        return implode(", ", array_map(
-            function($k, $v) {
-                return $k . " = " . json_encode($v);
+        return implode($implodeText, array_map(
+            function(string $key, mixed $value) use ($joinText) {
+                return $key . " " . $joinText . " " . $value;
             },
             array_keys($map),
-            $map,
+            array_map($jsonEncode ? 'json_encode' : array($this, 'formatId'), $map),
         ));
     }
 
-    protected function is_named_argument_list(array $args): bool {
+    /**
+     * Helper function that checks if the arguments are positional or named.
+     * Used by several ES|QL commands.
+     */
+    protected function isNamedArgumentList(array $args): bool {
         $named_count = array_sum(array_map('is_string', array_keys($args)));
         if ($named_count == sizeof($args)) {
             return true;
@@ -55,13 +70,16 @@ abstract class EsqlBase {
         return false;
     }
 
-    protected function is_forked(): bool
+    /**
+     * Helper function that checks if a forking command has been issued already.
+     */
+    protected function isForked(): bool
     {
         if (get_class($this) == "ForkCommand") {
             return true;
         }
         if ($this->parent) {
-            return $this->parent->is_forked();
+            return $this->parent->isForked();
         }
         return false;
     }
@@ -71,6 +89,9 @@ abstract class EsqlBase {
         $this->parent = $parent;
     }
 
+    /**
+     * Render the ES|QL command to a string.
+     */
     public function render(): string
     {
         $query = "";
@@ -81,6 +102,9 @@ abstract class EsqlBase {
         return $query;
     }
 
+    /**
+     * Abstract method implemented by all the command subclasses.
+     */
     protected abstract function renderInternal(): string;
 
     public function __toString(): string
@@ -96,14 +120,12 @@ abstract class EsqlBase {
      *
      * Examples:
      *
-     *     query = (
-     *         ESQL.row(key=list(range(1, 26)))
-     *         .mv_expand("key")
-     *         .eval(value=functions.case("key<13", 0, 42))
-     *         .change_point("value")
-     *         .on("key")
-     *         .where("type IS NOT NULL")
-     *     )
+     *     $query = Query::row(key: range(1, 25))
+     *         ->mvExpand("key")
+     *         ->eval(value: "CASE(key < 13, 0, 42)")
+     *         ->changePoint("value")
+     *         ->on("key")
+     *         ->where("type IS NOT NULL");
      */
     public function changePoint(string $value): ChangePointCommand
     {
@@ -126,29 +148,24 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.row(question="What is Elasticsearch?")
-     *         .completion("question").with_("test_completion_model")
-     *         .keep("question", "completion")
-     *     )
-     *     query2 = (
-     *         ESQL.row(question="What is Elasticsearch?")
-     *         .completion(answer="question").with_("test_completion_model")
-     *         .keep("question", "answer")
-     *     )
-     *     query3 = (
-     *         ESQL.from_("movies")
-     *         .sort("rating DESC")
-     *         .limit(10)
-     *         .eval(prompt=\"\"\"CONCAT(
-     *             "Summarize this movie using the following information: \\n",
-     *             "Title: ", title, "\\n",
-     *             "Synopsis: ", synopsis, "\\n",
-     *             "Actors: ", MV_CONCAT(actors, ", "), "\\n",
-     *         )\"\"\")
-     *         .completion(summary="prompt").with_("test_completion_model")
-     *         .keep("title", "summary", "rating")
-     *     )
+     *     $query1 = Query::row(question: "What is Elasticsearch?")
+     *         ->completion("question")->with("test_completion_model")
+     *         ->keep("question", "completion");
+     *     $query2 = Query::row(question: "What is Elasticsearch?")
+     *         ->completion(answer: "question")->with("test_completion_model")
+     *         ->keep("question", "answer");
+     *     $query3 = Query::from("movies")
+     *         ->sort("rating DESC")
+     *         ->limit(10)
+     *         ->eval(prompt: "CONCAT(\n" .
+     *             "      \"Summarize this movie using the following information: \\n\",\n" .
+     *             "      \"Title: \", title, \"\\n\",\n" .
+     *             "      \"Synopsis: \", synopsis, \"\\n\",\n" .
+     *             "      \"Actors: \", MV_CONCAT(actors, \", \"), \"\\n\",\n" .
+     *             "  )"
+     *         )
+     *         ->completion(summary: "prompt")->with("test_completion_model")
+     *         ->keep("title", "summary", "rating");
      */
     public function completion(string ...$prompt): CompletionCommand
     {
@@ -168,12 +185,9 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query = (
-     *         ESQL.row(a="2023-01-23T12:15:00.000Z - some text - 127.0.0.1")
-     *         .dissect("a", "%{date} - %{msg} - %{ip}")
-     *         .keep("date", "msg", "ip")
-     *         .eval(date="TO_DATETIME(date)")
-     *     )
+     *     $query = Query::row(a: "2023-01-23T12:15:00.000Z - some text - 127.0.0.1")
+     *         ->dissect("a", "%{date} - %{msg} - %{ip}")
+     *         ->keep("date", "msg", "ip");
      */
     public function dissect(string $input, string $pattern): DissectCommand
     {
@@ -188,8 +202,8 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = ESQL.from_("employees").drop("height")
-     *     query2 = ESQL.from_("employees").drop("height*")
+     *     $query1 = Query::from("employees")->drop("height");
+     *     $query2 = Query::from("employees")->drop("height*");
      */
     public function drop(string ...$columns): DropCommand
     {
@@ -205,14 +219,12 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.row(a="1")
-     *         .enrich("languages_policy").on("a").with_("language_name")
-     *     )
-     *     query2 = (
-     *         ESQL.row(a="1")
-     *         .enrich("languages_policy").on("a").with_(name="language_name")
-     *     )
+     *     $query1 = Query::row(language_code: "1")
+     *         ->enrich("languages_policy");
+     *     $query2 = Query::row(language_code: "1")
+     *         ->enrich("languages_policy")->on("a");
+     *     $query3 = Query::row(language_code: "1")
+     *         ->enrich("languages_policy")->on("a")->with(name: "language_name");
      */
     public function enrich(string $policy): EnrichCommand
     {
@@ -235,17 +247,17 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("employees")
-     *         .sort("emp_no")
-     *         .keep("first_name", "last_name", "height")
-     *         .eval(height_feet="height * 3.281", height_cm="height * 100")
-     *     )
-     *     query2 = (
-     *         ESQL.from_("employees")
-     *         .eval("height * 3.281")
-     *         .stats(avg_height_feet=functions.avg("`height * 3.281`"))
-     *     )
+     *     $query1 = Query::from("employees")
+     *         ->sort("emp_no")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->eval(height_feet: "height * 3.281", height_cm: "height * 100");
+     *     $query2 = Query::from("employees")
+     *         ->sort("emp_no")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->eval("height * 3.281");
+     *     $query3 = Query::from("employees")
+     *         ->eval("height * 3.281")
+     *         ->stats(avg_height_feet: "AVG(`height * 3.281`)");
      */
     public function eval(string ...$columns): EvalCommand
     {
@@ -261,15 +273,13 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query = (
-     *         ESQL.from_("employees")
-     *         .fork(
-     *             ESQL.branch().where("emp_no == 10001"),
-     *             ESQL.branch().where("emp_no == 10002"),
+     *     $query = Query::from("employees")
+     *         ->fork(
+     *             Query::branch()->where("emp_no == 10001"),
+     *             Query::branch()->where("emp_no == 10002"),
      *         )
-     *         .keep("emp_no", "_fork")
-     *         .sort("emp_no")
-     *     )
+     *         ->keep("emp_no", "_fork")
+     *         ->sort("emp_no");
      */
     public function fork(
         EsqlBase $fork1,
@@ -282,7 +292,7 @@ abstract class EsqlBase {
         ?EsqlBase $fork8 = null,
     ): ForkCommand
     {
-        if ($this->is_forked()) {
+        if ($this->isForked()) {
             throw new RuntimeException("a query can only have one fork");
         }
         return new ForkCommand($this, $fork1, $fork2, $fork3, $fork4, $fork5, $fork6, $fork7, $fork8);
@@ -302,25 +312,22 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.row(a="2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
-     *         .grok("a", "%{TIMESTAMP_ISO8601:date} %{IP:ip} %{EMAILADDRESS:email} %{NUMBER:num}")
-     *         .keep("date", "ip", "email", "num")
-     *     )
-     *     query2 = (
-     *         ESQL.row(a="2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
-     *         .grok(
+     *     $query1 = Query::row(a: "2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
+     *         ->grok(
+     *             "a",
+     *             "%{TIMESTAMP_ISO8601:date} %{IP:ip} %{EMAILADDRESS:email} %{NUMBER:num}",
+     *         )
+     *         ->keep("date", "ip", "email", "num");
+     *     $query2 = Query::row(a: "2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
+     *         ->grok(
      *             "a",
      *             "%{TIMESTAMP_ISO8601:date} %{IP:ip} %{EMAILADDRESS:email} %{NUMBER:num:int}",
      *         )
-     *         .keep("date", "ip", "email", "num")
-     *         .eval(date=functions.to_datetime("date"))
-     *     )
-     *     query3 = (
-     *         ESQL.from_("addresses")
-     *         .keep("city.name", "zip_code")
-     *         .grok("zip_code", "%{WORD:zip_parts} %{WORD:zip_parts}")
-     *     )
+     *         ->keep("date", "ip", "email", "num")
+     *         ->eval(date: "TO_DATETIME(date)");
+     *     $query3 = Query::from("addresses")
+     *         ->keep("city.name", "zip_code")
+     *         ->grok("zip_code", "%{WORD:zip_parts} %{WORD:zip_parts}");
      */
     public function grok(string $input, string $pattern): GrokCommand
     {
@@ -336,9 +343,12 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = ESQL.from_("employees").keep("emp_no", "first_name", "last_name", "height")
-     *     query2 = ESQL.from_("employees").keep("h*")
-     *     query3 = ESQL.from_("employees").keep("h*", "*")
+     *     $query1 = Query::from("employees")
+     *         ->keep("emp_no", "first_name", "last_name", "height");
+     *     $query2 = Query::from("employees")
+     *         ->keep("h*");
+     *     $query3 = Query::from("employees")
+     *         ->keep("h*", "first_name");
      */
     public function keep(string ...$columns): KeepCommand
     {
@@ -353,8 +363,12 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = ESQL.from_("employees").sort("emp_no ASC").limit(5)
-     *     query2 = ESQL.from_("index").stats(functions.avg("field1")).by("field2").limit(20000)
+     *     $query1 = Query::from("index")
+     *         ->where("field == \"value\"")
+     *         ->limit(1000);
+     *     $query2 = Query::from("index")
+     *         ->stats("AVG(field1)")->by("field2")
+     *         ->limit(20000);
      */
     public function limit(int $max_number_of_rows): LimitCommand
     {
@@ -373,26 +387,18 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("firewall_logs")
-     *         .lookup_join("threat_list").on("source.IP")
-     *         .where("threat_level IS NOT NULL")
-     *     )
-     *     query2 = (
-     *         ESQL.from_("system_metrics")
-     *         .lookup_join("host_inventory").on("host.name")
-     *         .lookup_join("ownerships").on("host.name")
-     *     )
-     *     query3 = (
-     *         ESQL.from_("app_logs")
-     *         .lookup_join("service_owners").on("service_id")
-     *     )
-     *     query4 = (
-     *         ESQL.from_("employees")
-     *         .eval(language_code="languages")
-     *         .where("emp_no >= 10091 AND emp_no < 10094")
-     *         .lookup_join("languages_lookup").on("language_code")
-     *     )
+     *     $query1 = Query::from("firewall_logs")
+     *         ->lookupJoin("threat_list")->on("source.IP")
+     *         ->where("threat_level IS NOT NULL");
+     *     $query2 = Query::from("system_metrics")
+     *         ->lookupJoin("host_inventory")->on("host.name")
+     *         ->lookupJoin("ownerships")->on("host.name");
+     *     $query3 = Query::from("app_logs")
+     *         ->lookupJoin("service_owners")->on("service_id");
+     *     $query4 = Query::from("employees")
+     *         ->eval(language_code: "languages")
+     *         ->where("emp_no >= 10091", "emp_no < 10094")
+     *         ->lookupJoin("languages_lookup")->on("language_code");
      */
     public function lookupJoin(string $lookup_index): LookupJoinCommand
     {
@@ -407,7 +413,8 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query = ESQL.row(a=[1, 2, 3], b="b", j=["a", "b"]).mv_expand("a")
+     *     $query = Query::row(a: [1, 2, 3], b: "b", j: ["a", "b"])
+     *         ->mvExpand("a");
      */
     public function mvExpand(string $column): MvExpandCommand
     {
@@ -426,11 +433,9 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "still_hired")
-     *         .rename(still_hired="employed")
-     *     )
+     *     $query = Query::from("employees")
+     *         ->keep("first_name", "last_name", "still_hired")
+     *         ->rename(still_hired: "employed");
      */
     public function rename(string ...$columns): RenameCommand
     {
@@ -452,36 +457,30 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("books").metadata("_score")
-     *         .where('MATCH(description, "hobbit")')
-     *         .sort("_score DESC")
-     *         .limit(100)
-     *         .rerank("hobbit").on("description").with_(inference_id="test_reranker")
-     *         .limit(3)
-     *         .keep("title", "_score")
-     *     )
-     *     query2 = (
-     *         ESQL.from_("books").metadata("_score")
-     *         .where('MATCH(description, "hobbit") OR MATCH(author, "Tolkien")')
-     *         .sort("_score DESC")
-     *         .limit(100)
-     *         .rerank(rerank_score="hobbit").on("description", "author").with_(inference_id="test_reranker")
-     *         .sort("rerank_score")
-     *         .limit(3)
-     *         .keep("title", "_score", "rerank_score")
-     *     )
-     *     query3 = (
-     *         ESQL.from_("books").metadata("_score")
-     *         .where('MATCH(description, "hobbit") OR MATCH(author, "Tolkien")')
-     *         .sort("_score DESC")
-     *         .limit(100)
-     *         .rerank(rerank_score="hobbit").on("description", "author").with_(inference_id="test_reranker")
-     *         .eval(original_score="_score", _score="rerank_score + original_score")
-     *         .sort("_score")
-     *         .limit(3)
-     *         .keep("title", "original_score", "rerank_score", "_score")
-     *     )
+     *     $query1 = Query::from("books")->metadata("_score")
+     *         ->where("MATCH(description, \"hobbit\")")
+     *         ->sort("_score DESC")
+     *         ->limit(100)
+     *         ->rerank("hobbit")->on("description")->with("test_reranker")
+     *         ->limit(3)
+     *         ->keep("title", "_score");
+     *     $query2 = Query::from("books")->metadata("_score")
+     *         ->where("MATCH(description, \"hobbit\") OR MATCH(author, \"Tolkien\")")
+     *         ->sort("_score DESC")
+     *         ->limit(100)
+     *         ->rerank(rerank_score: "hobbit")->on("description", "author")->with("test_reranker")
+     *         ->sort("rerank_score")
+     *         ->limit(3)
+     *         ->keep("title", "_score", "rerank_score");
+     *     $query3 = Query::from("books")->metadata("_score")
+     *         ->where("MATCH(description, \"hobbit\") OR MATCH(author, \"Tolkien\")")
+     *         ->sort("_score DESC")
+     *         ->limit(100)
+     *         ->rerank(rerank_score: "hobbit")->on("description", "author")->with("test_reranker")
+     *         ->eval(original_score: "_score", _score: "rerank_score + original_score")
+     *         ->sort("_score")
+     *         ->limit(3)
+     *         ->keep("title", "original_score", "rerank_score", "_score");
      */
     public function rerank(string ...$query): RerankCommand
     {
@@ -497,7 +496,9 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query = ESQL.from_("employees").keep("emp_no").sample(0.05)
+     *     $query = Query::from("employees")
+     *         ->keep("emp_no")
+     *         ->sample(0.05);
      */
     public function sample(float $probability): SampleCommand
     {
@@ -511,26 +512,18 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "height")
-     *         .sort("height")
-     *     )
-     *     query2 =  (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "height")
-     *         .sort("height DESC")
-     *     )
-     *     query3 = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "height")
-     *         .sort("height DESC", "first_name ASC")
-     *     )
-     *     query4 = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "height")
-     *         .sort("first_name ASC NULLS FIRST")
-     *     )
+     *     $query1 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->sort("height");
+     *     $query2 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->sort("height DESC");
+     *     $query3 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->sort("height DESC", "first_name ASC");
+     *     $query4 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->sort("first_name ASC NULLS FIRST");
      */
     public function sort(string ...$columns): SortCommand
     {
@@ -549,53 +542,38 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("employees")
-     *         .stats(count=functions.count("emp_no")).by("languages")
-     *         .sort("languages")
-     *     )
-     *     query2 = (
-     *         ESQL.from_("employees")
-     *         .stats(avg_lang=functions.avg("languages"))
-     *     )
-     *     query3 = (
-     *         ESQL.from_("employees")
-     *         .stats(
-     *             avg_lang=functions.avg("languages"),
-     *             max_lang=functions.max("languages")
-     *         )
-     *     )
-     *     query4 = (
-     *         ESQL.from_("employees")
-     *         .stats(
-     *             avg50s=functions.avg("salary").where('birth_date < "1960-01-01"'),
-     *             avg60s=functions.avg("salary").where('birth_date >= "1960-01-01"'),
-     *         ).by("gender")
-     *         .sort("gender")
-     *     )
-     *     query5 = (
-     *         ESQL.from_("employees")
-     *         .eval(Ks="salary / 1000")
-     *         .stats(
-     *             under_40K=functions.count("*").where("Ks < 40"),
-     *             inbetween=functions.count("*").where("40 <= Ks AND Ks < 60"),
-     *             over_60K=functions.count("*").where("60 <= Ks"),
-     *             total=f.count("*")
-     *         )
-     *     )
-     *     query6 = (
-     *         ESQL.row(i=1, a=["a", "b"])
-     *         .stats(functions.min("i")).by("a")
-     *         .sort("a ASC")
-     *     )
-     *     query7 = (
-     *         ESQL.from_("employees")
-     *         .eval(hired=functions.date_format("hire_date", "yyyy"))
-     *         .stats(avg_salary=functions.avg("salary")).by("hired", "languages.long")
-     *         .eval(avg_salary=functions.round("avg_salary"))
-     *         .sort("hired", "languages.long")
-     * 
-     *     )
+     *     $query1 = Query::from("employees")
+     *         ->stats(count: "COUNT(emp_no)")->by("languages")
+     *         ->sort("languages");
+     *     $query2 = Query::from("employees")
+     *         ->stats(avg_lang: "AVG(languages)");
+     *     $query3 = Query::from("employees")
+     *         ->stats(
+     *             avg_lang: "AVG(languages)",
+     *             max_lang: "MAX(languages)",
+     *         );
+     *     $query4 = Query::from("employees")
+     *         ->stats(
+     *             avg50s: "AVG(salary) WHERE birth_date < \"1960-01-01\"",
+     *             avg60s: "AVG(salary) WHERE birth_date >= \"1960-01-01\""
+     *         )->by("gender")
+     *         ->sort("gender");
+     *     $query5 = Query::from("employees")
+     *         ->eval(Ks: "salary / 1000")
+     *         ->stats(
+     *             under_40K: "COUNT(*) WHERE Ks < 40",
+     *             inbetween: "COUNT(*) WHERE (40 <= Ks) AND (Ks < 60)",
+     *             over_60K: "COUNT(*) WHERE 60 <= Ks",
+     *             total: "COUNT(*)",
+     *         );
+     *     $query6 = Query::row(i: 1, a: ["a", "b"])
+     *         ->stats("MIN(i)")->by("a")
+     *         ->sort("a ASC");
+     *     $query7 = Query::from("employees")
+     *         ->eval(hired: "DATE_FORMAT(\"yyyy\", hire_date)")
+     *         ->stats(avg_salary: "AVG(salary)")->by("hired", "languages.long")
+     *         ->eval(avg_salary: "ROUND(avg_salary)")
+     *         ->sort("hired", "languages.long");
      */
     public function stats(string ...$expressions): StatsCommand
     {
@@ -613,20 +591,14 @@ abstract class EsqlBase {
      * 
      * Examples:
      * 
-     *     query1 = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "still_hired")
-     *         .where("still_hired == true")
-     *     )
-     *     query2 = (
-     *         ESQL.from_("sample_data")
-     *         .where("@timestamp > NOW() - 1 hour")
-     *     )
-     *     query3 = (
-     *         ESQL.from_("employees")
-     *         .keep("first_name", "last_name", "height")
-     *         .where("LENGTH(first_name) < 4")
-     *     )
+     *     $query1 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "still_hired")
+     *         ->where("still_hired == true");
+     *     $query2 = Query::from("sample_data")
+     *         ->where("@timestamp > NOW() - 1 hour");
+     *     $query3 = Query::from("employees")
+     *         ->keep("first_name", "last_name", "height")
+     *         ->where("LENGTH(first_name) < 4");
      */
     public function where(string ...$expressions): WhereCommand
     {

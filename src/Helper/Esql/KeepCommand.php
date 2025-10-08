@@ -32,7 +32,7 @@ class KeepCommand extends EsqlBase {
     protected function renderInternal(): string
     {
         return "KEEP " . implode(
-            ", ", array_map(array($this, "format_id"), $this->columns)
+            ", ", array_map(array($this, "formatId"), $this->columns)
         );
     }
 }

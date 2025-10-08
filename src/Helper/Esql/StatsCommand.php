@@ -28,7 +28,7 @@ class StatsCommand extends EsqlBase {
     public function __construct(EsqlBase $parent, array $expressions)
     {
         parent::__construct($parent);
-        if ($this->is_named_argument_list($expressions)) {
+        if ($this->isNamedArgumentList($expressions)) {
             $this->named_expressions = $expressions;
         }
         else {
@@ -54,21 +54,18 @@ class StatsCommand extends EsqlBase {
     protected function renderInternal(): string
     {
         if (sizeof($this->named_expressions)) {
-            $items = array_map(
-                function(string $key): string {
-                    return $this->format_id($key) . " = " .
-                        $this->format_id($this->named_expressions[$key]);
-                },
-                array_keys($this->named_expressions)
-            );
+            $expr = $this->formatKeyValues($this->named_expressions, implodeText: ",\n        ");
         }
         else {
-            $items = array_map(fn($value): string => $this->format_id($value), $this->expressions);
+            $expr = implode(
+                ", ",
+                array_map(fn($value): string => $this->formatId($value), $this->expressions)
+            );
         }
         $by = "";
         if (sizeof($this->grouping_expressions)) {
             $by = "\n        BY " . implode(", ", $this->grouping_expressions);
         }
-        return "STATS " . implode(",\n        ", $items) . $by;
+        return "STATS " . $expr . $by;
     }
 }

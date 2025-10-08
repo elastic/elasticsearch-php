@@ -63,7 +63,7 @@ class EnrichCommand extends EsqlBase {
      */
     public function with(string ...$fields): EnrichCommand
     {
-        if ($this->is_named_argument_list($fields)) {
+        if ($this->isNamedArgumentList($fields)) {
             $this->named_fields = $fields;
         }
         else {
@@ -74,23 +74,17 @@ class EnrichCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        $on = ($this->match_field != "") ? " ON " . $this->format_id($this->match_field) : "";
+        $on = ($this->match_field != "") ? " ON " . $this->formatId($this->match_field) : "";
         $with = "";
         $items = [];
         if (sizeof($this->named_fields)) {
-            $items = array_map(
-                function(string $key): string {
-                    return $this->format_id($key) . " = " .
-                        $this->format_id($this->named_fields[$key]);
-                },
-                array_keys($this->named_fields)
-            );
+            $with = " WITH " . $this->formatKeyValues($this->named_fields);
         }
         else if (sizeof($this->fields)) {
-            $items = array_map(fn($value): string => $this->format_id($value), $this->fields);
-        }
-        if (sizeof($items)) {
-            $with = " WITH " . implode(", ", $items);
+            $with = implode(
+                ", ",
+                array_map(fn($value): string => $this->formatId($value), $this->fields)
+            );
         }
         return "ENRICH " . $this->policy . $on . $with;
     }

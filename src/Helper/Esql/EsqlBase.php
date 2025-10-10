@@ -299,6 +299,22 @@ abstract class EsqlBase {
     }
 
     /**
+     * The `FUSE` processing command merges rows from multiple result sets and assigns
+     * new relevance scores.
+     *
+     * @param string $method Defaults to `RRF`. Can be one of `RRF` (for Reciprocal Rank Fusion)
+     *                       or `LINEAR` (for linear combination of scores). Designates which
+     *                       method to use to assign new relevance scores.
+     *
+     * Examples:
+     *
+     */
+    public function fuse(string $method = ""): FuseCommand
+    {
+        return new FuseCommand($this, $method);
+    }
+
+    /**
      * `GROK` enables you to extract structured data out of a string.
      * 
      * @param string $input The column that contains the string you want to
@@ -332,6 +348,25 @@ abstract class EsqlBase {
     public function grok(string $input, string $pattern): GrokCommand
     {
         return new GrokCommand($this, $input, $pattern);
+    }
+
+    /**
+     * The `INLINE STATS` processing command groups rows according to a common value
+     * and calculates one or more aggregated values over the grouped rows.
+     *
+     * The command is identical to ``STATS`` except that it preserves all the columns from
+     * the input table.
+     *
+     * @param string ...$expressions A list of boolean expressions, given as
+     *                               positional or named arguments. These
+     *                               expressions are combined with an `AND`
+     *                               logical operator.
+     *
+     * Examples:
+     */
+    public function inlineStats(string ...$expressions): InlineStatsCommand
+    {
+        return new InlineStatsCommand($this, $expressions);
     }
 
     /**
@@ -537,8 +572,6 @@ abstract class EsqlBase {
      * @param string ...$expressions A list of expressions, given as positional
      *                               or named arguments. The argument names are
      *                               used for the returned aggregated values.
-     * 
-     * Note that only one of `expressions` and `named_expressions` must be provided.
      * 
      * Examples:
      * 

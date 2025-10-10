@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Helper\Esql;
 
 class FromCommand extends EsqlBase {
+    const name = "FROM";
     private array $indices;
     private array $metadata_fields = [];
 
@@ -24,7 +25,7 @@ class FromCommand extends EsqlBase {
     }
 
     /**
-     * Continuation of the `FROM` source command.
+     * Continuation of the `FROM` or `TS` source commands.
      *
      * *param string ...$metadata_fields Metadata fields to retrieve, given as
      *                                   positional arguments.
@@ -37,7 +38,7 @@ class FromCommand extends EsqlBase {
 
     protected function renderInternal(): string
     {
-        $s = "FROM " . implode(", ", $this->indices);
+        $s = $this::name . " " . implode(", ", $this->indices);
         if (sizeof($this->metadata_fields)) {
             $s .= " METADATA " . implode(
                 ", ", array_map(array($this, "formatId"), $this->metadata_fields)

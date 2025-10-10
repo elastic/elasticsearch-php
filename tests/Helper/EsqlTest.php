@@ -77,6 +77,22 @@ class EsqlTest extends TestCase
         );
     }
 
+    public function testTS(): void
+    {
+        $query = Query::ts("metrics")
+            ->where("@timestamp >= now() - 1 day")
+            ->stats("SUM(AVG_OVER_TIME(memory_usage))")->by("host", "TBUCKET(1 hour)");
+        $this->assertEquals(<<<ESQL
+            TS metrics
+            | WHERE @timestamp >= now() - 1 day
+            | STATS SUM(AVG_OVER_TIME(memory_usage))
+                    BY host, TBUCKET(1 hour)\n
+            ESQL,
+            $query->__toString()
+        );
+
+    }
+
     public function testChangePoint(): void
     {
         $query = Query::row(key: range(1, 25))
@@ -255,6 +271,66 @@ class EsqlTest extends TestCase
         );
     }
 
+    public function testFuse(): void
+    {
+        $query = Query::from("books")->metadata("_id", "_index", "_score")
+            ->fork(
+                Query::branch()->where('title:"Shakespeare"')->sort("_score DESC"),
+                Query::branch()->where('semantic_title:"Shakespeare"')->sort("_score DESC")
+            )
+            ->fuse();
+        $this->assertEquals(<<<ESQL
+            FROM books METADATA _id, _index, _score
+            | FORK ( WHERE title:"Shakespeare" | SORT _score DESC )
+                   ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
+            | FUSE\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("books")->metadata("_id", "_index", "_score")
+            ->fork(
+                Query::branch()->where('title:"Shakespeare"')->sort("_score DESC"),
+                Query::branch()->where('semantic_title:"Shakespeare"')->sort("_score DESC")
+            )
+            ->fuse("linear");
+        $this->assertEquals(<<<ESQL
+            FROM books METADATA _id, _index, _score
+            | FORK ( WHERE title:"Shakespeare" | SORT _score DESC )
+                   ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
+            | FUSE LINEAR\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("books")->metadata("_id", "_index", "_score")
+            ->fork(
+                Query::branch()->where('title:"Shakespeare"')->sort("_score DESC"),
+                Query::branch()->where('semantic_title:"Shakespeare"')->sort("_score DESC")
+            )
+            ->fuse("linear")->by("title", "description");
+        $this->assertEquals(<<<ESQL
+            FROM books METADATA _id, _index, _score
+            | FORK ( WHERE title:"Shakespeare" | SORT _score DESC )
+                   ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
+            | FUSE LINEAR BY title BY description\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("books")->metadata("_id", "_index", "_score")
+            ->fork(
+                Query::branch()->where('title:"Shakespeare"')->sort("_score DESC"),
+                Query::branch()->where('semantic_title:"Shakespeare"')->sort("_score DESC")
+            )
+            ->fuse("linear")->with(normalizer: "minmax");
+        $this->assertEquals(<<<ESQL
+            FROM books METADATA _id, _index, _score
+            | FORK ( WHERE title:"Shakespeare" | SORT _score DESC )
+                   ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
+            | FUSE LINEAR WITH {"normalizer":"minmax"}\n
+            ESQL,
+            $query->__toString()
+        );
+    }
+
     public function testGrok(): void
     {
         $query = Query::row(a: "2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
@@ -292,6 +368,68 @@ class EsqlTest extends TestCase
             FROM addresses
             | KEEP city.name, zip_code
             | GROK zip_code "%{WORD:zip_parts} %{WORD:zip_parts}"\n
+            ESQL,
+            $query->__toString()
+        );
+    }
+
+    public function testInlineStats(): void
+    {
+        $query = Query::from("employees")
+            ->keep("emp_no", "languages", "salary")
+            ->inlineStats(max_salary: "MAX(salary)")->by("languages");
+        $this->assertEquals(<<<ESQL
+            FROM employees
+            | KEEP emp_no, languages, salary
+            | INLINE STATS max_salary = MAX(salary)
+                           BY languages\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("employees")
+            ->keep("emp_no", "languages", "salary")
+            ->inlineStats(max_salary: "MAX(salary)");
+        $this->assertEquals(<<<ESQL
+            FROM employees
+            | KEEP emp_no, languages, salary
+            | INLINE STATS max_salary = MAX(salary)\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("employees")
+            ->where("still_hired")
+            ->keep("emp_no", "languages", "salary", "hire_date")
+            ->eval(tenure: "DATE_DIFF(\"year\", hire_date, \"2025-09-18T00:00:00\")")
+            ->drop("hire_date")
+            ->inlineStats(
+                avg_salary: "AVG(salary)",
+                count: "COUNT(*)",
+            )->by("languages", "tenure");
+        $this->assertEquals(<<<ESQL
+            FROM employees
+            | WHERE still_hired
+            | KEEP emp_no, languages, salary, hire_date
+            | EVAL tenure = DATE_DIFF("year", hire_date, "2025-09-18T00:00:00")
+            | DROP hire_date
+            | INLINE STATS avg_salary = AVG(salary),
+                           count = COUNT(*)
+                           BY languages, tenure\n
+            ESQL,
+            $query->__toString()
+        );
+        $query = Query::from("employees")
+            ->keep("emp_no", "salary")
+            ->inlineStats(
+                avg_lt_50: "ROUND(AVG(salary)) WHERE salary < 50000",
+                avg_lt_60: "ROUND(AVG(salary)) WHERE salary >= 50000 AND salary < 60000",
+                avg_gt_60: "ROUND(AVG(salary)) WHERE salary >= 60000",
+            );
+        $this->assertEquals(<<<ESQL
+            FROM employees
+            | KEEP emp_no, salary
+            | INLINE STATS avg_lt_50 = ROUND(AVG(salary)) WHERE salary < 50000,
+                           avg_lt_60 = ROUND(AVG(salary)) WHERE salary >= 50000 AND salary < 60000,
+                           avg_gt_60 = ROUND(AVG(salary)) WHERE salary >= 60000\n
             ESQL,
             $query->__toString()
         );

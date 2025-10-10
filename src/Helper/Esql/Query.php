@@ -16,19 +16,19 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 
 abstract class Query {
     /**
-    The `FROM` source command returns a table with data from a data stream,
-    index, or alias.
+     * The `FROM` source command returns a table with data from a data stream,
+     * index, or alias.
      *
-    @param string $indices A list of indices, data streams or aliases. Supports 
-                           wildcards and date math.
+     * @param string $indices A list of indices, data streams or aliases. Supports 
+     *                        wildcards and date math.
      *
-    Examples:
+     * Examples:
      *
-        $query1 = Query::from("employees");
-        $query2 = Query::from("<logs-{now/d}>");
-        $query3 = Query::from("employees-00001", "other-employees-*");
-        $query4 = Query::from("cluster_one:employees-00001", "cluster_two:other-employees-*");
-        $query5 = Query::from("employees")->metadata("_id");
+     *     $query1 = Query::from("employees");
+     *     $query2 = Query::from("<logs-{now/d}>");
+     *     $query3 = Query::from("employees-00001", "other-employees-*");
+     *     $query4 = Query::from("cluster_one:employees-00001", "cluster_two:other-employees-*");
+     *     $query5 = Query::from("employees")->metadata("_id");
      */
     public static function from(string ...$indices): FromCommand
     {
@@ -36,16 +36,16 @@ abstract class Query {
     }
 
     /**
-    The ``ROW`` source command produces a row with one or more columns with
-    values that you specify. This can be useful for testing.
+     * The ``ROW`` source command produces a row with one or more columns with
+     * values that you specify. This can be useful for testing.
      *
-    @param string ...$params the column values to produce, given as keyword
-                             arguments.
+     * @param string ...$params the column values to produce, given as keyword
+     *                          arguments.
      *
-    Examples:
+     * Examples:
      *
-        $query1 = Query::row(a: 1, b: "two", c: null);
-        $query2 = Query::row(a: [2, 1]);
+     *     $query1 = Query::row(a: 1, b: "two", c: null);
+     *     $query2 = Query::row(a: [2, 1]);
      */
     public static function row(mixed ...$params): RowCommand
     {
@@ -53,14 +53,14 @@ abstract class Query {
     }
 
     /**
-    The `SHOW` source command returns information about the deployment and
-    its capabilities.
+     * The `SHOW` source command returns information about the deployment and
+     * its capabilities.
      *
-    @param string $item Can only be `INFO`.
+     * @param string $item Can only be `INFO`.
      *
-    Examples:
+     * Examples:
      *
-        $query = Query::show("INFO");
+     *     $query = Query::show("INFO");
      */
     public static function show(string $item): ShowCommand
     {
@@ -68,15 +68,32 @@ abstract class Query {
     }
 
     /**
-    This method can only be used inside a `FORK` command to create each branch.
+     * The `TS` source command is similar to ``FROM``, but for time series indices.
      *
-    Examples:
+     * @param string $indices A list of indices, data streams or aliases. Supports
+     * wildcards and date math.
      *
-        $query = Query::from("employees")
-            ->fork(
-                Query::branch()->where("emp_no == 10001"),
-                Query::branch()->where("emp_no == 10002"),
-            )
+     * Examples:
+     *
+     *     $query = Query::ts("metrics")
+     *         ->where("@timestamp >= now() - 1 day")
+     *         ->stats("SUM(AVG_OVER_TIME(memory_usage))").by("host", "TBUCKET(1 hour)")
+     */
+    public static function ts(string ...$indices): TSCommand
+    {
+        return new TSCommand($indices);
+    }
+
+    /**
+     * This method can only be used inside a `FORK` command to create each branch.
+     *
+     * Examples:
+     *
+     *     $query = Query::from("employees")
+     *         ->fork(
+     *             Query::branch()->where("emp_no == 10001"),
+     *             Query::branch()->where("emp_no == 10002"),
+     *         )
      */
     public static function branch(): Branch
     {

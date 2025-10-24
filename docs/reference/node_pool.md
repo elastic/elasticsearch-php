@@ -47,6 +47,10 @@ $transport = TransportBuilder::create()
 
 ### Using a custom NodePool, Selector and Resurrect [_using_a_custom_nodepool_selector_and_resurrect]
 
+::::{note}
+The Elasticsearch PHP client can be used to connect to on-premises, Elastic Cloud, or Serverless deployments. When using Elastic Cloud or Serverless, there is no need to configure a custom NodePool — the default one is sufficient.
+::::
+
 If you want you can implement your custom node pool algorithm. We provided a [NodePoolInterface](https://github.com/elastic/elastic-transport-php/blob/master/src/NodePool/NodePoolInterface.php)
 
 You can also customize the Selector and the Resurrect components of the node pool. You can use the following interfaces for the implementation:

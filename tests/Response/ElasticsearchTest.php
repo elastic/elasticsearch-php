@@ -10,7 +10,7 @@
  * Elasticsearch B.V licenses this file to you under the MIT License.
  * See the LICENSE file in the project root for more information.
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Elastic\Elasticsearch\Tests\Response;
 
@@ -26,6 +26,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
+
 class ElasticsearchTest extends TestCase
 {
     protected Psr17Factory $psr17Factory;
@@ -38,7 +39,7 @@ class ElasticsearchTest extends TestCase
     {
         $this->psr17Factory = new Psr17Factory();
         $this->elasticsearch = new Elasticsearch();
-        
+
         $this->response200 = $this->psr17Factory->createResponse(200)
             ->withHeader('X-Elastic-Product', 'Elasticsearch')
             ->withHeader('Content-Type', 'application/json');
@@ -86,11 +87,8 @@ class ElasticsearchTest extends TestCase
 
     public function testAsBoolIsFalseWith400()
     {
-        try {
-            $this->elasticsearch->setResponse($this->response400);
-        } catch (ClientResponseException $e) {
-            $this->assertFalse($this->elasticsearch->asBool());
-        }
+        $this->elasticsearch->setResponse($this->response400, false);
+        $this->assertFalse($this->elasticsearch->asBool());
     }
 
     /**
@@ -141,9 +139,9 @@ class ElasticsearchTest extends TestCase
         $this->elasticsearch->setResponse($this->response400, false);
     }
 
-     /**
-     * @doesNotPerformAssertions
-     */
+    /**
+    * @doesNotPerformAssertions
+    */
     public function testSetResponseWith500AndThrowFalseDoesNotThrowException()
     {
         $this->elasticsearch->setResponse($this->response500, false);
@@ -316,5 +314,16 @@ class ElasticsearchTest extends TestCase
     {
         $this->elasticsearch->setResponse($this->response200);
         $this->assertFalse($this->elasticsearch->isServerless());
+    }
+
+    public function testCacheIsClearedOnSetResponse()
+    {
+        $firstBody = $this->psr17Factory->createStream(json_encode(['foo' => 'bar']));
+        $this->elasticsearch->setResponse($this->response200->withBody($firstBody));
+        $this->assertSame('bar', $this->elasticsearch->asArray()['foo']);
+
+        $secondBody = $this->psr17Factory->createStream(json_encode(['foo' => 'baz']));
+        $this->elasticsearch->setResponse($this->response200->withBody($secondBody));
+        $this->assertSame('baz', $this->elasticsearch->asArray()['foo']);
     }
 }

@@ -53,7 +53,7 @@ class ElasticsearchTest extends TestCase
             ->withHeader('Content-Type', 'application/json');
     }
 
-    public function testAsArray()
+    public function testAsArray(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -61,7 +61,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals($array, $this->elasticsearch->asArray());
     }
 
-    public function testAsString()
+    public function testAsString(): void
     {
         $json = json_encode(['foo' => 'bar']);
         $body = $this->psr17Factory->createStream($json);
@@ -69,7 +69,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals($json, $this->elasticsearch->asString());
     }
 
-    public function testAsObject()
+    public function testAsObject(): void
     {
         $json = json_encode(['foo' => 'bar']);
         $body = $this->psr17Factory->createStream($json);
@@ -79,13 +79,13 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals('bar', $obj->foo);
     }
 
-    public function testAsBoolIsTrueWith200()
+    public function testAsBoolIsTrueWith200(): void
     {
         $this->elasticsearch->setResponse($this->response200);
         $this->assertTrue($this->elasticsearch->asBool());
     }
 
-    public function testAsBoolIsFalseWith400()
+    public function testAsBoolIsFalseWith400(): void
     {
         $this->elasticsearch->setResponse($this->response400, false);
         $this->assertFalse($this->elasticsearch->asBool());
@@ -94,7 +94,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::__toString()
      */
-    public function testSerializeAsString()
+    public function testSerializeAsString(): void
     {
         $json = json_encode(['foo' => 'bar']);
         $body = $this->psr17Factory->createStream($json);
@@ -105,12 +105,12 @@ class ElasticsearchTest extends TestCase
     /**
      * @doesNotPerformAssertions
      */
-    public function testSetResponse()
+    public function testSetResponse(): void
     {
         $this->elasticsearch->setResponse($this->response200);
     }
 
-    public function testSetResponseFromUnknownSourceThrowProductCheckException()
+    public function testSetResponseFromUnknownSourceThrowProductCheckException(): void
     {
         $response = $this->psr17Factory->createResponse(200)
             ->withHeader('Content-Type', 'application/json');
@@ -119,13 +119,13 @@ class ElasticsearchTest extends TestCase
         $this->elasticsearch->setResponse($response);
     }
 
-    public function testSetResponseWith400ThrowException()
+    public function testSetResponseWith400ThrowException(): void
     {
         $this->expectException(ClientResponseException::class);
         $this->elasticsearch->setResponse($this->response400);
     }
 
-    public function testSetResponseWith500ThrowException()
+    public function testSetResponseWith500ThrowException(): void
     {
         $this->expectException(ServerResponseException::class);
         $this->elasticsearch->setResponse($this->response500);
@@ -134,7 +134,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @doesNotPerformAssertions
      */
-    public function testSetResponseWith400AndThrowFalseDoesNotThrowException()
+    public function testSetResponseWith400AndThrowFalseDoesNotThrowException(): void
     {
         $this->elasticsearch->setResponse($this->response400, false);
     }
@@ -142,7 +142,7 @@ class ElasticsearchTest extends TestCase
     /**
     * @doesNotPerformAssertions
     */
-    public function testSetResponseWith500AndThrowFalseDoesNotThrowException()
+    public function testSetResponseWith500AndThrowFalseDoesNotThrowException(): void
     {
         $this->elasticsearch->setResponse($this->response500, false);
     }
@@ -150,7 +150,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::offsetGet
      */
-    public function testAccessAsArray()
+    public function testAccessAsArray(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -162,7 +162,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::offsetExists
      */
-    public function testIsSetArrayAccess()
+    public function testIsSetArrayAccess(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -174,7 +174,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::offsetSet
      */
-    public function testSetArrayAccessThrowException()
+    public function testSetArrayAccessThrowException(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -187,7 +187,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::offsetSet
      */
-    public function testUnsetArrayAccessThrowException()
+    public function testUnsetArrayAccessThrowException(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -200,7 +200,7 @@ class ElasticsearchTest extends TestCase
     /**
      * @covers Elastic\Elasticsearch\Response\Elasticsearch::__get()
      */
-    public function testAccessAsObject()
+    public function testAccessAsObject(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -209,7 +209,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals($array['foo'], $this->elasticsearch->foo);
     }
 
-    public function testWithStatusForPsr7Version1And2Compatibility()
+    public function testWithStatusForPsr7Version1And2Compatibility(): void
     {
         $this->elasticsearch->setResponse($this->response200);
 
@@ -217,7 +217,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals(400, $this->elasticsearch->getStatusCode());
     }
 
-    public function testMapToStdClassAsDefault()
+    public function testMapToStdClassAsDefault(): void
     {
         $array = [
             'columns' => [
@@ -242,7 +242,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals(DateTime::class, get_class($iterator[1]->b));
     }
 
-    public function testMapToStdClass()
+    public function testMapToStdClass(): void
     {
         $array = [
             'columns' => [
@@ -263,7 +263,7 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals(stdClass::class, get_class($iterator[1]));
     }
 
-    public function testMapToWithoutEsqlResponseWillThrowException()
+    public function testMapToWithoutEsqlResponseWillThrowException(): void
     {
         $array = ['foo' => 'bar'];
         $body = $this->psr17Factory->createStream(json_encode($array));
@@ -273,7 +273,7 @@ class ElasticsearchTest extends TestCase
         $iterator = $this->elasticsearch->mapTo();
     }
 
-    public function testMapToCustomClass()
+    public function testMapToCustomClass(): void
     {
         $array = [
             'columns' => [
@@ -297,12 +297,12 @@ class ElasticsearchTest extends TestCase
         $this->assertEquals('', $iterator[0]->c);
     }
 
-    public function testIsServerlessFalseByDefault()
+    public function testIsServerlessFalseByDefault(): void
     {
         $this->assertFalse($this->elasticsearch->isServerless());
     }
 
-    public function testIsServerlessTrueWithServerlessResponse()
+    public function testIsServerlessTrueWithServerlessResponse(): void
     {
         $this->elasticsearch->setResponse(
             $this->response200->withHeader(Client::API_VERSION_HEADER, Client::API_VERSION)
@@ -310,13 +310,13 @@ class ElasticsearchTest extends TestCase
         $this->assertTrue($this->elasticsearch->isServerless());
     }
 
-    public function testIsServerlessFalseIfNotServerlessResponse()
+    public function testIsServerlessFalseIfNotServerlessResponse(): void
     {
         $this->elasticsearch->setResponse($this->response200);
         $this->assertFalse($this->elasticsearch->isServerless());
     }
 
-    public function testCacheIsClearedOnSetResponse()
+    public function testCacheIsClearedOnSetResponse(): void
     {
         $firstBody = $this->psr17Factory->createStream(json_encode(['foo' => 'bar']));
         $this->elasticsearch->setResponse($this->response200->withBody($firstBody));

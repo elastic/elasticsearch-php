@@ -25,31 +25,31 @@ class EsqlTest extends TestCase
         $query = Query::from("employees");
         $this->assertEquals(
             "FROM employees\n",
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::from("<logs-{now/d}>");
         $this->assertEquals(
             "FROM <logs-{now/d}>\n",
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::from("employees-00001", "other-employees-*");
         $this->assertEquals(
             "FROM employees-00001, other-employees-*\n",
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::from("cluster_one:employees-00001", "cluster_two:other-employees-*");
         $this->assertEquals(
             "FROM cluster_one:employees-00001, cluster_two:other-employees-*\n",
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::from("employees")->metadata("_id");
         $this->assertEquals(
             "FROM employees METADATA _id\n",
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -58,13 +58,13 @@ class EsqlTest extends TestCase
         $query = Query::row(a: 1, b: "two", c: null);
         $this->assertEquals(
             "ROW a = 1, b = \"two\", c = null\n",
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::row(a: [2, 1]);
         $this->assertEquals(
             "ROW a = [2,1]\n",
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -73,7 +73,7 @@ class EsqlTest extends TestCase
         $query = Query::show("INFO");
         $this->assertEquals(
             "SHOW INFO\n",
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -88,7 +88,7 @@ class EsqlTest extends TestCase
             | STATS SUM(AVG_OVER_TIME(memory_usage))
                     BY host, TBUCKET(1 hour)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
 
     }
@@ -108,7 +108,7 @@ class EsqlTest extends TestCase
             | CHANGE_POINT value ON key
             | WHERE type IS NOT NULL\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -122,7 +122,7 @@ class EsqlTest extends TestCase
             | COMPLETION question WITH {"inference_id":"test_completion_model"}
             | KEEP question, completion\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::row(question: "What is Elasticsearch?")
@@ -133,7 +133,7 @@ class EsqlTest extends TestCase
             | COMPLETION answer = question WITH {"inference_id":"test_completion_model"}
             | KEEP question, answer\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
 
         $query = Query::from("movies")
@@ -161,7 +161,7 @@ class EsqlTest extends TestCase
             | COMPLETION summary = prompt WITH {"inference_id":"test_completion_model"}
             | KEEP title, summary, rating\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -175,16 +175,16 @@ class EsqlTest extends TestCase
             | DISSECT a "%{date} - %{msg} - %{ip}"
             | KEEP date, msg, ip\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
     public function testDrop(): void
     {
         $query = Query::from("employees")->drop("height");
-        $this->assertEquals("FROM employees\n| DROP height\n", $query->__toString());
+        $this->assertEquals("FROM employees\n| DROP height\n", (string) $query);
         $query = Query::from("employees")->drop("height*");
-        $this->assertEquals("FROM employees\n| DROP height*\n", $query->__toString());
+        $this->assertEquals("FROM employees\n| DROP height*\n", (string) $query);
     }
 
     public function testEnrich(): void
@@ -194,14 +194,14 @@ class EsqlTest extends TestCase
             ROW language_code = "1"
             | ENRICH languages_policy\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::row(language_code: "1")->enrich("languages_policy")->on("a");
         $this->assertEquals(<<<ESQL
             ROW language_code = "1"
             | ENRICH languages_policy ON a\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::row(language_code: "1")
             ->enrich("languages_policy")->on("a")->with(name: "language_name");
@@ -209,7 +209,7 @@ class EsqlTest extends TestCase
             ROW language_code = "1"
             | ENRICH languages_policy ON a WITH name = language_name\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -225,7 +225,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | EVAL height_feet = height * 3.281, height_cm = height * 100\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->sort("emp_no")
@@ -237,7 +237,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | EVAL height * 3.281\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->eval("height * 3.281")
@@ -247,7 +247,7 @@ class EsqlTest extends TestCase
             | EVAL height * 3.281
             | STATS avg_height_feet = AVG(`height * 3.281`)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -267,7 +267,7 @@ class EsqlTest extends TestCase
             | KEEP emp_no, _fork
             | SORT emp_no\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -285,7 +285,7 @@ class EsqlTest extends TestCase
                    ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
             | FUSE\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("books")->metadata("_id", "_index", "_score")
             ->fork(
@@ -299,7 +299,7 @@ class EsqlTest extends TestCase
                    ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
             | FUSE LINEAR\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("books")->metadata("_id", "_index", "_score")
             ->fork(
@@ -313,7 +313,7 @@ class EsqlTest extends TestCase
                    ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
             | FUSE LINEAR BY title BY description\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("books")->metadata("_id", "_index", "_score")
             ->fork(
@@ -327,7 +327,7 @@ class EsqlTest extends TestCase
                    ( WHERE semantic_title:"Shakespeare" | SORT _score DESC )
             | FUSE LINEAR WITH {"normalizer":"minmax"}\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -344,7 +344,7 @@ class EsqlTest extends TestCase
             | GROK a "%{TIMESTAMP_ISO8601:date} %{IP:ip} %{EMAILADDRESS:email} %{NUMBER:num}"
             | KEEP date, ip, email, num\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::row(a: "2023-01-23T12:15:00.000Z 127.0.0.1 some.email@foo.com 42")
             ->grok(
@@ -359,7 +359,7 @@ class EsqlTest extends TestCase
             | KEEP date, ip, email, num
             | EVAL date = TO_DATETIME(date)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("addresses")
             ->keep("city.name", "zip_code")
@@ -369,7 +369,7 @@ class EsqlTest extends TestCase
             | KEEP city.name, zip_code
             | GROK zip_code "%{WORD:zip_parts} %{WORD:zip_parts}"\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -384,7 +384,7 @@ class EsqlTest extends TestCase
             | INLINE STATS max_salary = MAX(salary)
                            BY languages\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("emp_no", "languages", "salary")
@@ -394,7 +394,7 @@ class EsqlTest extends TestCase
             | KEEP emp_no, languages, salary
             | INLINE STATS max_salary = MAX(salary)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->where("still_hired")
@@ -415,7 +415,7 @@ class EsqlTest extends TestCase
                            count = COUNT(*)
                            BY languages, tenure\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("emp_no", "salary")
@@ -431,7 +431,7 @@ class EsqlTest extends TestCase
                            avg_lt_60 = ROUND(AVG(salary)) WHERE salary >= 50000 AND salary < 60000,
                            avg_gt_60 = ROUND(AVG(salary)) WHERE salary >= 60000\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -443,7 +443,7 @@ class EsqlTest extends TestCase
             FROM employees
             | KEEP emp_no, first_name, last_name, height\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("h*");
@@ -451,7 +451,7 @@ class EsqlTest extends TestCase
             FROM employees
             | KEEP h*\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("h*", "first_name");
@@ -459,7 +459,7 @@ class EsqlTest extends TestCase
             FROM employees
             | KEEP h*, first_name\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -473,7 +473,7 @@ class EsqlTest extends TestCase
             | WHERE field == "value"
             | LIMIT 1000\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("index")
             ->stats("AVG(field1)")->by("field2")
@@ -484,7 +484,7 @@ class EsqlTest extends TestCase
                     BY field2
             | LIMIT 20000\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -498,7 +498,7 @@ class EsqlTest extends TestCase
             | LOOKUP JOIN threat_list ON source.IP
             | WHERE threat_level IS NOT NULL\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("system_metrics")
             ->lookupJoin("host_inventory")->on("host.name")
@@ -508,7 +508,7 @@ class EsqlTest extends TestCase
             | LOOKUP JOIN host_inventory ON host.name
             | LOOKUP JOIN ownerships ON host.name\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("app_logs")
             ->lookupJoin("service_owners")->on("service_id");
@@ -516,7 +516,7 @@ class EsqlTest extends TestCase
             FROM app_logs
             | LOOKUP JOIN service_owners ON service_id\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->eval(language_code: "languages")
@@ -528,7 +528,7 @@ class EsqlTest extends TestCase
             | WHERE emp_no >= 10091 AND emp_no < 10094
             | LOOKUP JOIN languages_lookup ON language_code\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -540,7 +540,7 @@ class EsqlTest extends TestCase
             ROW a = [1,2,3], b = "b", j = ["a","b"]
             | MV_EXPAND a\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -554,7 +554,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, still_hired
             | RENAME still_hired AS employed\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -576,7 +576,7 @@ class EsqlTest extends TestCase
             | LIMIT 3
             | KEEP title, _score\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("books")->metadata("_score")
             ->where("MATCH(description, \"hobbit\") OR MATCH(author, \"Tolkien\")")
@@ -596,7 +596,7 @@ class EsqlTest extends TestCase
             | LIMIT 3
             | KEEP title, _score, rerank_score\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("books")->metadata("_score")
             ->where("MATCH(description, \"hobbit\") OR MATCH(author, \"Tolkien\")")
@@ -618,7 +618,7 @@ class EsqlTest extends TestCase
             | LIMIT 3
             | KEEP title, original_score, rerank_score, _score\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -632,7 +632,7 @@ class EsqlTest extends TestCase
             | KEEP emp_no
             | SAMPLE 0.05\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -646,7 +646,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | SORT height\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("first_name", "last_name", "height")
@@ -656,7 +656,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | SORT height DESC\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("first_name", "last_name", "height")
@@ -666,7 +666,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | SORT height DESC, first_name ASC\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("first_name", "last_name", "height")
@@ -676,7 +676,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | SORT first_name ASC NULLS FIRST\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -691,7 +691,7 @@ class EsqlTest extends TestCase
                     BY languages
             | SORT languages\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->stats(avg_lang: "AVG(languages)");
@@ -699,7 +699,7 @@ class EsqlTest extends TestCase
             FROM employees
             | STATS avg_lang = AVG(languages)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->stats(
@@ -711,7 +711,7 @@ class EsqlTest extends TestCase
             | STATS avg_lang = AVG(languages),
                     max_lang = MAX(languages)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->stats(
@@ -726,7 +726,7 @@ class EsqlTest extends TestCase
                     BY gender
             | SORT gender\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->eval(Ks: "salary / 1000")
@@ -744,7 +744,7 @@ class EsqlTest extends TestCase
                     over_60K = COUNT(*) WHERE 60 <= Ks,
                     total = COUNT(*)\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::row(i: 1, a: ["a", "b"])
             ->stats("MIN(i)")->by("a")
@@ -755,7 +755,7 @@ class EsqlTest extends TestCase
                     BY a
             | SORT a ASC\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->eval(hired: "DATE_FORMAT(\"yyyy\", hire_date)")
@@ -770,7 +770,7 @@ class EsqlTest extends TestCase
             | EVAL avg_salary = ROUND(avg_salary)
             | SORT hired, languages.long\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 
@@ -784,7 +784,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, still_hired
             | WHERE still_hired == true\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("sample_data")
             ->where("@timestamp > NOW() - 1 hour");
@@ -792,7 +792,7 @@ class EsqlTest extends TestCase
             FROM sample_data
             | WHERE @timestamp > NOW() - 1 hour\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
         $query = Query::from("employees")
             ->keep("first_name", "last_name", "height")
@@ -802,7 +802,7 @@ class EsqlTest extends TestCase
             | KEEP first_name, last_name, height
             | WHERE LENGTH(first_name) < 4\n
             ESQL,
-            $query->__toString()
+            (string) $query
         );
     }
 }

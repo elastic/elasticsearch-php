@@ -17,7 +17,7 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 use RuntimeException;
 
 abstract class EsqlBase {
-    private ?EsqlBase $parent = null;
+    private ?EsqlBase $previous_command = null;
 
     /**
      * Formatting helper that renders an identifier using proper escaping rules.
@@ -78,15 +78,15 @@ abstract class EsqlBase {
         if (get_class($this) == "ForkCommand") {
             return true;
         }
-        if ($this->parent) {
-            return $this->parent->isForked();
+        if ($this->previous_command) {
+            return $this->previous_command->isForked();
         }
         return false;
     }
 
-    public function __construct(?EsqlBase $parent)
+    public function __construct(?EsqlBase $previous_command)
     {
-        $this->parent = $parent;
+        $this->previous_command = $previous_command;
     }
 
     /**
@@ -95,8 +95,8 @@ abstract class EsqlBase {
     public function render(): string
     {
         $query = "";
-        if ($this->parent) {
-            $query .= $this->parent->render() . "\n| ";
+        if ($this->previous_command) {
+            $query .= $this->previous_command->render() . "\n| ";
         }
         $query .= $this->renderInternal();
         return $query;

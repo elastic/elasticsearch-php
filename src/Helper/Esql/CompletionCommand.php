@@ -27,12 +27,12 @@ class CompletionCommand extends EsqlBase {
     private array $named_prompt = [];
     private string $inference_id = "";
 
-    public function __construct(EsqlBase $parent, array $prompt)
+    public function __construct(EsqlBase $previous_command, array $prompt)
     {
         if (sizeof($prompt) != 1) {
             throw new RuntimeException("Only one prompt is supported");
         }
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         if ($this->isNamedArgumentList($prompt)) {
             $this->named_prompt = $prompt;
         }

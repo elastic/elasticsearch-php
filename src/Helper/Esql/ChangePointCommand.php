@@ -26,9 +26,9 @@ class ChangePointCommand extends EsqlBase {
     private string $type_name = "";
     private string $pvalue_name = "";
 
-    public function __construct(EsqlBase $parent, string $value)
+    public function __construct(EsqlBase $previous_command, string $value)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->value = $value;
     }
 

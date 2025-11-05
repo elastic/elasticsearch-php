@@ -26,9 +26,9 @@ class LookupJoinCommand extends EsqlBase {
     private string $lookup_index;
     private string $field;
 
-    public function __construct(EsqlBase $parent, string $lookup_index)
+    public function __construct(EsqlBase $previous_command, string $lookup_index)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->lookup_index = $lookup_index;
     }
 

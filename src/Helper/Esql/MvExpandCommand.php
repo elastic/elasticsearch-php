@@ -23,9 +23,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class MvExpandCommand extends EsqlBase {
     private string $column;
 
-    public function __construct(EsqlBase $parent, string $column)
+    public function __construct(EsqlBase $previous_command, string $column)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->column = $column;
     }
 

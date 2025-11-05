@@ -23,9 +23,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class SampleCommand extends EsqlBase {
     private float $probability;
 
-    public function __construct(EsqlBase $parent, float $probability)
+    public function __construct(EsqlBase $previous_command, float $probability)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->probability = $probability;
     }
 

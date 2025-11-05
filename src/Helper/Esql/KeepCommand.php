@@ -23,9 +23,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class KeepCommand extends EsqlBase {
     private array $columns;
 
-    public function __construct(EsqlBase $parent, array $columns)
+    public function __construct(EsqlBase $previous_command, array $columns)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->columns = $columns;
     }
 

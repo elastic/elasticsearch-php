@@ -24,7 +24,7 @@ class ForkCommand extends EsqlBase {
     private array $branches;
 
     public function __construct(
-        EsqlBase $parent,
+        EsqlBase $previous_command,
         EsqlBase $fork1,
         ?EsqlBase $fork2 = null,
         ?EsqlBase $fork3 = null,
@@ -35,7 +35,7 @@ class ForkCommand extends EsqlBase {
         ?EsqlBase $fork8 = null
     )
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->branches = [$fork1, $fork2, $fork3, $fork4, $fork5, $fork6, $fork7, $fork8];
     }
 

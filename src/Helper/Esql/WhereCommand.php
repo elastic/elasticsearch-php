@@ -23,9 +23,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class WhereCommand extends EsqlBase {
     private array $expressions;
 
-    public function __construct(EsqlBase $parent, array $expressions)
+    public function __construct(EsqlBase $previous_command, array $expressions)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->expressions = $expressions;
     }
 

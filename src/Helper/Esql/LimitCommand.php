@@ -23,9 +23,9 @@ namespace Elastic\Elasticsearch\Helper\Esql;
 class LimitCommand extends EsqlBase {
     private int $max_number_of_rows;
 
-    public function __construct(EsqlBase $parent, int $max_number_of_rows)
+    public function __construct(EsqlBase $previous_command, int $max_number_of_rows)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->max_number_of_rows = $max_number_of_rows;
     }
 

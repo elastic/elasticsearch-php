@@ -28,12 +28,12 @@ class RerankCommand extends EsqlBase {
     private array $fields = [];
     private string $inference_id = "";
 
-    public function __construct(EsqlBase $parent, array $query)
+    public function __construct(EsqlBase $previous_command, array $query)
     {
         if (sizeof($query) != 1) {
             throw new RuntimeException("Only one query is supported");
         }
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         if ($this->isNamedArgumentList($query)) {
             $this->named_query = $query;
         }

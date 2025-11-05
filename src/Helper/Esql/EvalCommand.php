@@ -24,9 +24,9 @@ class EvalCommand extends EsqlBase {
     private array $columns = [];
     private array $named_columns = [];
 
-    public function __construct(EsqlBase $parent, array $columns)
+    public function __construct(EsqlBase $previous_command, array $columns)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         if ($this->isNamedArgumentList($columns)) {
             $this->named_columns = $columns;
         }

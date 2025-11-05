@@ -25,9 +25,9 @@ class FuseCommand extends EsqlBase {
     private array $columns = [];
     private array $options = [];
 
-    public function __construct(EsqlBase $parent, string $method)
+    public function __construct(EsqlBase $previous_command, string $method)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->method = $method;
     }
 

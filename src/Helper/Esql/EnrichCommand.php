@@ -26,9 +26,9 @@ class EnrichCommand extends EsqlBase {
     private array $fields = [];
     private array $named_fields = [];
 
-    public function __construct(EsqlBase $parent, string $policy)
+    public function __construct(EsqlBase $previous_command, string $policy)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->policy = $policy;
     }
 

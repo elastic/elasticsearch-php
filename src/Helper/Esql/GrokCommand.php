@@ -24,9 +24,9 @@ class GrokCommand extends EsqlBase {
     private string $input;
     private string $pattern;
 
-    public function __construct(EsqlBase $parent, string $input, string $pattern)
+    public function __construct(EsqlBase $previous_command, string $input, string $pattern)
     {
-        parent::__construct($parent);
+        parent::__construct($previous_command);
         $this->input = $input;
         $this->pattern = $pattern;
     }

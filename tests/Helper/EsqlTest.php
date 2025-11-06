@@ -15,7 +15,6 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Helper\Esql;
 
 use Elastic\Elasticsearch\Helper\Esql\Query;
-use Elastic\Elasticsearch\Helper\Esql\Expression;
 use PHPUnit\Framework\TestCase;
 
 class EsqlTest extends TestCase

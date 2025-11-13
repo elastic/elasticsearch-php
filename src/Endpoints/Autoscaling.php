@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Autoscaling extends AbstractEndpoint
 {
 	/**
-	 * Deletes an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+	 * Delete an autoscaling policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-delete-autoscaling-policy
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
@@ -69,9 +69,9 @@ class Autoscaling extends AbstractEndpoint
 
 
 	/**
-	 * Gets the current autoscaling capacity based on the configured autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+	 * Get the autoscaling capacity
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for processing on master node
@@ -105,9 +105,9 @@ class Autoscaling extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+	 * Get an autoscaling policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
@@ -144,9 +144,9 @@ class Autoscaling extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+	 * Create or update an autoscaling policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-put-autoscaling-policy
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy

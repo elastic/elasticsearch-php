@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Eql extends AbstractEndpoint
 {
 	/**
-	 * Deletes an async EQL search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
+	 * Delete an async EQL search
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
 	 * @group serverless
 	 *
 	 * @param array{
@@ -68,9 +68,9 @@ class Eql extends AbstractEndpoint
 
 
 	/**
-	 * Returns async results from previously executed Event Query Language (EQL) search
+	 * Get async EQL search results
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
 	 * @group serverless
 	 *
 	 * @param array{
@@ -109,9 +109,9 @@ class Eql extends AbstractEndpoint
 
 
 	/**
-	 * Returns the status of a previously submitted async or stored Event Query Language (EQL) search
+	 * Get the async EQL status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
 	 * @group serverless
 	 *
 	 * @param array{
@@ -148,9 +148,9 @@ class Eql extends AbstractEndpoint
 
 
 	/**
-	 * Returns results matching a query expressed in Event Query Language (EQL)
+	 * Get EQL search results
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
 	 * @group serverless
 	 *
 	 * @param array{
@@ -164,6 +164,7 @@ class Eql extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -186,7 +187,7 @@ class Eql extends AbstractEndpoint
 		$url = '/' . $this->encode($params['index']) . '/_eql/search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive','allow_partial_search_results','allow_partial_sequence_results','ccs_minimize_roundtrips','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive','allow_partial_search_results','allow_partial_sequence_results','ccs_minimize_roundtrips','ignore_unavailable','allow_no_indices','expand_wildcards','project_routing','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

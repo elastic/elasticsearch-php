@@ -26,12 +26,13 @@ use Http\Promise\Promise;
 /**
  * @generated This file is generated, please do not edit
  */
-class Ssl extends AbstractEndpoint
+class Project extends AbstractEndpoint
 {
 	/**
-	 * Get SSL certificates
+	 * Return tags defined for the project
 	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ssl-certificates
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-tags
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -47,10 +48,10 @@ class Ssl extends AbstractEndpoint
 	 *
 	 * @return Elasticsearch|Promise
 	 */
-	public function certificates(?array $params = null)
+	public function tags(?array $params = null)
 	{
 		$params = $params ?? [];
-		$url = '/_ssl/certificates';
+		$url = '/_project/tags';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -58,7 +59,7 @@ class Ssl extends AbstractEndpoint
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'ssl.certificates');
+		$request = $this->addOtelAttributes($params, [], $request, 'project.tags');
 		return $this->client->sendRequest($request);
 	}
 }

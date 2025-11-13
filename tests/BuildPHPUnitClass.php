@@ -303,7 +303,7 @@ class BuildPHPUnitClass
                 break;
             case 'array':
             case 'object':
-                if (empty($value)) {
+                if (empty((array) $value)) {
                     $output .= sprintf("\$this->assertEmpty(%s);\n", $key);
                 } else {
                     $output .= sprintf("\$this->assertEquals(%s, %s);\n", var_export($value, true), $key);

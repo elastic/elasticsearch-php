@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Synonyms extends AbstractEndpoint
 {
 	/**
-	 * Deletes a synonym set
+	 * Delete a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -68,9 +68,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a synonym rule in a synonym set
+	 * Delete a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -110,9 +110,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym set
+	 * Get a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -151,9 +151,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym rule from a synonym set
+	 * Get a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -192,9 +192,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a summary of all defined synonym sets
+	 * Get all synonym sets
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -230,9 +230,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonyms set
+	 * Create or update a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -272,9 +272,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonym rule in a synonym set
+	 * Create or update a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{

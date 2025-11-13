@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 trait ClientEndpointsTrait
 {
 	/**
-	 * Allows to perform multiple index/update/delete operations in a single request.
+	 * Bulk index or delete documents
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
 	 * @group serverless
 	 *
 	 * @param array{
@@ -44,7 +44,7 @@ trait ClientEndpointsTrait
 	 *     _source_excludes?: string|array<string>, // Default list of fields to exclude from the returned _source field, can be overridden on each sub-request
 	 *     _source_includes?: string|array<string>, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
 	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     require_alias?: bool, // If true, the request’s actions must target an index alias. Defaults to false.
+	 *     require_alias?: bool, // If true, the request's actions must target an index alias. Defaults to false.
 	 *     require_data_stream?: bool, // If true, the request's actions must target a data stream (existing or to-be-created). Default to false
 	 *     list_executed_pipelines?: bool, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
 	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
@@ -85,9 +85,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Explicitly clears the search context for a scroll.
+	 * Clear a scrolling search
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
 	 * @group serverless
 	 *
 	 * @param array{
@@ -130,7 +130,7 @@ trait ClientEndpointsTrait
 	/**
 	 * Close a point in time
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
 	 * @group serverless
 	 *
 	 * @param array{
@@ -139,7 +139,7 @@ trait ClientEndpointsTrait
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // a point-in-time id to close. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) a point-in-time id to close. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -151,6 +151,7 @@ trait ClientEndpointsTrait
 	public function closePointInTime(?array $params = null)
 	{
 		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_pit';
 		$method = 'DELETE';
 
@@ -166,9 +167,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns number of documents matching a query.
+	 * Count search results
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
 	 * @group serverless
 	 *
 	 * @param array{
@@ -177,8 +178,9 @@ trait ClientEndpointsTrait
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     min_score?: int, // Include only documents with a specific `_score` value in the result
+	 *     min_score?: float, // Include only documents with a specific `_score` value in the result
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     q?: string, // Query in the Lucene query string syntax
 	 *     analyzer?: string, // The analyzer to use for the query string
@@ -211,7 +213,7 @@ trait ClientEndpointsTrait
 			$url = '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','project_routing','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -223,11 +225,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Creates a new document in the index.
+	 * Create a new document in the index
 	 *
-	 * Returns a 409 response when a document with a same ID already exists in the index.
-	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
 	 * @group serverless
 	 *
 	 * @param array{
@@ -277,9 +277,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Removes a document from the index.
+	 * Delete a document
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
 	 * @group serverless
 	 *
 	 * @param array{
@@ -325,9 +325,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Deletes documents matching the provided query.
+	 * Delete documents
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
 	 * @group serverless
 	 *
 	 * @param array{
@@ -395,9 +395,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Changes the number of requests per second for a particular Delete By Query operation.
+	 * Throttle a delete by query operation
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
@@ -434,9 +434,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Deletes a script.
+	 * Delete a script or search template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
 	 * @group serverless
 	 *
 	 * @param array{
@@ -475,9 +475,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns information about whether a document exists in an index.
+	 * Check a document
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 	 * @group serverless
 	 *
 	 * @param array{
@@ -525,9 +525,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns information about whether a document source exists in an index.
+	 * Check for a document source
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 	 * @group serverless
 	 *
 	 * @param array{
@@ -574,9 +574,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns information about why a specific matches (or doesn't match) a query.
+	 * Explain a document match result
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
 	 * @group serverless
 	 *
 	 * @param array{
@@ -628,9 +628,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns the information about the capabilities of fields among multiple indices.
+	 * Get the field capabilities
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
 	 * @group serverless
 	 *
 	 * @param array{
@@ -643,6 +643,7 @@ trait ClientEndpointsTrait
 	 *     filters?: string|array<string>, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
 	 *     types?: string|array<string>, // Only return results for fields that have one of the types in the list
 	 *     include_empty_fields?: bool, // Include empty fields in result
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -667,7 +668,7 @@ trait ClientEndpointsTrait
 			$url = '/_field_caps';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','filters','types','include_empty_fields','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['fields','ignore_unavailable','allow_no_indices','expand_wildcards','include_unmapped','filters','types','include_empty_fields','project_routing','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -679,9 +680,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns a document.
+	 * Get a document by its ID
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 	 * @group serverless
 	 *
 	 * @param array{
@@ -696,6 +697,7 @@ trait ClientEndpointsTrait
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
+	 *     _source_exclude_vectors?: bool, // Whether vectors should be excluded from _source
 	 *     version?: int, // Explicit version number for concurrency control
 	 *     version_type?: string, // Specific version type
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -719,7 +721,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -730,9 +732,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns a script.
+	 * Get a script or search template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
 	 * @group serverless
 	 *
 	 * @param array{
@@ -770,9 +772,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns all script contexts.
+	 * Get script contexts
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-contexts.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-context
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -805,9 +807,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns available script types, languages and contexts
+	 * Get script languages
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-languages
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -840,9 +842,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns the source of a document.
+	 * Get a document's source
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 	 * @group serverless
 	 *
 	 * @param array{
@@ -889,9 +891,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns the health of the cluster.
+	 * Get the cluster health
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
 	 *
 	 * @param array{
 	 *     feature?: string, // A feature of the cluster, as returned by the top-level health API
@@ -932,9 +934,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Creates or updates a document in an index.
+	 * Create or update a document in an index
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
 	 * @group serverless
 	 *
 	 * @param array{
@@ -991,9 +993,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns basic information about the cluster.
+	 * Get cluster info
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1027,9 +1029,8 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Performs a kNN search.
+	 * Performs a kNN search
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -1040,7 +1041,7 @@ trait ClientEndpointsTrait
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The search definition. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The search definition. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1053,7 +1054,7 @@ trait ClientEndpointsTrait
 	public function knnSearch(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_knn_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1069,9 +1070,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to get multiple documents in one request.
+	 * Get multiple documents
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-get.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1122,9 +1123,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to execute several search operations in one request.
+	 * Run multiple searches
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1132,7 +1133,7 @@ trait ClientEndpointsTrait
 	 *     search_type?: string, // Search operation type
 	 *     max_concurrent_searches?: int, // Controls the maximum number of concurrent searches the multi search api will execute
 	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
+	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
@@ -1140,6 +1141,7 @@ trait ClientEndpointsTrait
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1167,7 +1169,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','routing','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['search_type','max_concurrent_searches','typed_keys','pre_filter_shard_size','max_concurrent_shard_requests','rest_total_hits_as_int','ccs_minimize_roundtrips','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','project_routing','routing','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
@@ -1179,9 +1181,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to execute several search template operations in one request.
+	 * Run multiple templated searches
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1191,6 +1193,7 @@ trait ClientEndpointsTrait
 	 *     max_concurrent_searches?: int, // Controls the maximum number of concurrent searches the multi search api will execute
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1216,7 +1219,7 @@ trait ClientEndpointsTrait
 			$url = '/_msearch/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['search_type','typed_keys','max_concurrent_searches','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['search_type','typed_keys','max_concurrent_searches','rest_total_hits_as_int','ccs_minimize_roundtrips','project_routing','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
@@ -1228,9 +1231,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns multiple termvectors in one request.
+	 * Get multiple term vectors
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1283,9 +1286,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Open a point in time that can be used in subsequent searches
+	 * Open a point in time
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1297,6 +1300,7 @@ trait ClientEndpointsTrait
 	 *     keep_alive?: string, // Specific the time to live for the point in time
 	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node executed concurrently when opening this point-in-time. This value should be used to limit the impact of opening the point-in-time on the cluster
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1319,7 +1323,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_pit';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','project_routing','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1331,9 +1335,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns whether the cluster is running.
+	 * Ping the cluster
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1367,9 +1371,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Creates or updates a script.
+	 * Create or update a script or search template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1415,9 +1419,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to evaluate the quality of ranked search results over a set of typical search queries
+	 * Evaluate ranked search results
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-rank-eval.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1463,11 +1467,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to copy documents from one index to another, optionally filtering the source
-	 * documents by a query, changing the destination index settings, or fetching the
-	 * documents from a remote cluster.
+	 * Reindex documents
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1513,9 +1515,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Changes the number of requests per second for a particular Reindex operation.
+	 * Throttle a reindex operation
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
@@ -1552,9 +1554,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to use the Mustache language to pre-render a search definition.
+	 * Render a search template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1564,7 +1566,7 @@ trait ClientEndpointsTrait
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The search definition template and its params. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The search definition template and its params. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1576,6 +1578,7 @@ trait ClientEndpointsTrait
 	public function renderSearchTemplate(?array $params = null)
 	{
 		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
 		if (isset($params['id'])) {
 			$url = '/_render/template/' . $this->encode($params['id']);
 			$method = empty($params['body']) ? 'GET' : 'POST';
@@ -1595,9 +1598,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows an arbitrary script to be executed and a result to be returned
+	 * Run a script
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html
+	 * @link https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
@@ -1607,7 +1610,7 @@ trait ClientEndpointsTrait
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The script to execute. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The script to execute. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -1619,6 +1622,7 @@ trait ClientEndpointsTrait
 	public function scriptsPainlessExecute(?array $params = null)
 	{
 		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
 		$url = '/_scripts/painless/_execute';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1634,9 +1638,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to retrieve a large numbers of results from a single search request.
+	 * Run a scrolling search
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1679,9 +1683,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns results matching a query.
+	 * Run a search
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1702,6 +1706,7 @@ trait ClientEndpointsTrait
 	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     q?: string, // Query in the Lucene query string syntax
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
@@ -1711,6 +1716,7 @@ trait ClientEndpointsTrait
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
+	 *     _source_exclude_vectors?: bool, // Whether vectors should be excluded from _source
 	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
 	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
 	 *     suggest_field?: string, // Specify which field to use for suggestions
@@ -1727,7 +1733,7 @@ trait ClientEndpointsTrait
 	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
 	 *     batched_reduce_size?: int, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
-	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
+	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1754,7 +1760,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','project_routing','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1766,11 +1772,10 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Searches a vector tile for geospatial values. Returns results as a binary Mapbox vector tile.
+	 * Search a vector tile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-vector-tile-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
 	 * @group serverless
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) Comma-separated list of data streams, indices, or aliases to search
@@ -1783,6 +1788,7 @@ trait ClientEndpointsTrait
 	 *     grid_precision?: int, // Additional zoom levels available through the aggs layer. Accepts 0-8.
 	 *     grid_type?: string, // Determines the geometry type for features in the aggs layer.
 	 *     grid_agg?: string, // Aggregation used to create a grid for `field`.
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     size?: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
 	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
 	 *     with_labels?: bool, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
@@ -1808,7 +1814,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_mvt/' . $this->encode($params['field']) . '/' . $this->encode($params['zoom']) . '/' . $this->encode($params['x']) . '/' . $this->encode($params['y']);
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','grid_agg','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['exact_bounds','extent','grid_precision','grid_type','grid_agg','project_routing','size','track_total_hits','with_labels','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/vnd.mapbox-vector-tile',
 			'Content-Type' => 'application/json',
@@ -1820,9 +1826,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns information about the indices and shards that a search request would be executed against.
+	 * Get the search shards
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -1867,9 +1873,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Allows to use the Mustache language to pre-render a search definition.
+	 * Run a search with a search template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1887,6 +1893,7 @@ trait ClientEndpointsTrait
 	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1912,7 +1919,7 @@ trait ClientEndpointsTrait
 			$url = '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','preference','routing','scroll','search_type','explain','profile','typed_keys','rest_total_hits_as_int','ccs_minimize_roundtrips','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','preference','routing','scroll','search_type','explain','profile','typed_keys','rest_total_hits_as_int','ccs_minimize_roundtrips','project_routing','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1924,9 +1931,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * The terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
+	 * Get terms in an index
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1936,7 +1943,7 @@ trait ClientEndpointsTrait
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // field name, string which is the prefix expected in matching terms, timeout and size for max number of results. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) field name, string which is the prefix expected in matching terms, timeout and size for max number of results. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1949,7 +1956,7 @@ trait ClientEndpointsTrait
 	public function termsEnum(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_terms_enum';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
@@ -1965,9 +1972,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Returns information and statistics about terms in the fields of a particular document.
+	 * Get term vector information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2022,9 +2029,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Updates a document with a script or partial document.
+	 * Update a document
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2077,10 +2084,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Performs an update on every document in the index without changing the source,
-	 * for example to pick up a mapping change.
+	 * Update documents
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2150,9 +2156,9 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Changes the number of requests per second for a particular Update By Query operation.
+	 * Throttle an update by query operation
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle

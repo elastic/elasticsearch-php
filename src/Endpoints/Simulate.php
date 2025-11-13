@@ -29,14 +29,15 @@ use Http\Promise\Promise;
 class Simulate extends AbstractEndpoint
 {
 	/**
-	 * Simulates running ingest with example documents.
+	 * Simulate data ingestion
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-ingest-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-simulate-ingest
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     index?: string, // Default index for docs which don't provide one
 	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with if no pipeline is given for a particular document
+	 *     merge_type?: string, // The mapping merge type if mapping overrides are being provided in mapping_addition.The allowed values are one of index or template.The index option merges mappings the way they would be merged into an existing index.The template option merges mappings the way they would be merged into a template.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -62,7 +63,7 @@ class Simulate extends AbstractEndpoint
 			$url = '/_ingest/_simulate';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['pipeline','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['pipeline','merge_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

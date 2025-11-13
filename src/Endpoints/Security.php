@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Security extends AbstractEndpoint
 {
 	/**
-	 * Creates or updates the user profile on behalf of another user.
+	 * Activate a user profile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -67,9 +67,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Enables authentication as a user and retrieve information about the authenticated user.
+	 * Authenticate a user
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
 	 * @group serverless
 	 *
 	 * @param array{
@@ -103,9 +103,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Bulk delete roles in the native realm.
+	 * Bulk delete roles
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-delete-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-delete-role
 	 *
 	 * @param array{
 	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
@@ -142,9 +142,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Bulk adds and updates roles in the native realm.
+	 * Bulk create or update roles
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-put-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-put-role
 	 *
 	 * @param array{
 	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
@@ -181,9 +181,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Updates the attributes of multiple existing API keys.
+	 * Bulk update API keys
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-update-api-keys
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -219,9 +219,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Changes the passwords of users in the native realm and built-in users.
+	 * Change passwords
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-change-password
 	 *
 	 * @param array{
 	 *     username?: string, // The username of the user to change the password for
@@ -263,9 +263,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Clear a subset or all entries from the API key cache.
+	 * Clear the API key cache
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-api-key-cache
 	 *
 	 * @param array{
 	 *     ids: string|array<string>, // (REQUIRED) A comma-separated list of IDs of API keys to clear from the cache
@@ -301,9 +301,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Evicts application privileges from the native application privileges cache.
+	 * Clear the privileges cache
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges
 	 *
 	 * @param array{
 	 *     application: string|array<string>, // (REQUIRED) A comma-separated list of application names
@@ -339,9 +339,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Evicts users from the user cache. Can completely clear the cache or evict specific users.
+	 * Clear the user cache
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms
 	 *
 	 * @param array{
 	 *     realms: string|array<string>, // (REQUIRED) Comma-separated list of realms to clear
@@ -378,9 +378,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Evicts roles from the native role cache.
+	 * Clear the roles cache
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-roles
 	 *
 	 * @param array{
 	 *     name: string|array<string>, // (REQUIRED) Role name
@@ -416,9 +416,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Evicts tokens from the service account token caches.
+	 * Clear service account token caches
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-service-tokens
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
@@ -456,9 +456,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates an API key for access without requiring basic authentication.
+	 * Create an API key
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
 	 * @group serverless
 	 *
 	 * @param array{
@@ -496,9 +496,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates a cross-cluster API key for API key based remote cluster access.
+	 * Create a cross-cluster API key
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-cross-cluster-api-key
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -534,9 +534,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates a service account token for access without requiring basic authentication.
+	 * Create a service account token
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-service-token.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
@@ -579,9 +579,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Delegate PKI authentication.
+	 * Delegate PKI authentication
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-delegate-pki-authentication.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delegate-pki
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -616,9 +616,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Removes application privileges.
+	 * Delete application privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges
 	 *
 	 * @param array{
 	 *     application: string, // (REQUIRED) Application name
@@ -656,9 +656,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Removes roles in the native realm.
+	 * Delete roles
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
 	 * @group serverless
 	 *
 	 * @param array{
@@ -696,9 +696,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Removes role mappings.
+	 * Delete role mappings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role-mapping.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role-mapping
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
@@ -735,9 +735,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a service account token.
+	 * Delete service account tokens
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-service-token.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
@@ -776,9 +776,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Deletes users from the native realm.
+	 * Delete users
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-user
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) username
@@ -815,9 +815,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Disables users in the native realm.
+	 * Disable users
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-disable-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to disable
@@ -854,9 +854,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Disables a user profile so it's not visible in user profile searches.
+	 * Disable a user profile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-disable-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user-profile
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) Unique identifier for the user profile
@@ -893,9 +893,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Enables users in the native realm.
+	 * Enable users
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the user to enable
@@ -932,9 +932,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Enables a user profile so it's visible in user profile searches.
+	 * Enable a user profile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enable-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
@@ -971,9 +971,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Allows a kibana instance to configure itself to communicate with a secured elasticsearch cluster.
+	 * Enroll Kibana
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-kibana-enrollment.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-kibana
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1007,9 +1007,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Allows a new node to enroll to an existing cluster with security enabled.
+	 * Enroll a node
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-node-enrollment.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-node
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1043,9 +1043,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information for one or more API keys.
+	 * Get API key information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-api-key
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1087,9 +1087,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the list of cluster privileges and index privileges that are available in this version of Elasticsearch.
+	 * Get builtin privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-builtin-privileges.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1123,9 +1123,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves application privileges.
+	 * Get application privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-privileges
 	 *
 	 * @param array{
 	 *     application?: string, // Application name
@@ -1167,9 +1167,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves roles in the native realm.
+	 * Get roles
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1208,9 +1208,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves role mappings.
+	 * Get role mappings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role-mapping
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of role-mapping names
@@ -1248,9 +1248,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information about service accounts.
+	 * Get service accounts
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-accounts
 	 *
 	 * @param array{
 	 *     namespace?: string, // An identifier for the namespace
@@ -1292,9 +1292,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information of all service credentials for a service account.
+	 * Get service account credentials
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-credentials
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
@@ -1331,9 +1331,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieve settings for the security system indices
+	 * Get security index settings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-settings
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for connection to master
@@ -1368,9 +1368,45 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates a bearer token for access without requiring basic authentication.
+	 * Get security statistics for all nodes
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-stats
+	 *
+	 * @param array{
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getStats(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_security/stats';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'security.get_stats');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Get a token
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1406,9 +1442,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information about users in the native realm and built-in users.
+	 * Get users
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user
 	 *
 	 * @param array{
 	 *     username?: string|array<string>, // A comma-separated list of usernames
@@ -1447,9 +1483,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves security privileges for the logged in user.
+	 * Get user privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-privileges
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1482,9 +1518,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves user profiles for the given unique ID(s).
+	 * Get a user profile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile
 	 *
 	 * @param array{
 	 *     uid: string|array<string>, // (REQUIRED) A comma-separated list of unique identifier for user profiles
@@ -1521,9 +1557,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates an API key on behalf of another user.
+	 * Grant an API key
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-grant-api-key
 	 *
 	 * @param array{
 	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
@@ -1560,9 +1596,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Determines whether the specified user has a specified list of privileges.
+	 * Check user privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1604,9 +1640,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Determines whether the users associated with the specified profile IDs have all the requested privileges.
+	 * Check user profile privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges-user-profile
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1642,9 +1678,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Invalidates one or more API keys.
+	 * Invalidate API keys
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1681,9 +1717,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Invalidates one or more access tokens or refresh tokens.
+	 * Invalidate a token
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1719,9 +1755,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Exchanges an OpenID Connection authentication response message for an Elasticsearch access token and refresh token pair
+	 * Authenticate OpenID Connect
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-authenticate.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-authenticate
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1757,9 +1793,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Invalidates a refresh token and access token that was generated from the OpenID Connect Authenticate API
+	 * Logout of OpenID Connect
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-logout.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-logout
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1795,9 +1831,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates an OAuth 2.0 authentication request as a URL string
+	 * Prepare OpenID connect authentication
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-prepare-authentication.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-prepare-authentication
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1833,9 +1869,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Adds or updates application privileges.
+	 * Create or update application privileges
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-privileges.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-privileges
 	 *
 	 * @param array{
 	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
@@ -1872,9 +1908,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Adds and updates roles in the native realm.
+	 * Create or update roles
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1914,9 +1950,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates and updates role mappings.
+	 * Create or update role mappings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role-mapping.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role-mapping
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) Role-mapping name
@@ -1955,9 +1991,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Adds and updates users in the native realm. These users are commonly referred to as native users.
+	 * Create or update users
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the User
@@ -1996,9 +2032,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information for API keys using a subset of query DSL
+	 * Find API keys with a query
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2037,9 +2073,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information for Roles using a subset of query DSL
+	 * Find roles with a query
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2075,9 +2111,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information for Users using a subset of query DSL
+	 * Find users with a query
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
 	 *
 	 * @param array{
 	 *     with_profile_uid?: bool, // flag to retrieve profile uid (if exists) associated with the user
@@ -2113,9 +2149,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Exchanges a SAML Response message for an Elasticsearch access token and refresh token pair
+	 * Authenticate SAML
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-authenticate
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2151,9 +2187,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Verifies the logout response sent from the SAML IdP
+	 * Logout of SAML completely
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-complete-logout.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2189,9 +2225,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Consumes a SAML LogoutRequest
+	 * Invalidate SAML
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-invalidate.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-invalidate
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2227,9 +2263,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Invalidates an access token and a refresh token that were generated via the SAML Authenticate API
+	 * Logout of SAML
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-logout
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2265,9 +2301,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Creates a SAML authentication request
+	 * Prepare SAML authentication
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2303,9 +2339,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
+	 * Create SAML service provider metadata
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-sp-metadata.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-service-provider-metadata
 	 *
 	 * @param array{
 	 *     realm_name: string, // (REQUIRED) The name of the SAML realm to get the metadata for
@@ -2342,9 +2378,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Get suggestions for user profiles that match specified search criteria.
+	 * Suggest a user profile
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-suggest-user-profiles
 	 *
 	 * @param array{
 	 *     data?: string|array<string>, // A comma-separated list of keys for which the corresponding application data are retrieved.
@@ -2380,9 +2416,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Updates attributes of an existing API key.
+	 * Update an API key
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
 	 * @group serverless
 	 *
 	 * @param array{
@@ -2421,9 +2457,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Updates attributes of an existing cross-cluster API key.
+	 * Update a cross-cluster API key
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the cross-cluster API key to update
@@ -2461,9 +2497,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Update settings for the security system index
+	 * Update security index settings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-settings
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for connection to master
@@ -2501,9 +2537,9 @@ class Security extends AbstractEndpoint
 
 
 	/**
-	 * Update application specific data for the user profile of the given unique ID.
+	 * Update user profile data
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-user-profile-data
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile

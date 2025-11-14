@@ -20,6 +20,303 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [elasticsearch-php-client-next-fixes]
 % *
 
+## 9.2.0 [elasticsearch-php-client-920-release-notes]
+
+### Features and enhancements [elasticsearch-php-client-920-features-enhancements]
+
+- Added the ES|QL query builder [#1462](https://github.com/elastic/elasticsearch-php/pull/1462)
+
+This query builder should simplify the usage of the Elasticsearch Query Language ([ES|QL](https://www.elastic.co/docs/reference/query-languages/esql)) in PHP.
+
+Example usage:
+
+```php
+$query = Esql\Query::from("books", "books*")
+    ->where('author == "King"', 'year == 1982')
+    ->limit(10);
+echo $query;
+```
+
+Output:
+
+```
+FROM books, books*
+| WHERE author == "King" AND year == 1982
+| LIMIT 10
+```
+
+This release includes the following endpoint changes for [Elasticsearch 9.2.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.2.0-release-notes):
+
+### AsyncSearch.submit
+
+- Added the `project_routing` parameter (string), a Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
+
+### Cat.aliases
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.componentTemplates
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.count
+
+- Added the `project_routing` parameter (string), a Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.fielddata
+
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.health
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+
+### Cat.master
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.mlDatafeeds
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+
+### Cat.nodeattrs
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.pendingTasks
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+
+### Cat.plugins
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.repositories
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.segments
+
+- Added the `time` parameter (string), the unit in which to display time values
+- Added the `ignore_unavailable` parameter (bool), whether specified concrete indices should be ignored when unavailable (missing or closed). Only allowed when providing an index expression.
+- Added the `ignore_throttled` (bool), whether specified concrete, expanded or aliased indices should be ignored when throttled. Only allowed when providing an index expression.
+- Added the `allow_no_indices` (bool), whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified). Only allowed when providing an index expression.
+- Added the `expand_wildcards` parameter (string), whether to expand wildcard expression to concrete indices that are open, closed or both.
+- Added the `allow_closed` parameter (bool), if true, allow closed indices to be returned in the response otherwise if false, keep the legacy behaviour of throwing an exception if index pattern matches closed indices
+
+### Cat.snapshots
+
+- Added the `bytes` paremeter (string), the unit in which to display byte values
+
+### Cat.tasks
+
+- Added the `bytes` paremeter (string), the unit in which to display byte values
+
+### Cat.templates
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+- Added the `time` parameter (string), the unit in which to display time values
+
+### Cat.threadPool
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+
+### Cat.transforms
+
+- Added the `bytes` parameter (string), the unit in which to display byte values
+
+### Cluster.allocationExplain
+
+- Added the `index` parameter (string), specifies the name of the index that you would like an explanation for
+- Added the `shard` paremeter (int), specifies the ID of the shard that you would like an explanation for
+- Added the `primary` parameter (bool), if true, returns explanation for the primary shard for the given shard ID
+- Added the `current_node` parameter (string), specifies the node ID or the name of the node to only explain a shard that is currently located on the specified node
+
+### Connector.lastSync
+
+This experimental endpoint has been removed.
+
+### Eql.search
+
+- Added the `project_routing` parameter (string), a Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
+
+### Indices.cancelMigrateReindex (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.cancel_migrate_reindex.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex
+
+### Indices.createFrom (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.create_from.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+
+### Indices.getDataStreamMappings (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_data_stream_mappings.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+
+### Indices.getMigrateReindexStatus (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_migrate_reindex_status.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-migration
+
+### Indices.migrateReindex (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.migrate_reindex.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-reindex
+
+### Indices.putDataStreamMappings (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_data_stream_mappings.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+
+### Inference.chatCompletionUnified
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.completion
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.inference
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.put
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putAi21 (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_ai21.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+
+### Inference.putAmazonbedrock
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putAmazonsagemaker
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putAnthropic
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putAzureaistudio
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putAzureopenai
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putCohere
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putContextualai (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_contextualai.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+
+### Inference.putDeepseek
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putElasticsearch
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putElser
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putGoogleaistudio
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putGooglevertexai
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putHuggingFace
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putJinaai
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putLlama (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_llama.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-llama
+
+### Inference.putMistral
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putOpenai
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putVoyageai
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.putWatsonx
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.rerank
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.sparseEmbedding
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.streamCompletion
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Inference.textEmbedding
+
+- Added `timeout` parameter (int|string), specifies the amount of time to wait for the inference request to complete.
+
+### Project.tags (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/project.tags.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-tags
+
+### Security.getStats (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/security.get_stats.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-stats
+
+### Simulate.ingest
+
+- Added the `merge_type` parameter (string), the mapping merge type if mapping overrides are being provided in mapping_addition.The allowed values are one of index or template.The index option merges mappings the way they would be merged into an existing index.The template option merges mappings the way they would be merged into a template.
+
+### Sql.query
+
+- Added the `project_routing` parameter (string), a Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
+
+### Transform.setUpgradeMode (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/main/resources/rest-api-spec/api/transform.set_upgrade_mode.json
+- Documentation: https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
+
+
 ## 9.1.0 [elasticsearch-php-client-910-release-notes]
 
 This release includes the following endpoint changes for [Elasticsearch 9.1.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.1.0-release-notes):

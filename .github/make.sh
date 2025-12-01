@@ -11,12 +11,13 @@
 #
 # Targets:
 # ---------------------------
-# assemble <VERSION> : build client artefacts with version
-# bump     <VERSION> : bump client internals to version
-# codegen  <VERSION> : generate endpoints
-# docsgen  <VERSION> : generate documentation
-# examplegen         : generate the doc examples
-# clean              : clean workspace
+# assemble <VERSION>   : build client artefacts with version
+# bump     <VERSION>   : bump client internals to version
+# bumpmatrix <VERSION> : bump stack version in test matrix to version
+# codegen  <VERSION>   : generate endpoints
+# docsgen  <VERSION>   : generate documentation
+# examplegen           : generate the doc examples
+# clean                : clean workspace
 #
 # ------------------------------------------------------- #
 
@@ -24,7 +25,7 @@
 # Bootstrap
 # ------------------------------------------------------- #
 
-script_path=$(dirname "$(realpath -s "$0")")
+script_path=$(dirname "$(realpath "$0")")
 repo=$(realpath "$script_path/../")
 
 # shellcheck disable=SC1090
@@ -68,11 +69,8 @@ case $CMD in
         TASK_ARGS=("$VERSION" "$output_folder")
         ;;
     codegen)
-        if [ -v $VERSION ]; then
-            echo -e "\033[31;1mTARGET: codegen -> missing version parameter\033[0m"
-            exit 1
-        fi
-        echo -e "\033[36;1mTARGET: codegen API v$VERSION\033[0m"
+        VERSION=$(git rev-parse --abbrev-ref HEAD)
+        echo -e "\033[36;1mTARGET: codegen API $VERSION\033[0m"
         TASK=codegen
         # VERSION is BRANCH here for now
         TASK_ARGS=("$VERSION" "$codegen_folder")
@@ -103,7 +101,16 @@ case $CMD in
         # VERSION is BRANCH here for now
         TASK_ARGS=("$VERSION")
         ;;
-    *)
+    bumpmatrix)
+        if [ -v $VERSION ]; then
+            echo -e "\033[31;1mTARGET: bumpmatrix -> missing version parameter\033[0m"
+            exit 1
+        fi
+        echo -e "\033[36;1mTARGET: bump stack in test matrix to version $VERSION\033[0m"
+        TASK=bumpmatrix
+        TASK_ARGS=("$VERSION")
+        ;;
+   *)
         echo -e "\nUsage:\n\t $CMD is not supported right now\n"
         exit 1
 esac
@@ -113,12 +120,13 @@ esac
 # Build Container
 # ------------------------------------------------------- #
 
-#echo -e "\033[34;1mINFO: building $product container\033[0m"
+build_container() {
+    echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-#docker build --file .github/Dockerfile --tag ${product} \
-#  --build-arg USER_ID="$(id -u)" \
-#  --build-arg GROUP_ID="$(id -g)" .
-
+    docker build --file $repo/.buildkite/Dockerfile --tag ${product} \
+      --build-arg USER_ID="$(id -u)" \
+      --build-arg GROUP_ID="$(id -g)" .
+}
 
 # ------------------------------------------------------- #
 # Run the Container
@@ -173,8 +181,32 @@ if [[ "$CMD" == "bump" ]]; then
     sed -i "s/es-version: \[[0-9]\+\.[0-9]\+\.\?[0-9]\?-SNAPSHOT\]/es-version: \[$MINOR_VERSION-SNAPSHOT\]/" $repo/.github/workflows/test.yml
 fi
 
+if [[ "$CMD" == "bumpmatrix" ]]; then
+  TEST_FILES=".buildkite/pipeline.yml .github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
+  for TEST_FILE in $TEST_FILES; do
+      sed -E -i.bak 's/[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT/'$VERSION'/g' ${TEST_FILE}
+      rm ${TEST_FILE}.bak
+  done
+  exit 0
+fi
+
 if [[ "$CMD" == "codegen" ]]; then
-    echo "TODO"
+    BRANCH=$VERSION
+    if [[ "$BRANCH" == "main" ]]; then
+        ES_VERSION="main"
+    else
+        ES_VERSION=$(curl -L -s https://artifacts-snapshot.elastic.co/elasticsearch/latest/$BRANCH.json | jq -r ".version")
+    fi
+    build_container
+    docker run \
+      --rm -v $repo:/code/elasticsearch-php \
+      $product \
+      /bin/bash -x -c "cd /code && mkdir codegen && \
+      git clone https://$CLIENTS_GITHUB_TOKEN@github.com/elastic/elastic-client-generator-php.git && \
+      cd /code/elastic-client-generator-php && composer install && \
+      bin/elasticsearch9.php $ES_VERSION $BRANCH /code/codegen config/elasticsearch9.json && \
+      cp /code/codegen/Elastic/Elasticsearch/Endpoints/* /code/elasticsearch-php/src/Endpoints/ && \
+      cp /code/codegen/Elastic/Elasticsearch/Traits/* /code/elasticsearch-php/src/Traits/"
 fi
 
 if [[ "$CMD" == "docsgen" ]]; then

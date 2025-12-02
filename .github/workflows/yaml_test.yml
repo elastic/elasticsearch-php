@@ -11,7 +11,7 @@ jobs:
       matrix:
         php-version: [8.1, 8.2, 8.3, 8.4]
         os: [ubuntu-latest]
-        es-version: [9.1.0-SNAPSHOT]
+        es-version: [9.1.8-SNAPSHOT]
         test-suite: [stack]
         branch-client-tests: ["9.1"]
 

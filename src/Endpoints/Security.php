@@ -623,7 +623,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     application: string, // (REQUIRED) Application name
-	 *     name: string, // (REQUIRED) Privilege name
+	 *     name: string|array<string>, // (REQUIRED) Comma-separated list of privilege names.
 	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -643,7 +643,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['application','name'], $params);
-		$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
+		$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($this->convertValue($params['name']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
@@ -1130,7 +1130,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     application?: string, // Application name
-	 *     name?: string, // Privilege name
+	 *     name?: string|array<string>, // Comma-separated list of privilege names. If you do not specify this parameter, the API returns information about all privileges for the requested application.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1148,7 +1148,7 @@ class Security extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['application']) && isset($params['name'])) {
-			$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($params['name']);
+			$url = '/_security/privilege/' . $this->encode($params['application']) . '/' . $this->encode($this->convertValue($params['name']));
 			$method = 'GET';
 		} elseif (isset($params['application'])) {
 			$url = '/_security/privilege/' . $this->encode($params['application']);

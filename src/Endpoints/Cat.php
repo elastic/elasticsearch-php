@@ -41,7 +41,7 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -123,6 +123,55 @@ class Cat extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['node_id'], $request, 'cat.allocation');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Get circuit breakers statistics
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     circuit_breaker_patterns?: string|array<string>, // A comma-separated list of regular-expressions to filter the circuit breakers in the output
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     time?: string, // The unit in which to display time values
+	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     help?: bool, // Return help information
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function circuitBreaker(?array $params = null)
+	{
+		$params = $params ?? [];
+		if (isset($params['circuit_breaker_patterns'])) {
+			$url = '/_cat/circuit_breaker/' . $this->encode($this->convertValue($params['circuit_breaker_patterns']));
+			$method = 'GET';
+		} else {
+			$url = '/_cat/circuit_breaker';
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','bytes','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'text/plain,application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['circuit_breaker_patterns'], $request, 'cat.circuit_breaker');
 		return $this->client->sendRequest($request);
 	}
 
@@ -371,7 +420,7 @@ class Cat extends AbstractEndpoint
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     include_unloaded_segments?: bool, // If set to true segment stats will include stats for segments that are not currently loaded into memory
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -937,7 +986,7 @@ class Cat extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed). Only allowed when providing an index expression.
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled. Only allowed when providing an index expression.
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified). Only allowed when providing an index expression.
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     allow_closed?: bool, // If true, allow closed indices to be returned in the response otherwise if false, keep the legacy behaviour of throwing an exception if index pattern matches closed indices
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

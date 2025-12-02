@@ -74,6 +74,7 @@ class Transform extends AbstractEndpoint
 	 * Retrieves transform usage information for transform nodes
 	 *
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -112,7 +113,7 @@ class Transform extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     transform_id?: string, // The id or comma delimited list of id expressions of the transforms to get, '_all' or '*' implies get all transforms
+	 *     transform_id?: string|array<string>, // Comma-separated list of transform identifiers or wildcard expressions. You can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
 	 *     from?: int, // skips a number of transform configs, defaults to 0
 	 *     size?: int, // specifies a max number of transforms to get, defaults to 100
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
@@ -134,7 +135,7 @@ class Transform extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['transform_id'])) {
-			$url = '/_transform/' . $this->encode($params['transform_id']);
+			$url = '/_transform/' . $this->encode($this->convertValue($params['transform_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_transform';
@@ -157,7 +158,7 @@ class Transform extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     transform_id: string, // (REQUIRED) The id of the transform for which to get stats. '_all' or '*' implies all transforms
+	 *     transform_id: string|array<string>, // (REQUIRED) Comma-separated list of transform identifiers or wildcard expressions. You can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
 	 *     from?: int, // skips a number of transform stats, defaults to 0
 	 *     size?: int, // specifies a max number of transform stats to get, defaults to 100
 	 *     timeout?: int|string, // Controls the time to wait for the stats
@@ -180,7 +181,7 @@ class Transform extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['transform_id'], $params);
-		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_stats';
+		$url = '/_transform/' . $this->encode($this->convertValue($params['transform_id'])) . '/_stats';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['from','size','timeout','allow_no_match','pretty','human','error_trace','source','filter_path']);

@@ -34,7 +34,6 @@ class Monitoring extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch
 	 *
 	 * @param array{
-	 *     type?: string, // Default document type for items which don't provide one
 	 *     system_id?: string, // Identifier of the monitored system
 	 *     system_api_version?: string, // API Version of the monitored system
 	 *     interval?: string, // Collection interval (e.g., '10s' or '10000ms') of the payload
@@ -56,20 +55,16 @@ class Monitoring extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['type'])) {
-			$url = '/_monitoring/' . $this->encode($params['type']) . '/bulk';
-			$method = 'POST';
-		} else {
-			$url = '/_monitoring/bulk';
-			$method = 'POST';
-		}
+		$url = '/_monitoring/bulk';
+		$method = 'POST';
+
 		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['type'], $request, 'monitoring.bulk');
+		$request = $this->addOtelAttributes($params, [], $request, 'monitoring.bulk');
 		return $this->client->sendRequest($request);
 	}
 }

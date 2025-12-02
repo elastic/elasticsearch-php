@@ -156,7 +156,7 @@ class Rollup extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) The rollup index or index pattern to obtain rollup capabilities from.
+	 *     index: string|array<string>, // (REQUIRED) Comma-separated list of data streams or indices to check for rollup capabilities. Wildcard (`*`) expressions are supported.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -175,7 +175,7 @@ class Rollup extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_rollup/data';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_rollup/data';
 		$method = 'GET';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);

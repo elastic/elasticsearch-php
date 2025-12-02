@@ -182,7 +182,7 @@ if [[ "$CMD" == "bump" ]]; then
 fi
 
 if [[ "$CMD" == "bumpmatrix" ]]; then
-  TEST_FILES=".buildkite/pipeline.yml .github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
+  TEST_FILES=".buildkite/pipeline.yml .github/workflows/test.yml"
   for TEST_FILE in $TEST_FILES; do
       sed -E -i.bak 's/[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT/'$VERSION'/g' ${TEST_FILE}
       rm ${TEST_FILE}.bak

@@ -942,6 +942,48 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Create a Groq inference endpoint
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-groq
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     groq_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putGroq(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','groq_inference_id','body'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['groq_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'groq_inference_id'], $request, 'inference.put_groq');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Create a Hugging Face inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
@@ -1152,6 +1194,49 @@ class Inference extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_type', 'openai_inference_id'], $request, 'inference.put_openai');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Create an OpenShift AI inference endpoint
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openshift-ai
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     openshiftai_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putOpenshiftAi(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','openshiftai_inference_id','body'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['openshiftai_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'openshiftai_inference_id'], $request, 'inference.put_openshift_ai');
 		return $this->client->sendRequest($request);
 	}
 

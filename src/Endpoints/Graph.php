@@ -35,7 +35,7 @@ class Graph extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

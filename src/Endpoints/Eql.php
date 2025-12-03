@@ -154,7 +154,7 @@ class Eql extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     index: string, // (REQUIRED) The name of the index to scope the operation
+	 *     index: string|array<string>, // (REQUIRED) Comma-separated list of index names to scope the operation
 	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
 	 *     keep_on_completion?: bool, // Control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false)
 	 *     keep_alive?: int|string, // Update the time interval in which the results (partial or final) for this search will be available
@@ -163,7 +163,7 @@ class Eql extends AbstractEndpoint
 	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -184,7 +184,7 @@ class Eql extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_eql/search';
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_eql/search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
 		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_on_completion','keep_alive','allow_partial_search_results','allow_partial_sequence_results','ccs_minimize_roundtrips','ignore_unavailable','allow_no_indices','expand_wildcards','project_routing','pretty','human','error_trace','source','filter_path']);

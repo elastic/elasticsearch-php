@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Synonyms extends AbstractEndpoint
 {
 	/**
-	 * Deletes a synonym set
+	 * Delete a synonym set
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms-set.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-synonyms-set.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be deleted
@@ -67,9 +68,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a synonym rule in a synonym set
+	 * Delete a synonym rule
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-synonym-rule.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated
@@ -107,9 +109,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym set
+	 * Get a synonym set
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-synonyms-set.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The name of the synonyms set to be retrieved
@@ -147,9 +150,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym rule from a synonym set
+	 * Get a synonym rule
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-synonym-rule.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to retrieve the synonym rule from
@@ -187,9 +191,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a summary of all defined synonym sets
+	 * Get all synonym sets
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-synonyms-set.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     from?: int, // Starting offset
@@ -224,9 +229,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonyms set
+	 * Create or update a synonym set
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-synonyms-set.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be created or updated
@@ -264,9 +270,10 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonym rule in a synonym set
+	 * Create or update a synonym rule
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-synonym-rule.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated with the synonym rule

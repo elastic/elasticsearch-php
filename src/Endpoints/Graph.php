@@ -29,14 +29,14 @@ use Http\Promise\Promise;
 class Graph extends AbstractEndpoint
 {
 	/**
-	 * Explore extracted and summarized information about the documents and terms in an index.
+	 * Explore graph analytics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-graph
 	 * @group serverless
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

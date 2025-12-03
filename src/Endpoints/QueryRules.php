@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class QueryRules extends AbstractEndpoint
 {
 	/**
-	 * Deletes an individual query rule within a ruleset.
+	 * Delete a query rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -69,9 +69,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a query ruleset.
+	 * Delete a query ruleset
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
 	 * @group serverless
 	 *
 	 * @param array{
@@ -108,9 +108,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Returns the details about an individual query rule within a ruleset.
+	 * Get a query rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -148,9 +148,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Returns the details about a query ruleset.
+	 * Get a query ruleset
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-ruleset
 	 * @group serverless
 	 *
 	 * @param array{
@@ -187,9 +187,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Lists query rulesets.
+	 * Get all query rulesets
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
 	 * @group serverless
 	 *
 	 * @param array{
@@ -225,9 +225,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a query rule within a ruleset.
+	 * Create or update a query rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -267,9 +267,9 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a query ruleset.
+	 * Create or update a query ruleset
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
 	 * @group serverless
 	 *
 	 * @param array{
@@ -308,11 +308,10 @@ class QueryRules extends AbstractEndpoint
 
 
 	/**
-	 * Tests a query ruleset to identify the rules that would match input criteria
+	 * Test a query ruleset
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/test-query-ruleset.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
 	 * @group serverless
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
 	 *     ruleset_id: string, // (REQUIRED) The unique identifier of the ruleset to test.

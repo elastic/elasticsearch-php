@@ -198,7 +198,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
-	 *     job_id: string, // (REQUIRED) The ID of the job to remove from the calendar
+	 *     job_id: string|array<string>, // (REQUIRED) An identifier for the anomaly detection jobs. It can be a job identifier, a group name, or a comma-separated list of jobs or groups.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -217,7 +217,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['calendar_id','job_id'], $params);
-		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($params['job_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($this->convertValue($params['job_id']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -1099,7 +1099,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     datafeed_id?: string, // The ID of the datafeeds stats to fetch
+	 *     datafeed_id?: string|array<string>, // Comma-separated list of datafeed identifiers or wildcard expressions. If you do not specify one of these options, the API returns information about all datafeeds.
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1118,7 +1118,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['datafeed_id'])) {
-			$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_stats';
+			$url = '/_ml/datafeeds/' . $this->encode($this->convertValue($params['datafeed_id'])) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/datafeeds/_stats';
@@ -1141,7 +1141,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     datafeed_id?: string, // The ID of the datafeeds to fetch
+	 *     datafeed_id?: string|array<string>, // Identifier for the datafeed. It can be a datafeed identifier or a wildcard expression. If you do not specify one of these options, the API returns information about all datafeeds.
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     exclude_generated?: bool, // Omits fields that are illegal to set on datafeed PUT
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1161,7 +1161,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['datafeed_id'])) {
-			$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']);
+			$url = '/_ml/datafeeds/' . $this->encode($this->convertValue($params['datafeed_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ml/datafeeds';
@@ -1184,7 +1184,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     filter_id?: string, // The ID of the filter to fetch
+	 *     filter_id?: string|array<string>, // Comma-separated list of strings that uniquely identify a filter.
 	 *     from?: int, // skips a number of filters
 	 *     size?: int, // specifies a max number of filters to get
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1204,7 +1204,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['filter_id'])) {
-			$url = '/_ml/filters/' . $this->encode($params['filter_id']);
+			$url = '/_ml/filters/' . $this->encode($this->convertValue($params['filter_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ml/filters';
@@ -1317,7 +1317,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     job_id?: string, // The ID of the jobs to fetch
+	 *     job_id?: string|array<string>, // Comma-separated list of identifiers for the anomaly detection job. It can be a job identifier, a group name, or a wildcard expression. If you do not specify one of these options, the API returns information for all anomaly detection jobs.
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
 	 *     exclude_generated?: bool, // Omits fields that are illegal to set on job PUT
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1337,7 +1337,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['job_id'])) {
-			$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']);
+			$url = '/_ml/anomaly_detectors/' . $this->encode($this->convertValue($params['job_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ml/anomaly_detectors';
@@ -1589,7 +1589,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     model_id?: string, // The ID of the trained models to fetch
+	 *     model_id?: string|array<string>, // The unique identifier of the trained model or a model alias.  You can get information for multiple trained models in a single API request by using a comma-separated list of model IDs or a wildcard expression.
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
 	 *     include?: string, // A comma delimited string of optional fields to include in the responsebody.
 	 *     decompress_definition?: bool, // Should the model definition be decompressed into valid JSON or returned in a custom compressed format. Defaults to true.
@@ -1614,7 +1614,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['model_id'])) {
-			$url = '/_ml/trained_models/' . $this->encode($params['model_id']);
+			$url = '/_ml/trained_models/' . $this->encode($this->convertValue($params['model_id']));
 			$method = 'GET';
 		} else {
 			$url = '/_ml/trained_models';
@@ -1637,7 +1637,7 @@ class Ml extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     model_id?: string, // The ID of the trained models stats to fetch
+	 *     model_id?: string|array<string>, // The unique identifier of the trained model or a model alias. It can be a comma-separated list or a wildcard expression.
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
 	 *     from?: int, // skips a number of trained models
 	 *     size?: int, // specifies a max number of trained models to get
@@ -1658,7 +1658,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['model_id'])) {
-			$url = '/_ml/trained_models/' . $this->encode($params['model_id']) . '/_stats';
+			$url = '/_ml/trained_models/' . $this->encode($this->convertValue($params['model_id'])) . '/_stats';
 			$method = 'GET';
 		} else {
 			$url = '/_ml/trained_models/_stats';
@@ -2012,7 +2012,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar to modify
-	 *     job_id: string, // (REQUIRED) The ID of the job to add to the calendar
+	 *     job_id: string|array<string>, // (REQUIRED) An identifier for the anomaly detection jobs. It can be a job identifier, a group name, or a comma-separated list of jobs or groups.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2031,7 +2031,7 @@ class Ml extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['calendar_id','job_id'], $params);
-		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($params['job_id']);
+		$url = '/_ml/calendars/' . $this->encode($params['calendar_id']) . '/jobs/' . $this->encode($this->convertValue($params['job_id']));
 		$method = 'PUT';
 
 		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
@@ -2096,7 +2096,7 @@ class Ml extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false)
 	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
 	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true)
-	 *     expand_wildcards?: string, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2182,7 +2182,7 @@ class Ml extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false). Only set if datafeed_config is provided.
 	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true). Only set if datafeed_config is provided.
 	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true). Only set if datafeed_config is provided.
-	 *     expand_wildcards?: string, // Whether source index expressions should get expanded to open or closed indices (default: open). Only set if datafeed_config is provided.
+	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open). Only set if datafeed_config is provided.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2822,7 +2822,7 @@ class Ml extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false)
 	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
 	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true)
-	 *     expand_wildcards?: string, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Cluster extends AbstractEndpoint
 {
 	/**
-	 * Provides explanations for shard allocations in the cluster.
+	 * Explain the shard allocations
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for connection to master node
@@ -69,9 +69,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a component template
+	 * Delete component templates
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -110,9 +110,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Clears cluster voting config exclusions.
+	 * Clear cluster voting config exclusions
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
 	 *
 	 * @param array{
 	 *     wait_for_removal?: bool, // Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list.
@@ -147,9 +147,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about whether a particular component template exist
+	 * Check component templates
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -188,13 +188,13 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns one or more component templates
+	 * Get component templates
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     name?: string|array<string>, // The comma separated names of the component templates
+	 *     name?: string, // The name of the component template. Wildcard (`*`) expressions are supported.
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     include_defaults?: bool, // Return all default configurations for the component template (default: false)
@@ -217,7 +217,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_component_template/' . $this->encode($this->convertValue($params['name']));
+			$url = '/_component_template/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_component_template';
@@ -234,9 +234,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns cluster settings.
+	 * Get cluster-wide settings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-get-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-get-settings
 	 *
 	 * @param array{
 	 *     flat_settings?: bool, // Return settings in flat format (default: false)
@@ -273,13 +273,13 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns basic information about the health of the cluster.
+	 * Get the cluster health status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // Limit the information returned to a specific index
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     level?: string, // Specify the level of detail for returned information
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -324,9 +324,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns different information about the cluster.
+	 * Get cluster info
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
 	 * @group serverless
 	 *
 	 * @param array{
@@ -363,10 +363,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns a list of any cluster-level changes (e.g. create index, update mapping,
-	 * allocate or fail shard) which have not yet been executed.
+	 * Get the pending cluster tasks
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
 	 *
 	 * @param array{
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
@@ -401,9 +400,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Updates the cluster voting config exclusions by node ids or node names.
+	 * Update voting configuration exclusions
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
 	 *
 	 * @param array{
 	 *     node_ids?: string, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
@@ -440,9 +439,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a component template
+	 * Create or update a component template
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 	 * @group serverless
 	 *
 	 * @param array{
@@ -484,9 +483,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Updates the cluster settings.
+	 * Update the cluster settings
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings
 	 *
 	 * @param array{
 	 *     flat_settings?: bool, // Return settings in flat format (default: false)
@@ -525,9 +524,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns the information about configured remote clusters.
+	 * Get remote cluster information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-remote-info.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-remote-info
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -560,9 +559,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Allows to manually change the allocation of individual shards in the cluster.
+	 * Reroute the cluster
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-reroute.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-reroute
 	 *
 	 * @param array{
 	 *     dry_run?: bool, // Simulate the operation only and return the resulting state
@@ -603,9 +602,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns a comprehensive information about the state of the cluster.
+	 * Get the cluster state
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state
 	 *
 	 * @param array{
 	 *     metric?: string|array<string>, // Limit the information returned to the specified metrics
@@ -617,7 +616,7 @@ class Cluster extends AbstractEndpoint
 	 *     wait_for_timeout?: int|string, // The maximum time to wait for wait_for_metadata_version before timing out
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -655,9 +654,9 @@ class Cluster extends AbstractEndpoint
 
 
 	/**
-	 * Returns high-level overview of cluster statistics.
+	 * Get cluster statistics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-stats
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes

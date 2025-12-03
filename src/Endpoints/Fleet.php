@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Fleet extends AbstractEndpoint
 {
 	/**
-	 * Returns the current global checkpoints for an index. This API is design for internal use by the fleet server project.
+	 * Get global checkpoints
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-global-checkpoints.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-fleet
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index.
@@ -72,7 +72,7 @@ class Fleet extends AbstractEndpoint
 
 
 	/**
-	 * Multi Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+	 * Run multiple Fleet searches
 	 *
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
@@ -115,7 +115,7 @@ class Fleet extends AbstractEndpoint
 
 
 	/**
-	 * Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+	 * Run a Fleet search
 	 *
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *

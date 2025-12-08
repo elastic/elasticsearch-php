@@ -430,7 +430,7 @@ class Snapshot extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     repository: string, // (REQUIRED) A repository name
+	 *     repository: string|array<string>, // (REQUIRED) Comma-separated list of snapshot repository names.
 	 *     meta_thread_pool_concurrency?: int, // Number of threads to use for reading metadata
 	 *     blob_thread_pool_concurrency?: int, // Number of threads to use for reading blob contents
 	 *     snapshot_verification_concurrency?: int, // Number of snapshots to verify concurrently
@@ -457,7 +457,7 @@ class Snapshot extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['repository'], $params);
-		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_verify_integrity';
+		$url = '/_snapshot/' . $this->encode($this->convertValue($params['repository'])) . '/_verify_integrity';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['meta_thread_pool_concurrency','blob_thread_pool_concurrency','snapshot_verification_concurrency','index_verification_concurrency','index_snapshot_verification_concurrency','max_failed_shard_snapshots','verify_blob_contents','max_bytes_per_sec','pretty','human','error_trace','source','filter_path']);

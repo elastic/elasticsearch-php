@@ -75,7 +75,7 @@ class Shutdown extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-get-node
 	 *
 	 * @param array{
-	 *     node_id?: string, // Which node for which to retrieve the shutdown status
+	 *     node_id?: string|array<string>, // Comma-separated list of nodes for which to retrieve the shutdown status
 	 *     master_timeout?: int|string, // Timeout for processing on master node
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -94,7 +94,7 @@ class Shutdown extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['node_id'])) {
-			$url = '/_nodes/' . $this->encode($params['node_id']) . '/shutdown';
+			$url = '/_nodes/' . $this->encode($this->convertValue($params['node_id'])) . '/shutdown';
 			$method = 'GET';
 		} else {
 			$url = '/_nodes/shutdown';

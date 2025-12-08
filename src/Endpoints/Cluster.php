@@ -79,7 +79,7 @@ class Cluster extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the template
+	 *     name: string|array<string>, // (REQUIRED) Comma-separated list or wildcard expression of component template names used to limit the request.
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -100,7 +100,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_component_template/' . $this->encode($params['name']);
+		$url = '/_component_template/' . $this->encode($this->convertValue($params['name']));
 		$method = 'DELETE';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -157,7 +157,7 @@ class Cluster extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     name: string, // (REQUIRED) The name of the template
+	 *     name: string|array<string>, // (REQUIRED) Comma-separated list of component template names used to limit the request. Wildcard (*) expressions are supported.
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -178,7 +178,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_component_template/' . $this->encode($params['name']);
+		$url = '/_component_template/' . $this->encode($this->convertValue($params['name']));
 		$method = 'HEAD';
 
 		$url = $this->addQueryString($url, $params, ['master_timeout','local','pretty','human','error_trace','source','filter_path']);
@@ -198,7 +198,7 @@ class Cluster extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     name?: string|array<string>, // The comma separated names of the component templates
+	 *     name?: string, // The name of the component template. Wildcard (`*`) expressions are supported.
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     include_defaults?: bool, // Return all default configurations for the component template (default: false)
@@ -221,7 +221,7 @@ class Cluster extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['name'])) {
-			$url = '/_component_template/' . $this->encode($this->convertValue($params['name']));
+			$url = '/_component_template/' . $this->encode($params['name']);
 			$method = 'GET';
 		} else {
 			$url = '/_component_template';
@@ -283,7 +283,7 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // Limit the information returned to a specific index
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     level?: string, // Specify the level of detail for returned information
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -620,7 +620,7 @@ class Cluster extends AbstractEndpoint
 	 *     wait_for_timeout?: int|string, // The maximum time to wait for wait_for_metadata_version before timing out
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

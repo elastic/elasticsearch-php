@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Connector extends AbstractEndpoint
 {
 	/**
-	 * Updates the last_seen timestamp in the connector document.
+	 * Check in a connector
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/check-in-connector-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -68,10 +69,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a connector.
+	 * Delete a connector
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-connector-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be deleted.
@@ -108,10 +109,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Returns the details about a connector.
+	 * Get a connector
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-connector-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be returned.
@@ -147,51 +148,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the stats of last sync in the connector document.
+	 * Get all connectors
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) Object with stats related to the last connector sync run.. If body is a string must be a valid JSON.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function lastSync(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['connector_id','body'], $params);
-		$url = '/_connector/' . $this->encode($params['connector_id']) . '/_last_sync';
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['connector_id'], $request, 'connector.last_sync');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Lists all connectors.
-	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-connector-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     from?: int, // Starting offset (default: 0)
@@ -230,10 +190,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Creates a connector.
+	 * Create a connector
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-connector-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -268,10 +228,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a connector.
+	 * Create or update a connector
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-connector-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id?: string, // The unique identifier of the connector to be created or updated.
@@ -311,10 +271,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Cancels a connector sync job.
+	 * Cancel a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cancel-connector-sync-job-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be canceled
@@ -350,9 +310,9 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Checks in a connector sync job (refreshes 'last_seen').
+	 * Check in a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/check-in-connector-sync-job-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -389,9 +349,9 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Claims a connector sync job.
+	 * Claim a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/claim-connector-sync-job-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/claim-connector-sync-job-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -430,10 +390,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a connector sync job.
+	 * Delete a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-connector-sync-job-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be deleted.
@@ -469,9 +429,9 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Sets an error for a connector sync job.
+	 * Set a connector sync job error
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/set-connector-sync-job-error-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -510,10 +470,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Returns the details about a connector sync job.
+	 * Get a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-connector-sync-job-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_sync_job_id: string, // (REQUIRED) The unique identifier of the connector sync job to be returned.
@@ -549,15 +509,15 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Lists all connector sync jobs.
+	 * Get all connector sync jobs
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-connector-sync-jobs-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     from?: int, // Starting offset (default: 0)
 	 *     size?: int, // specifies a max number of results to get (default: 100)
-	 *     status?: string, // Sync job status, which sync jobs are fetched for
+	 *     status?: string, // A sync job status to fetch connector sync jobs for
 	 *     connector_id?: string, // Id of the connector to fetch the sync jobs for
 	 *     job_type?: string|array<string>, // A comma-separated list of job types
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -590,10 +550,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Creates a connector sync job.
+	 * Create a connector sync job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-connector-sync-job-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -629,9 +589,9 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the stats fields in the connector sync job document.
+	 * Set the connector sync job stats
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/set-connector-sync-job-stats-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -670,9 +630,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Activates the draft filtering rules if they are in a validated state.
+	 * Activate the connector draft filter
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-filtering-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -710,10 +671,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the API key id and/or API key secret id fields in the connector document.
+	 * Update the connector API key ID
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-api-key-id-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-api-key-id-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -751,10 +712,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the connector configuration.
+	 * Update the connector configuration
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-configuration-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-configuration-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -792,9 +753,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the error field in the connector document.
+	 * Update the connector error field
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-error-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-error-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -833,9 +795,9 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the connector features in the connector document.
+	 * Update the connector features
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-features-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-features-api.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -874,10 +836,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the filtering field in the connector document.
+	 * Update the connector filtering
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-filtering-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -915,9 +877,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the validation info of the draft filtering rules.
+	 * Update the connector draft filtering validation
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-filtering-validation-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -956,10 +919,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the index name of the connector.
+	 * Update the connector index name
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-index-name-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-index-name-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -997,10 +960,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the name and/or description fields in the connector document.
+	 * Update the connector name and description
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-name-description-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -1038,10 +1001,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the is_native flag of the connector.
+	 * Update the connector is_native flag
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/connector-apis.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-native-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -1079,10 +1042,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the pipeline field in the connector document.
+	 * Update the connector pipeline
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-pipeline-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-pipeline-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -1120,10 +1083,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the scheduling field in the connector document.
+	 * Update the connector scheduling
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-scheduling-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -1161,10 +1124,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the service type of the connector.
+	 * Update the connector service type
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-service-type-api.html
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-service-type-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be updated.
@@ -1202,9 +1165,10 @@ class Connector extends AbstractEndpoint
 
 
 	/**
-	 * Updates the status of the connector.
+	 * Update the connector status
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-status-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-status-api.html
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

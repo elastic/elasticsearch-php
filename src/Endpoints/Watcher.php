@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Watcher extends AbstractEndpoint
 {
 	/**
-	 * Acknowledges a watch, manually throttling the execution of the watch's actions.
+	 * Acknowledge a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-ack-watch
 	 *
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
@@ -72,9 +72,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Activates a currently inactive watch.
+	 * Activate a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-activate-watch
 	 *
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
@@ -110,9 +110,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Deactivates a currently active watch.
+	 * Deactivate a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-deactivate-watch
 	 *
 	 * @param array{
 	 *     watch_id: string, // (REQUIRED) Watch ID
@@ -148,9 +148,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Removes a watch from Watcher.
+	 * Delete a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-delete-watch
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
@@ -186,9 +186,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Forces the execution of a stored watch.
+	 * Run a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-execute-watch
 	 *
 	 * @param array{
 	 *     id?: string, // Watch ID
@@ -229,9 +229,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieve settings for the watcher system index
+	 * Get Watcher index settings
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-settings
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
@@ -266,9 +266,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a watch by its ID.
+	 * Get a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-watch
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
@@ -304,9 +304,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new watch, or updates an existing one.
+	 * Create or update a watch
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-put-watch
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
@@ -319,7 +319,7 @@ class Watcher extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The watch. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The watch. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -332,7 +332,7 @@ class Watcher extends AbstractEndpoint
 	public function putWatch(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['id'], $params);
+		$this->checkRequiredParameters(['id','body'], $params);
 		$url = '/_watcher/watch/' . $this->encode($params['id']);
 		$method = 'PUT';
 
@@ -348,9 +348,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves stored watches.
+	 * Query watches
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-query-watches
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -385,9 +385,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Starts Watcher if it is not already running.
+	 * Start the watch service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-start
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
@@ -421,9 +421,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the current Watcher metrics.
+	 * Get Watcher statistics
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stats
 	 *
 	 * @param array{
 	 *     metric?: string|array<string>, // Controls what additional stat metrics should be include in the response
@@ -462,9 +462,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Stops Watcher if it is running.
+	 * Stop the watch service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stop
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
@@ -498,9 +498,9 @@ class Watcher extends AbstractEndpoint
 
 
 	/**
-	 * Update settings for the watcher system index
+	 * Update Watcher index settings
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings
 	 *
 	 * @param array{
 	 *     timeout?: int|string, // Specify timeout for waiting for acknowledgement from all nodes

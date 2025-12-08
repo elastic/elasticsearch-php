@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Ccr extends AbstractEndpoint
 {
 	/**
-	 * Deletes auto-follow patterns.
+	 * Delete auto-follow patterns
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-delete-auto-follow-pattern
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern.
@@ -68,9 +68,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new follower index configured to follow the referenced leader index.
+	 * Create a follower
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index
@@ -110,9 +110,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information about all follower indices, including parameters and status for each follower index
+	 * Get follower information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-info
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
@@ -149,9 +149,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves follower stats. return shard-level stats about the following tasks associated with each shard for the specified indices.
+	 * Get follower stats
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-stats
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index patterns; use `_all` to perform the operation on all indices
@@ -188,9 +188,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Removes the follower retention leases from the leader.
+	 * Forget a follower
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-forget-follower
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) the name of the leader index for which specified follower retention leases should be removed
@@ -229,9 +229,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Gets configured auto-follow patterns. Returns the specified auto-follow pattern collection.
+	 * Get auto-follow patterns
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-get-auto-follow-pattern-1
 	 *
 	 * @param array{
 	 *     name?: string, // The name of the auto follow pattern.
@@ -270,9 +270,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Pauses an auto-follow pattern
+	 * Pause an auto-follow pattern
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-auto-follow-pattern
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern that should pause discovering new indices to follow.
@@ -309,9 +309,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Pauses a follower index. The follower index will not fetch any additional operations from the leader index.
+	 * Pause a follower
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-follow
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index that should pause following its leader index.
@@ -348,9 +348,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new named collection of auto-follow patterns against a specified remote cluster. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.
+	 * Create or update auto-follow patterns
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-put-auto-follow-pattern
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern.
@@ -389,9 +389,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Resumes an auto-follow pattern that has been paused
+	 * Resume an auto-follow pattern
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-auto-follow-pattern
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the auto follow pattern to resume discovering new indices to follow.
@@ -428,9 +428,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Resumes a follower index that has been paused
+	 * Resume a follower
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-follow
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follow index to resume following.
@@ -469,9 +469,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Gets all stats related to cross-cluster replication.
+	 * Get cross-cluster replication stats
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-stats
 	 *
 	 * @param array{
 	 *     timeout?: int|string, // Explicit operation timeout
@@ -506,9 +506,9 @@ class Ccr extends AbstractEndpoint
 
 
 	/**
-	 * Stops the following task associated with a follower index and removes index metadata and settings associated with cross-cluster replication.
+	 * Unfollow an index
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-unfollow
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the follower index that should be turned into a regular index.

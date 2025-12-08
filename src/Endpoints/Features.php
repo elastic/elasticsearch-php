@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Features extends AbstractEndpoint
 {
 	/**
-	 * Gets a list of features which can be included in snapshots using the feature_states field when creating a snapshot
+	 * Get the features
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-features-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -65,9 +65,9 @@ class Features extends AbstractEndpoint
 
 
 	/**
-	 * Resets the internal state of features, usually by deleting system indices
+	 * Reset the features
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-reset-features
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

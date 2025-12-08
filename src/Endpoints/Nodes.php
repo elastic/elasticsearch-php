@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Nodes extends AbstractEndpoint
 {
 	/**
-	 * Removes the archived repositories metering information present in the cluster.
+	 * Clear the archived repositories metering
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -69,9 +69,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Returns cluster repositories metering information.
+	 * Get cluster repositories metering
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -108,9 +108,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about hot threads on each node in the cluster.
+	 * Get the hot threads for nodes
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
@@ -155,9 +155,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about nodes in the cluster.
+	 * Get node information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-info
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
@@ -204,9 +204,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Reloads secure settings.
+	 * Reload the keystore on nodes in the cluster
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-reload-secure-settings
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.
@@ -247,9 +247,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Returns statistical information about nodes in the cluster.
+	 * Get node statistics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
@@ -310,9 +310,9 @@ class Nodes extends AbstractEndpoint
 
 
 	/**
-	 * Returns low-level information about REST actions usage on nodes.
+	 * Get feature usage information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-usage
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes

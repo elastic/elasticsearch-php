@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Enrich extends AbstractEndpoint
 {
 	/**
-	 * Deletes an existing enrich policy and its enrich index.
+	 * Delete an enrich policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
 	 * @group serverless
 	 *
 	 * @param array{
@@ -69,9 +69,9 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Creates the enrich index for an existing enrich policy.
+	 * Run an enrich policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
 	 * @group serverless
 	 *
 	 * @param array{
@@ -110,9 +110,9 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Gets information about an enrich policy.
+	 * Get an enrich policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
 	 * @group serverless
 	 *
 	 * @param array{
@@ -152,9 +152,9 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new enrich policy.
+	 * Create an enrich policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy
 	 * @group serverless
 	 *
 	 * @param array{
@@ -194,9 +194,9 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Gets enrich coordinator statistics and information about enrich policies that are currently executing.
+	 * Get enrich stats
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-stats
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked

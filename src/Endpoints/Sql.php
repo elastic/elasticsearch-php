@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Sql extends AbstractEndpoint
 {
 	/**
-	 * Clears the SQL cursor
+	 * Clear an SQL search cursor
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-sql-cursor-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/clear-sql-cursor-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -67,9 +68,10 @@ class Sql extends AbstractEndpoint
 
 
 	/**
-	 * Deletes an async SQL search or a stored synchronous SQL search. If the search is still running, the API cancels it.
+	 * Delete an async SQL search
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-async-sql-search-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -105,9 +107,10 @@ class Sql extends AbstractEndpoint
 
 
 	/**
-	 * Returns the current status and available results for an async SQL search or stored synchronous SQL search
+	 * Get async SQL search results
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-async-sql-search-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -147,9 +150,10 @@ class Sql extends AbstractEndpoint
 
 
 	/**
-	 * Returns the current status of an async SQL search or a stored synchronous SQL search
+	 * Get the async SQL search status
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-status-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-async-sql-search-status-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -185,9 +189,10 @@ class Sql extends AbstractEndpoint
 
 
 	/**
-	 * Executes a SQL request
+	 * Get SQL search results
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/sql-search-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -224,9 +229,10 @@ class Sql extends AbstractEndpoint
 
 
 	/**
-	 * Translates SQL into Elasticsearch queries
+	 * Translate SQL into Elasticsearch queries
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/sql-translate-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class SearchableSnapshots extends AbstractEndpoint
 {
 	/**
-	 * Retrieve node-level cache statistics about searchable snapshots.
+	 * Get cache statistics
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-cache-stats.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -72,14 +72,14 @@ class SearchableSnapshots extends AbstractEndpoint
 	/**
 	 * Clear the cache of searchable snapshots.
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-clear-cache.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     index?: string|array<string>, // A comma-separated list of index names
+	 *     index?: string|array<string>, // Clear the cache
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -114,9 +114,9 @@ class SearchableSnapshots extends AbstractEndpoint
 
 
 	/**
-	 * Mount a snapshot as a searchable index.
+	 * Mount a snapshot
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-mount-snapshot.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-mount-snapshot.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) The name of the repository containing the snapshot of the index to mount
@@ -158,9 +158,9 @@ class SearchableSnapshots extends AbstractEndpoint
 
 
 	/**
-	 * Retrieve shard-level statistics about searchable snapshots.
+	 * Get searchable snapshot statistics
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-stats.html
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names

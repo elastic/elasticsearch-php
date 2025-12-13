@@ -10,7 +10,7 @@
  * Elasticsearch B.V licenses this file to you under the MIT License.
  * See the LICENSE file in the project root for more information.
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Elastic\Elasticsearch\Response;
 
@@ -36,10 +36,11 @@ use stdClass;
  */
 class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayAccess
 {
+    const HEADER_CHECK = 'X-Elastic-Product';
+    const PRODUCT_NAME = 'Elasticsearch';
+
     use ProductCheckTrait;
     use MessageResponseTrait;
-    public const HEADER_CHECK = 'X-Elastic-Product';
-    public const PRODUCT_NAME = 'Elasticsearch';
 
     protected array $asArray;
     protected object $asObject;
@@ -65,11 +66,11 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
         $this->productCheck($response);
         // Check for Serverless response
         $this->serverless = $this->isServerlessResponse($response);
-        $this->response = $response;
 
         unset($this->asArray, $this->asObject);
         $this->asString = '';
 
+        $this->response = $response;
         $status = $response->getStatusCode();
         if ($throwException && $status > 399 && $status < 500) {
             $error = new ClientResponseException(
@@ -107,14 +108,14 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
      */
     public function asBool(): bool
     {
-        return $this->response->getStatusCode() >= 200 && $this->response->getStatusCode() < 300;
+        return $this->response->getStatusCode() >=200 && $this->response->getStatusCode() < 300;
     }
 
     /**
      * Converts the body content to array, if possible.
      * Otherwise, it throws an UnknownContentTypeException
      * if Content-Type is not specified or unknown.
-     *
+     * 
      * @throws UnknownContentTypeException
      */
     public function asArray(): array
@@ -150,7 +151,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
      * Converts the body content to object, if possible.
      * Otherwise, it throws an UnknownContentTypeException
      * if Content-Type is not specified or unknown.
-     *
+     * 
      * @throws UnknownContentTypeException
      */
     public function asObject(): object
@@ -200,7 +201,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
 
     /**
      * Access the body content as object properties
-     *
+     * 
      * @see https://www.php.net/manual/en/language.oop5.overloading.php#object.get
      */
     public function __get($name)
@@ -210,17 +211,17 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
 
     /**
      * ArrayAccess interface
-     *
+     * 
      * @see https://www.php.net/manual/en/class.arrayaccess.php
      */
     public function offsetExists($offset): bool
     {
         return isset($this->asArray()[$offset]);
     }
-
+ 
     /**
      * ArrayAccess interface
-     *
+     * 
      * @see https://www.php.net/manual/en/class.arrayaccess.php
      *
      * @return mixed
@@ -233,7 +234,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
 
     /**
      * ArrayAccess interface
-     *
+     * 
      * @see https://www.php.net/manual/en/class.arrayaccess.php
      */
     public function offsetSet($offset, $value): void
@@ -243,7 +244,7 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
 
     /**
      * ArrayAccess interface
-     *
+     * 
      * @see https://www.php.net/manual/en/class.arrayaccess.php
      */
     public function offsetUnset($offset): void
@@ -254,11 +255,11 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
     /**
      * Map the response body to an object of a specific class
      * by default the class is the PHP standard one (stdClass)
-     *
+     * 
      * This mapping works only for ES|QL results (with columns and values)
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html
-     *
-     * @return object[]
+     * 
+     * @return object[] 
      */
     public function mapTo(string $class = stdClass::class): array
     {
@@ -267,13 +268,13 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
             throw new UnknownContentTypeException(sprintf(
                 "The response is not a valid ES|QL result. I cannot mapTo(\"%s\")",
                 $class
-            ));
+            )); 
         }
         $iterator = [];
         $ncol = count($response['columns']);
         foreach ($response['values'] as $value) {
-            $obj = new $class();
-            for ($i = 0; $i < $ncol; $i++) {
+            $obj = new $class;
+            for ($i=0; $i < $ncol; $i++) {
                 $field = Utility::formatVariableName($response['columns'][$i]['name']);
                 if ($class !== stdClass::class && !property_exists($obj, $field)) {
                     continue;

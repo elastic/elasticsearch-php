@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class AsyncSearch extends AbstractEndpoint
 {
 	/**
-	 * Deletes an async search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
+	 * Delete an async search
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/async-search.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -67,9 +68,10 @@ class AsyncSearch extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the results of a previously submitted async search request given its ID.
+	 * Get async search results
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/async-search.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -108,9 +110,10 @@ class AsyncSearch extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the status of a previously submitted async search request given its ID.
+	 * Get the async search status
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/async-search.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
@@ -147,9 +150,10 @@ class AsyncSearch extends AbstractEndpoint
 
 
 	/**
-	 * Executes a search request asynchronously.
+	 * Run an async search
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/async-search.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
@@ -170,7 +174,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response

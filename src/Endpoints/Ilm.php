@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Ilm extends AbstractEndpoint
 {
 	/**
-	 * Deletes the specified lifecycle policy definition. A currently used policy cannot be deleted.
+	 * Delete a lifecycle policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-delete-lifecycle
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
@@ -69,9 +69,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves information about the index's current lifecycle state, such as the currently executing phase, action, and step.
+	 * Explain the lifecycle state
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-explain-lifecycle
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to explain
@@ -110,9 +110,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Returns the specified policy definition. Includes the policy version and last modified date.
+	 * Get lifecycle policies
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-lifecycle
 	 *
 	 * @param array{
 	 *     policy?: string, // The name of the index lifecycle policy
@@ -152,9 +152,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the current index lifecycle management (ILM) status.
+	 * Get the ILM status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-status
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -187,9 +187,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Migrates the indices and ILM policies away from custom node attribute allocation routing to data tiers routing
+	 * Migrate to data tiers routing
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-migrate-to-data-tiers
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -226,9 +226,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Manually moves an index into the specified step and executes that step.
+	 * Move to a lifecycle step
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-move-to-step
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index whose lifecycle step is to change
@@ -266,9 +266,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Creates a lifecycle policy
+	 * Create or update a lifecycle policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-put-lifecycle
 	 *
 	 * @param array{
 	 *     policy: string, // (REQUIRED) The name of the index lifecycle policy
@@ -308,9 +308,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Removes the assigned lifecycle policy and stops managing the specified index
+	 * Remove policies from an index
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-remove-policy
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index to remove policy on
@@ -346,9 +346,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Retries executing the policy for an index that is in the ERROR step.
+	 * Retry a policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the indices (comma-separated) whose failed lifecycle step is to be retry
@@ -384,9 +384,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Start the index lifecycle management (ILM) plugin.
+	 * Start the ILM plugin
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-start
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -421,9 +421,9 @@ class Ilm extends AbstractEndpoint
 
 
 	/**
-	 * Halts all lifecycle management operations and stops the index lifecycle management (ILM) plugin
+	 * Stop the ILM plugin
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-stop
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node

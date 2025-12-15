@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Snapshot extends AbstractEndpoint
 {
 	/**
-	 * Removes stale data from repository.
+	 * Clean up the snapshot repository
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-cleanup-repository
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -69,9 +69,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Clones indices from one snapshot into another snapshot in the same repository.
+	 * Clone a snapshot
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -112,9 +112,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Creates a snapshot in a repository.
+	 * Create a snapshot
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -155,9 +155,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Creates a repository.
+	 * Create or update a snapshot repository
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -198,9 +198,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Deletes one or more snapshots.
+	 * Delete snapshots
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -239,9 +239,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a repository.
+	 * Delete snapshot repositories
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete-repository
 	 *
 	 * @param array{
 	 *     repository: string|array<string>, // (REQUIRED) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
@@ -279,9 +279,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about a snapshot.
+	 * Get snapshot information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -332,9 +332,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about a repository.
+	 * Get snapshot repository information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
 	 *
 	 * @param array{
 	 *     repository?: string|array<string>, // A comma-separated list of repository names
@@ -374,9 +374,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Analyzes a repository for correctness and performance
+	 * Analyze a snapshot repository
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-analyze
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -424,9 +424,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Verifies the integrity of the contents of a snapshot repository
+	 * Verify the repository integrity
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -471,9 +471,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Restores a snapshot.
+	 * Restore a snapshot
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-restore
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -514,9 +514,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about the status of a snapshot.
+	 * Get the snapshot status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status
 	 *
 	 * @param array{
 	 *     repository?: string, // A repository name
@@ -560,9 +560,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Verifies a repository.
+	 * Verify a snapshot repository
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-verify-repository
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name

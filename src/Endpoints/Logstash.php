@@ -74,7 +74,7 @@ class Logstash extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     id?: string, // A comma-separated list of Pipeline IDs
+	 *     id?: string|array<string>, // A comma-separated list of pipeline identifiers.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -92,7 +92,7 @@ class Logstash extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['id'])) {
-			$url = '/_logstash/pipeline/' . $this->encode($params['id']);
+			$url = '/_logstash/pipeline/' . $this->encode($this->convertValue($params['id']));
 			$method = 'GET';
 		} else {
 			$url = '/_logstash/pipeline';

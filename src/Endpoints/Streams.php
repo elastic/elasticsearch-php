@@ -108,7 +108,7 @@ class Streams extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/streams-status.html
 	 *
 	 * @param array{
-	 *     mater_timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
+	 *     master_timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -128,7 +128,7 @@ class Streams extends AbstractEndpoint
 		$url = '/_streams/status';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['mater_timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

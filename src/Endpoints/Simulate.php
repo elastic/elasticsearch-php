@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Simulate extends AbstractEndpoint
 {
 	/**
-	 * Simulates running ingest with example documents.
+	 * Simulate data ingestion
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-ingest-api.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-simulate-ingest
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

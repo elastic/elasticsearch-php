@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Slm extends AbstractEndpoint
 {
 	/**
-	 * Deletes an existing snapshot lifecycle policy.
+	 * Delete a policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-delete-lifecycle
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy to remove
@@ -69,9 +69,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Immediately creates a snapshot according to the lifecycle policy, without waiting for the scheduled time.
+	 * Run a policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy to be executed
@@ -109,9 +109,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Deletes any snapshots that are expired according to the policy's retention rules.
+	 * Run a retention policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -146,9 +146,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves one or more snapshot lifecycle policy definitions and information about the latest snapshot attempts.
+	 * Get policy information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-lifecycle
 	 *
 	 * @param array{
 	 *     policy_id?: string|array<string>, // Comma-separated list of snapshot lifecycle policies to retrieve
@@ -188,9 +188,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Returns global and policy-level statistics about actions taken by snapshot lifecycle management.
+	 * Get snapshot lifecycle management statistics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/slm-api-get-stats.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-stats
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -225,9 +225,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the status of snapshot lifecycle management (SLM).
+	 * Get the snapshot lifecycle management status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
@@ -262,9 +262,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a snapshot lifecycle policy.
+	 * Create or update a policy
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-put-lifecycle
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy
@@ -304,9 +304,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Turns on snapshot lifecycle management (SLM).
+	 * Start snapshot lifecycle management
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for processing on master node
@@ -341,9 +341,9 @@ class Slm extends AbstractEndpoint
 
 
 	/**
-	 * Turns off snapshot lifecycle management (SLM).
+	 * Stop snapshot lifecycle management
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for processing on master node

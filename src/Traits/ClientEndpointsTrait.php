@@ -38,7 +38,7 @@ trait ClientEndpointsTrait
 	 *     index?: string, // Default index for items which don't provide one
 	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
 	 *     _source_excludes?: string|array<string>, // Default list of fields to exclude from the returned _source field, can be overridden on each sub-request
@@ -177,7 +177,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     min_score?: float, // Include only documents with a specific `_score` value in the result
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
@@ -235,7 +235,7 @@ trait ClientEndpointsTrait
 	 *     index: string, // (REQUIRED) The name of the index
 	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     version?: int, // Explicit version number for concurrency control
 	 *     version_type?: string, // Specific version type
@@ -287,7 +287,7 @@ trait ClientEndpointsTrait
 	 *     index: string, // (REQUIRED) The name of the index
 	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     if_seq_no?: int, // only perform the delete operation if the last operation that has changed the document has the specified sequence number
 	 *     if_primary_term?: int, // only perform the delete operation if the last operation that has changed the document has the specified primary term
@@ -340,7 +340,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     conflicts?: string, // What to do when the delete by query hits version conflicts?
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     q?: string, // Query in the Lucene query string syntax
@@ -487,7 +487,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
 	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -536,7 +536,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
 	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -590,7 +590,7 @@ trait ClientEndpointsTrait
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -638,7 +638,7 @@ trait ClientEndpointsTrait
 	 *     fields?: string|array<string>, // A comma-separated list of field names
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     include_unmapped?: bool, // Indicates whether unmapped fields should be included in the response.
 	 *     filters?: string|array<string>, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
 	 *     types?: string|array<string>, // Only return results for fields that have one of the types in the list
@@ -693,7 +693,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
 	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -853,7 +853,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
 	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -896,7 +896,7 @@ trait ClientEndpointsTrait
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
 	 *
 	 * @param array{
-	 *     feature?: string, // A feature of the cluster, as returned by the top-level health API
+	 *     feature?: string|array<string>, // Comma-separated list of cluster features, as returned by the top-level health report API.
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     verbose?: bool, // Opt in for more information about the health of the system
 	 *     size?: int, // Limit the number of affected resources the health API returns
@@ -917,7 +917,7 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		if (isset($params['feature'])) {
-			$url = '/_health_report/' . $this->encode($params['feature']);
+			$url = '/_health_report/' . $this->encode($this->convertValue($params['feature']));
 			$method = 'GET';
 		} else {
 			$url = '/_health_report';
@@ -945,7 +945,7 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
 	 *     op_type?: string, // Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID
 	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     version?: int, // Explicit version number for concurrency control
 	 *     version_type?: string, // Specific version type
@@ -1082,7 +1082,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
 	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
@@ -1140,7 +1140,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
@@ -1246,7 +1246,7 @@ trait ClientEndpointsTrait
 	 *     positions?: bool, // Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
 	 *     payloads?: bool, // Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     routing?: string, // Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
+	 *     routing?: string|array<string>, // Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
 	 *     realtime?: bool, // Specifies if requests are real-time as opposed to near-real-time (default: true).
 	 *     version?: int, // Explicit version number for concurrency control
 	 *     version_type?: string, // Specific version type
@@ -1294,9 +1294,9 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to open point in time; use `_all` or empty string to perform the operation on all indices
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     keep_alive?: string, // Specific the time to live for the point in time
 	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node executed concurrently when opening this point-in-time. This value should be used to limit the impact of opening the point-in-time on the cluster
@@ -1428,7 +1428,7 @@ trait ClientEndpointsTrait
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     search_type?: string, // Search operation type
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1703,7 +1703,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
@@ -1833,11 +1833,11 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1883,7 +1883,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
@@ -1987,7 +1987,7 @@ trait ClientEndpointsTrait
 	 *     positions?: bool, // Specifies if term positions should be returned.
 	 *     payloads?: bool, // Specifies if term payloads should be returned.
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random).
-	 *     routing?: string, // Specific routing value.
+	 *     routing?: string|array<string>, // Specific routing value.
 	 *     realtime?: bool, // Specifies if request is real-time as opposed to near-real-time (default: true).
 	 *     version?: int, // Explicit version number for concurrency control
 	 *     version_type?: string, // Specific version type
@@ -2044,7 +2044,7 @@ trait ClientEndpointsTrait
 	 *     lang?: string, // The script language (default: painless)
 	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
 	 *     retry_on_conflict?: int, // Specify how many times should the operation be retried when a conflict occurs (default: 0)
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     if_seq_no?: int, // only perform the update operation if the last operation that has changed the document has the specified sequence number
 	 *     if_primary_term?: int, // only perform the update operation if the last operation that has changed the document has the specified primary term
@@ -2099,7 +2099,7 @@ trait ClientEndpointsTrait
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
 	 *     conflicts?: string, // What to do when the update by query hits version conflicts?
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     pipeline?: string, // Ingest pipeline to set on index requests made by this action. (default: none)
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)

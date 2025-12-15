@@ -54,7 +54,7 @@ class Monitoring extends AbstractEndpoint
 	public function bulk(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['body'], $params);
+		$this->checkRequiredParameters(['system_id','system_api_version','interval','body'], $params);
 		$url = '/_monitoring/bulk';
 		$method = 'POST';
 

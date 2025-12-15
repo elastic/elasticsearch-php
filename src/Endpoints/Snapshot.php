@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Snapshot extends AbstractEndpoint
 {
 	/**
-	 * Removes stale data from repository.
+	 * Clean up the snapshot repository
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/clean-up-snapshot-repo-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -69,9 +69,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Clones indices from one snapshot into another snapshot in the same repository.
+	 * Clone a snapshot
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/clone-snapshot-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -112,9 +112,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Creates a snapshot in a repository.
+	 * Create a snapshot
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-snapshot-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -155,9 +155,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Creates a repository.
+	 * Create or update a snapshot repository
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-snapshot-repo-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -198,9 +198,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Deletes one or more snapshots.
+	 * Delete snapshots
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-snapshot-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -239,9 +239,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a repository.
+	 * Delete snapshot repositories
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-snapshot-repo-api.html
 	 *
 	 * @param array{
 	 *     repository: string|array<string>, // (REQUIRED) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
@@ -279,9 +279,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about a snapshot.
+	 * Get snapshot information
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-snapshot-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -331,9 +331,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about a repository.
+	 * Get snapshot repository information
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-snapshot-repo-api.html
 	 *
 	 * @param array{
 	 *     repository?: string|array<string>, // A comma-separated list of repository names
@@ -373,9 +373,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Analyzes a repository for correctness and performance
+	 * Analyze a snapshot repository
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/repo-analysis-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -385,7 +385,7 @@ class Snapshot extends AbstractEndpoint
 	 *     read_node_count?: int, // Number of nodes on which to read a blob after writing. Defaults to 10.
 	 *     early_read_node_count?: int, // Number of nodes on which to perform an early read on a blob, i.e. before writing has completed. Early reads are rare actions so the 'rare_action_probability' parameter is also relevant. Defaults to 2.
 	 *     seed?: int, // Seed for the random number generator used to create the test workload. Defaults to a random value.
-	 *     rare_action_probability?: int, // Probability of taking a rare action such as an early read or an overwrite. Defaults to 0.02.
+	 *     rare_action_probability?: float, // Probability of taking a rare action such as an early read or an overwrite. Defaults to 0.02.
 	 *     max_blob_size?: string, // Maximum size of a blob to create during the test, e.g '1gb' or '100mb'. Defaults to '10mb'.
 	 *     max_total_data_size?: string, // Maximum total size of all blobs to create during the test, e.g '1tb' or '100gb'. Defaults to '1gb'.
 	 *     timeout?: int|string, // Explicit operation timeout. Defaults to '30s'.
@@ -423,9 +423,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Restores a snapshot.
+	 * Restore a snapshot
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/restore-snapshot-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
@@ -466,9 +466,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about the status of a snapshot.
+	 * Get the snapshot status
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-snapshot-status-api.html
 	 *
 	 * @param array{
 	 *     repository?: string, // A repository name
@@ -512,9 +512,9 @@ class Snapshot extends AbstractEndpoint
 
 
 	/**
-	 * Verifies a repository.
+	 * Verify a snapshot repository
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/verify-snapshot-repo-api.html
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name

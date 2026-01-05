@@ -41,7 +41,9 @@ use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
 use Elastic\Elasticsearch\Endpoints\Profiling;
 use Elastic\Elasticsearch\Endpoints\Project;
+use Elastic\Elasticsearch\Endpoints\ProjectRouting;
 use Elastic\Elasticsearch\Endpoints\QueryRules;
+use Elastic\Elasticsearch\Endpoints\Reindex;
 use Elastic\Elasticsearch\Endpoints\Rollup;
 use Elastic\Elasticsearch\Endpoints\SearchApplication;
 use Elastic\Elasticsearch\Endpoints\SearchableSnapshots;
@@ -294,12 +296,30 @@ trait NamespaceTrait
 	}
 
 
+	public function projectRouting(): ProjectRouting
+	{
+		if (!isset($this->namespace['ProjectRouting'])) {
+			$this->namespace['ProjectRouting'] = new ProjectRouting($this);
+		}
+		return $this->namespace['ProjectRouting'];
+	}
+
+
 	public function queryRules(): QueryRules
 	{
 		if (!isset($this->namespace['QueryRules'])) {
 			$this->namespace['QueryRules'] = new QueryRules($this);
 		}
 		return $this->namespace['QueryRules'];
+	}
+
+
+	public function reindex(): Reindex
+	{
+		if (!isset($this->namespace['Reindex'])) {
+			$this->namespace['Reindex'] = new Reindex($this);
+		}
+		return $this->namespace['Reindex'];
 	}
 
 

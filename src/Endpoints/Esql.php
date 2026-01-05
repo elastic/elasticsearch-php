@@ -193,6 +193,7 @@ class Esql extends AbstractEndpoint
 	 * Delete a non-materialized VIEW for ESQL.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-view-delete
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -274,6 +275,7 @@ class Esql extends AbstractEndpoint
 	 * Get a non-materialized VIEW for ESQL.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-view-get
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -354,6 +356,7 @@ class Esql extends AbstractEndpoint
 	 * Creates a non-materialized VIEW for ESQL.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-view-put
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

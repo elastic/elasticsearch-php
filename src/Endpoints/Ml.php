@@ -1495,7 +1495,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The job IDs for which to calculate overall bucket results
 	 *     top_n?: int, // The number of top job bucket scores to be used in the overall_score calculation
-	 *     bucket_span?: string, // The span of the overall buckets. Defaults to the longest job bucket_span
+	 *     bucket_span?: int|string, // The span of the overall buckets. Defaults to the longest job bucket_span
 	 *     overall_score?: float, // Returns overall buckets with overall scores higher than this value
 	 *     exclude_interim?: bool, // If true overall buckets that include interim buckets will be excluded
 	 *     start?: string, // Returns overall buckets with timestamps after this time
@@ -1759,6 +1759,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to open
+	 *     timeout?: int|string, // Controls the time to wait until a job has opened.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1781,7 +1782,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/anomaly_detectors/' . $this->encode($params['job_id']) . '/_open';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

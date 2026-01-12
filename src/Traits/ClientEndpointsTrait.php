@@ -1297,7 +1297,7 @@ trait ClientEndpointsTrait
 	 *     routing?: string|array<string>, // Specific routing value
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     keep_alive?: string, // Specific the time to live for the point in time
+	 *     keep_alive?: int|string, // Specific the time to live for the point in time
 	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
 	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node executed concurrently when opening this point-in-time. This value should be used to limit the impact of opening the point-in-time on the cluster
 	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.

@@ -29,12 +29,12 @@ use Http\Promise\Promise;
 class Esql extends AbstractEndpoint
 {
 	/**
-	 * Executes an ESQL request asynchronously
+	 * Run an async ES|QL query
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-api.html
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.For async requests, nothing will be returned if the async query doesn't finish within the timeout.The query ID and running status are available in the `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP headers of the response, respectively.
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
 	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.
@@ -71,9 +71,9 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Delete an async query request given its ID.
+	 * Delete an async ES|QL query
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-delete-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-delete-api.html
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
@@ -109,13 +109,13 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the results of a previously submitted async query request given its ID.
+	 * Get async ES|QL query results
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-get-api.html
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // A short version of the Accept header, for example `json` or `yaml`.
 	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
 	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
@@ -151,12 +151,13 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Stops a previously submitted async query request given its ID and collects the results.
+	 * Stop async ES|QL query
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-stop-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-stop-api.html
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
+	 *     drop_null_columns?: bool, // Indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -178,7 +179,7 @@ class Esql extends AbstractEndpoint
 		$url = '/_query/async/' . $this->encode($params['id']) . '/stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['drop_null_columns','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -189,12 +190,13 @@ class Esql extends AbstractEndpoint
 
 
 	/**
-	 * Executes an ESQL request
+	 * Run an ES|QL query
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-rest.html
+	 * @group serverless
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.
 	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
 	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
 	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.

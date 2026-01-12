@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Transform extends AbstractEndpoint
 {
 	/**
-	 * Deletes an existing transform.
+	 * Delete a transform
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to delete
@@ -70,9 +71,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves transform usage information for transform nodes.
+	 * Retrieves transform usage information for transform nodes
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -105,9 +107,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves configuration information for transforms.
+	 * Get transforms
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id?: string, // The id or comma delimited list of id expressions of the transforms to get, '_all' or '*' implies get all transforms
@@ -149,9 +152,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves usage information for transforms.
+	 * Get transform stats
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-transform-stats.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform for which to get stats. '_all' or '*' implies all transforms
@@ -191,9 +195,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Previews a transform.
+	 * Preview a transform
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/preview-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id?: string, // The id of the transform to preview.
@@ -234,9 +239,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Instantiates a transform.
+	 * Create a transform
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the new transform.
@@ -276,9 +282,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Resets an existing transform.
+	 * Reset a transform
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/reset-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/reset-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to reset
@@ -316,9 +323,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Schedules now a transform.
+	 * Schedule a transform to start now
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/schedule-now-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
@@ -356,9 +364,47 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Starts one or more transforms.
+	 * Set upgrade_mode for transform indices
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
+	 *
+	 * @param array{
+	 *     enabled?: bool, // Whether to enable upgrade_mode Transform setting or not. Defaults to false.
+	 *     timeout?: int|string, // Controls the time to wait before action times out. Defaults to 30 seconds
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function setUpgradeMode(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_transform/set_upgrade_mode';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['enabled','timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'transform.set_upgrade_mode');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Start a transform
+	 *
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to start
@@ -396,9 +442,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Stops one or more transforms.
+	 * Stop transforms
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stop-transform.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to stop
@@ -439,9 +486,10 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Updates certain properties of a transform.
+	 * Update a transform
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-update-transform
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
@@ -481,9 +529,9 @@ class Transform extends AbstractEndpoint
 
 
 	/**
-	 * Upgrades all transforms.
+	 * Upgrade all transforms
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/upgrade-transforms.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-upgrade-transforms
 	 *
 	 * @param array{
 	 *     dry_run?: bool, // Whether to only check for updates but don't execute

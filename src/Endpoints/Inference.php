@@ -31,16 +31,18 @@ class Inference extends AbstractEndpoint
 	/**
 	 * Perform chat completion inference
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/chat-completion-inference.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/chat-completion-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -53,11 +55,11 @@ class Inference extends AbstractEndpoint
 	public function chatCompletionUnified(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/chat_completion/' . $this->encode($params['inference_id']) . '/_stream';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/event-stream',
 			'Content-Type' => 'application/json',
@@ -69,18 +71,20 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform completion inference
+	 * Perform completion inference on the service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -93,11 +97,11 @@ class Inference extends AbstractEndpoint
 	public function completion(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/completion/' . $this->encode($params['inference_id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -111,7 +115,8 @@ class Inference extends AbstractEndpoint
 	/**
 	 * Delete an inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
@@ -156,7 +161,8 @@ class Inference extends AbstractEndpoint
 	/**
 	 * Get an inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id?: string, // The inference Id
@@ -198,19 +204,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform inference
+	 * Perform inference on the service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
 	 *     task_type?: string, // The task type
+	 *     timeout?: int|string, // The amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -223,7 +231,7 @@ class Inference extends AbstractEndpoint
 	public function inference(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
 			$method = 'POST';
@@ -231,7 +239,7 @@ class Inference extends AbstractEndpoint
 			$url = '/_inference/' . $this->encode($params['inference_id']);
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -243,19 +251,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an inference endpoint for use in the Inference API
+	 * Create an inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
 	 *     task_type?: string, // The task type
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -268,7 +278,7 @@ class Inference extends AbstractEndpoint
 	public function put(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']);
 			$method = 'PUT';
@@ -276,7 +286,7 @@ class Inference extends AbstractEndpoint
 			$url = '/_inference/' . $this->encode($params['inference_id']);
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -288,19 +298,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an AlibabaCloud AI Search inference endpoint
+	 * Create an AlibabaCloud AI Search inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-alibabacloud-ai-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-alibabacloud-ai-search.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     alibabacloud_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -313,11 +325,11 @@ class Inference extends AbstractEndpoint
 	public function putAlibabacloud(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','alibabacloud_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','alibabacloud_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['alibabacloud_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -329,19 +341,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an Amazon Bedrock inference endpoint
+	 * Create an Amazon Bedrock inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-bedrock.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-amazon-bedrock.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     amazonbedrock_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -354,11 +368,11 @@ class Inference extends AbstractEndpoint
 	public function putAmazonbedrock(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','amazonbedrock_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','amazonbedrock_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['amazonbedrock_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -370,19 +384,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Amazon SageMaker inference endpoint
+	 * Create an Amazon SageMaker inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     amazonsagemaker_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -395,11 +411,11 @@ class Inference extends AbstractEndpoint
 	public function putAmazonsagemaker(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','amazonsagemaker_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','amazonsagemaker_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['amazonsagemaker_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -411,19 +427,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an Anthropic inference endpoint
+	 * Create an Anthropic inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-anthropic.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     anthropic_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -436,11 +454,11 @@ class Inference extends AbstractEndpoint
 	public function putAnthropic(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','anthropic_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','anthropic_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['anthropic_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -452,19 +470,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an Azure AI Studio inference endpoint
+	 * Create an Azure AI studio inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-ai-studio.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-azure-ai-studio.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     azureaistudio_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -477,11 +497,11 @@ class Inference extends AbstractEndpoint
 	public function putAzureaistudio(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','azureaistudio_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','azureaistudio_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['azureaistudio_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -493,19 +513,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an Azure OpenAI inference endpoint
+	 * Create an Azure OpenAI inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-openai.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-azure-openai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     azureopenai_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -518,11 +540,11 @@ class Inference extends AbstractEndpoint
 	public function putAzureopenai(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','azureopenai_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','azureopenai_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['azureopenai_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -534,19 +556,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Cohere inference endpoint
+	 * Create a Cohere inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-cohere.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-cohere.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     cohere_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -559,11 +583,11 @@ class Inference extends AbstractEndpoint
 	public function putCohere(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','cohere_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','cohere_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['cohere_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -575,9 +599,10 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a custom inference endpoint
+	 * Create a custom inference endpoint
 	 *
-	 * @see https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
@@ -587,7 +612,7 @@ class Inference extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -600,7 +625,7 @@ class Inference extends AbstractEndpoint
 	public function putCustom(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','custom_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','custom_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['custom_inference_id']);
 		$method = 'PUT';
 
@@ -616,19 +641,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a DeepSeek inference endpoint
+	 * Create a DeepSeek inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-deepseek.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-deepseek.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     deepseek_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -641,11 +668,11 @@ class Inference extends AbstractEndpoint
 	public function putDeepseek(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','deepseek_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','deepseek_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['deepseek_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -657,19 +684,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an Elasticsearch inference endpoint
+	 * Create an Elasticsearch inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elasticsearch.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-elasticsearch.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     elasticsearch_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -682,11 +711,11 @@ class Inference extends AbstractEndpoint
 	public function putElasticsearch(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','elasticsearch_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','elasticsearch_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['elasticsearch_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -698,19 +727,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an ELSER inference endpoint
+	 * Create an ELSER inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elser.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-elser.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     elser_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -723,11 +754,11 @@ class Inference extends AbstractEndpoint
 	public function putElser(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','elser_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','elser_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['elser_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -739,19 +770,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Google AI Studio inference endpoint
+	 * Create an Google AI Studio inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-ai-studio.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-google-ai-studio.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     googleaistudio_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -764,11 +797,11 @@ class Inference extends AbstractEndpoint
 	public function putGoogleaistudio(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','googleaistudio_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','googleaistudio_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['googleaistudio_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -780,19 +813,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Google Vertex AI inference endpoint
+	 * Create a Google Vertex AI inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-google-vertex-ai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     googlevertexai_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -805,11 +840,11 @@ class Inference extends AbstractEndpoint
 	public function putGooglevertexai(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','googlevertexai_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','googlevertexai_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['googlevertexai_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -821,19 +856,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a HuggingFace inference endpoint
+	 * Create a Hugging Face inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-hugging-face.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-hugging-face.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     huggingface_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -846,11 +883,11 @@ class Inference extends AbstractEndpoint
 	public function putHuggingFace(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','huggingface_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','huggingface_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['huggingface_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -862,19 +899,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a JinaAI inference endpoint
+	 * Create an JinaAI inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-jinaai.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-jinaai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     jinaai_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -887,11 +926,11 @@ class Inference extends AbstractEndpoint
 	public function putJinaai(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','jinaai_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','jinaai_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['jinaai_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -903,19 +942,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Mistral inference endpoint
+	 * Create a Mistral inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-mistral.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-mistral.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     mistral_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -928,11 +969,11 @@ class Inference extends AbstractEndpoint
 	public function putMistral(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','mistral_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','mistral_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['mistral_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -944,19 +985,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure an OpenAI inference endpoint
+	 * Create an OpenAI inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-openai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     openai_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -969,11 +1012,11 @@ class Inference extends AbstractEndpoint
 	public function putOpenai(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','openai_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','openai_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['openai_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -985,19 +1028,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a VoyageAI inference endpoint
+	 * Create a VoyageAI inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/inference-apis.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-voyageai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     voyageai_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1010,11 +1055,11 @@ class Inference extends AbstractEndpoint
 	public function putVoyageai(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','voyageai_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','voyageai_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['voyageai_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1026,19 +1071,21 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Configure a Watsonx inference endpoint
+	 * Create a Watsonx inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-watsonx-ai.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-watsonx-ai.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
 	 *     watsonx_inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1051,11 +1098,11 @@ class Inference extends AbstractEndpoint
 	public function putWatsonx(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['task_type','watsonx_inference_id'], $params);
+		$this->checkRequiredParameters(['task_type','watsonx_inference_id','body'], $params);
 		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['watsonx_inference_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1067,18 +1114,20 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform reranking inference
+	 * Perform reranking inference on the service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // The amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1091,11 +1140,11 @@ class Inference extends AbstractEndpoint
 	public function rerank(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/rerank/' . $this->encode($params['inference_id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1107,18 +1156,20 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform sparse embedding inference
+	 * Perform sparse embedding inference on the service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1131,11 +1182,11 @@ class Inference extends AbstractEndpoint
 	public function sparseEmbedding(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/sparse_embedding/' . $this->encode($params['inference_id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1147,18 +1198,19 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform streaming completion inference
+	 * Perform streaming inference
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-stream-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stream-inference-api.html
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // The amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1171,11 +1223,11 @@ class Inference extends AbstractEndpoint
 	public function streamCompletion(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/completion/' . $this->encode($params['inference_id']) . '/_stream';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/event-stream',
 			'Content-Type' => 'application/json',
@@ -1187,18 +1239,20 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Perform text embedding inference
+	 * Perform text embedding inference on the service
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference payload. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1211,11 +1265,11 @@ class Inference extends AbstractEndpoint
 	public function textEmbedding(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		$url = '/_inference/text_embedding/' . $this->encode($params['inference_id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1227,9 +1281,9 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Update inference
+	 * Update an inference endpoint
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/update-inference-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-inference-api.html
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
@@ -1239,7 +1293,7 @@ class Inference extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -1252,7 +1306,7 @@ class Inference extends AbstractEndpoint
 	public function update(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['inference_id'], $params);
+		$this->checkRequiredParameters(['inference_id','body'], $params);
 		if (isset($params['task_type'])) {
 			$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['inference_id']) . '/_update';
 			$method = 'PUT';

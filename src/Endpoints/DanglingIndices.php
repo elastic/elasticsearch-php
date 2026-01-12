@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class DanglingIndices extends AbstractEndpoint
 {
 	/**
-	 * Deletes the specified dangling index
+	 * Delete a dangling index
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-index-delete.html
 	 *
 	 * @param array{
 	 *     index_uuid: string, // (REQUIRED) The UUID of the dangling index
@@ -70,9 +70,9 @@ class DanglingIndices extends AbstractEndpoint
 
 
 	/**
-	 * Imports the specified dangling index
+	 * Import a dangling index
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-index-import.html
 	 *
 	 * @param array{
 	 *     index_uuid: string, // (REQUIRED) The UUID of the dangling index
@@ -111,9 +111,9 @@ class DanglingIndices extends AbstractEndpoint
 
 
 	/**
-	 * Returns all dangling indices.
+	 * Get the dangling indices
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-indices-list.html
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

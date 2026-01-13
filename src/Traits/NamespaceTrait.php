@@ -41,6 +41,7 @@ use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
 use Elastic\Elasticsearch\Endpoints\Profiling;
 use Elastic\Elasticsearch\Endpoints\Project;
+use Elastic\Elasticsearch\Endpoints\ProjectRouting;
 use Elastic\Elasticsearch\Endpoints\QueryRules;
 use Elastic\Elasticsearch\Endpoints\Rollup;
 use Elastic\Elasticsearch\Endpoints\SearchApplication;
@@ -291,6 +292,15 @@ trait NamespaceTrait
 			$this->namespace['Project'] = new Project($this);
 		}
 		return $this->namespace['Project'];
+	}
+
+
+	public function projectRouting(): ProjectRouting
+	{
+		if (!isset($this->namespace['ProjectRouting'])) {
+			$this->namespace['ProjectRouting'] = new ProjectRouting($this);
+		}
+		return $this->namespace['ProjectRouting'];
 	}
 
 

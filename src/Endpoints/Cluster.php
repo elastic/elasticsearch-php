@@ -203,7 +203,7 @@ class Cluster extends AbstractEndpoint
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     include_defaults?: bool, // Return all default configurations for the component template (default: false)
 	 *     flat_settings?: bool, // Return settings in flat format (default: false)
-	 *     settings_filter?: string, // Filter out results, for example to filter out sensitive information. Supports wildcards or full settings keys
+	 *     settings_filter?: string|array<string>, // Filter out results, for example to filter out sensitive information. Supports wildcards or full settings keys
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -409,8 +409,8 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
 	 *
 	 * @param array{
-	 *     node_ids?: string, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
-	 *     node_names?: string, // A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
+	 *     node_ids?: string|array<string>, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
+	 *     node_names?: string|array<string>, // A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     master_timeout?: int|string, // Timeout for submitting request to master
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

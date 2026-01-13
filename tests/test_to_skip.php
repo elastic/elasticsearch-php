@@ -26,6 +26,7 @@ return [
     'entsearch/10_basic.yml',
     'entsearch/20_connector.yml',
     'entsearch/30_sync_jobs_stack.yml',
+    'entsearch/40_connector_secret.yml',
     'esql/30_queries.yml',
     'indices/alias.yml',
     'indices/10_data_lifecycle.yml',

@@ -1160,6 +1160,7 @@ class Inference extends AbstractEndpoint
 	 * Create an Nvidia inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type

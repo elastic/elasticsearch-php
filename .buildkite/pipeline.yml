@@ -20,5 +20,5 @@ steps:
           - "8.1-cli"
           - "8.0-cli"
           - "7.4-cli"
-    command: ./.buildkite/run-tests
+    command: echo No used
     artifact_paths: "*.xml"

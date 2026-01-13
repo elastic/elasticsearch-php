@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Migration extends AbstractEndpoint
 {
 	/**
-	 * Retrieves information about different cluster, node, and index level settings that use deprecated features that will be removed or changed in the next major version.
+	 * Get deprecation information
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/migration-api-deprecation.html
 	 *
 	 * @param array{
 	 *     index?: string, // Index pattern
@@ -69,9 +69,9 @@ class Migration extends AbstractEndpoint
 
 
 	/**
-	 * Find out whether system features need to be upgraded or not
+	 * Get feature migration information
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/feature-migration-api.html
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -104,9 +104,9 @@ class Migration extends AbstractEndpoint
 
 
 	/**
-	 * Begin upgrades for system features
+	 * Start the feature migration
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/feature-migration-api.html
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

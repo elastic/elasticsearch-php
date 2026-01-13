@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class TextStructure extends AbstractEndpoint
 {
 	/**
-	 * Finds the structure of a text field in an index.
+	 * Find the structure of a text field
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-field-structure.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/find-field-structure.html
 	 *
 	 * @param array{
 	 *     index?: string, // The index containing the analyzed field
@@ -44,7 +44,7 @@ class TextStructure extends AbstractEndpoint
 	 *     quote?: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
 	 *     should_trim_fields?: bool, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
 	 *     grok_pattern?: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
-	 *     ecs_compatibility?: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     ecs_compatibility?: string, // The mode of compatibility with ECS compliant Grok patterns.Use this parameter to specify whether to use ECS Grok patterns instead of legacy ones when the structure finder creates a Grok pattern.This setting primarily has an impact when a whole message Grok pattern such as `%{CATALINALOG}` matches the input.If the structure finder identifies a common structure but has no idea of the meaning then generic field names such as `path`, `ipaddress`, `field1`, and `field2` are used in the `grok_pattern` output.The intention in that situation is that a user who knows the meanings will rename the fields before using them.
 	 *     timestamp_field?: string, // Optional parameter to specify the timestamp field in the file
 	 *     timestamp_format?: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
 	 *     explain?: bool, // Whether to include a commentary on how the structure was derived
@@ -79,9 +79,9 @@ class TextStructure extends AbstractEndpoint
 
 
 	/**
-	 * Finds the structure of a list of messages. The messages must contain data that is suitable to be ingested into Elasticsearch.
+	 * Find the structure of text messages
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/find-message-structure.html
 	 *
 	 * @param array{
 	 *     timeout?: int|string, // Timeout after which the analysis will be aborted
@@ -91,7 +91,7 @@ class TextStructure extends AbstractEndpoint
 	 *     quote?: string, // Optional parameter to specify the quote character for a delimited file - must be a single character
 	 *     should_trim_fields?: bool, // Optional parameter to specify whether the values between delimiters in a delimited file should have whitespace trimmed from them
 	 *     grok_pattern?: string, // Optional parameter to specify the Grok pattern that should be used to extract fields from messages in a semi-structured text file
-	 *     ecs_compatibility?: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'
+	 *     ecs_compatibility?: string, // The mode of compatibility with ECS compliant Grok patterns.Use this parameter to specify whether to use ECS Grok patterns instead of legacy ones when the structure finder creates a Grok pattern.This setting primarily has an impact when a whole message Grok pattern such as `%{CATALINALOG}` matches the input.If the structure finder identifies a common structure but has no idea of meaning then generic field names such as `path`, `ipaddress`, `field1`, and `field2` are used in the `grok_pattern` output, with the intention that a user who knows the meanings rename these fields before using it.
 	 *     timestamp_field?: string, // Optional parameter to specify the timestamp field in the file
 	 *     timestamp_format?: string, // Optional parameter to specify the timestamp format in the file - may be either a Joda or Java time format
 	 *     explain?: bool, // Whether to include a commentary on how the structure was derived
@@ -128,9 +128,9 @@ class TextStructure extends AbstractEndpoint
 
 
 	/**
-	 * Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
+	 * Find the structure of a text file
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/find-structure.html
 	 *
 	 * @param array{
 	 *     lines_to_sample?: int, // How many lines of the file should be included in the analysis
@@ -181,9 +181,9 @@ class TextStructure extends AbstractEndpoint
 
 
 	/**
-	 * Tests a Grok pattern on some text.
+	 * Test a Grok pattern
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/test-grok-pattern.html
 	 *
 	 * @param array{
 	 *     ecs_compatibility?: string, // Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'

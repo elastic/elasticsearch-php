@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Enrich extends AbstractEndpoint
 {
 	/**
-	 * Deletes an existing enrich policy and its enrich index.
+	 * Delete an enrich policy
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-enrich-policy-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
@@ -68,9 +69,10 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Creates the enrich index for an existing enrich policy.
+	 * Run an enrich policy
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/execute-enrich-policy-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
@@ -108,9 +110,10 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Gets information about an enrich policy.
+	 * Get an enrich policy
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-enrich-policy-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of enrich policy names
@@ -149,9 +152,10 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Creates a new enrich policy.
+	 * Create an enrich policy
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-enrich-policy-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
@@ -190,9 +194,10 @@ class Enrich extends AbstractEndpoint
 
 
 	/**
-	 * Gets enrich coordinator statistics and information about enrich policies that are currently executing.
+	 * Get enrich stats
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/enrich-stats-api.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     master_timeout?: int|string, // Timeout for processing on master node

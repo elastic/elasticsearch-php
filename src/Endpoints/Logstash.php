@@ -29,9 +29,10 @@ use Http\Promise\Promise;
 class Logstash extends AbstractEndpoint
 {
 	/**
-	 * Deletes Logstash Pipelines used by Central Management
+	 * Delete a Logstash pipeline
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-delete-pipeline.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the Pipeline
@@ -67,9 +68,10 @@ class Logstash extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves Logstash Pipelines used by Central Management
+	 * Get Logstash pipelines
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-get-pipeline.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id?: string, // A comma-separated list of Pipeline IDs
@@ -107,9 +109,10 @@ class Logstash extends AbstractEndpoint
 
 
 	/**
-	 * Adds and updates Logstash Pipelines used for Central Management
+	 * Create or update a Logstash pipeline
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-put-pipeline.html
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the Pipeline

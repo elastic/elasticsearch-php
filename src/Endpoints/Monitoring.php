@@ -29,15 +29,14 @@ use Http\Promise\Promise;
 class Monitoring extends AbstractEndpoint
 {
 	/**
-	 * Used by the monitoring features to send monitoring data.
+	 * Send monitoring data
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8
 	 *
 	 * @param array{
-	 *     type?: string, // Default document type for items which don't provide one
 	 *     system_id?: string, // Identifier of the monitored system
 	 *     system_api_version?: string, // API Version of the monitored system
-	 *     interval?: string, // Collection interval (e.g., '10s' or '10000ms') of the payload
+	 *     interval?: int|string, // Collection interval (e.g., '10s' or '10000ms') of the payload
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -55,21 +54,17 @@ class Monitoring extends AbstractEndpoint
 	public function bulk(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['type'])) {
-			$url = '/_monitoring/' . $this->encode($params['type']) . '/bulk';
-			$method = 'POST';
-		} else {
-			$url = '/_monitoring/bulk';
-			$method = 'POST';
-		}
+		$this->checkRequiredParameters(['system_id','system_api_version','interval','body'], $params);
+		$url = '/_monitoring/bulk';
+		$method = 'POST';
+
 		$url = $this->addQueryString($url, $params, ['system_id','system_api_version','interval','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-ndjson',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['type'], $request, 'monitoring.bulk');
+		$request = $this->addOtelAttributes($params, [], $request, 'monitoring.bulk');
 		return $this->client->sendRequest($request);
 	}
 }

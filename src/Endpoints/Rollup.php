@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Rollup extends AbstractEndpoint
 {
 	/**
-	 * Deletes an existing rollup job.
+	 * Delete a rollup job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-delete-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -68,9 +68,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves the configuration, stats, and status of rollup jobs.
+	 * Get rollup job information
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-get-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -109,9 +109,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Returns the capabilities of any rollup jobs that have been configured for a specific index or index pattern.
+	 * Get the rollup job capabilities
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-get-rollup-caps.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -150,9 +150,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Returns the rollup capabilities of all jobs inside of a rollup index (e.g. the index where rollup data is stored).
+	 * Get the rollup index capabilities
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-index-caps.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-get-rollup-index-caps.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -189,9 +189,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Creates a rollup job.
+	 * Create a rollup job
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-put-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -230,9 +230,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Enables searching rolled-up data using the standard query DSL.
+	 * Search rolled-up data
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-search.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -273,9 +273,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Starts an existing, stopped rollup job.
+	 * Start rollup jobs
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-start-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -312,9 +312,9 @@ class Rollup extends AbstractEndpoint
 
 
 	/**
-	 * Stops an existing, started rollup job.
+	 * Stop rollup jobs
 	 *
-	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html
+	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-stop-job.html
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

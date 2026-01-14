@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Integration;
 
 use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\Helper\Vectors;
 use Elastic\Elasticsearch\Tests\Utility;
 use PHPUnit\Framework\TestCase;
 
@@ -83,6 +84,52 @@ class BulkTest extends TestCase
             ]
         ]);
 
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertCount(2, $response['items']);
+    }
+
+    public function testBulkIndexWithBase64Vector()
+    {
+        $response = $this->client->indices()->create([
+            'index' => self::TEST_INDEX,
+            'body' => [
+                'mappings' => [
+                    'properties' => [
+                        'title' => ['type' => 'text'],
+                        'emb' => ['type' => 'dense_vector'],
+                    ],
+                ],
+            ],
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $response = $this->client->indices()->refresh([
+            'index' => self::TEST_INDEX,
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $response = $this->client->bulk([
+            'body' => [
+                [
+                    "index" => [
+                        "_index" => self::TEST_INDEX
+                    ],
+                ],
+                [
+                    "text" => "text one",
+                    "emb" => Vectors::packDenseVector([1.0, 2.0])
+                ],
+                [
+                    "index" => [
+                        "_index" => self::TEST_INDEX
+                    ],
+                ],
+                [
+                    "text" => "text two",
+                    "emb" => Vectors::packDenseVector([3.4, 5.6])
+                ],
+            ]
+        ]);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(2, $response['items']);
     }

@@ -31,7 +31,6 @@ class ProjectRouting extends AbstractEndpoint
 	/**
 	 * Create or update named project routing expression
 	 *
-	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -72,7 +71,6 @@ class ProjectRouting extends AbstractEndpoint
 	/**
 	 * Create or update named project routing expressions
 	 *
-	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -111,7 +109,6 @@ class ProjectRouting extends AbstractEndpoint
 	/**
 	 * Delete named project routing expression
 	 *
-	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -151,7 +148,6 @@ class ProjectRouting extends AbstractEndpoint
 	/**
 	 * Get named project routing expression
 	 *
-	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -191,7 +187,6 @@ class ProjectRouting extends AbstractEndpoint
 	/**
 	 * Get named project routing expressions
 	 *
-	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

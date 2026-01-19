@@ -1512,6 +1512,45 @@ trait ClientEndpointsTrait
 
 
 	/**
+	 * Cancel a reindex operation
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     task_id: string, // (REQUIRED) Cancel the reindex operation with specified id
+	 *     wait_for_completion?: bool, // Should the request block until the cancellation of the reindex operation is completed. Defaults to true
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function reindexCancel(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_id'], $params);
+		$url = '/_reindex/' . $this->encode($params['task_id']) . '/_cancel';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'reindex_cancel');
+		return $this->sendRequest($request);
+	}
+
+
+	/**
 	 * Get information for a reindex operation
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
@@ -1779,7 +1818,6 @@ trait ClientEndpointsTrait
 	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
 	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     q?: string, // Query in the Lucene query string syntax
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
@@ -1833,7 +1871,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','project_routing','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

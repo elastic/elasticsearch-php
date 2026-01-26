@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Cat extends AbstractEndpoint
 {
 	/**
-	 * Shows information about currently configured aliases to indices including filter and routing infos.
+	 * Get aliases
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
 	 * @group serverless
 	 *
 	 * @param array{
@@ -41,8 +41,10 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -66,7 +68,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/aliases';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','expand_wildcards','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','expand_wildcards','master_timeout','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -77,14 +79,15 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Provides a snapshot of how many shards are allocated to each data node and how much disk space they are using.
+	 * Get shard allocation information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-allocation.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-allocation
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     h?: string|array<string>, // Comma-separated list of column names to display
@@ -114,7 +117,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/allocation';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','time','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -125,9 +128,58 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about existing component_templates templates.
+	 * Get circuit breakers statistics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-component-templates.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     circuit_breaker_patterns?: string|array<string>, // A comma-separated list of regular-expressions to filter the circuit breakers in the output
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     time?: string, // The unit in which to display time values
+	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     help?: bool, // Return help information
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function circuitBreaker(?array $params = null)
+	{
+		$params = $params ?? [];
+		if (isset($params['circuit_breaker_patterns'])) {
+			$url = '/_cat/circuit_breaker/' . $this->encode($this->convertValue($params['circuit_breaker_patterns']));
+			$method = 'GET';
+		} else {
+			$url = '/_cat/circuit_breaker';
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','bytes','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'text/plain,application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['circuit_breaker_patterns'], $request, 'cat.circuit_breaker');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Get component templates
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
 	 * @group serverless
 	 *
 	 * @param array{
@@ -139,6 +191,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -162,7 +216,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/component_templates';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -173,9 +227,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Provides quick access to the document count of the entire cluster, or individual indices.
+	 * Get a document count
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-count.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
 	 * @group serverless
 	 *
 	 * @param array{
@@ -185,6 +239,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -208,7 +264,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/count';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -219,9 +275,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Shows how much heap memory is currently being used by fielddata on every data node in the cluster.
+	 * Get field data cache information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-fielddata
 	 *
 	 * @param array{
 	 *     fields?: string|array<string>, // A comma-separated list of fields to return the fielddata size
@@ -231,6 +287,7 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -254,7 +311,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/fielddata';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -265,9 +322,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns a concise representation of the cluster health.
+	 * Get the cluster health status
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-health
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -277,6 +334,7 @@ class Cat extends AbstractEndpoint
 	 *     time?: string, // The unit in which to display time values
 	 *     ts?: bool, // Set to false to disable timestamping
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -296,7 +354,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/health';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','time','ts','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -307,9 +365,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns help for the Cat APIs.
+	 * Get CAT help
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cat
 	 * @group serverless
 	 *
 	 * @param array{
@@ -343,9 +401,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about indices: number of primaries and replicas, document counts, disk size, ...
+	 * Get index information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices
 	 * @group serverless
 	 *
 	 * @param array{
@@ -361,7 +419,7 @@ class Cat extends AbstractEndpoint
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     include_unloaded_segments?: bool, // If set to true segment stats will include stats for segments that are not currently loaded into memory
-	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -396,9 +454,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about the master node.
+	 * Get master node information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-master
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -408,6 +466,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -427,7 +487,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/master';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -438,9 +498,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Gets configuration and usage information about data frame analytics jobs.
+	 * Get data frame analytics jobs
 	 *
-	 * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
 	 * @group serverless
 	 *
 	 * @param array{
@@ -487,9 +547,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Gets configuration and usage information about datafeeds.
+	 * Get datafeeds
 	 *
-	 * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds
 	 * @group serverless
 	 *
 	 * @param array{
@@ -501,6 +561,7 @@ class Cat extends AbstractEndpoint
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -524,7 +585,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/ml/datafeeds';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','format','h','help','s','time','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -535,9 +596,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Gets configuration and usage information about anomaly detection jobs.
+	 * Get anomaly detection jobs
 	 *
-	 * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
 	 * @group serverless
 	 *
 	 * @param array{
@@ -584,9 +645,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Gets configuration and usage information about inference trained models.
+	 * Get trained models
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
 	 * @group serverless
 	 *
 	 * @param array{
@@ -635,9 +696,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about custom node attributes.
+	 * Get node attribute information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodeattrs.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -647,6 +708,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -666,7 +729,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/nodeattrs';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -677,9 +740,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns basic statistics about performance of cluster nodes.
+	 * Get node information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodes.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodes
 	 *
 	 * @param array{
 	 *     bytes?: string, // The unit in which to display byte values
@@ -722,9 +785,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns a concise representation of the cluster pending tasks.
+	 * Get pending task information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -735,6 +798,7 @@ class Cat extends AbstractEndpoint
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -754,7 +818,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/pending_tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','time','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -765,9 +829,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about installed plugins across nodes node.
+	 * Get plugin information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-plugins
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -778,6 +842,8 @@ class Cat extends AbstractEndpoint
 	 *     include_bootstrap?: bool, // Include bootstrap plugins in the response
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -797,7 +863,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/plugins';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','include_bootstrap','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -808,9 +874,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about index shard recoveries, both on-going completed.
+	 * Get shard recovery information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-recovery
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // Comma-separated list or wildcard expression of index names to limit the returned information
@@ -857,9 +923,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about snapshot repositories registered in the cluster.
+	 * Get snapshot repository information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories
 	 *
 	 * @param array{
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
@@ -869,6 +935,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -888,7 +956,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/repositories';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -899,9 +967,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Provides low-level information about the segments in the shards of an index.
+	 * Get segment information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-segments
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
@@ -913,6 +981,12 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     time?: string, // The unit in which to display time values
+	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed). Only allowed when providing an index expression.
+	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled. Only allowed when providing an index expression.
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified). Only allowed when providing an index expression.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     allow_closed?: bool, // If true, allow closed indices to be returned in the response otherwise if false, keep the legacy behaviour of throwing an exception if index pattern matches closed indices
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -936,7 +1010,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/segments';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','bytes','h','help','s','v','time','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','allow_closed','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -947,9 +1021,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Provides a detailed view of shard allocation on nodes.
+	 * Get shard information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-shards
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
@@ -995,9 +1069,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns all snapshots in a specific repository.
+	 * Get snapshot information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-snapshots
 	 *
 	 * @param array{
 	 *     repository?: string|array<string>, // Name of repository from which to fetch the snapshot information
@@ -1009,6 +1083,7 @@ class Cat extends AbstractEndpoint
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1032,7 +1107,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/snapshots';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','ignore_unavailable','master_timeout','h','help','s','time','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -1043,9 +1118,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about the tasks currently executing on one or more nodes in the cluster.
+	 * Get task information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-tasks
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -1061,6 +1136,7 @@ class Cat extends AbstractEndpoint
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the task has completed.
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1080,7 +1156,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','timeout','wait_for_completion','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -1091,9 +1167,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns information about existing templates.
+	 * Get index template information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-templates
 	 *
 	 * @param array{
 	 *     name?: string, // A pattern that returned template names must match
@@ -1104,6 +1180,8 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
+	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1127,7 +1205,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/templates';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -1138,10 +1216,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Returns cluster-wide thread pool statistics per node.
-	 * By default the active, queue and rejected statistics are returned for all thread pools.
+	 * Get thread pool statistics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-thread-pool
 	 *
 	 * @param array{
 	 *     thread_pool_patterns?: string|array<string>, // A comma-separated list of regular-expressions to filter the thread pools in the output
@@ -1153,6 +1230,7 @@ class Cat extends AbstractEndpoint
 	 *     help?: bool, // Return help information
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1176,7 +1254,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/thread_pool';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','time','local','master_timeout','h','help','s','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -1187,9 +1265,9 @@ class Cat extends AbstractEndpoint
 
 
 	/**
-	 * Gets configuration and usage information about transforms.
+	 * Get transform information
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
 	 * @group serverless
 	 *
 	 * @param array{
@@ -1203,6 +1281,7 @@ class Cat extends AbstractEndpoint
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1226,7 +1305,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/transforms';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','allow_no_match','format','h','help','s','time','v','bytes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];

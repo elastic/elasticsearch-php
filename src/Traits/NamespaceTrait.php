@@ -40,6 +40,7 @@ use Elastic\Elasticsearch\Endpoints\Ml;
 use Elastic\Elasticsearch\Endpoints\Monitoring;
 use Elastic\Elasticsearch\Endpoints\Nodes;
 use Elastic\Elasticsearch\Endpoints\Profiling;
+use Elastic\Elasticsearch\Endpoints\Project;
 use Elastic\Elasticsearch\Endpoints\QueryRules;
 use Elastic\Elasticsearch\Endpoints\Rollup;
 use Elastic\Elasticsearch\Endpoints\SearchApplication;
@@ -51,6 +52,7 @@ use Elastic\Elasticsearch\Endpoints\Slm;
 use Elastic\Elasticsearch\Endpoints\Snapshot;
 use Elastic\Elasticsearch\Endpoints\Sql;
 use Elastic\Elasticsearch\Endpoints\Ssl;
+use Elastic\Elasticsearch\Endpoints\Streams;
 use Elastic\Elasticsearch\Endpoints\Synonyms;
 use Elastic\Elasticsearch\Endpoints\Tasks;
 use Elastic\Elasticsearch\Endpoints\TextStructure;
@@ -283,6 +285,15 @@ trait NamespaceTrait
 	}
 
 
+	public function project(): Project
+	{
+		if (!isset($this->namespace['Project'])) {
+			$this->namespace['Project'] = new Project($this);
+		}
+		return $this->namespace['Project'];
+	}
+
+
 	public function queryRules(): QueryRules
 	{
 		if (!isset($this->namespace['QueryRules'])) {
@@ -379,6 +390,15 @@ trait NamespaceTrait
 			$this->namespace['Ssl'] = new Ssl($this);
 		}
 		return $this->namespace['Ssl'];
+	}
+
+
+	public function streams(): Streams
+	{
+		if (!isset($this->namespace['Streams'])) {
+			$this->namespace['Streams'] = new Streams($this);
+		}
+		return $this->namespace['Streams'];
 	}
 
 

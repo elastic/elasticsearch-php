@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Fleet extends AbstractEndpoint
 {
 	/**
-	 * Returns the current global checkpoints for an index. This API is design for internal use by the fleet server project.
+	 * Get global checkpoints
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/get-global-checkpoints.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-fleet
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index.
@@ -72,7 +72,7 @@ class Fleet extends AbstractEndpoint
 
 
 	/**
-	 * Multi Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+	 * Run multiple Fleet searches
 	 *
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
@@ -115,7 +115,7 @@ class Fleet extends AbstractEndpoint
 
 
 	/**
-	 * Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+	 * Run a Fleet search
 	 *
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
@@ -129,7 +129,7 @@ class Fleet extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // The search definition using the Query DSL. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The search definition using the Query DSL. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -142,7 +142,7 @@ class Fleet extends AbstractEndpoint
 	public function search(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_search';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 

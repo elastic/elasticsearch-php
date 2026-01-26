@@ -11,9 +11,9 @@ jobs:
       matrix:
         php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
         os: [ubuntu-latest]
-        es-version: [9.0.0-SNAPSHOT]
+        es-version: [9.3.0-SNAPSHOT]
         test-suite: [stack]
-        branch-client-tests: ["9.0"]
+        branch-client-tests: ["main"]
 
     steps:
     - name: Checkout
@@ -27,7 +27,7 @@ jobs:
         coverage: none
       env:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-   
+
     - name: Get composer cache directory
       id: composercache
       run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -44,7 +44,7 @@ jobs:
 
     - name: Run Elasticsearch using start-local
       run: |
-        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} -esonly
+        curl -fsSL https://elastic.co/start-local | sh -s -- -v ${{ matrix.es-version }} --esonly
 
     - name: Build PHPUnit tests
       run: |

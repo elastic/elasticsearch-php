@@ -29,21 +29,20 @@ use Http\Promise\Promise;
 class Graph extends AbstractEndpoint
 {
 	/**
-	 * Explore extracted and summarized information about the documents and terms in an index.
+	 * Explore graph analytics
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
-	 * @group serverless
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-graph
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     routing?: string, // Specific routing value
+	 *     routing?: string|array<string>, // Specific routing value
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body?: string|array<mixed>, // Graph Query DSL. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) Graph Query DSL. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -56,7 +55,7 @@ class Graph extends AbstractEndpoint
 	public function explore(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
+		$this->checkRequiredParameters(['index','body'], $params);
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_graph/explore';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 

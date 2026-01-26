@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Logstash extends AbstractEndpoint
 {
 	/**
-	 * Deletes Logstash Pipelines used by Central Management
+	 * Delete a Logstash pipeline
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-delete-pipeline
 	 * @group serverless
 	 *
 	 * @param array{
@@ -68,13 +68,13 @@ class Logstash extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves Logstash Pipelines used by Central Management
+	 * Get Logstash pipelines
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     id?: string, // A comma-separated list of Pipeline IDs
+	 *     id?: string|array<string>, // A comma-separated list of pipeline identifiers.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -92,7 +92,7 @@ class Logstash extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		if (isset($params['id'])) {
-			$url = '/_logstash/pipeline/' . $this->encode($params['id']);
+			$url = '/_logstash/pipeline/' . $this->encode($this->convertValue($params['id']));
 			$method = 'GET';
 		} else {
 			$url = '/_logstash/pipeline';
@@ -109,9 +109,9 @@ class Logstash extends AbstractEndpoint
 
 
 	/**
-	 * Adds and updates Logstash Pipelines used for Central Management
+	 * Create or update a Logstash pipeline
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
 	 * @group serverless
 	 *
 	 * @param array{

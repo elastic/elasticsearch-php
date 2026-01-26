@@ -29,9 +29,9 @@ use Http\Promise\Promise;
 class Synonyms extends AbstractEndpoint
 {
 	/**
-	 * Deletes a synonym set
+	 * Delete a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -68,14 +68,15 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Deletes a synonym rule in a synonym set
+	 * Delete a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be deleted
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -97,7 +98,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['set_id']) . '/' . $this->encode($params['rule_id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -109,9 +110,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym set
+	 * Get a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -150,9 +151,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a synonym rule from a synonym set
+	 * Get a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{
@@ -191,9 +192,9 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Retrieves a summary of all defined synonym sets
+	 * Get all synonym sets
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
 	 * @group serverless
 	 *
 	 * @param array{
@@ -229,13 +230,14 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonyms set
+	 * Create or update a synonym set
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
 	 * @group serverless
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be created or updated
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -258,7 +260,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -270,14 +272,15 @@ class Synonyms extends AbstractEndpoint
 
 
 	/**
-	 * Creates or updates a synonym rule in a synonym set
+	 * Create or update a synonym rule
 	 *
-	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
 	 * @group serverless
 	 *
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated with the synonym rule
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be updated or created
+	 *     refresh?: bool, // Refresh search analyzers to update synonyms
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -300,7 +303,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['set_id']) . '/' . $this->encode($params['rule_id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

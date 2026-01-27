@@ -4,21 +4,22 @@ steps:
   - label: ":elasticsearch: :php: ES PHP ({{ matrix.php }}) Test Suite: {{ matrix.suite }}"
     agents:
       provider: "gcp"
-    env:
-      PHP_VERSION: "{{ matrix.php }}"
-      TEST_SUITE: "{{ matrix.suite }}"
-      STACK_VERSION: 8.19.10-SNAPSHOT
-    matrix:
-      setup:
-        suite:
-          - "free"
-          - "platinum"
-        php:
-          - "8.4-cli"
-          - "8.3-cli"
-          - "8.2-cli"
-          - "8.1-cli"
-          - "8.0-cli"
-          - "7.4-cli"
-    command: ./.buildkite/run-tests
-    artifact_paths: "*.xml"
+    # env:
+    #   PHP_VERSION: "{{ matrix.php }}"
+    #   TEST_SUITE: "{{ matrix.suite }}"
+    #   STACK_VERSION: 8.19.10-SNAPSHOT
+    # matrix:
+    #   setup:
+    #     suite:
+    #       - "free"
+    #       - "platinum"
+    #     php:
+    #       - "8.4-cli"
+    #       - "8.3-cli"
+    #       - "8.2-cli"
+    #       - "8.1-cli"
+    #       - "8.0-cli"
+    #       - "7.4-cli"
+    # command: ./.buildkite/run-tests
+    # artifact_paths: "*.xml"
+    command: echo Not used

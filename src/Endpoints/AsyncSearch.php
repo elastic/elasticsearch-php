@@ -170,7 +170,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
 	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit
 	 *     docvalue_fields?: string|array<string>, // A comma-separated list of fields to return as the docvalue representation of a field for each hit
-	 *     from?: int, // Starting offset (default: 0)
+	 *     from?: int, // Starting offset
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
@@ -181,7 +181,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *     q?: string, // Query in the Lucene query string syntax
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     search_type?: string, // Search operation type
-	 *     size?: int, // Number of hits to return (default: 10)
+	 *     size?: int, // Number of hits to return
 	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field

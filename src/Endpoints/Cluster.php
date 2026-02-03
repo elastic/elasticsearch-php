@@ -492,7 +492,7 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings
 	 *
 	 * @param array{
-	 *     flat_settings?: bool, // Return settings in flat format (default: false)
+	 *     flat_settings?: bool, // Return settings in flat format
 	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

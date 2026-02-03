@@ -1029,47 +1029,6 @@ trait ClientEndpointsTrait
 
 
 	/**
-	 * Performs a kNN search
-	 *
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` to perform the operation on all indices
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) The search definition. If body is a string must be a valid JSON.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function knnSearch(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_knn_search';
-		$method = empty($params['body']) ? 'GET' : 'POST';
-
-		$url = $this->addQueryString($url, $params, ['routing','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'knn_search');
-		return $this->sendRequest($request);
-	}
-
-
-	/**
 	 * Get multiple documents
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget

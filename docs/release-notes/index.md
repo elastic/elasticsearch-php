@@ -121,6 +121,10 @@ Packed dense vectors can provide significant bulk ingest performance improvement
 
 - Added the `close_job` parameter (bool)
 
+### knnSearch (removed API)
+
+- This endpoint is not supported since release 9.0 and was inadvertently left in this client.
+
 ## 9.2.0 [elasticsearch-php-client-920-release-notes]
 
 ### Features and enhancements [elasticsearch-php-client-920-features-enhancements]

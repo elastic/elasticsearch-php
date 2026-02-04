@@ -1,3 +1,7 @@
+## Release 9.3.0
+
+- Updated the APIs to Elasticsearch [9.3.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.3.0-release-notes)
+
 ## Release 9.2.0
 
 - Updated the APIs to Elasticsearch [9.2.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.2.0-release-notes)
@@ -6,7 +10,6 @@
 ## Release 9.1.0
 
 - Updated the APIs to Elasticsearch [9.1.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.1.0-release-notes)
-
 ## Release 9.0.0
 
 - **Use of PHP 8.1+:** Starting from 9.0.0 the `elasticsearch-php` client requires PHP 8.1+.

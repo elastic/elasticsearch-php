@@ -51,67 +51,54 @@ Packed dense vectors can provide significant bulk ingest performance improvement
 ### Cat.circuitBreaker (new API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/cat.circuit_breaker.json
-- Documentation:
 
 ### Esql.getView (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.get_view.json
-- Documentation:
 
 ### Esql.putView (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.put_view.json
-- Documentation:
 
 ### Esql.deleteView (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.delete_view.json
-- Documentation:
 
 ### Indices.getSample (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample.json
-- Documentation:
 
 ### Indices.getSampleConfiguration (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample_configuration.json
-- Documentation:
 
 ### Indices.getAllSampleConfiguration (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_all_sample_configuration.json
-- Documentation:
 
 ### Indices.putSampleConfiguration (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_sample_configuration.json
-- Documentation:
 
 ### Indices.deleteSampleConfiguration (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.delete_sample_configuration.json
-- Documentation:
 
 ### Indices.getSampleStats (new experimental API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample_stats.json
-- Documentation:
 
 ### Inference.putGroq (new API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_groq.json
-- Documentation:
 
 ### Inference.putNvidia (new API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_nvidia.json
-- Documentation:
 
 ### Inference.putOpenshiftAi (new API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_openshift_ai.json
-- Documentation:
 
 ### Ml.openJob
 

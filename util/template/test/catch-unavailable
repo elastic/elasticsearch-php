@@ -1,2 +1,0 @@
-        $this->assertEquals(503, $response['status']);
-

@@ -1,5 +1,0 @@
-        if (isset(:value)) {
-            $this->assertNull(:value);
-        } else {
-            $this->assertTrue(true);
-        }

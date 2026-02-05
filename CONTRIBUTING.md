@@ -12,20 +12,33 @@ before writing too much code.
 
 ## Running Elasticsearch locally
 
-We've provided a script to start an Elasticsearch cluster of a certain version
-found at `.buildkite/run-elasticsearch.sh`.
+You can run Elasticsearch locally with [start-local](https://github.com/elastic/start-local):
 
-There are several environment variables that control integration tests:
+```
+$ curl -fsSL https://elastic.co/start-local | sh -s -- -v $STACK_VERSION --esonly
+```
 
-- `TEST_SUITE`: `free` or `platinum` for running Elasticsearch in different
-  versions.
-- `STACK_VERSION`: Version of Elasticsearch to use. These should be
-  the same as tags of `docker.elastic.co/elasticsearch/elasticsearch`
-  such as `8.0.0-SNAPSHOT`, `7.x-SNAPSHOT`, etc. Defaults to the
-  same `*-SNAPSHOT` version as the branch.
+Once Elasticsearch is running, you can source the start-local generated env file to run the tests:
+
+```
+$ source elastic-start-local/.env
+```
+
 
 **NOTE: You don't need to run the live integration tests for all changes. If
 you don't have Elasticsearch running locally the integration tests will be skipped.**
+
+## YAML tests:
+```
+# clone the YAML tests repository:
+
+$ git clone -b main https://github.com/elastic/elasticsearch-clients-tests.git tests/elasticsearch-clients-tests
+$ php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests stack tests/Yaml
+
+# Run the tests:
+
+$ ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="free" vendor/bin/phpunit -c "phpunit-yaml-stack-tests.xml"
+```
 
 ## API Code Generation
 
@@ -60,12 +73,13 @@ The process for contributing to any of the Elasticsearch repositories is similar
    ```
    # Run PHPStan, see https://phpstan.org/
    $ composer run-script phpstan
-   
+
    # Run the unit tests
    $ composer run-script test
-   
+
    # Run the integration tests (optional)
-   $ STACK_VERSION="8.17.0" .buildkite/run-tests
+   $ source elastic-start-local/.env
+   $ ELASTICSEARCH_URL="http://elastic:${ES_LOCAL_PASSWORD}@localhost:9200" TEST_SUITE="free" composer run-script integration-test
    ```
 
 3. Rebase your changes.

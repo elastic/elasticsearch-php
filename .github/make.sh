@@ -123,24 +123,10 @@ esac
 build_container() {
     echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-    docker build --file $repo/.buildkite/Dockerfile --tag ${product} \
+    docker build --file $repo/.github/Dockerfile --tag ${product} \
       --build-arg USER_ID="$(id -u)" \
       --build-arg GROUP_ID="$(id -g)" .
 }
-
-# ------------------------------------------------------- #
-# Run the Container
-# ------------------------------------------------------- #
-
-#echo -e "\033[34;1mINFO: running $product container\033[0m"
-
-#docker run \
-# --env "DOTNET_VERSION" \
-# --name test-runner \
-# --volume $REPO_BINDING \
-# --rm \
-# $product \
-# /bin/bash -c "./build.sh $TASK ${TASK_ARGS[*]} && chown -R $(id -u):$(id -g) ."
 
 # ------------------------------------------------------- #
 # Post Command tasks & checks

@@ -151,7 +151,7 @@ if [[ "$CMD" == "assemble" ]]; then
     rsync -ar --exclude=.github --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
     if compgen -G ".github/output/*" > /dev/null; then
-        if [[ "$WORKFLOW" == "snapshot" ]]; then 
+        if [[ "$WORKFLOW" == "snapshot" ]]; then
             cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION-SNAPSHOT.tar.gz * && cd -
         else
             cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
@@ -182,7 +182,7 @@ if [[ "$CMD" == "bump" ]]; then
 fi
 
 if [[ "$CMD" == "bumpmatrix" ]]; then
-  TEST_FILES=".buildkite/pipeline.yml .github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
+  TEST_FILES=".github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
   for TEST_FILE in $TEST_FILES; do
       sed -E -i.bak 's/[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT/'$VERSION'/g' ${TEST_FILE}
       rm ${TEST_FILE}.bak

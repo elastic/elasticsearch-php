@@ -35,6 +35,7 @@ class Streams extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
+	 *     name: string, // (REQUIRED) Stream name to disable
 	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -44,6 +45,7 @@ class Streams extends AbstractEndpoint
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
+	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -53,7 +55,8 @@ class Streams extends AbstractEndpoint
 	public function logsDisable(?array $params = null)
 	{
 		$params = $params ?? [];
-		$url = '/_streams/logs/_disable';
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_streams/' . $this->encode($params['name']) . '/_disable';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -61,7 +64,7 @@ class Streams extends AbstractEndpoint
 			'Accept' => 'application/json,text/plain',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'streams.logs_disable');
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'streams.logs_disable');
 		return $this->client->sendRequest($request);
 	}
 
@@ -73,6 +76,7 @@ class Streams extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
+	 *     name: string, // (REQUIRED) Stream name to enable
 	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -82,6 +86,7 @@ class Streams extends AbstractEndpoint
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
+	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -91,7 +96,8 @@ class Streams extends AbstractEndpoint
 	public function logsEnable(?array $params = null)
 	{
 		$params = $params ?? [];
-		$url = '/_streams/logs/_enable';
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_streams/' . $this->encode($params['name']) . '/_enable';
 		$method = 'POST';
 
 		$url = $this->addQueryString($url, $params, ['timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
@@ -99,7 +105,7 @@ class Streams extends AbstractEndpoint
 			'Accept' => 'application/json,text/plain',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'streams.logs_enable');
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'streams.logs_enable');
 		return $this->client->sendRequest($request);
 	}
 

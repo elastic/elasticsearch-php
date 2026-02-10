@@ -33,7 +33,10 @@ class BuildPHPUnitClass
 {
     protected mixed $yaml;
 
-    public function __construct(private string $filename, private string $testGroup, private string $namespace)
+    /**
+     * @param array<int, string> $featureFlags
+     */
+    public function __construct(private string $filename, private string $testGroup, private string $namespace, private array $featureFlags)
     {
         // parse the YAML content
         $content = file_get_contents($filename);
@@ -57,6 +60,12 @@ class BuildPHPUnitClass
     public function build(): ?PhpNamespace
     {
         if (!$this->yaml[0]['requires'][$this->testGroup]) {
+            return null;
+        }
+        if (
+            isset($this->yaml[0]['requires']['feature_flag']) &&
+            !in_array($this->yaml[0]['requires']['feature_flag'], $this->featureFlags)
+        ) {
             return null;
         }
 

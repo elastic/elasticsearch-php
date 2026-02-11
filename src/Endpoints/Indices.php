@@ -711,48 +711,6 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Delete sampling configuration for an index or data stream
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The name of a data stream or index
-	 *     master_timeout?: int|string, // Timeout for connection to master node
-	 *     timeout?: int|string, // Timeout for the request
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function deleteSampleConfiguration(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_sample/config';
-		$method = 'DELETE';
-
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.delete_sample_configuration');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
 	 * Delete a legacy index template
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-template
@@ -1330,43 +1288,6 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Get sampling configurations for all indices and data streams
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for connection to master node
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getAllSampleConfiguration(?array $params = null)
-	{
-		$params = $params ?? [];
-		$url = '/_sample/config';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, [], $request, 'indices.get_all_sample_configuration');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
 	 * Get data stream lifecycles
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
@@ -1783,124 +1704,6 @@ class Indices extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.get_migrate_reindex_status');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Get random sample of ingested data
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The name of a data stream or index
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getSample(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_sample';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.get_sample');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Get sampling configuration for an index or data stream
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The name of a data stream or index
-	 *     master_timeout?: int|string, // Timeout for connection to master node
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getSampleConfiguration(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_sample/config';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.get_sample_configuration');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Get stats about a random sample of ingested data
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The name of a data stream or index
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function getSampleStats(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_sample/stats';
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.get_sample_stats');
 		return $this->client->sendRequest($request);
 	}
 
@@ -2511,49 +2314,6 @@ class Indices extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.put_mapping');
-		return $this->client->sendRequest($request);
-	}
-
-
-	/**
-	 * Configure sampling for an index or data stream
-	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
-	 *
-	 * @param array{
-	 *     index: string, // (REQUIRED) The name of a data stream or index
-	 *     master_timeout?: int|string, // Timeout for connection to master node
-	 *     timeout?: int|string, // Timeout for the request
-	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
-	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
-	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
-	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
-	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) The sampling configuration. If body is a string must be a valid JSON.
-	 * } $params
-	 *
-	 * @throws MissingParameterException if a required parameter is missing
-	 * @throws NoNodeAvailableException if all the hosts are offline
-	 * @throws ClientResponseException if the status code of response is 4xx
-	 * @throws ServerResponseException if the status code of response is 5xx
-	 *
-	 * @return Elasticsearch|Promise
-	 */
-	public function putSampleConfiguration(?array $params = null)
-	{
-		$params = $params ?? [];
-		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_sample/config';
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['master_timeout','timeout','pretty','human','error_trace','source','filter_path']);
-		$headers = [
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
-		];
-		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'indices.put_sample_configuration');
 		return $this->client->sendRequest($request);
 	}
 

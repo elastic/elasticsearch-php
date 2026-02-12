@@ -52,42 +52,6 @@ Packed dense vectors can provide significant bulk ingest performance improvement
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/cat.circuit_breaker.json
 
-### Esql.getView (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.get_view.json
-
-### Esql.putView (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.put_view.json
-
-### Esql.deleteView (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/esql.delete_view.json
-
-### Indices.getSample (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample.json
-
-### Indices.getSampleConfiguration (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample_configuration.json
-
-### Indices.getAllSampleConfiguration (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_all_sample_configuration.json
-
-### Indices.putSampleConfiguration (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.put_sample_configuration.json
-
-### Indices.deleteSampleConfiguration (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.delete_sample_configuration.json
-
-### Indices.getSampleStats (new experimental API)
-
-- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/indices.get_sample_stats.json
-
 ### Inference.putGroq (new API)
 
 - API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_groq.json

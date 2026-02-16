@@ -190,6 +190,47 @@ class Esql extends AbstractEndpoint
 
 
 	/**
+	 * Get a specific running ES|QL query information
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+	 * @group serverless
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     id: string, // (REQUIRED) The query ID
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getQuery(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['id'], $params);
+		$url = '/_query/queries/' . $this->encode($params['id']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['id'], $request, 'esql.get_query');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Get running ES|QL queries information
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries

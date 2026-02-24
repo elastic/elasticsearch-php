@@ -113,7 +113,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
         eval($phpCode);
     } catch (ParseError $e) {
         throw new Exception(sprintf(
-            "The PHP code generate for %s is not valid: %s",
+            "The PHP code generated for %s is not valid: %s",
             $file->getPathname(),
             $e->getMessage()
         ));

@@ -26,7 +26,7 @@ use function yaml_parse;
 
 /**
  * Build a PHPUnit test class based on the Elasticsearch Test Suite specification
- * 
+ *
  * @link https://github.com/elastic/elasticsearch/tree/main/rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test
  */
 class BuildPHPUnitClass
@@ -82,8 +82,8 @@ class BuildPHPUnitClass
             ->setFinal()
             ->setExtends(TestCase::class)
             ->addComment(sprintf('@group %s', $this->testGroup))
-            ->addComment('@generated This file is generated, please do not edit'); 
-        
+            ->addComment('@generated This file is generated, please do not edit');
+
         $class
             ->addProperty('client')
             ->setStatic(true)
@@ -119,7 +119,7 @@ class BuildPHPUnitClass
                 }
             }
         }
-        
+
         return $namespace->add($class);
     }
 
@@ -181,10 +181,18 @@ class BuildPHPUnitClass
         } else {
             $output = '$response';
         }
+        # Temporarily change value for keys with \. like `logs\.otel`
+        if($dot_in_name = preg_match('/\\\./', $var)) {
+            $var = preg_replace('/\\\./', '__dot__', $var);
+        }
         foreach (explode('.', $var) as $item) {
             if (is_numeric($item)) {
                 $output .= sprintf('[%d]', $item);
             } elseif (is_string($item) && !empty($item)) {
+                # Change value back for keys with \.:
+                if($dot_in_name == true) {
+                    $item = preg_replace('/__dot__/', '.', $item);
+                }
                 if (substr($item, 0, 1) === '$') {
                     $output .= sprintf("[%s]", $item);
                 } else {
@@ -197,7 +205,7 @@ class BuildPHPUnitClass
 
     protected function arrayToPhpCode(array|string|stdClass $arr): string {
         $parts = [];
-    
+
         if (is_string($arr)) {
             return var_export($arr, true);
         }

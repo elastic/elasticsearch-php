@@ -52,6 +52,7 @@ use Elastic\Elasticsearch\Endpoints\Slm;
 use Elastic\Elasticsearch\Endpoints\Snapshot;
 use Elastic\Elasticsearch\Endpoints\Sql;
 use Elastic\Elasticsearch\Endpoints\Ssl;
+use Elastic\Elasticsearch\Endpoints\Streams;
 use Elastic\Elasticsearch\Endpoints\Synonyms;
 use Elastic\Elasticsearch\Endpoints\Tasks;
 use Elastic\Elasticsearch\Endpoints\TextStructure;
@@ -390,6 +391,15 @@ trait NamespaceTrait
 		}
 		return $this->namespace['Ssl'];
 	}
+
+
+    public function streams(): Streams
+    {
+      if (!isset($this->namespace['Streams'])) {
+        $this->namespace['Streams'] = new Streams($this);
+      }
+      return $this->namespace['Streams'];
+    }
 
 
 	public function synonyms(): Synonyms

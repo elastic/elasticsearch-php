@@ -32,7 +32,7 @@ use function sprintf;
 trait EndpointTrait
 {
     /**
-     * Check if an array containts nested array
+     * Check if an array contains nested array
      */
     private function isNestedArray(array $a): bool
     {
@@ -164,7 +164,7 @@ trait EndpointTrait
 
     /**
      * Build the API compatibility headers
-     * transfrom Content-Type and Accept adding vnd.elasticsearch+ and compatible-with
+     * transform Content-Type and Accept adding vnd.elasticsearch+ and compatible-with
      * 
      * @see https://github.com/elastic/elasticsearch-php/pull/1142
      */
@@ -213,7 +213,7 @@ trait EndpointTrait
         string $endpoint
     ): ServerRequestInterface
     {
-        // Check if OpenTelemetry instrumentation is enbaled 
+        // Check if OpenTelemetry instrumentation is enabled
         if (!getenv(OpenTelemetry::ENV_VARIABLE_ENABLED)) {
             return $request;
         }       

@@ -135,7 +135,7 @@ class SearchResponseIterator implements Iterator
     }
 
     /**
-     * Fetches every "page" after the first one using the lastest "scroll_id"
+     * Fetches every "page" after the first one using the latest "scroll_id"
      *
      * @return void
      * @throws ClientResponseException

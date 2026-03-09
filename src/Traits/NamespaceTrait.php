@@ -393,13 +393,13 @@ trait NamespaceTrait
 	}
 
 
-    public function streams(): Streams
-    {
-      if (!isset($this->namespace['Streams'])) {
-        $this->namespace['Streams'] = new Streams($this);
-      }
-      return $this->namespace['Streams'];
-    }
+	public function streams(): Streams
+	{
+		if (!isset($this->namespace['Streams'])) {
+			$this->namespace['Streams'] = new Streams($this);
+		}
+		return $this->namespace['Streams'];
+	}
 
 
 	public function synonyms(): Synonyms

@@ -78,6 +78,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
 	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
 	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     return_intermediate_results?: bool, // Indicates whether partial intermediate results should be returned when the wait for completion timeout occurs and the query is not yet complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -99,7 +100,7 @@ class AsyncSearch extends AbstractEndpoint
 		$url = '/_async_search/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive','typed_keys','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_completion_timeout','keep_alive','typed_keys','return_intermediate_results','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

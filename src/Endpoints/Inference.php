@@ -1157,7 +1157,7 @@ class Inference extends AbstractEndpoint
 
 
 	/**
-	 * Create an Nvidia inference endpoint
+	 * Create an NVIDIA inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
 	 * @group serverless

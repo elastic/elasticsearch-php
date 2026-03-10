@@ -173,6 +173,11 @@ if [[ "$CMD" == "bumpmatrix" ]]; then
       sed -E -i.bak 's/[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT/'$VERSION'/g' ${TEST_FILE}
       rm ${TEST_FILE}.bak
   done
+  # Update branch-client-tests if necessary:
+  if ! [[ `git rev-parse --abbrev-ref HEAD` = "main" ]]; then
+    major_minor=${VERSION%.*}
+    sed -i "s/\(branch-client-tests: \[\"\)\(.*\)\(\"\]\)/\1${major_minor}\3/g" .github/workflows/yaml_test.yml
+  fi
   exit 0
 fi
 

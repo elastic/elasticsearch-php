@@ -66,6 +66,10 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
         $this->productCheck($response);
         // Check for Serverless response
         $this->serverless = $this->isServerlessResponse($response);
+
+        unset($this->asArray, $this->asObject);
+        $this->asString = '';
+
         $this->response = $response;
         $status = $response->getStatusCode();
         if ($throwException && $status > 399 && $status < 500) {

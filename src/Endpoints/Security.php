@@ -456,6 +456,45 @@ class Security extends AbstractEndpoint
 
 
 	/**
+	 * Clone an API key. Creates a new API key with the same role descriptors as an existing key, with a new name, id, and optional expiration and metadata.
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clone-api-key
+	 *
+	 * @param array{
+	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. Default is `wait_for` in stateful and `true` in serverless.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The clone API key request. Requires `api_key` (encoded credential of the source key) and `name`. Optional: `expiration` (omit = same as source, null = no expiry, value = new expiry), `metadata` (omit = copy from source, provide = overwrite; reserved key `_cloned_from` is added by the server).. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function cloneApiKey(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_security/api_key/clone';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'security.clone_api_key');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Create an API key
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key

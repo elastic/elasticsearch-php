@@ -61,12 +61,16 @@ class Elasticsearch implements ElasticsearchInterface, ResponseInterface, ArrayA
      * @throws ClientResponseException if status code 4xx
      * @throws ServerResponseException if status code 5xx
      */
+
     public function setResponse(ResponseInterface $response, bool $throwException = true): void
     {
         $this->productCheck($response);
-        // Check for Serverless response
         $this->serverless = $this->isServerlessResponse($response);
         $this->response = $response;
+
+        unset($this->asArray, $this->asObject);
+        $this->asString = '';
+
         $status = $response->getStatusCode();
         if ($throwException && $status > 399 && $status < 500) {
             $error = new ClientResponseException(

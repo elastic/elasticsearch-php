@@ -317,4 +317,23 @@ class ElasticsearchTest extends TestCase
         $this->elasticsearch->setResponse($this->response200);
         $this->assertFalse($this->elasticsearch->isServerless());
     }
+
+    public function testCacheIsClearedWhenSetResponseIsCalledAgain(): void
+    {
+        $firstArray = ['foo' => 'bar'];
+        $firstBody = $this->psr17Factory->createStream(json_encode($firstArray));
+        $this->elasticsearch->setResponse($this->response200->withBody($firstBody));
+
+        $this->assertEquals($firstArray, $this->elasticsearch->asArray());
+
+        $secondArray = ['baz' => 'qux'];
+        $secondBody = $this->psr17Factory->createStream(json_encode($secondArray));
+        $this->elasticsearch->setResponse($this->response200->withBody($secondBody));
+
+        $this->assertEquals($secondArray, $this->elasticsearch->asArray());
+        $this->assertEquals(json_encode($secondArray), $this->elasticsearch->asString());
+
+        $obj = $this->elasticsearch->asObject();
+        $this->assertEquals('qux', $obj->baz);
+    }
 }

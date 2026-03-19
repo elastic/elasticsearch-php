@@ -196,7 +196,6 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     format?: string, // The format for the response.You can also specify a format using the `Accept` HTTP header.If you specify both this parameter and the `Accept` HTTP header, this parameter takes precedence.
-	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -218,7 +217,7 @@ class Sql extends AbstractEndpoint
 		$url = '/_sql';
 		$method = empty($params['body']) ? 'GET' : 'POST';
 
-		$url = $this->addQueryString($url, $params, ['format','project_routing','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

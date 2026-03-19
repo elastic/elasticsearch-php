@@ -1,5 +1,0 @@
-        if (is_array(:value)) {
-            $this->assertCount(:expected, :value);
-        } elseif (is_string(:value)) {
-            $this->assertEquals(:expected, :value);
-        }

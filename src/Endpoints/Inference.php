@@ -159,6 +159,49 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Perform embedding inference on the service
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-embedding
+	 * @group serverless
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     inference_id: string, // (REQUIRED) The inference Id
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference payload. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function embedding(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['inference_id','body'], $params);
+		$url = '/_inference/embedding/' . $this->encode($params['inference_id']);
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['inference_id'], $request, 'inference.embedding');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Get an inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
@@ -856,6 +899,49 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Create a Fireworks AI inference endpoint
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-fireworksai
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     fireworksai_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putFireworksai(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','fireworksai_inference_id','body'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['fireworksai_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'fireworksai_inference_id'], $request, 'inference.put_fireworksai');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Create an Google AI Studio inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
@@ -945,6 +1031,7 @@ class Inference extends AbstractEndpoint
 	 * Create a Groq inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-groq
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_type: string, // (REQUIRED) The task type
@@ -1151,6 +1238,49 @@ class Inference extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['task_type', 'mistral_inference_id'], $request, 'inference.put_mistral');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Create an NVIDIA inference endpoint
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     task_type: string, // (REQUIRED) The task type
+	 *     nvidia_inference_id: string, // (REQUIRED) The inference ID
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The inference endpoint's task and service settings. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putNvidia(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_type','nvidia_inference_id','body'], $params);
+		$url = '/_inference/' . $this->encode($params['task_type']) . '/' . $this->encode($params['nvidia_inference_id']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_type', 'nvidia_inference_id'], $request, 'inference.put_nvidia');
 		return $this->client->sendRequest($request);
 	}
 

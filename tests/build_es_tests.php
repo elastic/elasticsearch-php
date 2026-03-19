@@ -98,7 +98,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
         mkdir($unitTestFolder);
     }
     $namespace = $folderName === 'Tests' ? basename($outputFolder) : sprintf("%s\%s", basename($outputFolder), $folderName);
-    $test = new BuildPHPUnitClass($file->getPathname(), $testGroup, $namespace);
+    $test = new BuildPHPUnitClass($file->getPathname(), $testGroup, $namespace, []);
     $unitTest = $test->build();
     if (empty($unitTest)) {
         printf("Skipped (not %s): %s\n", $testGroup, $file->getPathname());
@@ -113,7 +113,7 @@ foreach (new RecursiveIteratorIterator($it) as $file) {
         eval($phpCode);
     } catch (ParseError $e) {
         throw new Exception(sprintf(
-            "The PHP code generate for %s is not valid: %s",
+            "The PHP code generated for %s is not valid: %s",
             $file->getPathname(),
             $e->getMessage()
         ));

@@ -20,6 +20,62 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [elasticsearch-php-client-next-fixes]
 % *
 
+## 9.3.0 [elasticsearch-php-client-930-release-notes]
+
+### Features and enhancements [elasticsearch-php-client-930-features-enhancements]
+
+- New `packDenseVector` helper function [#1499](https://github.com/elastic/elasticsearch-php/pull/1499)
+
+The `packDenseVector` function can be used to pack dense vectors for efficient bulk ingesting.
+
+Example usage:
+
+```php
+use Elastic\Elasticsearch\Helper\Vectors;
+
+$params = ['body' => []];
+// ...
+$params['body'][] = ['index' => ['_index' => $index]];
+$params['body'][] = [
+    'docid' => $doc['docid'],
+    'title' => $doc['title'],
+    'text' => $doc['text'],
+    'emb' => Vectors::packDenseVector($doc['emb']),
+];
+// ...
+$response = $client->bulk($params);
+```
+
+Packed dense vectors can provide significant bulk ingest performance improvements.
+
+### Cat.circuitBreaker (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/cat.circuit_breaker.json
+
+### Inference.putGroq (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_groq.json
+
+### Inference.putNvidia (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_nvidia.json
+
+### Inference.putOpenshiftAi (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.3/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_openshift_ai.json
+
+### Ml.openJob
+
+- Added the `timeout` parameter (int|string)
+
+### Ml.stopDatafeed
+
+- Added the `close_job` parameter (bool)
+
+### knnSearch (removed API)
+
+- This endpoint is not supported since release 9.0 and was inadvertently left in this client.
+
 ## 9.2.0 [elasticsearch-php-client-920-release-notes]
 
 ### Features and enhancements [elasticsearch-php-client-920-features-enhancements]

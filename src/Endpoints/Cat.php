@@ -237,7 +237,6 @@ class Cat extends AbstractEndpoint
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
 	 *     h?: string|array<string>, // Comma-separated list of column names to display
 	 *     help?: bool, // Return help information
-	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
@@ -265,7 +264,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/count';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','h','help','project_routing','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','h','help','s','v','bytes','time','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];

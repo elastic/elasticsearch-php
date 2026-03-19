@@ -1,4 +1,0 @@
-        $this->assertMatchesRegularExpression(
-            ":expected", 
-            :value
-        );

@@ -123,24 +123,10 @@ esac
 build_container() {
     echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-    docker build --file $repo/.buildkite/Dockerfile --tag ${product} \
+    docker build --file $repo/.github/Dockerfile --tag ${product} \
       --build-arg USER_ID="$(id -u)" \
       --build-arg GROUP_ID="$(id -g)" .
 }
-
-# ------------------------------------------------------- #
-# Run the Container
-# ------------------------------------------------------- #
-
-#echo -e "\033[34;1mINFO: running $product container\033[0m"
-
-#docker run \
-# --env "DOTNET_VERSION" \
-# --name test-runner \
-# --volume $REPO_BINDING \
-# --rm \
-# $product \
-# /bin/bash -c "./build.sh $TASK ${TASK_ARGS[*]} && chown -R $(id -u):$(id -g) ."
 
 # ------------------------------------------------------- #
 # Post Command tasks & checks
@@ -151,7 +137,7 @@ if [[ "$CMD" == "assemble" ]]; then
     rsync -ar --exclude=.github --exclude=.git --filter=':- .gitignore' "$PWD" "${output_folder}/."
 
     if compgen -G ".github/output/*" > /dev/null; then
-        if [[ "$WORKFLOW" == "snapshot" ]]; then 
+        if [[ "$WORKFLOW" == "snapshot" ]]; then
             cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION-SNAPSHOT.tar.gz * && cd -
         else
             cd $repo/.github/output && tar -czf elasticsearch-php-$VERSION.tar.gz * && cd -
@@ -182,11 +168,16 @@ if [[ "$CMD" == "bump" ]]; then
 fi
 
 if [[ "$CMD" == "bumpmatrix" ]]; then
-  TEST_FILES=".buildkite/pipeline.yml .github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
+  TEST_FILES=".github/workflows/test.yml .github/workflows/integration_test.yml .github/workflows/yaml_test.yml"
   for TEST_FILE in $TEST_FILES; do
       sed -E -i.bak 's/[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT/'$VERSION'/g' ${TEST_FILE}
       rm ${TEST_FILE}.bak
   done
+  # Update branch-client-tests if necessary:
+  if ! [[ `git rev-parse --abbrev-ref HEAD` = "main" ]]; then
+    major_minor=${VERSION%.*}
+    sed -i "s/\(branch-client-tests: \[\"\)\(.*\)\(\"\]\)/\1${major_minor}\3/g" .github/workflows/yaml_test.yml
+  fi
   exit 0
 fi
 
@@ -205,6 +196,7 @@ if [[ "$CMD" == "codegen" ]]; then
       git clone https://$CLIENTS_GITHUB_TOKEN@github.com/elastic/elastic-client-generator-php.git && \
       cd /code/elastic-client-generator-php && composer install && \
       bin/elasticsearch9.php $ES_VERSION $BRANCH /code/codegen config/elasticsearch9.json && \
+      find /code/elasticsearch-php/src/Endpoints/ -name "*.php" -not -name AbstractEndpoint.php -exec rm {} \;
       cp /code/codegen/Elastic/Elasticsearch/Endpoints/* /code/elasticsearch-php/src/Endpoints/ && \
       cp /code/codegen/Elastic/Elasticsearch/Traits/* /code/elasticsearch-php/src/Traits/"
 fi

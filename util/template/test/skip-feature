@@ -1,5 +1,0 @@
-        $this->markTestSkipped(sprintf(
-            "Skip test %s, feature %s not supported",
-            :testname,
-            :feature
-        ));

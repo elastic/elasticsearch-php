@@ -1,7 +1,0 @@
-        // check for warnings
-        $warning = $response->getHeader('Warning');
-        $this->assertNotEmpty($warning);
-        $expectedHeaders = :expected;
-        foreach ($expectedHeaders as $expected) {
-            $this->assertStringContainsString($expected, implode('', $warning));
-        }

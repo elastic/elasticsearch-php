@@ -36,18 +36,18 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string, // Default index for items which don't provide one
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the bulk operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or default list of fields to return, can be overridden on each sub-request
-	 *     _source_excludes?: string|array<string>, // Default list of fields to exclude from the returned _source field, can be overridden on each sub-request
-	 *     _source_includes?: string|array<string>, // Default list of fields to extract and return from the _source field, can be overridden on each sub-request
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     require_alias?: bool, // If true, the request's actions must target an index alias. Defaults to false.
-	 *     require_data_stream?: bool, // If true, the request's actions must target a data stream (existing or to-be-created). Default to false
-	 *     list_executed_pipelines?: bool, // Sets list_executed_pipelines for all incoming documents. Defaults to unset (false)
-	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default is `1`, which waits for each primary shard to be active. (DEFAULT: 1)
+	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, wait for a refresh to make this operation visible to search. If `false`, do nothing with refreshes. Valid values: `true`, `false`, `wait_for`. (DEFAULT: false)
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     timeout?: int|string, // The period each action waits for the following operations: automatic index creation, dynamic mapping updates, and waiting for active shards. The default is `1m` (one minute), which guarantees Elasticsearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or contains a list of fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     pipeline?: string, // The pipeline identifier to use to preprocess incoming documents. If the index has a default ingest pipeline specified, setting the value to `_none` turns off the default ingest pipeline for this request. If a final pipeline is configured, it will always run regardless of the value of this parameter.
+	 *     require_alias?: bool, // If `true`, the request's actions must target an index alias.
+	 *     require_data_stream?: bool, // If `true`, the request's actions must target a data stream (existing or to be created).
+	 *     list_executed_pipelines?: bool, // If `true`, the response will include the ingest pipelines that were run for each index or create.
+	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -174,20 +174,20 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of indices to restrict the results
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     min_score?: float, // Include only documents with a specific `_score` value in the result
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     terminate_after?: int, // The maximum count for each shard, upon reaching which the query execution will terminate early
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     ignore_throttled?: bool, // If `true`, concrete, expanded, or aliased indices are ignored when frozen. (DEFAULT: 1)
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     min_score?: float, // The minimum `_score` value that documents must have to be included in the result.
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, it is random.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     q?: string, // The query in Lucene query string syntax. This parameter cannot be used with a request body.
+	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
+	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
+	 *     df?: string, // The field to use as a default when no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
+	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  IMPORTANT: Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -232,16 +232,16 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
-	 *     require_alias?: bool, // When true, requires destination to be an alias. Default is false
-	 *     require_data_stream?: bool, // When true, requires destination to be a data stream (existing or to be created). Default is false
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
+	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards. Elasticsearch waits for at least the specified timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     version?: int, // The explicit version number for concurrency control. It must be a non-negative long number.
+	 *     version_type?: string, // The version type.
+	 *     pipeline?: string, // The ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, setting the value to `_none` turns off the default ingest pipeline for this request. If a final pipeline is configured, it will always run regardless of the value of this parameter.
+	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. (DEFAULT: 1)
+	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
+	 *     require_data_stream?: bool, // If `true`, the request's actions must target a data stream (existing or to be created).
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -284,14 +284,14 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the delete operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     if_seq_no?: int, // only perform the delete operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: int, // only perform the delete operation if the last operation that has changed the document has the specified primary term
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     wait_for_active_shards?: string, // The minimum number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
+	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     timeout?: int|string, // The period to wait for active shards.  This parameter is useful for situations where the primary shard assigned to perform the delete operation might not be available when the delete operation runs. Some reasons for this might be that the primary shard is currently recovering from a store or undergoing relocation. By default, the delete operation will wait on the primary shard to become available for up to 1 minute before failing and responding with an error. (DEFAULT: 1m)
+	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
+	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
+	 *     version?: int, // An explicit version number for concurrency control. It must match the current version of the document for the request to succeed.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -331,35 +331,35 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     from?: int, // Starting offset (default: 0)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     conflicts?: string, // What to do when the delete by query hits version conflicts?
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     search_timeout?: int|string, // Explicit timeout for each search request. Defaults to no timeout.
-	 *     max_docs?: int, // Maximum number of documents to process (default: all documents)
-	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs
-	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
-	 *     version?: bool, // Specify whether to return document version as part of a hit
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the delete by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     scroll_size?: int, // Size on the scroll request powering the delete by query
-	 *     wait_for_completion?: bool, // Should the request should block until the delete by query is complete.
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. -1 means no throttle.
-	 *     slices?: int|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     analyzer?: string, // Analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
+	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
+	 *     df?: string, // The field to use as default where no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     from?: int, // Skips the specified number of documents.
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     conflicts?: string, // What to do if delete by query hits version conflicts: `abort` or `proceed`. (DEFAULT: abort)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     q?: string, // A query in the Lucene query string syntax.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     scroll?: int|string, // The period to retain the search context for scrolling.
+	 *     search_type?: string, // The type of the search operation. Available options include `query_then_fetch` and `dfs_query_then_fetch`.
+	 *     search_timeout?: int|string, // The explicit timeout for each search request. It defaults to no timeout.
+	 *     max_docs?: int, // The maximum number of documents to process. Defaults to all documents. When set to a value less then or equal to `scroll_size`, a scroll will not be used to retrieve the results for the operation.
+	 *     sort?: string|array<string>, // A comma-separated list of `<field>:<direction>` pairs.
+	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
+	 *     stats?: string|array<string>, // The specific `tag` of the request for logging and statistical purposes.
+	 *     version?: bool, // If `true`, returns the document version as part of a hit.
+	 *     request_cache?: bool, // If `true`, the request cache is used for this request. Defaults to the index-level setting.
+	 *     refresh?: bool, // If `true`, Elasticsearch refreshes all shards involved in the delete by query after the request completes. This is different than the delete API's `refresh` parameter, which causes just the shard that received the delete request to be refreshed. Unlike the delete API, it does not support `wait_for`.
+	 *     timeout?: int|string, // The period each deletion request waits for active shards. (DEFAULT: 1m)
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` value controls how long each write request waits for unavailable shards to become available. (DEFAULT: 1)
+	 *     scroll_size?: int, // The size of the scroll request that powers the operation. (DEFAULT: 1000)
+	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If `false`, Elasticsearch performs some preflight checks, launches the request, and returns a task you can use to cancel or get the status of the task. Elasticsearch creates a record of this task as a document at `.tasks/task/${taskId}`. When you are done with a task, you should delete the task document so Elasticsearch can reclaim the space. (DEFAULT: 1)
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. (DEFAULT: -1)
+	 *     slices?: int|string, // The number of slices this task should be divided into. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -400,7 +400,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. To disable throttling, set it to `-1`.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -440,8 +440,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. It can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. It can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -482,16 +482,16 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`.
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.  If it is set to `_local`, the operation will prefer to be run on a local allocated shard when possible. If it is set to a custom value, the value is used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session ID or the user name.
+	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     version?: int, // Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -532,15 +532,15 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.
+	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude in the response.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response.
+	 *     version?: int, // The version number for concurrency control. It must match the current version of the document for the request to succeed.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -581,18 +581,18 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     analyze_wildcard?: bool, // Specify whether wildcards and prefix queries in the query string query should be analyzed (default: false)
-	 *     analyzer?: string, // The analyzer for the query string query
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The default field for query string query (default: _all)
-	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return in the response
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
+	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
+	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
+	 *     df?: string, // The field to use as default where no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return in the response.
+	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     q?: string, // The query in the Lucene query string syntax.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // `True` or `false` to return the `_source` field or not or a list of fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -634,14 +634,14 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     fields?: string|array<string>, // A comma-separated list of field names
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     include_unmapped?: bool, // Indicates whether unmapped fields should be included in the response.
-	 *     filters?: string|array<string>, // An optional set of filters: can include +metadata,-metadata,-nested,-multifield,-parent
-	 *     types?: string|array<string>, // Only return results for fields that have one of the types in the list
-	 *     include_empty_fields?: bool, // Include empty fields in result
+	 *     fields?: string|array<string>, // A comma-separated list of fields to retrieve capabilities for. Wildcard (`*`) expressions are supported.
+	 *     ignore_unavailable?: bool, // If `true`, missing or closed indices are not included in the response.
+	 *     allow_no_indices?: bool, // If false, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with foo but no index starts with bar. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     include_unmapped?: bool, // If true, unmapped fields are included in the response.
+	 *     filters?: string|array<string>, // A comma-separated list of filters to apply to the response.
+	 *     types?: string|array<string>, // A comma-separated list of field types to include. Any fields that do not match one of these types will be excluded from the results. It defaults to empty, meaning that all field types are returned.
+	 *     include_empty_fields?: bool, // If false, empty fields are not included in the response. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -686,17 +686,17 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     force_synthetic_source?: bool, // Indicates whether the request forces synthetic `_source`. Use this paramater to test if the mapping supports synthetic `_source` and to get a sense of the worst case performance. Fetches with this parameter enabled will be slower than enabling synthetic source natively in the index.
+	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. Only leaf fields can be retrieved with the `stored_field` option. Object fields can't be returned;​if specified, the request fails.
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.  If it is set to `_local`, the operation will prefer to be run on a local allocated shard when possible. If it is set to a custom value, the value is used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session ID or the user name.
+	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     version?: int, // The version number for concurrency control. It must match the current version of the document for the request to succeed.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -736,7 +736,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. It can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -847,15 +847,15 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.
+	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude in the response.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response.
+	 *     version?: int, // The version number for concurrency control. It must match the current version of the document for the request to succeed.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -894,9 +894,9 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     feature?: string, // A feature of the cluster, as returned by the top-level health API
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     verbose?: bool, // Opt in for more information about the health of the system
-	 *     size?: int, // Limit the number of affected resources the health API returns
+	 *     timeout?: int|string, // Explicit operation timeout.
+	 *     verbose?: bool, // Opt-in for more information about the health of the system. (DEFAULT: 1)
+	 *     size?: int, // Limit the number of affected resources the health report API returns. (DEFAULT: 1000)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -939,19 +939,19 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id?: string, // Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the index operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     op_type?: string, // Explicit operation type. Defaults to `index` for requests with an explicit document ID, and to `create`for requests without an explicit document ID
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
-	 *     if_seq_no?: int, // only perform the index operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: int, // only perform the index operation if the last operation that has changed the document has the specified primary term
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with
-	 *     require_alias?: bool, // When true, requires destination to be an alias. Default is false
-	 *     require_data_stream?: bool, // When true, requires the destination to be a data stream (existing or to-be-created). Default is false
-	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
+	 *     op_type?: string, // Set to `create` to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. The behavior is the same as using the `<index>/_create` endpoint. If a document ID is specified, this paramater defaults to `index`. Otherwise, it defaults to `create`. If the request targets a data stream, an `op_type` of `create` is required.
+	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     version?: int, // An explicit version number for concurrency control. It must be a non-negative long number.
+	 *     version_type?: string, // The version type.
+	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
+	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
+	 *     pipeline?: string, // The ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.
+	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
+	 *     require_data_stream?: bool, // If `true`, the request's actions must target a data stream (existing or to be created).
+	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1033,7 +1033,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` to perform the operation on all indices
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
+	 *     routing?: string|array<string>, // A comma-separated list of specific routing values.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1076,14 +1076,14 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index?: string, // The name of the index
 	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return in the response
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     realtime?: bool, // Specify whether to perform the operation in realtime or search mode
-	 *     refresh?: bool, // Refresh the shard containing the document before performing the operation
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
+	 *     stored_fields?: string|array<string>, // If `true`, retrieves the document fields stored in the index rather than the document `_source`. (DEFAULT: false)
+	 *     preference?: string, // Specifies the node or shard the operation should be performed on. Random by default.
+	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     refresh?: bool, // If `true`, the request refreshes relevant shards before retrieving documents.
+	 *     routing?: string|array<string>, // Custom value used to route operations to a specific shard.
+	 *     _source?: string|array<string>, // True or false to return the `_source` field or not, or a list of fields to return.
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1128,19 +1128,19 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to use as default
-	 *     search_type?: string, // Search operation type
-	 *     max_concurrent_searches?: int, // Controls the maximum number of concurrent searches the multi search api will execute
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
-	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests each sub search executes concurrently per node. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
+	 *     search_type?: string, // Indicates whether global term and document frequencies should be used when scoring returned documents.
+	 *     max_concurrent_searches?: int, // Maximum number of concurrent searches the multi search API can execute.
+	 *     typed_keys?: bool, // Specifies whether aggregation and suggester names should be prefixed by their respective types in the response.
+	 *     pre_filter_shard_size?: int, // Defines a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method i.e., if date filters are mandatory to match but the shard bounds and the query are disjoint.
+	 *     max_concurrent_shard_requests?: int, // Maximum number of concurrent shard requests that each sub-search request executes per node. (DEFAULT: 5)
+	 *     rest_total_hits_as_int?: bool, // If true, hits.total are returned as an integer in the response. Defaults to false, which returns an object.
+	 *     ccs_minimize_roundtrips?: bool, // If true, network roundtrips between the coordinating node and remote clusters are minimized for cross-cluster search requests. (DEFAULT: 1)
+	 *     ignore_unavailable?: bool, // If true, missing or closed indices are not included in the response.
+	 *     ignore_throttled?: bool, // If true, concrete, expanded or aliased indices are ignored when frozen.
+	 *     allow_no_indices?: bool, // If false, the request returns an error if any wildcard expression, index alias, or _all value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting foo*,bar* returns an error if an index starts with foo but no index starts with bar.
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard expressions can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. (DEFAULT: open)
+	 *     routing?: string|array<string>, // Custom routing value used to route search operations to a specific shard.
+	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false) This functionality reruns each named query on every hit in a search response. Typically, this adds a small overhead to a request. However, using computationally expensive named queries on a large number of hits may add significant overhead.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1185,11 +1185,11 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to use as default
-	 *     search_type?: string, // Search operation type
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     max_concurrent_searches?: int, // Controls the maximum number of concurrent searches the multi search api will execute
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     search_type?: string, // The type of the search operation.
+	 *     typed_keys?: bool, // If `true`, the response prefixes aggregation and suggester names with their respective types.
+	 *     max_concurrent_searches?: int, // The maximum number of concurrent searches the API can run.
+	 *     rest_total_hits_as_int?: bool, // If `true`, the response returns `hits.total` as an integer. If `false`, it returns `hits.total` as an object.
+	 *     ccs_minimize_roundtrips?: bool, // If `true`, network round-trips are minimized for cross-cluster search requests. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1235,17 +1235,17 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index?: string, // The index in which the document resides.
 	 *     ids?: string|array<string>, // A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
-	 *     term_statistics?: bool, // Specifies if total term frequency and document frequency should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     field_statistics?: bool, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     fields?: string|array<string>, // A comma-separated list of fields to return. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     offsets?: bool, // Specifies if term offsets should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     positions?: bool, // Specifies if term positions should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     payloads?: bool, // Specifies if term payloads should be returned. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     routing?: string|array<string>, // Specific routing value. Applies to all returned documents unless otherwise specified in body "params" or "docs".
-	 *     realtime?: bool, // Specifies if requests are real-time as opposed to near-real-time (default: true).
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     term_statistics?: bool, // If true, the response includes term frequency and document frequency.
+	 *     field_statistics?: bool, // If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. (DEFAULT: 1)
+	 *     fields?: string|array<string>, // A comma-separated list or wildcard expressions of fields to include in the statistics. It is used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters.
+	 *     offsets?: bool, // If `true`, the response includes term offsets. (DEFAULT: 1)
+	 *     positions?: bool, // If `true`, the response includes term positions. (DEFAULT: 1)
+	 *     payloads?: bool, // If `true`, the response includes term payloads. (DEFAULT: 1)
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     realtime?: bool, // If true, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     version?: int, // If `true`, returns the document version as part of a hit.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1289,13 +1289,13 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to open point in time; use `_all` or empty string to perform the operation on all indices
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     keep_alive?: int|string, // Specific the time to live for the point in time
-	 *     allow_partial_search_results?: bool, // Specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false)
-	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node executed concurrently when opening this point-in-time. This value should be used to limit the impact of opening the point-in-time on the cluster
+	 *     preference?: string, // The node or shard the operation should be performed on. By default, it is random.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     keep_alive?: int|string, // Extend the length of time that the point in time persists.
+	 *     allow_partial_search_results?: bool, // Indicates whether the point in time tolerates unavailable shards or shard failures when initially creating the PIT. If `false`, creating a point in time request when a shard is missing or unavailable will throw an exception. If `true`, the point in time will contain all the shards that are available at the time of the request.
+	 *     max_concurrent_shard_requests?: int, // Maximum number of concurrent shard requests that each sub-search request executes per node. (DEFAULT: 5)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1374,8 +1374,8 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Script ID
 	 *     context?: string, // Script context
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. It can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. It can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1421,9 +1421,9 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     ignore_unavailable?: bool, // If `true`, missing or closed indices are not included in the response.
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both. (DEFAULT: open)
 	 *     search_type?: string, // Search operation type
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1468,15 +1468,15 @@ trait ClientEndpointsTrait
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the reindex operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     wait_for_completion?: bool, // Should the request should block until the reindex is complete.
-	 *     requests_per_second?: int, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
-	 *     scroll?: int|string, // Control how long to keep the search context alive
-	 *     slices?: int|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
-	 *     max_docs?: int, // Maximum number of documents to process (default: all documents)
-	 *     require_alias?: bool, // When true, requires destination to be an alias.
+	 *     refresh?: bool, // If `true`, the request refreshes affected shards to make this operation visible to search.
+	 *     timeout?: int|string, // The period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards. By default, Elasticsearch waits for at least one minute before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value is one, which means it waits for each primary shard to be active. (DEFAULT: 1)
+	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. (DEFAULT: 1)
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. By default, there is no throttle. (DEFAULT: -1)
+	 *     scroll?: int|string, // The period of time that a consistent view of the index should be maintained for scrolled search. (DEFAULT: 5m)
+	 *     slices?: int|string, // The number of slices this task should be divided into. It defaults to one slice, which means the task isn't sliced into subtasks.  Reindex supports sliced scroll to parallelize the reindexing process. This parallelization can improve efficiency and provide a convenient way to break the request down into smaller parts.  NOTE: Reindexing from remote clusters does not support manual or automatic slicing.  If set to `auto`, Elasticsearch chooses the number of slices to use. This setting will use one slice per shard, up to a certain limit. If there are multiple sources, it will choose the number of slices based on the index or backing index with the smallest number of shards. (DEFAULT: 1)
+	 *     max_docs?: int, // The maximum number of documents to reindex. By default, all documents are reindexed. If it is a value less then or equal to `scroll_size`, a scroll will not be used to retrieve the results for the operation.  If `conflicts` is set to `proceed`, the reindex operation could attempt to reindex more documents from the source than `max_docs` until it has successfully indexed `max_docs` documents into the target or it has gone through every document in the source query.
+	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1516,7 +1516,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1640,8 +1640,8 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     scroll_id?: string, // The scroll ID
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
+	 *     scroll?: int|string, // The period to retain the search context for scrolling. (DEFAULT: 1d)
+	 *     rest_total_hits_as_int?: bool, // If true, the API response’s hit.total property is returned as an integer. If false, the API response’s hit.total property is returned as an object.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1685,51 +1685,51 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
-	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit
-	 *     docvalue_fields?: string|array<string>, // A comma-separated list of fields to return as the docvalue representation of a field for each hit
-	 *     from?: int, // Starting offset (default: 0)
+	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
+	 *     ccs_minimize_roundtrips?: bool, // If `true`, network round-trips between the coordinating node and the remote clusters are minimized when running cross-cluster search (CCS) requests. (DEFAULT: 1)
+	 *     default_operator?: string, // The default operator for the query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
+	 *     df?: string, // The field to use as a default when no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     explain?: bool, // If `true`, the request returns detailed information about score computation as part of a hit.
+	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. You can pass `_source: true` to return both source fields and stored fields in the search response.
+	 *     docvalue_fields?: string|array<string>, // A comma-separated list of fields to return as the docvalue representation of a field for each hit.
+	 *     from?: int, // The starting document offset, which must be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.
 	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     size?: int, // Number of hits to return (default: 10)
-	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
-	 *     suggest_field?: string, // Specify which field to use for suggestions
-	 *     suggest_mode?: string, // Specify suggest mode
-	 *     suggest_size?: int, // How many suggestions to return in response
-	 *     suggest_text?: string, // The source text for which the suggestions should be returned
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     track_scores?: bool, // Whether to calculate and return scores even if they are not used for sorting
-	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
-	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     version?: bool, // Specify whether to return document version as part of a hit
-	 *     seq_no_primary_term?: bool, // Specify whether to return sequence number and primary term of the last modification of each hit
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     batched_reduce_size?: int, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
-	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
-	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     min_compatible_shard_node?: string, // The minimum compatible version that all shards involved in search should have for this request to be successful
-	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     ignore_throttled?: bool, // If `true`, concrete, expanded or aliased indices will be ignored when frozen. (DEFAULT: 1)
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values such as `open,hidden`. (DEFAULT: open)
+	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
+	 *     preference?: string, // The nodes and shards used for the search. By default, Elasticsearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:  * `_only_local` to run the search only on shards on the local node; * `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method; * `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs, where, if suitable shards exist on more than one selected node, use shards on those nodes using the default method, or if none of the specified nodes are available, select shards from any available node using the default method; * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the specified nodes IDs, or if not, select shards using the default method; * `_shards:<shard>,<shard>` to run the search only on the specified shards; * `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.
+	 *     q?: string, // A query in the Lucene query string syntax. Query parameter searches do not support the full Elasticsearch Query DSL but are handy for testing.  IMPORTANT: This parameter overrides the query parameter in the request body. If both parameters are specified, documents matching the query request body parameter are not returned.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     scroll?: int|string, // The period to retain the search context for scrolling. By default, this value cannot exceed `1d` (24 hours). You can change this limit by using the `search.max_keep_alive` cluster-level setting.
+	 *     search_type?: string, // Indicates how distributed term frequencies are calculated for relevance scoring.
+	 *     size?: int, // The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. (DEFAULT: 10)
+	 *     sort?: string|array<string>, // A comma-separated list of `<field>:<direction>` pairs.
+	 *     _source?: string|array<string>, // The source fields that are returned for matching documents. These fields are returned in the `hits._source` property of the search response. Valid values are:  * `true` to return the entire document source. * `false` to not return the document source. * `<string>` to return the source fields that are specified as a comma-separated list that supports wildcard (`*`) patterns. (DEFAULT: true)
+	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
+	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  IMPORTANT: Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers. If set to `0` (default), the query does not terminate early.
+	 *     stats?: string|array<string>, // Specific `tag` of the request for logging and statistical purposes.
+	 *     suggest_field?: string, // The field to use for suggestions.
+	 *     suggest_mode?: string, // The suggest mode. This parameter can be used only when the `suggest_field` and `suggest_text` query string parameters are specified. (DEFAULT: missing)
+	 *     suggest_size?: int, // The number of suggestions to return. This parameter can be used only when the `suggest_field` and `suggest_text` query string parameters are specified.
+	 *     suggest_text?: string, // The source text for which the suggestions should be returned. This parameter can be used only when the `suggest_field` and `suggest_text` query string parameters are specified.
+	 *     timeout?: int|string, // The period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error. It defaults to no timeout.
+	 *     track_scores?: bool, // If `true`, the request calculates and returns document scores, even if the scores are not used for sorting.
+	 *     track_total_hits?: bool|int, // The number of hits matching the query to count accurately. If `true`, the exact number of hits is returned at the cost of some performance. If `false`, the response does not include the total number of hits matching the query. (DEFAULT: 10000)
+	 *     allow_partial_search_results?: bool, // If `true` and there are shard request timeouts or shard failures, the request returns partial results. If `false`, it returns an error with no partial results.  To override the default behavior, you can set the `search.default_allow_partial_results` cluster setting to `false`. (DEFAULT: 1)
+	 *     typed_keys?: bool, // If `true`, aggregation and suggester names are be prefixed by their respective types in the response.
+	 *     version?: bool, // If `true`, the request returns the document version as part of a hit.
+	 *     seq_no_primary_term?: bool, // If `true`, the request returns the sequence number and primary term of the last modification of each hit.
+	 *     request_cache?: bool, // If `true`, the caching of search results is enabled for requests where `size` is `0`. It defaults to index level settings.
+	 *     batched_reduce_size?: int, // The number of shard results that should be reduced at once on the coordinating node. If the potential number of shards in the request can be large, this value should be used as a protection mechanism to reduce the memory overhead per search request. (DEFAULT: 512)
+	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node that the search runs concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests. (DEFAULT: 5)
+	 *     pre_filter_shard_size?: int, // A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method (if date filters are mandatory to match but the shard bounds and the query are disjoint). When unspecified, the pre-filter phase is executed if any of these conditions is met:  * The request targets more than 128 shards. * The request targets one or more read-only index. * The primary sort of the query targets an indexed field.
+	 *     rest_total_hits_as_int?: bool, // Indicates whether `hits.total` should be rendered as an integer or an object in the rest search response.
+	 *     min_compatible_shard_node?: string, // The minimum version of the node that can handle the request Any handling node with a lower version will fail the request.
+	 *     include_named_queries_score?: bool, // If `true`, the response includes the score contribution from any named queries.  This functionality reruns each named query on every hit in a search response. Typically, this adds a small overhead to a request. However, using computationally expensive named queries on a large number of hits may add significant overhead.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1777,14 +1777,14 @@ trait ClientEndpointsTrait
 	 *     zoom: int, // (REQUIRED) Zoom level for the vector tile to search
 	 *     x: int, // (REQUIRED) X coordinate for the vector tile to search
 	 *     y: int, // (REQUIRED) Y coordinate for the vector tile to search
-	 *     exact_bounds?: bool, // If false, the meta layer's feature is the bounding box of the tile. If true, the meta layer's feature is a bounding box resulting from a `geo_bounds` aggregation.
-	 *     extent?: int, // Size, in pixels, of a side of the vector tile.
-	 *     grid_precision?: int, // Additional zoom levels available through the aggs layer. Accepts 0-8.
-	 *     grid_type?: string, // Determines the geometry type for features in the aggs layer.
-	 *     grid_agg?: string, // Aggregation used to create a grid for `field`.
-	 *     size?: int, // Maximum number of features to return in the hits layer. Accepts 0-10000.
-	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
-	 *     with_labels?: bool, // If true, the hits and aggs layers will contain additional point features with suggested label positions for the original features.
+	 *     exact_bounds?: bool, // If `false`, the meta layer's feature is the bounding box of the tile. If true, the meta layer's feature is a bounding box resulting from a geo_bounds aggregation. The aggregation runs on <field> values that intersect the <zoom>/<x>/<y> tile with wrap_longitude set to false. The resulting bounding box may be larger than the vector tile.
+	 *     extent?: int, // The size, in pixels, of a side of the tile. Vector tiles are square with equal sides. (DEFAULT: 4096)
+	 *     grid_precision?: int, // Additional zoom levels available through the aggs layer. For example, if <zoom> is 7 and grid_precision is 8, you can zoom in up to level 15. Accepts 0-8. If 0, results don't include the aggs layer. (DEFAULT: 8)
+	 *     grid_type?: string, // Determines the geometry type for features in the aggs layer. In the aggs layer, each feature represents a geotile_grid cell. If 'grid' each feature is a Polygon of the cells bounding box. If 'point' each feature is a Point that is the centroid of the cell. (DEFAULT: grid)
+	 *     grid_agg?: string, // Aggregation used to create a grid for `field`. (DEFAULT: geotile)
+	 *     size?: int, // Maximum number of features to return in the hits layer. Accepts 0-10000. If 0, results don't include the hits layer. (DEFAULT: 10000)
+	 *     track_total_hits?: bool|int, // The number of hits matching the query to count accurately. If `true`, the exact number of hits is returned at the cost of some performance. If `false`, the response does not include the total number of hits matching the query. (DEFAULT: 10000)
+	 *     with_labels?: bool, // If `true`, the hits and aggs layers will contain additional point features representing suggested label positions for the original features.  * `Point` and `MultiPoint` features will have one of the points selected. * `Polygon` and `MultiPolygon` features will have a single point generated, either the centroid, if it is within the polygon, or another point within the polygon selected from the sorted triangle-tree. * `LineString` features will likewise provide a roughly central point selected from the triangle-tree. * The aggregation results will provide one central point for each aggregation bucket.  All attributes from the original features will also be copied to the new label features. In addition, the new features will be distinguishable using the tag `_mvt_label_position`.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1825,13 +1825,13 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     local?: bool, // If `true`, the request retrieves information from the local node only.
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If the master node is not available before the timeout expires, the request fails and returns an error. IT can also be set to `-1` to indicate that the request should never timeout. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1873,19 +1873,19 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
-	 *     profile?: bool, // Specify whether to profile the query execution
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     ignore_throttled?: bool, // If `true`, specified concrete, expanded, or aliased indices are not included in the response when throttled. (DEFAULT: 1)
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     scroll?: int|string, // Specifies how long a consistent view of the index should be maintained for scrolled search.
+	 *     search_type?: string, // The type of the search operation.
+	 *     explain?: bool, // If `true`, the response includes additional details about score computation as part of a hit.
+	 *     profile?: bool, // If `true`, the query execution is profiled.
+	 *     typed_keys?: bool, // If `true`, the response prefixes aggregation and suggester names with their respective types.
+	 *     rest_total_hits_as_int?: bool, // If `true`, `hits.total` is rendered as an integer in the response. If `false`, it is rendered as an object.
+	 *     ccs_minimize_roundtrips?: bool, // If `true`, network round-trips are minimized for cross-cluster search requests.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1972,17 +1972,17 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index in which the document resides.
 	 *     id?: string, // The id of the document, when not specified a doc param should be supplied.
-	 *     term_statistics?: bool, // Specifies if total term frequency and document frequency should be returned.
-	 *     field_statistics?: bool, // Specifies if document count, sum of document frequencies and sum of total term frequencies should be returned.
-	 *     fields?: string|array<string>, // A comma-separated list of fields to return.
-	 *     offsets?: bool, // Specifies if term offsets should be returned.
-	 *     positions?: bool, // Specifies if term positions should be returned.
-	 *     payloads?: bool, // Specifies if term payloads should be returned.
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random).
-	 *     routing?: string|array<string>, // Specific routing value.
-	 *     realtime?: bool, // Specifies if request is real-time as opposed to near-real-time (default: true).
-	 *     version?: int, // Explicit version number for concurrency control
-	 *     version_type?: string, // Specific version type
+	 *     term_statistics?: bool, // If `true`, the response includes:  * The total term frequency (how often a term occurs in all documents). * The document frequency (the number of documents containing the current term).  By default these values are not returned since term statistics can have a serious performance impact.
+	 *     field_statistics?: bool, // If `true`, the response includes:  * The document count (how many documents contain this field). * The sum of document frequencies (the sum of document frequencies for all terms in this field). * The sum of total term frequencies (the sum of total term frequencies of each term in this field). (DEFAULT: 1)
+	 *     fields?: string|array<string>, // A comma-separated list or wildcard expressions of fields to include in the statistics. It is used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters.
+	 *     offsets?: bool, // If `true`, the response includes term offsets. (DEFAULT: 1)
+	 *     positions?: bool, // If `true`, the response includes term positions. (DEFAULT: 1)
+	 *     payloads?: bool, // If `true`, the response includes term payloads. (DEFAULT: 1)
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     realtime?: bool, // If true, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
+	 *     version?: int, // If `true`, returns the document version as part of a hit.
+	 *     version_type?: string, // The version type.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2029,19 +2029,19 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the update operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
-	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
-	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     lang?: string, // The script language (default: painless)
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` (the default) then do nothing with refreshes.
-	 *     retry_on_conflict?: int, // Specify how many times should the operation be retried when a conflict occurs (default: 0)
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     if_seq_no?: int, // only perform the update operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: int, // only perform the update operation if the last operation that has changed the document has the specified primary term
-	 *     require_alias?: bool, // When true, requires destination is an alias. Default is false
-	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. Defaults to true.
+	 *     wait_for_active_shards?: string, // The number of copies of each shard that must be active before proceeding with the operation. Set to 'all' or any positive integer up to the total number of shards in the index (`number_of_replicas`+1). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
+	 *     _source?: string|array<string>, // If `false`, source retrieval is turned off. You can also specify a comma-separated list of the fields you want to retrieve. (DEFAULT: true)
+	 *     _source_excludes?: string|array<string>, // The source fields you want to exclude.
+	 *     _source_includes?: string|array<string>, // The source fields you want to retrieve.
+	 *     lang?: string, // The script language. (DEFAULT: painless)
+	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', it does nothing with refreshes. (DEFAULT: false)
+	 *     retry_on_conflict?: int, // The number of times the operation should be retried when a conflict occurs.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     timeout?: int|string, // The period to wait for the following operations: dynamic mapping updates and waiting for active shards. Elasticsearch waits for at least the timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
+	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
+	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
+	 *     include_source_on_error?: bool, // True or false if to include the document source in the error message in case of parsing errors. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2083,37 +2083,37 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
-	 *     df?: string, // The field to use as default where no field prefix is given in the query string
-	 *     from?: int, // Starting offset (default: 0)
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     conflicts?: string, // What to do when the update by query hits version conflicts?
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     pipeline?: string, // Ingest pipeline to set on index requests made by this action. (default: none)
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
-	 *     scroll?: int|string, // Specify how long a consistent view of the index should be maintained for scrolled search
-	 *     search_type?: string, // Search operation type
-	 *     search_timeout?: int|string, // Explicit timeout for each search request. Defaults to no timeout.
-	 *     max_docs?: int, // Maximum number of documents to process (default: all documents)
-	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs
-	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
-	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
-	 *     version?: bool, // Specify whether to return document version as part of a hit
+	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
+	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
+	 *     df?: string, // The field to use as default where no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
+	 *     from?: int, // Skips the specified number of documents.
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`. (DEFAULT: 1)
+	 *     conflicts?: string, // The preferred behavior when update by query hits version conflicts: `abort` or `proceed`. (DEFAULT: abort)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
+	 *     pipeline?: string, // The ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.
+	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
+	 *     q?: string, // A query in the Lucene query string syntax.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     scroll?: int|string, // The period to retain the search context for scrolling. (DEFAULT: 5m)
+	 *     search_type?: string, // The type of the search operation. Available options include `query_then_fetch` and `dfs_query_then_fetch`.
+	 *     search_timeout?: int|string, // An explicit timeout for each search request. By default, there is no timeout.
+	 *     max_docs?: int, // The maximum number of documents to process. It defaults to all documents. When set to a value less then or equal to `scroll_size` then a scroll will not be used to retrieve the results for the operation.
+	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs.
+	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  IMPORTANT: Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
+	 *     stats?: string|array<string>, // The specific `tag` of the request for logging and statistical purposes.
+	 *     version?: bool, // If `true`, returns the document version as part of a hit.
 	 *     version_type?: bool, // Should the document increment the version number (internal) on hit or not (reindex)
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to index level setting
-	 *     refresh?: bool, // Should the affected indexes be refreshed?
-	 *     timeout?: int|string, // Time each individual bulk request should wait for shards that are unavailable.
-	 *     wait_for_active_shards?: string, // Sets the number of shard copies that must be active before proceeding with the update by query operation. Defaults to 1, meaning the primary shard only. Set to `all` for all shard copies, otherwise set to any non-negative value less than or equal to the total number of copies for the shard (number of replicas + 1)
-	 *     scroll_size?: int, // Size on the scroll request powering the update by query
-	 *     wait_for_completion?: bool, // Should the request should block until the update by query operation is complete.
-	 *     requests_per_second?: int, // The throttle to set on this request in sub-requests per second. -1 means no throttle.
-	 *     slices?: int|string, // The number of slices this task should be divided into. Defaults to 1, meaning the task isn't sliced into subtasks. Can be set to `auto`.
+	 *     request_cache?: bool, // If `true`, the request cache is used for this request. It defaults to the index-level setting.
+	 *     refresh?: bool, // If `true`, Elasticsearch refreshes affected shards to make the operation visible to search after the request completes. This is different than the update API's `refresh` parameter, which causes just the shard that received the request to be refreshed.
+	 *     timeout?: int|string, // The period each update request waits for the following operations: dynamic mapping updates, waiting for active shards. By default, it is one minute. This guarantees Elasticsearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` parameter controls how long each write request waits for unavailable shards to become available. Both work exactly the way they work in the bulk API. (DEFAULT: 1)
+	 *     scroll_size?: int, // The size of the scroll request that powers the operation. (DEFAULT: 1000)
+	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If `false`, Elasticsearch performs some preflight checks, launches the request, and returns a task ID that you can use to cancel or get the status of the task. Elasticsearch creates a record of this task as a document at `.tasks/task/${taskId}`. (DEFAULT: 1)
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. (DEFAULT: -1)
+	 *     slices?: int|string, // The number of slices this task should be divided into. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2154,7 +2154,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle to set on this request in floating sub-requests per second. -1 means set no throttle.
+	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. To turn off throttling, set it to `-1`.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -34,9 +34,9 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-allocation-explain.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for connection to master node
-	 *     include_yes_decisions?: bool, // Return 'YES' decisions in explanation (default: false)
-	 *     include_disk_info?: bool, // Return information about disk usage and shard sizes (default: false)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     include_yes_decisions?: bool, // If true, returns YES decisions in explanation.
+	 *     include_disk_info?: bool, // If true, returns information about disk usage and shard sizes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -76,8 +76,8 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -115,8 +115,8 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions
 	 *
 	 * @param array{
-	 *     wait_for_removal?: bool, // Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list.
-	 *     master_timeout?: int|string, // Timeout for submitting request to master
+	 *     wait_for_removal?: bool, // Specifies whether to wait for all excluded nodes to be removed from the cluster before clearing the voting configuration exclusions list. Defaults to true, meaning that all excluded nodes must be removed from the cluster before this API takes any action. If set to false then the voting configuration exclusions list is cleared even if some excluded nodes are still in the cluster. (DEFAULT: 1)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -154,8 +154,8 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     local?: bool, // If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -195,10 +195,10 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string, // The name of the component template. Wildcard (`*`) expressions are supported.
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     include_defaults?: bool, // Return all default configurations for the component template (default: false)
-	 *     flat_settings?: bool, // Return settings in flat format (default: false)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     local?: bool, // If `true`, the request retrieves information from the local node only. If `false`, information is retrieved from the master node.
+	 *     include_defaults?: bool, // Return all default configurations for the component template
+	 *     flat_settings?: bool, // If `true`, returns settings in flat format.
 	 *     settings_filter?: string|array<string>, // Filter out results, for example to filter out sensitive information. Supports wildcards or full settings keys
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -239,10 +239,10 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-get-settings.html
 	 *
 	 * @param array{
-	 *     flat_settings?: bool, // Return settings in flat format (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     include_defaults?: bool, // Whether to return all default clusters setting.
+	 *     flat_settings?: bool, // If `true`, returns settings in flat format.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     include_defaults?: bool, // If `true`, also returns default values for all other cluster settings, reflecting the values in the `elasticsearch.yml` file of one of the nodes in the cluster. If the nodes in your cluster do not all have the same values in their `elasticsearch.yml` config files then the values returned by this API may vary from invocation to invocation and may not reflect the values that Elasticsearch uses in all situations. Use the `GET _nodes/settings` API to fetch the settings for each individual node in your cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -279,17 +279,17 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // Limit the information returned to a specific index
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     level?: string, // Specify the level of detail for returned information
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     wait_for_active_shards?: string, // Wait until the specified number of shards is active
-	 *     wait_for_nodes?: string, // Wait until the specified number of nodes is available
-	 *     wait_for_events?: string, // Wait until all currently queued events with the given priority are processed
-	 *     wait_for_no_relocating_shards?: bool, // Whether to wait until there are no relocating shards in the cluster
-	 *     wait_for_no_initializing_shards?: bool, // Whether to wait until there are no initializing shards in the cluster
-	 *     wait_for_status?: string, // Wait until cluster is in a specific state
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both. (DEFAULT: all)
+	 *     level?: string, // Can be one of cluster, indices or shards. Controls the details level of the health information returned. (DEFAULT: cluster)
+	 *     local?: bool, // If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     wait_for_active_shards?: string, // A number controlling to how many active shards to wait for, all to wait for all shards in the cluster to be active, or 0 to not wait.
+	 *     wait_for_nodes?: string, // The request waits until the specified number N of nodes is available. It also accepts >=N, <=N, >N and <N. Alternatively, it is possible to use ge(N), le(N), gt(N) and lt(N) notation.
+	 *     wait_for_events?: string, // Can be one of immediate, urgent, high, normal, low, languid. Wait until all currently queued events with the given priority are processed.
+	 *     wait_for_no_relocating_shards?: bool, // A boolean value which controls whether to wait (until the timeout provided) for the cluster to have no shard relocations. Defaults to false, which means it will not wait for relocating shards.
+	 *     wait_for_no_initializing_shards?: bool, // A boolean value which controls whether to wait (until the timeout provided) for the cluster to have no shard initializations. Defaults to false, which means it will not wait for initializing shards.
+	 *     wait_for_status?: string, // One of green, yellow or red. Will wait (until the timeout provided) until the status of the cluster changes to the one provided or better, i.e. green > yellow > red. By default, will not wait for any status.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -368,8 +368,8 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-pending.html
 	 *
 	 * @param array{
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     local?: bool, // If `true`, the request retrieves information from the local node only. If `false`, information is retrieved from the master node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -405,10 +405,10 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions
 	 *
 	 * @param array{
-	 *     node_ids?: string|array<string>, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_names.
-	 *     node_names?: string|array<string>, // A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify ?node_ids.
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Timeout for submitting request to master
+	 *     node_ids?: string|array<string>, // A comma-separated list of the persistent ids of the nodes to exclude from the voting configuration. If specified, you may not also specify node_names.
+	 *     node_names?: string|array<string>, // A comma-separated list of the names of the nodes to exclude from the voting configuration. If specified, you may not also specify node_ids.
+	 *     timeout?: int|string, // When adding a voting configuration exclusion, the API waits for the specified nodes to be excluded from the voting configuration before returning. If the timeout expires before the appropriate condition is satisfied, the request fails and returns an error. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -446,9 +446,9 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the template
-	 *     create?: bool, // Whether the index template should only be added if new or can also replace an existing one
-	 *     cause?: string, // User defined reason for create the component template
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     create?: bool, // If `true`, this request cannot replace or update existing component templates.
+	 *     cause?: string, // User defined reason for create the component template. (DEFAULT: api)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -489,8 +489,8 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     flat_settings?: bool, // Return settings in flat format
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -564,12 +564,12 @@ class Cluster extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-reroute.html
 	 *
 	 * @param array{
-	 *     dry_run?: bool, // Simulate the operation only and return the resulting state
-	 *     explain?: bool, // Return an explanation of why the commands can or cannot be executed
-	 *     retry_failed?: bool, // Retries allocation of shards that are blocked due to too many subsequent allocation failures
-	 *     metric?: string|array<string>, // Limit the information returned to the specified metrics. Defaults to all but metadata
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     dry_run?: bool, // If true, then the request simulates the operation. It will calculate the result of applying the commands to the current cluster state and return the resulting cluster state after the commands (and rebalancing) have been applied; it will not actually perform the requested changes.
+	 *     explain?: bool, // If true, then the response contains an explanation of why the commands can or cannot run.
+	 *     retry_failed?: bool, // If true, then retries allocation of shards that are blocked due to too many subsequent allocation failures.
+	 *     metric?: string|array<string>, // Limits the information returned to the specified metrics. (DEFAULT: all)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -609,14 +609,14 @@ class Cluster extends AbstractEndpoint
 	 * @param array{
 	 *     metric?: string|array<string>, // Limit the information returned to the specified metrics
 	 *     index?: string|array<string>, // A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
-	 *     flat_settings?: bool, // Return settings in flat format (default: false)
+	 *     local?: bool, // Return local information, do not retrieve the state from master node
+	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked (DEFAULT: 30s)
+	 *     flat_settings?: bool, // Return settings in flat format
 	 *     wait_for_metadata_version?: int, // Wait for the metadata version to be equal or greater than the specified metadata version
 	 *     wait_for_timeout?: int|string, // The maximum time to wait for wait_for_metadata_version before timing out
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified) (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -660,8 +660,8 @@ class Cluster extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-	 *     include_remotes?: bool, // Include remote cluster data into the response (default: false)
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     include_remotes?: bool, // Include remote cluster data into the response
+	 *     timeout?: int|string, // Period to wait for each node to respond. If a node does not respond before its timeout expires, the response does not include its stats. However, timed out nodes are included in the response’s `_nodes.failed` property. Defaults to no timeout.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

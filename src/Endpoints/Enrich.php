@@ -36,7 +36,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -76,8 +76,8 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     wait_for_completion?: bool, // Should the request should block until the execution is complete.
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     wait_for_completion?: bool, // If `true`, the request blocks other enrich policy execution requests until complete. (DEFAULT: 1)
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -117,7 +117,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of enrich policy names
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -159,7 +159,7 @@ class Enrich extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the enrich policy
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -200,7 +200,7 @@ class Enrich extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

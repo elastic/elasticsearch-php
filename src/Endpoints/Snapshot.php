@@ -35,8 +35,8 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1` (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response from all relevant nodes in the cluster after updating the cluster metadata. If no response is received before the timeout expires, the cluster metadata update still applies but the response will indicate that it was not completely acknowledged. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -77,7 +77,7 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string, // (REQUIRED) The name of the snapshot to clone from
 	 *     target_snapshot: string, // (REQUIRED) The name of the cloned snapshot to create
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -119,8 +119,8 @@ class Snapshot extends AbstractEndpoint
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string, // (REQUIRED) A snapshot name
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     wait_for_completion?: bool, // If `true`, the request returns a response when the snapshot is complete. If `false`, the request returns a response when the snapshot initializes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -161,9 +161,9 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     verify?: bool, // Whether to verify the repository after creation
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response from all relevant nodes in the cluster after updating the cluster metadata. If no response is received before the timeout expires, the cluster metadata update still applies but the response will indicate that it was not completely acknowledged. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     verify?: bool, // If `true`, the request verifies the repository is functional on all master and data nodes in the cluster. If `false`, this verification is skipped. You can also perform this verification with the verify snapshot repository API. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -205,8 +205,8 @@ class Snapshot extends AbstractEndpoint
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string|array<string>, // (REQUIRED) A comma-separated list of snapshot names
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     wait_for_completion?: bool, // If `true`, the request returns a response when the matching snapshots are all deleted. If `false`, the request returns a response as soon as the deletes are scheduled. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -245,8 +245,8 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository: string|array<string>, // (REQUIRED) Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response from all relevant nodes in the cluster after updating the cluster metadata. If no response is received before the timeout expires, the cluster metadata update still applies but the response will indicate that it was not completely acknowledged. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -286,19 +286,19 @@ class Snapshot extends AbstractEndpoint
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string|array<string>, // (REQUIRED) A comma-separated list of snapshot names
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     ignore_unavailable?: bool, // Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
-	 *     index_names?: bool, // Whether to include the name of each index in the snapshot. Defaults to true.
-	 *     index_details?: bool, // Whether to include details of each index in the snapshot, if those details are available. Defaults to false.
-	 *     include_repository?: bool, // Whether to include the repository name in the snapshot info. Defaults to true.
-	 *     sort?: string, // Allows setting a sort order for the result. Defaults to start_time
-	 *     size?: int, // Maximum number of snapshots to return. Defaults to 0 which means return all that match without limit.
-	 *     order?: string, // Sort order
-	 *     from_sort_value?: string, // Value of the current sort column at which to start retrieval.
-	 *     after?: string, // Offset identifier to start pagination from as returned by the 'next' field in the response body.
-	 *     offset?: int, // Numeric offset to start pagination based on the snapshots matching the request. Defaults to 0
-	 *     slm_policy_filter?: string, // Filter snapshots by a comma-separated list of SLM policy names that snapshots belong to. Accepts wildcards. Use the special pattern '_none' to match snapshots without an SLM policy
-	 *     verbose?: bool, // Whether to show verbose snapshot info or only show the basic info found in the repository index blob
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error for any snapshots that are unavailable.
+	 *     index_names?: bool, // If `true`, the response includes the name of each index in each snapshot. (DEFAULT: 1)
+	 *     index_details?: bool, // If `true`, the response includes additional information about each index in the snapshot comprising the number of shards in the index, the total size of the index in bytes, and the maximum number of segments per shard in the index. The default is `false`, meaning that this information is omitted.
+	 *     include_repository?: bool, // If `true`, the response includes the repository name in each snapshot. (DEFAULT: 1)
+	 *     sort?: string, // The sort order for the result. The default behavior is sorting by snapshot start time stamp. (DEFAULT: start_time)
+	 *     size?: int, // The maximum number of snapshots to return. The default is -1, which means to return all that match the request without limit. (DEFAULT: -1)
+	 *     order?: string, // The sort order. Valid values are `asc` for ascending and `desc` for descending order. The default behavior is ascending order. (DEFAULT: asc)
+	 *     from_sort_value?: string, // The value of the current sort column at which to start retrieval. It can be a string `snapshot-` or a repository name when sorting by snapshot or repository name. It can be a millisecond time value or a number when sorting by `index-` or shard count.
+	 *     after?: string, // An offset identifier to start pagination from as returned by the next field in the response body.
+	 *     offset?: int, // Numeric offset to start pagination from based on the snapshots matching this request. Using a non-zero value for this parameter is mutually exclusive with using the after parameter. Defaults to 0.
+	 *     slm_policy_filter?: string, // Filter snapshots by a comma-separated list of snapshot lifecycle management (SLM) policy names that snapshots belong to.  You can use wildcards (`*`) and combinations of wildcards followed by exclude patterns starting with `-`. For example, the pattern `*,-policy-a-\*` will return all snapshots except for those that were created by an SLM policy with a name starting with `policy-a-`. Note that the wildcard pattern `*` matches all snapshots created by an SLM policy but not those snapshots that were not created by an SLM policy. To include snapshots that were not created by an SLM policy, you can use the special pattern `_none` that will match all snapshots without an SLM policy.
+	 *     verbose?: bool, // If `true`, returns additional information about each snapshot such as the version of Elasticsearch which took the snapshot, the start and end times of the snapshot, and the number of shards snapshotted.  NOTE: The parameters `size`, `order`, `after`, `from_sort_value`, `offset`, `slm_policy_filter`, and `sort` are not supported when you set `verbose=false` and the sort order for requests with `verbose=false` is undefined. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -337,8 +337,8 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository?: string|array<string>, // A comma-separated list of repository names
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     local?: bool, // If `true`, the request gets information from the local node only. If `false`, the request gets information from the master node.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -379,18 +379,18 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
-	 *     blob_count?: int, // Number of blobs to create during the test. Defaults to 100.
-	 *     concurrency?: int, // Number of operations to run concurrently during the test. Defaults to 10.
-	 *     register_operation_count?: int, // The minimum number of linearizable register operations to perform in total. Defaults to 10.
-	 *     read_node_count?: int, // Number of nodes on which to read a blob after writing. Defaults to 10.
-	 *     early_read_node_count?: int, // Number of nodes on which to perform an early read on a blob, i.e. before writing has completed. Early reads are rare actions so the 'rare_action_probability' parameter is also relevant. Defaults to 2.
-	 *     seed?: int, // Seed for the random number generator used to create the test workload. Defaults to a random value.
-	 *     rare_action_probability?: float, // Probability of taking a rare action such as an early read or an overwrite. Defaults to 0.02.
-	 *     max_blob_size?: string, // Maximum size of a blob to create during the test, e.g '1gb' or '100mb'. Defaults to '10mb'.
-	 *     max_total_data_size?: string, // Maximum total size of all blobs to create during the test, e.g '1tb' or '100gb'. Defaults to '1gb'.
-	 *     timeout?: int|string, // Explicit operation timeout. Defaults to '30s'.
-	 *     detailed?: bool, // Whether to return detailed results or a summary. Defaults to 'false' so that only the summary is returned.
-	 *     rarely_abort_writes?: bool, // Whether to rarely abort writes before they complete. Defaults to 'true'.
+	 *     blob_count?: int, // The total number of blobs to write to the repository during the test. For realistic experiments, you should set it to at least `2000`. (DEFAULT: 100)
+	 *     concurrency?: int, // The number of operations to run concurrently during the test. (DEFAULT: 10)
+	 *     register_operation_count?: int, // The minimum number of linearizable register operations to perform in total. For realistic experiments, you should set it to at least `100`. (DEFAULT: 10)
+	 *     read_node_count?: int, // The number of nodes on which to read a blob after writing. (DEFAULT: 10)
+	 *     early_read_node_count?: int, // The number of nodes on which to perform an early read operation while writing each blob. Early read operations are only rarely performed. (DEFAULT: 2)
+	 *     seed?: int, // The seed for the pseudo-random number generator used to generate the list of operations performed during the test. To repeat the same set of operations in multiple experiments, use the same seed in each experiment. Note that the operations are performed concurrently so might not always happen in the same order on each run.
+	 *     rare_action_probability?: float, // The probability of performing a rare action such as an early read, an overwrite, or an aborted write on each blob. (DEFAULT: 0.02)
+	 *     max_blob_size?: string, // The maximum size of a blob to be written during the test. For realistic experiments, you should set it to at least `2gb`. (DEFAULT: 10mb)
+	 *     max_total_data_size?: string, // An upper limit on the total size of all the blobs written during the test. For realistic experiments, you should set it to at least `1tb`. (DEFAULT: 1gb)
+	 *     timeout?: int|string, // The period of time to wait for the test to complete. If no response is received before the timeout expires, the test is cancelled and returns an error. (DEFAULT: 30s)
+	 *     detailed?: bool, // Indicates whether to return detailed results, including timing information for every operation performed during the analysis. If false, it returns only a summary of the analysis.
+	 *     rarely_abort_writes?: bool, // Indicates whether to rarely cancel writes before they complete. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -430,8 +430,8 @@ class Snapshot extends AbstractEndpoint
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string, // (REQUIRED) A snapshot name
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     wait_for_completion?: bool, // If `true`, the request returns a response when the restore operation completes. The operation is complete when it finishes all attempts to recover primary shards for restored indices. This applies even if one or more of the recovery attempts fail.  If `false`, the request returns a response when the restore operation initializes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -473,8 +473,8 @@ class Snapshot extends AbstractEndpoint
 	 * @param array{
 	 *     repository?: string, // A repository name
 	 *     snapshot?: string|array<string>, // A comma-separated list of snapshot names
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     ignore_unavailable?: bool, // Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error for any snapshots that are unavailable. If `true`, the request ignores snapshots that are unavailable, such as those that are corrupted or temporarily cannot be returned.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -518,8 +518,8 @@ class Snapshot extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository: string, // (REQUIRED) A repository name
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response from all relevant nodes in the cluster after updating the cluster metadata. If no response is received before the timeout expires, the cluster metadata update still applies but the response will indicate that it was not completely acknowledged. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

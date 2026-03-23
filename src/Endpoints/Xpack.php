@@ -34,9 +34,9 @@ class Xpack extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/info-api.html
 	 *
 	 * @param array{
-	 *     human?: bool, // Defines whether additional human-readable information is included in the response. In particular, it adds descriptions and a tag line. The default value is true.
-	 *     categories?: string|array<string>, // Comma-separated list of info categories. Can be any of: build, license, features
-	 *     accept_enterprise?: bool, // If this param is used it must be set to true
+	 *     human?: bool, // Defines whether additional human-readable information is included in the response. In particular, it adds descriptions and a tag line. (DEFAULT: 1)
+	 *     categories?: string|array<string>, // A comma-separated list of the information categories to include in the response. For example, `build,license,features`.
+	 *     accept_enterprise?: bool, // If used, this otherwise ignored parameter must be set to true
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -72,7 +72,7 @@ class Xpack extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/group/endpoint-xpack
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Specify timeout for watch write operation
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

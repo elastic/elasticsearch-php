@@ -35,7 +35,7 @@ class Monitoring extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     system_id?: string, // Identifier of the monitored system
-	 *     system_api_version?: string, // API Version of the monitored system
+	 *     system_api_version?: string, //
 	 *     interval?: int|string, // Collection interval (e.g., '10s' or '10000ms') of the payload
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

@@ -36,7 +36,7 @@ class Simulate extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string, // Default index for docs which don't provide one
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with if no pipeline is given for a particular document
+	 *     pipeline?: string, // The pipeline to use as the default pipeline. This value can be used to override the default pipeline of the index.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

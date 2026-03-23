@@ -76,7 +76,7 @@ class Synonyms extends AbstractEndpoint
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be deleted
-	 *     refresh?: bool, // Refresh search analyzers to update synonyms
+	 *     refresh?: bool, // If `true`, the request will refresh the analyzers with the deleted synonym rule and wait for the new synonyms to be available before returning. If `false`, analyzers will not be reloaded with the deleted synonym rule (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -117,8 +117,8 @@ class Synonyms extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The name of the synonyms set to be retrieved
-	 *     from?: int, // Starting offset
-	 *     size?: int, // specifies a max number of results to get
+	 *     from?: int, // The starting offset for query rules to retrieve.
+	 *     size?: int, // The max number of query rules to retrieve. (DEFAULT: 10)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -198,8 +198,8 @@ class Synonyms extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset
-	 *     size?: int, // specifies a max number of results to get
+	 *     from?: int, // The starting offset for synonyms sets to retrieve.
+	 *     size?: int, // The maximum number of synonyms sets to retrieve. (DEFAULT: 10)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -237,7 +237,7 @@ class Synonyms extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be created or updated
-	 *     refresh?: bool, // Refresh search analyzers to update synonyms
+	 *     refresh?: bool, // If `true`, the request will refresh the analyzers with the new synonyms set and wait for the new synonyms to be available before returning. If `false`, analyzers will not be reloaded with the new synonym set (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -280,7 +280,7 @@ class Synonyms extends AbstractEndpoint
 	 * @param array{
 	 *     set_id: string, // (REQUIRED) The id of the synonym set to be updated with the synonym rule
 	 *     rule_id: string, // (REQUIRED) The id of the synonym rule to be updated or created
-	 *     refresh?: bool, // Refresh search analyzers to update synonyms
+	 *     refresh?: bool, // If `true`, the request will refresh the analyzers with the new synonym rule and wait for the new synonyms to be available before returning. If `false`, analyzers will not be reloaded with the new synonym rule (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

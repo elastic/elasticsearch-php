@@ -35,8 +35,8 @@ class Slm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy to remove
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -75,8 +75,8 @@ class Slm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy to be executed
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -114,8 +114,8 @@ class Slm extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -152,8 +152,8 @@ class Slm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy_id?: string|array<string>, // Comma-separated list of snapshot lifecycle policies to retrieve
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -193,8 +193,8 @@ class Slm extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-stats
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -230,8 +230,8 @@ class Slm extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -268,8 +268,8 @@ class Slm extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     policy_id: string, // (REQUIRED) The id of the snapshot lifecycle policy
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -309,8 +309,8 @@ class Slm extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -346,8 +346,8 @@ class Slm extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

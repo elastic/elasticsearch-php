@@ -34,10 +34,10 @@ class Esql extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query
 	 *
 	 * @param array{
-	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.For async requests, nothing will be returned if the async query doesn't finish within the timeout.The query ID and running status are available in the `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP headers of the response, respectively.
-	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
-	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.
+	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.  `csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.  For async requests, nothing will be returned if the async query doesn't finish within the timeout. The query ID and running status are available in the `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP headers of the response, respectively.
+	 *     delimiter?: string, // The character to use between values within a CSV row. It is valid only for the CSV format. (DEFAULT: ,)
+	 *     drop_null_columns?: bool, // Indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results. If `true`, the response will include an extra section under the name `all_columns` which has the name of all the columns.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but the query can continue to execute on other clusters and shards. If `false`, the query will fail if there are any failures.  To override the default behavior, you can set the `esql.query.allow_partial_results` cluster setting to `false`. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -116,9 +116,9 @@ class Esql extends AbstractEndpoint
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
 	 *     format?: string, // A short version of the Accept header, for example `json` or `yaml`.
-	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
-	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
-	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
+	 *     wait_for_completion_timeout?: int|string, // The period to wait for the request to finish. By default, the request waits for complete query results. If the request completes during the period specified in this parameter, complete query results are returned. Otherwise, the response returns an `is_running` value of `true` and no results.
+	 *     keep_alive?: int|string, // The period for which the query and its results are stored in the cluster. When this period expires, the query and its results are deleted, even if the query is still ongoing.
+	 *     drop_null_columns?: bool, // Indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results. If `true`, the response will include an extra section under the name `all_columns` which has the name of all the columns.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -157,7 +157,7 @@ class Esql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async query ID
-	 *     drop_null_columns?: bool, // Indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results.
+	 *     drop_null_columns?: bool, // Indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results. If `true`, the response will include an extra section under the name `all_columns` which has the name of all the columns.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -275,10 +275,10 @@ class Esql extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.
-	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the csv format.
-	 *     drop_null_columns?: bool, // Should entirely null columns be removed from the results? Their name and type will be returning in a new `all_columns` section.
-	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.If `false`, the entire query will fail if there areany failures.
+	 *     format?: string, // A short version of the Accept header, e.g. json, yaml.  `csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.
+	 *     delimiter?: string, // The character to use between values within a CSV row. Only valid for the CSV format. (DEFAULT: ,)
+	 *     drop_null_columns?: bool, // Should columns that are entirely `null` be removed from the `columns` and `values` portion of the results? Defaults to `false`. If `true` then the response will include an extra section under the name `all_columns` which has the name of all columns.
+	 *     allow_partial_results?: bool, // If `true`, partial results will be returned if there are shard failures, but the query can continue to execute on other clusters and shards. If `false`, the query will fail if there are any failures.  To override the default behavior, you can set the `esql.query.allow_partial_results` cluster setting to `false`. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

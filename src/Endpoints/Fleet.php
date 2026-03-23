@@ -35,10 +35,10 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The name of the index.
-	 *     wait_for_advance?: bool, // Whether to wait for the global checkpoint to advance past the specified current checkpoints
-	 *     wait_for_index?: bool, // Whether to wait for the target index to exist and all primary shards be active
-	 *     checkpoints?: string|array<string>, // Comma separated list of checkpoints
-	 *     timeout?: int|string, // Timeout to wait for global checkpoint to advance
+	 *     wait_for_advance?: bool, // A boolean value which controls whether to wait (until the timeout) for the global checkpoints to advance past the provided `checkpoints`.
+	 *     wait_for_index?: bool, // A boolean value which controls whether to wait (until the timeout) for the target index to exist and all primary shards be active. Can only be true when `wait_for_advance` is true.
+	 *     checkpoints?: string|array<string>, // A comma separated list of previous global checkpoints. When used in combination with `wait_for_advance`, the API will only return once the global checkpoints advances past the checkpoints. Providing an empty list will cause Elasticsearch to immediately return the current global checkpoints. (DEFAULT: Array)
+	 *     timeout?: int|string, // Period to wait for a global checkpoints to advance past `checkpoints`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -121,9 +121,9 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index name to search.
-	 *     wait_for_checkpoints?: string|array<string>, // Comma separated list of checkpoints, one per shard
+	 *     wait_for_checkpoints?: string|array<string>, // A comma separated list of checkpoints. When configured, the search API will only be executed on a shard after the relevant checkpoint has become visible for search. Defaults to an empty list which will cause Elasticsearch to immediately execute the search. (DEFAULT: Array)
 	 *     wait_for_checkpoints_timeout?: int|string, // Explicit wait_for_checkpoints timeout
-	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout
+	 *     allow_partial_search_results?: bool, // If true, returns partial results if there are shard request timeouts or shard failures. If false, returns an error with no partial results. Defaults to the configured cluster setting `search.default_allow_partial_results`, which is true by default. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

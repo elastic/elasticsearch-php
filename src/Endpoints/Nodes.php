@@ -114,13 +114,13 @@ class Nodes extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-	 *     interval?: int|string, // The interval for the second sampling of threads
-	 *     snapshots?: int, // Number of samples of thread stacktrace (default: 10)
-	 *     threads?: int, // Specify the number of threads to provide information for (default: 3)
-	 *     ignore_idle_threads?: bool, // Don't show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue (default: true)
-	 *     type?: string, // The type to sample (default: cpu)
-	 *     sort?: string, // The sort order for 'cpu' type (default: total)
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     interval?: int|string, // The interval to do the second sampling of threads. (DEFAULT: 500ms)
+	 *     snapshots?: int, // Number of samples of thread stacktrace. (DEFAULT: 10)
+	 *     threads?: int, // Specifies the number of hot threads to provide information for. (DEFAULT: 3)
+	 *     ignore_idle_threads?: bool, // If true, known idle threads (e.g. waiting in a socket select, or to get a task from an empty queue) are filtered out. (DEFAULT: 1)
+	 *     type?: string, // The type to sample. (DEFAULT: cpu)
+	 *     sort?: string, // The sort order for 'cpu' type (DEFAULT: total)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -162,8 +162,8 @@ class Nodes extends AbstractEndpoint
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
 	 *     metric?: string|array<string>, // A comma-separated list of metrics you wish returned. Use `_all` to retrieve all metrics and `_none` to retrieve the node identity without any additional metrics.
-	 *     flat_settings?: bool, // Return settings in flat format (default: false)
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     flat_settings?: bool, // If true, returns settings in flat format.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -210,7 +210,7 @@ class Nodes extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -255,15 +255,15 @@ class Nodes extends AbstractEndpoint
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
 	 *     metric?: string|array<string>, // Limit the information returned to the specified metrics
 	 *     index_metric?: string|array<string>, // Limit the information returned for `indices` metric to the specific index metrics. Isn't used if `indices` (or `all`) metric isn't specified.
-	 *     completion_fields?: string|array<string>, // A comma-separated list of fields for the `completion` index metric (supports wildcards)
-	 *     fielddata_fields?: string|array<string>, // A comma-separated list of fields for the `fielddata` index metric (supports wildcards)
-	 *     fields?: string|array<string>, // A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)
-	 *     groups?: bool, // A comma-separated list of search groups for `search` index metric
-	 *     level?: string, // Return indices stats aggregated at index, node or shard level
-	 *     types?: string|array<string>, // A comma-separated list of document types for the `indexing` index metric
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     include_segment_file_sizes?: bool, // Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested)
-	 *     include_unloaded_segments?: bool, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     completion_fields?: string|array<string>, // Comma-separated list or wildcard expressions of fields to include in fielddata and suggest statistics.
+	 *     fielddata_fields?: string|array<string>, // Comma-separated list or wildcard expressions of fields to include in fielddata statistics.
+	 *     fields?: string|array<string>, // Comma-separated list or wildcard expressions of fields to include in the statistics.
+	 *     groups?: bool, // Comma-separated list of search groups to include in the search statistics.
+	 *     level?: string, // Indicates whether statistics are aggregated at the node, indices, or shards level. (DEFAULT: node)
+	 *     types?: string|array<string>, // A comma-separated list of document types for the indexing index metric.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     include_segment_file_sizes?: bool, // If true, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
+	 *     include_unloaded_segments?: bool, // If `true`, the response includes information from segments that are not loaded into memory.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -317,7 +317,7 @@ class Nodes extends AbstractEndpoint
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
 	 *     metric?: string|array<string>, // Limit the information returned to the specified metrics
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

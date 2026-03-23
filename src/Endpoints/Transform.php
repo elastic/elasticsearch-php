@@ -36,9 +36,9 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to delete
-	 *     force?: bool, // When `true`, the transform is deleted regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be deleted.
-	 *     delete_dest_index?: bool, // When `true`, the destination index is deleted together with the transform. The default value is `false`, meaning that the destination index will not be deleted.
-	 *     timeout?: int|string, // Controls the time to wait for the transform deletion
+	 *     force?: bool, // If this value is false, the transform must be stopped before it can be deleted. If true, the transform is deleted regardless of its current state.
+	 *     delete_dest_index?: bool, // If this value is true, the destination index is deleted together with the transform. If false, the destination index will not be deleted
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -114,10 +114,10 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id?: string|array<string>, // Comma-separated list of transform identifiers or wildcard expressions. You can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
-	 *     from?: int, // skips a number of transform configs, defaults to 0
-	 *     size?: int, // specifies a max number of transforms to get, defaults to 100
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
-	 *     exclude_generated?: bool, // Omits fields that are illegal to set on transform PUT
+	 *     from?: int, // Skips the specified number of transforms.
+	 *     size?: int, // Specifies the maximum number of transforms to obtain. (DEFAULT: 100)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no transforms that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     exclude_generated?: bool, // Excludes fields that were automatically added when creating the transform. This allows the configuration to be in an acceptable format to be retrieved and then added to another cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -159,10 +159,10 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string|array<string>, // (REQUIRED) Comma-separated list of transform identifiers or wildcard expressions. You can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
-	 *     from?: int, // skips a number of transform stats, defaults to 0
-	 *     size?: int, // specifies a max number of transform stats to get, defaults to 100
-	 *     timeout?: int|string, // Controls the time to wait for the stats
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
+	 *     from?: int, // Skips the specified number of transforms.
+	 *     size?: int, // Specifies the maximum number of transforms to obtain. (DEFAULT: 100)
+	 *     timeout?: int|string, // Controls the time to wait for the stats (DEFAULT: 30s)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no transforms that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -202,7 +202,7 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id?: string, // The id of the transform to preview.
-	 *     timeout?: int|string, // Controls the time to wait for the preview
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -246,8 +246,8 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the new transform.
-	 *     defer_validation?: bool, // If validations should be deferred until transform starts, defaults to false.
-	 *     timeout?: int|string, // Controls the time to wait for the transform to start
+	 *     defer_validation?: bool, // When the transform is created, a series of validations occur to ensure its success. For example, there is a check for the existence of the source indices and a check that the destination index is not part of the source index pattern. You can use this parameter to skip the checks, for example when the source index does not exist until after the transform is created. The validations are always run when you start the transform, however, with the exception of privilege checks.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -289,8 +289,8 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to reset
-	 *     force?: bool, // When `true`, the transform is reset regardless of its current state. The default value is `false`, meaning that the transform must be `stopped` before it can be reset.
-	 *     timeout?: int|string, // Controls the time to wait for the transform to reset
+	 *     force?: bool, // If this value is `true`, the transform is reset regardless of its current state. If it's `false`, the transform must be stopped before it can be reset.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -330,7 +330,7 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
-	 *     timeout?: int|string, // Controls the time to wait for the scheduling to take place
+	 *     timeout?: int|string, // Controls the time to wait for the scheduling to take place (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -369,8 +369,8 @@ class Transform extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
 	 *
 	 * @param array{
-	 *     enabled?: bool, // Whether to enable upgrade_mode Transform setting or not. Defaults to false.
-	 *     timeout?: int|string, // Controls the time to wait before action times out. Defaults to 30 seconds
+	 *     enabled?: bool, // When `true`, it enables `upgrade_mode` which temporarily halts all transform tasks and prohibits new transform tasks from starting.
+	 *     timeout?: int|string, // The time to wait for the request to be completed. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -408,8 +408,8 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to start
-	 *     from?: string, // Restricts the set of transformed entities to those changed after this time
-	 *     timeout?: int|string, // Controls the time to wait for the transform to start
+	 *     from?: string, // Restricts the set of transformed entities to those changed after this time. Relative times like now-30d are supported. Only applicable for continuous transforms.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -449,11 +449,11 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to stop
-	 *     force?: bool, // Whether to force stop a failed transform or not. Default to false
-	 *     wait_for_completion?: bool, // Whether to wait for the transform to fully stop before returning or not. Default to false
-	 *     timeout?: int|string, // Controls the time to wait until the transform has stopped. Default to 30 seconds
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
-	 *     wait_for_checkpoint?: bool, // Whether to wait for the transform to reach a checkpoint before stopping. Default to false
+	 *     force?: bool, // If it is true, the API forcefully stops the transforms.
+	 *     wait_for_completion?: bool, // If it is true, the API blocks until the indexer state completely stops. If it is false, the API returns immediately and the indexer is stopped asynchronously in the background.
+	 *     timeout?: int|string, // Period to wait for a response when `wait_for_completion` is `true`. If no response is received before the timeout expires, the request returns a timeout exception. However, the request continues processing and eventually moves the transform to a STOPPED state. (DEFAULT: 30s)
+	 *     allow_no_match?: bool, // Specifies what to do when the request: contains wildcard expressions and there are no transforms that match; contains the `_all` string or no identifiers and there are no matches; contains wildcard expressions and there are only partial matches.  If it is true, the API returns a successful acknowledgement message when there are no matches. When there are only partial matches, the API stops the appropriate transforms.  If it is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     wait_for_checkpoint?: bool, // If it is true, the transform does not completely stop until the current checkpoint is completed. If it is false, the transform stops as soon as possible.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -493,8 +493,8 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
-	 *     defer_validation?: bool, // If validations should be deferred until transform starts, defaults to false.
-	 *     timeout?: int|string, // Controls the time to wait for the update
+	 *     defer_validation?: bool, // When true, deferrable validations are not run. This behavior may be desired if the source index does not exist until after the transform is created.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -534,8 +534,8 @@ class Transform extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-upgrade-transforms
 	 *
 	 * @param array{
-	 *     dry_run?: bool, // Whether to only check for updates but don't execute
-	 *     timeout?: int|string, // Controls the time to wait for the upgrade
+	 *     dry_run?: bool, // When true, the request checks for updates but does not run them.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

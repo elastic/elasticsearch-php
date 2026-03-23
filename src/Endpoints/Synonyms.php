@@ -116,8 +116,8 @@ class Synonyms extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The name of the synonyms set to be retrieved
-	 *     from?: int, // Starting offset
-	 *     size?: int, // specifies a max number of results to get
+	 *     from?: int, // The starting offset for query rules to retrieve.
+	 *     size?: int, // The max number of query rules to retrieve. (DEFAULT: 10)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -197,8 +197,8 @@ class Synonyms extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset
-	 *     size?: int, // specifies a max number of results to get
+	 *     from?: int, // The starting offset for synonyms sets to retrieve.
+	 *     size?: int, // The maximum number of synonyms sets to retrieve. (DEFAULT: 10)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

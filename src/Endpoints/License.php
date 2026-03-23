@@ -34,8 +34,8 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-license.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -72,8 +72,8 @@ class License extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     accept_enterprise?: bool, // Supported for backwards compatibility with 7.x. If this param is used it must be set to true
+	 *     local?: bool, // Specifies whether to retrieve local information. The default value is `false`, which means the information is retrieved from the master node.
+	 *     accept_enterprise?: bool, // If `true`, this parameter returns enterprise for Enterprise license types. If `false`, this parameter returns platinum for both platinum and enterprise license types. This behavior is maintained for backwards compatibility. This parameter is deprecated and will always be set to true in 8.x. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -179,9 +179,9 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-license-post
 	 *
 	 * @param array{
-	 *     acknowledge?: bool, // whether the user has acknowledged acknowledge messages (default: false)
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     acknowledge?: bool, // Specifies whether you acknowledge the license changes.
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -219,9 +219,9 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-basic.html
 	 *
 	 * @param array{
-	 *     acknowledge?: bool, // whether the user has acknowledged acknowledge messages (default: false)
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     acknowledge?: bool, // Whether the user has acknowledged acknowledge messages
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -257,9 +257,9 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-trial.html
 	 *
 	 * @param array{
-	 *     type?: string, // The type of trial license to generate (default: "trial")
-	 *     acknowledge?: bool, // whether the user has acknowledged acknowledge messages (default: false)
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     type?: string, // The type of trial license to generate (DEFAULT: trial)
+	 *     acknowledge?: bool, // Whether the user has acknowledged acknowledge messages
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

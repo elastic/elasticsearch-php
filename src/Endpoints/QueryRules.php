@@ -193,8 +193,8 @@ class QueryRules extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset (default: 0)
-	 *     size?: int, // specifies a max number of results to get (default: 100)
+	 *     from?: int, // The offset from the first result to fetch.
+	 *     size?: int, // The maximum number of results to retrieve. (DEFAULT: 100)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

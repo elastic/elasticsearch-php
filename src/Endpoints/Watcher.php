@@ -192,7 +192,7 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // Watch ID
-	 *     debug?: bool, // indicates whether the watch should execute in debug mode
+	 *     debug?: bool, // Defines whether the watch runs in debug mode.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -234,7 +234,7 @@ class Watcher extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-settings
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -310,10 +310,10 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Watch ID
-	 *     active?: bool, // Specify whether the watch is in/active by default
+	 *     active?: bool, // The initial state of the watch. The default value is `true`, which means the watch is active by default. (DEFAULT: 1)
 	 *     version?: int, // Explicit version number for concurrency control
-	 *     if_seq_no?: int, // only update the watch if the last operation that has changed the watch has the specified sequence number
-	 *     if_primary_term?: int, // only update the watch if the last operation that has changed the watch has the specified primary term
+	 *     if_seq_no?: int, // Only update the watch if the last operation that has changed the watch has the specified sequence number
+	 *     if_primary_term?: int, // Only update the watch if the last operation that has changed the watch has the specified primary term
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -390,7 +390,7 @@ class Watcher extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-start
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -427,7 +427,7 @@ class Watcher extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     metric?: string|array<string>, // Controls what additional stat metrics should be include in the response
-	 *     emit_stacktraces?: bool, // Emits stack traces of currently running watches
+	 *     emit_stacktraces?: bool, // Defines whether stack traces are generated for each watch that is running.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -467,7 +467,7 @@ class Watcher extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stop
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -503,8 +503,8 @@ class Watcher extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings
 	 *
 	 * @param array{
-	 *     timeout?: int|string, // Specify timeout for waiting for acknowledgement from all nodes
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

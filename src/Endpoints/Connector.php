@@ -76,7 +76,7 @@ class Connector extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     connector_id: string, // (REQUIRED) The unique identifier of the connector to be deleted.
-	 *     delete_sync_jobs?: bool, // Determines whether associated sync jobs are also deleted.
+	 *     delete_sync_jobs?: bool, // A flag indicating if associated sync jobs should be also removed.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -154,12 +154,12 @@ class Connector extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset (default: 0)
-	 *     size?: int, // Specifies a max number of results to get (default: 100)
+	 *     from?: int, // Starting offset
+	 *     size?: int, // Specifies a max number of results to get (DEFAULT: 100)
 	 *     index_name?: string|array<string>, // A comma-separated list of connector index names to fetch connector documents for
 	 *     connector_name?: string|array<string>, // A comma-separated list of connector names to fetch connector documents for
 	 *     service_type?: string|array<string>, // A comma-separated list of connector service types to fetch connector documents for
-	 *     query?: string, // A search string for querying connectors, filtering results by matching against connector names, descriptions, and index names
+	 *     query?: string, // A wildcard query string that filters connectors with matching name, description or index name
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -515,11 +515,11 @@ class Connector extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     from?: int, // Starting offset (default: 0)
-	 *     size?: int, // specifies a max number of results to get (default: 100)
+	 *     from?: int, // Starting offset
+	 *     size?: int, // Specifies a max number of results to get (DEFAULT: 100)
 	 *     status?: string, // A sync job status to fetch connector sync jobs for
-	 *     connector_id?: string, // Id of the connector to fetch the sync jobs for
-	 *     job_type?: string|array<string>, // A comma-separated list of job types
+	 *     connector_id?: string, // A connector id to fetch connector sync jobs for
+	 *     job_type?: string|array<string>, // A comma-separated list of job types to fetch the sync jobs for
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -345,7 +345,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     realms: string|array<string>, // (REQUIRED) Comma-separated list of realms to clear
-	 *     usernames?: string|array<string>, // Comma-separated list of usernames to clear from the cache
+	 *     usernames?: string|array<string>, // A comma-separated list of the users to clear from the cache. If you do not specify this parameter, the API evicts all users from the user cache.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -542,7 +542,7 @@ class Security extends AbstractEndpoint
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name?: string, // An identifier for the token name
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -743,7 +743,7 @@ class Security extends AbstractEndpoint
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
 	 *     service: string, // (REQUIRED) An identifier for the service name
 	 *     name: string, // (REQUIRED) An identifier for the token name
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -860,7 +860,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) Unique identifier for the user profile
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', it does nothing with refreshes. (DEFAULT: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -938,7 +938,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', nothing is done with refreshes. (DEFAULT: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1049,14 +1049,14 @@ class Security extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     id?: string, // API key id of the API key to be retrieved
-	 *     name?: string, // API key name of the API key to be retrieved
-	 *     username?: string, // user name of the user who created this API key to be retrieved
-	 *     realm_name?: string, // realm name of the user who created this API key to be retrieved
-	 *     owner?: bool, // flag to query API keys owned by the currently authenticated user
-	 *     with_limited_by?: bool, // flag to show the limited-by role descriptors of API Keys
-	 *     with_profile_uid?: bool, // flag to also retrieve the API Key's owner profile uid, if it exists
-	 *     active_only?: bool, // flag to limit response to only active (not invalidated or expired) API keys
+	 *     id?: string, // An API key id. This parameter cannot be used with any of `name`, `realm_name` or `username`.
+	 *     name?: string, // An API key name. This parameter cannot be used with any of `id`, `realm_name` or `username`. It supports prefix search with wildcard.
+	 *     username?: string, // The username of a user. This parameter cannot be used with either `id` or `name` or when `owner` flag is set to `true`.
+	 *     realm_name?: string, // The name of an authentication realm. This parameter cannot be used with either `id` or `name` or when `owner` flag is set to `true`.
+	 *     owner?: bool, // A boolean flag that can be used to query API keys owned by the currently authenticated user. The `realm_name` or `username` parameters cannot be specified when this parameter is set to `true` as they are assumed to be the currently authenticated ones.
+	 *     with_limited_by?: bool, // Return the snapshot of the owner user's role descriptors associated with the API key. An API key's actual permission is the intersection of its assigned role descriptors and the owner user's role descriptors.
+	 *     with_profile_uid?: bool, // Determines whether to also retrieve the profile uid, for the API key owner principal, if it exists.
+	 *     active_only?: bool, // A boolean flag that can be used to query API keys that are currently active. An API key is considered active if it is neither invalidated, nor expired at query time. You can specify this together with other parameters such as `owner` or `name`. If `active_only` is false, the response will include both active and inactive (expired or invalidated) keys.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1334,7 +1334,7 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-settings.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for connection to master
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1410,7 +1410,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username?: string|array<string>, // A comma-separated list of usernames
-	 *     with_profile_uid?: bool, // flag to retrieve profile uid (if exists) associated to the user
+	 *     with_profile_uid?: bool, // Determines whether to retrieve the user profile UID, if it exists, for the users.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1486,7 +1486,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string|array<string>, // (REQUIRED) A comma-separated list of unique identifier for user profiles
-	 *     data?: string|array<string>, // A comma-separated list of keys for which the corresponding application data are retrieved.
+	 *     data?: string|array<string>, // A comma-separated list of filters for the `data` field of the profile document. To return all content use `data=*`. To return a subset of content use `data=<key>` to retrieve content nested under the specified `<key>`. By default returns no `data` content.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1524,7 +1524,7 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-grant-api-key.html
 	 *
 	 * @param array{
-	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', nothing is done with refreshes. (DEFAULT: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1958,7 +1958,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     username: string, // (REQUIRED) The username of the User
-	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     refresh?: string, // Valid values are `true`, `false`, and `wait_for`. These values have the same meaning as in the index API, but the default value for this API is true. (DEFAULT: true)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1999,9 +1999,9 @@ class Security extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     with_limited_by?: bool, // flag to show the limited-by role descriptors of API Keys
-	 *     with_profile_uid?: bool, // flag to also retrieve the API Key's owner profile uid, if it exists
-	 *     typed_keys?: bool, // flag to prefix aggregation names by their respective types in the response
+	 *     with_limited_by?: bool, // Return the snapshot of the owner user's role descriptors associated with the API key. An API key's actual permission is the intersection of its assigned role descriptors and the owner user's role descriptors (effectively limited by it). An API key cannot retrieve any API key’s limited-by role descriptors (including itself) unless it has `manage_api_key` or higher privileges.
+	 *     with_profile_uid?: bool, // Determines whether to also retrieve the profile UID for the API key owner principal. If it exists, the profile UID is returned under the `profile_uid` response field for each API key.
+	 *     typed_keys?: bool, // Determines whether aggregation names are prefixed by their respective types in the response.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2076,7 +2076,7 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-query-user.html
 	 *
 	 * @param array{
-	 *     with_profile_uid?: bool, // flag to retrieve profile uid (if exists) associated with the user
+	 *     with_profile_uid?: bool, // Determines whether to retrieve the user profile UID, if it exists, for the users.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2343,7 +2343,7 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-suggest-user-profile.html
 	 *
 	 * @param array{
-	 *     data?: string|array<string>, // A comma-separated list of keys for which the corresponding application data are retrieved.
+	 *     data?: string|array<string>, // A comma-separated list of filters for the `data` field of the profile document. To return all content use `data=*`. To return a subset of content, use `data=<key>` to retrieve content nested under the specified `<key>`. By default, the API returns no `data` content. It is an error to specify `data` as both the query parameter and the request body field.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2462,8 +2462,8 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-update-settings.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for connection to master
-	 *     timeout?: int|string, // Timeout for acknowledgements from all nodes
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2503,9 +2503,9 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     uid: string, // (REQUIRED) An unique identifier of the user profile
-	 *     if_seq_no?: int, // only perform the update operation if the last operation that has changed the document has the specified sequence number
-	 *     if_primary_term?: int, // only perform the update operation if the last operation that has changed the document has the specified primary term
-	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
+	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
+	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
+	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', nothing is done with refreshes. (DEFAULT: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

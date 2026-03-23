@@ -35,8 +35,8 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -74,7 +74,7 @@ class Autoscaling extends AbstractEndpoint
 	 * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.19/autoscaling-get-autoscaling-capacity.html
 	 *
 	 * @param array{
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -111,7 +111,7 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout?: int|string, // Timeout for processing on master node
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -150,8 +150,8 @@ class Autoscaling extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) the name of the autoscaling policy
-	 *     master_timeout?: int|string, // Timeout for processing on master node
-	 *     timeout?: int|string, // Timeout for acknowledgement of update from all nodes in cluster
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -195,9 +195,9 @@ class SearchApplication extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     q?: string, // Query in the Lucene query string syntax
-	 *     from?: int, // Starting offset (default: 0)
-	 *     size?: int, // specifies a max number of results to get
+	 *     q?: string, // Query in the Lucene query string syntax.
+	 *     from?: int, // Starting offset.
+	 *     size?: int, // Specifies a max number of results to get.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -236,7 +236,7 @@ class SearchApplication extends AbstractEndpoint
 	 * @param array{
 	 *     collection_name: string, // (REQUIRED) The name of behavioral analytics collection
 	 *     event_type: string, // (REQUIRED) Behavioral analytics event type. Available: page_view, search, search_click
-	 *     debug?: bool, // If true, returns event information that will be stored
+	 *     debug?: bool, // Whether the response type has to include more details
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -278,7 +278,7 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to be created or updated
-	 *     create?: bool, // If true, requires that a search application with the specified resource_id does not already exist. (default: false)
+	 *     create?: bool, // If `true`, this request cannot replace or update existing Search Applications.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -401,7 +401,7 @@ class SearchApplication extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name: string, // (REQUIRED) The name of the search application to be searched
-	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
+	 *     typed_keys?: bool, // Determines whether aggregation names are prefixed by their respective types in the response.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

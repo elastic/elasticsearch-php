@@ -35,9 +35,9 @@ class DanglingIndices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index_uuid: string, // (REQUIRED) The UUID of the dangling index
-	 *     accept_data_loss?: bool, // Must be set to true in order to delete the dangling index
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     accept_data_loss?: bool, // This parameter must be set to true to acknowledge that it will no longer be possible to recove data from the dangling index.
+	 *     timeout?: int|string, // The period to wait for a response. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -76,9 +76,9 @@ class DanglingIndices extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index_uuid: string, // (REQUIRED) The UUID of the dangling index
-	 *     accept_data_loss?: bool, // Must be set to true in order to import the dangling index
-	 *     timeout?: int|string, // Explicit operation timeout
-	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     accept_data_loss?: bool, // This parameter must be set to true to import a dangling index. Because Elasticsearch cannot know where the dangling index data came from or determine which shard copies are fresh and which are stale, it cannot guarantee that the imported data represents the latest state of the index when it was last in the cluster.
+	 *     timeout?: int|string, // The period to wait for a response. (DEFAULT: 30s)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

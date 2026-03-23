@@ -79,7 +79,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *     index?: string|array<string>, // Clear the cache
 	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
 	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -121,9 +121,9 @@ class SearchableSnapshots extends AbstractEndpoint
 	 * @param array{
 	 *     repository: string, // (REQUIRED) The name of the repository containing the snapshot of the index to mount
 	 *     snapshot: string, // (REQUIRED) The name of the snapshot of the index to mount
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
-	 *     storage?: string, // Selects the kind of local storage used to accelerate searches. Experimental, and defaults to `full_copy`
+	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
+	 *     wait_for_completion?: bool, // If true, the request blocks until the operation is complete.
+	 *     storage?: string, // The mount option for the searchable snapshot index. For further information on mount options, refer to: [Mount options](https://www.elastic.co/docs/deploy-manage/tools/snapshot-and-restore/searchable-snapshots#searchable-snapshot-mount-storage-options) (DEFAULT: full_copy)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -164,7 +164,7 @@ class SearchableSnapshots extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names
-	 *     level?: string, // Return stats aggregated at cluster, index or shard level
+	 *     level?: string, // Return stats aggregated at cluster, index or shard level (DEFAULT: indices)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

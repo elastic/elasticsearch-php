@@ -35,8 +35,8 @@ class Graph extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     routing?: string|array<string>, // Specific routing value
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     routing?: string|array<string>, // Custom value used to route operations to a specific shard.
+	 *     timeout?: int|string, // Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error. Defaults to no timeout.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
